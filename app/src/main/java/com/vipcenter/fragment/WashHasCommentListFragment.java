@@ -39,7 +39,7 @@ public class WashHasCommentListFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.listview_only, container, false);
+        rootView = inflater.inflate(R.layout.listview_newonly, container, false);
         ButterKnife.bind(this, rootView);
         init();
         return rootView;

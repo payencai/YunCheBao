@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:paddingTop="15dp"
+    android:paddingLeft="15dp"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:src="@mipmap/iv_shop"
+            android:layout_width="15dp"
+            android:layout_height="15dp" />
+        <TextView
+            android:id="@+id/shopName"
+            android:textSize="14sp"
+            android:textColor="@color/black_33"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/iv_logo"
+            android:text="店铺名称"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_alignParentRight="true"
+            android:id="@+id/statusName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textSize="12sp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/yellow_63"
+            android:text="待付款"/>
+    </RelativeLayout>
+    <com.tool.view.HorizontalListView
+        android:id="@+id/hl_good"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="95dp">
+
+    </com.tool.view.HorizontalListView>
+    <LinearLayout
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal"
+
+        >
+
+        <TextView
+            android:id="@+id/item1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="共4件商品  需付款："
+            android:textColor="@color/black_33"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/item2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥999.00"
+            android:textColor="@color/black_0d"
+            android:textSize="18sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:orientation="horizontal">
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/lianxi"
+            style="@style/order_bottom_super_btn_4"
+            android:text="联系卖家"
+            android:textColor="@color/gray_66"
+            android:visibility="gone"
+            fresco:corner="4dp"
+            fresco:solid="@color/white"
+            fresco:stroke_color="@color/gray_e2"
+            fresco:stroke_width="1dp" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/quxiao"
+            style="@style/order_bottom_super_btn_4"
+            android:text="取消订单"
+            android:textColor="@color/gray_66"
+            fresco:corner="4dp"
+            android:visibility="gone"
+            fresco:solid="@color/white"
+            fresco:stroke_color="@color/gray_e2"
+            fresco:stroke_width="1dp" />
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/delete"
+            style="@style/order_bottom_super_btn_4"
+            android:text="删除订单"
+            android:textColor="@color/gray_66"
+            fresco:corner="4dp"
+            android:visibility="gone"
+            fresco:solid="@color/white"
+            fresco:stroke_color="@color/gray_e2"
+            fresco:stroke_width="1dp" />
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/yanchang"
+            style="@style/order_bottom_super_btn_4"
+            android:text="提醒发货"
+            android:textColor="@color/gray_66"
+            android:visibility="gone"
+            fresco:corner="4dp"
+            fresco:solid="@color/white"
+            fresco:stroke_color="@color/gray_e2"
+            fresco:stroke_width="1dp" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/wuliu"
+            style="@style/order_bottom_super_btn_4"
+            android:text="查看物流"
+            android:textColor="@color/gray_66"
+            android:visibility="gone"
+            fresco:corner="4dp"
+            fresco:solid="@color/white"
+            fresco:stroke_color="@color/gray_e2"
+            fresco:stroke_width="1dp" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/zailai"
+            style="@style/order_bottom_super_btn_4"
+            android:text="再来一单"
+            android:textColor="@color/gray_66"
+            android:visibility="gone"
+            fresco:corner="4dp"
+            fresco:solid="@color/white"
+            fresco:stroke_color="@color/gray_e2"
+            fresco:stroke_width="1dp" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/shouhou"
+            style="@style/order_bottom_super_btn_4"
+            android:text="申请退款"
+            android:textColor="@color/gray_66"
+            android:visibility="gone"
+            fresco:corner="4dp"
+            fresco:solid="@color/white"
+            fresco:stroke_color="@color/gray_e2"
+            fresco:stroke_width="1dp" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/fukuan"
+            style="@style/order_bottom_super_btn_2"
+            android:text="付款"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            fresco:corner="4dp"
+            fresco:solid="@color/yellow_65" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/tixing"
+            style="@style/order_bottom_super_btn_4"
+            android:text="联系卖家"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            fresco:corner="4dp"
+            fresco:solid="@color/yellow_65" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/shouhuo"
+            style="@style/order_bottom_super_btn_4"
+            android:text="确认收货"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            fresco:corner="4dp"
+            fresco:solid="@color/yellow_65" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/pingjia"
+            style="@style/order_bottom_super_btn_2"
+            android:text="评价"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            fresco:corner="4dp"
+            fresco:solid="@color/yellow_65" />
+
+
+    </LinearLayout>
+</LinearLayout>

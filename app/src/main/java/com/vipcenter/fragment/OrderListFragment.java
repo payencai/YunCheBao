@@ -56,7 +56,7 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        view = LayoutInflater.from(getActivity()).inflate(R.layout.listview_only, null);
+        view = LayoutInflater.from(getActivity()).inflate(R.layout.listview_newonly, null);
         initView();
         return view;
     }
@@ -101,99 +101,35 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
         switch (typeId) {
             case 0:
                 rlist.add(new PhoneOrderEntity(1, "1"));
-                rlist.add(new PhoneOrderEntity(2, "1"));
-                rlist.add(new PhoneOrderEntity(3, "1"));
-                rlist.add(new PhoneOrderEntity(1, "2"));
-                rlist.add(new PhoneOrderEntity(2, "2"));
-                rlist.add(new PhoneOrderEntity(2, "2"));
-                rlist.add(new PhoneOrderEntity(3, "2"));
-                rlist.add(new PhoneOrderEntity(1, "2"));
-                rlist.add(new PhoneOrderEntity(2, "2"));
-                rlist.add(new PhoneOrderEntity(3, "2"));
-                rlist.add(new PhoneOrderEntity(1, "3"));
-                rlist.add(new PhoneOrderEntity(2, "3"));
-                rlist.add(new PhoneOrderEntity(3, "3"));
-                rlist.add(new PhoneOrderEntity(1, "4"));
-                rlist.add(new PhoneOrderEntity(2, "4"));
-                rlist.add(new PhoneOrderEntity(3, "4"));
+//                rlist.add(new PhoneOrderEntity(2, "2"));
+//                rlist.add(new PhoneOrderEntity(3, "3"));
+//                rlist.add(new PhoneOrderEntity(4, "4"));
+
                 break;
             case 1:
                 rlist.add(new PhoneOrderEntity(1, "1"));
-                rlist.add(new PhoneOrderEntity(2, "1"));
-                rlist.add(new PhoneOrderEntity(3, "1"));
+
                 break;
             case 2:
                 rlist.add(new PhoneOrderEntity(1, "2"));
-                rlist.add(new PhoneOrderEntity(2, "2"));
-                rlist.add(new PhoneOrderEntity(2, "2"));
-                rlist.add(new PhoneOrderEntity(3, "2"));
-                rlist.add(new PhoneOrderEntity(1, "2"));
-                rlist.add(new PhoneOrderEntity(2, "2"));
-                rlist.add(new PhoneOrderEntity(3, "2"));
+
                 break;
             case 3:
                 rlist.add(new PhoneOrderEntity(1, "3"));
-                rlist.add(new PhoneOrderEntity(2, "3"));
-                rlist.add(new PhoneOrderEntity(3, "3"));
+
                 break;
             case 4:
                 rlist.add(new PhoneOrderEntity(1, "4"));
-                rlist.add(new PhoneOrderEntity(2, "4"));
-                rlist.add(new PhoneOrderEntity(3, "4"));
+
                 break;
         }
 
         list.clear();
         list.addAll(rlist);
         adapter.notifyDataSetChanged();
-//        Request<String> request = null;
-//        request = NoHttp.createStringRequest(PlatformContans.rootUrl + PlatformContans.urls.OrderUrls.selectOrderByType, RequestMethod.POST);
-//        if (request != null) {
-//            request.add("page", pageNum);
-//            if (typeId != 0 ){
-//                request.add("type",typeId +"");
-//            }
-//            request(0, request, httpListener, true, true);
-//        }
+
     }
 
-//    private HttpListener<String> httpListener = new HttpListener<String>() {
-//        @Override
-//        public void onSucceed(int what, Response response) {
-//            String res =  response.get().toString();
-//            HttpJsonClient client = new HttpJsonClient();
-//            client.setResp(res);
-//            pullToRefreshListView.onRefreshComplete();//停止刷新
-//            if ( client.isSuccess()){
-//                switch (what){
-//                    case 0:
-//                        List<PhoneOrderEntity> mList = client.getList(PhoneOrderEntity.class,"result.data.beanList");
-//                        if (isDown) {
-//                            list.clear();
-//                        }
-//                        list.addAll(mList);
-//                        if (adapter == null) {
-//                            return;
-//                        }
-//                        adapter.notifyDataSetChanged();
-//                        break;
-//                    case 1:
-//                        isDown = true;
-//                        initListData();
-//                        break;
-//                }
-//
-//            }else{
-//                setToast(client.getError());
-//            }
-//        }
-//
-//        @Override
-//        public void onFailed(int what, com.nohttp.rest.Response<String> response) {
-//            setToast("onFailed");
-//            pullToRefreshListView.onRefreshComplete();//停止刷新
-//        }
-//    };
 
 
     /* 摧毁该Fragment，一般是FragmentActivity 被摧毁的时候伴随着摧毁 */

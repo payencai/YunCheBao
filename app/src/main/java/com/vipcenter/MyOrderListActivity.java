@@ -46,7 +46,7 @@ public class MyOrderListActivity extends NoHttpFragmentBaseActivity implements I
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.indicator_vp_list);
+        setContentView(R.layout.order_vp_list);
         initView();
     }
 
@@ -79,8 +79,8 @@ public class MyOrderListActivity extends NoHttpFragmentBaseActivity implements I
     private void initMenu() {
         menuList.add(new PhoneCommBaseType(0, "全部"));
         menuList.add(new PhoneCommBaseType(1, "待付款"));
-        menuList.add(new PhoneCommBaseType(2, "待发货"));
         menuList.add(new PhoneCommBaseType(3, "待收货"));
+        menuList.add(new PhoneCommBaseType(2, "待发货"));
         menuList.add(new PhoneCommBaseType(4, "待评价"));
     }
 
