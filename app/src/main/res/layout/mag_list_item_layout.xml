@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:paddingLeft="23dp"
+    android:background="@color/white"
+    android:paddingRight="23dp"
+    android:layout_height="match_parent">
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/img"
+        android:layout_width="68dp"
+        android:layout_height="92dp"
+        app:placeholderImage="@mipmap/mag_img"
+        android:src="@color/gray_ee"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_33"
+            android:textSize="14sp"
+            android:text="汽车杂志 17年10月号"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_99"
+            android:textSize="10sp"
+            android:lineSpacingExtra="4dp"
+            android:layout_marginTop="10dp"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:text="简介：最近最热门的两个汽车热门主题，一个是刚刚落幕，德国品牌的主场法兰克福车展，另一个是刚刚在法拉利后花园举行的法拉利70周年盛典....."/>
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp">
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/gray_99"
+              android:textSize="10sp"
+              android:text="标签:法拉利SUV敞篷"/>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/gray_99"
+              android:textSize="10sp"
+              android:layout_alignParentRight="true"
+              android:text="月刊日期: 2017-10-01"/>
+      </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_title_layout"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="15dp">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/icon"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    app:placeholderImage="@mipmap/ic_launcher"
+                    app:placeholderImageScaleType="fitXY"
+                    app:roundAsCircle="true" />
+
+                <TextView
+                    android:id="@+id/shopName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/icon"
+                    android:text="云南隆创尚通二手车"
+                    android:textColor="@color/black_33"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/shopName"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/icon"
+                    android:text="在售车辆：17辆"
+                    android:textColor="@color/gray_99"
+                    android:textSize="10sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/two_line_bg"
+                android:padding="15dp"
+                android:text="在售车辆" />
+
+            <com.tool.view.ListViewForScrollView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></com.tool.view.ListViewForScrollView>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

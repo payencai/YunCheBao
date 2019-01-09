@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/headLayout"
+                    android:background="#fabf3d"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                   >
+
+        <ImageView
+            android:src="@mipmap/ic_back"
+            android:id="@+id/picker_back"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:paddingBottom="9dp"
+            android:paddingLeft="11dp"
+            android:paddingRight="11dp"
+            android:paddingTop="9dp"
+
+            android:scaleType="centerInside"
+         />
+
+
+        <TextView
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:id="@+id/picker_title"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="选择地址"
+            android:textSize="18sp"/>
+
+
+
+
+    </RelativeLayout>
+
+    <include layout="@layout/cp_search_view" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cp_city_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/cp_overlay"
+            android:layout_width="?attr/cpOverlayWidth"
+            android:layout_height="?attr/cpOverlayHeight"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textSize="?attr/cpOverlayTextSize"
+            android:textColor="?attr/cpOverlayTextColor"
+            android:background="?attr/cpOverlayBackground"/>
+
+        <!--右侧字母导航-->
+        <com.payencai.library.citypicker.view.SideIndexBar
+            android:id="@+id/cp_side_index_bar"
+            android:layout_width="@dimen/cp_index_bar_width"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+        <include layout="@layout/cp_empty_view"/>
+    </RelativeLayout>
+</LinearLayout>

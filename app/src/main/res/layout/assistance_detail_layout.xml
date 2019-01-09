@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ptr="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_ee"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_title_layout"></include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_above="@+id/rl_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/img"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    app:placeholderImage="@mipmap/default_img"
+                    app:placeholderImageScaleType="fitXY" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/shopname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="昆明普利司通轮胎电瓶经营部"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="商家电话：4008587430"
+                        android:textColor="@color/gray_99"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="商家地址：昆明西山马街昆明西山区马街"
+                        android:textColor="@color/gray_99"
+                        android:textSize="10sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:scrollbars="none"></ListView>
+
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/top_line_bg"
+            android:padding="10dp">
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/callBtn"
+                style="@style/form_submit_btn"
+                android:text="拨打电话"
+                app:corner="2dp"
+                app:solid="@color/yellow_63" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

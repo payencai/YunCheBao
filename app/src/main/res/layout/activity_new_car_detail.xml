@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cheyibao.NewCarDetailActivity">
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/back"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/back"
+            android:layout_width="10dp"
+            android:layout_height="18dp" />
+        <TextView
+            android:textSize="18sp"
+            android:textColor="@color/black_33"
+            android:text="车辆详情"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/rl_top"
+        android:layout_above="@+id/rl_bottom"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+              />
+            <LinearLayout
+                android:background="@color/white"
+                android:paddingTop="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textColor="@color/black_33"
+                    android:layout_marginLeft="15dp"
+                    android:text="昂科威_2017款_20T_两驱技术型"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+               <RelativeLayout
+                   android:layout_marginBottom="20dp"
+                   android:layout_marginTop="10dp"
+                   android:layout_marginLeft="15dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content">
+                   <RelativeLayout
+                       android:layout_centerVertical="true"
+                       android:id="@+id/rl_price"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content">
+                       <TextView
+                           android:textColor="@color/gray_99"
+                           android:textSize="10sp"
+                           android:text="厂家指导价20.99万"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content" />
+                       <View
+                           android:background="@color/gray_99"
+                           android:elevation="2dp"
+                           android:layout_centerInParent="true"
+                           android:layout_width="80dp"
+                           android:layout_height="1dp"></View>
+                   </RelativeLayout>
+                   <LinearLayout
+                       android:layout_marginLeft="30dp"
+                       android:orientation="horizontal"
+                       android:layout_toRightOf="@+id/rl_price"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content">
+                       <TextView
+                           android:textColor="@color/gray_99"
+                           android:textSize="10sp"
+                           android:text="裸车价"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content" />
+                       <TextView
+                           android:layout_marginLeft="5dp"
+                           android:textColor="@color/yellow_64"
+                           android:textSize="14sp"
+                           android:text="￥18万"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content" />
+                   </LinearLayout>
+               </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/black_33"
+                        android:layout_marginLeft="15dp"
+                        android:text="离您不远处有一家门店"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <com.tool.listview.PersonalListView
+                        android:id="@+id/lv_shop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </com.tool.listview.PersonalListView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <TextView
+                        android:id="@+id/tv_sale"
+                        android:textSize="10sp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textColor="@color/black_33"
+                        android:layout_marginLeft="15dp"
+                        android:text="在售车型"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:id="@+id/tv_comment"
+                        android:textSize="10sp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textColor="@color/black_33"
+                        android:layout_marginLeft="15dp"
+                        android:text="查看评论"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:textSize="10sp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textColor="@color/black_33"
+                        android:layout_marginLeft="15dp"
+                        android:text="商家客服"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:background="@color/white"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                    <View
+                        android:id="@+id/view"
+
+                        android:layout_marginLeft="15dp"
+                        android:background="@color/yellow_64"
+                        android:layout_width="2dp"
+                        android:layout_height="15dp"></View>
+                    <TextView
+                        android:layout_marginLeft="14sp"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:textColor="@color/black_33"
+                        android:text="配置参数"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_99"
+                    android:text="基本参数"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:paddingRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/gray_99"
+                        android:text="厂商"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black_33"
+                        android:text="上汽集团"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:paddingRight="15dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/gray_99"
+                        android:text="级别"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black_33"
+                        android:text="上汽集团"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:paddingRight="15dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/gray_99"
+                        android:text="上市时间"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black_33"
+                        android:text="上汽集团"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:paddingRight="15dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/gray_99"
+                        android:text="发动机"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black_33"
+                        android:text="上汽集团"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:paddingRight="15dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/gray_99"
+                        android:text="变速箱"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black_33"
+                        android:text="上汽集团"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:paddingRight="15dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/gray_99"
+                        android:text="长*宽*高(mm)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black_33"
+                        android:text="上汽集团"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:paddingRight="15dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/gray_99"
+                        android:text="车身结构"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black_33"
+                        android:text="上汽集团"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:paddingRight="15dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/gray_99"
+                        android:text="最高车速(km/h)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black_33"
+                        android:text="上汽集团"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:paddingRight="15dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/gray_99"
+                        android:text="官方0-100km/h加速(s)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black_33"
+                        android:text="上汽集团"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:paddingRight="15dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/gray_99"
+                        android:text="实测0-100km/h加速(s)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black_33"
+                        android:text="上汽集团"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:paddingRight="15dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/gray_99"
+                        android:text="实测100-0km/h制动(s)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black_33"
+                        android:text="上汽集团"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:paddingRight="15dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/gray_99"
+                        android:text="实测油控(L/100km)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black_33"
+                        android:text="上汽集团"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:paddingRight="15dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/gray_99"
+                        android:text="工信部综合油控(L/100km)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black_33"
+                        android:text="上汽集团"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:paddingRight="15dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/gray_99"
+                        android:text="实测离地间隙(mm)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black_33"
+                        android:text="上汽集团"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:paddingRight="15dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/gray_99"
+                        android:text="整车质保"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black_33"
+                        android:text="上汽集团"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+            </LinearLayout>
+            <TextView
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:text="查看参数"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/rl_bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <View
+            android:background="#F3CA65"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"></View>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:textColor="#f8c036"
+                android:background="#fbefd0"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:text="购买车辆"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+            <RelativeLayout
+                android:background="#F3CA65"
+                android:textSize="16sp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@mipmap/phone_icon"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp" />
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/white"
+                        android:text="拨打电话"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_bottom"
+        android:orientation="vertical">
+
+        <include layout="@layout/top_title_layout"></include>
+
+        <com.cheyibao.list.ObservableScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.youth.banner.Banner
+                        android:id="@+id/banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"></com.youth.banner.Banner>
+
+
+                </FrameLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@+id/collectBtn"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="诺亚驾校"
+                            android:textColor="@color/black_33"
+                            android:textSize="14sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/sr_score"
+                                app:srb_starSize="10dp" />
+
+                            <TextView
+                                android:id="@+id/tv_score"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="5.0分"
+                                android:textColor="@color/black_33"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="昆明市盘龙区白云路36号新华巷"
+                            android:textColor="@color/gray_99"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/collectBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/collectIcon"
+                            android:layout_width="14dp"
+                            android:layout_height="12dp"
+                            android:src="@mipmap/collect_gray_hole" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="收藏"
+                            android:textColor="@color/gray_66"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@id/collectBtn"
+                        android:background="@color/gray_ee"></View>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/tab_school"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:tabBackground="@color/white"
+                        app:tabIndicatorColor="@color/colorPrimary"
+                        app:tabSelectedTextColor="@color/black_33"
+                        app:tabTextColor="@color/gray_99" />
+
+                    <com.cheyibao.list.AutofitViewPager
+                        android:id="@+id/vp_school"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#fff2f4f5">
+
+                    </com.cheyibao.list.AutofitViewPager>
+
+                    <TextView
+                        android:id="@+id/more1"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="查看更多"
+                        android:textColor="@color/gray_99" />
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/tab_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:tabBackground="@color/white"
+                        app:tabIndicatorColor="@color/colorPrimary"
+                        app:tabSelectedTextColor="@color/black_33"
+                        app:tabTextColor="@color/gray_99" />
+
+                    <com.cheyibao.list.AutofitViewPager
+                        android:id="@+id/vp_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#fff2f4f5">
+
+                    </com.cheyibao.list.AutofitViewPager>
+
+                    <TextView
+                        android:id="@+id/more2"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="查看更多"
+                        android:textColor="@color/gray_99" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </com.cheyibao.list.ObservableScrollView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@drawable/top_line_bg"
+        android:padding="10dp">
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/callBtn"
+            style="@style/form_submit_btn"
+            android:text="电话咨询"
+            app:corner="2dp"
+            app:isShowState="true"
+            app:solid="@color/yellow_65"
+            app:state_drawable="@mipmap/phone_white_small"
+            app:state_drawable_height="14dp"
+            app:state_drawable_mode="left"
+            app:state_drawable_padding_left="90dp"
+            app:state_drawable_width="14dp" />
+    </RelativeLayout>
+</RelativeLayout>

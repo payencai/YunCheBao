@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="1dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/yellow_ling"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:text="电瓶搭电"
+        android:textColor="@color/yellow_65"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:lineSpacingExtra="4dp"
+        android:text="车辆因漏电，忘记关灯，电瓶老化，电瓶时间长，等原因导致车辆无法正常启动，可提供上门电瓶搭电启动，电瓶充电服务，可上门更换电瓶，免费安装。"
+        android:textColor="@color/gray_99"
+        android:textSize="10sp" />
+
+
+
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:padding="10dp"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/shopName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textColor="@color/black_33"
+        android:layout_marginLeft="10dp"
+        android:textSize="14sp"
+        android:text="店铺名称"/>
+
+    <TextView
+        android:id="@+id/statusName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:textSize="10sp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/yellow_63"
+        android:text="状态"/>
+</LinearLayout>

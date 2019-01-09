@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#66000000"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="价格/万元" />
+
+            <TextView
+                android:id="@+id/priceText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="41万元" />
+        </RelativeLayout>
+
+
+        <com.warkiz.widget.IndicatorSeekBar
+            android:id="@+id/indicatorSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:isb_indicator_color="#f3ca65"
+            app:isb_indicator_type="rectangle_rounded_corner"
+            app:isb_progress="70"
+            app:isb_seek_bar_type="discrete_ticks_texts"
+            app:isb_text_array="@array/indecator_array_price"
+            app:isb_text_color="#999999"
+            app:isb_text_size="14sp"
+            app:isb_thumb_color="#f3ca65"
+            app:isb_thumb_drawable="@mipmap/slippageicon"
+            app:isb_tick_color="#f3ca65"
+            app:isb_tick_num="6"
+            app:isb_tick_size="1dp"
+            app:isb_tick_type="oval"
+            app:isb_track_background_bar_color="#999999"
+            app:isb_track_progress_bar_color="#f3ca65" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/bt_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:paddingLeft="80dp"
+            android:paddingRight="80dp"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:solid="@color/yellow_65" />
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/yellow_65"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="29dp"
+                android:layout_height="39dp"
+                android:padding="4dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/back_white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="我的钱包"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
+            android:text="余额账户(元)"
+            android:textColor="@color/gray_c6"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="40dp"
+            android:text="666.66"
+            android:textColor="@color/white"
+            android:textSize="60sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/yellow_26"
+            android:padding="10dp">
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/toMoreBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:paddingBottom="6dp"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:paddingTop="6dp"
+                android:text="更多"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:corner="4dp"
+                app:solid="@color/yellow_26"
+                app:stroke_color="@color/yellow_65"
+                app:stroke_width="1dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toLeftOf="@id/toMoreBtn"
+                android:text="充值自动领宝币，兑换更多你想要的礼品"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="@color/white">
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textColor="@color/black_33"
+           android:textSize="18sp"
+           android:text="宝币"
+           android:gravity="center_vertical"
+           android:layout_centerVertical="true"
+           android:drawableLeft="@mipmap/baobi_blue"
+           android:drawablePadding="12dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="4,659"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:textColor="@color/yellow_65"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/toDeposit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="@drawable/top_line_bg">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_33"
+            android:textSize="18sp"
+            android:text="充值"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@mipmap/recharge"
+            android:drawablePadding="12dp"/>
+        
+        <ImageView
+            android:layout_width="6dp"
+            android:layout_height="11dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/arrow_right"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/consumptionLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="@drawable/top_line_bg">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_33"
+            android:textSize="18sp"
+            android:text="消费明细"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@mipmap/recordsofconsumption"
+            android:drawablePadding="12dp"/>
+
+        <ImageView
+            android:layout_width="6dp"
+            android:layout_height="11dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/arrow_right"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/depositLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="@drawable/top_line_bg">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_33"
+            android:textSize="18sp"
+            android:text="充值记录"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@mipmap/record"
+            android:drawablePadding="12dp"/>
+
+        <ImageView
+            android:layout_width="6dp"
+            android:layout_height="11dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/arrow_right"/>
+
+    </RelativeLayout>
+</LinearLayout>

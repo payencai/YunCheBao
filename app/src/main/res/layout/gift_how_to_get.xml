@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_ee"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:src="@mipmap/qiandaoicon"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="APP签到领宝币"
+                android:textColor="@color/black_33"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:lineSpacingExtra="4dp"
+            android:text="云车宝会员可“每日签到”中签到领取宝币，每人每天仅可签到一次。连续签到会有额外奖励宝币。"
+            android:textColor="@color/gray_99"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:src="@mipmap/chonzhiicon"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="充值赚宝币"
+                android:textColor="@color/black_33"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:lineSpacingExtra="4dp"
+            android:text="云车宝APP采用充值送宝币服务，充一千送五百，充五百送三百，充值越多获取的宝币越多，具体规则可前往“云车宝电脑版”进行查看。"
+            android:textColor="@color/gray_99"
+            android:textSize="12sp" />
+    </LinearLayout>
+</LinearLayout>

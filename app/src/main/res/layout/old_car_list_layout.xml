@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_ee"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:padding="15dp"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/cityName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:text="昆明"
+            android:textColor="@color/black_33"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:id="@+id/search_lay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_toLeftOf="@id/cityName"
+            android:layout_toRightOf="@id/back"
+            android:background="@drawable/gray_circle_background">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@mipmap/search__small_icon"
+                android:drawablePadding="10dp"
+                android:text="搜索您想要的"
+                android:textColor="@color/gray_99"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/menu1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@mipmap/yellow_arrow_small"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="智能排序"
+            android:textColor="@color/black_33"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/menu2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@mipmap/yellow_arrow_small"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="品牌"
+            android:textColor="@color/black_33"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/menu3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@mipmap/yellow_arrow_small"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="价格"
+            android:textColor="@color/black_33"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/menu4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="筛选"
+            android:textColor="@color/black_33"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/rule_line_tv"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray_cc" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_ee"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <co.lujun.androidtagview.TagContainerLayout
+            android:id="@+id/tagcontainerLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="4"
+            android:background="@color/white"
+            android:padding="10dp"
+            app:container_background_color="@color/gray_ee"
+            app:container_border_color="@color/gray_ee"
+            app:container_border_radius="0dp"
+            app:container_border_width="0dp"
+            app:container_enable_drag="false"
+            app:horizontal_interval="10dp"
+            app:tag_background_color="@color/white"
+            app:tag_border_color="@color/white"
+            app:tag_border_width="0dp"
+            app:tag_clickable="true"
+            app:tag_enable_cross="true"
+            app:tag_text_color="@color/gray_99"
+            app:tag_text_size="10sp"
+            app:tag_theme="none"
+            app:vertical_interval="10dp" />
+
+        <LinearLayout
+            android:id="@+id/rechargeBtn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="9dp"
+                android:layout_height="9dp"
+                android:src="@mipmap/recharge_small" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:gravity="right"
+                android:text="重置"
+                android:textColor="@color/gray_99"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:fadingEdge="none"
+        android:scrollbars="none"
+        app:ptrAnimationStyle="custom"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+</LinearLayout>

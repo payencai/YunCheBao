@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--侧边字母导航栏-->
+    <declare-styleable name="WaveSideBarView">
+        <attr name="sidebar_lazy_respond" format="boolean"/>
+        <attr name="sidebar_text_color" format="color"/>
+        <attr name="sidebar_max_offset" format="dimension"/>
+        <attr name="sidebar_position" format="enum">
+            <enum name="right" value="0"/>
+            <enum name="left" value="1"/>
+        </attr>
+        <attr name="sidebar_text_alignment" format="enum">
+            <enum name="center" value="0"/>
+            <enum name="left" value="1"/>
+            <enum name="right" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <!--自定义搜索框-->
+    <declare-styleable name="SearchEditText">
+        <attr name="drawableDel" format="reference" />
+    </declare-styleable>
+</resources>

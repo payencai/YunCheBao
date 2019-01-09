@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="5dp"
+    android:orientation="vertical">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/img"
+        android:layout_width="139dp"
+        android:layout_height="77dp"
+        app:placeholderImageScaleType="fitXY"
+        android:src="@color/gray_ee"
+        app:placeholderImage="@mipmap/mag_img" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="139dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="在DTM结束车手生涯库特哈德将退役"
+        android:textColor="@color/gray_66"
+        android:textSize="14sp" />
+
+
+</LinearLayout>

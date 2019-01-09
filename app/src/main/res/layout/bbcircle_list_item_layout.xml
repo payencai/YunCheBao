@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="beforeDescendants"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/viewCheyou"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp"
+
+        >
+        <RelativeLayout
+            android:id="@+id/rl_img"
+            android:layout_width="138dp"
+            android:layout_height="86dp">
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/img2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@color/gray_ee"
+                app:placeholderImage="@mipmap/image_bbcircle"
+                app:placeholderImageScaleType="fitXY" />
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/iv_video"
+                android:src="@drawable/video"
+                android:layout_centerInParent="true"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_toRightOf="@+id/rl_img"
+            android:id="@+id/name2"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:ellipsize="end"
+            android:lineSpacingExtra="6dp"
+            android:maxLines="2"
+            android:text="【苏州奥迪车友会】车友见面会，集结。"
+            android:textColor="@color/black_33"
+            android:textSize="17sp" />
+
+        <LinearLayout
+            android:layout_below="@+id/rl_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/bottom1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="无人机"
+                android:textColor="@color/gray_99"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/bottom2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="202回帖"
+                android:textColor="@color/gray_99"
+                android:textSize="10sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

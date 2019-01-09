@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="在线支付"
+            android:textColor="@color/black_33"
+            android:textSize="15sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2017-11-16"
+            android:textColor="@color/gray_99"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textSize="10sp"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="余额：2628.55"
+            android:textColor="@color/black_33"
+            android:textSize="13sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-2600.00"
+            android:textColor="@color/black_0d"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textSize="10sp"
+            />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent_material_light">#ee5f5b</color>
+    <color name="accent_material_light_1">#ed6059</color>
+    <color name="accent_material_light_2">#009688</color>
+    <color name="accent_material_light_3">#ff4040</color>
+    <color name="accent_material_light_4">#ff4040</color>
+    <color name="accent_material_light_5">#ff4040</color>
+    <color name="accent_material_light_6">#ee5f5b</color>
+    <color name="accent_material_light_7">#fb5b1b</color>
+</resources>

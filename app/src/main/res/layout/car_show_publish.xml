@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_ee"
+    android:orientation="vertical">
+    <!--标题栏 -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="汽车秀"
+            android:textColor="@color/black_33"
+            android:textSize="18sp" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:padding="5dp"
+            android:text="发布"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:corner="2dp"
+            app:solid="@color/yellow_65"
+            />
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/gray_e6"></View>
+    </RelativeLayout>
+    <!--标题栏 end-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/rl_video"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="210dp">
+            <ImageView
+                android:id="@+id/iv_img"
+
+                android:scaleType="fitXY"
+                android:src="@mipmap/yellowcamera_icon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@drawable/video"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/cameraIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="15dp"
+                android:src="@mipmap/yellowcamera_icon" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/cameraIcon"
+                android:background="@color/gray_99" />
+
+            <EditText
+                android:id="@+id/editText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_toLeftOf="@id/cameraIcon"
+                android:layout_toRightOf="@id/title1"
+                android:background="@color/white"
+                android:hint="请输入标题"
+                android:padding="4dp"
+                android:textColor="@color/black_33"
+                android:textColorHint="@color/gray_d1"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/gray_ee"></View>
+
+
+
+        <TextView
+            android:textColor="@color/gray_99"
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@color/white"
+            android:gravity="left|top"
+            android:text="详情描述"
+
+            android:textSize="14sp" />
+        <com.bbcircle.view.NoScrollWebView
+            android:visibility="gone"
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></com.bbcircle.view.NoScrollWebView>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_title_layout"></include>
+    <com.baiiu.filter.DropDownMenu
+        android:id="@+id/dropDownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/mFilterContentView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/noResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="暂时没有符合条件的店铺"
+                android:visibility="gone" />
+
+            <com.handmark.pulltorefresh.library.PullToRefreshListView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fadingEdge="none"
+                android:scrollbars="none"
+                android:dividerHeight="0dp"
+                android:divider="#ffffff"
+                app:ptrAnimationStyle="custom">
+
+            </com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+        </RelativeLayout>
+    </com.baiiu.filter.DropDownMenu>
+</LinearLayout>

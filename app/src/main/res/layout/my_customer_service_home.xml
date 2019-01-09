@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/gray_ee"
+    android:layout_height="match_parent">
+    <include layout="@layout/top_title_layout"></include>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray_87"
+        android:padding="16dp"
+        android:gravity="center"
+        android:textSize="10sp"
+        android:text="周一至周五：9：00-21：00 周六：9：00-18：30"/>
+    <RelativeLayout
+        android:id="@+id/lay1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@drawable/two_line_bg">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_33"
+            android:textSize="14sp"
+            android:text="在线客服"/>
+        <ImageView
+            android:layout_width="8dp"
+            android:layout_height="12dp"
+            android:src="@mipmap/arrow_right"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/lay2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@drawable/two_line_bg">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_33"
+            android:textSize="14sp"
+            android:text="客服热线"/>
+        <ImageView
+            android:id="@+id/arrow2"
+            android:layout_width="8dp"
+            android:layout_height="12dp"
+            android:src="@mipmap/arrow_right"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4009635866"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/arrow2"
+            android:textColor="@color/yellow_31"/>
+    </RelativeLayout>
+
+</LinearLayout>

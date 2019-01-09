@@ -1,0 +1,923 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/theForm"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_title_layout"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="36dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="您的卖车信息已提交"
+                    android:textColor="@color/blue_fb"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="为了更高价格更快速帮您卖车，请继续完善车辆信息"
+                    android:textColor="@color/gray_99"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_f8"
+                android:padding="15dp"
+                android:text="基本信息"
+                android:textColor="@color/gray_66"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:text="上传证件照片"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:text="登记证、行驶证、购车发票"
+                        android:textColor="@color/gray_99"
+                        android:textSize="10sp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/ll_dj"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/iv_dj"
+                            android:layout_width="72dp"
+                            android:layout_height="52dp"
+                            android:src="@mipmap/camera_default" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="登记证"
+                            android:textColor="@color/gray_99"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_xs"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/iv_xs"
+                            android:layout_width="72dp"
+                            android:layout_height="52dp"
+                            android:src="@mipmap/camera_default" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="行驶证"
+                            android:textColor="@color/gray_99"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_gc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/iv_gc"
+                            android:layout_width="72dp"
+                            android:layout_height="52dp"
+                            android:src="@mipmap/camera_default" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="购车发票"
+                            android:textColor="@color/gray_99"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/timeLay1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/white"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="下次验车时间"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/time1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="26dp"
+                        android:text=""
+                        android:textColor="@color/gray_99"
+                        android:textSize="10sp" />
+
+                    <ImageView
+                        android:layout_width="6dp"
+                        android:layout_height="12dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/arrow_right" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/timeLay2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/top_line_bg"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="交强险有效期"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/time2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:hint="天"
+                        android:background="@color/white"
+                        android:textColor="@color/gray_99"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:layout_width="6dp"
+                        android:layout_height="12dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/arrow_right" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/top_line_bg"
+                    android:orientation="horizontal"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="过户次数    "
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:gravity="right"
+                        android:id="@+id/et_num"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:background="@color/white"
+                        android:hint="填写次数"
+                        android:inputType="number"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="车身颜色"
+                    android:textColor="@color/black_33"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="14dp"
+                    android:paddingRight="14dp">
+
+                    <LinearLayout
+                        android:id="@+id/ll_black"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/gray_stroke_r4"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.coorchice.library.SuperTextView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_margin="10dp"
+                            app:corner="10dp"
+                            app:solid="@color/black_23" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="黑色"
+                            android:textColor="@color/gray_66"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_gray"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/gray_stroke_r4"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.coorchice.library.SuperTextView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_margin="10dp"
+                            app:corner="10dp"
+                            app:solid="@color/gray_70" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="深灰色"
+                            android:textColor="@color/gray_66"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_white"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/gray_stroke_r4"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.coorchice.library.SuperTextView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_margin="10dp"
+                            app:corner="10dp"
+                            app:solid="@color/white"
+                            app:stroke_color="@color/gray_ee"
+                            app:stroke_width="1dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="白色"
+                            android:textColor="@color/gray_66"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="14dp"
+                    android:paddingRight="14dp">
+
+                    <LinearLayout
+                        android:id="@+id/ll_green"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/gray_stroke_r4"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.coorchice.library.SuperTextView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_margin="10dp"
+                            app:corner="10dp"
+                            app:solid="@color/green_69" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="绿色"
+                            android:textColor="@color/gray_66"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_red"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/gray_stroke_r4"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.coorchice.library.SuperTextView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_margin="10dp"
+                            app:corner="10dp"
+                            app:solid="@color/red_4e" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="红色"
+                            android:textColor="@color/gray_66"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_blue"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/gray_stroke_r4"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.coorchice.library.SuperTextView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_margin="10dp"
+                            app:corner="10dp"
+                            app:solid="@color/blue_f9" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="蓝色"
+                            android:textColor="@color/gray_66"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="14dp"
+                    android:paddingRight="14dp">
+
+                    <LinearLayout
+                        android:id="@+id/ll_yellow"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/gray_stroke_r4"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.coorchice.library.SuperTextView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_margin="10dp"
+                            app:corner="10dp"
+                            app:solid="@color/orange_95" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="香槟色"
+                            android:textColor="@color/gray_66"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_origin"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/gray_stroke_r4"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.coorchice.library.SuperTextView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_margin="10dp"
+                            app:corner="10dp"
+                            app:solid="@color/orange_3d" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="橙色"
+                            android:textColor="@color/gray_66"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_coffee"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/gray_stroke_r4"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.coorchice.library.SuperTextView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_margin="10dp"
+                            app:corner="10dp"
+                            app:solid="@color/brown_22" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="咖啡色"
+                            android:textColor="@color/gray_66"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="14dp"
+                    android:paddingRight="14dp">
+
+                    <LinearLayout
+                        android:id="@+id/ll_rgb"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/gray_stroke_r4"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_margin="10dp"
+                            android:src="@mipmap/caise_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="彩色"
+                            android:textColor="@color/gray_66"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_other"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selected_bg_yellow_small"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_margin="10dp"
+                            android:src="@mipmap/qita_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="其他"
+                            android:textColor="@color/gray_66"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/gray_stroke_r4"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:visibility="invisible">
+
+                        <com.coorchice.library.SuperTextView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_margin="10dp"
+                            app:corner="10dp"
+                            app:solid="@color/blue_f9" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="蓝色"
+                            android:textColor="@color/gray_66"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="爱车描述"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="0/10000"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/et_des"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/white"
+                    android:gravity="top|left"
+                    android:hint="请填写购车需求"
+                    android:padding="10dp"
+                    android:textColor="@color/black_33"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp"
+                    android:background="@color/gray_ee"></View>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gray_f8"
+                    android:padding="15dp"
+                    android:text="上传车辆照片"
+                    android:textColor="@color/gray_66"
+                    android:textSize="14sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="上传清晰照片，列表排名更靠前靠前"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="(1/4)"
+                        android:textColor="@color/gray_99"
+                        android:textSize="10sp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:id="@+id/fr_zj1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/iv_zj1"
+                            android:layout_width="72dp"
+                            android:layout_height="52dp"
+                            android:layout_margin="8dp"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/camera_default" />
+
+                        <ImageView
+                            android:visibility="gone"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="right"
+                            android:src="@mipmap/redcancle_icon" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/fr_zj2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/iv_zj2"
+                            android:layout_width="72dp"
+                            android:layout_height="52dp"
+                            android:layout_margin="8dp"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/camera_default" />
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="right"
+                            android:src="@mipmap/redcancle_icon"
+                            android:visibility="invisible" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/fr_zj3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/iv_zj3"
+                            android:layout_width="72dp"
+                            android:layout_height="52dp"
+                            android:layout_margin="8dp"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/camera_default" />
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="right"
+                            android:src="@mipmap/redcancle_icon"
+                            android:visibility="invisible" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/fr_zj4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/iv_zj4"
+                            android:layout_width="match_parent"
+                            android:layout_height="52dp"
+                            android:layout_margin="8dp"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/camera_default" />
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="right"
+                            android:src="@mipmap/redcancle_icon"
+                            android:visibility="invisible" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp"
+                    android:background="@color/gray_ee"></View>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gray_f8"
+                    android:padding="15dp"
+                    android:text="联系方式"
+                    android:textColor="@color/gray_66"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="联系人"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:background="@color/white"
+                        android:hint="请填写联系人姓名"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="手机号"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_phone"
+                        android:background="@color/white"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:hint="请输入手机号"
+                        android:textColor="@color/yellow_65"
+                        android:textSize="14sp" />
+                </LinearLayout>
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/title7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="15dp"
+
+                        android:drawablePadding="10dp"
+                        android:text="验证码"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp" />
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/getcode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:paddingBottom="6dp"
+                        android:paddingLeft="2dp"
+                        android:paddingRight="2dp"
+                        android:paddingTop="6dp"
+                        android:text="获取验证码"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        app:corner="4dp"
+                        app:solid="@color/yellow_02" />
+
+                    <EditText
+                        android:id="@+id/et_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@id/getcode"
+                        android:background="@color/white"
+                        android:hint="请输入验证码"
+                        android:textColor="@color/gray_99"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp"
+                    android:background="@color/gray_ee"></View>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="24dp">
+
+                    <com.coorchice.library.SuperTextView
+                        android:visibility="gone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="14dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="16dp"
+                        android:text="稍后完善"
+                        android:textColor="@color/yellow_65"
+                        app:corner="5dp"
+                        app:solid="@color/white"
+                        app:stroke_color="@color/yellow_65"
+                        app:stroke_width="1dp" />
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/submit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="14dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="16dp"
+                        android:text="确认提交"
+                        android:textColor="@color/white"
+                        app:corner="5dp"
+                        app:solid="@color/yellow_63" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center"
+                    android:text="客服电话：400 866 1213"
+                    android:textColor="@color/gray_99"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

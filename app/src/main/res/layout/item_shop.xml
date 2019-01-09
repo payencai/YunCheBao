@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@color/white"
+    android:padding="15dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="@color/black_33"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="云南隆创尚通" />
+
+        <TextView
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:background="@color/yellow_02"
+            android:gravity="center"
+            android:layout_width="15dp"
+            android:layout_height="20dp"
+            android:text="5" />
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:src="@mipmap/location_gray_icon"
+            android:layout_width="12dp"
+            android:layout_height="15dp" />
+        <TextView
+            android:textColor="@color/gray_99"
+            android:layout_marginLeft="10dp"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="昆明市滇池路542号（滇池路与日新路交叉口）" />
+
+    </LinearLayout>
+</LinearLayout>

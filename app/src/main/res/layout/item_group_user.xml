@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="80dp">
+    <LinearLayout
+         android:id="@+id/ll_commom"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/head"
+            android:scaleType="fitXY"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/login_img_icon"
+            android:layout_width="30dp"
+            android:layout_height="40dp" />
+        <TextView
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxLength="4"
+            android:id="@+id/nickname"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp"
+            android:textColor="@color/black_33"
+            android:text="二狗子"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <ImageView
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:id="@+id/iv_change"
+        android:scaleType="fitXY"
+        android:layout_marginTop="15dp"
+        android:src="@mipmap/chat_add"
+        android:layout_gravity="center"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+   
+</RelativeLayout>

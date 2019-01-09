@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:textSize="@dimen/text_size_16"
+            android:textColor="@color/gray_99"
+            android:layout_marginLeft="10dp"
+            android:text="取消"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:textSize="@dimen/text_size_16"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/red_4e"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="确定"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <com.tool.WheelView
+
+        android:id="@+id/wheelview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.tool.WheelView>
+</LinearLayout>

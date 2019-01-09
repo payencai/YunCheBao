@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/two_line_bg"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="15dp">
+        <TextView
+            android:id="@+id/nextBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/yellow_31"
+            android:textSize="16sp"
+            android:gravity="right"
+            android:text="完成"/>
+        
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="72dp"
+            android:src="@mipmap/icon"
+            android:layout_marginTop="26dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="充值成功"
+            android:textSize="18sp"
+            android:textColor="@color/yellow_31"
+            android:layout_marginTop="14dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="499,918.00元"
+            android:textColor="@color/black_33"
+            android:textSize="30sp"
+            android:layout_marginTop="22dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray_99"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:text="付款信息"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="8"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_33"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:text="交通银行储蓄卡（6120）"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_33"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:text="-499,918.00"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/topPanel"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="活动详细描述"
+            android:textColor="@color/black_33"
+            android:textSize="16sp" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="4dp"
+            android:text="完成"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:corner="4dp"
+            app:solid="@color/yellow_65" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/bottomLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray_ee"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="53dp"
+            android:layout_height="52dp"
+            android:gravity="center"
+            android:text="A﹢"
+            android:textColor="@color/yellow_65" />
+
+        <ImageView
+            android:id="@+id/cameraBtn"
+            android:layout_width="53dp"
+            android:layout_height="50dp"
+            android:padding="15dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/camera_icon" />
+
+        <ImageView
+            android:id="@+id/faceBtn"
+            android:layout_width="51dp"
+            android:layout_height="51dp"
+            android:padding="15dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/smile_gray_icon" />
+
+        <ImageView
+            android:id="@+id/picBtn"
+            android:layout_width="52dp"
+            android:layout_height="49dp"
+            android:padding="15dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/picuter_gray_icon" />
+    </LinearLayout>
+
+    <sj.keyboard.widget.EmoticonsEditText
+        android:id="@+id/et_content"
+        style="@style/emotion_editview"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomLay"
+        android:layout_below="@id/topPanel"
+        android:background="@color/white"
+        android:hint="输入内容……" />
+</RelativeLayout>

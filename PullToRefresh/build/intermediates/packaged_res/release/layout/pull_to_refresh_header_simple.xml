@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout
+        android:id="@+id/fl_inner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        >
+    <LinearLayout
+        android:gravity="center"
+
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/header_footer_left_right_padding"
+        android:paddingRight="@dimen/header_footer_left_right_padding"
+        android:paddingTop="12dp">
+
+
+
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/pull_to_refresh_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 />
+
+            <ProgressBar
+                android:id="@+id/pull_to_refresh_progress"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:visibility="gone" />
+
+
+
+
+            <TextView
+
+                android:id="@+id/pull_to_refresh_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"
+                android:textColor="#707070"
+                android:textAppearance="?android:attr/textAppearance"
+                />
+
+            <TextView
+                android:id="@+id/pull_to_refresh_sub_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textSize="12sp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                />
+
+
+
+
+
+    </LinearLayout>
+
+</FrameLayout>
+</merge>

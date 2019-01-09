@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_f8"
+        android:drawableLeft="@mipmap/small_4s_icon"
+        android:drawablePadding="10dp"
+        android:padding="10dp"
+        android:text="云南红铜汽车"
+        android:textColor="@color/black_33"
+        android:textSize="10sp" />
+
+    <RelativeLayout
+        android:id="@+id/carDetaiLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上海通用汽车-别克昂科威"
+            android:textColor="@color/black_33"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/arrowImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/arrow_right" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="厂商指导价："
+                android:textColor="@color/gray_99"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20.99万"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/name"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="厂商指导价："
+                android:textColor="@color/gray_99"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20.99万"
+                android:textColor="@color/yellow_65"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:orientation="horizontal">
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/btn1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:stroke_color="@color/yellow_65"
+            app:stroke_width="1dp"
+            android:padding="6dp"
+            android:layout_margin="10dp"
+            app:corner="2dp"
+            app:solid="@color/white"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="@color/yellow_65"
+            android:text="立即拨打"/>
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/btn2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:stroke_color="@color/yellow_65"
+            app:stroke_width="1dp"
+            android:padding="6dp"
+            android:layout_margin="10dp"
+            app:corner="2dp"
+            app:solid="@color/yellow_d0"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="@color/yellow_02"
+            android:text="询低价"/>
+
+    </LinearLayout>
+</LinearLayout>

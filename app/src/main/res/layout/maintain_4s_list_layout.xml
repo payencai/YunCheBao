@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ptr="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/top_title_layout"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black_33"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:placeholderImage="@mipmap/aodilogo_icon"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/carname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:text="奥迪A6 "/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2004款 1.8T 自动基本 "
+                android:textSize="10sp"
+                android:layout_marginTop="6dp"
+                android:textColor="@color/gray_99"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_dis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:text="66km "/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前里程"
+                android:textSize="10sp"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/gray_99"/>
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_ee"
+        android:text="云车宝认证经销商"
+        android:textColor="@color/gray_99"
+        android:textSize="10sp"
+        android:padding="16dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+       >
+
+        <HorizontalScrollView
+            android:layout_toLeftOf="@+id/calendarBtn"
+            android:id="@+id/sc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <GridView
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:numColumns="auto_fit"
+                    android:stretchMode="spacingWidthUniform"></GridView>
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:id="@+id/calendarBtn"
+            android:layout_width="60dp"
+            android:padding="12dp"
+            android:scaleType="fitXY"
+            android:layout_height="match_parent"
+            android:src="@mipmap/calendar_icon"/>
+    </RelativeLayout>
+
+    <fragment
+        android:id="@+id/shop4list"
+        android:name="com.xihubao.fragment.Shop4SListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></fragment>
+
+
+</LinearLayout>

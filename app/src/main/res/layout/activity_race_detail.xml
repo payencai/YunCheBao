@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_ee"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_title_layout"></include>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ScrollView
+            android:layout_above="@+id/ll_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+           >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.bbcircle.view.SampleCoverVideo
+                        android:id="@+id/video"
+                        android:layout_width="match_parent"
+                        android:layout_height="209dp"
+                        />
+
+                    <ImageView
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:layout_gravity="center"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/play" />
+                </FrameLayout>
+
+
+                <LinearLayout
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@color/white"
+                            android:padding="10dp"
+                            android:text="在DTM结束车手生涯库特哈德将退役"
+                            android:textColor="@color/black_33"
+                            android:textSize="14sp" />
+
+                        <RelativeLayout
+                            android:layout_marginBottom="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="@color/white">
+
+                            <TextView
+                                android:id="@+id/createtime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="刚刚"
+                                android:textColor="@color/gray_99"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/watchNum"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:text="5.2万播放"
+                                android:textColor="@color/gray_99"
+                                android:textSize="10sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:paddingBottom="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="10dp">
+
+                        <com.facebook.drawee.view.SimpleDraweeView
+                            android:layout_width="46dp"
+                            android:id="@+id/head"
+                            android:layout_height="46dp"
+                            android:layout_marginLeft="5dp"
+                            app:placeholderImage="@mipmap/icon"
+                            app:placeholderImageScaleType="fitXY" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="自驾游召集地"
+                                android:textColor="@color/black_33"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:visibility="gone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="这是一个由民间神秘事物探索组织发起人，为广大朋友建立一个公平、有爱、和谐沟通的平台。"
+                                android:textColor="@color/gray_99"
+                                android:textSize="10sp" />
+
+                            <LinearLayout
+                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:visibility="gone"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:padding="6dp"
+                                    android:text="+ 关注"
+                                    android:textColor="@color/yellow_65"
+                                    android:textSize="14sp" />
+
+                                <View
+                                    android:visibility="gone"
+                                    android:layout_width="1dp"
+                                    android:layout_height="14dp"
+                                    android:background="@color/black_0d"></View>
+
+                                <TextView
+                                    android:id="@+id/tv_contact"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="联系Ta"
+                                    android:textColor="@color/yellow_65"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <RelativeLayout
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="15dp"
+                            android:drawableLeft="@mipmap/bao_icon"
+                            android:drawablePadding="10dp"
+                            android:gravity="center_vertical"
+                            android:text="中国九洲汽车网"
+                            android:textColor="@color/black_33"
+                            android:textSize="10sp" />
+
+                        <com.coorchice.library.SuperTextView
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="15dp"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="5dp"
+                            android:text="关注"
+                            android:textColor="@color/yellow_65"
+                            android:textSize="10sp"
+                            app:corner="4dp"
+                            app:stroke_color="@color/yellow_65"
+                            app:stroke_width="1dp" />
+                    </RelativeLayout>
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:lineSpacingExtra="6dp"
+                        android:text="一期的开始，导演组就给男人帮们提供了六种不同类型的奇葩“创业产品”，可谓“看了新奇，买了后悔”。这些产品真的很奇葩吗？其实，也不尽然。相反，这些产品确实有在我们身边出现过。
+                这六款产品，在淘宝或者其他购物平台上面其实都可以找到，很多是上世纪九十年代在日本、澳洲等地发明的边缘化产品，在中国并不多见。
+                导演组刻意选择并且要求男人帮推销这些产品，一方面是为 品，其实跟男人帮推销的好坏压根儿没有关系。一个产品能否得到认同，其实不过是投资人早已写好的“剧本”，真正有权力的人，就好像“剧本”一样，提前操控好了很多事。
+                另一方面，整个游戏无处不在的“剧本”也是导演组们对于市场上流传的“极限挑战有剧本”一说进行的巧妙讽刺。编剧的出现在搞笑的同时，也告诉大家：极限挑战可以有剧本，只是男人帮们，他们根本不稀罕剧本。一直以来，男人帮里有几回是跟着剧本走的呢？
+                剧本象征着权力和背景。依靠剧本获得的胜利，往往没有什么看点；相反，剧本之外的故事，反倒成了最精彩最出戏的地方。导演组就是算准了男人帮不会个个看剧本，因此，“剧本论”才显得贯穿始终：猪羊年纪相对小，愿意“看一看攻略”；渤迅对剧本没有兴趣，出于好奇偶尔瞄一眼；雷磊已是老油条，对剧本嗤之以鼻，不屑一顾。不同的态度，从中展现男人帮的性格百态。
+                "
+                        android:textColor="@color/black_33"
+                        android:textSize="16sp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+                <!--top end-->
+
+                <TextView
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:drawableLeft="@mipmap/title_line_orange"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:padding="15dp"
+                    android:text="更多精彩"
+                    android:textColor="@color/black_33" />
+
+                <HorizontalScrollView
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <include layout="@layout/car_show_list_item_layout"></include>
+
+                        <include layout="@layout/car_show_list_item_layout"></include>
+
+                        <include layout="@layout/car_show_list_item_layout"></include>
+
+                        <include layout="@layout/car_show_list_item_layout"></include>
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <com.tool.view.HorizontalListView
+                    android:visibility="gone"
+                    android:id="@+id/horiListview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></com.tool.view.HorizontalListView>
+                <!-- middle end-->
+
+                <com.tool.view.ListViewForScrollView
+                    android:visibility="gone"
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"></com.tool.view.ListViewForScrollView>
+                <com.bbcircle.view.NoScrollWebView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/webView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </com.bbcircle.view.NoScrollWebView>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/ll_bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/top_line_bg"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/commentLay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:hint="发表回帖……"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:textColorHint="@color/yellow_65"
+                android:textSize="14sp"></TextView>
+
+            <LinearLayout
+                android:id="@+id/ll_heart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/tv_heart"
+                    android:layout_width="19dp"
+                    android:layout_height="18dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/collect_gray_hole" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/shareBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="19dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/replay_icon" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

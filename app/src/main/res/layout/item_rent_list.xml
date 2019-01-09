@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/goodsInfo"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/goodsCategoryName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="爱琴海购物公园送车点"
+        android:textColor="@color/black_33"
+        android:textSize="14sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvGoodsDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lineSpacingExtra="4dp"
+            android:maxLines="1"
+            android:maxWidth="200dp"
+            android:text="广福路中段爱琴海购物公园停车场"
+            android:textColor="@color/gray_99"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="0.44km"
+            android:textColor="@color/gray_99"
+            android:textSize="10sp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.rongcloud.activity.SearchResultActivity">
+    <RelativeLayout
+        android:id="@+id/head"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/search_icon"
+            android:layout_width="18dp"
+            android:layout_height="20dp" />
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/tv_cancel"
+            android:layout_toRightOf="@+id/iv_search"
+            android:layout_centerVertical="true"
+            android:textSize="14sp"
+            android:background="@color/white"
+            android:hint="请输入您要搜索的"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:textSize="14sp"
+            android:textColor="@color/black_33"
+            android:text="取消"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:background="#e2e2e2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></View>
+    <ListView
+        android:id="@+id/lv_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ListView>
+
+</LinearLayout>

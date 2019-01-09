@@ -1,0 +1,223 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/blue_9DD9</item>
+        <item name="colorPrimaryDark">@color/blue_9DD9</item>
+        <item name="colorAccent">@color/blue_9DD9</item>
+    </style>
+
+    <!--  sweetAlert -->
+    <style name="alert_dialog" parent="android:Theme.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@color/float_transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+    </style>
+
+    <style name="dialog_blue_button" parent="android:Widget.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:background">@drawable/blue_button_background</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">28dp</item>
+        <item name="android:paddingRight">28dp</item>
+        <item name="android:textColor">@color/button_text_color</item>
+    </style>
+    <!--  sweetAlert end  -->
+
+    <style name="split_line">
+        <item name="android:background">@color/gray_e6</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <!-- 自定义loading dialog -->
+    <style name="loading_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/bg_loading_dialog</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <!-- 仿ios底部弹出按钮 -->
+    <style name="Theme.Light.NoTitle.Dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowFrame">@null</item>
+    </style>
+
+    <style name="Theme.Light.NoTitle.NoShadow.Dialog" parent="Theme.Light.NoTitle.Dialog">
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="Animation.Bottom.Rising" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+
+    <!-- SimpleDraweeView -->
+    <style name="SimpleDraweeViewStyle">
+        <!--&lt;!&ndash; 占位图 &ndash;&gt;-->
+        <!--<item name="fresco:placeholderImage">@mipmap/default_good</item>-->
+        <!--&lt;!&ndash; 占位图的缩放类型 &ndash;&gt;-->
+        <!--<item name="fresco:placeholderImageScaleType">fitXY</item>-->
+        <!--&lt;!&ndash; 下载失败显示的图片 &ndash;&gt;-->
+        <!--<item name="fresco:failureImage">@mipmap/default_good</item>-->
+        <!--&lt;!&ndash; 失败图的缩放类型 &ndash;&gt;-->
+        <!--<item name="fresco:failureImageScaleType">fitXY</item>-->
+        <!--&lt;!&ndash; 背景图片，这里的背景图片首先被绘制 &ndash;&gt;-->
+        <!--<item name="fresco:overlayImage">@mipmap/default_good</item>-->
+        <!--&lt;!&ndash; 设置为圆形图 &ndash;&gt;-->
+        <!--<item name="fresco:roundAsCircle">false</item>-->
+        <!--&lt;!&ndash; 圆角半径 &ndash;&gt;-->
+        <!--<item name="fresco:roundedCornerRadius">0dp</item>-->
+        <!--&lt;!&ndash; 边框的宽度 &ndash;&gt;-->
+        <!--<item name="fresco:roundingBorderWidth">0dp</item>-->
+        <!--&lt;!&ndash; 边框颜色 &ndash;&gt;-->
+        <!--<item name="fresco:roundingBorderColor">#00000000</item>-->
+    </style>
+    <!-- SimpleDraweeView  end -->
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!--CityListSelector-->
+    <style name="ui_parent_Wrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="cityLocatingProgressStyle">
+        <item name="android:maxWidth">16.0dip</item>
+        <item name="android:maxHeight">24.0dip</item>
+        <item name="android:indeterminateDrawable">@drawable/city_locating_anim</item>
+        <item name="android:minWidth">16.0dip</item>
+        <item name="android:minHeight">24.0dip</item>
+    </style>
+
+    <style name="city_hot_header" parent="@style/ui_parent_Wrap">
+        <item name="android:textSize">@dimen/city_list_text_size</item>
+        <item name="android:textColor">@color/black_33</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:duplicateParentState">true</item>
+    </style>
+
+    <!-- 弹出框动画 由下至上 -->
+    <style name="dialogStyle" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <!-- 进入时的动画 -->
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+        <!-- 退出时的动画 -->
+    </style>
+
+    <!-- 对话框样式 -->
+    <style name="Theme.Light.Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:scrollHorizontally">true</item>
+    </style>
+
+    <style name="AnimTopMiddle" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_top_in</item>
+        <item name="android:windowExitAnimation">@anim/push_top_out</item>
+    </style>
+
+    <!-- 支付方式Dialog 样式 -->
+    <style name="recharge_pay_dialog" parent="@android:style/Theme.Dialog">
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 浮于Activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- Dialog以外的区域模糊效果 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- Dialog进入及退出动画 -->
+        <item name="android:windowAnimationStyle">@style/racharge_dialog_animation</item>
+    </style>
+    <style name="time_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+
+    </style>
+    <style name="racharge_dialog_animation" parent="@android:style/Animation.Dialog">
+
+        <item name="android:windowEnterAnimation">@anim/slide_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+    <style name="MyDialog" parent="@android:style/Theme.Holo.Dialog">
+        <!-- 是否有边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!--是否在悬浮Activity之上  -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!--阴影  -->
+        <item name="android:windowIsTranslucent">true</item><!--半透明-->
+        <!--背景透明-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 还可以加入一些弹出和退出的动画 (lan)-->
+        <item name="android:windowEnterAnimation">@anim/slide_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+    <style name="mypopwindow_anim_style">
+        <item name="android:windowEnterAnimation">@anim/bottom_in</item>
+        <!-- 指定显示的动画xml -->
+
+        <item name="android:windowExitAnimation">@anim/buttom_out</item>
+        <!-- 指定消失的动画xml -->
+    </style>
+    <style name="DialogStyleNoTitle">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">#30333333</item>
+        <!-- Dialog进入及退出动画 -->
+        <item name="android:windowAnimationStyle">@style/racharge_dialog_animation</item>
+    </style>
+    <style name="dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <!--边框-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item>
+        <!--半透明-->
+        <item name="android:windowNoTitle">true</item>
+        <!--无标题-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--背景透明-->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--模糊-->
+    </style>
+    <style name="emotion_editview">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">280dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:layout_gravity">top</item>
+        <item name="android:gravity">top</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:textColor">@color/black_33</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>

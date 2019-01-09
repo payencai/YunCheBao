@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="15dp"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/rl_head"
+        android:layout_width="138dp"
+        android:layout_height="87dp" >
+        <ImageView
+            android:id="@+id/iv_head"
+            android:scaleType="fitXY"
+            android:src="@mipmap/pic1"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/video"
+            android:layout_centerInParent="true"
+            android:src="@drawable/video"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/black_33"
+        android:textSize="@dimen/sp_14"
+        android:text="【苏州奥迪车友会】车友见面会，集结。"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/rl_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

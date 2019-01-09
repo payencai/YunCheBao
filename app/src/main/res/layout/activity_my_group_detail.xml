@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.rongcloud.activity.AddFriendDetailActivity">
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/back"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/back"
+            android:layout_width="10dp"
+            android:layout_height="18dp" />
+        <TextView
+            android:textSize="18sp"
+            android:textColor="@color/black_33"
+            android:text="群聊详情"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+        </TextView>
+
+        <RelativeLayout
+            android:id="@+id/rl_add"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="60dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_menu"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/blackview"
+                android:layout_width="40dp"
+                android:layout_height="5dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <View
+        android:background="#e2e2e2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></View>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.CardView
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="64dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+
+                        android:scaleType="fitXY"
+                        android:id="@+id/iv_icon"
+                        android:layout_marginLeft="15dp"
+                        android:src="@mipmap/login_img_icon"
+                        android:layout_centerVertical="true"
+                        android:layout_width="30dp"
+                        android:layout_height="40dp" />
+                    <TextView
+                        android:id="@+id/chatname"
+                        android:textSize="@dimen/text_size_16"
+                        android:textColor="@color/black_33"
+                        android:text="某某某群 "
+                        android:layout_marginLeft="15dp"
+                        android:layout_toRightOf="@+id/iv_icon"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RelativeLayout
+
+                        android:layout_marginRight="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp">
+                        <ImageView
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/pen"
+                            android:layout_width="7dp"
+                            android:layout_height="10dp" />
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="120dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp">
+                        <TextView
+                            android:textSize="@dimen/text_size_16"
+                            android:textColor="@color/black_33"
+                            android:text="群号"
+                            android:layout_marginLeft="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/account"
+                            android:layout_marginRight="15dp"
+                            android:layout_alignParentRight="true"
+                            android:textSize="@dimen/text_size_16"
+                            android:textColor="@color/black_33"
+                            android:text="12343434545"
+                            android:layout_marginLeft="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp">
+                        <TextView
+                            android:textSize="@dimen/text_size_16"
+                            android:textColor="@color/black_33"
+                            android:text="二维码"
+                            android:layout_marginLeft="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <ImageView
+                            android:layout_marginRight="15dp"
+                            android:layout_alignParentRight="true"
+                            android:src="@mipmap/qrcode"
+                            android:layout_marginLeft="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp">
+                        <TextView
+                            android:textSize="@dimen/text_size_16"
+                            android:textColor="@color/black_33"
+                            android:text="我在本群的昵称"
+                            android:layout_marginLeft="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/nickname"
+                            android:layout_marginRight="15dp"
+                            android:layout_toLeftOf="@+id/enter"
+                            android:textSize="@dimen/text_size_16"
+                            android:textColor="@color/black_33"
+                            android:text="二狗子"
+                            android:layout_marginLeft="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <ImageView
+                            android:id="@+id/enter"
+                            android:layout_marginRight="10dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:src="@mipmap/enter"
+                            android:layout_width="8dp"
+                            android:layout_height="15dp" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp">
+                        <TextView
+                            android:textSize="@dimen/text_size_16"
+                            android:textColor="@color/black_33"
+                            android:text="群成员"
+                            android:layout_marginLeft="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/people"
+                            android:layout_marginRight="15dp"
+                            android:layout_alignParentRight="true"
+                            android:textSize="@dimen/text_size_16"
+                            android:textColor="@color/black_33"
+                            android:text="100人"
+                            android:layout_marginLeft="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+                    <GridView
+                        android:id="@+id/crowuser"
+                        android:numColumns="5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </GridView>
+                    <View
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#e2e2e2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"></View>
+                    <TextView
+                        android:id="@+id/tv_show"
+                        android:textColor="@color/gray_99"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:text="展开全部"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
+
+            <android.support.v7.widget.CardView
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <RelativeLayout
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp">
+                        <TextView
+                            android:textSize="@dimen/text_size_16"
+                            android:textColor="@color/black_33"
+                            android:text="群消息免打扰"
+                            android:layout_marginLeft="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <ImageView
+                            android:scaleType="fitXY"
+                            android:layout_marginRight="15dp"
+                            android:layout_alignParentRight="true"
+                            android:src="@mipmap/white_switch"
+                            android:layout_marginLeft="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="40dp"
+                            android:layout_height="30dp" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <RelativeLayout
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp">
+                        <TextView
+                            android:textSize="@dimen/text_size_16"
+                            android:textColor="@color/black_33"
+                            android:text="群消息"
+                            android:layout_marginLeft="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+
+                            android:layout_marginRight="15dp"
+                            android:layout_alignParentRight="true"
+                            android:textSize="@dimen/text_size_16"
+                            android:textColor="@color/red_4e"
+                            android:text="清除群记录"
+                            android:layout_marginLeft="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="15dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/sendmsg"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:text="发送消息"
+                    android:background="#F3CA65"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        style="@style/good_show_item_layout_style">
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/img"
+            style="@style/SimpleDraweeViewStyle"
+            android:layout_width="64dp"
+            android:layout_height="80dp"
+            fresco:placeholderImageScaleType = "fitXY"
+            fresco:failureImageScaleType = "fitXY"
+            fresco:failureImage = "@mipmap/pic1"
+            fresco:placeholderImage="@mipmap/pic1"
+            android:src="@mipmap/pic1"/>
+        <TextView
+            android:id="@+id/name"
+            style="@style/good_show_item_text_style"
+            android:text="手镯"
+            />
+    </LinearLayout>
+</LinearLayout>

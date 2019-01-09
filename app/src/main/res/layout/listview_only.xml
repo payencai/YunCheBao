@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:ptr="http://schemas.android.com/tools"
+    android:background="@color/gray_ee"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/topPanel"
+        layout="@layout/top_title_layout"
+        android:visibility="gone"></include>
+
+    <com.tool.listview.PersonalListView
+        android:visibility="gone"
+        android:id="@+id/listview"
+        android:focusable="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+     ></com.tool.listview.PersonalListView>
+
+    <com.tool.listview.PersonalListView
+        android:id="@id/id_stickynavlayout_innerscrollview"
+        android:focusable="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        ></com.tool.listview.PersonalListView>
+
+
+</LinearLayout>

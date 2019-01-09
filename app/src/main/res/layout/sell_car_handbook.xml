@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:placeholderImage="@mipmap/image_bbcircle"
+            app:placeholderImageScaleType="fitXY" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:drawableLeft="@mipmap/title_line_orange"
+            android:drawablePadding="10dp"
+            android:padding="14dp"
+            android:text="卖车流程"
+            android:textColor="@color/black_33" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerHeight="0dp"
+            android:scrollbars="none"
+            >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/top_line_bg"
+                android:orientation="horizontal"
+                android:padding="14dp">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="55dp"
+                    android:src="@mipmap/dengjixinxi" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="10dp"
+                    android:layout_margin="24dp"
+                    android:src="@mipmap/dashed_arrow_right" />
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="55dp"
+                    android:src="@mipmap/bangzhaomaijia" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="10dp"
+                    android:layout_margin="24dp"
+                    android:src="@mipmap/dashed_arrow_right" />
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="55dp"
+                    android:src="@mipmap/shangmenjiance" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="10dp"
+                    android:layout_margin="24dp"
+                    android:src="@mipmap/dashed_arrow_right" />
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="55dp"
+                    android:src="@mipmap/jiaoyidacheng" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:drawableLeft="@mipmap/title_line_orange"
+            android:drawablePadding="10dp"
+            android:padding="14dp"
+            android:text="服务介绍"
+            android:textColor="@color/black_33"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <ImageView
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:src="@mipmap/sell_price_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="价更高"
+                    android:textColor="@color/black_33"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingExtra="4dp"
+                    android:text="全国万千买家竞价\n最高多卖20%"
+                    android:textColor="@color/gray_99"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <ImageView
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:src="@mipmap/sell_wallet_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="零费用"
+                    android:textColor="@color/black_33"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingExtra="4dp"
+                    android:text="从登记信息到成交\n全程0费用"
+                    android:textColor="@color/gray_99"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <ImageView
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:src="@mipmap/sell_safe_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingExtra="4dp"
+                    android:text="专属1对1服务信息\n保安全"
+                    android:textColor="@color/gray_99"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <ImageView
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:src="@mipmap/sell_test_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingExtra="4dp"
+                    android:maxWidth="74dp"
+                    android:text="高效检测\n快至24h售出"
+                    android:textColor="@color/gray_99"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:drawableLeft="@mipmap/title_line_orange"
+            android:drawablePadding="10dp"
+            android:padding="14dp"
+            android:text="常见问题和解答"
+            android:textColor="@color/black_33"
+            android:textSize="14sp" />
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/ques1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top_line_bg"
+            android:padding="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="卖车流程是怎样的？"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/arrow1"
+                android:layout_width="11dp"
+                android:layout_height="6dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/arrow_down" />
+        </RelativeLayout>
+        <TextView
+
+            android:id="@+id/answ1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="@color/gray_ee"
+            android:textColor="@color/gray_99"
+            android:textSize="10sp"
+            android:visibility="gone"
+            android:text="登记信息--帮找买家-- 卖家联系--检测看车--交易达成"/>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/ques2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top_line_bg"
+            android:padding="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="什么是闪电竞拍？"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/arrow2"
+                android:layout_width="11dp"
+                android:layout_height="6dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/arrow_down" />
+        </RelativeLayout>
+        <TextView
+
+            android:id="@+id/answ2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="@color/gray_ee"
+            android:textColor="@color/gray_99"
+            android:textSize="10sp"
+            android:visibility="gone"
+            android:text="闪电拍卖是指由平台上门检测车辆之后将您的爱车进行拍卖竞价，将拍卖最高价格提供给您从而达成交易的帮卖服务。"/>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/ques3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top_line_bg"
+            android:padding="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="什么是优商竞拍？"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/arrow3"
+                android:layout_width="11dp"
+                android:layout_height="6dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/arrow_down" />
+        </RelativeLayout>
+        <TextView
+
+            android:id="@+id/answ3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="@color/gray_ee"
+            android:textColor="@color/gray_99"
+            android:visibility="gone"
+            android:textSize="10sp"
+            android:text="优商竞买是指通过云车宝平台上入驻的优质商家为您提供二手车卖车服务。帮
+卖流程：登记信息--到店检车--车辆报价--交易达成"/>
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/ques4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top_line_bg"
+            android:padding="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我多久可以把车卖出去？"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/arrow4"
+                android:layout_width="11dp"
+                android:layout_height="6dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/arrow_down" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/answ4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="@color/gray_ee"
+            android:visibility="gone"
+            android:textColor="@color/gray_99"
+            android:textSize="10sp"
+            android:text="我们的帮卖服务最快可在1天内成交，多数可在7天内成交，根据您选择的卖车
+渠道及其其他因素卖车周期是有所不同的。"/>
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/ques5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top_line_bg"
+            android:padding="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="成交后需要哪些材料？"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/arrow5"
+                android:layout_width="11dp"
+                android:layout_height="6dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/arrow_down" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/answ5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:padding="15dp"
+            android:background="@color/gray_ee"
+            android:textColor="@color/gray_99"
+            android:textSize="10sp"
+            android:text="机动车行驶证、机动车登记证(产证)、车辆钥匙(含备用钥匙)、车辆购置税完税
+证明、交强险保单、车辆说明书(含保养手册)、车主身份证明原件。温馨提示：
+实际材料可能因服务商不同而略有差异。"/>
+
+    </LinearLayout>
+</ScrollView>

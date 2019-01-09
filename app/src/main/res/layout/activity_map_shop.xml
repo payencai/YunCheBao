@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.xihubao.MapShopActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/back"
+            android:layout_width="10dp"
+            android:layout_height="18dp" />
+        <TextView
+            android:textSize="18sp"
+            android:textColor="@color/black_33"
+            android:layout_centerInParent="true"
+            android:text="地图选店"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:background="#e2e2e2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></View>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.amap.api.maps.MapView
+            android:id="@+id/mapview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.amap.api.maps.MapView>
+        <LinearLayout
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/ll_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/white_shape"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:clipChildren="false">
+            <android.support.v4.view.ViewPager
+                android:id="@+id/id_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:clipToPadding="false"
+                android:layout_gravity="center">
+            </android.support.v4.view.ViewPager>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/theForm"
+    android:background="@color/gray_ee"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray_ee"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15948826"
+                android:textColor="@color/yellow_65"
+                android:textSize="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户在这里卖车"
+                android:textColor="@color/gray_99"
+                android:textSize="10dp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/lay1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@mipmap/red_mi"
+                android:drawablePadding="10dp"
+                android:text="选择车型"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/item1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="26dp"
+                android:text="请选择车型"
+                android:textColor="@color/gray_99"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="6dp"
+                android:layout_height="12dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/arrow_right" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/lay2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top_line_bg"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@mipmap/red_mi"
+                android:drawablePadding="10dp"
+                android:text="上牌地点"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/item2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="26dp"
+                android:text="请选择地点"
+                android:textColor="@color/gray_99"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="6dp"
+                android:layout_height="12dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/arrow_right" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/lay3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/title3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@mipmap/red_mi"
+                android:drawablePadding="10dp"
+                android:text="请选择上牌时间"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/item3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="26dp"
+                android:text="请选择上牌时间"
+                android:textColor="@color/gray_99"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="6dp"
+                android:layout_height="12dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/arrow_right" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/lay4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/title4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@mipmap/red_mi"
+                android:drawablePadding="10dp"
+                android:text="行驶里程"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+            <EditText
+                android:gravity="right"
+                android:layout_toLeftOf="@+id/tv_dis"
+                android:id="@+id/item4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:background="@color/white"
+                android:hint="请输入里程数"
+                android:textColor="@color/gray_99"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tv_dis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="km"
+                android:textColor="@color/black_33"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:drawableLeft="@mipmap/red_mi"
+            android:drawablePadding="10dp"
+            android:padding="15dp"
+            android:text="车源图片"
+            android:textColor="@color/black_33" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:paddingLeft="30dp">
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="72dp"
+                android:layout_height="52dp"
+                android:src="@mipmap/camera_default" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上传一张车辆正45°照片"
+                    android:textColor="@color/black_33"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:lineSpacingExtra="6dp"
+                    android:text="据统计，买车的人更喜欢查看有图车源，售\n出率更高哦"
+                    android:textColor="@color/gray_99"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/lay5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/title5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@mipmap/red_mi"
+                android:drawablePadding="10dp"
+                android:text="期望售价"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/title52"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="万元"
+                android:textColor="@color/black_33"
+                android:textSize="12sp" />
+
+            <EditText
+                android:gravity="right"
+                android:id="@+id/item5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/title52"
+                android:background="@color/white"
+                android:hint="支持两位小数点"
+                android:textColor="@color/gray_99"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/lay6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/title6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@mipmap/red_mi"
+                android:drawablePadding="10dp"
+                android:text="手机号"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/item6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@color/white"
+                android:text="请输入手机号码"
+                android:textColor="@color/gray_99"
+                android:textSize="10sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/lay7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/title7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="15dp"
+                android:drawableLeft="@mipmap/red_mi"
+                android:drawablePadding="10dp"
+                android:text="验证码"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/title72"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="6dp"
+                android:text="获取验证码"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:corner="4dp"
+                app:solid="@color/gray_cc" />
+
+            <EditText
+                android:id="@+id/item7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/title72"
+                android:background="@color/white"
+                android:hint="请输入验证码"
+                android:textColor="@color/gray_99"
+                android:textSize="10sp" />
+        </RelativeLayout>
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/submitBtn"
+            style="@style/form_submit_btn"
+            android:layout_marginTop="16dp"
+            android:text="发布卖车"
+            app:corner="2dp"
+            app:solid="@color/yellow_63" />
+
+        <TextView
+            android:id="@+id/remarkInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="44dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="4dp"
+            android:text="您必须保证信息的真实性，如信息与图片不符，我们会下架并通知您，提交即代表您同意《个人信息保护声明》"
+            android:textColor="@color/gray_99"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+</ScrollView>

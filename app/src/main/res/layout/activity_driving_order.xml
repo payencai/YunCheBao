@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cheyibao.DrivingOrderActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_above="@+id/tv_submit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <ImageView
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/back"
+                android:layout_width="12dp"
+                android:layout_height="20dp" />
+            <TextView
+                android:textSize="@dimen/sp_16"
+                android:textColor="@color/black_33"
+                android:layout_centerInParent="true"
+                android:text="订单确认"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <View
+            android:background="#e2e2e2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp">
+            <TextView
+                android:textSize="14sp"
+                android:textColor="@color/black_33"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:text="班型*"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="14sp"
+                    android:textColor="@color/gray_99"
+                    android:layout_marginLeft="15dp"
+                    android:layout_centerVertical="true"
+                    android:text="选择班型"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/enter"
+                    android:layout_width="10dp"
+                    android:layout_height="15dp" />
+            </LinearLayout>
+        </RelativeLayout>
+        <View
+            android:background="#e2e2e2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp">
+            <TextView
+                android:textSize="14sp"
+                android:textColor="@color/black_33"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:text="教练*"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="14sp"
+                    android:textColor="@color/gray_99"
+                    android:layout_marginLeft="15dp"
+                    android:layout_centerVertical="true"
+                    android:text="选择教练"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/enter"
+                    android:layout_width="10dp"
+                    android:layout_height="15dp" />
+            </LinearLayout>
+        </RelativeLayout>
+        <View
+            android:background="#e2e2e2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+        <TextView
+            android:layout_marginTop="20dp"
+            android:textSize="14sp"
+            android:textColor="@color/black_33"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:text="诺亚驾校"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:padding="15dp"
+            android:orientation="vertical"
+            android:background="#ececec"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="120dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:text="已选班型：C1xxx班"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+            <TextView
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:text="已选教练：你学会了吗？"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+            <TextView
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:text="价      格：¥4370"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+        </LinearLayout>
+        <View
+            android:layout_marginTop="20dp"
+            android:background="#e2e2e2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:textSize="14sp"
+                android:textColor="@color/black_33"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:text="姓名"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:textSize="@dimen/sp_14"
+                android:hint="请输入姓名"
+                android:layout_marginLeft="50dp"
+                android:background="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <View
+            android:background="#e2e2e2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:textSize="14sp"
+                android:textColor="@color/black_33"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:text="电话"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:textSize="@dimen/sp_14"
+                android:hint="请输入电话"
+                android:layout_marginLeft="50dp"
+                android:background="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+
+        android:id="@+id/tv_submit"
+        android:textColor="@color/white"
+        android:layout_margin="15dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:text="提交订单"
+        android:background="@color/yellow_02"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+</RelativeLayout>

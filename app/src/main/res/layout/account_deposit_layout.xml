@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/gray_ee"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/top_title_layout"></include>
+    <RelativeLayout
+        android:id="@+id/accountLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/two_line_bg"
+        android:layout_marginTop="5dp"
+        android:padding="10dp">
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/accountIcon"
+            android:layout_width="42dp"
+            android:layout_height="48dp"
+            app:placeholderImageScaleType="fitXY"
+            android:layout_marginLeft="4dp"
+            app:placeholderImage="@mipmap/jiaotongbank"/>
+
+        <TextView
+            android:id="@+id/accountName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="交通银行"
+            android:textColor="@color/black_33"
+            android:textSize="14sp"
+            android:layout_toRightOf="@id/accountIcon"
+            android:layout_marginLeft="14dp"/>
+        <TextView
+            android:id="@+id/accountNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="尾号6114"
+            android:textColor="@color/gray_99"
+            android:textSize="14sp"
+            android:layout_toRightOf="@id/accountIcon"
+            android:layout_below="@id/accountName"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="14dp"/>
+        
+        <ImageView
+            android:layout_width="6dp"
+            android:layout_height="11dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/arrow_right"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="该卡本次最多可充值499,918.00元"
+        android:textColor="@color/gray_87"
+        android:padding="15dp"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/two_line_bg"
+        android:layout_marginBottom="15dp"
+        android:padding="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="金额"
+            android:textColor="@color/black_33"
+            android:textSize="14sp"
+            />
+
+        <EditText
+            android:id="@+id/depositEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入充值金额"
+            android:layout_marginLeft="15dp"
+            android:textSize="14sp"
+            android:textColor="@color/black_33"
+            android:background="@color/white"/>
+    </LinearLayout>
+
+    <com.coorchice.library.SuperTextView
+        android:id="@+id/nextBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="下一步"
+        app:solid="@color/gray_d2"
+        android:layout_margin="15dp"
+        android:padding="14dp"
+        app:corner="4dp"
+        android:gravity="center"
+        android:textColor="@color/white"/>
+
+</LinearLayout>

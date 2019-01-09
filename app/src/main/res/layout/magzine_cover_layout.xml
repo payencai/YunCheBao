@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_title_layout"></include>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingBottom="120dp"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="184dp"
+                android:layout_height="230dp"
+                android:layout_marginTop="20dp"
+                app:placeholderImage="@mipmap/mag_img"
+                app:placeholderImageScaleType="fitXY" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="汽车杂志 17年10月号"
+                android:textColor="@color/black_33"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="月刊日期: 2017-10-01"
+                android:textColor="@color/gray_99"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="标签:法拉利SUV敞篷"
+                android:textColor="@color/gray_99"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="16dp"
+                android:lineSpacingExtra="4dp"
+                android:text="     最近最热门的两个汽车热门主题，一个是刚刚落幕，德国品牌的主场法兰克福车展，另一个是刚刚在法拉利后花园举行的法拉利70周年盛典，还有伴随法拉利70岁生日的法拉利经典车拍卖会。"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="4dp"
+                android:lineSpacingExtra="4dp"
+                android:text="     最近最热门的两个汽车热门主题，一个是刚刚落幕，德国品牌的主场法兰克福车展，另一个是刚刚在法拉利后花园举行的法拉利70周年盛典，还有伴随法拉利70岁生日的法拉利经典车拍卖会。"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </ScrollView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/top_line_bg"
+            android:padding="10dp">
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/btn"
+                style="@style/form_submit_btn"
+                android:text="阅读"
+                app:corner="2dp"
+                app:solid="@color/yellow_63" />
+        </RelativeLayout>
+    </FrameLayout>
+</LinearLayout>

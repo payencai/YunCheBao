@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingBottom="@dimen/city_hot_margin_bottom"
+    android:paddingLeft="@dimen/city_list_margin_left_dimen"
+    android:paddingRight="@dimen/city_list_margin_right_dimen"
+    android:paddingTop="@dimen/city_hot_margin_top">
+
+    <TextView
+        android:id="@+id/city_header_text"
+        style="@style/city_hot_header"
+        android:text="@string/city_show_text_hot" />
+</RelativeLayout>

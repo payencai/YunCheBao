@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_ee"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/topPanel"
+        layout="@layout/top_title_layout"></include>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="全部"
+            android:textColor="@color/black_33"
+            android:textSize="14sp"></TextView>
+
+        <View
+            android:layout_width="33dp"
+            android:layout_height="1dp"
+            android:layout_marginLeft="14dp"
+            android:background="@color/yellow_63"></View>
+
+    </LinearLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:fadingEdge="none"
+        android:scrollbars="none"
+        app:ptrAnimationStyle="custom"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+
+</LinearLayout>

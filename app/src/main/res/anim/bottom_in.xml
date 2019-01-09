@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/anim文件夹下定义  -->
+<!-- 名为push_bottom_in.xml -->
+<set xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <translate
+        android:duration="300"
+        android:fromYDelta="100%p"
+        android:toYDelta="0" />
+
+</set>

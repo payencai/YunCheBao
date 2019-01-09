@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingBottom="@dimen/city_hot_margin_bottom"
+    android:paddingLeft="@dimen/city_list_margin_left_dimen"
+    android:paddingRight="@dimen/city_list_margin_right_dimen"
+    android:paddingTop="@dimen/city_hot_margin_top">
+
+    <TextView
+        android:id="@+id/current_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/location_gray_icon"
+        android:drawablePadding="10dp"
+        android:text="昆明"
+        android:textColor="@color/black_33"
+        android:textSize="14sp" />
+
+    <TextView
+        style="@style/city_hot_header"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/current_city"
+        android:gravity="center_vertical"
+        android:text="@string/city_hotcity_curlocationcity_text"
+        android:textColor="@color/gray_66"
+        android:textSize="12sp" />
+</RelativeLayout>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_ee"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="适用范围"
+            android:textColor="@color/black_33"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="4dp"
+            android:text="1.云车宝积分可子啊云车宝APP使用，如用户账号暂停使用，则云车宝将取消用户账号内提分相关使用权益。"
+            android:textColor="@color/gray_99"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:lineSpacingExtra="4dp"
+            android:text="2.云车宝积分可用于云车宝APP的“礼品汇”中兑换相对应宝币数量的商品。"
+            android:textColor="@color/gray_99"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:lineSpacingExtra="4dp"
+            android:text="3.积分查询：用户可在礼品“我的钱包”或“礼品汇”首页中查询到您的积分情况。"
+            android:textColor="@color/gray_99"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="宝币有效期"
+            android:textColor="@color/black_33"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="4dp"
+            android:text="1.用户获得但未使用的宝币，将在下一个自然年底过期，云车宝将定期对过期宝币进行作废处理。例2017年12月31日将清空2016年度客户获得但未使用的宝币。"
+            android:textColor="@color/gray_99"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="礼品汇"
+            android:textColor="@color/black_33"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="4dp"
+            android:text="1.云车宝APP中的“礼品汇”频道中，您可用获得的宝币进行兑换礼品活动，具体活动规则可参考相应活动页面。"
+            android:textColor="@color/gray_99"
+            android:textSize="12sp" />
+    </LinearLayout>
+</LinearLayout>

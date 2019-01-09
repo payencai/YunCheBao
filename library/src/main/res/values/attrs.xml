@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="flakeCount" format="integer"></attr>
+    <attr name="minSize" format="integer"></attr>
+    <attr name="maxsize" format="integer"></attr>
+    <attr name="flakeSrc" format="reference|integer"></attr>
+    <attr name="speedX" format="integer"></attr>
+    <attr name="speedY" format="integer"></attr>
+    <declare-styleable name="Snow">
+        <attr name="flakeCount"/>
+        <attr name="minSize"/>
+        <attr name="maxsize"/>
+        <attr name="flakeSrc"/>
+        <attr name="speedX"/>
+        <attr name="speedY"/>
+    </declare-styleable>
+    <declare-styleable name="bubble">
+        <attr name="bubbleDirection">
+            <enum name="left" value="0"></enum>
+            <enum name="top" value="1"></enum>
+            <enum name="right" value="2"></enum>
+            <enum name="bottom" value="3"></enum>
+        </attr>
+        <attr name="bubbleArrowWidth" format="dimension" />
+        <attr name="bubbleArrowHeight" format="dimension" />
+        <attr name="bubbleArrowWhetherCenterVertical" format="boolean" />
+        <attr name="bubbleRadius" format="dimension" />
+        <attr name="bubbleMarginTop" format="dimension" />
+        <attr name="bubbleMarginLeft" format="dimension" />
+        <attr name="bubbleStrokeWidth" format="dimension" />
+        <attr name="bubbleStrokeColor" format="color" />
+        <attr name="bubbleBackGround" format="color" />
+    </declare-styleable>
+    <declare-styleable name="Theme">
+        <attr name="customImageViewStyle" format="reference" />
+    </declare-styleable>
+    <!-- 自定义圆角ImageView -->
+    <declare-styleable name="CustomImageView">
+        <attr name="circle" format="boolean" />
+        <attr name="radius" format="dimension" />
+    </declare-styleable>
+    <attr name="cpCancelTextSize" format="dimension|reference" />
+    <attr name="cpCancelTextColor" format="color|reference" />
+
+    <attr name="cpClearTextIcon" format="reference" />
+    <attr name="cpSearchTextSize" format="dimension|reference" />
+    <attr name="cpSearchTextColor" format="color|reference" />
+    <attr name="cpSearchHintText" format="string|reference" />
+    <attr name="cpSearchHintTextColor" format="color|reference" />
+    <attr name="cpSearchCursorDrawable" format="reference" />
+
+    <attr name="cpListItemTextSize" format="dimension|reference" />
+    <attr name="cpListItemTextColor" format="color|reference" />
+    <attr name="cpListItemHeight" format="dimension|reference"/>
+
+    <attr name="cpEmptyIcon" format="reference"/>
+    <attr name="cpEmptyIconWidth" format="dimension|reference"/>
+    <attr name="cpEmptyIconHeight" format="dimension|reference"/>
+    <attr name="cpEmptyText" format="string|reference"/>
+    <attr name="cpEmptyTextSize" format="dimension|reference"/>
+    <attr name="cpEmptyTextColor" format="color|reference"/>
+
+    <attr name="cpGridItemBackground" format="color|reference"/>
+    <attr name="cpGridItemSpace" format="reference"/>
+
+    <attr name="cpSectionHeight" format="reference"/>
+    <attr name="cpSectionTextSize" format="reference" />
+    <attr name="cpSectionTextColor" format="reference" />
+    <attr name="cpSectionBackground" format="reference" />
+
+    <attr name="cpIndexBarTextSize" format="reference" />
+    <attr name="cpIndexBarNormalTextColor" format="reference" />
+    <attr name="cpIndexBarSelectedTextColor" format="reference" />
+
+    <attr name="cpOverlayWidth" format="dimension|reference"/>
+    <attr name="cpOverlayHeight" format="dimension|reference"/>
+    <attr name="cpOverlayTextSize" format="dimension|reference"/>
+    <attr name="cpOverlayTextColor" format="color|reference"/>
+    <attr name="cpOverlayBackground" format="color|reference"/>
+    <declare-styleable name="CircleImageView">
+        <attr name="my_radius" format="integer" />
+    </declare-styleable>
+    
+    
+    <!--自定义bottombar 属性-->
+    
+    <declare-styleable name="BottomNaviView">
+        <attr name="tab_msg_count" format="dimension|reference"></attr>
+    </declare-styleable>
+</resources>

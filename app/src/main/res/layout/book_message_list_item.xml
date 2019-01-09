@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:padding="15dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        app:placeholderImage="@mipmap/icon"
+        app:placeholderImageScaleType="fitXY"
+        app:roundAsCircle="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我是古天乐"
+                android:textColor="@color/black_33"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/typeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="14dp"
+                android:layout_toRightOf="@id/name"
+                android:text=""
+                android:textColor="@color/yellow_65"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="11:30"
+                android:textColor="@color/gray_99"
+                android:textSize="10sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="该商家已接单，将在约定时间到达地点"
+                android:textColor="@color/gray_99"
+                android:textSize="10sp" />
+
+            <com.coorchice.library.SuperTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="2dp"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="9sp"
+                app:corner="5dp"
+                app:solid="@color/yellow_65" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

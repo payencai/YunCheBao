@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cn.bingoogolapple.refreshlayout.BGARefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/gods"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <include layout="@layout/top_search_layout"></include>
+
+        <com.tool.view.StickyNavLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@id/id_stickynavlayout_topview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!--广告栏banner-->
+                    <com.youth.banner.Banner
+                        android:id="@+id/slideshowView"
+                        android:layout_width="fill_parent"
+                        android:layout_height="150dp"
+                        android:visibility="visible" />
+                    <!--广告栏banner  end-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/menuLay1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:layout_width="29dp"
+                                android:layout_height="29dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="2dp"
+                                android:paddingBottom="1dp"
+                                android:scaleType="fitXY"
+                                android:src="@mipmap/posted_icon" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="5dp"
+                                android:text="我要发帖"
+                                android:textColor="@color/black_33"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/menuLay2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:layout_width="31dp"
+                                android:layout_height="30dp"
+                                android:scaleType="fitXY"
+                                android:src="@mipmap/collect_harf_icon" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="我的收藏"
+                                android:textColor="@color/black_33"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/menuLay3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:layout_width="29dp"
+                                android:layout_height="27dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="4dp"
+                                android:padding="2dp"
+                                android:scaleType="fitXY"
+                                android:src="@mipmap/browsetime_icon" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="浏览历史"
+                                android:textColor="@color/black_33"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <android.support.design.widget.TabLayout
+                android:id="@id/id_stickynavlayout_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:tabMode="fixed"
+                app:tabGravity="fill"
+                app:tabBackground="@color/white"
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabSelectedTextColor="@color/black_33"
+                app:tabTextColor="@color/gray_99" />
+
+
+
+            <android.support.v4.view.ViewPager
+                android:id="@id/id_stickynavlayout_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v4.view.ViewPager>
+
+
+        </com.tool.view.StickyNavLayout>
+    </LinearLayout>
+</cn.bingoogolapple.refreshlayout.BGARefreshLayout>

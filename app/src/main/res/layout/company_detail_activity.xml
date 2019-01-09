@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_ee"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_title_layout"></include>
+    <!-- 头部 end -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                app:placeholderImage="@mipmap/ex_img"
+                app:placeholderImageScaleType="fitXY" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:drawableLeft="@mipmap/title_line_orange"
+                    android:drawablePadding="16dp"
+                    android:text="公司介绍"
+                    android:textColor="@color/black_33"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:lineSpacingExtra="6dp"
+                    android:text="\t\t云南隆创尚通汽车销售服务有限公司隶属于云南捷通达集团，云南捷通达汽车投资 有限公司成立于2012年6月，公司坐落于昆明市经开区国际汽车城，注册资金6000万人民 币，是一家以投资汽车4S店为主业的投资公司，主营业务包括汽车销售、汽车配件、售 后维修、二手汽车、汽车租赁、汽车金融、汽车保险、汽车装饰等。 2016年，云南捷通达公司在云南已建成即将运营20家汽车4S店及旅游客栈，遍布云 南省各地州，拥有1500余名员工，经营品牌有梅赛德斯奔驰、一汽-大众、上汽通用及中 国一汽。2016年，公司经营业务发展迅速，实现整车销售11000余辆，维修汽车73000余 台次，主营业务收入12.7亿元。云南捷通达始终坚持诚信、专业的企业核心价值， 不断进取创新，初步建立了适应市场竞争需求的现代企业管理制度。面对云南汽车产业 的迅猛发展，公司将继续秉承坚持客户价值，尊重员工价值，保障股东利益的经营 理念，致建成拥有自身品牌影响力，具有竞争力的优秀汽车（交通工具）销售服务企业。"
+                    android:textColor="@color/gray_66"
+                    android:textSize="9sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:drawableLeft="@mipmap/title_line_orange"
+                    android:drawablePadding="16dp"
+                    android:text="联系方式"
+                    android:textColor="@color/black_33"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:lineSpacingExtra="6dp"
+                    android:text="云南隆创尚通汽车销售服务有限公司\n电话： 400-866-8620\n地址：昆明市滇池路542号（滇池路与日新路交叉口）\n"
+                    android:textColor="@color/gray_66"
+                    android:textSize="9sp"></TextView>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/askLowPriceBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#80f3ca65"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@mipmap/ask"
+                android:drawablePadding="10dp"
+                android:text="询问低价"
+                android:textColor="@color/yellow_02"
+                android:textSize="17sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/callForMoreBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/yellow_65"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@mipmap/phone_white_small"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="拨打电话"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,57 @@
+<resources>
+    <!--  TextView style -->
+    <!--  首页图标下文字 -->
+    <style name="home_icon_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <!--  首页图标下文字 -->
+    <style name="white_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <!--  首页 end  -->
+    <!--  标题文字 -->
+    <style name="lay_title_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">14dp</item>
+        <item name="android:textColor">@color/black_33</item>
+        <item name="android:background">@color/gray_fa</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!--  表单标题文字 -->
+    <style name="form_title_text">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">right</item>
+        <item name="android:textColor">@color/black_33</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <!--  表单输入框样式 -->
+    <style name="form_edit_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">5</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:textColor">@color/black_33</item>
+        <item name="android:background">@drawable/gray_stroke_r4</item>
+    </style>
+    <!--  表单值文字样式 -->
+    <style name="form_text_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:textColor">@color/black_5D</item>
+    </style>
+</resources>

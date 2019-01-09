@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/gray_ee"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/top_title_layout"></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:padding="15dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.coorchice.library.SuperTextView
+            android:layout_width="30dp"
+            android:layout_height="18dp"
+            android:gravity="center"
+            android:text="4S"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:corner="2dp"
+            app:solid="@color/yellow_63" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="云南联迪汽车"
+            android:textColor="@color/black_33"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/location_gray_icon"
+        android:layout_marginTop="10dp"
+        android:drawablePadding="10dp"
+        android:text="昆明市白龙路522号"
+        android:textColor="@color/gray_99"
+        android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/phone_small"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="10dp"
+            android:text="售后电话：400-931-4793"
+            android:textColor="@color/gray_99"
+            android:textSize="10sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/time_small"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="10dp"
+            android:text="保养时间：2017-11-17  08:00"
+            android:textColor="@color/gray_99"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="车牌号"
+            android:drawablePadding="10dp"
+            android:textSize="14sp"
+            android:textColor="@color/black_33"
+            android:drawableLeft="@mipmap/hongxing_icon"/>
+
+        <EditText
+            android:id="@+id/carNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@color/white"
+            android:textSize="14sp"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/gray_99"
+            android:text="请输入车牌号"/>
+        <TextView
+            android:id="@+id/carArea"
+            android:layout_toLeftOf="@id/carNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="14sp"
+            android:textColor="@color/black_33"
+            android:text="云"
+            android:drawablePadding="10dp"
+            android:layout_marginRight="10dp"
+            android:drawableRight="@mipmap/arrow_down_gray_small"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="1dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="联系人"
+            android:drawablePadding="10dp"
+            android:textSize="14sp"
+            android:textColor="@color/black_33"
+            android:drawableLeft="@mipmap/hongxing_icon"/>
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@color/white"
+            android:textSize="14sp"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/gray_99"
+            android:text="请输入姓名"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="1dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="手机号"
+            android:drawablePadding="10dp"
+            android:textSize="14sp"
+            android:textColor="@color/black_33"
+            android:drawableLeft="@mipmap/hongxing_icon"/>
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@color/white"
+            android:textSize="14sp"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/gray_99"
+            android:text="请输入手机号"/>
+    </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="4S店将跟您电话确认最终服务时间和价格"
+        android:textSize="10sp"
+        android:padding="15dp"
+        android:textColor="@color/gray_99"/>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_99"
+            android:button="@drawable/checkbox_select"
+            android:textSize="10sp"
+            android:text="   我同意，"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/yellow_65"
+            android:textSize="10sp"
+            android:text="《个人保养协议》《个人信息保护声明》 "/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/top_line_bg"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp">
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/callBtn"
+            style="@style/form_submit_btn"
+            android:text="确认预约"
+            app:corner="2dp"
+            app:solid="@color/yellow_63" />
+    </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_ee"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_title_layout"></include>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!--广告栏banner-->
+                <com.tool.slideshowview.SlideShowView
+                    android:id="@+id/slideshowView"
+                    android:layout_width="match_parent"
+                    android:layout_height="290dp"
+                    android:background="@color/white"
+                    android:visibility="visible" />
+                <!--广告栏banner  end-->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="小米官方旗航店移动电源2C 16000毫安"
+                        android:textColor="@color/black_33"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/name"
+                        android:layout_marginBottom="14dp"
+                        android:layout_marginTop="14dp"
+                        android:text="260000"
+                        android:textColor="@color/orange_17"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@id/price"
+                        android:layout_below="@id/name"
+                        android:layout_toRightOf="@id/price"
+                        android:text="宝币"
+                        android:textColor="@color/gray_87"
+                        android:textSize="14sp" />
+
+
+                    <ImageView
+                        android:id="@+id/collectIcon"
+                        android:layout_width="20dp"
+                        android:layout_height="27dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:paddingBottom="8dp"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/collect_gray" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignTop="@id/collectIcon"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@id/collectIcon"
+                        android:background="@color/gray_ee"
+                        android:paddingBottom="8dp"></View>
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/two_line_bg"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/menuTabText1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="15dp"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:paddingTop="15dp"
+                            android:text="图文详情"
+                            android:textColor="@color/black_33"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:id="@+id/menuTabLine1"
+                            android:layout_width="54dp"
+                            android:layout_height="2dp"
+                            android:layout_marginLeft="20dp"
+                            android:background="@color/yellow_65"></View>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/menuTabText2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="15dp"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:paddingTop="15dp"
+                            android:text="规格参数"
+                            android:textColor="@color/gray_99"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:id="@+id/menuTabLine2"
+                            android:layout_width="54dp"
+                            android:layout_height="2dp"
+                            android:layout_marginLeft="20dp"
+                            android:background="@color/yellow_65"
+                            android:visibility="gone"></View>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/view1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/school_img" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/school_img" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/school_img" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/school_img" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/view2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:paddingBottom="80dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingTop="10dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="产品型号：PLM06ZM"
+                            android:textColor="@color/gray_99" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="电池类型：锂聚合物电芯"
+                            android:textColor="@color/gray_99" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="电池能量：20000mAh 3.7V（74Wh）"
+                            android:textColor="@color/gray_99" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="输入参数：5.0V = 2.0A/9.0V = 2.0A"
+                            android:textColor="@color/gray_99" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="输出参数：2*5.1V = 2.0A/9.0V = 2.0A"
+                            android:textColor="@color/gray_99" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="          12V = 1.5A  MAX 18W"
+                            android:textColor="@color/gray_99" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="规格尺寸：149.5*69.6*23.9mm"
+                            android:textColor="@color/gray_99" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="使用温度：0℃～40摄氏度"
+                            android:textColor="@color/gray_99" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="充电时间：约6.7小时（9V/2A充电器，包装内充电线）"
+                            android:textColor="@color/gray_99" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="          约10小时（5V/2A充电器，包装内充电线）"
+                            android:textColor="@color/gray_99" />
+                    </LinearLayout>
+                </FrameLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/top_line_bg"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="合计：260000宝币"
+                android:textColor="@color/black_0d"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/submitBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@color/yellow_65"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="立即兑换"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </FrameLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="15dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/userhead"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/pic2" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/userhead">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="逍遥派"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+            <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                android:id="@+id/starbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                app:srb_maxStarSize="12dp" />
+        </LinearLayout>
+        <TextView
+            android:textSize="12sp"
+            android:textColor="@color/gray_99"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="2017-12-31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginLeft="40dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="这个教练是个超级大喷子，大家不要选择他了。这个教练是个超级大喷子，大家不要选择他了。这个教练是个超级大喷子，大家不要选择他了。这个教练是个超级大喷子，大家不要选择他了。"
+            android:textColor="@color/black_33"
+            android:textSize="14sp"
+
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <GridView
+            android:id="@+id/gridView"
+            android:horizontalSpacing="10dp"
+            android:verticalSpacing="10dp"
+            android:numColumns="4"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></GridView>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_name"
+        android:textSize="16sp"
+        android:textColor="@color/black_33"
+        android:text="爱琴海门店"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_marginRight="30dp"
+            android:layout_toLeftOf="@+id/tv_dis"
+            android:textSize="14sp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/gray_99"
+            android:text="西山区前兴路888号昆明西山万达广场（万达文化酒店正门）"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+
+            android:id="@+id/tv_dis"
+            android:layout_centerVertical="true"
+            android:textSize="12sp"
+            android:layout_alignParentRight="true"
+            android:text="0.32km"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_title_layout"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_ee"
+                android:padding="14dp"
+                android:text="热点问题"
+                android:textColor="@color/gray_99"
+                android:textSize="14sp" />
+
+            <RelativeLayout
+                android:id="@+id/ques1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/top_line_bg"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="280dp"
+                    android:text="忘记密码怎么办？如何修改密码？"
+                    android:textColor="@color/black_33"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/arrow1"
+                    android:layout_width="11dp"
+                    android:layout_height="6dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/arrow_down" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/answ1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_ee"
+                android:padding="15dp"
+                android:text="您好，您可以点击忘记密码，来找回您的密码。点击修改密码，设置您的新密码。"
+                android:textColor="@color/gray_99"
+                android:textSize="10sp"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/ques2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/top_line_bg"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="280dp"
+                    android:text="APP账号无法登陆？"
+                    android:textColor="@color/black_33"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/arrow2"
+                    android:layout_width="11dp"
+                    android:layout_height="6dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/arrow_down" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/answ2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_ee"
+                android:padding="15dp"
+                android:text="请用电脑访问云车宝官网登录账号，看是否能正常登陆？如还是不能登陆，
+请在意见反馈中及时与我们联系。"
+                android:textColor="@color/gray_99"
+                android:textSize="10sp"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/ques3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/top_line_bg"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="280dp"
+                    android:text="个人资料如何修改？"
+                    android:textColor="@color/black_33"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/arrow3"
+                    android:layout_width="11dp"
+                    android:layout_height="6dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/arrow_down" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/answ3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_ee"
+                android:padding="15dp"
+                android:text="可在[个人中心] -- [设置]或点击头像进行修改，目前手机端只支持修改头像、
+性别、收货地址。更多资料修改，请登录云车宝电脑版进行修改，谢谢！"
+                android:textColor="@color/gray_99"
+                android:textSize="10sp"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/ques4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/top_line_bg"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="280dp"
+                    android:text="如何解绑手机号、邮箱、QQ、微信、微博？"
+                    android:textColor="@color/black_33"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/arrow4"
+                    android:layout_width="11dp"
+                    android:layout_height="6dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/arrow_down" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/answ4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_ee"
+                android:padding="15dp"
+                android:text="请点击解绑，按照页面提示操作即可。"
+                android:textColor="@color/gray_99"
+                android:textSize="10sp"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/ques5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/top_line_bg"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="280dp"
+                    android:text="无法发帖、回帖、评论，提示“请在电脑版或触屏版绑定用户名？"
+                    android:textColor="@color/black_33"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/arrow5"
+                    android:layout_width="11dp"
+                    android:layout_height="6dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/arrow_down" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/answ5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_ee"
+                android:padding="15dp"
+                android:text="您好，如果通过发送短信注册，系统会自动分配到一个用户名，这个需要您
+登录电脑端或者使用手机浏览器访问云车宝网页，重新编辑下您的用户名方
+可正常发帖、回帖。用户名是您在云车宝的表示，首次编辑好后不允许再次
+修改，请知悉。"
+                android:textColor="@color/gray_99"
+                android:textSize="10sp"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/ques6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/top_line_bg"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="280dp"
+                    android:text="如何发布二手车卖车信息？"
+                    android:textColor="@color/black_33"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/arrow6"
+                    android:layout_width="11dp"
+                    android:layout_height="6dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/arrow_down" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/answ6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_ee"
+                android:padding="15dp"
+                android:text="您可以登录电脑端，点击二手车，进入二手车页面，点击我要卖车，按照
+页面发布车源的操作流程发布即可。"
+                android:textColor="@color/gray_99"
+                android:textSize="10sp"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/ques7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/top_line_bg"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="280dp"
+                    android:text="为什么没有摩托车、货车、房车等信息？"
+                    android:textColor="@color/black_33"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/arrow7"
+                    android:layout_width="11dp"
+                    android:layout_height="6dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/arrow_down" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/answ7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_ee"
+                android:padding="15dp"
+                android:text="您好，目前云车宝主要以家庭乘用车为主，感谢您的反馈，我们会不断完善的"
+                android:textColor="@color/gray_99"
+                android:textSize="10sp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@drawable/two_line_bg"
+        android:padding="15dp"
+        android:layout_gravity="bottom"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="意见反馈"
+            android:textColor="@color/yellow_65"
+            android:textSize="14sp"
+            android:drawableLeft="@mipmap/feedback"
+            android:drawablePadding="10dp"
+            />
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="15dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/img"
+        android:layout_width="120dp"
+        android:layout_height="86dp"
+        app:placeholderImage="@mipmap/car_icon"
+        app:placeholderImageScaleType="fitXY" />
+
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/img"
+        android:text="上海通用汽车-别克昂科威 "
+        android:textColor="@color/black_33"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/arrowImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"></ImageView>
+
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/img"
+        android:text="共有3款车型"
+        android:textColor="@color/gray_99"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/img"
+        android:text="低至"
+        android:textColor="@color/gray_99"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/text1"
+        android:layout_below="@id/info"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/text1"
+        android:text="16万"
+        android:textColor="@color/yellow_65"
+        android:textSize="18sp" />
+
+
+</RelativeLayout>
