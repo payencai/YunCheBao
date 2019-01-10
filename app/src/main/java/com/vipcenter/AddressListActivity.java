@@ -3,21 +3,36 @@ package com.vipcenter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.application.MyApplication;
+import com.costans.PlatformContans;
 import com.entity.PhoneAddressEntity;
 import com.example.yunchebao.R;
+import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.http.HttpProxy;
+import com.http.ICallBack;
+import com.maket.model.GoodList;
 import com.nohttp.sample.NoHttpBaseActivity;
+import com.payencai.library.util.ToastUtil;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.vipcenter.adapter.AddressListAdapter;
+import com.vipcenter.model.PersonAddress;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,9 +49,9 @@ public class AddressListActivity extends NoHttpBaseActivity {
     PullToRefreshListView pullToRefreshListView;
     private AddressListActivity obj;
     private AddressListAdapter adapter;
-    private List<PhoneAddressEntity> list;
+    private List<PersonAddress> list;
     private Context ctx;
-
+    int page=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,12 +75,7 @@ public class AddressListActivity extends NoHttpBaseActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                //数据是使用Intent返回
-//                Intent intent = new Intent();
-//                //把返回数据存入Intent
-//                intent.putExtra("result", list.get(position-1));
-//                //设置返回数据
-//                AddressListActivity.this.setResult(RESULT_OK, intent);
+
                 AddressListActivity.this.finish();
             }
         });
@@ -82,79 +92,46 @@ public class AddressListActivity extends NoHttpBaseActivity {
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
             }
         });
+        getData();
     }
+    private void getData(){
+        Map<String,Object> params=new HashMap<>();
+        params.put("page",page);
+        HttpProxy.obtain().get(PlatformContans.AddressManage.getUserAddress,params, MyApplication.getUserInfo().getToken(),new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("getGoodList", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        PersonAddress baikeItem = new Gson().fromJson(item.toString(), PersonAddress.class);
+                        list.add(baikeItem);
+                    }
+                    adapter.notifyDataSetChanged();
+                    //updateData();
 
-//    private void requestMethod(int type,String value) {
-//        Request<String> request = null;
-//        switch (type){
-//            case 0:
-//                request = NoHttp.createStringRequest(PlatformContans.rootUrl + PlatformContans.Urls.ShopUrls.getAllAddress , RequestMethod.GET);
-//                request(0, request, httpListener, true, true);
-//                break;
-//            case 1:
-//                request = NoHttp.createStringRequest(PlatformContans.rootUrl + PlatformContans.Urls.ShopUrls.changeDefault , RequestMethod.POST);
-//                request.add("address_id",list.get(Integer.parseInt(value)).getId());
-//                request(1, request, httpListener, true, true);
-//                break;
-//            case 2:
-//                request = NoHttp.createStringRequest(PlatformContans.rootUrl + PlatformContans.Urls.ShopUrls.deleteAddress , RequestMethod.POST);
-//                request.add("id",list.get(Integer.parseInt(value)).getId());
-//                request(2, request, httpListener, true, true);
-//                break;
-//        }
-//    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        switch (requestCode){
-//            case 1:
-//                if (resultCode == RESULT_OK){
-//                    requestMethod(0,"");
-//                }
-//                break;
-//        }
-//    }
+            @Override
+            public void onFailure(String error) {
 
-//    private HttpListener<String> httpListener = new HttpListener<String>() {
-//        @Override
-//        public void onSucceed(int what, Response response) {
-//            pullToRefreshListView.onRefreshComplete();
-//            String res = response.get().toString();
-//            HttpJsonClient client = new HttpJsonClient();
-//            client.setResp(res);
-//            if (client.isSuccess()) {
-//                switch (what) {
-//                    case 0:
-//                        List<PhoneAddressEntity> rList = client.getList(PhoneAddressEntity.class,"data");
-//                        if (rList != null ){
-//                            list.clear();
-//                            list.addAll(rList);
-//                            adapter.notifyDataSetChanged();
-//                        }
-//                        break;
-//                    default:
-//                        setToast(client.getMsg());
-//                        requestMethod(0,"");
-//                        break;
-//                }
-//            } else {
-//                setToast(client.getMsg());
-//            }
-//        }
-//
-//        @Override
-//        public void onFailed(int what, Response<String> response) {
-//        }
-//    };
-
+            }
+        });
+    }
     //adapter中按钮点击事件
     public void onShortcutMenuClickListener(Integer t, Integer loc) {
         int location = loc.intValue();
         switch (t) {
             case 0://修改
-//                PlatformContans.OBJECT_MAP.put(PlatformContans.LoginContacts.ENTITY,list.get(loc));
-//                startActivityForResult(new Intent(AddressListActivity.this,AddressAddActivity.class),1);
+               // PlatformContans.OBJECT_MAP.put(PlatformContans.LoginContacts.ENTITY,list.get(loc));
+                Intent intent=new Intent(AddressListActivity.this,AddressAddActivity.class);
+                intent.putExtra("data",list.get(loc));
+                startActivityForResult(intent,1);
                 break;
             case 1://删除
                 deleteAlert(loc);
@@ -173,6 +150,7 @@ public class AddressListActivity extends NoHttpBaseActivity {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
 //                        requestMethod(2,loc+"");
+                        delete(loc);
                         sDialog.dismiss();
                     }
                 })
@@ -185,7 +163,25 @@ public class AddressListActivity extends NoHttpBaseActivity {
                 })
                 .show();
     }
+    private void delete(int pos){
+        Map<String,Object> params=new HashMap<>();
+        params.put("id",list.get(pos).getId());
+        HttpProxy.obtain().post(PlatformContans.AddressManage.deleteUserAddress,MyApplication.getUserInfo().getToken(),params,new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("getGoodList", result);
+                Log.e("result", result);
+                ToastUtil.showToast(AddressListActivity.this, "删除成功");
+                getData();
+                finish();
+            }
 
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     @OnClick({R.id.back, R.id.btn})
     public void onClick(View view) {
         switch (view.getId()) {

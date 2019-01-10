@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.entity.PhoneAddressEntity;
 import com.example.yunchebao.R;
+import com.vipcenter.model.PersonAddress;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -20,11 +21,11 @@ import java.util.List;
  * 收货地址列表适配器
  */
 public class AddressListAdapter extends BaseAdapter {
-    private List<PhoneAddressEntity> list;
+    private List<PersonAddress> list;
     private Context ctx;
     private Object obj;
 
-    public AddressListAdapter(Context ctx , List<PhoneAddressEntity> list, Object obj) {
+    public AddressListAdapter(Context ctx , List<PersonAddress> list, Object obj) {
         this.list = list;
         this.ctx = ctx;
         this.obj = obj;
@@ -32,12 +33,12 @@ public class AddressListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return list.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return list.get(position);
     }
 
     @Override
@@ -55,18 +56,18 @@ public class AddressListAdapter extends BaseAdapter {
             vh.phone = (TextView) convertView.findViewById(R.id.phone);
             vh.address = (TextView) convertView.findViewById(R.id.address);
             vh.deAddress = (CheckBox) convertView.findViewById(R.id.de_box);
-            vh.deAddress.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    CheckBox v = (CheckBox)view;
-                    if(!v.isChecked()){
-                        v.setChecked(true);
-                        return;
-                    }else {
-                        reflectMethod(2,position);
-                    }
-                }
-            });
+//            vh.deAddress.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    CheckBox v = (CheckBox)view;
+//                    if(!v.isChecked()){
+//                        v.setChecked(true);
+//                        return;
+//                    }else {
+//                        reflectMethod(2,position);
+//                    }
+//                }
+//            });
             convertView.findViewById(R.id.editLay).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -83,11 +84,12 @@ public class AddressListAdapter extends BaseAdapter {
         }else {
             vh = (ViewHolder) convertView.getTag();
         }
-//        PhoneAddressEntity entity = list.get(position);
-//        vh.name.setText(entity.getName());
-//        vh.phone.setText(entity.getMobile());
-//        vh.address.setText(entity.getProvince()+entity.getCity()+entity.getArea()+entity.getTown()+entity.getDetail());
-//        vh.deAddress.setChecked(entity.getIs_def()==1);
+        PersonAddress entity = list.get(position);
+        vh.name.setText(entity.getNickname());
+        vh.phone.setText(entity.getTelephone());
+        vh.address.setText(entity.getProvince()+entity.getCity()+entity.getDistrict()+entity.getAddress());
+        vh.deAddress.setChecked(entity.getIsDefault()==1);
+        vh.deAddress.setClickable(false);
         return convertView;
     }
 

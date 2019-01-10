@@ -13,6 +13,7 @@ import com.example.yunchebao.R;
 import com.maket.fragment.GoodCommentFragment;
 import com.maket.fragment.GoodDetailFragment;
 import com.maket.fragment.GoodDetailInfoFragment;
+import com.maket.model.GoodList;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
@@ -40,11 +41,20 @@ public class GoodDetailActivity extends NoHttpFragmentBaseActivity implements Go
     ViewPager vpGank;
     @BindView(R.id.tab_gank)
     TabLayout tabGank;
+    GoodList mGoodList;
 
+    public GoodList getGoodList() {
+        return mGoodList;
+    }
+
+    public void setGoodList(GoodList goodList) {
+        mGoodList = goodList;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mGoodList= (GoodList) getIntent().getSerializableExtra("data");
         setContentView(R.layout.market_good_detail_main);
         initView();
     }

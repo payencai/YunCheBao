@@ -6,22 +6,35 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bbcircle.data.ClassItem;
+import com.costans.PlatformContans;
 import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
+import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.http.HttpProxy;
+import com.http.ICallBack;
+import com.maket.model.GoodList;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.vipcenter.adapter.GoodCollectListAdapter;
 import com.xihubao.CarBrandSelectActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +51,7 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
     ListView listView;
 
     private Context ctx;
-    private List<PhoneGoodEntity> list;
+    private List<GoodList> list;
     private GoodCollectListAdapter adapter;
     @BindView(R.id.rankPrice)
     TextView rankPriceBtn;
@@ -47,12 +60,15 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
     @BindView(R.id.rankDefault)
     TextView rankDefaultBtn;
     Resources res;
+    int page=1;
+    String id;
     boolean isPriceUp = false, isSaleUp = false;
     private int type = 0;//选中的是哪个排序方式
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        id=getIntent().getExtras().getString("id");
         setContentView(R.layout.market_list_layout);
         initView();
 //        requestMethod(0,"");
@@ -60,8 +76,7 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
 
 
     private void initView() {
-        findViewById(R.id.back).setVisibility(View.VISIBLE);
-        findViewById(R.id.user_center_icon).setVisibility(View.GONE);
+
         ctx = this;
         ButterKnife.bind(this);
         res = getResources();
@@ -74,12 +89,45 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ActivityAnimationUtils.commonTransition(MarketSelectListActivity.this, GoodDetailActivity.class, ActivityConstans.Animation.FADE);
+                position--;
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("data",list.get(position));
+                ActivityAnimationUtils.commonTransition(MarketSelectListActivity.this, GoodDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
             }
         });
+        getData(id);
 
     }
+    private void getData(String id){
+        Map<String,Object> params=new HashMap<>();
+        params.put("page",page);
+        params.put("secondId",id);
+        HttpProxy.obtain().get(PlatformContans.GoodMenu.getGoodList, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("getGoodList", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        GoodList baikeItem = new Gson().fromJson(item.toString(), GoodList.class);
+                        list.add(baikeItem);
+                    }
+                    adapter.notifyDataSetChanged();
+                    //updateData();
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
 
     @OnClick({R.id.back, R.id.selectBtn, R.id.rankDefault, R.id.rankPrice, R.id.rankSale, R.id.pleaseLay})
     public void onClick(View view) {

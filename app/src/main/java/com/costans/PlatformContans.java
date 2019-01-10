@@ -41,8 +41,38 @@ public class PlatformContans {
         public static final String getGiftOrderListByUserId=root+  "/giftCommodityOrder/getGiftOrderListByUserId";
         public static final String getCoinRecordByUserId=root+ "/coinRecord/getCoinRecordByUserId" ;
     }
+    public static class GoodMenu{
+        public static final String getGoodMenu=root+ "/babymerchantIndex/getBabyMerchantIndexList";
+        public static final String getGoodList=root+ "/babymercommodity/getBabyMerchantCommodityBySecondId";
+    }
+    public static class GoodInfo{
+        public static final String getGoodDetail=root+ "/babymercommodity/getBabyMerchantCommodity";
+        public static final String getGoodParams=root+ "/babymercommodity/getBabyMerComParam";
+        public static final String getBabyMerComFirstSpecifications=root+ "/babymercommodity/getBabyMerComFirstSpecifications";
+    }
+    public static class AddressManage{
+        public static final String addUserAddress=root+ "/userAddress/addUserAddress";
+        public static final String deleteUserAddress=root+  "/userAddress/deleteUserAddress";
+        public static final String getUserAddress=root+ "/userAddress/getUserAddress";
+        public static final String updateUserAddress=root+ "/userAddress/updateUserAddress";
+    }
+    public static class GoodsOrder{
+        public static final String addOrder=root+ "/babyMerchantOrder/addOrder";
+        public static final String addOrderByShoppingCar=root+ "/babyMerchantOrder/addOrderByShoppingCar";
+        public static final String addShoppingCar=root+ "/babyMerchantOrder/addShoppingCar";
 
+        public static final String addBabyMerchantComment=root+ "/babyMerchantOrder/addBabyMerchantComment";
+        public static final String applyRefund=root+ "/babyMerchantOrder/applyRefund";
+        public static final String deleteOrder=root+ "/babyMerchantOrder/delete";
 
+        public static final String deleteShoppingCar=root+ "/babyMerchantOrder/deleteShoppingCar";
+        public static final String finishOrder=root+ "/babyMerchantOrder/finish";
+        public static final String getShoppingCarList=root+ "/babyMerchantOrder/getShoppingCarList";
+
+        public static final String updateShoppingCarNumber=root+ "/babyMerchantOrder/updateShoppingCarNumber";
+        public static final String getBabyMerchantOrderItemByOrderId=root+ "/babyMerchantOrder/getBabyMerchantOrderItemByOrderId";
+        public static final String deliveryOrder=root+ "/babyMerchantOrder/delivery";
+    }
     public static class BabyCircle{
         public static final String getSelfDrivingCircleList=root+ "/babyCircle/getSelfDrivingCircleList" ;
         public static final String getMatchCircleList=root +"/babyCircle/getMatchCircleList";

@@ -126,5 +126,6 @@ dependencies {
     compile 'com.github.mr5:icarus:0.1.14'
     compile 'com.github.xinyangcuncun:GodSelfRefreshView:V1.2'
     compile 'com.zhy:base-rvadapter:3.0.3'
+    compile 'liji.library.dev:citypickerview:3.1.13'
     implementation 'cn.bingoogolapple:bga-refreshlayout:1.1.8@aar'
 }

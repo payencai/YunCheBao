@@ -5,9 +5,40 @@
     android:background="@color/gray_ee"
     android:orientation="vertical">
 
-    <include layout="@layout/top_title_layout"></include>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white">
 
-    <LinearLayout
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="15dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:textSize="16sp"
+            android:textColor="@color/black_33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="新增地址" />
+
+        <TextView
+            android:id="@+id/textBtn"
+            android:textColor="@color/yellow_02"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="保存" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="1dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -23,13 +54,17 @@
 
         <EditText
             android:id="@+id/name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:background="@color/white"
+            android:gravity="right"
+            android:hint="请输入收货人姓名"
+            android:textColor="@color/black_33"
             android:textSize="14sp" />
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -45,12 +80,16 @@
 
         <EditText
             android:id="@+id/mobile"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:background="@color/white"
+            android:gravity="right"
+            android:hint="请输入联系人电话"
             android:inputType="phone"
+            android:textColor="@color/black_33"
             android:textSize="14sp" />
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <RelativeLayout
@@ -60,28 +99,41 @@
         android:background="@drawable/two_line_bg">
 
         <TextView
-            android:id="@+id/address"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:hint="所在地区"
             android:padding="16dp"
+            android:text="所在地区"
+            android:textColor="@color/black_33"
             android:textSize="14sp" />
 
         <ImageView
+            android:id="@+id/iv_enter"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
             android:src="@mipmap/arrow_right" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/iv_enter"
+            android:text=""
+            android:textColor="@color/black_33"
+            android:textSize="14sp" />
+
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/streetLay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/two_line_bg">
+        android:background="@drawable/two_line_bg"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="match_parent"
@@ -118,7 +170,8 @@
         android:background="@color/white">
 
         <TextView
-            android:layout_width="match_parent"
+
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:background="@color/white"
@@ -126,11 +179,15 @@
             android:textSize="14sp" />
 
         <CheckBox
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:id="@+id/de_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:button="@drawable/checkbox_select" />
+            android:layout_marginRight="10dp"
+            android:button="@drawable/selector_checkbox"
+            android:checked="false"
+            android:focusable="false" />
+        />
     </RelativeLayout>
 </LinearLayout>

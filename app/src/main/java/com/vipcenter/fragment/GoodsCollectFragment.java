@@ -14,6 +14,7 @@ import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.maket.GoodDetailActivity;
+import com.maket.model.GoodList;
 import com.nohttp.sample.BaseFragment;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
@@ -36,7 +37,7 @@ public class GoodsCollectFragment extends BaseFragment {
     ListView listView;
 
     private Context ctx;
-    private List<PhoneGoodEntity> list;
+    private List<GoodList> list;
     private GoodCollectListAdapter adapter;
 
     @Override

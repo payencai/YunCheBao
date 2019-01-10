@@ -3,15 +3,34 @@ package com.vipcenter;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.application.MyApplication;
+import com.costans.PlatformContans;
 import com.entity.PhoneAddressEntity;
 import com.example.yunchebao.R;
+import com.google.gson.Gson;
+import com.http.HttpProxy;
+import com.http.ICallBack;
+import com.lljjcoder.Interface.OnCityItemClickListener;
+import com.lljjcoder.bean.CityBean;
+import com.lljjcoder.bean.DistrictBean;
+import com.lljjcoder.bean.ProvinceBean;
+import com.lljjcoder.citywheel.CityConfig;
+import com.lljjcoder.style.citylist.Toast.ToastUtils;
+import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.nohttp.sample.NoHttpBaseActivity;
+import com.payencai.library.util.ToastUtil;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
+import com.vipcenter.model.PersonAddress;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,89 +49,105 @@ public class AddressAddActivity extends NoHttpBaseActivity {
     EditText mobileEdit;
     @BindView(R.id.detailAddress)
     EditText detailEdit;
-
+    @BindView(R.id.de_box)
+    CheckBox de_box;
+    String mProvince;
+    String mCity;
+    String mArea;
+    PersonAddress mPersonAddress;
+    //申明对象
+    CityPickerView mPicker = new CityPickerView();
     private PhoneAddressEntity entity = null;
+    int flag = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.address_add_layout);
+        mPersonAddress = (PersonAddress) getIntent().getSerializableExtra("data");
+        ButterKnife.bind(this);
+        mPicker.init(this);
         initView();
     }
 
+    private void showSelectDialog() {
+//添加默认的配置，不需要自己定义，当然也可以自定义相关熟悉，详细属性请看demo
+        CityConfig cityConfig = new CityConfig.Builder().build();
+        mPicker.setConfig(cityConfig);
+
+//监听选择点击事件及返回结果
+        mPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
+            @Override
+            public void onSelected(ProvinceBean province, CityBean city, DistrictBean district) {
+                mProvince = province.getName();
+                mCity = city.getName();
+                mArea = district.getName();
+                addrText.setText(province.getName() + city.getName() + district.getName());
+                //省份province
+                //城市city
+                //地区district
+            }
+
+            @Override
+            public void onCancel() {
+                ToastUtils.showLongToast(AddressAddActivity.this, "已取消");
+            }
+        });
+
+        //显示
+        mPicker.showCityPicker();
+    }
+
     private void initView() {
-        ButterKnife.bind(this);
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "新增地址");
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.textBtn), ActivityConstans.UITag.TEXT_VIEW, "保存");
-//        if (PlatformContans.OBJECT_MAP.get(PlatformContans.LoginContacts.ENTITY) != null && !PlatformContans.OBJECT_MAP.get(PlatformContans.LoginContacts.ENTITY).equals("") ){
-//            entity = (PhoneAddressEntity) PlatformContans.OBJECT_MAP.get(PlatformContans.LoginContacts.ENTITY);
-//            setForm(entity);
-//        }else{
-//            entity = new PhoneAddressEntity();
-//        }
-    }
 
-
-    private void requestMethod(int type, String value) {
-//        Request<String> request = null;
-//        switch (type){
-//            case 0:
-//                request = NoHttp.createStringRequest(PlatformContans.rootUrl + PlatformContans.Urls.ShopUrls.addAdress , RequestMethod.POST);
-//                request.add("province",entity.getProvince());
-//                request.add("city",entity.getCity());
-//                request.add("area",entity.getArea());
-//                request.add("town","");
-//                request.add("name",entity.getName());
-//                request.add("mobile",entity.getMobile());
-//                request.add("detail",entity.getDetail());
-//                request(0, request, httpListener, true, true);
-//                break;
-//            case 1:
-//                request = NoHttp.createStringRequest(PlatformContans.rootUrl + PlatformContans.Urls.ShopUrls.changeAddress , RequestMethod.PUT);
-//                request.add("province",entity.getProvince());
-//                request.add("city",entity.getCity());
-//                request.add("area",entity.getArea());
-//                request.add("town","");
-//                request.add("name",entity.getName());
-//                request.add("mobile",entity.getMobile());
-//                request.add("detail",entity.getDetail());
-//                request.add("id",entity.getId());
-//                request(1, request, httpListener, true, true);
-//                break;
-//        }
+        if (mPersonAddress != null) {
+            flag = 2;
+            addrText.setText(mPersonAddress.getProvince() + mPersonAddress.getCity() + mPersonAddress.getDistrict());
+            detailEdit.setText(mPersonAddress.getAddress());
+            nameEdit.setText(mPersonAddress.getNickname());
+            mobileEdit.setText(mPersonAddress.getTelephone());
+            if (mPersonAddress.getIsDefault() == 1) {
+                de_box.setChecked(true);
+            } else {
+                de_box.setChecked(false);
+            }
+            mProvince=mPersonAddress.getProvince();
+            mCity=mPersonAddress.getCity();
+            mArea=mPersonAddress.getDistrict();
+        }
 
     }
 
-//    private HttpListener<String> httpListener = new HttpListener<String>() {
-//        @Override
-//        public void onSucceed(int what, Response response) {
-//            String res = response.get().toString();
-//            HttpJsonClient client = new HttpJsonClient();
-//            client.setResp(res);
-//            if (client.isSuccess()) {
-//                switch (what) {
-//                    case 0:
-//                    case 1:
-//                        setToast(client.getMsg());
-//                        //数据是使用Intent返回
-//                        Intent intent = new Intent();
-////                        //把返回数据存入Intent
-////                        intent.putExtra("result", "My name is linjiqin");
-//                        //设置返回数据
-//                        AddressAddActivity.this.setResult(RESULT_OK, intent);
-//                        //关闭Activity
-//                        AddressAddActivity.this.finish();
-//                        break;
-//                }
-//            } else {
-//                setToast(client.getMsg());
-//            }
-//        }
-//
-//        @Override
-//        public void onFailed(int what, Response<String> response) {
-//        }
-//    };
+    private void addAddress() {
+        int isDefult = 0;
+        if (de_box.isChecked()) {
+            isDefult = 1;
+        } else {
+            isDefult = 2;
+        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("address", detailEdit.getEditableText().toString());
+        params.put("city", mCity);
+        params.put("district", mArea);
+        params.put("isDefault", isDefult);
+        params.put("nickname", nameEdit.getEditableText().toString());
+        params.put("province", mProvince);
+        params.put("telephone", mobileEdit.getEditableText().toString());
+        String json = new Gson().toJson(params);
+        HttpProxy.obtain().post(PlatformContans.AddressManage.addUserAddress, MyApplication.getUserInfo().getToken(), json, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                ToastUtil.showToast(AddressAddActivity.this, "添加成功");
+                finish();
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
 
 
     private boolean checkForm() {
@@ -145,27 +180,57 @@ public class AddressAddActivity extends NoHttpBaseActivity {
     }
 
 
-    @OnClick({R.id.back, R.id.addressLay, R.id.textBtn, R.id.streetLay})
+    @OnClick({R.id.back, R.id.addressLay, R.id.textBtn})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
                 onBackPressed();
                 break;
             case R.id.addressLay:
-            case R.id.streetLay:
-                setToast("组件待定");
+                showSelectDialog();
+                /// setToast("组件待定");
                 break;
             case R.id.textBtn:
-//                if (checkForm()){
-//                    if (PlatformContans.OBJECT_MAP.get(PlatformContans.LoginContacts.ENTITY) != null && !PlatformContans.OBJECT_MAP.get(PlatformContans.LoginContacts.ENTITY).equals("") ){
-//                        requestMethod(1,"");
-//                    }else{
-//                        requestMethod(0,"");
-//                    }
-//
-//                }
+                if (checkForm()) {
+                    if (flag == 1)
+                        addAddress();
+                    else {
+                        update();
+                    }
+                }
                 break;
         }
+    }
+
+    private void update() {
+        int isDefult = 0;
+        if (de_box.isChecked()) {
+            isDefult = 1;
+        } else {
+            isDefult = 2;
+        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("address", detailEdit.getEditableText().toString());
+        params.put("city", mCity);
+        params.put("district", mArea);
+        params.put("isDefault", isDefult);
+        params.put("nickname", nameEdit.getEditableText().toString());
+        params.put("province", mProvince);
+        params.put("telephone", mobileEdit.getEditableText().toString());
+        String json = new Gson().toJson(params);
+        HttpProxy.obtain().post(PlatformContans.AddressManage.updateUserAddress, MyApplication.getUserInfo().getToken(), json, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                ToastUtil.showToast(AddressAddActivity.this, "修改成功");
+                finish();
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 
 

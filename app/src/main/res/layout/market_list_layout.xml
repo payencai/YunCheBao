@@ -7,9 +7,43 @@
     android:background="@color/gray_ee"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/topPanel"
-        layout="@layout/top_search_layout"></include>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerVertical="true"
+            android:padding="12dp"
+            android:src="@mipmap/back" />
+        <LinearLayout
+
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:visibility="gone"
+                android:src="@mipmap/search_icon"
+                android:layout_gravity="center_vertical"
+                android:layout_width="12dp"
+                android:layout_height="18dp" />
+            <EditText
+                android:drawablePadding="5dp"
+                android:drawableLeft="@mipmap/search__small_icon"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@color/white"
+                android:hint="搜索您想要的"
+                android:textColor="@color/black_33"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/pleaseLay"
@@ -17,7 +51,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:background="@color/white"
-        android:padding="15dp">
+        android:padding="15dp"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
