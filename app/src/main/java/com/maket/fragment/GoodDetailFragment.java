@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
@@ -26,6 +29,7 @@ import com.nohttp.sample.BaseFragment;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.slideshowview.SlideShowView;
+import com.tool.view.HorizontalListView;
 import com.vipcenter.AddressAddActivity;
 import com.vipcenter.OrderConfirmActivity;
 
@@ -105,20 +109,42 @@ public class GoodDetailFragment extends BaseFragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.atten_good_config_select, null);
         RelativeLayout ll = (RelativeLayout) view.findViewById(R.id.ll_root);
         ll.getBackground().setAlpha(20);
-        dialog = new Dialog(getActivity(), R.style.DialogStyleNoTitle);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable());
+        dialog = new Dialog(getActivity(), R.style.dialog);
+       // dialog.getWindow().setBackgroundDrawable(new ColorDrawable());
+
+        Window window = dialog.getWindow();
+        //设置dialog在屏幕底部
+        window.setGravity(Gravity.BOTTOM);
+        //设置dialog弹出时的动画效果，从屏幕底部向上弹出
+        window.setWindowAnimations(R.style.mypopwindow_anim_style);
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        //获得window窗口的属性
+        android.view.WindowManager.LayoutParams lp = window.getAttributes();
+        //设置窗口宽度为充满全屏
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        //设置窗口高度为包裹内容
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        //将设置好的属性set回去
+        window.setAttributes(lp);
+
         dialog.setContentView(view);
         dialog.show();
-        GridView gridView = (GridView) view.findViewById(R.id.gridView);
+        HorizontalListView gv_color = (HorizontalListView) view.findViewById(R.id.gv_color);
+        HorizontalListView gv_size = (HorizontalListView) view.findViewById(R.id.gv_size);
         List<String> list = new ArrayList<>();
-        list.add("[1个轮胎]");
-        list.add("[2个轮胎]");
-        list.add("[3个轮胎]");
-        list.add("[4个轮胎]");
-        list.add("[5个轮胎]");
+        List<String> list_size = new ArrayList<>();
+        list_size.add("42");
+        list_size.add("43");
+        list.add("红");
+        list.add("白");
+        list.add("蓝");
+        list.add("绿");
+        list.add("黑");
         ConfigAdapter adapter = new ConfigAdapter(ctx, list);
-        gridView.setAdapter(adapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ConfigAdapter adapter1 = new ConfigAdapter(ctx, list_size);
+        gv_color.setAdapter(adapter);
+        gv_size.setAdapter(adapter1);
+        gv_color.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 

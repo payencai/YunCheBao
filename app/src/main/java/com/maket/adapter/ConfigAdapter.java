@@ -29,7 +29,7 @@ public class ConfigAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 5;
+        return list.size();
     }
 
     @Override
@@ -53,6 +53,7 @@ public class ConfigAdapter extends BaseAdapter {
         } else {
             vh = (ViewHolder) convertView.getTag();
         }
+        vh.text.setText(list.get(position));
         return convertView;
     }
 

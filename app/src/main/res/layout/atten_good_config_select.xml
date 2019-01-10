@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#50333333"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+
         android:background="@drawable/top_line_bg"
         android:orientation="vertical">
 
@@ -26,6 +26,43 @@
                 app:placeholderImage="@mipmap/car_icon1"
                 app:placeholderImageScaleType="fitCenter" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/img"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/priceText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_toRightOf="@id/img"
+                    android:text="¥ 553.00"
+                    android:textColor="@color/red_39"></TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/priceText"
+                    android:layout_marginTop="14dp"
+
+                    android:text="库存: 2100"
+                    android:textColor="@color/gray_99"
+                    android:textSize="10sp" />id:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/priceText"
+                    android:layout_marginTop="14dp"
+
+                    android:text="请选择规格属性"
+                    android:textColor="@color/gray_99"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
             <ImageView
                 android:id="@+id/cancelBtn"
                 android:layout_width="13dp"
@@ -34,25 +71,7 @@
                 android:layout_margin="16dp"
                 android:src="@mipmap/cancel_black" />
 
-            <TextView
-                android:id="@+id/priceText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:layout_toRightOf="@id/img"
-                android:text="¥ 553.00"
-                android:textColor="@color/red_39"
-                android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/priceText"
-                android:layout_marginTop="14dp"
-                android:layout_toRightOf="@id/img"
-                android:text="已选择:[1个轮胎]"
-                android:textColor="@color/gray_99"
-                android:textSize="10sp" />
         </RelativeLayout>
 
         <View
@@ -65,19 +84,34 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="18dp"
-            android:text="数量"
+            android:text="颜色"
             android:textColor="@color/black_33"
             android:textSize="12sp" />
 
-        <GridView
-            android:id="@+id/gridView"
+        <com.tool.view.HorizontalListView
+            android:id="@+id/gv_color"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_margin="10dp"
-            android:numColumns="3"
             android:scrollbars="none"
-            android:verticalSpacing="13dp"
-            android:visibility="visible"></GridView>
+            android:visibility="visible"></com.tool.view.HorizontalListView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:text="尺寸"
+            android:textColor="@color/black_33"
+            android:textSize="12sp" />
+
+        <com.tool.view.HorizontalListView
+            android:id="@+id/gv_size"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:scrollbars="none"
+            android:visibility="visible"></com.tool.view.HorizontalListView>
 
         <LinearLayout
             android:layout_width="match_parent"
