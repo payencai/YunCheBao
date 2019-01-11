@@ -1,6 +1,7 @@
 package com.maket.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.coorchice.library.SuperTextView;
-import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.maket.model.GoodParam;
 
 import java.util.List;
@@ -19,11 +18,11 @@ import java.util.List;
  * Created by sdhcjhss on 2018/1/9.
  */
 
-public class ConfigAdapter extends BaseAdapter {
+public class ConfigSizeAdapter extends BaseAdapter {
     private Context ctx;
-    private List<GoodParam> list;
+    private List<GoodParam.SecondSpecificationsBean> list;
     int pos=0;
-    public ConfigAdapter(Context ctx, List<GoodParam> list) {
+    public ConfigSizeAdapter(Context ctx, List<GoodParam.SecondSpecificationsBean> list) {
         this.ctx = ctx;
         this.list = list;
     }
@@ -43,6 +42,14 @@ public class ConfigAdapter extends BaseAdapter {
         return position;
     }
 
+    public int getPos() {
+        return pos;
+    }
+
+    public void setPos(int pos) {
+        this.pos = pos;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder vh = null;
@@ -56,6 +63,7 @@ public class ConfigAdapter extends BaseAdapter {
         }
         vh.text.setText(list.get(position).getSpecificationsValue());
         if(position==pos){
+
             vh.text.setBackgroundResource(R.drawable.shape_param_select);
             vh.text.setTextColor(ctx.getResources().getColor(R.color.red_4e));
         }else{
@@ -63,14 +71,6 @@ public class ConfigAdapter extends BaseAdapter {
             vh.text.setTextColor(ctx.getResources().getColor(R.color.black_33));
         }
         return convertView;
-    }
-
-    public int getPos() {
-        return pos;
-    }
-
-    public void setPos(int pos) {
-        this.pos = pos;
     }
 
     public class ViewHolder {

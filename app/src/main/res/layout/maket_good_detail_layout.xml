@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.tool.slideshowview.SlideShowView
+            <com.youth.banner.Banner
                 android:id="@+id/slideshowView"
                 android:layout_width="fill_parent"
                 android:layout_height="202dp"
@@ -49,24 +49,91 @@
                     android:textSize="10sp" />
 
                 <ImageView
+                    android:id="@+id/iv_heart"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:padding="12dp"
-                    android:src="@mipmap/orange_heart_icon" />
+                    android:src="@mipmap/white_heart_icon" />
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:drawableLeft="@mipmap/zhengpin_icon"
                 android:drawablePadding="10dp"
                 android:padding="16dp"
                 android:text="米其林轮胎韧悦XM2 205/55R16 91V朗逸速腾马自达6明锐卡罗拉适配"
                 android:textColor="@color/black_33"
                 android:textSize="17sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@mipmap/select" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="免费安装"
+                        android:textColor="@color/gray_99"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@mipmap/select" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="正品低价"
+                        android:textColor="@color/gray_99"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@mipmap/select" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="正规发票"
+                        android:textColor="@color/gray_99"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/configSelectLay"
@@ -84,20 +151,23 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="已选："
+                        android:text="已选规格: "
                         android:textColor="@color/gray_99"
                         android:textSize="14sp" />
 
                     <TextView
+                        android:layout_marginLeft="20dp"
+                        android:id="@+id/tv_selectParams"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="【1个轮胎】"
-                        android:textColor="@color/gray_66"
+                        android:text="红色，43，2件"
+                        android:textColor="@color/black_33"
                         android:textSize="14sp" />
                 </LinearLayout>
 
 
                 <ImageView
+
                     android:layout_width="7dp"
                     android:layout_height="12dp"
                     android:layout_alignParentRight="true"
@@ -107,35 +177,42 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:paddingRight="16sp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:id="@+id/addressLay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@color/white"
-                android:padding="16dp">
+                android:paddingLeft="16dp">
 
-                <LinearLayout
+
+                <TextView
+                    android:id="@+id/tv_addrname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:text="配送区域: "
+                    android:textColor="@color/gray_99"
+                    android:textSize="14sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="配送区域："
-                        android:textColor="@color/gray_99"
-                        android:textSize="14sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="云南省昆明市西山区"
-                        android:textColor="@color/gray_66"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
+                <TextView
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/tv_addrname"
+                    android:id="@+id/tv_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/iv_enter"
+                    android:text="址请选择地址请选择地址请选择地址地"
+                    android:textColor="@color/black_33"
+                    android:textSize="14sp" />
 
                 <ImageView
+                    android:id="@+id/iv_enter"
                     android:layout_width="7dp"
                     android:layout_height="12dp"
                     android:layout_alignParentRight="true"
@@ -158,6 +235,7 @@
                     android:padding="15dp">
 
                     <TextView
+                        android:id="@+id/tv_commentNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="用户评价(12)"
@@ -172,12 +250,14 @@
                         android:orientation="horizontal">
 
                         <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                            android:id="@+id/sr_score"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
                             app:srb_starSize="10dp" />
 
                         <TextView
+                            android:id="@+id/tv_score"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"

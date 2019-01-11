@@ -47,10 +47,10 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/priceText"
                     android:layout_marginTop="14dp"
-
+                    android:id="@+id/tv_num"
                     android:text="库存: 2100"
                     android:textColor="@color/gray_99"
-                    android:textSize="10sp" />id:textSize="16sp" />
+                    android:textSize="10sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -112,7 +112,51 @@
             android:layout_margin="10dp"
             android:scrollbars="none"
             android:visibility="visible"></com.tool.view.HorizontalListView>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:text="数量"
+            android:textColor="@color/black_33"
+            android:textSize="12sp" />
+        <LinearLayout
+            android:background="@drawable/shape_param_unselect"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="130dp"
+            android:layout_height="35dp">
+            <TextView
+                android:id="@+id/tv_delete"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:text="-"
+                android:layout_width="40dp"
+                android:layout_height="match_parent" />
+            <View
+                android:background="@color/gray_99"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"></View>
+            <TextView
+                android:id="@+id/tv_count"
+                android:textColor="@color/gray_99"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:text="1"
+                android:layout_width="50dp"
+                android:layout_height="match_parent" />
+            <View
+                android:background="@color/gray_99"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"></View>
+            <TextView
+                android:id="@+id/tv_add"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:text="+"
+                android:layout_width="40dp"
+                android:layout_height="match_parent" />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

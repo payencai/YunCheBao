@@ -12,32 +12,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bbcircle.AllKindActivity;
 import com.coorchice.library.SuperTextView;
 import com.example.yunchebao.R;
+import com.maket.model.GoodsType;
+
+import java.util.List;
 
 @SuppressLint("ViewHolder")
 public class KindAdapter extends BaseAdapter {
 
     private Context context;
-    private String[] strings;
+    private List<GoodsType> strings;
     public static int mPosition;
 
-    public KindAdapter(Context context, String[] strings) {
+    public KindAdapter(Context context, List<GoodsType> strings) {
         this.context = context;
         this.strings = strings;
     }
 
     @Override
     public int getCount() {
-        return strings.length;
+        return strings.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return strings[position];
+        return strings.get(position);
     }
 
     @Override
@@ -50,7 +54,7 @@ public class KindAdapter extends BaseAdapter {
         convertView = LayoutInflater.from(context).inflate(R.layout.kind_list_item, null);
         SuperTextView tv = (SuperTextView) convertView.findViewById(R.id.tv);
         mPosition = position;
-        tv.setText(strings[position]);
+        tv.setText(strings.get(position).getName());
         if (position == AllKindActivity.mPosition) {
             tv.setSolid(ContextCompat.getColor(context, R.color.yellow_65));
             tv.setTextColor(ContextCompat.getColor(context, R.color.white));

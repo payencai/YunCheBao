@@ -43,6 +43,7 @@ import com.tool.WheelView;
 import com.tool.viewpager.CustomDatePicker;
 import com.vipcenter.AddressAddActivity;
 import com.vipcenter.RegisterActivity;
+import com.vipcenter.model.PersonAddress;
 import com.yuedan.WashCarType;
 
 import org.json.JSONArray;
@@ -400,7 +401,7 @@ public class BookWashCarFragment extends BaseFragment {
         dialog.setContentView(view);
         dialog.show();
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        List<PhoneAddressEntity> list = new ArrayList<>();
+        List<PersonAddress> list = new ArrayList<>();
         AttenAddressListAdapter adapter = new AttenAddressListAdapter(ctx, list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

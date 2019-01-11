@@ -42,6 +42,7 @@ public class PlatformContans {
         public static final String getCoinRecordByUserId=root+ "/coinRecord/getCoinRecordByUserId" ;
     }
     public static class GoodMenu{
+        public static final String getBabyMerchantCategoryList=root+ "/babycategory/getBabyMerchantCategoryList";
         public static final String getGoodMenu=root+ "/babymerchantIndex/getBabyMerchantIndexList";
         public static final String getGoodList=root+ "/babymercommodity/getBabyMerchantCommodityBySecondId";
     }
@@ -57,6 +58,8 @@ public class PlatformContans {
         public static final String updateUserAddress=root+ "/userAddress/updateUserAddress";
     }
     public static class GoodsOrder{
+
+        public static final String getGoodsComment=root+ "/babyMerchantOrder/getBabyMerchantCommentListByCommodityId";
         public static final String addOrder=root+ "/babyMerchantOrder/addOrder";
         public static final String addOrderByShoppingCar=root+ "/babyMerchantOrder/addOrderByShoppingCar";
         public static final String addShoppingCar=root+ "/babyMerchantOrder/addShoppingCar";

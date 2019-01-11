@@ -169,7 +169,11 @@
         <activity android:name="com.bbcircle.ReplyDescriptionActivity" />
 
         <!-- 宝贝商城 -->
-        <activity android:name="com.bbcircle.AllKindActivity" />
+        <activity
+            android:windowSoftInputMode="adjustResize"
+            android:name="com.bbcircle.AllKindActivity" >
+
+        </activity>
         <activity android:name="com.maket.ShopCartActivity" />
         <activity android:name="com.maket.GoodDetailActivity" />
         <activity android:name="com.maket.MarketSelectListActivity" />

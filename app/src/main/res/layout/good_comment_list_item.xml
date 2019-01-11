@@ -7,10 +7,11 @@
     android:orientation="horizontal">
 
     <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sd_head"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_margin="15dp"
-        app:placeholderImage="@mipmap/icon"
+        app:placeholderImage="@mipmap/car_icon"
         app:placeholderImageScaleType="fitXY"
         app:roundAsCircle="true" />
 
@@ -29,6 +30,7 @@
             android:textSize="14sp" />
 
         <com.iarcuschin.simpleratingbar.SimpleRatingBar
+            android:id="@+id/srb_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -37,6 +39,7 @@
             app:srb_starSize="8dp" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/buyInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,6 +50,7 @@
             android:textSize="10sp" />
 
         <TextView
+            android:id="@+id/item_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -69,43 +73,20 @@
             android:textColor="@color/gray_99"
             android:textSize="14dp" />
 
+         <com.tool.view.GridViewForScrollView
+             android:layout_marginBottom="10dp"
+             android:layout_marginTop="5dp"
+             android:layout_marginRight="20dp"
+             android:id="@+id/imgList"
+             android:numColumns="3"
+             android:horizontalSpacing="10dp"
+             android:layout_below="@id/content"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+         </com.tool.view.GridViewForScrollView>
         <LinearLayout
-            android:id="@+id/imgList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/content"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/image_bbcircle" />
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="10dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/image_bbcircle" />
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="10dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/image_bbcircle" />
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="10dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/image_bbcircle" />
-        </LinearLayout>
-
-        <LinearLayout
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
