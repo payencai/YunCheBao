@@ -1,23 +1,46 @@
 package com.maket;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.application.MyApplication;
+import com.costans.PlatformContans;
 import com.entity.PhoneGoodEntity;
+import com.entity.PhoneShopEntity;
 import com.example.yunchebao.R;
+import com.google.gson.Gson;
+import com.http.HttpProxy;
+import com.http.ICallBack;
 import com.maket.adapter.ShopCartAdapter;
+import com.maket.model.GoodParam;
+import com.maket.model.GoodsSelect;
 import com.nohttp.sample.NoHttpBaseActivity;
+import com.payencai.library.util.ToastUtil;
+import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
+import com.vipcenter.OrderConfirmActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.StringJoiner;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -37,14 +60,65 @@ public class ShopCartActivity extends NoHttpBaseActivity {
     private int mCount, mPosition;
     private float mTotalPrice1;
     private boolean mSelect;
+    private ArrayList<PhoneGoodEntity> mselectGoods = new ArrayList<>();
 
+    public void deleteGoods(String id) {
+        String token = "";
+        if (MyApplication.isLogin) {
+            token = MyApplication.getUserInfo().getToken();
+        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("shoppingCarId", id);
+        Log.e("params", params.toString());
+        HttpProxy.obtain().post(PlatformContans.GoodsOrder.deleteShoppingCar,
+                token, params, new ICallBack() {
+                    @Override
+                    public void OnSuccess(String result) {
+                        Log.e("data", result);
+                        //ToastUtil.showToast(ShopCartActivity.this, "修改成功");
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
+
+                    }
+                });
+    }
+
+    public void updateGoodsCar(String id, int number) {
+        String token = "";
+        if (MyApplication.isLogin) {
+            token = MyApplication.getUserInfo().getToken();
+        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("shoppingCarId", id);
+        params.put("number", number);
+        Log.e("params", params.toString());
+        HttpProxy.obtain().post(PlatformContans.GoodsOrder.updateShoppingCarNumber,
+                token, params, new ICallBack() {
+                    @Override
+                    public void OnSuccess(String result) {
+                        Log.e("data", result);
+                        //ToastUtil.showToast(ShopCartActivity.this, "修改成功");
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
+
+                    }
+                });
+    }
+
+    List<String> shopIds = new ArrayList<>();
+    Map<String, String> shopIdName = new HashMap<>();
+    ArrayList<GoodsSelect> mGoodsSelects=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop_cart_layout);
 
         initView();
-
+        tvShopCartSubmit= (TextView) findViewById(R.id.tv_shopcart_submit);
         tvShopCartSelect = (TextView) findViewById(R.id.tv_shopcart_addselect);
         tvShopCartTotalPrice = (TextView) findViewById(R.id.tv_shopcart_totalprice);
         tvShopCartTotalNum = (TextView) findViewById(R.id.tv_shopcart_totalnum);
@@ -56,7 +130,7 @@ public class ShopCartActivity extends NoHttpBaseActivity {
         lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         llPay.setLayoutParams(lp);
 
-        tvShopCartSubmit = (TextView) findViewById(R.id.tv_shopcart_submit);
+
 
         rlvShopCart.setLayoutManager(new LinearLayoutManager(this));
         mShopCartAdapter = new ShopCartAdapter(this, mAllOrderList);
@@ -64,16 +138,18 @@ public class ShopCartActivity extends NoHttpBaseActivity {
         //删除商品接口
         mShopCartAdapter.setOnDeleteClickListener(new ShopCartAdapter.OnDeleteClickListener() {
             @Override
-            public void onDeleteClick(int position, int cartid) {
+            public void onDeleteClick(int position, String cartid) {
+                deleteGoods(cartid);
                 mShopCartAdapter.notifyDataSetChanged();
             }
         });
         //修改数量接口
         mShopCartAdapter.setOnEditClickListener(new ShopCartAdapter.OnEditClickListener() {
             @Override
-            public void onEditClick(int position, int cartid, int count) {
+            public void onEditClick(int position, String cartid, int count) {
                 mCount = count;
                 mPosition = position;
+                updateGoodsCar(cartid, count);
             }
         });
         //实时监控全选按钮
@@ -103,6 +179,49 @@ public class ShopCartActivity extends NoHttpBaseActivity {
                 tvShopCartTotalNum.setText("共" + mTotalNum + "件商品");
             }
         });
+        tvShopCartSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mselectGoods.clear();
+                mGoodsSelects.clear();
+                for (int i = 0; i < mAllOrderList.size(); i++) {
+                    PhoneGoodEntity phoneShopEntity = mAllOrderList.get(i);
+                    if (phoneShopEntity.getIsSelect()) {
+                        mselectGoods.add(phoneShopEntity);
+                        if (!shopIds.contains(phoneShopEntity.getShopId())) {
+                            shopIds.add(phoneShopEntity.getShopId());
+                            shopIdName.put(phoneShopEntity.getShopId(), phoneShopEntity.getShopName());
+                        }
+
+                    }
+                }
+                for (int i = 0; i < shopIds.size(); i++) {
+                    GoodsSelect goodsSelect=new GoodsSelect();
+                    String shoppingCarIds = "";
+                    String shopid = shopIds.get(i);
+                    for (int j = 0; j < mselectGoods.size(); j++) {
+                        PhoneGoodEntity phoneShopEntity = mselectGoods.get(j);
+                        if (shopid.equals(phoneShopEntity.getShopId())) {
+                            shoppingCarIds=shoppingCarIds+","+phoneShopEntity.getId();
+                            // shoppingCarIds.add(phoneShopEntity.getId());
+                        }
+                    }
+                    goodsSelect.setShoppingCarIds(shoppingCarIds);
+                    goodsSelect.setShopId(shopid);
+                    goodsSelect.setShopName(shopIdName.get(shopid));
+                    mGoodsSelects.add(goodsSelect);
+                }
+                Bundle bundle=new Bundle();
+                Log.e("omclick","oclick");
+                bundle.putSerializable("select",mselectGoods);
+                bundle.putSerializable("list",mGoodsSelects);
+                Intent intent=new Intent(ShopCartActivity.this, OrderConfirmActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+              //  ActivityAnimationUtils.commonTransition(ShopCartActivity.this, OrderConfirmActivity.class, ActivityConstans.Animation.FADE,bundle);
+            }
+        });
+
 
         //全选
         tvShopCartSelect.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +248,8 @@ public class ShopCartActivity extends NoHttpBaseActivity {
             }
         });
 
-        initData();
+        // initData();
+        getShopCar();
         mShopCartAdapter.notifyDataSetChanged();
     }
 
@@ -138,38 +258,67 @@ public class ShopCartActivity extends NoHttpBaseActivity {
         ButterKnife.bind(this);
     }
 
-    private void initData() {
-        for (int i = 0; i < 2; i++) {
-            PhoneGoodEntity sb = new PhoneGoodEntity();
-            sb.setShopId(1);
-            sb.setPrice("1.0");
-            sb.setDefaultPic("http://img2.3lian.com/2014/c7/25/d/40.jpg");
-            sb.setProductName("狼牙龙珠鼠标" + i);
-            sb.setShopName("狼牙龙珠");
-            sb.setColor("蓝色");
-            sb.setCount(2);
-            mAllOrderList.add(sb);
-        }
 
-        for (int i = 0; i < 2; i++) {
-            PhoneGoodEntity sb = new PhoneGoodEntity();
-            sb.setShopId(2);
-            sb.setPrice("1.0");
-            sb.setDefaultPic("http://img2.3lian.com/2014/c7/25/d/40.jpg");
-            sb.setProductName("达尔优鼠标" + i);
-            sb.setShopName("达尔优");
-            sb.setColor("绿色");
-            sb.setCount(2);
-            mAllOrderList.add(sb);
-        }
-        isSelectFirst(mAllOrderList);
+
+    public void getShopCar() {
+        HttpProxy.obtain().get(PlatformContans.GoodsOrder.getShoppingCarList, MyApplication.getUserInfo().getToken(), new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("jjj", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        JSONArray shopcar = item.getJSONArray("shoppingCarList");
+                        for (int j = 0; j < shopcar.length(); j++) {
+                            JSONObject shop = shopcar.getJSONObject(j);
+                            PhoneGoodEntity sb = new PhoneGoodEntity();
+                            sb.setShopName(shop.getString("shopName"));
+                            sb.setShopId(shop.getString("shopId"));
+                            DecimalFormat decimalFormat = new DecimalFormat("0.00");
+                            sb.setPrice(decimalFormat.format(shop.getDouble("price")) + "");
+                            sb.setProductId(shop.getString("commodityId"));
+                            sb.setDefaultPic(shop.getString("commodityImage"));
+                            sb.setProductName(shop.getString("commodityName"));
+                            sb.setCount(shop.getInt("number"));
+                            sb.setId(shop.getString("id"));
+                           // sb.setOriginalPrice(shop.getDouble("originalPrice"));
+                            sb.setFirstSpecificationValue(shop.getString("firstSpecificationValue"));
+                            sb.setFirstSpecificationName(shop.getString("firstSpecificationName"));
+                            sb.setFirstSpecificationId(shop.getString("firstSpecificationId"));
+                            sb.setSecondSpecificationValue(shop.getString("secondSpecificationValue"));
+                            sb.setSecondSpecificationName(shop.getString("secondSpecificationName"));
+                            sb.setSecondSpecificationId(shop.getString("secondSpecificationId"));
+                            if (j == 0) {
+                                sb.setIsFirst(1);
+                            } else {
+                                sb.setIsFirst(2);
+                            }
+                            mAllOrderList.add(sb);
+
+                        }
+                    }
+                    //isSelectFirst(mAllOrderList);
+                    mShopCartAdapter.notifyDataSetChanged();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 
     public static void isSelectFirst(List<PhoneGoodEntity> list) {
         if (list.size() > 0) {
             list.get(0).setIsFirst(1);
             for (int i = 1; i < list.size(); i++) {
-                if (list.get(i).getShopId() == list.get(i - 1).getShopId()) {
+                if (list.get(i).getShopId().equals(list.get(i - 1).getShopId())) {
                     list.get(i).setIsFirst(2);
                 } else {
                     list.get(i).setIsFirst(1);
@@ -179,14 +328,14 @@ public class ShopCartActivity extends NoHttpBaseActivity {
 
     }
 
-    @OnClick({R.id.back, R.id.tv_shopcart_submit})
+
+    @OnClick({R.id.back})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.back:
                 onBackPressed();
                 break;
-            case R.id.tv_shopcart_submit:
-                break;
+
         }
     }
 }

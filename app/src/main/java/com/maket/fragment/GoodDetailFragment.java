@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -28,6 +29,7 @@ import com.bbcircle.DrivingSelfDetailActivity;
 import com.bbcircle.DrivingSelfReplaySuccessActivity;
 import com.bbcircle.data.ClassItem;
 import com.bumptech.glide.Glide;
+import com.chat.helper.Constant;
 import com.costans.PlatformContans;
 import com.entity.PhoneAddressEntity;
 import com.example.yunchebao.R;
@@ -55,7 +57,9 @@ import com.tool.slideshowview.SlideShowView;
 import com.tool.view.GridViewForScrollView;
 import com.tool.view.HorizontalListView;
 import com.vipcenter.AddressAddActivity;
+import com.vipcenter.OrderChatDetailActivity;
 import com.vipcenter.OrderConfirmActivity;
+import com.vipcenter.ShopMainListActivity;
 import com.vipcenter.adapter.AddressListAdapter;
 import com.vipcenter.model.PersonAddress;
 import com.youth.banner.Banner;
@@ -122,6 +126,8 @@ public class GoodDetailFragment extends BaseFragment {
     GoodDetail mGoodDetail;
     List<String> images = new ArrayList<>();
     PersonAddress mPersonAddress;
+    @BindView(R.id.ll_comment)
+    LinearLayout ll_comment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -173,29 +179,37 @@ public class GoodDetailFragment extends BaseFragment {
         sr_score.setRating((float) mGoodDetail.getCommentData().getScore());
         tv_score.setText(mGoodDetail.getCommentData().getScore() + "分");
     }
-    public void addToShopCar(){
+
+    public void addToShopCar() {
+        String token = "";
+        if (MyApplication.isLogin) {
+            token = MyApplication.getUserInfo().getToken();
+        }
         GoodDetailActivity goodDetailActivity = (GoodDetailActivity) getActivity();
-        String firstId=mGoodParam.getId();
-        String secondId=goodSize.getId();
-        String commodityId=goodDetailActivity.getGoodList().getId();
+        String firstId = mGoodParam.getId();
+        String secondId = goodSize.getId();
+        String commodityId = goodDetailActivity.getGoodList().getId();
         Map<String, Object> params = new HashMap<>();
         params.put("commodityId", commodityId);
+        params.put("number", count);
         params.put("firstSpecificationId", firstId);
         params.put("secondSpecificationId", secondId);
-        HttpProxy.obtain().post(PlatformContans.GoodsOrder.addOrder,
-                MyApplication.getUserInfo().getToken(), params, new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Log.e("data",result);
-                ToastUtil.showToast(getContext(),"添加成功");
-            }
+        Log.e("params", params.toString());
+        HttpProxy.obtain().post(PlatformContans.GoodsOrder.addShoppingCar,
+                token, params, new ICallBack() {
+                    @Override
+                    public void OnSuccess(String result) {
+                        Log.e("data", result);
+                        ToastUtil.showToast(getContext(), "添加成功");
+                    }
 
-            @Override
-            public void onFailure(String error) {
+                    @Override
+                    public void onFailure(String error) {
 
-            }
-        });
+                    }
+                });
     }
+
     private void getComment() {
         GoodDetailActivity goodDetailActivity = (GoodDetailActivity) getActivity();
         Map<String, Object> params = new HashMap<>();
@@ -230,6 +244,9 @@ public class GoodDetailFragment extends BaseFragment {
                             hL_img.setAdapter(mGoodsCommentImageAdapter);
                         }
                     }
+                    if (data.length() > 0) {
+                        ll_comment.setVisibility(View.GONE);
+                    }
 
 
                 } catch (JSONException e) {
@@ -261,10 +278,12 @@ public class GoodDetailFragment extends BaseFragment {
                 }
             }
         });
+        ll_comment.setVisibility(View.GONE);
         getDetail();
         getAddress(1);
         getSizeAndColor();
         getComment();
+
     }
 
     /**
@@ -287,6 +306,7 @@ public class GoodDetailFragment extends BaseFragment {
     GoodParam.SecondSpecificationsBean goodSize;
     GoodParam mGoodParam;
     TextView tv_value;
+    int originCount = 0;
 
     public void attenConfigToast() {
         GoodDetailActivity goodDetailActivity = (GoodDetailActivity) getActivity();
@@ -306,23 +326,25 @@ public class GoodDetailFragment extends BaseFragment {
                 count = Integer.parseInt(tv_value.getText().toString());
                 if (count > 1) {
                     count--;
+                    originCount++;
                     tv_value.setText(count + "");
                     tv_selectParams.setText(mGoodParam.getSpecificationsValue() + "," + goodSize.getSpecificationsValue() + "," + count + "件");
-                    int num = (goodSize.getComInventory()) + 1;
-                    tv_num.setText("库存: " + num);
+                    tv_num.setText("库存: " + originCount);
                 }
             }
         });
+
+
         tv_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 count = Integer.parseInt(tv_value.getText().toString());
-                if (count < goodSize.getComInventory()) {
+                if (count < originCount) {
                     count++;
+                    originCount--;
                     tv_value.setText(count + "");
                     tv_selectParams.setText(mGoodParam.getSpecificationsValue() + "," + goodSize.getSpecificationsValue() + "," + count + "件");
-                    int num = (goodSize.getComInventory()) - 1;
-                    tv_num.setText("库存: " + num);
+                    tv_num.setText("库存: " + originCount);
                 }
 
             }
@@ -393,6 +415,8 @@ public class GoodDetailFragment extends BaseFragment {
             public void onClick(View v) {
                 if (dialog != null && dialog.isShowing()) {
                     dialog.dismiss();
+                    if (MyApplication.isLogin)
+                        addToShopCar();
                 }
             }
         });
@@ -462,8 +486,10 @@ public class GoodDetailFragment extends BaseFragment {
                         if (i == 0) {
                             mGoodParam = listColor.get(0);
                             listSize.addAll(goodParam.getSecondSpecifications());
-                            if (listSize.size() > 0)
+                            if (listSize.size() > 0) {
                                 goodSize = listSize.get(0);
+                                originCount = goodSize.getComInventory();
+                            }
                         }
                     }
                     if (mGoodParam != null)
@@ -483,32 +509,40 @@ public class GoodDetailFragment extends BaseFragment {
     }
 
     private void getAddress(int type) {
+        String token = "";
+        if (MyApplication.isLogin) {
+            token = MyApplication.getUserInfo().getToken();
+        } else {
+            tv_address.setText(MyApplication.getaMapLocation().getProvince() + MyApplication.getaMapLocation().getCity() + MyApplication.getaMapLocation().getDistrict());
+        }
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
         params.put("isDefault", type);
-        HttpProxy.obtain().get(PlatformContans.AddressManage.getUserAddress, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.AddressManage.getUserAddress, params, token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+
                 Log.e("getAddress", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray data = jsonObject.getJSONArray("data");
-                    if (type == 2) {
-                        for (int i = 0; i < data.length(); i++) {
-                            JSONObject item = data.getJSONObject(i);
-                            PersonAddress baikeItem = new Gson().fromJson(item.toString(), PersonAddress.class);
-                            mPersonAddresses.add(baikeItem);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        if (type == 2) {
+                            for (int i = 0; i < data.length(); i++) {
+                                JSONObject item = data.getJSONObject(i);
+                                PersonAddress baikeItem = new Gson().fromJson(item.toString(), PersonAddress.class);
+                                mPersonAddresses.add(baikeItem);
+                            }
+                            mAddressListAdapter.notifyDataSetChanged();
+                        } else {
+                            for (int i = 0; i < data.length(); i++) {
+                                JSONObject item = data.getJSONObject(i);
+                                mPersonAddress = new Gson().fromJson(item.toString(), PersonAddress.class);
+                            }
+                            tv_address.setText(mPersonAddress.getProvince() + mPersonAddress.getCity() + mPersonAddress.getDistrict() + mPersonAddress.getAddress());
                         }
-                        mAddressListAdapter.notifyDataSetChanged();
-                    } else {
-                        for (int i = 0; i < data.length(); i++) {
-                            JSONObject item = data.getJSONObject(i);
-                            mPersonAddress = new Gson().fromJson(item.toString(), PersonAddress.class);
-                        }
-                        tv_address.setText(mPersonAddress.getProvince() + mPersonAddress.getCity() + mPersonAddress.getDistrict() + mPersonAddress.getAddress());
                     }
-
-                    //updateData();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -587,7 +621,7 @@ public class GoodDetailFragment extends BaseFragment {
         this.listener = listener;
     }
 
-    @OnClick({R.id.commentLay, R.id.configSelectLay, R.id.addressLay})
+    @OnClick({R.id.commentLay, R.id.configSelectLay, R.id.addressLay, R.id.toCustomServiceBtn, R.id.toShopDetailBtn, R.id.submitBtn, R.id.ll_carshop})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.commentLay:
@@ -600,6 +634,21 @@ public class GoodDetailFragment extends BaseFragment {
                 break;
             case R.id.addressLay:
                 attenAddressToast();
+                break;
+            case R.id.toCustomServiceBtn:
+                Intent intent = new Intent(getContext(), OrderChatDetailActivity.class);
+                intent.putExtra(Constant.EXTRA_USER_ID, "哈哈");
+                startActivity(intent);
+                break;
+            case R.id.toShopDetailBtn:
+                ActivityAnimationUtils.commonTransition(getActivity(), ShopMainListActivity.class, ActivityConstans.Animation.FADE);
+                break;
+            case R.id.submitBtn:
+                ActivityAnimationUtils.commonTransition(getActivity(), OrderConfirmActivity.class, ActivityConstans.Animation.FADE);
+                break;
+            case R.id.ll_carshop:
+                if (MyApplication.isLogin)
+                    addToShopCar();
                 break;
         }
     }

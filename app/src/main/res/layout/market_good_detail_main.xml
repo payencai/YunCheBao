@@ -48,120 +48,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/bottomMenuLay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/top_line_bg"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/toCustomServiceBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:paddingBottom="10dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="10dp">
-
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="14dp"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/customerservice_icon" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="客服"
-                    android:textColor="@color/black_33"
-                    android:textSize="10sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="30dp"
-                android:background="@color/gray_ee"></View>
-
-            <LinearLayout
-                android:id="@+id/toShopDetailBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:paddingBottom="10dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="10dp">
-
-                <ImageView
-                    android:layout_width="17dp"
-                    android:layout_height="15dp"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/shop_black_icon" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="店铺"
-                    android:textColor="@color/black_33"
-                    android:textSize="10sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="30dp"
-                android:background="@color/gray_ee"></View>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:paddingBottom="10dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingTop="10dp">
-
-                <ImageView
-                    android:id="@+id/addShopCartBtn"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/shoppingcart_yellow_icon" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="加入购物车"
-                    android:textColor="@color/yellow_65"
-                    android:textSize="10sp" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/submitBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/yellow_65"
-                android:gravity="center"
-                android:padding="17dp"
-                android:text="立即购买"
-                android:textColor="@color/white"
-                android:textSize="17sp" />
-        </LinearLayout>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_gank"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/bottomMenuLay"
+
             android:background="#fff2f4f5"></android.support.v4.view.ViewPager>
     </RelativeLayout>
 

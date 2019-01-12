@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
@@ -46,6 +47,7 @@ public class GoodDetailInfoFragment extends BaseFragment {
     List<GoodInfoParams> mGoodInfoParams=new ArrayList<>();
     @BindView(R.id.lv_params)
     ListView lv_params;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

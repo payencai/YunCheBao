@@ -1,23 +1,124 @@
 package com.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by sdhcjhss on 2017/11/27.
  */
 
-public class PhoneGoodEntity {
-    private int id;
-    private int shopId;
+public class PhoneGoodEntity implements Serializable{
+    private String id;
+    private String shopId;
     private String shopName;
-    private int productId;
+    private String productId;
     private String productName;
-    private String color;
-    private String size;
     private String price;
     private String defaultPic;
+    private String isExists;
+    private String firstSpecificationId;
+    private double originalPrice;
+    private int flag=0;
+    private double totalPrice=0;
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
+    public double getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public boolean isShopSelect() {
+        return isShopSelect;
+    }
+
+    public void setOriginalPrice(double originalPrice) {
+        this.originalPrice = originalPrice;
+    }
+
     private int count;
     private boolean isSelect = true;
     private int isFirst = 2;
     private boolean isShopSelect = true;
+
+    public String getFirstSpecificationId() {
+        return firstSpecificationId;
+    }
+
+    public void setFirstSpecificationId(String firstSpecificationId) {
+        this.firstSpecificationId = firstSpecificationId;
+    }
+
+    public String getFirstSpecificationName() {
+        return firstSpecificationName;
+    }
+
+    public void setFirstSpecificationName(String firstSpecificationName) {
+        this.firstSpecificationName = firstSpecificationName;
+    }
+
+    public String getFirstSpecificationValue() {
+        return firstSpecificationValue;
+    }
+
+    public void setFirstSpecificationValue(String firstSpecificationValue) {
+        this.firstSpecificationValue = firstSpecificationValue;
+    }
+
+    public String getSecondSpecificationId() {
+        return secondSpecificationId;
+    }
+
+    public void setSecondSpecificationId(String secondSpecificationId) {
+        this.secondSpecificationId = secondSpecificationId;
+    }
+
+    public String getSecondSpecificationName() {
+        return secondSpecificationName;
+    }
+
+    public void setSecondSpecificationName(String secondSpecificationName) {
+        this.secondSpecificationName = secondSpecificationName;
+    }
+
+    public String getSecondSpecificationValue() {
+        return secondSpecificationValue;
+    }
+
+    public void setSecondSpecificationValue(String secondSpecificationValue) {
+        this.secondSpecificationValue = secondSpecificationValue;
+    }
+
+    private String firstSpecificationName;
+    private String firstSpecificationValue;
+    private String secondSpecificationId;
+    private String secondSpecificationName;
+    private String secondSpecificationValue;
+
+    public String getIsExists() {
+        return isExists;
+    }
+
+    public void setIsExists(String isExists) {
+        this.isExists = isExists;
+    }
+
 
     public String getDefaultPic() {
         return defaultPic;
@@ -51,19 +152,19 @@ public class PhoneGoodEntity {
         isSelect = select;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getShopId() {
+    public String getShopId() {
         return shopId;
     }
 
-    public void setShopId(int shopId) {
+    public void setShopId(String shopId) {
         this.shopId = shopId;
     }
 
@@ -75,11 +176,11 @@ public class PhoneGoodEntity {
         this.shopName = shopName;
     }
 
-    public int getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
@@ -91,21 +192,6 @@ public class PhoneGoodEntity {
         this.productName = productName;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
 
     public String getPrice() {
         return price;

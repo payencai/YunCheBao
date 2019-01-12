@@ -93,7 +93,7 @@ public class AllKindActivity extends NoHttpFragmentBaseActivity
         mSecondGoodsTypes.clear();
         Map<String, Object> params = new HashMap<>();
         params.put("superId", id);
-        HttpProxy.obtain().get(PlatformContans.GoodMenu.getBabyMerchantCategoryList, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.GoodMenu.getBabyMerchantCategoryList, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("gettype", result);

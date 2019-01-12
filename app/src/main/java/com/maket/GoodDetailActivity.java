@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.chat.CustomServiceActivity;
 import com.chat.helper.Constant;
@@ -41,6 +42,7 @@ public class GoodDetailActivity extends NoHttpFragmentBaseActivity implements Go
     ViewPager vpGank;
     @BindView(R.id.tab_gank)
     TabLayout tabGank;
+
     GoodList mGoodList;
 
     public GoodList getGoodList() {
@@ -90,23 +92,23 @@ public class GoodDetailActivity extends NoHttpFragmentBaseActivity implements Go
         mFragments.add(new GoodCommentFragment());
     }
 
-    @OnClick({R.id.backBtn, R.id.toCustomServiceBtn, R.id.toShopDetailBtn, R.id.addShopCartBtn, R.id.submitBtn})
+    @OnClick({R.id.backBtn})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.backBtn:
                 onBackPressed();
                 break;
-            case R.id.toCustomServiceBtn:
-                Intent intent = new Intent(GoodDetailActivity.this, OrderChatDetailActivity.class);
-                intent.putExtra(Constant.EXTRA_USER_ID, "哈哈");
-                startActivity(intent);
-                break;
-            case R.id.toShopDetailBtn:
-                ActivityAnimationUtils.commonTransition(GoodDetailActivity.this, ShopMainListActivity.class, ActivityConstans.Animation.FADE);
-                break;
-            case R.id.submitBtn:
-                ActivityAnimationUtils.commonTransition(GoodDetailActivity.this, OrderConfirmActivity.class, ActivityConstans.Animation.FADE);
-                break;
+//            case R.id.toCustomServiceBtn:
+//                Intent intent = new Intent(GoodDetailActivity.this, OrderChatDetailActivity.class);
+//                intent.putExtra(Constant.EXTRA_USER_ID, "哈哈");
+//                startActivity(intent);
+//                break;
+//            case R.id.toShopDetailBtn:
+//                ActivityAnimationUtils.commonTransition(GoodDetailActivity.this, ShopMainListActivity.class, ActivityConstans.Animation.FADE);
+//                break;
+//            case R.id.submitBtn:
+//                ActivityAnimationUtils.commonTransition(GoodDetailActivity.this, OrderConfirmActivity.class, ActivityConstans.Animation.FADE);
+//                break;
         }
     }
 

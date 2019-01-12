@@ -36,6 +36,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:gravity="center"
                 android:id="@+id/tv_shopcart_addselect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,13 +63,14 @@
                     android:textSize="18sp" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/tv_shopcart_totalnum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="10dp"
                     android:paddingLeft="10dp"
                     android:text="共0件商品"
-                    android:visibility="gone" />
+                     />
 
             </LinearLayout>
 

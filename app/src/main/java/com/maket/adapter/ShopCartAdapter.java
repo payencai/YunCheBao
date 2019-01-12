@@ -2,6 +2,7 @@ package com.maket.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.application.MyApplication;
 import com.bumptech.glide.Glide;
+import com.costans.PlatformContans;
 import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
+import com.http.HttpProxy;
+import com.http.ICallBack;
+import com.maket.GoodDetailActivity;
 import com.maket.ShopCartActivity;
 import com.mcxtzhang.lib.AnimShopButton;
 import com.mcxtzhang.lib.IOnAddDelListener;
+import com.payencai.library.util.ToastUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016/10/14.
@@ -43,12 +52,13 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
         return new ShopCartAdapter.MyViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(final ShopCartAdapter.MyViewHolder holder, final int position) {
 
         Glide.with(context).load(data.get(position).getDefaultPic()).into(holder.ivShopCartClothPic);
         if (position > 0) {
-            if (data.get(position).getShopId() == data.get(position - 1).getShopId()) {
+            if (data.get(position).getIsFirst() == 2) {
                 holder.llShopCartHeader.setVisibility(View.GONE);
             } else {
                 holder.llShopCartHeader.setVisibility(View.VISIBLE);
@@ -72,6 +82,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
                     mOnEditClickListener.onEditClick(position, data.get(position).getId(), count);
                 }
                 data.get(position).setCount(count);
+
                 notifyDataSetChanged();
             }
 
@@ -83,6 +94,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
             @Override
             public void onDelSuccess(int i) {
                 if (i <= 0) {
+
                     showDialog(position);
                 } else if (data.get(position).getCount() > 1) {
                     int count = data.get(position).getCount() - 1;
@@ -91,6 +103,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
                     }
                     data.get(position).setCount(count);
                     notifyDataSetChanged();
+
                 }
             }
 
@@ -162,7 +175,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
                         //遍历去找出同一家商铺的所有商品的勾选情况
                         for (int j = 0; j < data.size(); j++) {
                             //如果是同一家商铺的商品，并且其中一个商品是未选中，那么商铺的全选勾选取消
-                            if (data.get(j).getShopId() == data.get(i).getShopId() && !data.get(j).getIsSelect()) {
+                            if ((data.get(j).getShopId().equals(data.get(i).getShopId())) && !data.get(j).getIsSelect()) {
                                 data.get(i).setShopSelect(false);
                                 break;
                             } else {
@@ -182,7 +195,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
                 if (data.get(position).getIsFirst() == 1) {
                     data.get(position).setShopSelect(!data.get(position).getIsShopSelect());
                     for (int i = 0; i < data.size(); i++) {
-                        if (data.get(i).getShopId() == data.get(position).getShopId()) {
+                        if (data.get(i).getShopId().equals(data.get(position).getShopId())) {
                             data.get(i).setSelect(data.get(position).getIsShopSelect());
                         }
                     }
@@ -202,6 +215,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
         //重新排序，标记所有商品不同商铺第一个的商品位置
         ShopCartActivity.isSelectFirst(data);
         notifyDataSetChanged();
+
     }
 
     @Override
@@ -210,6 +224,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
         if (headerView != null) {
             count++;
         }
+        Log.e("count", count + "");
         return count;
     }
 
@@ -253,7 +268,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
     }
 
     public interface OnDeleteClickListener {
-        void onDeleteClick(int position, int cartid);
+        void onDeleteClick(int position, String cartid);
     }
 
     public void setOnDeleteClickListener(OnDeleteClickListener mOnDeleteClickListener) {
@@ -261,7 +276,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
     }
 
     public interface OnEditClickListener {
-        void onEditClick(int position, int cartid, int count);
+        void onEditClick(int position, String cartid, int count);
     }
 
     public void setOnEditClickListener(OnEditClickListener mOnEditClickListener) {
