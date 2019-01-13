@@ -15,6 +15,16 @@ public class PhoneGoodEntity implements Serializable{
     private String price;
     private String defaultPic;
     private String isExists;
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     private String firstSpecificationId;
     private double originalPrice;
     private int flag=0;

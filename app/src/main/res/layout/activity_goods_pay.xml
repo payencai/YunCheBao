@@ -32,24 +32,25 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.tool.slideshowview.SlideShowView
-            android:id="@+id/slideshowView"
-
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
             android:layout_width="fill_parent"
             android:layout_height="150dp"
             android:visibility="visible" />
         <LinearLayout
-         android:paddingBottom="10dp"
+            android:paddingBottom="10dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
+                android:id="@+id/ll_payMember"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:id="@+id/iv_member"
                     android:src="@drawable/btn_unselected"
                     android:layout_width="20dp"
                     android:layout_height="20dp" />
@@ -61,12 +62,15 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_wechat"
+
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:id="@+id/iv_wechat"
                     android:src="@drawable/btn_unselected"
                     android:layout_width="20dp"
                     android:layout_height="20dp" />
@@ -78,12 +82,14 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_Alipay"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:id="@+id/iv_alipay"
                     android:src="@drawable/btn_selected"
                     android:layout_width="20dp"
                     android:layout_height="20dp" />

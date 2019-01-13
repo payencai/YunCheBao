@@ -206,7 +206,8 @@ public class ShopCartActivity extends NoHttpBaseActivity {
                             // shoppingCarIds.add(phoneShopEntity.getId());
                         }
                     }
-                    goodsSelect.setShoppingCarIds(shoppingCarIds);
+
+                    goodsSelect.setShoppingCarIds(shoppingCarIds.substring(1));
                     goodsSelect.setShopId(shopid);
                     goodsSelect.setShopName(shopIdName.get(shopid));
                     mGoodsSelects.add(goodsSelect);

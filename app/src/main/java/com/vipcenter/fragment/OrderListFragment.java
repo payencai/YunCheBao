@@ -3,6 +3,7 @@ package com.vipcenter.fragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,10 +11,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.application.MyApplication;
+import com.costans.PlatformContans;
 import com.entity.PhoneOrderEntity;
 import com.example.yunchebao.R;
+import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.http.HttpProxy;
+import com.http.ICallBack;
+import com.maket.model.GoodList;
 import com.nohttp.sample.BaseFragment;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
@@ -29,8 +36,14 @@ import com.vipcenter.adapter.OrderListAdapter;
 import com.vipcenter.view.PayWayDialog;
 import com.yuedan.BookChatDetailActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -87,49 +100,85 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
                 initListData();
             }
         });
+        list.clear();
+        getData(getTypeId());
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        initListData();
+       // initListData();
     }
 
     private void initListData() {
         List<PhoneOrderEntity> rlist = new ArrayList<>();
-        switch (typeId) {
-            case 0:
-                rlist.add(new PhoneOrderEntity(1, "1"));
-//                rlist.add(new PhoneOrderEntity(2, "2"));
-//                rlist.add(new PhoneOrderEntity(3, "3"));
-//                rlist.add(new PhoneOrderEntity(4, "4"));
-
-                break;
-            case 1:
-                rlist.add(new PhoneOrderEntity(1, "1"));
-
-                break;
-            case 2:
-                rlist.add(new PhoneOrderEntity(1, "2"));
-
-                break;
-            case 3:
-                rlist.add(new PhoneOrderEntity(1, "3"));
-
-                break;
-            case 4:
-                rlist.add(new PhoneOrderEntity(1, "4"));
-
-                break;
-        }
-
-        list.clear();
-        list.addAll(rlist);
+//        switch (typeId) {
+//            case 0:
+//                rlist.add(new PhoneOrderEntity(1, "1"));
+//
+//
+//                break;
+//            case 1:
+//                rlist.add(new PhoneOrderEntity(1, "1"));
+//
+//                break;
+//            case 2:
+//                rlist.add(new PhoneOrderEntity(1, "2"));
+//
+//                break;
+//            case 3:
+//                rlist.add(new PhoneOrderEntity(1, "3"));
+//
+//                break;
+//            case 4:
+//                rlist.add(new PhoneOrderEntity(1, "4"));
+//
+//                break;
+//        }
+//
+//        list.clear();
+//        list.addAll(rlist);
         adapter.notifyDataSetChanged();
 
     }
+    private void getData(int state){
+        String token = "";
+        if (MyApplication.isLogin) {
+            token = MyApplication.getUserInfo().getToken();
+        } else {
+            return;
+            // tv.setText(MyApplication.getaMapLocation().getProvince() + MyApplication.getaMapLocation().getCity() + MyApplication.getaMapLocation().getDistrict());
+        }
+        Map<String,Object> params=new HashMap<>();
+        params.put("page",pageNum);
+        params.put("state",state);
+        HttpProxy.obtain().get(PlatformContans.GoodsOrder.getMyOrderList, params, token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("getGoodList", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        PhoneOrderEntity baikeItem = new Gson().fromJson(item.toString(), PhoneOrderEntity.class);
+                        list.add(baikeItem);
+                    }
+                    adapter.notifyDataSetChanged();
+                    //updateData();
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
 
 
     /* 摧毁该Fragment，一般是FragmentActivity 被摧毁的时候伴随着摧毁 */

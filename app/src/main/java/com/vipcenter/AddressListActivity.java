@@ -75,7 +75,11 @@ public class AddressListActivity extends NoHttpBaseActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                position--;
+                PersonAddress personAddress=list.get(position);
+                Intent intent=new Intent();
+                intent.putExtra("address",personAddress);
+                setResult(2,intent);
                 AddressListActivity.this.finish();
             }
         });

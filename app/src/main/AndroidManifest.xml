@@ -118,7 +118,7 @@
         <activity android:name="com.xihubao.RepairListActivity" />
         <activity android:name="com.xihubao.OrderPayActivity" />
         <activity android:name="com.xihubao.BrandGoodsListActivity" />
-        <activity android:name="com.xihubao.NewGoodsListActivity" />
+        <activity android:name="com.xihubao.NewGoodsListActivity"></activity>
         <activity android:name="com.xihubao.RoadAssistanceListActivity" />
         <activity android:name="com.xihubao.AssistanceDetailActivity" />
         <activity android:name="com.xihubao.Shop4SInfoActivity" />
@@ -170,10 +170,8 @@
 
         <!-- 宝贝商城 -->
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.bbcircle.AllKindActivity" >
-
-        </activity>
+            android:name="com.bbcircle.AllKindActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name="com.maket.ShopCartActivity" />
         <activity android:name="com.maket.GoodDetailActivity" />
         <activity android:name="com.maket.MarketSelectListActivity" />
@@ -205,7 +203,9 @@
         <activity android:name="com.vipcenter.OrderReturnApplyActivity" />
         <activity android:name="com.vipcenter.OrderReturnTypeActivity" />
         <activity android:name="com.vipcenter.OrderComplaintActivity" />
-        <activity android:name="com.vipcenter.OrderConfirmActivity" />
+        <activity
+            android:name="com.vipcenter.OrderConfirmActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name="com.vipcenter.RegisterActivity"
             android:windowSoftInputMode="stateHidden" />
@@ -369,7 +369,8 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name="com.cheyibao.CarSecondBrandActivity" />
         <activity android:name="com.cheyibao.DrivingOrderActivity" />
-        <activity android:name="com.cheyibao.NewCarItemActivity"></activity>
+        <activity android:name="com.cheyibao.NewCarItemActivity" />
+        <activity android:name="com.maket.GoodsPayActivity"></activity>
     </application>
 
 </manifest>

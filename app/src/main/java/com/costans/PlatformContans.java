@@ -75,6 +75,9 @@ public class PlatformContans {
         public static final String updateShoppingCarNumber=root+ "/babyMerchantOrder/updateShoppingCarNumber";
         public static final String getBabyMerchantOrderItemByOrderId=root+ "/babyMerchantOrder/getBabyMerchantOrderItemByOrderId";
         public static final String deliveryOrder=root+ "/babyMerchantOrder/delivery";
+
+
+        public static final String getMyOrderList=root+ "/babyMerchantOrder/getMyOrderList";
     }
     public static class BabyCircle{
         public static final String getSelfDrivingCircleList=root+ "/babyCircle/getSelfDrivingCircleList" ;
@@ -137,6 +140,11 @@ public class PlatformContans {
         public static final String getOldCarMerchantCarByApp=root+ "/oldcar/getOldCarMerchantCarByApp";
         public static final String getOldCarMerchantCarByUser=root+ "/oldcar/getOldCarMerchantCarByUser";
       //  public static final String getWashRepairServeResultByShopId=root+ "/carWashRepairShop/getWashRepairServeResultByShopId";
+    }
+    public static class Pay{
+        public static final String babyMerchantOrderPay=root+ "/alipay/babyMerchantOrderPay";
+        public static final String memberCardPay=root+ "/alipay/memberCardPay";
+        public static final String washRepairShopPay=root+ "/alipay/washRepairShopPay";
     }
     public static class Chat{
         public static final String searchFriendByKeyWord=root+"/huanxin/searchFriendByKeyWord";

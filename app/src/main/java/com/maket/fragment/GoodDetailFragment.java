@@ -169,7 +169,10 @@ public class GoodDetailFragment extends BaseFragment {
 
 
     public void setUIData() {
-        images.add(mGoodDetail.getCommodityImage());
+        String[] urls = mGoodDetail.getCommodityImage().split(",");
+        for (int i = 0; i <urls.length ; i++) {
+            images.add(urls[i]);
+        }
         initBanner();
         priceText.setText("￥" + mGoodDetail.getDiscountPrice());
         originalPriceText.setText("专柜价: ￥" + mGoodDetail.getOriginalPrice());

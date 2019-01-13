@@ -55,10 +55,7 @@ public class WashPayActivity extends AppCompatActivity {
             imageList.add(image_uri);
         }
         mSlideShowView.setImageUrls(imageList);
-//        Map<String, String> image_uri = new HashMap<String, String>();
-//        image_uri.put("imageUrls", banner);
-//        imageList.add(image_uri);
-//        mSlideShowView.setImageUrls(imageList);
+
         tv_price1.setText("￥"+mServeListBean.getPrice());
         tv_price2.setText("￥"+mServeListBean.getPrice());
         tv_shop.setText(mServeListBean.getTitle());

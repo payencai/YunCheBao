@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
+import com.application.MyApplication;
 import com.bbcircle.AllKindActivity;
 import com.bbcircle.data.ClassItem;
 import com.bumptech.glide.Glide;
@@ -38,6 +39,7 @@ import com.nohttp.rest.Response;
 import com.nohttp.sample.BaseFragment;
 import com.nohttp.sample.HttpListener;
 import com.nohttp.tools.HttpJsonClient;
+import com.rongcloud.activity.ChatActivity;
 import com.system.WebviewActivity;
 import com.system.adapter.HomeMenuListAdapter;
 import com.tool.ActivityAnimationUtils;
@@ -46,6 +48,7 @@ import com.tool.listview.PersonalListView;
 import com.tool.slideshowview.SlideShowView;
 import com.tool.view.GridViewForScrollView;
 import com.tool.view.HorizontalListView;
+import com.vipcenter.RegisterActivity;
 import com.vipcenter.UserCenterActivity;
 import com.xihubao.NewGoodsListActivity;
 import com.xihubao.RepairListActivity;
@@ -205,10 +208,19 @@ public class MallFragment extends BaseFragment {
                 ActivityAnimationUtils.commonTransition(getActivity(), UserCenterActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.shop_cart_icon:
-                ActivityAnimationUtils.commonTransition(getActivity(), ShopCartActivity.class, ActivityConstans.Animation.FADE);
+                if(MyApplication.isIsLogin())
+                   ActivityAnimationUtils.commonTransition(getActivity(), ShopCartActivity.class, ActivityConstans.Animation.FADE);
+                else{
+                    startActivity(new Intent(getContext(),RegisterActivity.class));
+                }
                 break;
             case R.id.messenger_icon:
-                ActivityAnimationUtils.commonTransition(getActivity(), MessageMainActivity.class, ActivityConstans.Animation.FADE);
+                if(MyApplication.isIsLogin())
+                    ActivityAnimationUtils.commonTransition(getActivity(), ChatActivity.class, ActivityConstans.Animation.FADE);
+                else{
+                    startActivity(new Intent(getContext(),RegisterActivity.class));
+                }
+                //ActivityAnimationUtils.commonTransition(getActivity(), MessageMainActivity.class, ActivityConstans.Animation.FADE);
                 break;
 
             case R.id.middleMore:

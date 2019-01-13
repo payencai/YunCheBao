@@ -53,7 +53,15 @@ public class GoodCollectListAdapter extends BaseAdapter {
         TextView tv_name= (TextView) convertView.findViewById(R.id.tv_name);
         TextView tv_new = (TextView) convertView.findViewById(R.id.tv_newprice);
         TextView tv_old = (TextView) convertView.findViewById(R.id.tv_oldprice);
-        Glide.with(ctx).load(goodList.getCommodityImage()).into(iv_logo);
+        String urls=goodList.getCommodityImage();
+        if(urls.contains(",")){
+            String []images=goodList.getCommodityImage().split(",");
+            Glide.with(ctx).load(images[0]).into(iv_logo);
+        }else{
+            Glide.with(ctx).load(urls).into(iv_logo);
+        }
+
+
         tv_name.setText(goodList.getName()+" "+goodList.getFirstName()+" " +goodList.getSecondName());
         tv_new.setText("￥"+goodList.getDiscountPrice());
         tv_old.setText("￥"+goodList.getOriginalPrice());

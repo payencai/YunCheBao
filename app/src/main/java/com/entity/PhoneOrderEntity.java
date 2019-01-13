@@ -55,14 +55,14 @@ public class PhoneOrderEntity {
     private String shopName;
     private int state;
     private String telephone;
-    private int total;
+    private double total;
     private String userId;
     private List<ItemListBean> itemList;
 
-    public PhoneOrderEntity(int type, String status) {
-        this.type = type;
-        this.status = status;
-    }
+//    public PhoneOrderEntity(int type, String status) {
+//        this.type = type;
+//        this.status = status;
+//    }
 
     private int type;
     private String status;
@@ -242,11 +242,11 @@ public class PhoneOrderEntity {
         this.telephone = telephone;
     }
 
-    public int getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
