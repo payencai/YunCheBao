@@ -1,11 +1,15 @@
 package com.cheyibao.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
+import com.cheyibao.NewCarDetailActivity;
+import com.cheyibao.NewCarShopActivity;
 import com.cheyibao.model.Shop;
 import com.cheyibao.model.ShopComment;
 import com.example.yunchebao.R;
@@ -44,7 +48,11 @@ public class ShopItemAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         //return mClassItems.size();
-        return 3;
+        if (mClassItems.size() == 0)
+            return 0;
+        else {
+            return 1;
+        }
     }
 
     @Override
@@ -59,7 +67,38 @@ public class ShopItemAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_shop, null);
-        return view;
+        convertView = LayoutInflater.from(mContext).inflate(R.layout.item_shop, null);
+        TextView tv_name = (TextView) convertView.findViewById(R.id.tv_name);
+        TextView tv_address = (TextView) convertView.findViewById(R.id.tv_address);
+        TextView tv_sale = (TextView) convertView.findViewById(R.id.tv_sale);
+        TextView tv_comment = (TextView) convertView.findViewById(R.id.tv_comment);
+        TextView tv_service = (TextView) convertView.findViewById(R.id.tv_service);
+        tv_name.setText(mClassItems.get(position).getName());
+        tv_address.setText(mClassItems.get(position).getAddress());
+        tv_sale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(mContext,NewCarShopActivity.class);
+                intent.putExtra("flag",1);
+                intent.putExtra("data",mClassItems.get(position));
+                mContext.startActivity(intent);
+            }
+        });
+        tv_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, NewCarShopActivity.class);
+                intent.putExtra("flag", 2);
+                intent.putExtra("data",mClassItems.get(position));
+                mContext.startActivity(intent);
+            }
+        });
+        tv_service.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        return convertView;
     }
 }

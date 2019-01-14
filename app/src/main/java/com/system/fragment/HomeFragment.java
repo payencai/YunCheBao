@@ -45,6 +45,8 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.GoodDetailActivity;
+import com.maket.model.GoodList;
+import com.maket.model.KnowYou;
 import com.nohttp.rest.Request;
 import com.nohttp.rest.Response;
 import com.nohttp.sample.BaseFragment;
@@ -126,7 +128,7 @@ public class HomeFragment extends BaseFragment {
 
     private HomeMenuListAdapter menuAdapter;
     private PullToRefreshScrollView pullToRefreshScrollView;
-    private List<PhoneGoodEntity> middleList;
+    private List<GoodList> middleList;
     List<Banner> mBanners=new ArrayList<>();
     private void google(double mLatitude, double mLongitude) {
         if (isAvilible(getContext(), "com.google.android.apps.maps")) {
@@ -427,9 +429,9 @@ public class HomeFragment extends BaseFragment {
 
         getBaner();
         middleList = new ArrayList<>();
-        for (int i = 0; i < 12; i++) {
-            middleList.add(new PhoneGoodEntity());
-        }
+//        for (int i = 0; i < 12; i++) {
+//            middleList.add(new PhoneGoodEntity());
+//        }
         menuAdapter = new HomeMenuListAdapter(ctx, middleList);
         middleGrid.setAdapter(menuAdapter);
         middleGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -686,7 +688,11 @@ public class HomeFragment extends BaseFragment {
                 ActivityAnimationUtils.commonTransition(getActivity(), CityListActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.user_center_icon://个人中心
+                if(MyApplication.isLogin)
                 ActivityAnimationUtils.commonTransition(getActivity(), UserCenterActivity.class, ActivityConstans.Animation.FADE);
+                else{
+                    startActivity(new Intent(getContext(),RegisterActivity.class));
+                }
                 break;
 //            case R.id.magList:
 //                ActivityAnimationUtils.commonTransition(getActivity(), MagzineCoverActivity.class, ActivityConstans.Animation.FADE);

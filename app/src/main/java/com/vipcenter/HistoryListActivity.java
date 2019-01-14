@@ -57,7 +57,11 @@ public class HistoryListActivity extends NoHttpBaseActivity {
         getHistory();
     }
     private void getHistory(){
-        HttpProxy.obtain().get(PlatformContans.BabyCircle.getHistoryList, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        String token="";
+        if(MyApplication.isLogin){
+            token=MyApplication.getUserInfo().getToken();
+        }
+        HttpProxy.obtain().get(PlatformContans.BabyCircle.getHistoryList, token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("history", result);

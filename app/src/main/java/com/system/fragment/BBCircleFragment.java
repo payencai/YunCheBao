@@ -85,8 +85,8 @@ public class BBCircleFragment extends BaseFragment implements BGARefreshLayout.B
     private List<Map<String, String>> imageList = new ArrayList<>();
     @BindView(R.id.slideshowView)
     com.youth.banner.Banner banner;
-    @BindView(R.id.gods)
-    BGARefreshLayout  mRefreshLayout;
+//    @BindView(R.id.gods)
+//    BGARefreshLayout  mRefreshLayout;
     List<String> images = new ArrayList<>();
 
     private void initBanner() {
@@ -149,30 +149,7 @@ public class BBCircleFragment extends BaseFragment implements BGARefreshLayout.B
             }
         });
     }
-    private void initRefreshLayout(BGARefreshLayout refreshLayout) {
 
-        // 为BGARefreshLayout 设置代理
-        mRefreshLayout.setDelegate(this);
-        // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
-        BGAMoocStyleRefreshViewHolder refreshViewHolder = new BGAMoocStyleRefreshViewHolder(getContext(), false);
-        refreshViewHolder.setOriginalImage(R.mipmap.bga_refresh_moooc);
-        refreshViewHolder.setUltimateColor(R.color.blue_9DD9);
-        // 设置下拉刷新和上拉加载更多的风格
-        mRefreshLayout.setRefreshViewHolder(refreshViewHolder);
-
-//        refreshViewHolder.setLoadingMoreText("加载中");
-//        // 设置整个加载更多控件的背景颜色资源 id
-//        refreshViewHolder.setLoadMoreBackgroundColorRes(R.color.red_1a);
-//        // 设置整个加载更多控件的背景 drawable 资源 id
-//        refreshViewHolder.setLoadMoreBackgroundDrawableRes(R.mipmap.login_logo_btn_qq_icon);
-//        // 设置下拉刷新控件的背景颜色资源 id
-//        refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.red_1a);
-//        // 设置下拉刷新控件的背景 drawable 资源 id
-//        refreshViewHolder.setRefreshViewBackgroundDrawableRes(R.mipmap.login_logo_btn_qq_icon);
-        // 设置自定义头部视图（也可以不用设置）     参数1：自定义头部视图（例如广告位）， 参数2：上拉加载更多是否可用
-       // mRefreshLayout.setCustomHeaderView(mBanner, false);
-        // 可选配置  -------------END
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -182,7 +159,7 @@ public class BBCircleFragment extends BaseFragment implements BGARefreshLayout.B
         vpGank= (ViewPager) rootView.findViewById(R.id.id_stickynavlayout_viewpager);
         tabGank= (TabLayout) rootView.findViewById(R.id.id_stickynavlayout_indicator);
         getBaner();
-        initRefreshLayout(mRefreshLayout);
+        //initRefreshLayout(mRefreshLayout);
         initFragmentList();
 
         MyFragmentPagerAdapter myAdapter = new MyFragmentPagerAdapter(getChildFragmentManager(), mFragments, mTitleList);

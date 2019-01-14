@@ -81,8 +81,10 @@ public class OrderConfirmActivity extends NoHttpBaseActivity {
         setContentView(view);
         ButterKnife.bind(this);
         ctx = this;
-        mGoodsSelects = (ArrayList<GoodsSelect>) getIntent().getExtras().getSerializable("list");
-        mselectGoods = (ArrayList<PhoneGoodEntity>) getIntent().getExtras().getSerializable("select");
+        Bundle bundle=getIntent().getExtras();
+        if(bundle!=null){
+        mGoodsSelects = (ArrayList<GoodsSelect>) bundle.getSerializable("list");
+        mselectGoods = (ArrayList<PhoneGoodEntity>) bundle.getSerializable("select");}
         initView();
     }
 

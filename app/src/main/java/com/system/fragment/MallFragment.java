@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.application.MyApplication;
@@ -32,6 +33,7 @@ import com.maket.MarketSelectListActivity;
 import com.maket.ShopCartActivity;
 import com.maket.adapter.GridMenuAdapter;
 import com.maket.adapter.KnowYouAdapter;
+import com.maket.model.GoodList;
 import com.maket.model.GoodMenu;
 import com.maket.model.KnowYou;
 import com.nohttp.rest.Request;
@@ -81,6 +83,8 @@ public class MallFragment extends BaseFragment {
     private List<Map<String, String>> imageList = new ArrayList<>();
     @BindView(R.id.slideshowView)
     com.youth.banner.Banner banner;
+    @BindView(R.id.ll_knowyou)
+    LinearLayout ll_knowyou;
     @BindView(R.id.middleGrid)
     GridViewForScrollView middleGrid;
     @BindView(R.id.gv_type)
@@ -89,13 +93,13 @@ public class MallFragment extends BaseFragment {
     PersonalListView listView;
     KnowYouAdapter mKnowYouAdapter;
     GridMenuAdapter mGridMenuAdapter;
-    private HomeMenuListAdapter menuAdapter;
+    HomeMenuListAdapter menuAdapter;
     private PullToRefreshScrollView pullToRefreshScrollView;
-    private List<PhoneGoodEntity> middleList;
+    private List<GoodList> hotList;
     List<GoodMenu> mGoodMenus=new ArrayList<>();
     List<Banner> mBanners = new ArrayList<>();
     List<String> images = new ArrayList<>();
-    List<KnowYou> mKnowYous=new ArrayList<>();
+    List<GoodList> mKnowYous=new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -105,8 +109,88 @@ public class MallFragment extends BaseFragment {
         getData();
         getBaner();
         getMenu();
+        getHotGoods();
+        if(!MyApplication.isLogin){
+            ll_knowyou.setVisibility(View.GONE);
+        }else{
+            ll_knowyou.setVisibility(View.VISIBLE);
+            getKnowYou();
+        }
         return rootView;
     }
+    private void getHotGoods(){
+        Map<String,Object> params=new HashMap<>();
+        params.put("page",1);
+        HttpProxy.obtain().get(PlatformContans.GoodMenu.getHotCommodity, params,new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("getGoodMenu",result);
+                Log.e("getdata", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        GoodList baikeItem = new Gson().fromJson(item.toString(), GoodList.class);
+                        hotList.add(baikeItem);
+                    }
+                    menuAdapter.notifyDataSetChanged();
+                    //updateData();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    int page=1;
+    private void getKnowYou(){
+        String token="";
+        if(MyApplication.isLogin){
+            token=MyApplication.getUserInfo().getToken();
+        }
+        Map<String,Object> params=new HashMap<>();
+        params.put("page",page);
+        HttpProxy.obtain().get(PlatformContans.GoodMenu.getUserCommodity, params,token,new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("getUserCommodity",result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        GoodList baikeItem = new Gson().fromJson(item.toString(), GoodList.class);
+                        mKnowYous.add(baikeItem);
+                    }
+                    mKnowYouAdapter.notifyDataSetChanged();
+                    //updateData();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        page=1;
+        mKnowYous.clear();
+        getKnowYou();
+    }
+
     private void getMenu(){
         HttpProxy.obtain().get(PlatformContans.GoodMenu.getGoodMenu, "", new ICallBack() {
             @Override
@@ -139,20 +223,11 @@ public class MallFragment extends BaseFragment {
     private void init() {
         ctx = getActivity();
 
-        //网络地址获取轮播图
-//        imageList.clear();
-//        for (int i = 0; i < 3; i++) {
-//            Map<String, String> image_uri = new HashMap<String, String>();
-//            image_uri.put("imageUrls", "https://you.autoimg.cn/_autohomecar__zhouyouji/657C2F909017074F9C59CA0B88DA0F0BDDC9.jpg?imageMogr2/format/jpg/thumbnail/790|watermark/2/text/5rG96L2m5LmL5a62/font/5b6u6L2v6ZuF6buR/fontsize/270/fill/I0ZGRkZGRg==");
-//
-//            imageList.add(image_uri);
+        hotList = new ArrayList<>();
+//        for (int i = 0; i < 12; i++) {
+//            middleList.add(new PhoneGoodEntity());
 //        }
-//        slideShowView.setImageUrls(imageList);
-        middleList = new ArrayList<>();
-        for (int i = 0; i < 12; i++) {
-            middleList.add(new PhoneGoodEntity());
-        }
-        menuAdapter = new HomeMenuListAdapter(ctx, middleList);
+        menuAdapter = new HomeMenuListAdapter(ctx, hotList);
         mKnowYouAdapter=new KnowYouAdapter(ctx,mKnowYous);
         mGridMenuAdapter=new GridMenuAdapter(ctx,mGoodMenus);
         middleGrid.setAdapter(menuAdapter);
@@ -162,7 +237,18 @@ public class MallFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                ActivityAnimationUtils.commonTransition(getActivity(), GoodDetailActivity.class, ActivityConstans.Animation.FADE);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("data",hotList.get(position));
+                ActivityAnimationUtils.commonTransition(getActivity(), GoodDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("data",mKnowYous.get(position));
+                ActivityAnimationUtils.commonTransition(getActivity(), GoodDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
             }
         });
         menuGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -189,7 +275,9 @@ public class MallFragment extends BaseFragment {
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
                 Log.e("gkfkgk","gkfkgk");
-
+                page++;
+                getKnowYou();
+                ll_knowyou.setVisibility(View.VISIBLE);
                 refreshView.onRefreshComplete();
             }
         });

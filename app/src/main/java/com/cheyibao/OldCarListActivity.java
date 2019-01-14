@@ -205,11 +205,11 @@ public class OldCarListActivity extends NoHttpBaseActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 2) {
-                    ActivityAnimationUtils.commonTransition(OldCarListActivity.this, OldCarPersonDetailActivity.class, ActivityConstans.Animation.FADE);
-                } else {
-                    ActivityAnimationUtils.commonTransition(OldCarListActivity.this, OldCarDetailActivity.class, ActivityConstans.Animation.FADE);
-                }
+                position--;
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("data", list.get(position));
+                ActivityAnimationUtils.commonTransition(OldCarListActivity.this, OldCarDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
+
             }
         });
     }

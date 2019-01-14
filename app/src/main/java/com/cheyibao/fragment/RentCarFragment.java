@@ -97,6 +97,7 @@ public class RentCarFragment extends BaseFragment implements OnHeaderClickListen
 
         getJsonData();
         initView();
+        mRentCars.clear();
         getShop(1, "");
         return rootView;
     }

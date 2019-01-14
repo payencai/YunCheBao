@@ -93,10 +93,14 @@ public class GiftMarketHomeActivity extends AppCompatActivity {
         getData();
     }
     public void getData(){
-        Log.e("token",MyApplication.getUserInfo().getToken());
+        String token="";
+        if(MyApplication.isLogin){
+            token=MyApplication.getUserInfo().getToken();
+        }
+      //  Log.e("token",MyApplication.getUserInfo().getToken());
         Map<String,Object> params=new HashMap<>();
         params.put("page",page);
-        HttpProxy.obtain().get(PlatformContans.Gift.getGiftCommodityListToAPP, params, MyApplication.getUserInfo().getToken(),new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.Gift.getGiftCommodityListToAPP, params, token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("getGiftCommodity", result);

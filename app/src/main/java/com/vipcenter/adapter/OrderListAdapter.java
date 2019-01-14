@@ -86,6 +86,8 @@ public class OrderListAdapter extends BaseAdapter {
             vh.yanchang = (SuperTextView) convertView.findViewById(R.id.yanchang);
             vh.wuliu = (SuperTextView) convertView.findViewById(R.id.wuliu);
             vh.zailai = (SuperTextView) convertView.findViewById(R.id.zailai);
+            vh.root= (LinearLayout) convertView.findViewById(R.id.root);
+
 
 
             convertView.setTag(vh);
@@ -94,7 +96,12 @@ public class OrderListAdapter extends BaseAdapter {
         }
         vh.shopName.setText(list.get(position).getShopName());
         //  vh.orderStatus.setText(StatusTools.getOrderStatusName(entity.getStatus()));
-
+        vh.root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reflectMethod(0, position);
+            }
+        });
         vh.lianxi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -216,6 +223,7 @@ public class OrderListAdapter extends BaseAdapter {
     }
 
     public class viewHolder {
+        LinearLayout root;
         HorizontalListView hl_good;
         public TextView shopName;
         public TextView orderStatus;

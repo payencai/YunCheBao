@@ -16,10 +16,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.application.MyApplication;
+import com.baidu.platform.comapi.map.A;
 import com.cheyibao.CarSecondBrandActivity;
 import com.cheyibao.NewCarActivity;
 import com.cheyibao.NewCarListActivity;
 import com.cheyibao.adapter.NewCarAdapter;
+import com.cheyibao.adapter.NewCarMenuAdapter;
+import com.cheyibao.model.NewCarMenu;
 import com.costans.PlatformContans;
 import com.entity.Banner;
 import com.example.yunchebao.R;
@@ -36,6 +39,7 @@ import com.tool.indexbar.RecCarAdapter;
 import com.tool.indexbar.Utils;
 import com.tool.listview.PersonalListView;
 import com.tool.slideshowview.SlideShowView;
+import com.tool.view.GridViewForScrollView;
 import com.tool.view.ListViewForScrollView;
 import com.vipcenter.RegisterActivity;
 import com.xihubao.CarBrandSelectActivity;
@@ -66,27 +70,62 @@ public class NewCarFragment extends BaseFragment {
     @BindView(R.id.listview)
     ListViewForScrollView mListView;
     NewCarAdapter adapter;
-    List<CarBrand> mCarBrands=new ArrayList<>();
+    List<CarBrand> mCarBrands = new ArrayList<>();
     //轮播图片
-    private List<Map<String,String>> imageList = new ArrayList<>();
+    private List<Map<String, String>> imageList = new ArrayList<>();
     @BindView(R.id.slideshowView)
-    SlideShowView slideShowView ;
+    SlideShowView slideShowView;
     @BindView(R.id.index_layout)
     WaveSideBarView mWaveSideBarView;
+    @BindView(R.id.gv_newcar)
+    GridViewForScrollView gv_newcar;
+    NewCarMenuAdapter mNewCarMenuAdapter;
+    List<NewCarMenu> mNewCarMenus=new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_xinche, container, false);
-        ButterKnife.bind(this,rootView);
-
+        ButterKnife.bind(this, rootView);
         initView();
+        mNewCarMenus.clear();
+        getMenu();
         return rootView;
     }
+    private void getMenu() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("type", 1);
+        HttpProxy.obtain().get(PlatformContans.CarCategory.getNewOldIndex, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
 
-    private void getData(int level){
-        Map<String,Object> params=new HashMap<>();
-        params.put("level",level);
-        HttpProxy.obtain().get(PlatformContans.CarCategory.getFirstCategory, params, "",new ICallBack() {
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        NewCarMenu baikeItem = new Gson().fromJson(item.toString(), NewCarMenu.class);
+                        mNewCarMenus.add(baikeItem);
+                    }
+                    mNewCarMenuAdapter.notifyDataSetChanged();
+                    //Log.e("getdata", result);
+                    //adapter.notifyDataSetChanged();
+                    //updateData();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    private void getData(int level) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("level", level);
+        HttpProxy.obtain().get(PlatformContans.CarCategory.getFirstCategory, params, "", new ICallBack() {
             @Override
             public void OnSuccess(String result) {
 
@@ -114,23 +153,24 @@ public class NewCarFragment extends BaseFragment {
             }
         });
     }
-    private void getBaner(){
+
+    private void getBaner() {
         imageList.clear();
-        Map<String,Object> params=new HashMap<>();
-        params.put("type",2);
+        Map<String, Object> params = new HashMap<>();
+        params.put("type", 2);
         HttpProxy.obtain().get(PlatformContans.Commom.getBannerList, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("data",result);
+                Log.e("data", result);
                 try {
-                    JSONObject jsonObject=new JSONObject(result);
-                    JSONArray data=jsonObject.getJSONArray("data");
-                    for (int i = 0; i <data.length() ; i++) {
-                        JSONObject item=data.getJSONObject(i);
-                        Banner banner=new Gson().fromJson(item.toString(),Banner.class);
-                        String url=item.getString("picture");
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        Banner banner = new Gson().fromJson(item.toString(), Banner.class);
+                        String url = item.getString("picture");
                         Map<String, String> image_uri = new HashMap<String, String>();
-                        image_uri.put("imageUrls",url);
+                        image_uri.put("imageUrls", url);
                         imageList.add(image_uri);
                     }
                     slideShowView.setImageUrls(imageList);
@@ -147,9 +187,12 @@ public class NewCarFragment extends BaseFragment {
 
 
     }
+
     private void initView() {
         mCarBrands.clear();
-        adapter=new NewCarAdapter(getContext(),mCarBrands);
+        adapter = new NewCarAdapter(getContext(), mCarBrands);
+        mNewCarMenuAdapter=new NewCarMenuAdapter(getContext(),mNewCarMenus);
+        gv_newcar.setAdapter(mNewCarMenuAdapter);
         mListView.setAdapter(adapter);
         mListView.setDividerHeight(0);
         mListView.setDivider(null);
@@ -172,31 +215,28 @@ public class NewCarFragment extends BaseFragment {
     }
 
 
+    @OnClick({R.id.selectMenu1, R.id.selectMenu2, R.id.selectMenu3, R.id.selectMenu4, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.menuLay4, R.id.menuLay5, R.id.menuLay6, R.id.menuLay7, R.id.menuLay8})
+    public void OnClick(View v) {
+        Bundle bundle = new Bundle();
 
-
-
-    @OnClick({R.id.selectMenu1,R.id.selectMenu2,R.id.selectMenu3,R.id.selectMenu4,R.id.menuLay1,R.id.menuLay2,R.id.menuLay3,R.id.menuLay4,R.id.menuLay5,R.id.menuLay6,R.id.menuLay7,R.id.menuLay8})
-    public void OnClick(View v){
-        Bundle bundle=new Bundle();
-
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.selectMenu1:
-                bundle.putInt("flag",1);
-                ActivityAnimationUtils.commonTransition(getActivity(), NewCarListActivity.class, ActivityConstans.Animation.FADE,bundle);
+                bundle.putInt("flag", 1);
+                ActivityAnimationUtils.commonTransition(getActivity(), NewCarListActivity.class, ActivityConstans.Animation.FADE, bundle);
                 break;
             case R.id.selectMenu2:
 
-                bundle.putInt("flag",2);
-                ActivityAnimationUtils.commonTransition(getActivity(), NewCarListActivity.class, ActivityConstans.Animation.FADE,bundle);
+                bundle.putInt("flag", 2);
+                ActivityAnimationUtils.commonTransition(getActivity(), NewCarListActivity.class, ActivityConstans.Animation.FADE, bundle);
                 break;
             case R.id.selectMenu3:
 
-                bundle.putInt("flag",3);
-                ActivityAnimationUtils.commonTransition(getActivity(), NewCarListActivity.class, ActivityConstans.Animation.FADE,bundle);
+                bundle.putInt("flag", 3);
+                ActivityAnimationUtils.commonTransition(getActivity(), NewCarListActivity.class, ActivityConstans.Animation.FADE, bundle);
                 break;
             case R.id.selectMenu4:
-                bundle.putInt("flag",4);
-                ActivityAnimationUtils.commonTransition(getActivity(), NewCarListActivity.class, ActivityConstans.Animation.FADE,bundle);
+                bundle.putInt("flag", 4);
+                ActivityAnimationUtils.commonTransition(getActivity(), NewCarListActivity.class, ActivityConstans.Animation.FADE, bundle);
 
                 break;
             case R.id.menuLay1:
@@ -205,22 +245,22 @@ public class NewCarFragment extends BaseFragment {
             case R.id.menuLay4:
             case R.id.menuLay5:
             case R.id.menuLay6:
-               // if(MyApplication.isLogin)
-                    ActivityAnimationUtils.commonTransition(getActivity(), NewCarListActivity.class, ActivityConstans.Animation.FADE);
+                // if(MyApplication.isLogin)
+                ActivityAnimationUtils.commonTransition(getActivity(), NewCarListActivity.class, ActivityConstans.Animation.FADE);
 //                else{
 //                    startActivity(new Intent(getContext(), RegisterActivity.class));
 //                }
                 break;
             case R.id.menuLay7:
-             //   if(MyApplication.isLogin)
-                    ActivityAnimationUtils.commonTransition(getActivity(), NewCarListActivity.class, ActivityConstans.Animation.FADE);
+                //   if(MyApplication.isLogin)
+                ActivityAnimationUtils.commonTransition(getActivity(), NewCarListActivity.class, ActivityConstans.Animation.FADE);
 //                else{
 //                    startActivity(new Intent(getContext(), RegisterActivity.class));
 //                }
                 break;
             case R.id.menuLay8:
                 //if(MyApplication.isLogin)
-                    ActivityAnimationUtils.commonTransition(getActivity(), NewCarListActivity.class, ActivityConstans.Animation.FADE);
+                ActivityAnimationUtils.commonTransition(getActivity(), NewCarListActivity.class, ActivityConstans.Animation.FADE);
 //                else{
 //                    startActivity(new Intent(getContext(), RegisterActivity.class));
 //                }

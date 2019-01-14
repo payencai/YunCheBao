@@ -419,7 +419,7 @@ public class Shop implements Serializable{
         }
     }
 
-    public static class UserBean {
+    public static class UserBean implements Serializable{
         /**
          * createTime : 2019-01-07T04:05:14.032Z
          * headPortrait : string

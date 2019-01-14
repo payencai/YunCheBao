@@ -191,9 +191,16 @@
                     app:corner="6dp"
                     app:solid="@color/white"></com.coorchice.library.SuperTextView>
             </LinearLayout>
+            <com.tool.view.GridViewForScrollView
+                android:numColumns="5"
+                android:id="@+id/gv_newcar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+            </com.tool.view.GridViewForScrollView>
             <!-- 筛选条件   end -->
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -312,6 +319,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"

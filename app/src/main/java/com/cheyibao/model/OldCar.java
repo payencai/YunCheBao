@@ -1,12 +1,13 @@
 package com.cheyibao.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 作者：凌涛 on 2019/1/5 17:06
  * 邮箱：771548229@qq..com
  */
-public class OldCar {
+public class OldCar implements Serializable{
 
     /**
      * audit : 0
@@ -352,7 +353,7 @@ public class OldCar {
         this.userId = userId;
     }
 
-    public static class CarCategoryDetailBean {
+    public static class CarCategoryDetailBean implements Serializable{
         /**
          * advicePrice : 0
          * banner1 : string
@@ -517,7 +518,7 @@ public class OldCar {
             this.param = param;
         }
 
-        public static class ParamBean {
+        public static class ParamBean implements Serializable{
             /**
              * belong : string
              * carCategoryDetailId : string

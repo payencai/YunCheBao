@@ -21,6 +21,7 @@
         fresco:placeholderImage="@mipmap/pic2"
         android:src="@mipmap/pic2"/>
     <TextView
+        android:visibility="gone"
         android:id="@+id/name"
         android:layout_width="match_parent"
         style="@style/good_show_item_text_style"

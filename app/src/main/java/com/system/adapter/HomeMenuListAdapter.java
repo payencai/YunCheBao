@@ -8,11 +8,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.maket.model.GoodList;
+import com.maket.model.KnowYou;
 
 import java.util.List;
 
@@ -21,10 +24,10 @@ import java.util.List;
  * 首页菜单列表适配器
  */
 public class HomeMenuListAdapter extends BaseAdapter {
-    private List<PhoneGoodEntity> list;
+    private List<GoodList> list;
     private Context ctx;
 
-    public HomeMenuListAdapter(Context ctx, List<PhoneGoodEntity> list) {
+    public HomeMenuListAdapter(Context ctx, List<GoodList> list) {
         this.list = list;
         this.ctx = ctx;
     }
@@ -56,16 +59,13 @@ public class HomeMenuListAdapter extends BaseAdapter {
         } else {
             vh = (ViewHolder) convertView.getTag();
         }
-//        final PhoneGoodEntity entity = list.get(position);
-//        vh.name.setText(entity.getName());
-//        if (entity.getPic_2() != null && !entity.getPic_2().equals("")){
-//            Uri uri = Uri.parse(PlatformContans.rootUrl + entity.getPic_2());
-//            DraweeController controller = Fresco.newDraweeControllerBuilder()
-//                    .setUri(uri)
-//                    .setAutoPlayAnimations(true)
-//                    .build();
-//            vh.img.setController(controller);
-//        }
+        if(!list.get(position).getCommodityImage().contains(","))
+            vh.img.setImageURI(Uri.parse(list.get(position).getCommodityImage()));
+        else{
+            vh.img.setImageURI(Uri.parse(list.get(position).getCommodityImage().split(",")[0]));
+
+        }
+
         return convertView;
     }
 

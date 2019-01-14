@@ -1,12 +1,13 @@
 package com.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by sdhcjhss on 2018/1/4.
  */
 
-public class PhoneOrderEntity {
+public class PhoneOrderEntity implements Serializable{
     /**
      * address : string
      * createTime : 2019-01-09T16:38:09.921Z
@@ -266,7 +267,7 @@ public class PhoneOrderEntity {
         this.itemList = itemList;
     }
 
-    public static class ItemListBean {
+    public static class ItemListBean implements Serializable{
         /**
          * commodityId : string
          * commodityImage : string

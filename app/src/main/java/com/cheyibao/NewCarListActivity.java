@@ -103,10 +103,10 @@ public class NewCarListActivity extends NoHttpBaseActivity {
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
 
-        HttpProxy.obtain().get(PlatformContans.NewCar.getNewCarMerchantMessage, params, "", new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.NewCar.getNewCarMerchantMessage, params,  new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("getdata", result);
+              //  Log.e("getNewCarMerchantMessage", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     jsonObject = jsonObject.getJSONObject("data");

@@ -45,8 +45,12 @@ public class PlatformContans {
         public static final String getBabyMerchantCategoryList=root+ "/babycategory/getBabyMerchantCategoryList";
         public static final String getGoodMenu=root+ "/babymerchantIndex/getBabyMerchantIndexList";
         public static final String getGoodList=root+ "/babymercommodity/getBabyMerchantCommodityBySecondId";
+
+        public static final String getHotCommodity=root+ "/babymercommodity/getHotCommodity";
+        public static final String getUserCommodity=root+ "/babymercommodity/getUserCommodity";
     }
     public static class GoodInfo{
+
         public static final String getGoodDetail=root+ "/babymercommodity/getBabyMerchantCommodity";
         public static final String getGoodParams=root+ "/babymercommodity/getBabyMerComParam";
         public static final String getBabyMerComFirstSpecifications=root+ "/babymercommodity/getBabyMerComFirstSpecifications";
@@ -178,6 +182,7 @@ public class PlatformContans {
     public static  class CarCategory{
         public static final String getFirstCategory=root+ "/carcategory/getFirstCategory";
         public static final String getSubclass=root+ "/carcategory/getSubclass";
+        public static final String getNewOldIndex=root+ "/carcategory/getNewOldIndex";
     }
     public static class DrivingSchool{
         public static final String getDrivingSchool=root+ "/drivingschool/getDrivingSchool";

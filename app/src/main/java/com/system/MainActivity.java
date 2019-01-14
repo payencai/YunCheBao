@@ -240,6 +240,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                 resetStateForTagbar(R.id.main_fl_5);
                 hideAllFragment();
                 showFragment(4);
+                //fragment5.onResume();
                 break;
 
             default:

@@ -99,9 +99,13 @@ public class WashCollectFragment extends BaseFragment {
 
     }
     private void getData(){
+        String token="";
+        if(MyApplication.isLogin){
+            token=MyApplication.getUserInfo().getToken();
+        }
         Map<String,Object> params=new HashMap<>();
         params.put("page",page);
-        HttpProxy.obtain().get(PlatformContans.Collect.getWashCollectionList, params, MyApplication.getUserInfo().getToken(),new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.Collect.getWashCollectionList, params,token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("washcollect", result);

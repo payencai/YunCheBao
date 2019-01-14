@@ -76,11 +76,14 @@ public class NewCarCommentFragment extends Fragment {
 
     }
     public void getData(){
-
+        String token="";
+        if(MyApplication.isLogin){
+            token=MyApplication.getUserInfo().getToken();
+        }
         Map<String,Object> params=new HashMap<>();
         params.put("page",page);
         params.put("type",1);
-        HttpProxy.obtain().get(PlatformContans.DrivingSchool.getUserComment, params, MyApplication.getUserInfo().getToken(),new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.DrivingSchool.getUserComment, params,token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("getUserComment", result);

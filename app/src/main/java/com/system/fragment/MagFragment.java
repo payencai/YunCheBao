@@ -170,7 +170,7 @@ public class MagFragment extends BaseFragment {
             mClassifyWikiAdapter = new ClassifyWikiAdapter(getActivity().getSupportFragmentManager(), tabNames, mFragments);
         vp_content.setAdapter(mClassifyWikiAdapter);
         vp_content.setOffscreenPageLimit(1);
-       // mClassifyWikiAdapter.notifyDataSetChanged();
+        mClassifyWikiAdapter.notifyDataSetChanged();
         vp_content.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

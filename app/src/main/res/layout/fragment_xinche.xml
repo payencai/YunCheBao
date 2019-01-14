@@ -132,6 +132,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -250,6 +251,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -367,7 +369,13 @@
             </LinearLayout>
         </LinearLayout>
 
+        <com.tool.view.GridViewForScrollView
+            android:numColumns="5"
+            android:id="@+id/gv_newcar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+        </com.tool.view.GridViewForScrollView>
 
 
         <com.tool.view.ListViewForScrollView

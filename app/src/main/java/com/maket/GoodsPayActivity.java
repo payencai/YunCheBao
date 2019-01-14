@@ -1,19 +1,26 @@
 package com.maket;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alipay.PayResult;
+import com.alipay.sdk.app.PayTask;
 import com.application.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.payencai.library.util.ToastUtil;
 import com.vipcenter.OrderConfirmActivity;
 
 import org.json.JSONException;
@@ -51,7 +58,56 @@ public class GoodsPayActivity extends AppCompatActivity {
         initView();
     }
 
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @SuppressWarnings("unused")
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SDK_PAY_FLAG: {
+                    @SuppressWarnings("unchecked")
+                    PayResult payResult = new PayResult((Map<String, String>) msg.obj);
+                    /**
+                     * 对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
+                     */
+                    String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+                    String resultStatus = payResult.getResultStatus();
+                    // 判断resultStatus 为9000则代表支付成功
+                    if (TextUtils.equals(resultStatus, "9000")) {
+                        Log.e("code",resultStatus);
+                        ToastUtil.showToast(GoodsPayActivity.this,"支付成功");
+                        finish();
+                        // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
+                        //showAlert(PayDemoActivity.this, getString(R.string.pay_success) + payResult);
+                    } else {
+                        // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
+                        //showAlert(PayDemoActivity.this, getString(R.string.pay_failed) + payResult);
+                    }
+                    break;
+                }
+            }
+        };
+    };
 
+    private static final int SDK_PAY_FLAG = 1;
+    private void alipay(final String orderInfo){
+        final Runnable payRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                PayTask alipay = new PayTask(GoodsPayActivity.this);
+                Map<String, String> result = alipay.payV2(orderInfo, true);
+                Log.i("msp", result.toString());
+                Message msg = new Message();
+                msg.what = SDK_PAY_FLAG;
+                msg.obj = result;
+                mHandler.sendMessage(msg);
+            }
+        };
+
+        // 必须异步调用
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
+    }
     private void initView(){
         tv_pay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +168,7 @@ public class GoodsPayActivity extends AppCompatActivity {
                     int code=jsonObject.getInt("resultCode");
                     if(code==0){
                         String sign=jsonObject.getString("data");
+                        alipay(sign);
 
                     }
                 } catch (JSONException e) {

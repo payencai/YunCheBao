@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:paddingBottom="5dp"
     android:paddingTop="15dp"
+    android:id="@+id/root"
     android:paddingLeft="15dp"
     android:background="@color/white"
     android:layout_width="match_parent"

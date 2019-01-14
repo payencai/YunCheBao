@@ -1,6 +1,7 @@
 package com.baike.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.caryibao.NewCar;
 import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
+import com.facebook.common.streams.LimitedInputStream;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
@@ -49,11 +51,20 @@ public class CarListAdapter extends BaseAdapter {
             vh = new ViewHolder();
             convertView = LayoutInflater.from(ctx).inflate(R.layout.car_list_item_layout, null);
             vh.img = (SimpleDraweeView) convertView.findViewById(R.id.img);
+            vh.name= (TextView) convertView.findViewById(R.id.name);
+            vh.name2= (TextView) convertView.findViewById(R.id.name2);
+            vh.tv_price= (TextView) convertView.findViewById(R.id.item);
             convertView.setTag(vh);
         } else {
             vh = (ViewHolder) convertView.getTag();
         }
-
+        String value=list.get(position).getSecondName();
+        if(!"null".equals(list.get(position).getThirdName()))
+            value=value+list.get(position).getThirdName();
+        vh.name2.setText(value);
+        vh.img.setImageURI(Uri.parse(list.get(position).getCarCategoryDetail().getBanner1()));
+        vh.name.setText(list.get(position).getFirstName());
+        vh.tv_price.setText("￥"+list.get(position).getMinPrice());
 //        }
         return convertView;
     }
@@ -62,6 +73,8 @@ public class CarListAdapter extends BaseAdapter {
     public class ViewHolder {
         public SimpleDraweeView img;
         public TextView name;
+        public TextView name2;
+        public TextView tv_price;
     }
 
 }

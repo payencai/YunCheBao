@@ -2,6 +2,7 @@ package com.vipcenter.fragment;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.maket.GoodsOrderDetailActivity;
 import com.maket.model.GoodList;
 import com.nohttp.sample.BaseFragment;
 import com.tool.ActivityAnimationUtils;
@@ -100,6 +102,8 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
                 initListData();
             }
         });
+
+
         list.clear();
         getData(getTypeId());
 
@@ -108,7 +112,7 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-       // initListData();
+        // initListData();
     }
 
     private void initListData() {
@@ -142,7 +146,8 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
         adapter.notifyDataSetChanged();
 
     }
-    private void getData(int state){
+
+    private void getData(int state) {
         String token = "";
         if (MyApplication.isLogin) {
             token = MyApplication.getUserInfo().getToken();
@@ -150,9 +155,9 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
             return;
             // tv.setText(MyApplication.getaMapLocation().getProvince() + MyApplication.getaMapLocation().getCity() + MyApplication.getaMapLocation().getDistrict());
         }
-        Map<String,Object> params=new HashMap<>();
-        params.put("page",pageNum);
-        params.put("state",state);
+        Map<String, Object> params = new HashMap<>();
+        params.put("page", pageNum);
+        params.put("state", state);
         HttpProxy.obtain().get(PlatformContans.GoodsOrder.getMyOrderList, params, token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -193,18 +198,26 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
     //adapter中按钮点击事件
     public void onShortcutMenuClickListener(Integer t, Integer loc) {
         int location = loc.intValue();
+        Intent intent;
         switch (t) {
             case 0://详情
-                ActivityAnimationUtils.commonTransition(getActivity(), OrderDetailActivity.class, ActivityConstans.Animation.FADE);
+
+                // ActivityAnimationUtils.commonTransition(getActivity(), OrderDetailActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case 1://联系
                 ActivityAnimationUtils.commonTransition(getActivity(), OrderChatDetailActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case 2://取消
-                alertCancelPanel(getActivity());
+                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+                intent.putExtra("data", list.get(location));
+                startActivity(intent);
+                //alertCancelPanel(getActivity());
                 break;
             case 3://付款
-                initDialog();
+                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+                intent.putExtra("data", list.get(location));
+                startActivity(intent);
+                //  initDialog();
                 break;
             case 4://申请退货
                 ActivityAnimationUtils.commonTransition(getActivity(), OrderReturnTypeActivity.class, ActivityConstans.Animation.FADE);
@@ -230,23 +243,6 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
         }
     }
 
-    private String[] items = new String[]{"我不想买了", "信息填写错误，重新拍", "卖家缺货", "同城见面交易", "其他原因"};
-    private BottomMenuDialog bottomDialog;
-
-    private void alertCancelPanel(Context ctx) {
-        BottomMenuDialog.Builder builder = new BottomMenuDialog.Builder(ctx);
-        builder.setTitle("请选择取消订单的理由");
-        for (int i = 0; i < items.length; i++) {
-            builder.addMenu(items[i], new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    bottomDialog.dismiss();
-                }
-            });
-        }
-        bottomDialog = builder.create();
-        bottomDialog.show();
-    }
 
 
     /**

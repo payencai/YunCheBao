@@ -14,6 +14,8 @@ import com.cheyibao.OldCarDetailActivity;
 import com.cheyibao.OldCarListActivity;
 import com.cheyibao.OldCarSelectActivity;
 import com.cheyibao.SellCarActivity;
+import com.cheyibao.adapter.NewCarMenuAdapter;
+import com.cheyibao.model.NewCarMenu;
 import com.cheyibao.model.OldCar;
 import com.costans.PlatformContans;
 import com.entity.Banner;
@@ -29,6 +31,7 @@ import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.listview.PersonalScrollView;
 import com.tool.slideshowview.SlideShowView;
+import com.tool.view.GridViewForScrollView;
 import com.tool.view.ListViewForScrollView;
 
 import org.json.JSONArray;
@@ -64,6 +67,10 @@ public class OldCarFragment extends BaseFragment {
     SlideShowView slideShowView;
     @BindView(R.id.scollview)
     PersonalScrollView scollview;
+    @BindView(R.id.gv_newcar)
+    GridViewForScrollView gv_newcar;
+    NewCarMenuAdapter mNewCarMenuAdapter;
+    List<NewCarMenu> mNewCarMenus=new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,8 +78,42 @@ public class OldCarFragment extends BaseFragment {
         ButterKnife.bind(this, rootView);
         getBaner();
         initView();
+        mNewCarMenus.clear();
+        getMenu();
 //        requestMethod(0);
         return rootView;
+    }
+
+    private void getMenu() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("type", 2);
+        HttpProxy.obtain().get(PlatformContans.CarCategory.getNewOldIndex, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        NewCarMenu baikeItem = new Gson().fromJson(item.toString(), NewCarMenu.class);
+                        mNewCarMenus.add(baikeItem);
+                    }
+                    mNewCarMenuAdapter.notifyDataSetChanged();
+                    //Log.e("getdata", result);
+                    //adapter.notifyDataSetChanged();
+                    //updateData();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
     private void getBaner(){
         imageList.clear();
@@ -112,6 +153,8 @@ public class OldCarFragment extends BaseFragment {
         list = new ArrayList<>();
         ctx = getActivity();
         adapter = new CarRecommendListAdapter(ctx, list);
+        mNewCarMenuAdapter=new NewCarMenuAdapter(getContext(),mNewCarMenus);
+        gv_newcar.setAdapter(mNewCarMenuAdapter);
         listView.setAdapter(adapter);
         listView.setFocusable(false);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -105,9 +105,13 @@ public class ArticleFragment extends BaseFragment {
 
     }
     private void getData(){
+        String token="";
+        if(MyApplication.isLogin){
+            token=MyApplication.getUserInfo().getToken();
+        }
         Map<String,Object> params=new HashMap<>();
         params.put("page",page);
-        HttpProxy.obtain().get(PlatformContans.Collect.getBabyCollection, params, MyApplication.getUserInfo().getToken(),new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.Collect.getBabyCollection, params, token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("getdata", result);
