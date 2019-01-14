@@ -371,7 +371,8 @@
         <activity android:name="com.cheyibao.DrivingOrderActivity" />
         <activity android:name="com.cheyibao.NewCarItemActivity" />
         <activity android:name="com.maket.GoodsPayActivity" />
-        <activity android:name="com.maket.GoodsOrderDetailActivity"></activity>
+        <activity android:name="com.maket.GoodsOrderDetailActivity" />
+        <activity android:name="com.maket.SinglePayActivity"></activity>
     </application>
 
 </manifest>
