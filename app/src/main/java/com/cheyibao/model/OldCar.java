@@ -373,7 +373,7 @@ public class OldCar implements Serializable{
          * variableBox : string
          */
 
-        private int advicePrice;
+        private double advicePrice;
         private String banner1;
         private String banner2;
         private String banner3;
@@ -390,11 +390,11 @@ public class OldCar implements Serializable{
         private String variableBox;
         private List<ParamBean> param;
 
-        public int getAdvicePrice() {
+        public double getAdvicePrice() {
             return advicePrice;
         }
 
-        public void setAdvicePrice(int advicePrice) {
+        public void setAdvicePrice(double advicePrice) {
             this.advicePrice = advicePrice;
         }
 

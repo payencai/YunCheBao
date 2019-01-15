@@ -5,15 +5,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.application.MyApplication;
+import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.maket.model.GoodDetail;
+import com.maket.model.GoodParam;
 import com.vipcenter.AddressListActivity;
 import com.vipcenter.OrderConfirmActivity;
 import com.vipcenter.model.PersonAddress;
@@ -29,7 +33,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SinglePayActivity extends AppCompatActivity {
+    GoodParam mGoodParam;
+    GoodParam.SecondSpecificationsBean mGoddsParamChild;
     PersonAddress personAddress;
+    GoodDetail mGoodDetail;
     String money="";
     @BindView(R.id.tv_contact)
     TextView tv_contact;
@@ -43,20 +50,63 @@ public class SinglePayActivity extends AppCompatActivity {
     TextView tv_detail;
     @BindView(R.id.addressLay)
     LinearLayout addressLay;
+    @BindView(R.id.tv_shop)
+    TextView tv_shop;
+    @BindView(R.id.tv_name)
+    TextView tv_name;
+    @BindView(R.id.tv_param)
+    TextView tv_param;
+    @BindView(R.id.tv_count)
+    TextView tv_count;
+    @BindView(R.id.tv_newprice)
+    TextView tv_newprice;
+    @BindView(R.id.submit)
+    TextView submit;
+    @BindView(R.id.et_remark)
+    TextView et_remark;
+    @BindView(R.id.tv_total)
+    TextView tv_total;
+    @BindView(R.id.iv_logo)
+    ImageView iv_logo;
+    int count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_pay);
+        Bundle bundle=getIntent().getExtras();
+        if(bundle!=null){
+            mGoodParam= (GoodParam) bundle.getSerializable("param");
+            mGoddsParamChild= (GoodParam.SecondSpecificationsBean) bundle.getSerializable("child");
+            mGoodDetail= (GoodDetail) bundle.getSerializable("detail");
+            count=bundle.getInt("count");
+        }
+
         ButterKnife.bind(this);
         initView();
     }
     private void initView(){
+        tv_name.setText(mGoodDetail.getName());
+        tv_shop.setText(mGoodDetail.getBabyMerchantName());
+        tv_param.setText(mGoodParam.getSpecificationsValue()+"*"+mGoddsParamChild.getSpecificationsValue());
+        tv_count.setText("x"+count);
+        tv_total.setText("￥"+(count*mGoddsParamChild.getPrice()));
+        tv_totalmoney.setText("￥"+(count*mGoddsParamChild.getPrice()));
+        tv_newprice.setText("￥"+mGoddsParamChild.getPrice());
+        Glide.with(this).load(mGoodDetail.getCommodityImage()).into(iv_logo);
         addressLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(SinglePayActivity.this, AddressListActivity.class), 1);
             }
         });
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                takeOrder();
+            }
+        });
+        getAddress();
     }
     private void getAddress() {
         String token = "";
@@ -105,27 +155,42 @@ public class SinglePayActivity extends AppCompatActivity {
         });
     }
 
-    private void takeOrder(String json){
+    private void takeOrder(){
         String token = "";
         if (MyApplication.isLogin) {
             token = MyApplication.getUserInfo().getToken();
         } else {
             return;
-            // tv.setText(MyApplication.getaMapLocation().getProvince() + MyApplication.getaMapLocation().getCity() + MyApplication.getaMapLocation().getDistrict());
         }
-        //  Map<String,Object> params=new HashMap<>();
-        HttpProxy.obtain().post(PlatformContans.GoodsOrder.addOrder, token, json, new ICallBack() {
+        String commodityId=mGoodParam.getBabyCommodityId();
+        int number=count;
+        String name=personAddress.getNickname();
+        String telephone=personAddress.getTelephone();
+        String address=personAddress.getProvince()+personAddress.getCity()+personAddress.getDistrict()+personAddress.getAddress();
+        String remark=et_remark.getEditableText().toString();
+        String firstSpecificationId=mGoodParam.getId();
+        String secondSpecificationId=mGoddsParamChild.getId();
+         Map<String,Object> params=new HashMap<>();
+        params.put("commodityId",commodityId);
+        params.put("number",number);
+        params.put("name",name);
+        params.put("telephone",telephone);
+        params.put("address",address);
+        params.put("remark",remark);
+        params.put("firstSpecificationId",firstSpecificationId);
+        params.put("secondSpecificationId",secondSpecificationId);
+        HttpProxy.obtain().post(PlatformContans.GoodsOrder.addOrder, token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("rsult",result);
+                Log.e("addOrder",result);
                 try {
                     JSONObject jsonObject=new JSONObject(result);
                     int code=jsonObject.getInt("resultCode");
                     if(code==0){
                         String orderId=jsonObject.getString("data");
-
                         Intent intent=new Intent(SinglePayActivity.this,GoodsPayActivity.class);
                         intent.putExtra("orderid",orderId);
+                        money=count*mGoddsParamChild.getPrice()+"";
                         intent.putExtra("money",money);
                         startActivity(intent);
                     }

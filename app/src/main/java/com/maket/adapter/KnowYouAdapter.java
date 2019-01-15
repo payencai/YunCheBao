@@ -1,6 +1,8 @@
 package com.maket.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,9 +59,11 @@ public class KnowYouAdapter extends BaseAdapter {
         else{
             Glide.with(ctx).load(list.get(position).getCommodityImage().split(",")[0]).into(iv_logo);
         }
+
         tv_name.setText(list.get(position).getName());
         tv_newprice.setText("￥"+list.get(position).getDiscountPrice());
         tv_oldprice.setText("￥"+list.get(position).getOriginalPrice());
+        tv_oldprice.setPaintFlags(tv_oldprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         return convertView;
     }
 

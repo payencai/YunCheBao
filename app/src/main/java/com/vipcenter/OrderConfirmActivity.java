@@ -232,7 +232,7 @@ public class OrderConfirmActivity extends NoHttpBaseActivity {
 
                         Intent intent=new Intent(OrderConfirmActivity.this,GoodsPayActivity.class);
                         intent.putExtra("orderid",orderId);
-                        intent.putExtra("money",money);
+                        intent.putExtra("money",money+"");
                         startActivity(intent);
                     }
                 } catch (JSONException e) {

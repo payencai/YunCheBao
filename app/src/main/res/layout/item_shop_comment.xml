@@ -24,6 +24,7 @@
             android:layout_toRightOf="@+id/userhead">
 
             <TextView
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="逍遥派"
@@ -39,6 +40,7 @@
                 app:srb_maxStarSize="12dp" />
         </LinearLayout>
         <TextView
+            android:id="@+id/tv_time"
             android:textSize="12sp"
             android:textColor="@color/gray_99"
             android:layout_centerVertical="true"
@@ -56,7 +58,7 @@
             android:text="这个教练是个超级大喷子，大家不要选择他了。这个教练是个超级大喷子，大家不要选择他了。这个教练是个超级大喷子，大家不要选择他了。这个教练是个超级大喷子，大家不要选择他了。"
             android:textColor="@color/black_33"
             android:textSize="14sp"
-
+            android:id="@+id/iv_content"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

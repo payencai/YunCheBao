@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.baike.adapter.CarListAdapter;
 import com.caryibao.NewCar;
 import com.cheyibao.adapter.CarRecommendListAdapter;
 import com.cheyibao.adapter.PriceGridAdapter;
+import com.cheyibao.model.NewCarMenu;
 import com.cheyibao.model.OldCar;
 import com.cheyibao.model.TestPopupWindow;
 import com.coorchice.library.SuperTextView;
@@ -41,6 +43,7 @@ import com.tool.view.TopMiddlePopup;
 import com.vipcenter.model.UserInfo;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.xihubao.CarBrandSelectActivity;
+import com.xihubao.model.CarBrand;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -86,7 +89,13 @@ public class NewCarListActivity extends NoHttpBaseActivity {
     @BindView(R.id.ll_select)
     LinearLayout ll_select;
     int flag;
+    CarBrand mCarBrand;
+    String firstId="";//品牌Id;
+    String startprice="";
+    String endprice="";
+    int type=0;//个人商家
 
+    NewCarMenu mNewCarMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +103,8 @@ public class NewCarListActivity extends NoHttpBaseActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             flag = bundle.getInt("flag");
+            mNewCarMenu= (NewCarMenu) bundle.getSerializable("menu");
+            mCarBrand= (CarBrand) bundle.getSerializable("brand");
         }
         initView();
     }
@@ -102,11 +113,20 @@ public class NewCarListActivity extends NoHttpBaseActivity {
         //UserInfo userInfo= MyApplication.getUserInfo();
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
-
+        if(!TextUtils.isEmpty(firstId)){
+            params.put("firstId", firstId);
+        }
+        if(!TextUtils.isEmpty(startprice)){
+            params.put("startprice", startprice);
+        }
+        if(!TextUtils.isEmpty(endprice)){
+            params.put("endprice", endprice);
+        }
+        Log.e("params",params.toString());
         HttpProxy.obtain().get(PlatformContans.NewCar.getNewCarMerchantMessage, params,  new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-              //  Log.e("getNewCarMerchantMessage", result);
+                Log.e("getnewcar", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     jsonObject = jsonObject.getJSONObject("data");
@@ -136,15 +156,25 @@ public class NewCarListActivity extends NoHttpBaseActivity {
 
         switch (flag) {
             case 1:
+                startprice="5";
+                endprice="10";
                 tagStrList.add("5-10万");
                 break;
             case 2:
+                startprice="10";
+                endprice="15";
                 tagStrList.add("10-15万");
                 break;
             case 3:
                 tagStrList.add("SUV");
                 break;
-            case 4:
+            case 5:
+                tagStrList.add(mNewCarMenu.getName());
+                firstId=mNewCarMenu.getFirstId();
+                break;
+            case 6:
+                tagStrList.add(mCarBrand.getName());
+                firstId=mCarBrand.getFistId();
                 break;
         }
     }
@@ -206,70 +236,12 @@ public class NewCarListActivity extends NoHttpBaseActivity {
     PopupWindow popupWindow;
 
     private void showSortPopupWindow() {
-//        popupWindow = new TestPopupWindow(this, new int[]{R.id.item1, R.id.item2, R.id.item3, R.id.item4, R.id.item5});
-//        popupWindow.showAsDropDown(ll_select);
-//        popupWindow.setOnItemClickListener(new TestPopupWindow.OnItemClickListener() {
-//            @Override
-//            public void OnItemClick(View v) {
-//                switch (v.getId()) {
-//                    case R.id.item1:
-//                        // Toast.makeText(MainActivity.this, "地址", Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case R.id.item2:
-//                        // Toast.makeText(MainActivity.this, "分组", Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case R.id.item3:
-//                        // Toast.makeText(MainActivity.this, "清单", Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case R.id.item4:
-//                        // Toast.makeText(MainActivity.this, "清单", Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case R.id.item5:
-//                        // Toast.makeText(MainActivity.this, "清单", Toast.LENGTH_SHORT).show();
-//                        break;
-//                }
-//            }
-//        });
-
-
         View view = LayoutInflater.from(this).inflate(R.layout.popup_select, null);
         popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.showAsDropDown(ll_select);
         popupWindow.setOutsideTouchable(false);
-      //  popupWindow.setAnimationStyle(R.style.AnimTopMiddle);
-     //   popupWindow.setAnimationStyle();
     }
 
-    /**
-     * 设置弹窗
-     *
-     * @param type
-     */
-    private void setPopup(int type) {
-        middlePopup = new TopMiddlePopup(NewCarListActivity.this, screenW, screenH,
-                onItemClickListener, items, type);
-        middlePopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                isOpen = false;
-                menuText1.setTextColor(getResources().getColor(R.color.black_33));
-                Drawable drawable = ContextCompat.getDrawable(ctx, R.mipmap.yellow_arrow_small);
-                drawable.setBounds(0, 0, 20, 0);
-                menuText1.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
-            }
-        });
-        if (isOpen) {
-            menuText1.setTextColor(getResources().getColor(R.color.colorPrimary));
-            Drawable drawable = ContextCompat.getDrawable(ctx, R.mipmap.yellow_arrow_small);
-            drawable.setBounds(0, 0, 20, 0);
-            menuText1.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
-        } else {
-            menuText1.setTextColor(getResources().getColor(R.color.black_33));
-            Drawable drawable = ContextCompat.getDrawable(ctx, R.mipmap.yellow_arrow_small);
-            drawable.setBounds(0, 0, 20, 0);
-            menuText1.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
-        }
-    }
 
 
     /**

@@ -49,11 +49,17 @@ public class GoodsPayActivity extends AppCompatActivity {
     ImageView iv_member;
     @BindView(R.id.tv_pay)
     TextView tv_pay;
+    @BindView(R.id.price1)
+    TextView price1;
+    @BindView(R.id.price2)
+    TextView price2;
+    String money;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_pay);
         orderId=getIntent().getStringExtra("orderid");
+        money=getIntent().getStringExtra("money");
         ButterKnife.bind(this);
         initView();
     }
@@ -109,6 +115,8 @@ public class GoodsPayActivity extends AppCompatActivity {
         payThread.start();
     }
     private void initView(){
+        price1.setText("￥"+money);
+        price2.setText("￥"+money);
         tv_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

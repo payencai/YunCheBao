@@ -160,7 +160,9 @@ public class OldCarFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ActivityAnimationUtils.commonTransition(getActivity(), OldCarDetailActivity.class, ActivityConstans.Animation.FADE);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("data",list.get(position));
+                ActivityAnimationUtils.commonTransition(getActivity(), OldCarDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
             }
         });
         scollview.setOnScrollBottomListener(new PersonalScrollView.OnScrollBottomListener() {

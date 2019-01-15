@@ -393,7 +393,7 @@ public class Shop implements Serializable{
         this.user = user;
     }
 
-    public static class LocationBean {
+    public static class LocationBean implements Serializable{
         /**
          * lat : 0
          * lon : 0

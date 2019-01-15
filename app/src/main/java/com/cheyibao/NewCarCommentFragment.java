@@ -18,6 +18,7 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.tool.listview.PersonalListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +41,7 @@ public class NewCarCommentFragment extends Fragment {
     private List<ShopComment> list;
     private ShopCommentAdapter adapter;
     @BindView(R.id.id_stickynavlayout_innerscrollview)
-    SpreadListView listView;
+    PersonalListView listView;
     int page=1;
     String id;
     public NewCarCommentFragment() {

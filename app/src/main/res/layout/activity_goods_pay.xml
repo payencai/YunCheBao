@@ -123,7 +123,7 @@
                     android:textColor="@color/black_33"
                     android:layout_marginLeft="10dp"
                     android:layout_centerVertical="true"
-                    android:text="洗车店"
+                    android:text="云车宝"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
@@ -144,7 +144,7 @@
                     android:textColor="@color/black_33"
                     android:layout_marginLeft="10dp"
                     android:layout_centerVertical="true"
-                    android:text="普通洗车"
+                    android:text="商品"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </RelativeLayout>

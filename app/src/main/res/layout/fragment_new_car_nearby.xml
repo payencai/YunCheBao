@@ -5,9 +5,11 @@
     tools:context="com.cheyibao.NewCarNearbyFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.tool.listview.PersonalListView
+        android:id="@+id/lv_car"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+    </com.tool.listview.PersonalListView>
 
 </FrameLayout>

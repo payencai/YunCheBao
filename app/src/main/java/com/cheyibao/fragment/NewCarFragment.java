@@ -29,6 +29,7 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.maket.model.GoodMenu;
 import com.nanchen.wavesidebar.WaveSideBarView;
 import com.nohttp.sample.BaseFragment;
 import com.rongcloud.sidebar.PinnedHeaderDecoration;
@@ -202,8 +203,23 @@ public class NewCarFragment extends BaseFragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getContext(), CarSecondBrandActivity.class);
-                intent.putExtra("id", mCarBrands.get(position).getId());
+                Intent intent=new Intent(getContext(),NewCarListActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putInt("flag",6);
+                bundle.putSerializable("brand",mCarBrands.get(position));
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        gv_newcar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                NewCarMenu newCarMenu=mNewCarMenus.get(position);
+                Intent intent=new Intent(getContext(),NewCarListActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putInt("flag",5);
+                bundle.putSerializable("menu",newCarMenu);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

@@ -46,6 +46,15 @@ public class GoodDetail implements Serializable{
     private String secondName;
     private int state;
 
+    public String getBabyMerchantName() {
+        return babyMerchantName;
+    }
+
+    public void setBabyMerchantName(String babyMerchantName) {
+        this.babyMerchantName = babyMerchantName;
+    }
+
+    private String babyMerchantName;
     public int getAudit() {
         return audit;
     }

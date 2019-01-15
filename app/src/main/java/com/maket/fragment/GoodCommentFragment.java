@@ -1,25 +1,31 @@
 package com.maket.fragment;
 
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.cheyibao.fragment.StudyListFragment;
-import com.entity.PhoneCommBaseType;
+import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.google.gson.Gson;
+import com.http.HttpProxy;
+import com.http.ICallBack;
+import com.maket.GoodDetailActivity;
+import com.maket.adapter.GoodsCommentAdapter;
+import com.maket.model.GoodsComment;
 import com.nohttp.sample.BaseFragment;
-import com.tool.viewpager.IndicatorViewPager;
-import com.tool.viewpager.OnTransitionTextListener;
-import com.tool.viewpager.ScrollIndicatorView;
+import com.rongcloud.view.LoadMoreListView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,8 +34,19 @@ import butterknife.ButterKnife;
  * Created by sdhcjhss on 2017/12/9.
  */
 
-public class GoodCommentFragment extends BaseFragment  {
+public class GoodCommentFragment extends BaseFragment {
 
+    GoodsCommentAdapter mGoodsCommentAdapter;
+    List<GoodsComment> mGoodsComments;
+    @BindView(R.id.lv_comment)
+    com.maket.model.LoadMoreListView lv_comment;
+    @BindView(R.id.comment1)
+    TextView comment1;
+    @BindView(R.id.comment2)
+    TextView comment2;
+    int type = 1;
+    int page = 1;
+    boolean isLoadMore = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,9 +58,79 @@ public class GoodCommentFragment extends BaseFragment  {
     }
 
     private void initView() {
+        mGoodsComments = new ArrayList<>();
+        mGoodsCommentAdapter = new GoodsCommentAdapter(getContext(), mGoodsComments);
+        lv_comment.setAdapter(mGoodsCommentAdapter);
+        lv_comment.setOnLoadMoreListener(new com.maket.model.LoadMoreListView.OnLoadMoreListener() {
+            @Override
+            public void onloadMore() {
+                isLoadMore = true;
+                page++;
+                getComment(type);
+            }
+        });
 
+        comment1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type = 1;
+                comment1.setTextColor(getResources().getColor(R.color.yellow_02));
+                comment2.setTextColor(getResources().getColor(R.color.gray_99));
+                mGoodsComments.clear();
+                getComment(type);
+            }
+        });
+        comment2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type = 2;
+                comment2.setTextColor(getResources().getColor(R.color.yellow_02));
+                comment1.setTextColor(getResources().getColor(R.color.gray_99));
+                mGoodsComments.clear();
+
+                getComment(type);
+            }
+        });
+        getComment(type);
     }
 
+    private void getComment(int type) {
+
+        GoodDetailActivity goodDetailActivity = (GoodDetailActivity) getActivity();
+        Map<String, Object> params = new HashMap<>();
+        params.put("commodityId", goodDetailActivity.getGoodList().getId());
+        params.put("page", page);
+        params.put("type", type);
+        HttpProxy.obtain().get(PlatformContans.GoodsOrder.getGoodsComment, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+
+                Log.e("getGoodsComment", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        GoodsComment goodsComment = new Gson().fromJson(item.toString(), GoodsComment.class);
+                        mGoodsComments.add(goodsComment);
+                    }
+                    mGoodsCommentAdapter.notifyDataSetChanged();
+                    if (isLoadMore) {
+                        isLoadMore = false;
+                        lv_comment.setLoadCompleted();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
 
 
 }

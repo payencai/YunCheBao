@@ -1,10 +1,12 @@
 package com.cheyibao.model;
 
+import java.io.Serializable;
+
 /**
  * 作者：凌涛 on 2019/1/14 14:49
  * 邮箱：771548229@qq..com
  */
-public class NewCarMenu {
+public class NewCarMenu implements Serializable{
 
     /**
      * id : 1

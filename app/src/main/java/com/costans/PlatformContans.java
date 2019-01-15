@@ -178,6 +178,7 @@ public class PlatformContans {
         public static final String getMerchantList=root+"/newcar/getMerchantList";
         public static final String getComment=root+ "/evaluation/getMerchantEvaluationByUser";
         public static final String getNewCarMerchantMessage=root+ "/newcar/getNewCarMerchantMessage";
+        public static final String getDetailParams=root+ "/newcar/getCarCategoryDetailParamById";
     }
     public static  class CarCategory{
         public static final String getFirstCategory=root+ "/carcategory/getFirstCategory";

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
@@ -9,7 +10,7 @@
         <TextView
             android:textColor="@color/yellow_02"
             android:gravity="center"
-            android:text="晒单评价"
+            android:text="全部评价"
             android:id="@+id/comment1"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -17,14 +18,16 @@
         <TextView
             android:textColor="@color/gray_99"
             android:gravity="center"
-            android:text="全部评价"
+            android:text="晒单评价"
             android:id="@+id/comment2"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
     </LinearLayout>
-    <FrameLayout
-        android:id="@+id/fr_content"
+    <com.maket.model.LoadMoreListView
+        android:id="@+id/lv_comment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="match_parent">
+
+    </com.maket.model.LoadMoreListView>
 </LinearLayout>

@@ -14,7 +14,9 @@ import android.widget.TextView;
 import com.application.MyApplication;
 import com.bumptech.glide.Glide;
 import com.caryibao.NewCar;
+import com.cheyibao.adapter.NewCarParamsAdapter;
 import com.cheyibao.adapter.ShopItemAdapter;
+import com.cheyibao.model.NewCarParams;
 import com.cheyibao.model.Shop;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
@@ -58,11 +60,14 @@ public class NewCarDetailActivity extends AppCompatActivity {
     LinearLayout ll_shop;
     @BindView(R.id.lv_params)
     PersonalListView lv_params;
+    @BindView(R.id.tv_param)
+            TextView tv_param;
+    NewCarParamsAdapter mNewCarParamsAdapter;
     List<String> images = new ArrayList<>();
     List<Shop> mShops = new ArrayList<>();
     ShopItemAdapter mShopItemAdapter;
     NewCar mNewCar;
-
+    NewCarParams mNewCarParams;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +75,44 @@ public class NewCarDetailActivity extends AppCompatActivity {
         mNewCar = (NewCar) getIntent().getExtras().getSerializable("data");
         ButterKnife.bind(this);
         initView();
+        getParams();
     }
+    private void getParams(){
+        Map<String,Object> params=new HashMap<>();
+        params.put("carCategoryDetailId",mNewCar.getCarCategoryDetailId());
+        HttpProxy.obtain().get(PlatformContans.NewCar.getDetailParams, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("params",result);
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    JSONObject data=jsonObject.getJSONObject("data");
+                    JSONArray param=data.getJSONArray("param");
+                    if(param.length()>0){
+                        JSONObject item=param.getJSONObject(0);
+                        mNewCarParams=new Gson().fromJson(item.toString(),NewCarParams.class);
+                        if(mNewCarParams.getParam().size()>0){
+                            NewCarParams.ParamBean paramBean=mNewCarParams.getParam().get(0);
+                            paramBean.setParent(mNewCarParams.getParamValue());
+                            List<NewCarParams.ParamBean> paramBeans=mNewCarParams.getParam();
+                            paramBeans.remove(0);
+                            paramBeans.add(0,paramBean);
+                            mNewCarParamsAdapter=new NewCarParamsAdapter(NewCarDetailActivity.this,paramBeans);
+                            lv_params.setAdapter(mNewCarParamsAdapter);
+                        }
 
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     private void initBanner() {
         banner.setImageLoader(new com.youth.banner.loader.ImageLoader() {
             @Override
@@ -91,6 +132,14 @@ public class NewCarDetailActivity extends AppCompatActivity {
 
 
     private void initView() {
+        tv_param.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(NewCarDetailActivity.this,NewCarParamsActivity.class);
+                intent.putExtra("param",mNewCar.getCarCategoryDetailId());
+                startActivity(intent);
+            }
+        });
         tv_oldprice.setText("厂家指导价"+mNewCar.getAdvicePrice());
         tv_newprice.setText("￥"+mNewCar.getNakedCarPrice());
         String name=mNewCar.getFirstName();

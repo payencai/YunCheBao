@@ -372,7 +372,10 @@
         <activity android:name="com.cheyibao.NewCarItemActivity" />
         <activity android:name="com.maket.GoodsPayActivity" />
         <activity android:name="com.maket.GoodsOrderDetailActivity" />
-        <activity android:name="com.maket.SinglePayActivity"></activity>
+        <activity
+            android:name="com.maket.SinglePayActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
+        <activity android:name="com.cheyibao.NewCarParamsActivity"></activity>
     </application>
 
 </manifest>

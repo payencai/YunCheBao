@@ -87,8 +87,8 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
         if (!TextUtils.isEmpty(mOldCar.getCarCategoryDetail().getBanner3()) && !"null".equals(mOldCar.getCarCategoryDetail().getBanner3()))
             images.add(mOldCar.getCarCategoryDetail().getBanner3());
         initBanner();
-        tv_newprice.setText("新车含税:￥"+mOldCar.getOldPrice());
-        tv_oldprice.setText("￥"+mOldCar.getNewPrice());
+        tv_oldprice.setText("新车含税:￥"+mOldCar.getOldPrice());
+        tv_newprice.setText("￥"+mOldCar.getNewPrice());
         String name=mOldCar.getFirstName();
         if (!TextUtils.isEmpty(mOldCar.getSecondName()) && !"null".equals(mOldCar.getSecondName())){
             name=name+mOldCar.getSecondName();

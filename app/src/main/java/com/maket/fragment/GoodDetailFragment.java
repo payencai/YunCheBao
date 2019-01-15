@@ -41,6 +41,7 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.maket.GoodDetailActivity;
+import com.maket.SinglePayActivity;
 import com.maket.adapter.AttenAddressListAdapter;
 import com.maket.adapter.ConfigAdapter;
 import com.maket.adapter.ConfigSizeAdapter;
@@ -59,6 +60,7 @@ import com.tool.view.HorizontalListView;
 import com.vipcenter.AddressAddActivity;
 import com.vipcenter.OrderChatDetailActivity;
 import com.vipcenter.OrderConfirmActivity;
+import com.vipcenter.RegisterActivity;
 import com.vipcenter.ShopMainListActivity;
 import com.vipcenter.adapter.AddressListAdapter;
 import com.vipcenter.model.PersonAddress;
@@ -150,14 +152,7 @@ public class GoodDetailFragment extends BaseFragment {
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-//                Log.e("url", mBanners.get(position).getPicture() + "-" + mBanners.get(position).getSkipUrl());
-//                Intent intent = new Intent(getContext(), WebviewActivity.class);
-//                String url = mBanners.get(position).getSkipUrl();
-//                if (!url.contains("http") && !url.contains("https")) {
-//                    url = "http://" + url;
-//                }
-//                intent.putExtra("url", url);
-//                startActivity(intent);
+
             }
         });
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
@@ -170,7 +165,7 @@ public class GoodDetailFragment extends BaseFragment {
 
     public void setUIData() {
         String[] urls = mGoodDetail.getCommodityImage().split(",");
-        for (int i = 0; i <urls.length ; i++) {
+        for (int i = 0; i < urls.length; i++) {
             images.add(urls[i]);
         }
         initBanner();
@@ -248,7 +243,7 @@ public class GoodDetailFragment extends BaseFragment {
                         }
                     }
                     if (data.length() > 0) {
-                        ll_comment.setVisibility(View.GONE);
+                        ll_comment.setVisibility(View.VISIBLE);
                     }
 
 
@@ -647,7 +642,16 @@ public class GoodDetailFragment extends BaseFragment {
                 ActivityAnimationUtils.commonTransition(getActivity(), ShopMainListActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.submitBtn:
-                ActivityAnimationUtils.commonTransition(getActivity(), OrderConfirmActivity.class, ActivityConstans.Animation.FADE);
+                if (MyApplication.isLogin) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("param", mGoodParam);
+                    bundle.putSerializable("child", goodSize);
+                    bundle.putSerializable("detail", mGoodDetail);
+                    bundle.putSerializable("count", count);
+                    ActivityAnimationUtils.commonTransition(getActivity(), SinglePayActivity.class, ActivityConstans.Animation.FADE, bundle);
+                }else{
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
                 break;
             case R.id.ll_carshop:
                 if (MyApplication.isLogin)
