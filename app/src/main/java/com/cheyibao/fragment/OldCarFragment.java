@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.bbcircle.data.ClassItem;
+import com.cheyibao.NewCarListActivity;
 import com.cheyibao.OldCarDetailActivity;
 import com.cheyibao.OldCarListActivity;
 import com.cheyibao.OldCarSelectActivity;
@@ -171,6 +172,17 @@ public class OldCarFragment extends BaseFragment {
                 page++;
                 getData();
                // ToastUtil.showToast(getContext(),"到达底部");
+            }
+        });
+        gv_newcar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                NewCarMenu newCarMenu=mNewCarMenus.get(position);
+                Intent intent=new Intent(getContext(),OldCarListActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("menu",newCarMenu);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
         getData();

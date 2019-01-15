@@ -2,9 +2,11 @@ package com.cheyibao;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -63,7 +65,10 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
     TextView tv_regtime;
     @BindView(R.id.tv_dis)
     TextView tv_dis;
-
+    @BindView(R.id.ll_person)
+    LinearLayout ll_person;
+    @BindView(R.id.ll_shop)
+    LinearLayout ll_shop;
     List<String> images=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +111,11 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
         tv_deadline.setText("2019-12");
         tv_city.setText(mOldCar.getRegistrationAddress());
         tv_dis.setText(mOldCar.getDistance()+"");
+        if(mOldCar.getType()==1){
+            ll_shop.setVisibility(View.VISIBLE);
+        }else{
+            ll_person.setVisibility(View.VISIBLE);
+        }
     }
 
     public void callToPhoneSweetAlert(final String phone) {

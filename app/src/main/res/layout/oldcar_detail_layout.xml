@@ -15,13 +15,11 @@
         android:layout_marginTop="50dp">
 
         <LinearLayout
-            android:background="@color/white"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="60dp"
             android:orientation="vertical">
-
-
             <!--广告栏banner-->
             <com.youth.banner.Banner
                 android:id="@+id/slideshowView"
@@ -32,6 +30,7 @@
             <!--广告栏banner  end-->
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -74,55 +73,154 @@
                 </LinearLayout>
             </LinearLayout>
 
-
-
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/tv_nickname"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="个人车主昵称"
-                android:textColor="@color/black_33"
-                android:textSize="17sp" />
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/tv_content"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="别克昂科威 2015款 20T 四驱豪华型"
-                android:textColor="@color/gray_99"
-                android:textSize="12sp" />
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginLeft="40dp"
+                android:visibility="gone"
+                android:id="@+id/ll_person"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:textColor="@color/gray_99"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:text="查看评论"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+
+                    android:id="@+id/tv_nickname"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="个人车主昵称"
+                    android:textColor="@color/black_33"
+                    android:textSize="17sp" />
                 <TextView
+
+                    android:id="@+id/tv_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="看就看广泛大概风格广东富豪的风格和股份过户的感地方官梵蒂冈回复的光辉典范"
                     android:textColor="@color/gray_99"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:text="在线沟通"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:textSize="12sp" />
+                <LinearLayout
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="@color/gray_99"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="查看评论"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textColor="@color/gray_99"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="在线沟通"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
             </LinearLayout>
 
 
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_shop"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="15dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="云南隆创尚通" />
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/yellow_02"
+                        android:gravity="center"
+                        android:layout_width="15dp"
+                        android:layout_height="20dp"
+                        android:text="1" />
+                </LinearLayout>
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:src="@mipmap/location_gray_icon"
+                        android:layout_width="12dp"
+                        android:layout_height="15dp" />
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:textColor="@color/gray_99"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="昆明市滇池路542号（滇池路与日新路交叉口）" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <TextView
+                        android:id="@+id/tv_sale"
+                        android:textSize="10sp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textColor="@color/black_33"
+                        android:layout_marginLeft="15dp"
+                        android:text="在售车型"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:id="@+id/tv_comment"
+                        android:textSize="10sp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textColor="@color/black_33"
+                        android:layout_marginLeft="15dp"
+                        android:text="查看评论"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:id="@+id/tv_service"
+                        android:textSize="10sp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textColor="@color/black_33"
+                        android:layout_marginLeft="15dp"
+                        android:text="商家客服"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+
+            </LinearLayout>
             <RelativeLayout
+                android:background="@color/white"
+                android:layout_marginTop="10dp"
                 android:paddingLeft="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -151,6 +249,7 @@
 
 
             <LinearLayout
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
@@ -354,9 +453,10 @@
                 android:layout_height="wrap_content">
 
             </com.tool.listview.PersonalListView>
-
-
         </LinearLayout>
+
+
+
     </ScrollView>
 
     <LinearLayout

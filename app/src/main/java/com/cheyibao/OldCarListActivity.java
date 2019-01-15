@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import com.baike.adapter.MagzineListAdapter;
 import com.cheyibao.adapter.CarRecommendListAdapter;
 import com.cheyibao.adapter.PriceGridAdapter;
+import com.cheyibao.model.NewCarMenu;
 import com.cheyibao.model.OldCar;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
@@ -37,6 +39,7 @@ import com.tool.view.TopMiddlePopup;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.xihubao.BrandGoodsListActivity;
 import com.xihubao.CarBrandSelectActivity;
+import com.xihubao.model.CarBrand;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -93,14 +96,24 @@ public class OldCarListActivity extends NoHttpBaseActivity {
     String shop = "商家";
     String one = "个人";
     int flag;
-
+    NewCarMenu mNewCarMenu;
+    String firstId="";//品牌Id;
+    String startprice="";
+    String endprice="";
+    int type=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.old_car_list_layout);
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null)
+        if (bundle != null) {
             flag = bundle.getInt("price");
+            mNewCarMenu = (NewCarMenu) bundle.getSerializable("menu");
+            if(mNewCarMenu!=null){
+                firstId=mNewCarMenu.getFirstId();
+            }
+        }
+
         initView();
         getData();
     }
@@ -108,6 +121,19 @@ public class OldCarListActivity extends NoHttpBaseActivity {
     private void getData() {
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
+        if(!TextUtils.isEmpty(firstId)){
+            params.put("firstId", firstId);
+        }
+        if(!TextUtils.isEmpty(startprice)){
+            params.put("startprice", startprice);
+        }
+        if(!TextUtils.isEmpty(endprice)){
+            params.put("endprice", endprice);
+        }
+        if(type>0){
+            params.put("type", type);
+        }
+        Log.e("params",params.toString());
         // params.put("orderByClause",3);
         HttpProxy.obtain().get(PlatformContans.OldCar.getOldCarMerchantCarByApp, params, "", new ICallBack() {
             @Override
@@ -145,24 +171,35 @@ public class OldCarListActivity extends NoHttpBaseActivity {
                 tagStrList.add(brand);
                 break;
             case 2:
+                type=1;
                 tagStrList.add(shop);
                 break;
             case 3:
+                type=2;
                 tagStrList.add(one);
                 break;
             case -1:
+                startprice="0";
+                endprice="5";
                 tagStrList.add(price1);
                 break;
             case 5:
+                startprice="5";
+                endprice="10";
                 tagStrList.add(price2);
                 break;
             case 10:
+                startprice="10";
+                endprice="15";
                 tagStrList.add(price3);
                 break;
             case 15:
+                startprice="15";
+                endprice="30";
                 tagStrList.add(price4);
                 break;
             case 30:
+                startprice="30";
                 tagStrList.add(price5);
                 break;
         }
