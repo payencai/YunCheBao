@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.caryibao.NewCar;
 import com.cheyibao.adapter.NewCarParamsAdapter;
 import com.cheyibao.adapter.ShopItemAdapter;
+import com.cheyibao.model.Merchant;
 import com.cheyibao.model.NewCarParams;
 import com.cheyibao.model.Shop;
 import com.costans.PlatformContans;
@@ -23,6 +24,7 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.lljjcoder.style.citylist.Toast.ToastUtils;
 import com.system.WebviewActivity;
 import com.tool.listview.PersonalListView;
 import com.youth.banner.Banner;
@@ -68,6 +70,7 @@ public class NewCarDetailActivity extends AppCompatActivity {
     ShopItemAdapter mShopItemAdapter;
     NewCar mNewCar;
     NewCarParams mNewCarParams;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,29 +78,31 @@ public class NewCarDetailActivity extends AppCompatActivity {
         mNewCar = (NewCar) getIntent().getExtras().getSerializable("data");
         ButterKnife.bind(this);
         initView();
+        getMerchat();
         getParams();
     }
-    private void getParams(){
-        Map<String,Object> params=new HashMap<>();
-        params.put("carCategoryDetailId",mNewCar.getCarCategoryDetailId());
+
+    private void getParams() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("carCategoryDetailId", mNewCar.getCarCategoryDetailId());
         HttpProxy.obtain().get(PlatformContans.NewCar.getDetailParams, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("params",result);
+                Log.e("params", result);
                 try {
-                    JSONObject jsonObject=new JSONObject(result);
-                    JSONObject data=jsonObject.getJSONObject("data");
-                    JSONArray param=data.getJSONArray("param");
-                    if(param.length()>0){
-                        JSONObject item=param.getJSONObject(0);
-                        mNewCarParams=new Gson().fromJson(item.toString(),NewCarParams.class);
-                        if(mNewCarParams.getParam().size()>0){
-                            NewCarParams.ParamBean paramBean=mNewCarParams.getParam().get(0);
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    JSONArray param = data.getJSONArray("param");
+                    if (param.length() > 0) {
+                        JSONObject item = param.getJSONObject(0);
+                        mNewCarParams = new Gson().fromJson(item.toString(), NewCarParams.class);
+                        if (mNewCarParams.getParam().size() > 0) {
+                            NewCarParams.ParamBean paramBean = mNewCarParams.getParam().get(0);
                             paramBean.setParent(mNewCarParams.getParamValue());
-                            List<NewCarParams.ParamBean> paramBeans=mNewCarParams.getParam();
+                            List<NewCarParams.ParamBean> paramBeans = mNewCarParams.getParam();
                             paramBeans.remove(0);
-                            paramBeans.add(0,paramBean);
-                            mNewCarParamsAdapter=new NewCarParamsAdapter(NewCarDetailActivity.this,paramBeans);
+                            paramBeans.add(0, paramBean);
+                            mNewCarParamsAdapter = new NewCarParamsAdapter(NewCarDetailActivity.this, paramBeans);
                             lv_params.setAdapter(mNewCarParamsAdapter);
                         }
 
@@ -113,6 +118,7 @@ public class NewCarDetailActivity extends AppCompatActivity {
             }
         });
     }
+
     private void initBanner() {
         banner.setImageLoader(new com.youth.banner.loader.ImageLoader() {
             @Override
@@ -130,25 +136,91 @@ public class NewCarDetailActivity extends AppCompatActivity {
         banner.start();
     }
 
+    Merchant merchant;
+
+    private void getMerchat() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("merchantId", mNewCar.getMerchantId());
+        HttpProxy.obtain().get(PlatformContans.Shop.getMerchantById, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    merchant = new Gson().fromJson(data.toString(), Merchant.class);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    private void postOrder() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("commodityId", mNewCar.getId());
+        params.put("shopId", merchant.getId());
+        params.put("shopName", merchant.getName());
+        params.put("title", merchant.getName());
+        params.put("image", merchant.getLogo());
+        params.put("number", 1);
+        params.put("type", 1);
+        // params.put("telephone",mNewCar.getCarCategoryDetail().get);
+        params.put("seat", mNewCar.getCarCategoryDetail().getSeat());
+        params.put("carCategory", mNewCar.getCarCategoryDetail().getModels());
+        HttpProxy.obtain().post(PlatformContans.CarOrder.addCarOrder, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        String orderId = jsonObject.getString("data");
+                        Intent intent = new Intent(NewCarDetailActivity.this, CarPayActivity.class);
+                        intent.putExtra("money", mNewCar.getMinPrice() + "");
+                        intent.putExtra("orderid", orderId);
+                        startActivity(intent);
+                    }else if(code==9999){
+                        ToastUtils.showLongToast(NewCarDetailActivity.this,"请先去实名认证");
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
 
     private void initView() {
         tv_param.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(NewCarDetailActivity.this,NewCarParamsActivity.class);
-                intent.putExtra("param",mNewCar.getCarCategoryDetailId());
+                Intent intent = new Intent(NewCarDetailActivity.this, NewCarParamsActivity.class);
+                intent.putExtra("param", mNewCar.getCarCategoryDetailId());
                 startActivity(intent);
             }
         });
 
-        tv_oldprice.setText("厂家指导价"+mNewCar.getAdvicePrice());
-        tv_newprice.setText("￥"+mNewCar.getNakedCarPrice());
-        String name=mNewCar.getFirstName();
-        if (!TextUtils.isEmpty(mNewCar.getSecondName()) && !"null".equals(mNewCar.getSecondName())){
-            name=name+mNewCar.getSecondName();
+        tv_oldprice.setText("厂家指导价" + mNewCar.getAdvicePrice());
+        tv_newprice.setText("￥" + mNewCar.getNakedCarPrice());
+        String name = mNewCar.getFirstName();
+        if (!TextUtils.isEmpty(mNewCar.getSecondName()) && !"null".equals(mNewCar.getSecondName())) {
+            name = name + mNewCar.getSecondName();
         }
-        if (!TextUtils.isEmpty(mNewCar.getThirdName()) && !"null".equals(mNewCar.getThirdName())){
-            name=name+mNewCar.getThirdName();
+        if (!TextUtils.isEmpty(mNewCar.getThirdName()) && !"null".equals(mNewCar.getThirdName())) {
+            name = name + mNewCar.getThirdName();
         }
         tv_name.setText(name);
         if (!TextUtils.isEmpty(mNewCar.getCarCategoryDetail().getBanner1()) && !"null".equals(mNewCar.getCarCategoryDetail().getBanner1()))
@@ -188,7 +260,7 @@ public class NewCarDetailActivity extends AppCompatActivity {
                         Shop baikeItem = new Gson().fromJson(item.toString(), Shop.class);
                         mShops.add(baikeItem);
                     }
-                    if(data.length()==0){
+                    if (data.length() == 0) {
                         ll_shop.setVisibility(View.GONE);
                     }
                     mShopItemAdapter.notifyDataSetChanged();

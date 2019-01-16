@@ -24,6 +24,7 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.lljjcoder.style.citylist.Toast.ToastUtils;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
@@ -32,6 +33,7 @@ import com.tool.listview.PersonalListView;
 import com.tool.listview.PersonalScrollView;
 import com.tool.slideshowview.SlideShowView;
 import com.vipcenter.OrderDetailActivity;
+import com.vipcenter.RegisterActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -321,9 +323,16 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
 //                ActivityAnimationUtils.commonTransition(OldCarDetailActivity.this, SellerDetailActivity.class, ActivityConstans.Animation.FADE);
 //                break;
             case R.id.askLowPriceBtn:
-                if(MyApplication.isLogin)
-                   postOrder();
-               // ActivityAnimationUtils.commonTransition(OldCarDetailActivity.this, AskLowPriceActivity.class, ActivityConstans.Animation.FADE);
+                if(MyApplication.isLogin){
+                    if(mOldCar.getType()==1)
+                      postOrder();
+                    else if(mOldCar.getType()==2){
+                        ActivityAnimationUtils.commonTransition(OldCarDetailActivity.this, AskLowPriceActivity.class, ActivityConstans.Animation.FADE);
+                    }
+                }else{
+                    startActivity(new Intent(OldCarDetailActivity.this,RegisterActivity.class));
+                }
+
                 break;
             case R.id.callForMoreBtn:
                 callToPhoneSweetAlert("10010");
@@ -348,11 +357,16 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
                 Log.e("result",result);
                 try {
                     JSONObject jsonObject=new JSONObject(result);
-                    String orderId=jsonObject.getString("data");
-                    Intent intent=new Intent(OldCarDetailActivity.this,CarPayActivity.class);
-                    intent.putExtra("money",mOldCar.getNewPrice()+"");
-                    intent.putExtra("orderid",orderId);
-                    startActivity(intent);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        String orderId = jsonObject.getString("data");
+                        Intent intent = new Intent(OldCarDetailActivity.this, CarPayActivity.class);
+                        intent.putExtra("money", mOldCar.getNewPrice() + "");
+                        intent.putExtra("orderid", orderId);
+                        startActivity(intent);
+                    }else if(code==9999){
+                        ToastUtils.showLongToast(OldCarDetailActivity.this,"请先去实名认证");
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
