@@ -33,6 +33,11 @@ public class PlatformContans {
         public static final String getWikiClassifyByType=root+ "/wikiClassify/getWikiClassifyByType" ;
         public static final String getBabyWikiByclassifyId=root+ "/babyWiki/getBabyWikiByclassifyId";
     }
+    public static class Shop{
+        public static final String getMerchantById=root+ "/merchant/getMerchantById" ;
+
+
+    }
     public static class Gift{
         public static final String getGiftCommodityListToAPP=root+ "/giftCommodity/getGiftCommodityListToAPP" ;
         public static final String getGiftCommodity=root+ "/giftCommodity/getGiftCommodity";
@@ -144,6 +149,12 @@ public class PlatformContans {
         public static final String getOldCarMerchantCarByApp=root+ "/oldcar/getOldCarMerchantCarByApp";
         public static final String getOldCarMerchantCarByUser=root+ "/oldcar/getOldCarMerchantCarByUser";
       //  public static final String getWashRepairServeResultByShopId=root+ "/carWashRepairShop/getWashRepairServeResultByShopId";
+    }
+    public static class CarOrder{
+        public static final String addCarOrder=root+ "/carOrder/addCarOrder";
+        public static final String cancelCarOrder=root+ "/carOrder/cancelCarOrder";
+        public static final String getUserCarOrder=root+ "/carOrder/getUserCarOrder";
+
     }
     public static class Pay{
         public static final String babyMerchantOrderPay=root+ "/alipay/babyMerchantOrderPay";

@@ -1,0 +1,17 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cheyibao.NewCarNearbyFragment">
+
+
+        <com.maket.model.LoadMoreListView
+            android:id="@+id/lv_car"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.maket.model.LoadMoreListView>
+
+
+
+</LinearLayout>

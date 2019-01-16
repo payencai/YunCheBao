@@ -61,7 +61,7 @@ public class NewCarDetailActivity extends AppCompatActivity {
     @BindView(R.id.lv_params)
     PersonalListView lv_params;
     @BindView(R.id.tv_param)
-            TextView tv_param;
+    TextView tv_param;
     NewCarParamsAdapter mNewCarParamsAdapter;
     List<String> images = new ArrayList<>();
     List<Shop> mShops = new ArrayList<>();
@@ -140,6 +140,7 @@ public class NewCarDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         tv_oldprice.setText("厂家指导价"+mNewCar.getAdvicePrice());
         tv_newprice.setText("￥"+mNewCar.getNakedCarPrice());
         String name=mNewCar.getFirstName();

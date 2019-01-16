@@ -211,7 +211,10 @@ public class RentCarFragment extends BaseFragment implements OnHeaderClickListen
         lv_right.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getContext(), RentShopDetailActivity.class));
+                Intent intent=new Intent(getContext(), RentShopDetailActivity.class);
+                RentCar rentCar=mRentCars.get(position);
+                intent.putExtra("data",rentCar);
+                startActivity(intent);
             }
         });
         lv_left.setAdapter(mAreaItemAdapter);

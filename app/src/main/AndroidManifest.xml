@@ -374,8 +374,14 @@
         <activity android:name="com.maket.GoodsOrderDetailActivity" />
         <activity
             android:name="com.maket.SinglePayActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name="com.cheyibao.NewCarParamsActivity"></activity>
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name="com.cheyibao.NewCarParamsActivity" />
+        <activity android:name="com.cheyibao.OldCarCommentActivity" />
+        <activity android:name="com.cheyibao.OldCarShopActivity" />
+        <activity
+            android:name="com.cheyibao.RentCarOrderActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name="com.cheyibao.CarPayActivity"></activity>
     </application>
 
 </manifest>

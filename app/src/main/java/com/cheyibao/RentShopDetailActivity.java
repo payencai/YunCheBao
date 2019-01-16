@@ -9,16 +9,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.cheyibao.adapter.RentCarImageAdapter;
 import com.cheyibao.adapter.RentShopListAdapter;
 import com.cheyibao.fragment.RentComentFragment;
 import com.cheyibao.fragment.RentShopFragment;
+import com.cheyibao.model.RentCar;
 import com.costans.PlatformContans;
 import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.maket.adapter.GoodsCommentImageAdapter;
+import com.maket.adapter.GoodsOrderImageAdapter;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
@@ -26,6 +31,7 @@ import com.tool.adapter.MyFragmentPagerAdapter;
 import com.tool.listview.PersonalScrollView;
 import com.tool.listview.PersonalViewPager;
 import com.tool.view.GridViewForScrollView;
+import com.tool.view.HorizontalListView;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -49,26 +55,48 @@ import butterknife.OnClick;
 public class RentShopDetailActivity extends AppCompatActivity {
     private Context ctx;
 
-    @BindView(R.id.tab_shop)
+    @BindView(R.id.id_stickynavlayout_indicator)
     TabLayout tab_shop;
-
-    @BindView(R.id.vp_shop)
-    PersonalViewPager vp_shop;
-    @BindView(R.id.scollview)
-    PersonalScrollView mScrollView;
-
+    @BindView(R.id.id_stickynavlayout_viewpager)
+    ViewPager vp_shop;
+    @BindView(R.id.tv_shopname)
+    TextView tv_shopname;
+    @BindView(R.id.tv_address)
+    TextView tv_address;
+    @BindView(R.id.tv_phone)
+    TextView tv_phone;
+    @BindView(R.id.hlv_photo)
+    HorizontalListView hlv_photo;
     MyFragmentPagerAdapter mMyFragmentPagerAdapter;
     private List<String> mTabTitles=new ArrayList<>();
     private List<Fragment> mFragments=new ArrayList<>();
+    GoodsOrderImageAdapter mRentCarImageAdapter;
+    List<String> images=new ArrayList<>();
+    RentCar mRentCar;
+
+    public RentCar getRentCar() {
+        return mRentCar;
+    }
+
+    public void setRentCar(RentCar rentCar) {
+        mRentCar = rentCar;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rent_shop_detail);
+        mRentCar= (RentCar) getIntent().getSerializableExtra("data");
         ButterKnife.bind(this);
         initView();
-
+        setUI();
     }
-
+    private void setUI(){
+        tv_shopname.setText(mRentCar.getName());
+        tv_address.setText(mRentCar.getAddress());
+        tv_phone.setText(mRentCar.getTelephone());
+        getPhoto();
+    }
 
 
     private void initView() {
@@ -87,11 +115,7 @@ public class RentShopDetailActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 0) {
-                    vp_shop.resetHeight(0);
-                } else if (position == 1) {
-                    vp_shop.resetHeight(1);
-                }
+
             }
 
             @Override
@@ -110,11 +134,11 @@ public class RentShopDetailActivity extends AppCompatActivity {
                 break;
         }
     }
-    List<String> images=new ArrayList<>();
+
 
     private void getPhoto(){
         Map<String, Object> params = new HashMap<>();
-        params.put("merchantId","");
+        params.put("merchantId",mRentCar.getId());
         HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarPhoto, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -126,6 +150,8 @@ public class RentShopDetailActivity extends AppCompatActivity {
                         String url = data.getString(i);
                         images.add(url);
                     }
+                    mRentCarImageAdapter=new GoodsOrderImageAdapter(RentShopDetailActivity.this,images);
+                    hlv_photo.setAdapter(mRentCarImageAdapter);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

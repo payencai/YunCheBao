@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,503 +8,507 @@
 
     <include layout="@layout/white_top_multi_icon_layout"></include>
     <!-- 头部 end -->
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent">
+         <com.tool.listview.PersonalScrollView
+             android:id="@+id/scollview"
+             android:layout_above="@+id/ll_bottom"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             >
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp">
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:orientation="vertical">
+                 <!--广告栏banner-->
+                 <com.youth.banner.Banner
+                     android:id="@+id/slideshowView"
+                     android:layout_width="match_parent"
+                     android:layout_height="247dp"
+                     android:background="@color/white"
+                     android:visibility="visible" />
+                 <!--广告栏banner  end-->
 
-        <LinearLayout
+                 <LinearLayout
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="60dp"
-            android:orientation="vertical">
-            <!--广告栏banner-->
-            <com.youth.banner.Banner
-                android:id="@+id/slideshowView"
-                android:layout_width="match_parent"
-                android:layout_height="247dp"
-                android:background="@color/white"
-                android:visibility="visible" />
-            <!--广告栏banner  end-->
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingBottom="16dp"
-                android:paddingLeft="24dp"
-                android:paddingRight="24dp"
-                android:paddingTop="16dp">
-
-
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="别克昂科威 2015款 20T 四驱豪华型"
-                    android:textColor="@color/black_33"
-                    android:textSize="17sp" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tv_newprice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="¥ 18.20万"
-                        android:textColor="@color/yellow_65"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:layout_marginLeft="5dp"
-                        android:id="@+id/tv_oldprice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="新车含税:¥ 23.87万"
-                        android:textColor="@color/gray_99"
-                        android:textSize="10sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:visibility="gone"
-                android:id="@+id/ll_person"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-
-                    android:id="@+id/tv_nickname"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="个人车主昵称"
-                    android:textColor="@color/black_33"
-                    android:textSize="17sp" />
-                <TextView
-
-                    android:id="@+id/tv_content"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="看就看广泛大概风格广东富豪的风格和股份过户的感地方官梵蒂冈回复的光辉典范"
-                    android:textColor="@color/gray_99"
-                    android:textSize="12sp" />
-                <LinearLayout
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="40dp"
-                    android:layout_marginLeft="40dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:textColor="@color/gray_99"
-                        android:gravity="center"
-                        android:layout_weight="1"
-                        android:text="查看评论"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:textColor="@color/gray_99"
-                        android:gravity="center"
-                        android:layout_weight="1"
-                        android:text="在线沟通"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </LinearLayout>
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:background="@color/white"
+                     android:orientation="vertical"
+                     android:paddingBottom="16dp"
+                     android:paddingLeft="10dp"
+                     android:paddingRight="24dp"
+                     android:paddingTop="16dp">
 
 
-            <LinearLayout
-                android:visibility="gone"
-                android:id="@+id/ll_shop"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:padding="15dp"
-                android:orientation="vertical">
+                     <TextView
+                         android:id="@+id/tv_name"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:text="别克昂科威 2015款 20T 四驱豪华型"
+                         android:textColor="@color/black_33"
+                         android:textSize="17sp" />
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginTop="10dp"
+                         android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                         <TextView
+                             android:id="@+id/tv_newprice"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="¥ 18.20万"
+                             android:textColor="@color/yellow_65"
+                             android:textSize="18sp" />
 
-                    <TextView
+                         <TextView
+                             android:layout_marginLeft="5dp"
+                             android:id="@+id/tv_oldprice"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="新车含税:¥ 23.87万"
+                             android:textColor="@color/gray_99"
+                             android:textSize="10sp" />
+                     </LinearLayout>
+                 </LinearLayout>
 
-                        android:textColor="@color/black_33"
-                        android:textSize="14sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="云南隆创尚通" />
+                 <LinearLayout
+                     android:background="@color/white"
+                     android:visibility="gone"
+                     android:id="@+id/ll_person"
+                     android:orientation="vertical"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content">
+                     <TextView
 
-                    <TextView
-                        android:textColor="@color/white"
-                        android:layout_marginLeft="10dp"
-                        android:background="@color/yellow_02"
-                        android:gravity="center"
-                        android:layout_width="15dp"
-                        android:layout_height="20dp"
-                        android:text="1" />
-                </LinearLayout>
-                <LinearLayout
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:src="@mipmap/location_gray_icon"
-                        android:layout_width="12dp"
-                        android:layout_height="15dp" />
-                    <TextView
-                        android:id="@+id/tv_address"
-                        android:textColor="@color/gray_99"
-                        android:layout_marginLeft="10dp"
-                        android:textSize="12sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="昆明市滇池路542号（滇池路与日新路交叉口）" />
+                         android:id="@+id/tv_nickname"
+                         android:layout_marginRight="20dp"
+                         android:layout_marginTop="10dp"
+                         android:layout_marginLeft="20dp"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="个人车主昵称"
+                         android:textColor="@color/black_33"
+                         android:textSize="17sp" />
+                     <TextView
 
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_marginTop="15dp"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
-                    <TextView
-                        android:id="@+id/tv_sale"
-                        android:textSize="10sp"
-                        android:gravity="center"
-                        android:layout_weight="1"
-                        android:textColor="@color/black_33"
-                        android:layout_marginLeft="15dp"
-                        android:text="在售车型"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" />
-                    <TextView
-                        android:id="@+id/tv_comment"
-                        android:textSize="10sp"
-                        android:gravity="center"
-                        android:layout_weight="1"
-                        android:textColor="@color/black_33"
-                        android:layout_marginLeft="15dp"
-                        android:text="查看评论"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" />
-                    <TextView
-                        android:id="@+id/tv_service"
-                        android:textSize="10sp"
-                        android:gravity="center"
-                        android:layout_weight="1"
-                        android:textColor="@color/black_33"
-                        android:layout_marginLeft="15dp"
-                        android:text="商家客服"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
+                         android:id="@+id/tv_content"
+                         android:layout_marginRight="20dp"
+                         android:layout_marginBottom="10dp"
+                         android:layout_marginTop="10dp"
+                         android:layout_marginLeft="20dp"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:text="看就看广泛大概风格广东富豪的风格和股份过户的感地方官梵蒂冈回复的光辉典范"
+                         android:textColor="@color/gray_99"
+                         android:textSize="12sp" />
+                     <LinearLayout
+                         android:layout_marginBottom="10dp"
+                         android:layout_marginRight="40dp"
+                         android:layout_marginLeft="40dp"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content">
+                         <TextView
+                             android:id="@+id/tv_seecomment"
+                             android:textColor="@color/gray_99"
+                             android:gravity="center"
+                             android:layout_weight="1"
+                             android:text="查看评论"
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content" />
+                         <TextView
+                             android:textColor="@color/gray_99"
+                             android:gravity="center"
+                             android:layout_weight="1"
+                             android:text="在线沟通"
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content" />
+                     </LinearLayout>
+                 </LinearLayout>
 
 
-            </LinearLayout>
-            <RelativeLayout
-                android:background="@color/white"
-                android:layout_marginTop="10dp"
-                android:paddingLeft="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_centerVertical="true"
-                    android:layout_marginBottom="10dp"
-                    android:id="@+id/ll_top"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <View
-                        android:layout_gravity="center_vertical"
-                        android:background="@color/yellow_02"
-                        android:layout_width="2dp"
-                        android:layout_height="15dp">
+                 <LinearLayout
+                     android:visibility="gone"
+                     android:id="@+id/ll_shop"
+                     android:layout_marginTop="10dp"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:background="@color/white"
+                     android:padding="15dp"
+                     android:orientation="vertical">
 
-                    </View>
-                    <TextView
-                        android:textSize="14sp"
-                        android:textColor="@color/black_33"
-                        android:layout_marginLeft="10dp"
-                        android:text="车辆档案"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </RelativeLayout>
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:orientation="horizontal">
 
+                         <TextView
+                             android:id="@+id/tv_shopname"
+                             android:textColor="@color/black_33"
+                             android:textSize="14sp"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="云南隆创尚通" />
 
-            <LinearLayout
-                android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:padding="10dp"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:textSize="14sp"
-                            android:textColor="@color/gray_99"
-                            android:layout_marginLeft="15dp"
-                            android:text="车辆颜色 : "
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/tv_color"
-                            android:textSize="14sp"
-                            android:textColor="@color/black_33"
-                            android:layout_marginLeft="15dp"
-                            android:text="黄色"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_marginTop="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:textSize="14sp"
-                            android:textColor="@color/gray_99"
-                            android:layout_marginLeft="15dp"
-                            android:text="上牌地点 : "
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/tv_city"
-                            android:textSize="14sp"
-                            android:textColor="@color/black_33"
-                            android:layout_marginLeft="15dp"
-                            android:text="广州"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_marginTop="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:textSize="14sp"
-                            android:textColor="@color/gray_99"
-                            android:layout_marginLeft="15dp"
-                            android:text="行驶里程 : "
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/tv_dis"
-                            android:textSize="14sp"
-                            android:textColor="@color/black_33"
-                            android:layout_marginLeft="15dp"
-                            android:text="黄色"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_marginTop="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:textSize="14sp"
-                            android:textColor="@color/gray_99"
-                            android:layout_marginLeft="15dp"
-                            android:text="上牌时间 : "
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/tv_regtime"
-                            android:textSize="14sp"
-                            android:textColor="@color/black_33"
-                            android:layout_marginLeft="15dp"
-                            android:text="黄色"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
+                         <TextView
+                             android:id="@+id/tv_grade"
+                             android:textColor="@color/white"
+                             android:layout_marginLeft="10dp"
+                             android:background="@color/yellow_02"
+                             android:gravity="center"
+                             android:layout_width="15dp"
+                             android:layout_height="20dp"
+                             android:text="1" />
+                     </LinearLayout>
+                     <LinearLayout
+                         android:gravity="center_vertical"
+                         android:layout_marginTop="5dp"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:orientation="horizontal">
+                         <ImageView
+                             android:src="@mipmap/location_gray_icon"
+                             android:layout_width="12dp"
+                             android:layout_height="15dp" />
+                         <TextView
+                             android:id="@+id/tv_address"
+                             android:textColor="@color/gray_99"
+                             android:layout_marginLeft="10dp"
+                             android:textSize="12sp"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="昆明市滇池路542号（滇池路与日新路交叉口）" />
 
-                </LinearLayout>
-                <LinearLayout
-                    android:padding="10dp"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:textSize="14sp"
-                            android:textColor="@color/gray_99"
-                            android:layout_marginLeft="15dp"
-                            android:text="下次验车 : "
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/tv_nexttime"
-                            android:textSize="14sp"
-                            android:textColor="@color/black_33"
-                            android:layout_marginLeft="15dp"
-                            android:text="黄色"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_marginTop="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:textSize="14sp"
-                            android:textColor="@color/gray_99"
-                            android:layout_marginLeft="15dp"
-                            android:text="交险有效期限 : "
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/tv_deadline"
-                            android:textSize="14sp"
-                            android:textColor="@color/black_33"
-                            android:layout_marginLeft="15dp"
-                            android:text="黄色"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_marginTop="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:textSize="14sp"
-                            android:textColor="@color/gray_99"
-                            android:layout_marginLeft="15dp"
-                            android:text="过户次数 : "
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/tv_num"
-                            android:textSize="14sp"
-                            android:textColor="@color/black_33"
-                            android:layout_marginLeft="15dp"
-                            android:text="黄色"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-
-                </LinearLayout>
-            </LinearLayout>
-            <com.tool.listview.PersonalListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </com.tool.listview.PersonalListView>
-            <TextView
-                android:id="@+id/toDetailConfig"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:padding="15dp"
-                android:text="查看参数"
-                android:textColor="@color/black_33"
-                android:textSize="14sp" />
-            <!-- 车辆主要信息 -->
+                     </LinearLayout>
+                     <LinearLayout
+                         android:layout_marginTop="15dp"
+                         android:background="@color/white"
+                         android:orientation="horizontal"
+                         android:layout_width="match_parent"
+                         android:layout_height="50dp">
+                         <TextView
+                             android:id="@+id/tv_sale"
+                             android:textSize="10sp"
+                             android:gravity="center"
+                             android:layout_weight="1"
+                             android:textColor="@color/black_33"
+                             android:layout_marginLeft="15dp"
+                             android:text="在售车型"
+                             android:layout_width="0dp"
+                             android:layout_height="match_parent" />
+                         <TextView
+                             android:id="@+id/tv_comment"
+                             android:textSize="10sp"
+                             android:gravity="center"
+                             android:layout_weight="1"
+                             android:textColor="@color/black_33"
+                             android:layout_marginLeft="15dp"
+                             android:text="查看评论"
+                             android:layout_width="0dp"
+                             android:layout_height="match_parent" />
+                         <TextView
+                             android:id="@+id/tv_service"
+                             android:textSize="10sp"
+                             android:gravity="center"
+                             android:layout_weight="1"
+                             android:textColor="@color/black_33"
+                             android:layout_marginLeft="15dp"
+                             android:text="商家客服"
+                             android:layout_width="0dp"
+                             android:layout_height="match_parent" />
+                     </LinearLayout>
 
 
+                 </LinearLayout>
+                 <RelativeLayout
+                     android:background="@color/white"
+                     android:layout_marginTop="10dp"
+                     android:paddingLeft="10dp"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content">
+                     <LinearLayout
+                         android:layout_centerVertical="true"
+                         android:layout_marginBottom="10dp"
+                         android:id="@+id/ll_top"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content">
+                         <View
+                             android:layout_gravity="center_vertical"
+                             android:background="@color/yellow_02"
+                             android:layout_width="2dp"
+                             android:layout_height="15dp">
+
+                         </View>
+                         <TextView
+                             android:textSize="14sp"
+                             android:textColor="@color/black_33"
+                             android:layout_marginLeft="10dp"
+                             android:text="车辆档案"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content" />
+                     </LinearLayout>
+                 </RelativeLayout>
 
 
+                 <LinearLayout
+                     android:background="@color/white"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content">
+                     <LinearLayout
+                         android:padding="10dp"
+                         android:orientation="vertical"
+                         android:layout_weight="1"
+                         android:layout_width="0dp"
+                         android:layout_height="wrap_content">
+                         <LinearLayout
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content">
+                             <TextView
+                                 android:textSize="12sp"
+                                 android:textColor="@color/gray_99"
+                                 android:text="车辆颜色 : "
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content" />
+                             <TextView
+                                 android:id="@+id/tv_color"
+                                 android:textSize="12sp"
+                                 android:textColor="@color/black_33"
+                                 android:layout_marginLeft="15dp"
+                                 android:text="黄色"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content" />
+                         </LinearLayout>
+                         <LinearLayout
+                             android:layout_marginTop="5dp"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content">
+                             <TextView
+                                 android:textSize="12sp"
+                                 android:textColor="@color/gray_99"
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@color/white"
-                android:orientation="horizontal">
+                                 android:text="上牌地点 : "
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content" />
+                             <TextView
+                                 android:id="@+id/tv_city"
+                                 android:textSize="12sp"
+                                 android:textColor="@color/black_33"
+                                 android:layout_marginLeft="15dp"
+                                 android:text="广州"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content" />
+                         </LinearLayout>
+                         <LinearLayout
+                             android:layout_marginTop="5dp"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content">
+                             <TextView
+                                 android:textSize="12sp"
+                                 android:textColor="@color/gray_99"
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:drawableLeft="@mipmap/title_line_orange"
-                    android:drawablePadding="10dp"
-                    android:text="车辆实拍"
-                    android:textColor="@color/black_33" />
-            </RelativeLayout>
+                                 android:text="行驶里程 : "
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content" />
+                             <TextView
+                                 android:id="@+id/tv_dis"
+                                 android:textSize="12sp"
+                                 android:textColor="@color/black_33"
+                                 android:layout_marginLeft="15dp"
+                                 android:text="黄色"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content" />
+                         </LinearLayout>
+                         <LinearLayout
+                             android:layout_marginTop="5dp"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content">
+                             <TextView
+                                 android:textSize="12sp"
+                                 android:textColor="@color/gray_99"
 
-            <com.tool.listview.PersonalListView
-                android:id="@+id/lv_photo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                                 android:text="上牌时间 : "
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content" />
+                             <TextView
+                                 android:id="@+id/tv_regtime"
+                                 android:textSize="12sp"
+                                 android:textColor="@color/black_33"
+                                 android:layout_marginLeft="15dp"
+                                 android:text="黄色"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content" />
+                         </LinearLayout>
 
-            </com.tool.listview.PersonalListView>
-        </LinearLayout>
+                     </LinearLayout>
+                     <LinearLayout
+                         android:padding="5dp"
+                         android:orientation="vertical"
+                         android:layout_weight="1"
+                         android:layout_width="0dp"
+                         android:layout_height="wrap_content">
+                         <LinearLayout
+
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content">
+                             <TextView
+                                 android:textSize="12sp"
+                                 android:textColor="@color/gray_99"
+                                 android:layout_marginLeft="5dp"
+                                 android:text="下次验车 : "
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content" />
+                             <TextView
+                                 android:id="@+id/tv_nexttime"
+                                 android:textSize="12sp"
+                                 android:textColor="@color/black_33"
+                                 android:layout_marginLeft="5dp"
+                                 android:text="黄色"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content" />
+                         </LinearLayout>
+                         <LinearLayout
+                             android:layout_marginTop="5dp"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content">
+                             <TextView
+                                 android:textSize="12sp"
+                                 android:textColor="@color/gray_99"
+                                 android:layout_marginLeft="5dp"
+                                 android:text="交险有效期限 : "
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content" />
+                             <TextView
+                                 android:id="@+id/tv_priod"
+                                 android:textSize="12sp"
+                                 android:textColor="@color/black_33"
+                                 android:layout_marginLeft="5dp"
+                                 android:text="黄色"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content" />
+                         </LinearLayout>
+                         <LinearLayout
+                             android:layout_marginTop="5dp"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content">
+                             <TextView
+                                 android:textSize="12sp"
+                                 android:textColor="@color/gray_99"
+                                 android:layout_marginLeft="5dp"
+                                 android:text="过户次数 : "
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content" />
+                             <TextView
+                                 android:id="@+id/tv_num"
+                                 android:textSize="12sp"
+                                 android:textColor="@color/black_33"
+                                 android:layout_marginLeft="5dp"
+                                 android:text="黄色"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content" />
+                         </LinearLayout>
+
+                     </LinearLayout>
+                 </LinearLayout>
+                 <com.tool.listview.PersonalListView
+
+                     android:id="@+id/lv_params"
+                     android:divider="@color/white"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content">
+                 </com.tool.listview.PersonalListView>
+                 <TextView
+                     android:id="@+id/toDetailConfig"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="1dp"
+                     android:background="@color/white"
+                     android:gravity="center"
+                     android:padding="15dp"
+                     android:text="查看参数"
+                     android:textColor="@color/black_33"
+                     android:textSize="14sp" />
+                 <!-- 车辆主要信息 -->
+                 <RelativeLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="5dp"
+                     android:background="@color/white"
+                     android:orientation="horizontal">
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_margin="10dp"
+                         android:drawableLeft="@mipmap/title_line_orange"
+                         android:drawablePadding="10dp"
+                         android:text="车辆实拍"
+                         android:textColor="@color/black_33" />
+                 </RelativeLayout>
+
+                 <com.tool.listview.PersonalListView
+                     android:id="@+id/lv_photo"
+                     android:divider="@color/white"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content">
+
+                 </com.tool.listview.PersonalListView>
+             </LinearLayout>
+
+         </com.tool.listview.PersonalScrollView>
+
+         <LinearLayout
+             android:id="@+id/ll_bottom"
+             android:layout_alignParentBottom="true"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_gravity="bottom"
+             android:orientation="horizontal">
+
+             <RelativeLayout
+                 android:id="@+id/askLowPriceBtn"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+                 android:background="@color/white"
+                 android:padding="15dp">
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_centerInParent="true"
+
+                     android:drawablePadding="10dp"
+                     android:text="购买车辆"
+                     android:textColor="@color/yellow_77"
+                     android:textSize="17sp" />
+
+             </RelativeLayout>
+
+             <RelativeLayout
+                 android:id="@+id/callForMoreBtn"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+                 android:background="@color/yellow_65"
+                 android:padding="15dp">
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_centerInParent="true"
+                     android:drawableLeft="@mipmap/phone_white_small"
+                     android:drawablePadding="10dp"
+                     android:gravity="center"
+                     android:text="拨打电话"
+                     android:textColor="@color/white"
+                     android:textSize="17sp" />
+
+             </RelativeLayout>
+         </LinearLayout>
+     </RelativeLayout>
 
 
-
-    </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal">
-
-        <RelativeLayout
-            android:id="@+id/askLowPriceBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:padding="15dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-
-                android:drawablePadding="10dp"
-                android:text="购买车辆"
-                android:textColor="@color/yellow_77"
-                android:textSize="17sp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/callForMoreBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/yellow_65"
-            android:padding="15dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:drawableLeft="@mipmap/phone_white_small"
-                android:drawablePadding="10dp"
-                android:gravity="center"
-                android:text="拨打电话"
-                android:textColor="@color/white"
-                android:textSize="17sp" />
-
-        </RelativeLayout>
-    </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>

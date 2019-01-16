@@ -1,12 +1,13 @@
 package com.cheyibao.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 作者：凌涛 on 2019/1/8 17:40
  * 邮箱：771548229@qq..com
  */
-public class RentCar {
+public class RentCar implements Serializable{
 
     /**
      * address : string
@@ -392,7 +393,7 @@ public class RentCar {
         this.user = user;
     }
 
-    public static class LocationBean {
+    public static class LocationBean implements Serializable{
         /**
          * lat : 0
          * lon : 0
@@ -418,7 +419,7 @@ public class RentCar {
         }
     }
 
-    public static class UserBean {
+    public static class UserBean implements Serializable{
         /**
          * createTime : 2019-01-08T09:38:01.094Z
          * headPortrait : string

@@ -1,24 +1,43 @@
 package com.cheyibao;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.application.MyApplication;
 import com.bumptech.glide.Glide;
+import com.cheyibao.adapter.NewCarParamsAdapter;
+import com.cheyibao.adapter.OldCarImageAdapter;
+import com.cheyibao.model.Merchant;
+import com.cheyibao.model.NewCarParams;
 import com.cheyibao.model.OldCar;
+import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.google.gson.Gson;
+import com.http.HttpProxy;
+import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
+import com.tool.listview.PersonalListView;
+import com.tool.listview.PersonalScrollView;
 import com.tool.slideshowview.SlideShowView;
+import com.vipcenter.OrderDetailActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,52 +56,139 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class OldCarDetailActivity extends NoHttpBaseActivity {
     OldCar mOldCar;
     @BindView(R.id.slideshowView)
-    Banner banner ;
+    Banner banner;
     @BindView(R.id.tv_name)
     TextView tv_name;
     @BindView(R.id.tv_oldprice)
     TextView tv_oldprice;
     @BindView(R.id.tv_newprice)
     TextView tv_newprice;
-
+    @BindView(R.id.tv_shopname)
+    TextView tv_shopname;
+    @BindView(R.id.tv_address)
+    TextView tv_address;
     @BindView(R.id.tv_nickname)
     TextView tv_nickname;
     @BindView(R.id.tv_content)
     TextView tv_content;
     @BindView(R.id.tv_color)
     TextView tv_color;
-
+    @BindView(R.id.tv_grade)
+    TextView tv_grade;
     @BindView(R.id.tv_nexttime)
     TextView tv_nexttime;
     @BindView(R.id.tv_city)
     TextView tv_city;
-    @BindView(R.id.tv_deadline)
-    TextView tv_deadline;
-
+    @BindView(R.id.tv_priod)
+    TextView tv_priod;
     @BindView(R.id.tv_num)
     TextView tv_num;
     @BindView(R.id.tv_regtime)
     TextView tv_regtime;
     @BindView(R.id.tv_dis)
     TextView tv_dis;
+    @BindView(R.id.tv_sale)
+    TextView tv_sale;
+    @BindView(R.id.tv_comment)
+    TextView tv_comment;
     @BindView(R.id.ll_person)
     LinearLayout ll_person;
     @BindView(R.id.ll_shop)
     LinearLayout ll_shop;
-    List<String> images=new ArrayList<>();
+    @BindView(R.id.lv_params)
+    PersonalListView lv_params;
+    @BindView(R.id.lv_photo)
+    PersonalListView lv_photo;
+    @BindView(R.id.tv_seecomment)
+    TextView tv_seecomment;
+    @BindView(R.id.scollview)
+    PersonalScrollView scrollView;
+    List<String> images = new ArrayList<>();
+    NewCarParamsAdapter mNewCarParamsAdapter;
+    NewCarParams mNewCarParams;
+    OldCarImageAdapter mOldCarImageAdapter;
+    List<String> mList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle=getIntent().getExtras();
-        if(bundle!=null){
-            mOldCar= (OldCar) bundle.getSerializable("data");
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            mOldCar = (OldCar) bundle.getSerializable("data");
         }
         setContentView(R.layout.oldcar_detail_layout);
         initView();
+        getParams();
+        getShop();
+    }
+
+    private void getParams() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("carCategoryDetailId", mOldCar.getCarCategoryDetailId());
+        HttpProxy.obtain().get(PlatformContans.NewCar.getDetailParams, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("params", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    JSONArray param = data.getJSONArray("param");
+                    if (param.length() > 0) {
+                        for (int i = 0; i < param.length(); i++) {
+                            JSONObject item = param.getJSONObject(i);
+                            if (item.getString("paramValue").equals("基本信息")) {
+                                mNewCarParams = new Gson().fromJson(item.toString(), NewCarParams.class);
+                                if (mNewCarParams.getParam().size() > 0) {
+                                    NewCarParams.ParamBean paramBean = mNewCarParams.getParam().get(0);
+                                    paramBean.setParent(mNewCarParams.getParamValue());
+                                    List<NewCarParams.ParamBean> paramBeans = mNewCarParams.getParam();
+                                    paramBeans.remove(0);
+                                    paramBeans.add(0, paramBean);
+                                    mNewCarParamsAdapter = new NewCarParamsAdapter(OldCarDetailActivity.this, paramBeans);
+                                    lv_params.setAdapter(mNewCarParamsAdapter);
+                                }
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    Merchant merchant;
+    private void getShop() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("merchantId", mOldCar.getMerchantId());
+        HttpProxy.obtain().get(PlatformContans.Shop.getMerchantById, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject data = jsonObject.getJSONObject("data");
+                     merchant = new Gson().fromJson(data.toString(), Merchant.class);
+                    tv_address.setText(merchant.getProvince() + merchant.getCity() + merchant.getDistrict() + merchant.getAddress());
+                    tv_grade.setText(merchant.getGrade() + "");
+                    tv_shopname.setText(merchant.getName());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 
     private void initView() {
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW,"车辆详情");
+        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "车辆详情");
         ButterKnife.bind(this);
         //网络地址获取轮播图
         if (!TextUtils.isEmpty(mOldCar.getCarCategoryDetail().getBanner1()) && !"null".equals(mOldCar.getCarCategoryDetail().getBanner1()))
@@ -92,30 +198,73 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
         if (!TextUtils.isEmpty(mOldCar.getCarCategoryDetail().getBanner3()) && !"null".equals(mOldCar.getCarCategoryDetail().getBanner3()))
             images.add(mOldCar.getCarCategoryDetail().getBanner3());
         initBanner();
-        tv_oldprice.setText("新车含税:￥"+mOldCar.getOldPrice());
-        tv_newprice.setText("￥"+mOldCar.getNewPrice());
-        String name=mOldCar.getFirstName();
-        if (!TextUtils.isEmpty(mOldCar.getSecondName()) && !"null".equals(mOldCar.getSecondName())){
-            name=name+mOldCar.getSecondName();
+        tv_oldprice.setText("新车含税:￥" + mOldCar.getOldPrice());
+        tv_newprice.setText("￥" + mOldCar.getNewPrice());
+        String name = mOldCar.getFirstName();
+        if (!TextUtils.isEmpty(mOldCar.getSecondName()) && !"null".equals(mOldCar.getSecondName())) {
+            name = name + mOldCar.getSecondName();
         }
-        if (!TextUtils.isEmpty(mOldCar.getThirdName()) && !"null".equals(mOldCar.getThirdName())){
-            name=name+mOldCar.getThirdName();
+        if (!TextUtils.isEmpty(mOldCar.getThirdName()) && !"null".equals(mOldCar.getThirdName())) {
+            name = name + mOldCar.getThirdName();
         }
+        tv_seecomment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OldCarDetailActivity.this, OldCarCommentActivity.class);
+                intent.putExtra("id", mOldCar.getMerchantId());
+                startActivity(intent);
+            }
+        });
+        tv_sale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OldCarDetailActivity.this, OldCarShopActivity.class);
+                intent.putExtra("flag", 1);
+                intent.putExtra("id", mOldCar.getMerchantId());
+                startActivity(intent);
+            }
+        });
+        tv_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OldCarDetailActivity.this, OldCarShopActivity.class);
+                intent.putExtra("flag", 2);
+                intent.putExtra("id", mOldCar.getMerchantId());
+                startActivity(intent);
+            }
+        });
+        // tv_shopname.setText(mOldCar.get);
         tv_name.setText(name);
         tv_nickname.setText(mOldCar.getLinkman());
-        tv_content.setText(mOldCar.getCarCategoryDetail().getRemark());
+        tv_content.setText("车辆描述: " + mOldCar.getCarCategoryDetail().getRemark());
         tv_color.setText(mOldCar.getColor());
-        tv_nexttime.setText("2019-12");
-        tv_regtime.setText("2017-01");
-        tv_num.setText("3次");
-        tv_deadline.setText("2019-12");
+        tv_nexttime.setText(mOldCar.getLastValidateCar().substring(0, 10));
+        tv_regtime.setText(mOldCar.getRegistrationTime().substring(0, 10));
+        tv_num.setText(mOldCar.getChange() + "次");
+        tv_priod.setText(mOldCar.getInsuranceValidTime() + "天");
         tv_city.setText(mOldCar.getRegistrationAddress());
-        tv_dis.setText(mOldCar.getDistance()+"");
-        if(mOldCar.getType()==1){
+        tv_dis.setText(mOldCar.getDistance() + "");
+        if (mOldCar.getType() == 1) {
             ll_shop.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             ll_person.setVisibility(View.VISIBLE);
         }
+
+        if (mOldCar.getCarImage().contains(",")) {
+            String[] images = mOldCar.getCarImage().split(",");
+            for (int i = 0; i < images.length; i++) {
+                mList.add(images[i]);
+            }
+        } else {
+            mList.add(mOldCar.getCarImage());
+        }
+        // mList.add("http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019011520425817");
+        mOldCarImageAdapter = new OldCarImageAdapter(OldCarDetailActivity.this, mList);
+        lv_photo.setAdapter(mOldCarImageAdapter);
+        banner.setFocusableInTouchMode(true);
+        banner.requestFocus();
+
+
     }
 
     public void callToPhoneSweetAlert(final String phone) {
@@ -155,24 +304,65 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
         banner.setImages(images);//设置图片源
         banner.start();
     }
-    @OnClick({R.id.back,R.id.toDetailConfig,R.id.askLowPriceBtn,R.id.callForMoreBtn})
-    public void OnClick(View v){
-        switch (v.getId()){
+
+    @OnClick({R.id.back, R.id.toDetailConfig, R.id.askLowPriceBtn, R.id.callForMoreBtn})
+    public void OnClick(View v) {
+        switch (v.getId()) {
             case R.id.back:
                 onBackPressed();
                 break;
             case R.id.toDetailConfig:
-                ActivityAnimationUtils.commonTransition(OldCarDetailActivity.this, OldCarConfigDetailActivity.class, ActivityConstans.Animation.FADE);
+                Intent intent = new Intent(OldCarDetailActivity.this, NewCarParamsActivity.class);
+                intent.putExtra("param", mOldCar.getCarCategoryDetailId());
+                startActivity(intent);
+                //ActivityAnimationUtils.commonTransition(OldCarDetailActivity.this, OldCarConfigDetailActivity.class, ActivityConstans.Animation.FADE);
                 break;
 //            case R.id.toSellerDetail:
 //                ActivityAnimationUtils.commonTransition(OldCarDetailActivity.this, SellerDetailActivity.class, ActivityConstans.Animation.FADE);
 //                break;
             case R.id.askLowPriceBtn:
-                ActivityAnimationUtils.commonTransition(OldCarDetailActivity.this,AskLowPriceActivity.class, ActivityConstans.Animation.FADE);
+                if(MyApplication.isLogin)
+                   postOrder();
+               // ActivityAnimationUtils.commonTransition(OldCarDetailActivity.this, AskLowPriceActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.callForMoreBtn:
                 callToPhoneSweetAlert("10010");
                 break;
         }
+    }
+    private void postOrder(){
+        Map<String,Object> params=new HashMap<>();
+        params.put("commodityId",mOldCar.getId());
+        params.put("shopId",merchant.getId());
+        params.put("shopName",merchant.getName());
+        params.put("title",merchant.getName());
+        params.put("image",mOldCar.getCarImage());
+        params.put("number",1);
+        params.put("type",2);
+        params.put("telephone",mOldCar.getLinkmanTelephone());
+        params.put("seat",mOldCar.getCarCategoryDetail().getSeat());
+        params.put("carCategory",mOldCar.getCarCategoryDetail().getModels());
+        HttpProxy.obtain().post(PlatformContans.CarOrder.addCarOrder, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result",result);
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    String orderId=jsonObject.getString("data");
+                    Intent intent=new Intent(OldCarDetailActivity.this,CarPayActivity.class);
+                    intent.putExtra("money",mOldCar.getNewPrice()+"");
+                    intent.putExtra("orderid",orderId);
+                    startActivity(intent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 }

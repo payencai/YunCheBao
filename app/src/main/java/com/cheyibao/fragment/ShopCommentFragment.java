@@ -43,7 +43,7 @@ public class ShopCommentFragment extends Fragment {
     private List<ShopComment> list;
     private ShopCommentAdapter adapter;
     @BindView(R.id.id_stickynavlayout_innerscrollview)
-    SpreadListView listView;
+    PersonalListView listView;
     int page=1;
     String id;
     public ShopCommentFragment() {

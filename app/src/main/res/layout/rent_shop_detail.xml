@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,123 +30,125 @@
             android:textSize="16sp" />
     </RelativeLayout>
 
-    <com.tool.listview.PersonalScrollView
+    <com.tool.view.StickyNavLayout
         android:id="@+id/scollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/rl_bottom"
-        android:layout_below="@id/rl_top">
+        android:layout_below="@id/rl_top"
+        android:orientation="vertical">
 
         <LinearLayout
+            android:id="@id/id_stickynavlayout_topview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:id="@+id/tv_shopname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="摩根道送车点（西山区）"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="摩根道送车点（西山区）"
+                    android:text="营业时间：8:00-18:30"
+                    android:textColor="@color/gray_99"
+                    android:textSize="10sp" />
+
+                <com.iarcuschin.simpleratingbar.SimpleRatingBar
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    app:srb_starSize="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="5.0分"
                     android:textColor="@color/black_33"
-                    android:textSize="14sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="营业时间：8:00-18:30"
-                        android:textColor="@color/gray_99"
-                        android:textSize="10sp" />
-
-                    <com.iarcuschin.simpleratingbar.SimpleRatingBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        app:srb_starSize="10dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="5.0分"
-                        android:textColor="@color/black_33"
-                        android:textSize="10sp" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@color/gray_ee"></View>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/location_gray_icon"
-                    android:drawablePadding="10dp"
-                    android:text="西山区滇池路802号（益府圆子小酌餐厅内停车场）"
-                    android:textColor="@color/gray_66"
                     android:textSize="10sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@color/gray_ee"></View>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:drawableLeft="@mipmap/phone_small"
-                    android:drawablePadding="10dp"
-                    android:text="18287125118"
-                    android:textColor="@color/gray_66"
-                    android:textSize="10sp" />
-
-                <com.tool.view.HorizontalListView
-                    android:id="@+id/hlv_photo"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp">
-
-                </com.tool.view.HorizontalListView>
             </LinearLayout>
 
-
-            <android.support.design.widget.TabLayout
-                android:layout_marginTop="10dp"
-                android:id="@+id/tab_shop"
-
-                android:background="@color/white"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="1dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/gray_ee"></View>
 
-            </android.support.design.widget.TabLayout>
-            <com.tool.listview.PersonalViewPager
-                android:id="@+id/vp_shop"
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/location_gray_icon"
+                android:drawablePadding="10dp"
+                android:text="西山区滇池路802号（益府圆子小酌餐厅内停车场）"
+                android:textColor="@color/gray_66"
+                android:textSize="10sp" />
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></com.tool.listview.PersonalViewPager>
+                android:layout_height="1dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/gray_ee"></View>
 
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:drawableLeft="@mipmap/phone_small"
+                android:drawablePadding="10dp"
+                android:text="18287125118"
+                android:textColor="@color/gray_66"
+                android:textSize="10sp" />
+
+            <com.tool.view.HorizontalListView
+                android:id="@+id/hlv_photo"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp">
+
+            </com.tool.view.HorizontalListView>
         </LinearLayout>
-    </com.tool.listview.PersonalScrollView>
 
+        <android.support.design.widget.TabLayout
+            android:id="@id/id_stickynavlayout_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white">
+
+        </android.support.design.widget.TabLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@id/id_stickynavlayout_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+        </android.support.v4.view.ViewPager>
+
+
+    </com.tool.view.StickyNavLayout>
 
     <RelativeLayout
         android:id="@+id/rl_bottom"
@@ -155,7 +157,8 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:background="@drawable/top_line_bg"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:visibility="gone">
 
         <com.coorchice.library.SuperTextView
             android:id="@+id/callBtn"
@@ -164,4 +167,4 @@
             app:corner="2dp"
             app:solid="@color/yellow_63" />
     </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>

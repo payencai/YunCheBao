@@ -1,6 +1,8 @@
 package com.cheyibao.model;
 
-public class RentCarType {
+import java.io.Serializable;
+
+public class RentCarType implements Serializable{
 
     /**
      * brand : string
