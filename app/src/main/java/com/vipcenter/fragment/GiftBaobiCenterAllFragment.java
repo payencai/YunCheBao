@@ -79,9 +79,7 @@ public class GiftBaobiCenterAllFragment extends BaseFragment {
                         GiftRecord gift = new Gson().fromJson(item.toString(), GiftRecord.class);
                         list.add(gift);
                     }
-                    for (int i = 0; i <5 ; i++) {
-                        list.add(new GiftRecord());
-                    }
+
                     adapter.notifyDataSetChanged();
                     //updateData();
 

@@ -25,7 +25,7 @@ public class NewCarShopActivity extends AppCompatActivity {
     private ArrayList<String> mTitleList = new ArrayList<>(2);
     private ArrayList<Fragment> mFragments = new ArrayList<>(2);
     @BindView(R.id.vp_gank)
-    PersonalViewPager vpGank;
+    ViewPager vpGank;
     @BindView(R.id.tab_gank)
     TabLayout tabGank;
     @BindView(R.id.tv_shopname)
@@ -71,11 +71,7 @@ public class NewCarShopActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 0) {
-                    vpGank.resetHeight(0);
-                } else if (position == 1) {
-                    vpGank.resetHeight(1);
-                }
+
             }
             @Override
             public void onPageScrollStateChanged(int state) {

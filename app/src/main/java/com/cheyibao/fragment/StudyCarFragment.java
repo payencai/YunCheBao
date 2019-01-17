@@ -145,13 +145,11 @@ public class StudyCarFragment extends BaseFragment {
         lv_study.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (MyApplication.isLogin) {
+
                     Intent intent = new Intent(getContext(), DrivingSchoolActivity.class);
                     intent.putExtra("data", mDrvingSchools.get(position));
                     startActivity(intent);
-                } else {
-                    startActivity(new Intent(getContext(), RegisterActivity.class));
-                }
+
             }
         });
 

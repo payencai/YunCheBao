@@ -27,6 +27,7 @@ import com.http.ICallBack;
 import com.lljjcoder.style.citylist.Toast.ToastUtils;
 import com.system.WebviewActivity;
 import com.tool.listview.PersonalListView;
+import com.vipcenter.RegisterActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -64,6 +65,8 @@ public class NewCarDetailActivity extends AppCompatActivity {
     PersonalListView lv_params;
     @BindView(R.id.tv_param)
     TextView tv_param;
+    @BindView(R.id.tv_car)
+    TextView tv_buy;
     NewCarParamsAdapter mNewCarParamsAdapter;
     List<String> images = new ArrayList<>();
     List<Shop> mShops = new ArrayList<>();
@@ -212,7 +215,16 @@ public class NewCarDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        tv_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(MyApplication.isLogin)
+                    postOrder();
+                else{
+                    startActivity(new Intent(NewCarDetailActivity.this, RegisterActivity.class));
+                }
+            }
+        });
         tv_oldprice.setText("厂家指导价" + mNewCar.getAdvicePrice());
         tv_newprice.setText("￥" + mNewCar.getNakedCarPrice());
         String name = mNewCar.getFirstName();

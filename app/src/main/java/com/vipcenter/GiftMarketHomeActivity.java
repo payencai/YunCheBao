@@ -80,7 +80,9 @@ public class GiftMarketHomeActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityAnimationUtils.commonTransition(GiftMarketHomeActivity.this, GiftGoodDetailActivity.class, ActivityConstans.Animation.FADE);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("data",list.get(position));
+                ActivityAnimationUtils.commonTransition(GiftMarketHomeActivity.this, GiftGoodDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
             }
         });
 

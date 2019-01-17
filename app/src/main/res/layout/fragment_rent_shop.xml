@@ -4,12 +4,12 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
-    <com.tool.listview.PersonalListView
-        android:id="@+id/lv_rentcar"
+    <android.support.v7.widget.RecyclerView
+        android:id="@id/id_stickynavlayout_innerscrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
 
-        ></com.tool.listview.PersonalListView>
+        ></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

@@ -169,7 +169,7 @@
                     android:layout_margin="15dp"
                     android:drawableLeft="@mipmap/title_line_orange"
                     android:drawablePadding="10dp"
-                    android:text="热卖商品"
+                    android:text="热门兑换"
                     android:textColor="@color/black_33"
                     android:textSize="14sp" />
 

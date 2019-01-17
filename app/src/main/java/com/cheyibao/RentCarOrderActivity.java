@@ -117,6 +117,7 @@ public class RentCarOrderActivity extends AppCompatActivity {
         params.put("name",et_name.getEditableText().toString());
         params.put("telephone",et_phone.getEditableText().toString());
         params.put("seat",mRentCarType.getSeat()+"");
+        params.put("carCategory",mRentCarType.getModel()+"");
         HttpProxy.obtain().post(PlatformContans.CarOrder.addCarOrder, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {

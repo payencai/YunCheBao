@@ -7,23 +7,24 @@
 
     <include layout="@layout/top_title_layout"></include>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <com.cheyibao.model.ReboundScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/ll_bottom">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <!--广告栏banner-->
-                <com.tool.slideshowview.SlideShowView
+                <com.youth.banner.Banner
                     android:id="@+id/slideshowView"
                     android:layout_width="match_parent"
-                    android:layout_height="290dp"
+                    android:layout_height="250dp"
                     android:background="@color/white"
                     android:visibility="visible" />
                 <!--广告栏banner  end-->
@@ -72,19 +73,12 @@
                         android:layout_height="27dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
+                        android:layout_marginBottom="10dp"
                         android:paddingBottom="8dp"
                         android:scaleType="fitXY"
                         android:src="@mipmap/collect_gray" />
 
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignTop="@id/collectIcon"
-                        android:layout_marginRight="10dp"
-                        android:layout_toLeftOf="@id/collectIcon"
-                        android:background="@color/gray_ee"
-                        android:paddingBottom="8dp"></View>
+
                 </RelativeLayout>
 
 
@@ -149,133 +143,52 @@
 
                 </LinearLayout>
 
-                <FrameLayout
+
+                <LinearLayout
+                    android:id="@+id/view1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/view1"
+                    <com.bbcircle.view.NoScrollWebView
+                        android:id="@+id/webView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/school_img" />
+                    </com.bbcircle.view.NoScrollWebView>
 
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/school_img" />
+                </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/school_img" />
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/school_img" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/view2"
+                <LinearLayout
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                  >
+                    <com.tool.listview.PersonalListView
+                        android:id="@+id/lv_params"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:orientation="vertical"
-                        android:paddingBottom="80dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:paddingTop="10dp"
-                        android:visibility="gone">
+                        android:divider="@color/white"
+                        android:layout_height="wrap_content">
+                    </com.tool.listview.PersonalListView>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="产品型号：PLM06ZM"
-                            android:textColor="@color/gray_99" />
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="电池类型：锂聚合物电芯"
-                            android:textColor="@color/gray_99" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="电池能量：20000mAh 3.7V（74Wh）"
-                            android:textColor="@color/gray_99" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="输入参数：5.0V = 2.0A/9.0V = 2.0A"
-                            android:textColor="@color/gray_99" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="输出参数：2*5.1V = 2.0A/9.0V = 2.0A"
-                            android:textColor="@color/gray_99" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="          12V = 1.5A  MAX 18W"
-                            android:textColor="@color/gray_99" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="规格尺寸：149.5*69.6*23.9mm"
-                            android:textColor="@color/gray_99" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="使用温度：0℃～40摄氏度"
-                            android:textColor="@color/gray_99" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="充电时间：约6.7小时（9V/2A充电器，包装内充电线）"
-                            android:textColor="@color/gray_99" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="          约10小时（5V/2A充电器，包装内充电线）"
-                            android:textColor="@color/gray_99" />
-                    </LinearLayout>
-                </FrameLayout>
-
+                </LinearLayout>
 
             </LinearLayout>
-        </ScrollView>
+        </com.cheyibao.model.ReboundScrollView>
 
         <LinearLayout
+            android:id="@+id/ll_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
             android:background="@drawable/top_line_bg"
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tv_total"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
@@ -297,7 +210,7 @@
                 android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
-    </FrameLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

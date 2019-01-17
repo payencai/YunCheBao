@@ -5,11 +5,11 @@
     tools:context="com.cheyibao.NewCarNearbyFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <com.tool.listview.PersonalListView
+    <com.maket.model.LoadMoreListView
         android:id="@+id/lv_car"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </com.tool.listview.PersonalListView>
+    </com.maket.model.LoadMoreListView>
 
 </FrameLayout>

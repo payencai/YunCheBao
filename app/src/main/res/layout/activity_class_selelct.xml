@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.cheyibao.ClassSelelctActivity">
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/back"
+            android:layout_width="15dp"
+            android:layout_height="15dp" />
+        <TextView
+            android:textColor="@color/black_33"
+            android:textSize="16sp"
+            android:layout_centerInParent="true"
+            android:text="选择班级"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:background="#e2e2e2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></View>
+    <com.maket.model.LoadMoreListView
+        android:id="@+id/lv_class"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.maket.model.LoadMoreListView>
+
+</LinearLayout>

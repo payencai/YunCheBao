@@ -269,7 +269,42 @@
                     android:layout_height="1dp"
                     android:layout_marginLeft="20dp"
                     android:background="@color/gray_ee"></View>
+                <RelativeLayout
+                    android:id="@+id/rl_mypublish"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
 
+                    <ImageView
+                        android:id="@+id/iv_pub"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:padding="4dp"
+                        android:src="@mipmap/vip_cheliang" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/iv_pub"
+                        android:text="我发布的"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:padding="10dp"
+                        android:src="@mipmap/arrow_right" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@color/gray_ee"></View>
                 <RelativeLayout
                     android:id="@+id/lay11"
                     android:layout_width="match_parent"
@@ -281,7 +316,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:padding="4dp"
-                        android:src="@mipmap/vip_cheliang" />
+                        android:src="@mipmap/servicecar" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -289,7 +324,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@id/icon11"
-                        android:text="洗护评论"
+                        android:text="服务车辆"
                         android:textColor="@color/black_33"
                         android:textSize="14sp" />
 
@@ -318,7 +353,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:padding="4dp"
-                        android:src="@mipmap/vip_cheliang" />
+                        android:src="@mipmap/edit" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -326,7 +361,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@id/icon3"
-                        android:text="待售车辆"
+                        android:text="我被评论"
                         android:textColor="@color/black_33"
                         android:textSize="14sp" />
 
@@ -458,7 +493,42 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/white"
                 android:orientation="vertical">
+                <RelativeLayout
+                    android:id="@+id/rl_mycar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
 
+                    <ImageView
+                        android:id="@+id/iv_mycar"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:padding="4dp"
+                        android:src="@mipmap/mycar" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/iv_mycar"
+                        android:text="我的车辆"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:padding="10dp"
+                        android:src="@mipmap/arrow_right" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@color/gray_ee"></View>
                 <RelativeLayout
                     android:id="@+id/lay7"
                     android:layout_width="match_parent"

@@ -191,7 +191,9 @@
         <activity android:name="com.vipcenter.MyCustomerServiceActivity" />
         <activity android:name="com.vipcenter.AboutUsActivity" />
         <activity android:name="com.vipcenter.MobileCertificationActivity" />
-        <activity android:name="com.vipcenter.IDCardCertificationActivity" />
+        <activity
+            android:name="com.vipcenter.IDCardCertificationActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name="com.vipcenter.UserInfoActivity" />
         <activity android:name="com.vipcenter.AddressListActivity" />
         <activity android:name="com.vipcenter.AddressAddActivity" />
@@ -381,7 +383,9 @@
         <activity
             android:name="com.cheyibao.RentCarOrderActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name="com.cheyibao.CarPayActivity"></activity>
+        <activity android:name="com.cheyibao.CarPayActivity" />
+        <activity android:name="com.cheyibao.CoashSelectActivity" />
+        <activity android:name="com.cheyibao.ClassSelelctActivity"></activity>
     </application>
 
 </manifest>

@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,9 +19,12 @@ import android.widget.TextView;
 
 import com.application.MyApplication;
 import com.baidu.mapapi.model.LatLng;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.RentCarOrderActivity;
 import com.cheyibao.RentShopDetailActivity;
 import com.cheyibao.adapter.RentTypeAdapter;
+import com.cheyibao.adapter.RvCommentAdapter;
+import com.cheyibao.adapter.RvRentcarAdapter;
 import com.cheyibao.adapter.ShopCommentAdapter;
 import com.cheyibao.list.SpreadListView;
 import com.cheyibao.model.RentCar;
@@ -30,6 +35,7 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.maket.model.LoadMoreListView;
 import com.tool.listview.PersonalListView;
 
 import org.json.JSONArray;
@@ -50,14 +56,17 @@ import butterknife.ButterKnife;
 public class RentShopFragment extends Fragment {
 
     private List<RentCarType> list;
-    private RentTypeAdapter adapter;
-    @BindView(R.id.lv_rentcar)
-    PersonalListView lv_rentcar;
+    private RvRentcarAdapter adapter;
+    @BindView(R.id.id_stickynavlayout_innerscrollview)
+    RecyclerView lv_rentcar;
     int page = 1;
     String id;
+    boolean isLoadMore = false;
+
     public RentShopFragment() {
         // Required empty public constructor
     }
+
     RentCar mRentCar;
 
     @Override
@@ -68,20 +77,21 @@ public class RentShopFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_rent_shop, container, false);
         ButterKnife.bind(this, view);
-        RentShopDetailActivity activity= (RentShopDetailActivity) getActivity();
-        mRentCar=activity.getRentCar();
+        RentShopDetailActivity activity = (RentShopDetailActivity) getActivity();
+        mRentCar = activity.getRentCar();
         initView();
         return view;
 
     }
+
     private void showDialog(RentCarType rentCarType) {
         final Dialog dialog = new Dialog(getContext(), R.style.dialog);
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_rentcar, null);
-        TextView tv_name= (TextView) dialogView.findViewById(R.id.tv_name);
-        TextView tv_auto= (TextView) dialogView.findViewById(R.id.tv_auto);
-        TextView tv_model= (TextView) dialogView.findViewById(R.id.tv_model);
-        TextView tv_price= (TextView) dialogView.findViewById(R.id.tv_price);
-        TextView tv_submit= (TextView) dialogView.findViewById(R.id.tv_submit);
+        TextView tv_name = (TextView) dialogView.findViewById(R.id.tv_name);
+        TextView tv_auto = (TextView) dialogView.findViewById(R.id.tv_auto);
+        TextView tv_model = (TextView) dialogView.findViewById(R.id.tv_model);
+        TextView tv_price = (TextView) dialogView.findViewById(R.id.tv_price);
+        TextView tv_submit = (TextView) dialogView.findViewById(R.id.tv_submit);
         //获得dialog的window窗口
         Window window = dialog.getWindow();
         //设置dialog在屏幕底部
@@ -102,43 +112,51 @@ public class RentShopFragment extends Fragment {
         dialog.show();
         tv_name.setText(rentCarType.getBrand());
         tv_model.setText(rentCarType.getModel());
-        tv_auto.setText(rentCarType.getManualAutomatic()+"/"+rentCarType.getSeat()+"座");
-        tv_price.setText("￥"+rentCarType.getDayPrice());
+        tv_auto.setText(rentCarType.getManualAutomatic() + "/" + rentCarType.getSeat() + "座");
+        tv_price.setText("￥" + rentCarType.getDayPrice());
         tv_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getContext(), RentCarOrderActivity.class) ;
-                intent.putExtra("data",rentCarType);
-                intent.putExtra("rent",mRentCar);
+                Intent intent = new Intent(getContext(), RentCarOrderActivity.class);
+                intent.putExtra("data", rentCarType);
+                intent.putExtra("rent", mRentCar);
                 startActivity(intent);
                 dialog.dismiss();
             }
         });
     }
-    private void initView() {
 
+    private void initView() {
         list = new ArrayList<>();
-       // lv_rentcar.setFocusable(true);
-        adapter = new RentTypeAdapter(getContext(), list);
+        adapter = new RvRentcarAdapter(R.layout.item_rent_type, list);
+        lv_rentcar.setLayoutManager(new LinearLayoutManager(getContext()));
         lv_rentcar.setAdapter(adapter);
-        lv_rentcar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 showDialog(list.get(position));
             }
         });
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                isLoadMore = true;
+                page++;
+                getData();
+            }
+        }, lv_rentcar);
         getData();
 
     }
 
     public void getData() {
-        RentShopDetailActivity activity= (RentShopDetailActivity) getActivity();
+        RentShopDetailActivity activity = (RentShopDetailActivity) getActivity();
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
         params.put("state", 1);
-        params.put("merchantId",activity.getRentCar().getId());
-        Log.e("params",params.toString());
-        HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarCarList, params,  new ICallBack() {
+        params.put("merchantId", activity.getRentCar().getId());
+        Log.e("params", params.toString());
+        HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarCarList, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("getRentCarCarList", result);
@@ -152,6 +170,10 @@ public class RentShopFragment extends Fragment {
                         list.add(baikeItem);
                     }
                     adapter.notifyDataSetChanged();
+                    if (isLoadMore) {
+                        adapter.loadMoreEnd(true);
+                        isLoadMore = false;
+                    }
                     //updateData();
 
                 } catch (JSONException e) {

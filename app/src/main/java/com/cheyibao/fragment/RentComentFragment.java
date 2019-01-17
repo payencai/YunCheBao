@@ -3,6 +3,8 @@ package com.cheyibao.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.application.MyApplication;
+import com.cheyibao.adapter.RvCommentAdapter;
 import com.cheyibao.adapter.ShopCommentAdapter;
 import com.cheyibao.list.SpreadListView;
 import com.cheyibao.model.ShopComment;
@@ -18,6 +21,7 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.maket.model.LoadMoreListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,12 +41,12 @@ import butterknife.ButterKnife;
 public class RentComentFragment extends Fragment {
 
     private List<ShopComment> list;
-    private ShopCommentAdapter adapter;
+    private RvCommentAdapter adapter;
     @BindView(R.id.id_stickynavlayout_innerscrollview)
-    SpreadListView listView;
+    RecyclerView listView;
     int page = 1;
     String id;
-
+    boolean isLoadMore=false;
     public RentComentFragment() {
         // Required empty public constructor
     }
@@ -60,20 +64,12 @@ public class RentComentFragment extends Fragment {
     }
 
     private void initView() {
-        listView.setDivider(getResources().getDrawable(R.color.gray_cc));
-        listView.setDividerHeight(1);
-        listView.setFocusable(false);
+
         list = new ArrayList<>();
-        adapter = new ShopCommentAdapter(getContext(), list);
+        adapter = new RvCommentAdapter(R.layout.item_shop_comment, list);
+        listView.setLayoutManager(new LinearLayoutManager(getContext()));
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-            }
-        });
-       // getData();
+         getData();
 
     }
 
@@ -82,7 +78,7 @@ public class RentComentFragment extends Fragment {
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
         params.put("type", 3);
-        HttpProxy.obtain().get(PlatformContans.DrivingSchool.getUserComment, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.DrivingSchool.getUserComment, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("getUserComment", result);
@@ -95,7 +91,15 @@ public class RentComentFragment extends Fragment {
                         ShopComment baikeItem = new Gson().fromJson(item.toString(), ShopComment.class);
                         list.add(baikeItem);
                     }
+                    for (int i = 0; i <10 ; i++) {
+                        ShopComment shopComment = new ShopComment();
+                        list.add(shopComment);
+                    }
                     adapter.notifyDataSetChanged();
+                    if(isLoadMore){
+                        isLoadMore=false;
+
+                    }
                     //updateData();
 
                 } catch (JSONException e) {

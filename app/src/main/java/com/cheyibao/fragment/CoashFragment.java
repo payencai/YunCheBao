@@ -18,6 +18,7 @@ import com.cheyibao.DrivingSchoolActivity;
 import com.cheyibao.adapter.CoashItemAdapter;
 import com.cheyibao.list.SpreadListView;
 import com.cheyibao.model.CoachItem;
+import com.cheyibao.model.DrvingSchool;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
@@ -53,7 +54,8 @@ public class CoashFragment extends Fragment {
     SpreadListView listView;
     int page=1;
     String id;
-
+    String schoolname;
+    DrvingSchool mDrvingSchool;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -74,6 +76,9 @@ public class CoashFragment extends Fragment {
             public void onSelect(int position) {
                 Log.e("postion",position+"");
                 Intent intent=new Intent(getContext(), DrivingOrderActivity.class);
+                intent.putExtra("coash",list.get(position));
+                intent.putExtra("id", id);
+                intent.putExtra("name", mDrvingSchool);
                 startActivity(intent);
             }
         });
@@ -84,11 +89,13 @@ public class CoashFragment extends Fragment {
     }
     public void getData(){
         DrivingSchoolActivity drivingSchoolActivity= (DrivingSchoolActivity) getActivity();
+        mDrvingSchool=drivingSchoolActivity.getDrvingSchool();
         id=drivingSchoolActivity.getDrvingSchool().getId();
+        schoolname=drivingSchoolActivity.getDrvingSchool().getName();
         Map<String,Object> params=new HashMap<>();
         params.put("page",page);
         params.put("merchantId",id);
-        HttpProxy.obtain().get(PlatformContans.DrivingSchool.getDrivingSchoolCoach, params, MyApplication.getUserInfo().getToken(),new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.DrivingSchool.getDrivingSchoolCoach, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("getdata", result);

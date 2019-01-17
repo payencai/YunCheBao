@@ -12,11 +12,13 @@ import android.widget.AdapterView;
 
 import com.baike.adapter.CarListAdapter;
 import com.caryibao.NewCar;
+import com.cheyibao.list.SpreadListView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.maket.model.LoadMoreListView;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.listview.PersonalListView;
@@ -44,10 +46,10 @@ public class NewCarNearbyFragment extends Fragment {
     public NewCarNearbyFragment() {
         // Required empty public constructor
     }
-
+    boolean isLoadMore=false;
     int page = 1;
     @BindView(R.id.lv_car)
-    PersonalListView lv_car;
+    LoadMoreListView lv_car;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +66,14 @@ public class NewCarNearbyFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", list.get(position));
                 ActivityAnimationUtils.commonTransition(getActivity(), NewCarDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
+            }
+        });
+        lv_car.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
+            @Override
+            public void onloadMore() {
+                isLoadMore=true;
+                page++;
+                getData();
             }
         });
         getData();
@@ -91,6 +101,10 @@ public class NewCarNearbyFragment extends Fragment {
                         list.add(baikeItem);
                     }
                     adapter.notifyDataSetChanged();
+                    if(isLoadMore){
+                        isLoadMore=false;
+                        lv_car.setLoadCompleted();
+                    }
                     //updateData();
 
                 } catch (JSONException e) {

@@ -31,11 +31,9 @@
     </RelativeLayout>
 
     <com.tool.view.StickyNavLayout
-        android:id="@+id/scollview"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/rl_bottom"
-        android:layout_below="@id/rl_top"
         android:orientation="vertical">
 
         <LinearLayout
@@ -150,21 +148,5 @@
 
     </com.tool.view.StickyNavLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:background="@drawable/top_line_bg"
-        android:padding="10dp"
-        android:visibility="gone">
 
-        <com.coorchice.library.SuperTextView
-            android:id="@+id/callBtn"
-            style="@style/form_submit_btn"
-            android:text="拨打电话"
-            app:corner="2dp"
-            app:solid="@color/yellow_63" />
-    </RelativeLayout>
 </LinearLayout>

@@ -21,6 +21,7 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.maket.model.LoadMoreListView;
 import com.tool.listview.PersonalListView;
 
 import org.json.JSONArray;
@@ -43,9 +44,10 @@ public class ShopCommentFragment extends Fragment {
     private List<ShopComment> list;
     private ShopCommentAdapter adapter;
     @BindView(R.id.id_stickynavlayout_innerscrollview)
-    PersonalListView listView;
+    LoadMoreListView listView;
     int page=1;
     String id;
+    boolean isLoadMore=false;
     public ShopCommentFragment() {
         // Required empty public constructor
     }
@@ -75,6 +77,14 @@ public class ShopCommentFragment extends Fragment {
 
             }
         });
+        listView.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
+            @Override
+            public void onloadMore() {
+                isLoadMore=true;
+                page++;
+                getData();
+            }
+        });
         getData();
 
     }
@@ -99,6 +109,10 @@ public class ShopCommentFragment extends Fragment {
                         list.add(baikeItem);
                     }
                     adapter.notifyDataSetChanged();
+                    if(isLoadMore){
+                        listView.setLoadCompleted();
+                        isLoadMore=false;
+                    }
                     //updateData();
 
                 } catch (JSONException e) {

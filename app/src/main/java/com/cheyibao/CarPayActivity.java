@@ -167,7 +167,7 @@ public class CarPayActivity extends AppCompatActivity {
 
         Map<String,Object> params=new HashMap<>();
         params.put("orderId",orderId);
-        HttpProxy.obtain().post(PlatformContans.Pay.babyMerchantOrderPay, params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Pay.carOrderPay, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("rsult",result);

@@ -48,7 +48,7 @@ public class ShopCommentAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         //return mClassItems.size();
-        return mClassItems.size();
+        return 5;
     }
 
     @Override
@@ -64,16 +64,18 @@ public class ShopCommentAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.item_shop_comment, null);
-        TextView iv_content= (TextView) convertView.findViewById(R.id.iv_content);
-        ImageView userhead= (ImageView) convertView.findViewById(R.id.userhead);
-        TextView tv_name= (TextView) convertView.findViewById(R.id.tv_name);
-        TextView tv_time= (TextView) convertView.findViewById(R.id.tv_time);
-        SimpleRatingBar starbar= (SimpleRatingBar) convertView.findViewById(R.id.starbar);
-        iv_content.setText(mClassItems.get(position).getContent());
-        tv_name.setText(mClassItems.get(position).getName());
-        tv_time.setText(mClassItems.get(position).getReplyTime().substring(0,10));
-        starbar.setRating(mClassItems.get(position).getScore());
-        Glide.with(mContext).load(mClassItems.get(position).getHeadPortrait()).into(userhead);
+        TextView iv_content = (TextView) convertView.findViewById(R.id.iv_content);
+        ImageView userhead = (ImageView) convertView.findViewById(R.id.userhead);
+        TextView tv_name = (TextView) convertView.findViewById(R.id.tv_name);
+        TextView tv_time = (TextView) convertView.findViewById(R.id.tv_time);
+        SimpleRatingBar starbar = (SimpleRatingBar) convertView.findViewById(R.id.starbar);
+        if (mClassItems.size() > 0) {
+            iv_content.setText(mClassItems.get(position).getContent());
+            tv_name.setText(mClassItems.get(position).getName());
+            tv_time.setText(mClassItems.get(position).getReplyTime().substring(0, 10));
+            starbar.setRating(mClassItems.get(position).getScore());
+            Glide.with(mContext).load(mClassItems.get(position).getHeadPortrait()).into(userhead);
+        }
         return convertView;
     }
 }

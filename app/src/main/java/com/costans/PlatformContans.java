@@ -28,6 +28,9 @@ public class PlatformContans {
         public static final String updatePwd=root+"/user/updatePassword";
         public static final String bindQQ=root+"/user/bindByQQ";
         public static final String bindWechat=root+"/user/bindByWx";
+
+        public static final String getIdentityVerification=root+"/user/getIdentityVerification";
+        public static final String addIdentityVerification=root+"/user/addIdentityVerification";
     }
     public static class WiKi{
         public static final String getWikiClassifyByType=root+ "/wikiClassify/getWikiClassifyByType" ;
@@ -159,6 +162,7 @@ public class PlatformContans {
     public static class Pay{
         public static final String babyMerchantOrderPay=root+ "/alipay/babyMerchantOrderPay";
         public static final String memberCardPay=root+ "/alipay/memberCardPay";
+        public static final String carOrderPay=root+ "/alipay/carOrderPay";
         public static final String washRepairShopPay=root+ "/alipay/washRepairShopPay";
     }
     public static class Chat{

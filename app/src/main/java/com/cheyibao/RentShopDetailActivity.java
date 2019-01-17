@@ -55,9 +55,7 @@ import butterknife.OnClick;
 public class RentShopDetailActivity extends AppCompatActivity {
     private Context ctx;
 
-    @BindView(R.id.id_stickynavlayout_indicator)
     TabLayout tab_shop;
-    @BindView(R.id.id_stickynavlayout_viewpager)
     ViewPager vp_shop;
     @BindView(R.id.tv_shopname)
     TextView tv_shopname;
@@ -100,30 +98,32 @@ public class RentShopDetailActivity extends AppCompatActivity {
 
 
     private void initView() {
-
+        vp_shop= (ViewPager) findViewById(R.id.id_stickynavlayout_viewpager);
+        tab_shop= (TabLayout)findViewById(R.id.id_stickynavlayout_indicator);
         mTabTitles.add("租借车型");
         mTabTitles.add("查看评论");
         mFragments.add(new RentShopFragment());
         mFragments.add(new RentComentFragment());
         mMyFragmentPagerAdapter=new MyFragmentPagerAdapter(getSupportFragmentManager(),mFragments,mTabTitles);
         vp_shop.setAdapter(mMyFragmentPagerAdapter);
-        vp_shop.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+        vp_shop.setOffscreenPageLimit(1);
         tab_shop.setupWithViewPager(vp_shop);
+//        tab_shop.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                vp_shop.setCurrentItem(tab.getPosition());
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
     }
 
     @OnClick({R.id.back})

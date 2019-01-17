@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.cheyibao.fragment.ClassFragment;
 import com.cheyibao.fragment.CoashCommentFragment;
 import com.cheyibao.fragment.CoashFragment;
+import com.cheyibao.fragment.SchoolCommentFragment;
 import com.cheyibao.fragment.ShopCommentFragment;
 import com.cheyibao.list.AutofitViewPager;
 import com.cheyibao.model.DrvingSchool;
@@ -161,7 +162,6 @@ public class DrivingSchoolActivity extends AppCompatActivity {
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
-
         tabStrip.setAccessible(true);
         LinearLayout llTab = null;
         try {
@@ -192,7 +192,7 @@ public class DrivingSchoolActivity extends AppCompatActivity {
         mTopFragments.add(new CoashFragment());
         mBottomTitles.add("店铺评论");
         mBottomTitles.add("教练评论");
-        mBottomFragments.add(new ShopCommentFragment());
+        mBottomFragments.add(new SchoolCommentFragment());
         mBottomFragments.add(new CoashCommentFragment());
         tab_comment.setTabMode(TabLayout.MODE_FIXED);
         tab_comment.setupWithViewPager(vp_comment);

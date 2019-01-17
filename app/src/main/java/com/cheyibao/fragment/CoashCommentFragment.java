@@ -69,14 +69,8 @@ public class CoashCommentFragment extends Fragment {
         list = new ArrayList<>();
         adapter = new CoashCommentAdapter(getContext(),list);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
-            }
-        });
-        getData();
+        //getData();
 
     }
     public void getData(){
@@ -85,7 +79,7 @@ public class CoashCommentFragment extends Fragment {
         Map<String,Object> params=new HashMap<>();
         params.put("page",page);
         params.put("merchantId",id);
-        HttpProxy.obtain().get(PlatformContans.DrivingSchool.getCoashComment, params, MyApplication.getUserInfo().getToken(),new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.DrivingSchool.getCoashComment, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("getCoashComment", result);

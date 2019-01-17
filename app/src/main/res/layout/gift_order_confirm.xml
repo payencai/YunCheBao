@@ -6,33 +6,164 @@
     android:orientation="vertical">
 
     <include layout="@layout/top_title_layout"></include>
-
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/addressLay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:background="@color/white"
+        android:orientation="vertical"
         android:padding="10dp">
 
-        <TextView
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="您好，没有地址信息，请添加地址信息"
+            android:layout_marginTop="10dp">
+
+
+            <TextView
+                android:id="@+id/tv_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="张先生   158****3661"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:text="默认"
+                android:textColor="@color/gray_99"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/tv_addrname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+
+                android:drawablePadding="10dp"
+                android:text="云南省昆明市西山区前卫西路世纪半岛"
+                android:textColor="@color/black_33"
+                android:textSize="14sp"
+                android:visibility="visible" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:src="@mipmap/arrow_right" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tv_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="广州大学城信息枢纽"
             android:textColor="@color/gray_99"
-            android:textSize="15sp" />
+            android:textSize="12sp"
+            android:visibility="visible" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="15dp"
+        android:paddingLeft="23dp"
+        android:paddingRight="23dp"
+        android:paddingTop="15dp">
 
         <ImageView
-            android:layout_width="6dp"
-            android:layout_height="11dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:scaleType="fitXY"
-            android:src="@mipmap/arrow_right" />
-    </RelativeLayout>
+            android:id="@+id/gift_img"
+            android:layout_width="102dp"
+            android:layout_height="103dp"
+            android:src="@color/gray_ee"
 
-    <include layout="@layout/gift_record_list_item_layout"></include>
+       />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="103dp"
+            android:layout_marginLeft="14dp"
+            >
+
+            <TextView
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:layout_marginRight="20dp"
+                android:id="@+id/tv_giftname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="小米移动电源16000毫安"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_marginBottom="10dp"
+                android:layout_above="@+id/rl_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="件数：1"
+                android:textColor="@color/gray_99"
+                android:textSize="12sp" />
+
+            <RelativeLayout
+                android:id="@+id/rl_bottom"
+                android:layout_marginBottom="5dp"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="宝币:"
+                    android:textColor="@color/gray_99"
+                    android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/tv_giftcoin"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="545656"
+                    android:textColor="@color/yellow_02"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tv_gifttime"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="2017-10-01"
+                    android:textColor="@color/gray_99"
+                    android:textSize="10sp" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,6 +187,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tv_coin1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -98,6 +230,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tv_coin2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -120,6 +253,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tv_coin3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -148,6 +282,7 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/et_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -163,12 +298,13 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
             android:paddingBottom="8dp"
-            android:paddingLeft="3dp"
-            android:paddingRight="3dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:paddingTop="8dp"
             android:text="发送验证码"
+            android:id="@+id/tv_send"
             android:textColor="@color/red_39"
-            android:textSize="14sp"
+            android:textSize="12sp"
             app:corner="5dp"
             app:solid="@color/pink_db" />
     </RelativeLayout>
@@ -185,6 +321,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tv_coin4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
