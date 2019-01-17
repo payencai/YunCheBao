@@ -25,6 +25,8 @@
        >
 
         <TextView
+            android:ellipsize="end"
+            android:maxLines="2"
             android:layout_marginRight="20dp"
             android:id="@+id/name"
             android:layout_width="match_parent"
@@ -59,6 +61,7 @@
                 android:textColor="@color/gray_99"
                 android:textSize="12sp" />
             <TextView
+                android:id="@+id/tv_coin"
                 android:layout_marginLeft="10dp"
                android:layout_toRightOf="@+id/tv_name"
                 android:layout_width="wrap_content"
@@ -67,6 +70,7 @@
                 android:textColor="@color/yellow_02"
                 android:textSize="14sp" />
             <TextView
+                android:id="@+id/tv_time"
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

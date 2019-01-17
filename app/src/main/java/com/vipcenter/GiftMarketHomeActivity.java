@@ -132,7 +132,7 @@ public class GiftMarketHomeActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick({R.id.back, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.hotGoodsLay})
+    @OnClick({R.id.back, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.back:
@@ -147,9 +147,9 @@ public class GiftMarketHomeActivity extends AppCompatActivity {
             case R.id.menuLay3:
                 ActivityAnimationUtils.commonTransition(GiftMarketHomeActivity.this, GiftRuleActivity.class, ActivityConstans.Animation.FADE);
                 break;
-            case R.id.hotGoodsLay:
-                ActivityAnimationUtils.commonTransition(GiftMarketHomeActivity.this, GiftGoodsListActivity.class, ActivityConstans.Animation.FADE);
-                break;
+//            case R.id.hotGoodsLay:
+//                ActivityAnimationUtils.commonTransition(GiftMarketHomeActivity.this, GiftGoodsListActivity.class, ActivityConstans.Animation.FADE);
+//                break;
 //            case R.id.menuBtn:
 //                ActivityAnimationUtils.commonTransition(GiftMarketHomeActivity.this, GiftAllKindActivity.class, ActivityConstans.Animation.FADE);
 //                break;

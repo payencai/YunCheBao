@@ -49,6 +49,7 @@ public class GiftBaobiCenterGetFragment extends BaseFragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleView);
         view.findViewById(R.id.noResult).setVisibility(View.GONE);
         init();
+        list.clear();
         getData();
         return view;
     }
@@ -87,9 +88,7 @@ public class GiftBaobiCenterGetFragment extends BaseFragment {
                         GiftCoin gift = new Gson().fromJson(item.toString(), GiftCoin.class);
                         list.add(gift);
                     }
-                    for (int i = 0; i < 5; i++) {
-                        list.add(new GiftCoin());
-                    }
+
                     adapter.notifyDataSetChanged();
                     //updateData();
 

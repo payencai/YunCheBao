@@ -48,6 +48,7 @@ public class GiftBaobiCenterAllFragment extends BaseFragment {
         view = inflater.inflate(R.layout.detail_evaluate_list, null);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleView);
         init();
+        list.clear();
         getData();
         return view;
     }

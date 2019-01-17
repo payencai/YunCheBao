@@ -3,6 +3,7 @@ package com.vipcenter.adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +37,21 @@ public class GiftHomeListAdapter extends BaseQuickAdapter<Gift,BaseViewHolder> {
 
         SimpleDraweeView  img = (SimpleDraweeView) helper.getView(R.id.img);
         TextView name= (TextView)helper.getView(R.id.tv_name);
-        Uri uri = Uri.parse(item.getCommodityImage());
-        img.setImageURI(uri);
+        String[] imgs=item.getCommodityImage().split(",");
+        String url="";
+        for (int i = 0; i <imgs.length ; i++) {
+            if(i==0){
+                url=imgs[0];
+            }
+        }
+        if(!TextUtils.isEmpty(url)){
+            Uri uri = Uri.parse(url);
+            img.setImageURI(uri);
+        }else{
+            Uri uri = Uri.parse(item.getCommodityImage());
+            img.setImageURI(uri);
+        }
+
         img.getLayoutParams().height=item.getHeight();
         name.setText(item.getCommodityName());
     }

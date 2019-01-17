@@ -55,6 +55,7 @@ public class GiftBaobeiCenterActivity extends NoHttpFragmentBaseActivity {
 
 
     private void initView() {
+        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "宝币中心");
         slidingTabLayout = (TabLayout) findViewById(R.id.slidinglayout);
         viewPager = (ViewPager) findViewById(R.id.vp);
         setViewPager();
