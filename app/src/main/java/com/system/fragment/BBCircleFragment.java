@@ -49,6 +49,7 @@ import com.tool.view.SimpleViewPagerIndicator;
 import com.vipcenter.AllCollectionActivity;
 import com.vipcenter.HistoryListActivity;
 import com.vipcenter.RegisterActivity;
+import com.vipcenter.UserCenterActivity;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -73,20 +74,18 @@ import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
  * 宝贝圈
  */
 
-public class BBCircleFragment extends BaseFragment implements BGARefreshLayout.BGARefreshLayoutDelegate{
-    private ArrayList<String> mTitleList = new ArrayList<>(4);
-    private ArrayList<Fragment> mFragments = new ArrayList<>(4);
+public class BBCircleFragment extends BaseFragment {
+    private ArrayList<String> mTitleList ;
+    private ArrayList<Fragment> mFragments ;
     //@BindView(R.id.id_stickynavlayout_viewpager)
     ViewPager vpGank;
     //@BindView(R.id.id_stickynavlayout_indicator)
     TabLayout tabGank;
-
+    MyFragmentPagerAdapter myAdapter;
     //轮播图片
-    private List<Map<String, String>> imageList = new ArrayList<>();
     @BindView(R.id.slideshowView)
     com.youth.banner.Banner banner;
-//    @BindView(R.id.gods)
-//    BGARefreshLayout  mRefreshLayout;
+
     List<String> images = new ArrayList<>();
 
     private void initBanner() {
@@ -159,41 +158,18 @@ public class BBCircleFragment extends BaseFragment implements BGARefreshLayout.B
         vpGank= (ViewPager) rootView.findViewById(R.id.id_stickynavlayout_viewpager);
         tabGank= (TabLayout) rootView.findViewById(R.id.id_stickynavlayout_indicator);
         getBaner();
-        //initRefreshLayout(mRefreshLayout);
         initFragmentList();
-
-        MyFragmentPagerAdapter myAdapter = new MyFragmentPagerAdapter(getChildFragmentManager(), mFragments, mTitleList);
-        vpGank.setAdapter(myAdapter);
-        // 左右预加载页面的个数
-        vpGank.setOffscreenPageLimit(1);
-        //vpGank.setCurrentItem(0);
-        vpGank.setBackgroundColor(getResources().getColor(R.color.white));
-        tabGank.setupWithViewPager(vpGank);
-        tabGank.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                vpGank.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        //myAdapter.notifyDataSetChanged();
-
         return rootView;
     }
 
-
     private void initFragmentList() {
-        // mTitleList.add("热帖");
+        mTitleList=new ArrayList<>();
+        mFragments=new ArrayList<>();
+        myAdapter = new MyFragmentPagerAdapter(getChildFragmentManager(), mFragments, mTitleList);
+        vpGank.setAdapter(myAdapter);
+        vpGank.setOffscreenPageLimit(1);
+        vpGank.setBackgroundColor(getResources().getColor(R.color.white));
+        tabGank.setupWithViewPager(vpGank);
         mTitleList.add("自驾游");
         mTitleList.add("车友会");
         mTitleList.add("汽车秀");
@@ -203,9 +179,10 @@ public class BBCircleFragment extends BaseFragment implements BGARefreshLayout.B
         mFragments.add(new DriverFragment());
         mFragments.add(new CarShowFragment());
         mFragments.add(new RacePublishFragment());
+        myAdapter.notifyDataSetChanged();
     }
 
-    @OnClick({R.id.messenger_icon, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3})
+    @OnClick({R.id.messenger_icon, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3,R.id.user_center_icon})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.messenger_icon:
@@ -232,57 +209,17 @@ public class BBCircleFragment extends BaseFragment implements BGARefreshLayout.B
                 else
                     startActivity(new Intent(getContext(), RegisterActivity.class));
                 break;
-        }
-    }
-
-    @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-        int pos=tabGank.getSelectedTabPosition();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(2000);
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            refreshLayout.endRefreshing();
-                        }
-                    });
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            case R.id.user_center_icon:
+                if(MyApplication.isLogin)
+                    ActivityAnimationUtils.commonTransition(getActivity(), UserCenterActivity.class, ActivityConstans.Animation.FADE);
+                else{
+                    startActivity(new Intent(getContext(),RegisterActivity.class));
                 }
-            }
-        }).start();
-        switch (pos){
-            case 0:
-                SelfDrivingFragment selfDrivingFragment= (SelfDrivingFragment) mFragments.get(pos);
-                selfDrivingFragment.refreshData();
-               // refreshLayout.endRefreshing();
-                break;
-            case 1:
-                DriverFragment driverFragment= (DriverFragment) mFragments.get(pos);
-                driverFragment.refreshData();
-                //refreshLayout.endRefreshing();
-                break;
-            case 2:
-                CarShowFragment carShowFragment= (CarShowFragment) mFragments.get(pos);
-                carShowFragment.refreshData();
-               // refreshLayout.endRefreshing();
-                break;
-
-            case 3:
-                RacePublishFragment racePublishFragment= (RacePublishFragment) mFragments.get(pos);
-                racePublishFragment.refreshData();
-                //refreshLayout.endRefreshing();
                 break;
         }
-
-       //
     }
 
-    @Override
-    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        return false;
-    }
+
+
+
 }

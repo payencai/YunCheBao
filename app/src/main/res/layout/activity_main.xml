@@ -97,22 +97,25 @@
                 </FrameLayout>
             </RelativeLayout>
 
+
+
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
-                <!--商家-->
+                <!--我的店铺-->
                 <FrameLayout
                     android:id="@+id/main_fl_3"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/main_iv_3"
-                        android:layout_width="19dp"
-                        android:layout_height="25dp"
+                        android:layout_width="21dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="top|center_horizontal"
                         android:layout_marginTop="5dp"
                         android:scaleType="fitXY"
@@ -125,30 +128,29 @@
                         android:layout_gravity="bottom|center_horizontal"
                         android:layout_marginBottom="3dp"
                         android:gravity="center_vertical"
-                        android:text="宝贝百科"
+                        android:text="宝贝圈"
                         android:textColor="@color/black_33"
                         android:textSize="10dp" />
 
                 </FrameLayout>
-            </RelativeLayout>
 
+            </RelativeLayout>
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
-                <!--我的店铺-->
+                <!--商家-->
                 <FrameLayout
                     android:id="@+id/main_fl_4"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/main_iv_4"
-                        android:layout_width="21dp"
-                        android:layout_height="20dp"
+                        android:layout_width="19dp"
+                        android:layout_height="25dp"
                         android:layout_gravity="top|center_horizontal"
                         android:layout_marginTop="5dp"
                         android:scaleType="fitXY"
@@ -161,14 +163,12 @@
                         android:layout_gravity="bottom|center_horizontal"
                         android:layout_marginBottom="3dp"
                         android:gravity="center_vertical"
-                        android:text="宝贝圈"
+                        android:text="宝贝百科"
                         android:textColor="@color/black_33"
                         android:textSize="10dp" />
 
                 </FrameLayout>
-
             </RelativeLayout>
-
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

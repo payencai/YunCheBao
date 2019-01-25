@@ -3,6 +3,7 @@ package com.bbcircle.adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ public class BKItemAdapter extends BaseQuickAdapter<BaikeItem, BaseViewHolder> {
         tv_time.setText(baikeItem.getCreateTime());
         tv_title.setText(baikeItem.getTitle());
         tv_content.setText(baikeItem.getSynopsis());
+        if(!TextUtils.isEmpty(baikeItem.getPicture()))
         Glide.with(helper.itemView.getContext()).load(baikeItem.getPicture()).into(ivAvatar);
     }
 

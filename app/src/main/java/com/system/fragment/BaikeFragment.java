@@ -29,6 +29,10 @@ import com.baike.adapter.ClassifyWikiAdapter;
 import com.baike.fragment.BaikeItemFragment;
 import com.baike.model.ClassifyWiki;
 import com.bbcircle.adapter.VPAndTLAdapter;
+import com.bbcircle.fragment.CarShowFragment;
+import com.bbcircle.fragment.DriverFragment;
+import com.bbcircle.fragment.RacePublishFragment;
+import com.bbcircle.fragment.SelfDrivingFragment;
 import com.bumptech.glide.Glide;
 import com.chat.MessageMainActivity;
 import com.costans.PlatformContans;
@@ -47,6 +51,7 @@ import com.nohttp.sample.HttpListener;
 import com.nohttp.tools.HttpJsonClient;
 import com.rongcloud.activity.ChatActivity;
 import com.system.WebviewActivity;
+import com.tool.adapter.MyFragmentPagerAdapter;
 import com.tool.listview.PersonalScrollView;
 import com.tool.listview.PersonalViewPager;
 import com.vipcenter.RegisterActivity;
@@ -79,20 +84,14 @@ import butterknife.OnClick;
  * A simple {@link Fragment} subclass.
  * 宝贝百科
  */
-public class MagFragment extends BaseFragment {
+public class BaikeFragment extends BaseFragment {
 
 
-    private Context ctx;
-
-    private List<Map<String, String>> imageList = new ArrayList<>();
-
-
-    private List<String> tabNames=new ArrayList<>();
-    private List<Fragment> mFragments=new ArrayList<>();
-    @BindView(R.id.tablayout)
+    private ArrayList<String> tabNames = new ArrayList<>(4);
+    private ArrayList<Fragment> mFragments = new ArrayList<>(4);
     TabLayout mTablayout;
-    @BindView(R.id.id_stickynavlayout_viewpager)
     ViewPager vp_content;
+
     @BindView(R.id.slideshowView)
     com.youth.banner.Banner banner;
     @BindView(R.id.menuLay1)
@@ -101,112 +100,78 @@ public class MagFragment extends BaseFragment {
     LinearLayout menuLay2;
     @BindView(R.id.menuLay3)
     LinearLayout menuLay3;
-    @BindView(R.id.messenger_icon)
-    ImageView messenger_icon;
-//    @BindView(R.id.scollview)
-//    PersonalScrollView mScrollView;
+
     int type = 1;
 
-    ClassifyWikiAdapter mClassifyWikiAdapter;
-    List<ClassifyWiki> mClassifyWikis1 = new ArrayList<>();
+    MyFragmentPagerAdapter mClassifyWikiAdapter;
+    List<ClassifyWiki> mClassifyWikis1 ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_mag, container, false);
         ButterKnife.bind(this, rootView);
+        vp_content = (ViewPager) rootView.findViewById(R.id.id_stickynavlayout_viewpager);
+        mTablayout = (TabLayout) rootView.findViewById(R.id.id_stickynavlayout_indicator);
+        getBaner();
         init();
         return rootView;
     }
 
-
-
     private void init() {
-        getBaner();
-        messenger_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (MyApplication.isLogin) {
-                    startActivityForResult(new Intent(getContext(), ChatActivity.class), 1);
-                    //connect(MyApplication.getUserInfo().getHxPassword());
-                } else {
-                    startActivityForResult(new Intent(getContext(), RegisterActivity.class), 2);
-                }
-            }
-        });
-        menuLay1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                type = 1;
-                mClassifyWikis1.clear();
 
-                tabNames.clear();
-                mFragments.clear();
-                getData(type);
-            }
-        });
-        menuLay2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                type = 2;
-                mClassifyWikis1.clear();
-                tabNames.clear();
-                mFragments.clear();
-                getData(type);
-            }
-        });
-        menuLay3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                type = 3;
-                mClassifyWikis1.clear();
-                tabNames.clear();
-                mFragments.clear();
-                getData(type);
-            }
-        });
 
-        if (mClassifyWikiAdapter == null)
-            mClassifyWikiAdapter = new ClassifyWikiAdapter(getActivity().getSupportFragmentManager(), tabNames, mFragments);
+//        menuLay1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                type = 1;
+//                mClassifyWikis1.clear();
+//
+//                tabNames.clear();
+//                mFragments.clear();
+//                getData(type);
+//            }
+//        });
+//        menuLay2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                type = 2;
+//                mClassifyWikis1.clear();
+//                tabNames.clear();
+//                mFragments.clear();
+//                getData(type);
+//            }
+//        });
+//        menuLay3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                type = 3;
+//                mClassifyWikis1.clear();
+//                tabNames.clear();
+//                mFragments.clear();
+//                getData(type);
+//            }
+//        });
+//        tabNames=new ArrayList<>();
+//        mFragments=new ArrayList<>();
+        tabNames.add("自驾游");
+        tabNames.add("车友会");
+        tabNames.add("汽车秀");
+        tabNames.add("赛事发布");
+        // mFragments.add(new HotArticleFragment());
+        mFragments.add(new SelfDrivingFragment());
+        mFragments.add(new DriverFragment());
+        mFragments.add(new CarShowFragment());
+        mFragments.add(new RacePublishFragment());
+        mClassifyWikis1=new ArrayList<>();
+
+        mClassifyWikiAdapter = new MyFragmentPagerAdapter(getActivity().getSupportFragmentManager(), mFragments,tabNames);
         vp_content.setAdapter(mClassifyWikiAdapter);
         vp_content.setOffscreenPageLimit(1);
-        mClassifyWikiAdapter.notifyDataSetChanged();
-        vp_content.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                //vp_content.resetHeight(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
+        //vpGank.setCurrentItem(0);
+        vp_content.setBackgroundColor(getResources().getColor(R.color.white));
         mTablayout.setupWithViewPager(vp_content);
-        mTablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                vp_content.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        getData(type);
+       // getData(type);
 
     }
 
@@ -216,7 +181,11 @@ public class MagFragment extends BaseFragment {
             tabNames.add(mClassifyWikis1.get(i).getName());
             mFragments.add(BaikeItemFragment.newInstance(type, mClassifyWikis1.get(i).getId()));
         }
-        mClassifyWikiAdapter.notifyDataSetChanged();
+        Log.e("size",mFragments.size()+"");
+
+        mClassifyWikiAdapter = new MyFragmentPagerAdapter(getActivity().getSupportFragmentManager(), mFragments,tabNames);
+        vp_content.setAdapter(mClassifyWikiAdapter);
+        mTablayout.setupWithViewPager(vp_content);
 
     }
 
@@ -236,7 +205,6 @@ public class MagFragment extends BaseFragment {
                         JSONObject item = data.getJSONObject(i);
                         ClassifyWiki classifyWiki = new Gson().fromJson(item.toString(), ClassifyWiki.class);
                         mClassifyWikis1.add(classifyWiki);
-
                     }
                     updateData();
 
@@ -251,6 +219,7 @@ public class MagFragment extends BaseFragment {
             }
         });
     }
+
     List<String> images = new ArrayList<>();
 
     private void initBanner() {

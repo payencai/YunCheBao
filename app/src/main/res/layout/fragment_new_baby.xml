@@ -1,0 +1,228 @@
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.system.fragment.NewBabyFragment">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/top_search_layout"></include>
+        <LinearLayout
+
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+           <ImageView
+               android:scaleType="fitXY"
+               android:src="@mipmap/ic_contacts"
+               android:layout_width="40dp"
+               android:layout_height="40dp" />
+            <TextView
+                android:textSize="16sp"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/black_33"
+                android:text="通讯录"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <ImageView
+
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_addfriend"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <TextView
+                android:textSize="16sp"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/black_33"
+                android:text="新加好友"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <ImageView
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_friendcircle"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <TextView
+                android:textSize="16sp"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/black_33"
+                android:text="好友圈"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <ImageView
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_group"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <TextView
+                android:textSize="16sp"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/black_33"
+                android:text="群聊"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <ImageView
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_tags"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <TextView
+                android:textSize="16sp"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/black_33"
+                android:text="标签"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <ImageView
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_star"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <TextView
+                android:textSize="16sp"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/black_33"
+                android:text="星标好友"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <ImageView
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_self"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <TextView
+                android:textSize="16sp"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/black_33"
+                android:text="自驾游"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <ImageView
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_car"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <TextView
+                android:textSize="16sp"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/black_33"
+                android:text="车友汇"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/rl_stranger"
+            android:background="@color/white"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <ImageView
+                android:id="@+id/msg"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/msg"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/msg"
+                android:textColor="@color/black_33"
+                android:layout_centerInParent="true"
+                android:textSize="14sp"
+                android:text="陌生人消息"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:background="@color/yellow_31"
+                android:textColor="@color/white"
+                android:text="1"
+                android:textSize="10sp"
+                android:gravity="center"
+                android:layout_toLeftOf="@+id/enter"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_width="23dp"
+                android:layout_height="15dp" />
+            <ImageView
+                android:src="@mipmap/arrow_right"
+                android:id="@+id/enter"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="8dp"
+                android:layout_height="15dp" />
+        </RelativeLayout>
+        <FrameLayout
+            android:id="@+id/rong_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></FrameLayout>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

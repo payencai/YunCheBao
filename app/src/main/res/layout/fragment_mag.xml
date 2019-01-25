@@ -2,182 +2,148 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/theForm"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_ee"
+    android:background="@color/white"
     android:orientation="vertical">
 
-    <!--android:fitsSystemWindows="true"-->
-    <!--搜索栏-->
-    <RelativeLayout
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/white"
-        android:orientation="horizontal">
+        android:layout_height="0dp">
+        <include layout="@layout/top_search_layout"></include>
 
-        <ImageView
-            android:id="@+id/user_center_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:src="@mipmap/people_icon" />
-
-        <ImageView
-            android:id="@+id/messenger_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:padding="14dp"
-            android:src="@mipmap/chat_icon" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="宝贝百科"
-            android:textColor="@color/black_33"
-            android:textSize="18sp" />
-    </RelativeLayout>
-    <com.tool.view.StickyNavLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <LinearLayout
-            android:id="@id/id_stickynavlayout_topview"
+        <com.tool.view.StickyNavLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-
-            <!--广告栏banner-->
-            <com.youth.banner.Banner
-                android:id="@+id/slideshowView"
-                android:layout_width="fill_parent"
-                android:layout_height="150dp"
-                android:visibility="visible" />
-            <!--广告栏banner  end-->
-
-
-            <LinearLayout
+            <RelativeLayout
+                android:id="@id/id_stickynavlayout_topview"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@color/white"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
                 <LinearLayout
-                    android:id="@+id/menuLay1"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingBottom="15dp"
-                    android:paddingTop="15dp">
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@mipmap/baike_menu_1" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="装饰百科"
-                        android:textColor="@color/gray_99"
-                        android:textSize="14sp" />
+                    <!--广告栏banner-->
+                    <com.youth.banner.Banner
+                        android:id="@+id/slideshowView"
+                        android:layout_width="fill_parent"
+                        android:layout_height="150dp"
+                        android:visibility="visible" />
+                    <!--广告栏banner  end-->
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/menuLay1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingBottom="15dp"
+                            android:paddingTop="15dp">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@mipmap/baike_menu_1" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="装饰百科"
+                                android:textColor="@color/gray_99"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/menuLay2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingBottom="15dp"
+                            android:paddingTop="15dp">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@mipmap/baike_menu_2" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="养护百科"
+                                android:textColor="@color/gray_99"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/menuLay3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingBottom="15dp"
+                            android:paddingTop="15dp">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@mipmap/baike_menu_3" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="购车指南"
+                                android:textColor="@color/gray_99"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+
                 </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/menuLay2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingBottom="15dp"
-                    android:paddingTop="15dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@mipmap/baike_menu_2" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="养护百科"
-                        android:textColor="@color/gray_99"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/menuLay3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingBottom="15dp"
-                    android:paddingTop="15dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@mipmap/baike_menu_3" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="购车指南"
-                        android:textColor="@color/gray_99"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-        <RelativeLayout
-            android:id="@id/id_stickynavlayout_indicator"
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp">
+            </RelativeLayout>
 
             <android.support.design.widget.TabLayout
-                android:id="@+id/tablayout"
+                android:id="@id/id_stickynavlayout_indicator"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_toLeftOf="@+id/add"
-                app:tabMode="scrollable"
-                app:tabGravity="center"
-                android:layout_alignParentTop="true"
+                android:layout_height="50dp"
+                app:tabMode="fixed"
+                app:tabGravity="fill"
                 app:tabBackground="@color/white"
                 app:tabIndicatorColor="@color/colorPrimary"
                 app:tabSelectedTextColor="@color/black_33"
                 app:tabTextColor="@color/gray_99" />
-            <ImageView
-                android:visibility="gone"
-                android:layout_marginRight="10dp"
-                android:id="@+id/add"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:padding="5dp"
-                android:src="@mipmap/add" />
 
-        </RelativeLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@id/id_stickynavlayout_viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.tool.view.StickyNavLayout>
 
+            <android.support.v4.view.ViewPager
+                android:id="@id/id_stickynavlayout_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v4.view.ViewPager>
+
+
+        </com.tool.view.StickyNavLayout>
+    </LinearLayout>
 </LinearLayout>

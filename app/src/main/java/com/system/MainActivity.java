@@ -1,13 +1,6 @@
 package com.system;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -21,14 +14,15 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.application.MyApplication;
-import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
 import com.system.fragment.BBCircleFragment;
 import com.system.fragment.CheyiFragment;
 import com.system.fragment.HomeFragment;
-import com.system.fragment.MagFragment;
+import com.system.fragment.BaikeFragment;
 import com.system.fragment.MallFragment;
+import com.system.fragment.NewBabyFragment;
+import com.system.fragment.NewBaikeFragment;
 import com.tool.FitStateUI;
 
 import java.util.ArrayList;
@@ -39,15 +33,15 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
     private static final String TAG = "MainActivity";
     HomeFragment fragment1;
     CheyiFragment fragment2;
-    MagFragment fragment3;
-    BBCircleFragment fragment4;
+    NewBabyFragment fragment3;
+    NewBaikeFragment fragment4;
     MallFragment fragment5;
 
 
     private FragmentManager fm;
     private List<Fragment> fragments;
 
-    View tab1, tab2, tab3, tab4,tab5;
+    View tab1, tab2, tab3, tab4, tab5;
     private ImageView iv_tab1;
     private ImageView iv_tab2;
     private ImageView iv_tab3;
@@ -71,6 +65,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
             MyApplication.setaMapLocation(aMapLocation);
         }
     };
+
     private void initLocation() {
         //初始化定位
         mLocationClient = new AMapLocationClient(getApplicationContext());
@@ -85,8 +80,9 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
 
         }
         mLocationClient.startLocation();
-        Log.e("locate", mLocationClient.getVersion()+"gfg");
+        Log.e("locate", mLocationClient.getVersion() + "gfg");
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +92,6 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         initview();
         initListener();
     }
-
 
 
     //关闭时解除监听器
@@ -128,8 +123,8 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         fm = getSupportFragmentManager();
         fragment1 = new HomeFragment();
         fragment2 = new CheyiFragment();
-        fragment3 = new MagFragment();
-        fragment4 = new BBCircleFragment();
+        fragment3 = new NewBabyFragment();
+        fragment4 = new NewBaikeFragment();
         fragment5 = new MallFragment();
         fragments = new ArrayList<>();
         fragments.add(fragment1);
@@ -228,6 +223,9 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                 resetStateForTagbar(R.id.main_fl_3);
                 hideAllFragment();
                 showFragment(2);
+                if(fragment3!=null)
+                   fragment3.setUri();
+
                 break;
             case R.id.main_fl_4:
                 //状态重置

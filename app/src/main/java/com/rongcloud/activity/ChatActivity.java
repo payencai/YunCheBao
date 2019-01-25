@@ -47,7 +47,8 @@ public class ChatActivity extends FragmentActivity {
     RelativeLayout rl_stranger;
     @BindView(R.id.back)
     ImageView back;
-    private ConversationListFragment mConversationFragment = null;
+    Uri uri;
+    public ConversationListFragment mConversationFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +118,7 @@ public class ChatActivity extends FragmentActivity {
      * @return 会话列表
      */
 
-    private void enterFragment() {
+    public void enterFragment() {
 
 //        RongIM.getInstance().getConversationList(new RongIMClient.ResultCallback<List<Conversation>>() {
 //            @Override
@@ -145,15 +146,15 @@ public class ChatActivity extends FragmentActivity {
 
         mConversationFragment = (ConversationListFragment) getSupportFragmentManager().findFragmentById(R.id.conversationlist);
 
-        Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
+         uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
                 .appendPath("conversationlist")
                 .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false") //设置私聊会话非聚合显示
                 .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "false")//设置群组会话非聚合显示
                 .appendQueryParameter(Conversation.ConversationType.DISCUSSION.getName(), "false")//设置讨论组会话非聚合显示
                 .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "false")//设置系统会话非聚合显示
                 .build();
-
-        mConversationFragment.setUri(uri);
+         if(mConversationFragment!=null)
+           mConversationFragment.setUri(uri);
 
     }
 

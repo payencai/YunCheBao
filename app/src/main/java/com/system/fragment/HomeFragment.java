@@ -61,6 +61,9 @@ import com.rongcloud.model.MyGroup;
 import com.rongcloud.sidebar.ContactModel;
 import com.rongcloud.sidebar.ContactsAdapter;
 import com.system.WebviewActivity;
+import com.system.adapter.HomeListAdapter;
+import com.system.model.HomeImage;
+import com.tool.view.ListViewForScrollView;
 import com.vipcenter.RegisterActivity;
 import com.vipcenter.UserCenterActivity;
 import com.system.adapter.HomeMenuListAdapter;
@@ -113,22 +116,16 @@ public class HomeFragment extends BaseFragment {
     private List<Map<String, String>> imageList = new ArrayList<>();
     @BindView(R.id.slideshowView)
     com.youth.banner.Banner banner;
-    @BindView(R.id.middleGrid)
-    GridViewForScrollView middleGrid;
-    @BindView(R.id.item1)
-    ImageView item1;
-    @BindView(R.id.item2)
-    ImageView item2;
-    @BindView(R.id.item3)
-    ImageView item3;
+    @BindView(R.id.lv_home)
+    ListViewForScrollView lv_home;
     @BindView(R.id.menuLay5)
     LinearLayout menuLay5;
     @BindView(R.id.menuLay7)
     LinearLayout menuLay7;
-
-    private HomeMenuListAdapter menuAdapter;
+    List<HomeImage> mHomeImages;
+    HomeListAdapter mHomeListAdapter;
     private PullToRefreshScrollView pullToRefreshScrollView;
-    private List<GoodList> middleList;
+
     List<Banner> mBanners=new ArrayList<>();
     private void google(double mLatitude, double mLongitude) {
         if (isAvilible(getContext(), "com.google.android.apps.maps")) {
@@ -270,30 +267,7 @@ public class HomeFragment extends BaseFragment {
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, rootView);
         MyApplication.setDataSave(new ListDataSave(MyApplication.getContext(), "data"));
-        item1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), WebviewActivity.class);
-                intent.putExtra("url", (String) v.getTag());
-                startActivity(intent);
-            }
-        });
-        item2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), WebviewActivity.class);
-                intent.putExtra("url", (String) v.getTag());
-                startActivity(intent);
-            }
-        });
-        item3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), WebviewActivity.class);
-                intent.putExtra("url", (String) v.getTag());
-                startActivity(intent);
-            }
-        });
+
         getImageUrl();
         init();
         return rootView;
@@ -329,32 +303,7 @@ public class HomeFragment extends BaseFragment {
         banner.setImages(images);//设置图片源
         banner.start();
     }
-    private void initImage() {
-        for (int i = 0; i < mUrlBeans.size(); i++) {
-            UrlBean urlBean = mUrlBeans.get(i);
-            switch (urlBean.getName()) {
-                case "车抵贷":
-                    Glide.with(this).load(urlBean.getImage()).into(item1);
-                    item1.setTag(urlBean.getUrl());
-                    break;
-                case "年审":
-                    Glide.with(this).load(urlBean.getImage()).into(item2);
-                    item2.setTag(urlBean.getUrl());
-                    break;
-                case "保险":
-                    Glide.with(this).load(urlBean.getImage()).into(item3);
-                    item3.setTag(urlBean.getUrl());
-                    break;
-                case "违章查询":
-                    menuLay5.setTag(urlBean.getUrl());
-                    break;
-                case "滴滴出行":
-                    menuLay7.setTag(urlBean.getUrl());
-                    break;
 
-            }
-        }
-    }
 
     private void getImageUrl() {
         HttpProxy.obtain().get(PlatformContans.Commom.getSkipUrl, "", new ICallBack() {
@@ -371,7 +320,7 @@ public class HomeFragment extends BaseFragment {
                             UrlBean urlBean = new Gson().fromJson(item.toString(), UrlBean.class);
                             mUrlBeans.add(urlBean);
                         }
-                        initImage();
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -428,20 +377,14 @@ public class HomeFragment extends BaseFragment {
         ctx = getActivity();
 
         getBaner();
-        middleList = new ArrayList<>();
-//        for (int i = 0; i < 12; i++) {
-//            middleList.add(new PhoneGoodEntity());
-//        }
-        menuAdapter = new HomeMenuListAdapter(ctx, middleList);
-        middleGrid.setAdapter(menuAdapter);
-        middleGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ActivityAnimationUtils.commonTransition(getActivity(), GoodDetailActivity.class, ActivityConstans.Animation.FADE);
-            }
-        });
 
 
+        mHomeImages=new ArrayList<>();
+        for (int i = 0; i <6 ; i++) {
+            mHomeImages.add(new HomeImage());
+        }
+        mHomeListAdapter=new HomeListAdapter(getContext(),mHomeImages);
+        lv_home.setAdapter(mHomeListAdapter);
         pullToRefreshScrollView = (PullToRefreshScrollView) rootView.findViewById(R.id.my_scrollview);
         pullToRefreshScrollView.setScrollingWhileRefreshingEnabled(true);//滚动的时候不加载数据
         pullToRefreshScrollView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
@@ -631,7 +574,7 @@ public class HomeFragment extends BaseFragment {
             });
     }
 
-    @OnClick({R.id.messenger_icon, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.menuLay4, R.id.menuLay7, R.id.menuLay5, R.id.menuLay6, R.id.menuLay8,R.id.menuLay9, R.id.newGoodsLay, R.id.cityLay, R.id.user_center_icon})
+    @OnClick({R.id.messenger_icon, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.menuLay4, R.id.menuLay7, R.id.menuLay5, R.id.menuLay6, R.id.menuLay8,R.id.menuLay9, R.id.user_center_icon})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.messenger_icon:
@@ -678,15 +621,15 @@ public class HomeFragment extends BaseFragment {
                 showDialog(new LatLng(MyApplication.getaMapLocation().getLatitude(),MyApplication.getaMapLocation().getLongitude()));
                 //ActivityAnimationUtils.commonTransition(getActivity(), YuedanHomeActivity.class, ActivityConstans.Animation.FADE);
                 break;
-            case R.id.newGoodsLay://新品尝鲜
-                ActivityAnimationUtils.commonTransition(getActivity(), NewGoodsListActivity.class, ActivityConstans.Animation.FADE);
-                break;
+//            case R.id.newGoodsLay://新品尝鲜
+//                ActivityAnimationUtils.commonTransition(getActivity(), NewGoodsListActivity.class, ActivityConstans.Animation.FADE);
+//                break;
 //            case R.id.recommendLay://为您推荐
 //                ActivityAnimationUtils.commonTransition(getActivity(), BrandGoodsListActivity.class, ActivityConstans.Animation.FADE);
 //                break;
-            case R.id.cityLay://城市选择列表
-                ActivityAnimationUtils.commonTransition(getActivity(), CityListActivity.class, ActivityConstans.Animation.FADE);
-                break;
+//            case R.id.cityLay://城市选择列表
+//                ActivityAnimationUtils.commonTransition(getActivity(), CityListActivity.class, ActivityConstans.Animation.FADE);
+//                break;
             case R.id.user_center_icon://个人中心
                 if(MyApplication.isLogin)
                 ActivityAnimationUtils.commonTransition(getActivity(), UserCenterActivity.class, ActivityConstans.Animation.FADE);

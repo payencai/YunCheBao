@@ -6,17 +6,18 @@ package com.baike.model;
  */
 public class BaikeItem {
 
+
     /**
-     * id : 29cbde69-fbc9-477f-b7f1-502eb3a66a90
-     * title : 收到w
-     * picture : null
-     * synopsis : 撒爱上
-     * content : http://yunchebao.oss-cn-shenzhen.aliyuncs.com/text/49ea8a44-0e06-410e-a632-223232e9cb11
-     * classifyId : 7dfbb737-ec40-4957-9db5-fd1882309d3a
-     * createTime : 2018-12-26 18:35:38
+     * id : 04755bbd-a16e-451e-bfd5-6aaa9bf3046f
+     * title : 剑指牧马人等 大众或将推出电动SUV车型
+     * picture : http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2018122917042254
+     * synopsis : 日前，有海外媒体报道称，大众正在着手研发一款全新的SUV车型，对手锁定在路虎卫士、吉普牧马人等车型，预计2022年左右上市。
+     * content : http://yunchebao.oss-cn-shenzhen.aliyuncs.com/text/4ce6683f-6e26-474f-84f5-4e800a87995e
+     * classifyId : efe49eb6-c1db-4a6b-88a6-0fa0dd44d261
+     * createTime : 2018-12-29 17:01:56
      * type : 1
      * isDel : 1
-     * classifyName : gfh
+     * classifyName : null
      */
 
     private String id;

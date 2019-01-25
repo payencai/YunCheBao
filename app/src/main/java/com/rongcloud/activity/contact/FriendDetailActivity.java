@@ -31,6 +31,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.rong.callkit.RongCallKit;
 import io.rong.imkit.RongIM;
 
 public class FriendDetailActivity extends AppCompatActivity {
@@ -47,6 +48,10 @@ public class FriendDetailActivity extends AppCompatActivity {
     RelativeLayout rl_top;
     @BindView(R.id.back)
     ImageView back;
+    @BindView(R.id.voice)
+    TextView tv_voice;
+    @BindView(R.id.video)
+    TextView tv_video;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,6 +142,18 @@ public class FriendDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 initWindow(v);
+            }
+        });
+        tv_video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RongCallKit.startSingleCall(FriendDetailActivity.this,  mContactModel.getId(), RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
+            }
+        });
+        tv_voice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RongCallKit.startSingleCall(FriendDetailActivity.this,  mContactModel.getId(), RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
             }
         });
     }

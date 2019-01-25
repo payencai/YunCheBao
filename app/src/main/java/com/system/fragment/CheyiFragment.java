@@ -1,5 +1,6 @@
 package com.system.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -8,14 +9,20 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.application.MyApplication;
 import com.cheyibao.fragment.NewCarFragment;
 import com.cheyibao.fragment.OldCarFragment;
 import com.cheyibao.fragment.RentCarFragment;
 import com.cheyibao.fragment.StudyCarFragment;
 import com.example.yunchebao.R;
 import com.nohttp.sample.BaseFragment;
+import com.tool.ActivityAnimationUtils;
+import com.tool.ActivityConstans;
 import com.tool.adapter.MyFragmentPagerAdapter;
+import com.vipcenter.RegisterActivity;
+import com.vipcenter.UserCenterActivity;
 
 import java.util.ArrayList;
 
@@ -33,13 +40,25 @@ public class CheyiFragment extends BaseFragment {
     ViewPager vpGank;
     @BindView(R.id.tab_gank)
     TabLayout tabGank;
-
+    @BindView(R.id.user_center_icon)
+    ImageView user_center_icon;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_gank, container, false);
         ButterKnife.bind(this, rootView);
 //        requestMethod(0);
+        user_center_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(MyApplication.isLogin)
+                    ActivityAnimationUtils.commonTransition(getActivity(), UserCenterActivity.class, ActivityConstans.Animation.FADE);
+                else{
+                    startActivity(new Intent(getContext(),RegisterActivity.class));
+                }
+
+            }
+        });
         initFragmentList();
         /**
          * 注意使用的是：getChildFragmentManager，
