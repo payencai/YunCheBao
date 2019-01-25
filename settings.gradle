@@ -1,1 +1,2 @@
-include ':app', ':PullToRefresh', ':filter-lib', ':tablibrary', ':reclib-emoticons', ':easeui',":IMLib",':IMKit',':WaveSideBar',':library'
+include ':app', ':PullToRefresh', ':filter-lib', ':tablibrary', ':reclib-emoticons', ':easeui',":IMLib",':IMKit',':WaveSideBar',':library',':CallKit',':CallLib'
+
