@@ -29,14 +29,15 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/arrow_right" />
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
+            android:src="@mipmap/notlogin_head"
+            android:scaleType="fitXY"
             android:id="@+id/sd_head"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/arrow1"
-            app:placeholderImage="@mipmap/user_head"
-            app:placeholderImageScaleType="fitXY" />
+           />
     </RelativeLayout>
 
     <RelativeLayout

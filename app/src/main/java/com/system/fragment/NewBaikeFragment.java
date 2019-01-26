@@ -99,8 +99,9 @@ public class NewBaikeFragment extends Fragment {
         mBaikeItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                BaikeItem baikeItem= (BaikeItem) adapter.getItem(position);
                 Intent intent = new Intent(getContext(), WebviewActivity.class);
-                intent.putExtra("url", mBaikeItems.get(position).getContent());
+                intent.putExtra("url", baikeItem.getContent());
                 startActivity(intent);
             }
         });

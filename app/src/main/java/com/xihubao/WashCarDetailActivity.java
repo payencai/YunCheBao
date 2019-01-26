@@ -77,7 +77,7 @@ public class WashCarDetailActivity extends NoHttpFragmentBaseActivity {
     private TabFragmentAdapter adapter;
     String id;
     String type;
-    int flag;
+
     CarShop mCarShop;
     @BindView(R.id.bg_img)
     SlideShowView bgImg;
@@ -101,7 +101,7 @@ public class WashCarDetailActivity extends NoHttpFragmentBaseActivity {
         FitStateUI.setImmersionStateMode(this);
         ButterKnife.bind(this);
 
-        flag=getIntent().getIntExtra("flag",0);
+
         mCarShop= (CarShop) getIntent().getExtras().getSerializable("id");
        // setStatusBar();
        // setCollsapsing();

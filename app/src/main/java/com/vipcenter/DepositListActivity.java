@@ -36,7 +36,7 @@ public class DepositListActivity extends NoHttpBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.listview_only);
+        setContentView(R.layout.listview_newonly);
         initView();
     }
 

@@ -92,12 +92,7 @@ public class DriverFriendsRepublishActivity extends NoHttpBaseActivity {
             }
         });
     }
-    private void startCategery() {
-        Intent mIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        mIntent.addCategory(Intent.CATEGORY_OPENABLE);
-        mIntent.setType("image/*");
-        startActivityForResult(mIntent, 1);
-    }
+
     private String getHtmlData(String bodyHTML) {
         String head = "<head>" +
                 "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
@@ -139,6 +134,7 @@ public class DriverFriendsRepublishActivity extends NoHttpBaseActivity {
 
         }
     }
+
     private void initWebView(){
         WebSettings settings = mWebView.getSettings();
         settings.setJavaScriptEnabled(true);
@@ -153,6 +149,13 @@ public class DriverFriendsRepublishActivity extends NoHttpBaseActivity {
         }
 
     }
+    private void startCategery() {
+        Intent mIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        mIntent.addCategory(Intent.CATEGORY_OPENABLE);
+        mIntent.setType("image/*");
+        startActivityForResult(mIntent, 1);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -202,30 +205,6 @@ public class DriverFriendsRepublishActivity extends NoHttpBaseActivity {
                 photoOutputUri = Uri.parse("file:////sdcard/image_output.jpg"));
         startActivityForResult(cropPhotoIntent, 2);
     }
-    private void postMsg() {
-        Map<String, Object> params = new HashMap<>();
-        params.put("title", et_title.getEditableText().toString());
-        params.put("image", image);
-        params.put("content",content);
-        params.put("circleName",et_name.getEditableText().toString());
-        params.put("address", MyApplication.getaMapLocation().getAddress());
-        Log.e("result",params.toString());
-        HttpProxy.obtain().post(PlatformContans.BabyCircle.addCarCommunicationCircle, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Log.e("result",result);
-                ActivityAnimationUtils.commonTransition(DriverFriendsRepublishActivity.this, DrivingSelfReplaySuccessActivity.class, ActivityConstans.Animation.FADE);
-                // ActivityAnimationUtils.commonTransition(SelfDrivingRepublishActivity.this, ReplyDescriptionActivity.class, ActivityConstans.Animation.FADE);
-            }
-
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
-
-    }
-
     public void upImage(String url, File file) {
         OkHttpClient mOkHttpClent = new OkHttpClient();
 
@@ -270,6 +249,31 @@ public class DriverFriendsRepublishActivity extends NoHttpBaseActivity {
             }
         });
     }
+    private void postMsg() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("title", et_title.getEditableText().toString());
+        params.put("image", image);
+        params.put("content",content);
+        params.put("circleName",et_name.getEditableText().toString());
+        params.put("address", MyApplication.getaMapLocation().getAddress());
+        Log.e("result",params.toString());
+        HttpProxy.obtain().post(PlatformContans.BabyCircle.addCarCommunicationCircle, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result",result);
+                ActivityAnimationUtils.commonTransition(DriverFriendsRepublishActivity.this, DrivingSelfReplaySuccessActivity.class, ActivityConstans.Animation.FADE);
+                // ActivityAnimationUtils.commonTransition(SelfDrivingRepublishActivity.this, ReplyDescriptionActivity.class, ActivityConstans.Animation.FADE);
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+
+    }
+
+
 
 
     @OnClick({R.id.back, R.id.text1})

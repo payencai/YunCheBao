@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.entity.PhoneArticleEntity;
 import com.entity.PhoneMagEntity;
 import com.example.yunchebao.R;
+import com.vipcenter.model.Mypublish;
 
 import java.util.List;
 
@@ -17,22 +19,22 @@ import java.util.List;
  * 浏览历史列表适配器
  */
 public class MyPublishListAdapter extends BaseAdapter {
-    private List<PhoneArticleEntity> list;
+    private List<Mypublish> list;
     private Context ctx;
 
-    public MyPublishListAdapter(Context ctx, List<PhoneArticleEntity> list) {
+    public MyPublishListAdapter(Context ctx, List<Mypublish> list) {
         this.list = list;
         this.ctx = ctx;
     }
 
     @Override
     public int getCount() {
-        return 5;
+        return list.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return list.get(position);
     }
 
     @Override
@@ -42,29 +44,31 @@ public class MyPublishListAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder vh = null;
-        if (convertView == null) {
-            vh = new ViewHolder();
-            convertView = LayoutInflater.from(ctx).inflate(R.layout.my_publish_list_item, null);
-            convertView.setTag(vh);
-        } else {
-            vh = (ViewHolder) convertView.getTag();
+        convertView = LayoutInflater.from(ctx).inflate(R.layout.my_publish_list_item, null);
+        TextView tv_content= (TextView) convertView.findViewById(R.id.item1);
+        TextView tv_type= (TextView) convertView.findViewById(R.id.item2);
+        TextView tv_date= (TextView) convertView.findViewById(R.id.tv_date);
+        TextView tv_month= (TextView) convertView.findViewById(R.id.tv_month);
+        tv_content.setText(list.get(position).getTitle());
+        String time=list.get(position).getCreateTime().substring(0,10);
+        tv_date.setText(time.substring(8,10));
+        tv_month.setText(time.substring(5,7)+"月");
+        switch (list.get(position).getType()){
+            case 1:
+                tv_type.setText("自驾游");
+                break;
+            case 2:
+                tv_type.setText("车友会");
+                break;
+            case 3:
+                tv_type.setText("汽车秀");
+                break;
+            default:
+                tv_type.setText("赛事发布");
+                break;
         }
-//        final PhoneMagEntity entity = list.get(position);
-//        vh.name.setText(entity.getName());
-//        if (entity.getPic_2() != null && !entity.getPic_2().equals("")){
-//            Uri uri = Uri.parse(PlatformContans.rootUrl + entity.getPic_2());
-//            DraweeController controller = Fresco.newDraweeControllerBuilder()
-//                    .setUri(uri)
-//                    .setAutoPlayAnimations(true)
-//                    .build();
-//            vh.img.setController(controller);
-//        }
         return convertView;
     }
 
-
-    public class ViewHolder {
-    }
 
 }

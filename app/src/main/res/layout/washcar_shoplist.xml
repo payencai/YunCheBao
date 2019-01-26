@@ -6,36 +6,64 @@
     android:orientation="vertical">
 
     <include layout="@layout/top_title_layout"></include>
-    <com.baiiu.filter.DropDownMenu
-        android:id="@+id/dropDownMenu"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/mFilterContentView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/noResult"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="暂时没有符合条件的店铺"
-                android:visibility="gone" />
 
-            <com.handmark.pulltorefresh.library.PullToRefreshListView
-                android:id="@+id/listview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fadingEdge="none"
-                android:scrollbars="none"
-                android:dividerHeight="0dp"
-                android:divider="#ffffff"
-                app:ptrAnimationStyle="custom">
+     <LinearLayout
+         android:background="@color/white"
+         android:layout_width="match_parent"
+         android:layout_height="50dp">
+         <RelativeLayout
 
-            </com.handmark.pulltorefresh.library.PullToRefreshListView>
+             android:layout_weight="1"
+             android:layout_width="0dp"
+             android:layout_height="match_parent">
+             <LinearLayout
+                 android:id="@+id/rl_left"
+                 android:gravity="center_vertical"
+                 android:layout_centerInParent="true"
+                 android:layout_width="wrap_content"
+                 android:layout_height="match_parent">
+                 <TextView
+                     android:layout_marginRight="10dp"
+                     android:textSize="14sp"
+                     android:textColor="@color/black_33"
+                     android:text="昆明"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content" />
+                 <ImageView
+                     android:src="@mipmap/arrow_down"
+                     android:layout_width="10dp"
+                     android:layout_height="10dp" />
+             </LinearLayout>
+         </RelativeLayout>
+         <RelativeLayout
 
-        </RelativeLayout>
-    </com.baiiu.filter.DropDownMenu>
+             android:layout_weight="1"
+             android:layout_width="0dp"
+             android:layout_height="match_parent">
+             <LinearLayout
+                 android:id="@+id/rl_right"
+                 android:gravity="center_vertical"
+                 android:layout_centerInParent="true"
+                 android:layout_width="wrap_content"
+                 android:layout_height="match_parent">
+                 <TextView
+                     android:layout_marginRight="10dp"
+                     android:textSize="14sp"
+                     android:textColor="@color/black_33"
+                     android:text="距离最近"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content" />
+                 <ImageView
+                     android:src="@mipmap/arrow_down"
+                     android:layout_width="10dp"
+                     android:layout_height="10dp" />
+             </LinearLayout>
+         </RelativeLayout>
+     </LinearLayout>
+     <com.maket.model.LoadMoreListView
+         android:id="@+id/lv_car"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"></com.maket.model.LoadMoreListView>
 </LinearLayout>

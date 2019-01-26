@@ -1,11 +1,17 @@
 package com.xihubao;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 
 import com.application.MyApplication;
 import com.baidu.platform.comapi.map.J;
@@ -18,6 +24,7 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.maket.model.LoadMoreListView;
 import com.nohttp.NoHttp;
 import com.nohttp.RequestMethod;
 import com.nohttp.rest.Request;
@@ -29,6 +36,7 @@ import com.rongcloud.model.CarShop;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
+import com.vipcenter.RegisterActivity;
 import com.xihubao.adapter.DropMenuAdapter;
 import com.xihubao.adapter.WashCarListAdapter;
 
@@ -48,17 +56,17 @@ import butterknife.OnClick;
  * 洗车店列表页
  */
 
-public class RepairListActivity extends NoHttpBaseActivity implements OnFilterDoneListener {
-    private Context ctx;
-    @BindView(R.id.dropDownMenu)
-    DropDownMenu dropDownMenu;
-    ListView mListView;
-    @BindView(R.id.listview)
-    PullToRefreshListView pullToRefreshListView;
-
-    List<CarShop> list = new ArrayList<>();
+public class RepairListActivity extends NoHttpBaseActivity  {
+    @BindView(R.id.rl_left)
+    LinearLayout rl_left;
+    @BindView(R.id.rl_right)
+    LinearLayout rl_right;
+    @BindView(R.id.lv_car)
+    LoadMoreListView lv_car;
+    List<CarShop> list;
     WashCarListAdapter adapter;
     int page = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,43 +74,56 @@ public class RepairListActivity extends NoHttpBaseActivity implements OnFilterDo
         setContentView(R.layout.washcar_shoplist);
         ButterKnife.bind(this);
         initView();
-        initFilterDropDownView();
     }
-
+    PopupWindow popupWindow;
+    private void showSortPopupWindow() {
+        View view = LayoutInflater.from(this).inflate(R.layout.popup_dengji, null);
+        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.showAsDropDown(rl_right);
+        popupWindow.setOutsideTouchable(false);
+    }
     private void initView() {
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "修理店");
-        ctx = this;
-        mListView = pullToRefreshListView.getRefreshableView();
-        mListView.setDivider(getResources().getDrawable(R.color.gray_cc));
-        mListView.setDividerHeight(1);
-        adapter = new WashCarListAdapter(ctx, list);
-        mListView.setAdapter(adapter);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "修车店");
+
+        list = new ArrayList<>();
+        adapter=new WashCarListAdapter(this,list);
+        lv_car.setAdapter(adapter);
+//
+        lv_car.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle bundle=new Bundle();
-                Log.e("pos",position+"");
-                bundle.putSerializable("id",list.get(position-1));
-                bundle.putString("type","修车店");
-                bundle.putInt("flag",2);
-                ActivityAnimationUtils.commonTransition(RepairListActivity.this, WashCarDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
+                Bundle bundle = new Bundle();
+                Log.e("pos", position + "");
+                bundle.putSerializable("id", list.get(position));
+                bundle.putString("type", "修车店");
+                bundle.putInt("flag", 2);
+                if (MyApplication.isLogin)
+                    ActivityAnimationUtils.commonTransition(RepairListActivity.this, WashCarDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
+                else {
+                    startActivity(new Intent(RepairListActivity.this, RegisterActivity.class));
+                }
             }
         });
-        pullToRefreshListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);//支持下拉
-        pullToRefreshListView.setScrollingWhileRefreshingEnabled(true);//滚动的时候不加载数据
-        pullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+        lv_car.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
             @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                page = 1;
-                list.clear();
-                refreshView.setRefreshing();
-                getData();
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+            public void onloadMore() {
                 page++;
                 getData();
+                lv_car.setLoadCompleted();
+            }
+        });
+        rl_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (popupWindow == null)
+                    showSortPopupWindow();
+                else {
+                    if (popupWindow.isShowing()) {
+                        popupWindow.dismiss();
+                    }else{
+                        showSortPopupWindow();
+                    }
+                }
             }
         });
         getData();
@@ -125,9 +146,9 @@ public class RepairListActivity extends NoHttpBaseActivity implements OnFilterDo
     private HttpListener<String> httpListener = new HttpListener<String>() {
         @Override
         public void onSucceed(int what, Response response) throws JSONException {
-            pullToRefreshListView.onRefreshComplete();
+
             String res = response.get().toString();
-            Log.e("res",res);
+            Log.e("res", res);
             try {
                 JSONObject jsonObject = new JSONObject(res);
                 jsonObject = jsonObject.getJSONObject("data");
@@ -136,7 +157,6 @@ public class RepairListActivity extends NoHttpBaseActivity implements OnFilterDo
                     JSONObject item = data.getJSONObject(i);
                     CarShop carShop = new Gson().fromJson(item.toString(), CarShop.class);
                     list.add(carShop);
-
                 }
                 adapter.notifyDataSetChanged();
 
@@ -148,23 +168,10 @@ public class RepairListActivity extends NoHttpBaseActivity implements OnFilterDo
 
         @Override
         public void onFailed(int what, Response<String> response) {
-            pullToRefreshListView.onRefreshComplete();
+
         }
     };
 
-    private void initFilterDropDownView() {
-        String[] titleList = new String[]{"昆明", "服务类型", "默认排序"};
-        dropDownMenu.setMenuAdapter(new DropMenuAdapter(this, titleList, this));
-    }
-
-    @Override
-    public void onFilterDone(int position, String positionTitle, String urlValue) {
-        if (position != 3) {
-            dropDownMenu.setPositionIndicatorText(FilterUrl.instance().position, FilterUrl.instance().positionTitle);
-        }
-        dropDownMenu.close();
-//        mFilterContentView.setText(FilterUrl.instance().toString());
-    }
 
     @OnClick({R.id.back})
     public void OnClick(View v) {
@@ -179,6 +186,6 @@ public class RepairListActivity extends NoHttpBaseActivity implements OnFilterDo
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        FilterUrl.instance().clear();
+
     }
 }

@@ -116,9 +116,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="io.rong.callkit.CallSelectMemberActivity"></activity>
-
-
+        <activity android:name="io.rong.callkit.CallSelectMemberActivity" />
         <activity
             android:name="com.system.MainActivity"
             android:screenOrientation="portrait">
@@ -431,7 +429,10 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name="com.cheyibao.CarPayActivity" />
         <activity android:name="com.cheyibao.CoashSelectActivity" />
-        <activity android:name="com.cheyibao.ClassSelelctActivity"></activity>
+        <activity android:name="com.cheyibao.ClassSelelctActivity" />
+        <activity android:name="com.newversion.NewSelfDrvingActivity" />
+        <activity android:name="com.newversion.NewCarFriendActivity" />
+        <activity android:name="com.newversion.NewContactsActivity"></activity>
     </application>
 
 </manifest>

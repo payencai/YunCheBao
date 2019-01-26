@@ -18,6 +18,7 @@ public class PlatformContans {
     public static String SignToken = "";
     public static boolean isLogin = false;
     public static class User{
+        public static final String updateUser=root+"/user/updateUser";
         public static final String getVeriCode=root+"/common/getVerificationCode";
         public static final String isExitsAccount=root+"/user/getUserByUsername";
         public static final String userRegister=root+"/user/addUser";
@@ -107,6 +108,7 @@ public class PlatformContans {
         public static final String addSelfDrivingCircle=root +"/babyCircle/addSelfDrivingCircle";
         public static final String addCarCommunicationCircle=root+ "/babyCircle/addCarCommunicationCircle" ;
         public static final String addCarShowCircle=root + "/babyCircle/addCarShowCircle";
+        public static final String getMyCircle=root+"/babyCircle/getMyCircle";
     }
 
     public static class Collect{

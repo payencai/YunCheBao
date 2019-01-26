@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -64,7 +65,7 @@ import butterknife.ButterKnife;
  * 车友会
  */
 
-public class DriverFragment extends BaseFragment {
+public class DriverFragment extends Fragment {
 
     private List<CarFriend> list=new ArrayList<>();
     private CarFriendAdapter adapter;
@@ -73,6 +74,7 @@ public class DriverFragment extends BaseFragment {
     RecyclerView listView;
     int page=1;
     boolean isLoadMore=false;
+    View rootView;
     CommonAdapter<CarFriend> mCommonAdapter;
     LoadMoreWrapper<CarFriend> mLoadMoreWrapper;
     @Override

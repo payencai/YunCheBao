@@ -6,10 +6,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.application.MyApplication;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.chat.MessageMainActivity;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
@@ -33,12 +37,17 @@ public class UserCenterActivity extends NoHttpBaseActivity {
     TextView nameText;
     @BindView(R.id.info)
     TextView infoText;
-
+    @BindView(R.id.headIcon)
+    ImageView headIcon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_center_layout);
         ButterKnife.bind(this);
+
+        Glide.with(this).load(MyApplication.getUserInfo().getHeadPortrait())
+                .apply(RequestOptions.bitmapTransform(new RoundedCorners(20)))
+                .into(headIcon);
         initLoginView();
     }
 

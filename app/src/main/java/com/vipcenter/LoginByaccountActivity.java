@@ -26,6 +26,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.rong.callkit.util.SPUtils;
 
 public class LoginByaccountActivity extends AppCompatActivity {
     @BindView(R.id.tv_login)
@@ -82,6 +83,8 @@ public class LoginByaccountActivity extends AppCompatActivity {
                         UserInfo userInfo =new Gson().fromJson(data.toString(),UserInfo.class);
                         MyApplication.setUserInfo(userInfo);
                         MyApplication.setIsLogin(true);
+                        SPUtils.put(LoginByaccountActivity.this,"phone",account);
+                        SPUtils.put(LoginByaccountActivity.this,"pwd",pwd);
                         Intent intent=new Intent();
                         intent.putExtra("user",userInfo);
                         setResult(5,intent);
