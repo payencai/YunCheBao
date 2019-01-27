@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.yunchebao.R;
 import com.system.model.HomeImage;
 
@@ -41,6 +43,8 @@ public class HomeListAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView= LayoutInflater.from(mContext).inflate(R.layout.item_home,null);
+        ImageView iv_logo= (ImageView) convertView.findViewById(R.id.iv_logo);
+        Glide.with(mContext).load(mList.get(position).getImage()).into(iv_logo);
         return convertView;
     }
 }

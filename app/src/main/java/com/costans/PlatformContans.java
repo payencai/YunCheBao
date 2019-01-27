@@ -128,8 +128,10 @@ public class PlatformContans {
         public static final String addWashRepairAppointment=root + "/appointment/addWashRepairAppointment";
         public static final String addRoadRescueAppointment=root + "/appointment/addRoadRescueAppointment";
         public static final String getAppointmentCategoryListByApp=root + "/functionManager/getAppointmentCategoryListByApp";
-        public static final String getSkipUrl=root+ "/common/getSkipUrl" ;
+        public static final String getSkipUrl=root+ "/common/getSkipUrl";
         public static final String getBannerList=root+"/banner/getBannerList";
+        public static final String getSkipUrlResult=root+"/common/getSkipUrlResult";
+        public static final String getTodayTemperatureByCity=root+ "/common/getTodayTemperatureByCity";
     }
     public static class FourShop{
         public static final String getFourShopListByApp=root + "/fourShop/getFourShopListByApp";

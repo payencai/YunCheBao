@@ -3,6 +3,7 @@ package com.vipcenter;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.vipcenter.model.UserInfo;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.rong.imlib.RongIMClient;
 
 /**
@@ -44,9 +46,9 @@ public class UserCenterActivity extends NoHttpBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_center_layout);
         ButterKnife.bind(this);
-
+         //headIcon.setImageURI(Uri.parse(MyApplication.getUserInfo().getHeadPortrait()));
         Glide.with(this).load(MyApplication.getUserInfo().getHeadPortrait())
-                .apply(RequestOptions.bitmapTransform(new RoundedCorners(20)))
+                .apply(RequestOptions.bitmapTransform(new RoundedCorners(40)))
                 .into(headIcon);
         initLoginView();
     }

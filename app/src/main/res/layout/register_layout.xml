@@ -46,7 +46,8 @@
                 android:background="@color/gray_ee"
                 android:gravity="center"
                 android:hint="输入手机号"
-                android:inputType="number"
+                android:maxLength="11"
+                android:inputType="phone"
                 android:minWidth="100dp"
                 android:padding="10dp"
                 android:textColor="@color/black_33"
@@ -246,7 +247,7 @@
                 android:layout_marginTop="10dp"
                 android:padding="10dp"
                 android:text="重新获取"
-                android:textColor="@color/yellow_65"
+                android:textColor="@color/gray_99"
                 android:textSize="17sp" />
 
 
@@ -255,7 +256,7 @@
 
     </LinearLayout>
      <TextView
-         android:id="@+id/type"
+         android:id="@+id/tv_loginbypwd"
          android:textSize="@dimen/text_size_16"
          android:textColor="#666666"
          android:layout_marginBottom="10dp"

@@ -13,14 +13,90 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/top_search_layout"></include>
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                android:orientation="horizontal">
+                <!--搜索栏-->
+
+                <LinearLayout
+                    android:id="@+id/leftIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/back"
+                        android:layout_width="32dp"
+                        android:layout_height="48dp"
+                        android:padding="10dp"
+                        android:src="@mipmap/back"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/user_center_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp"
+                        android:src="@mipmap/people_icon" />
+                </LinearLayout>
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:id="@+id/ll_locate"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/messenger_icon"
+                        android:layout_width="41dp"
+                        android:layout_height="42dp"
+                        android:padding="12dp"
+                        android:src="@mipmap/chat_icon" />
+                    <TextView
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp"
+                        android:id="@+id/tv_locate"
+                        android:text="定位失败"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/search_lay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_toLeftOf="@id/ll_locate"
+                    android:layout_toRightOf="@id/leftIcon"
+                    android:background="@drawable/gray_circle_background">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:drawableLeft="@mipmap/search__small_icon"
+                        android:drawablePadding="10dp"
+                        android:text="搜索您想要的"
+                        android:textColor="@color/gray_99"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+            </RelativeLayout>
 
             <!--广告栏banner-->
             <com.youth.banner.Banner
+
                 android:id="@+id/slideshowView"
                 android:layout_width="fill_parent"
                 android:layout_height="210dp"
@@ -266,6 +342,7 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_weather"
                 android:padding="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
@@ -273,8 +350,10 @@
                 android:background="@color/white">
 
                 <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/black_33"
                     android:layout_marginRight="10dp"
-                    android:textSize="18sp"
+                    android:textSize="24sp"
                     android:text="19"
                     android:id="@+id/tv_wendu"
                     android:layout_width="wrap_content"
@@ -302,6 +381,7 @@
 
 
                         <TextView
+                            android:id="@+id/tv_city"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -312,6 +392,7 @@
                             android:textSize="@dimen/text_size_16" />
 
                         <TextView
+                            android:id="@+id/tv_wash"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -329,16 +410,17 @@
 
 
                         <TextView
+                            android:id="@+id/tv_weather"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="5dp"
-
                             android:text="多云"
                             android:textColor="@color/gray_66"
                             android:textSize="@dimen/text_size_16" />
 
                         <TextView
+                            android:id="@+id/tv_go"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -480,7 +562,7 @@
                         <ImageView
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:src="@mipmap/baike_menu_1" />
+                            android:src="@mipmap/ic_jinrong" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -504,7 +586,7 @@
                         <ImageView
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:src="@mipmap/baike_menu_2" />
+                            android:src="@mipmap/ic_baoxian" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -528,7 +610,7 @@
                         <ImageView
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:src="@mipmap/baike_menu_3" />
+                            android:src="@mipmap/ic_zhijian" />
 
                         <TextView
                             android:layout_width="wrap_content"

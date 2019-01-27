@@ -432,7 +432,8 @@
         <activity android:name="com.cheyibao.ClassSelelctActivity" />
         <activity android:name="com.newversion.NewSelfDrvingActivity" />
         <activity android:name="com.newversion.NewCarFriendActivity" />
-        <activity android:name="com.newversion.NewContactsActivity"></activity>
+        <activity android:name="com.newversion.NewContactsActivity" />
+        <activity android:name="com.bbcircle.NewDrvingActivity"></activity>
     </application>
 
 </manifest>

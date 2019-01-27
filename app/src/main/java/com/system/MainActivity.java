@@ -79,45 +79,12 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
     private TextView tv_tab4;
     private TextView tv_tab5;
 
-
-    public AMapLocationClient mLocationClient = null;
-    //声明AMapLocationClientOption对象
-    public AMapLocationClientOption mLocationOption = null;
-    //声明定位回调监听器
-    public AMapLocationListener mLocationListener = new AMapLocationListener() {
-        @Override
-        public void onLocationChanged(AMapLocation aMapLocation) {
-            Log.e("locate", aMapLocation.getAddress());
-            MyApplication.setaMapLocation(aMapLocation);
-        }
-    };
-
-    private void initLocation() {
-        //初始化定位
-        mLocationClient = new AMapLocationClient(getApplicationContext());
-//设置定位回调监听
-        mLocationClient.setLocationListener(mLocationListener);
-        mLocationOption = new AMapLocationClientOption();
-        mLocationOption.setOnceLocation(true);
-
-        if (null != mLocationOption) {
-            mLocationClient.setLocationOption(mLocationOption);
-            mLocationClient.stopLocation();
-
-        }
-        mLocationClient.startLocation();
-        Log.e("locate", mLocationClient.getVersion() + "gfg");
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FitStateUI.setImmersionStateMode(this);
         setContentView(R.layout.activity_main);
         autoLogin();
-        initLocation();
-
-
     }
 
     private void autoLogin() {

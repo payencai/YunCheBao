@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -64,7 +65,8 @@ public class RegisterActivity extends AppCompatActivity {
     TextView codeBtn;
     @BindView(R.id.phoneNum)
     XEditText phoneNum;
-    Tencent mTencent;
+    @BindView(R.id.codeGetAgain)
+    TextView codeGetAgain;
     private Context ctx;
     @BindView(R.id.iv_qq)
     ImageView iv_qq;
@@ -84,10 +86,11 @@ public class RegisterActivity extends AppCompatActivity {
     TextView code6;
     @BindView(R.id.codeNum)
     EditText codeNumEdit;
-    @BindView(R.id.type)
-    TextView type;
+    @BindView(R.id.tv_loginbypwd)
+    TextView tv_loginbypwd;
     @BindView(R.id.sendphone)
     TextView sendphone;
+    Tencent mTencent;
     BaseUiListener mBaseUiListener = new BaseUiListener();
     com.tencent.connect.UserInfo mInfo;
     private IWXAPI iwxapi;
@@ -105,19 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
-    @Subscribe
-    public void onEventMainThread(String openid) {
-         loginByWeChat(openid);
-    }
-    /**
-     * 登录方法
-     */
-    private void QQLogin() {
-        //如果session不可用，则登录，否则说明已经登录
-        if (!mTencent.isSessionValid()) {
-            mTencent.login(this, "all", mBaseUiListener);
-        }
-    }
+
     private void getContacts() {
         LitePal.deleteAll(MyFriend.class);
         com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
@@ -259,32 +250,22 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-    private void initOpenIdAndToken(Object object) {
-        //Toast.makeText(RegisterActivity.this, "fdfgg", Toast.LENGTH_SHORT).show();
-        JSONObject jb = (JSONObject) object;
-        Log.e("jb",jb.toString());
-        try {
-            String openID = jb.getString("openid");  //openid用户唯一标识
-            String access_token = jb.getString("access_token");
-            String expires = jb.getString("expires_in");
-            mTencent.setOpenId(openID);
-            mTencent.setAccessToken(access_token, expires);
-            loginByQQ(openID);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
-    private void loginByQQ(final String openid) {
+
+    private void loginByPhone(String phone, String code) {
         Map<String, Object> params = new HashMap<>();
-        params.put("qqId", openid);
-        HttpProxy.obtain().post(PlatformContans.User.loginByQQ, params, new ICallBack() {
+        params.put("username", phone);
+        params.put("code", code);
+        Log.e("params", params.toString());
+        HttpProxy.obtain().post(PlatformContans.User.loginByPhone, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("result", result);
+                Log.e("loginByPhone", result);
                 try {
+                    ///Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_LONG).show();
                     JSONObject object = new JSONObject(result);
                     int code = object.getInt("resultCode");
+                    String msg=object.getString("message");
                     if (code == 0) {
                         JSONObject data = object.getJSONObject("data");
                         Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
@@ -296,51 +277,8 @@ public class RegisterActivity extends AppCompatActivity {
                         intent.putExtra("user", userInfo);
                         setResult(1, intent);
                         finish();
-                    }
-                    else if(code==7001){
-                       Intent  intent=new Intent(RegisterActivity.this,BindPhoneActivity.class);
-                       intent.putExtra("openid",openid+"1");
-                       startActivity(intent);
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
-    }
-
-    private void loginByPhone(String phone, String code) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("username", phone);
-        params.put("code", code);
-        Log.e("params", params.toString());
-        HttpProxy.obtain().post(PlatformContans.User.loginByPhone, params, new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Log.e("result", result);
-                try {
-                    Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_LONG).show();
-                    JSONObject object = new JSONObject(result);
-                    JSONObject data = object.getJSONObject("data");
-                    int code = object.getInt("resultCode");
-                    if (code == 0) {
-                        Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                        UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
-                        MyApplication.setUserInfo(userInfo);
-                        MyApplication.setIsLogin(true);
-                        getData();
-                        Intent intent = new Intent();
-                        intent.putExtra("user", userInfo);
-                        setResult(1, intent);
-                        finish();
+                    }else{
+                        Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -359,6 +297,20 @@ public class RegisterActivity extends AppCompatActivity {
     /**
      * 微信登录
      */
+
+    @Subscribe
+    public void onEventMainThread(String openid) {
+        loginByWeChat(openid);
+    }
+    /**
+     * 登录方法
+     */
+    private void QQLogin() {
+        //如果session不可用，则登录，否则说明已经登录
+        if (!mTencent.isSessionValid()) {
+            mTencent.login(this, "all", mBaseUiListener);
+        }
+    }
     private IWXAPI api;
     String getUserInfo = "https://api.weixin.qq.com/sns/userinfo?access_token=" + "access" + "&openid=" + "openId";
     private void setWXLogin() {
@@ -435,7 +387,63 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    private void initOpenIdAndToken(Object object) {
+        //Toast.makeText(RegisterActivity.this, "fdfgg", Toast.LENGTH_SHORT).show();
+        JSONObject jb = (JSONObject) object;
+        Log.e("jb",jb.toString());
+        try {
+            String openID = jb.getString("openid");  //openid用户唯一标识
+            String access_token = jb.getString("access_token");
+            String expires = jb.getString("expires_in");
+            mTencent.setOpenId(openID);
+            mTencent.setAccessToken(access_token, expires);
+            loginByQQ(openID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
+    private void loginByQQ(final String openid) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("qqId", openid);
+        HttpProxy.obtain().post(PlatformContans.User.loginByQQ, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject object = new JSONObject(result);
+                    int code = object.getInt("resultCode");
+                    if (code == 0) {
+                        JSONObject data = object.getJSONObject("data");
+                        Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                        UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
+                        MyApplication.setUserInfo(userInfo);
+                        MyApplication.setIsLogin(true);
+                        getData();
+                        Intent intent = new Intent();
+                        intent.putExtra("user", userInfo);
+                        setResult(1, intent);
+                        finish();
+                    }
+                    else if(code==7001){
+                        Intent  intent=new Intent(RegisterActivity.this,BindPhoneActivity.class);
+                        intent.putExtra("openid",openid+"1");
+                        startActivity(intent);
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
 
 
 
@@ -451,6 +459,13 @@ public class RegisterActivity extends AppCompatActivity {
                 setWXLogin();
             }
         });
+        iv_qq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                QQLogin();
+            }
+        });
+        codeBtn.setEnabled(false);
         phoneNum.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -464,9 +479,12 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s != null && s.toString() != null && !s.toString().equals("")) {
+                String phone=s.toString();
+                if (phone.length()==11) {
+                    codeBtn.setEnabled(true);
                     codeBtn.setTextColor(ContextCompat.getColor(ctx, R.color.yellow_65));
                 } else {
+                    codeBtn.setEnabled(false);
                     codeBtn.setTextColor(ContextCompat.getColor(ctx, R.color.gray_99));
                 }
             }
@@ -525,6 +543,8 @@ public class RegisterActivity extends AppCompatActivity {
                     code2.setText("");
                     code3.setText("");
                     code4.setText("");
+                    code5.setText("");
+                    code6.setText("");
                 }
             }
 
@@ -532,7 +552,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-        type.setOnClickListener(new View.OnClickListener() {
+        tv_loginbypwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(RegisterActivity.this, LoginByaccountActivity.class), 1);
@@ -541,18 +561,40 @@ public class RegisterActivity extends AppCompatActivity {
         codeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                codeGetAgain.setEnabled(false);
                 String phone = phoneNum.getTrimmedString();
                 sendphone.setText(phone);
+                new CountDownTimer(60 * 1000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                count--;
+                                //倒计时的过程中回调该函数
+                                codeGetAgain.setText(count + "s");
+                                if (count == 0) {
+                                    count=60;
+                                    codeGetAgain.setText("重新获取");
+                                    codeGetAgain.setEnabled(true);
+                                    codeGetAgain.setTextColor(getResources().getColor(R.color.yellow_02));
+                                }
+                            }
+                        });
+
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        //倒计时结束时回调该函数
+                    }
+                }.start();
                 checkIsExists(phone);
             }
         });
-        iv_qq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                QQLogin();
-            }
-        });
+
     }
 
     @Override
@@ -575,7 +617,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     int ty;
-
+     int count=60;
     private void checkIsExists(final String account) {
         Map<String, Object> params = new HashMap<>();
         params.put("username", account);
@@ -602,6 +644,7 @@ public class RegisterActivity extends AppCompatActivity {
                         ty = 3;//登录
                         getCodeByType(ty, account);
                     }
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -631,6 +674,7 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this, "验证码已发送，请注意查收", Toast.LENGTH_LONG).show();
                         //注册,并且登录
                     } else {
+                        Toast.makeText(RegisterActivity.this, "获取验证码异常", Toast.LENGTH_LONG).show();
                         //登录
                     }
                 } catch (JSONException e) {
@@ -670,6 +714,35 @@ public class RegisterActivity extends AppCompatActivity {
             case R.id.code:
                 break;
             case R.id.codeGetAgain:
+
+                codeGetAgain.setEnabled(false);
+                codeGetAgain.setTextColor(getResources().getColor(R.color.gray_99));
+                new CountDownTimer(60 * 1000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                count--;
+                                //倒计时的过程中回调该函数
+                                codeGetAgain.setText(count + "s");
+                                if (count == 0) {
+                                    count=60;
+                                    codeGetAgain.setText("重新获取");
+                                    codeGetAgain.setEnabled(true);
+                                    codeGetAgain.setTextColor(getResources().getColor(R.color.yellow_02));
+                                }
+                            }
+                        });
+
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        //倒计时结束时回调该函数
+                    }
+                }.start();
                 getCodeByType(ty, phoneNum.getText().toString());
                 codeNumEdit.setText("");
                 break;

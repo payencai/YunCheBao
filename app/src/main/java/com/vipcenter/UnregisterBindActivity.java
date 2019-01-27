@@ -69,6 +69,12 @@ public class UnregisterBindActivity extends AppCompatActivity {
                                        }
                                    }
         );
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,10 +191,9 @@ public class UnregisterBindActivity extends AppCompatActivity {
                 try {
                     // Toast.makeText(RegisteredBindActivity.this, "登录成功", Toast.LENGTH_LONG).show();
                     JSONObject object = new JSONObject(result);
-                    JSONObject data = object.getJSONObject("data");
-                    String message = object.getString("message");
                     int code = object.getInt("resultCode");
                     if (code == 0) {
+                        JSONObject data = object.getJSONObject("data");
                         Toast.makeText(UnregisterBindActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                         UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
                         MyApplication.setUserInfo(userInfo);
@@ -198,6 +203,7 @@ public class UnregisterBindActivity extends AppCompatActivity {
                         setResult(3, intent);
                         finish();
                     } else {
+                        String message = object.getString("message");
                         Toast.makeText(UnregisterBindActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
 

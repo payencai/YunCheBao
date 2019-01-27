@@ -12,6 +12,7 @@ import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.payencai.library.util.ToastUtil;
 import com.xw.repo.XEditText;
 
 import org.json.JSONException;
@@ -22,6 +23,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import go.error;
 
 public class BindPhoneActivity extends AppCompatActivity {
     String openid;
@@ -29,21 +31,29 @@ public class BindPhoneActivity extends AppCompatActivity {
     XEditText mXEditText;
     @BindView(R.id.next)
     TextView next;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        openid=getIntent().getStringExtra("openid");
+        openid = getIntent().getStringExtra("openid");
         setContentView(R.layout.activity_bind_phone);
         ButterKnife.bind(this);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phone =mXEditText.getEditableText().toString();
+                String phone = mXEditText.getEditableText().toString();
                 checkIsExists(phone);
 
             }
         });
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
+
     private void checkIsExists(final String account) {
         Map<String, Object> params = new HashMap<>();
         params.put("username", account);
@@ -53,19 +63,24 @@ public class BindPhoneActivity extends AppCompatActivity {
                 Log.e("result", result);
                 try {
                     JSONObject object = new JSONObject(result);
-                    String data = object.getString("data");
                     int code = object.getInt("resultCode");
-                     if(data.equals("0")){
-                         Intent intent=new Intent(BindPhoneActivity.this,UnregisterBindActivity.class);
-                         intent.putExtra("id",openid);
-                         intent.putExtra("phone",account);
-                         startActivity(intent);
-                     }else{
-                         Intent intent=new Intent(BindPhoneActivity.this,RegisteredBindActivity.class);
-                         intent.putExtra("id",openid);
-                         intent.putExtra("phone",account);
-                         startActivityForResult(intent,1);
-                     }
+                    if (code == 0) {
+                        String data = object.getString("data");
+                        if (data.equals("0")) {
+                            Intent intent = new Intent(BindPhoneActivity.this, UnregisterBindActivity.class);
+                            intent.putExtra("id", openid);
+                            intent.putExtra("phone", account);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(BindPhoneActivity.this, RegisteredBindActivity.class);
+                            intent.putExtra("id", openid);
+                            intent.putExtra("phone", account);
+                            startActivityForResult(intent, 1);
+                        }
+                    }else{
+                        String msg=object.getString("message");
+                        ToastUtil.showToast(BindPhoneActivity.this,msg);
+                    }
 
 
                 } catch (JSONException e) {
@@ -84,8 +99,8 @@ public class BindPhoneActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode>=3&&data!=null){
-            setResult(1,data);
+        if (resultCode >= 3 && data != null) {
+            setResult(1, data);
             finish();
         }
     }

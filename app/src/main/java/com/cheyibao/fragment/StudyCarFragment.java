@@ -124,7 +124,7 @@ public class StudyCarFragment extends BaseFragment {
                 tv_dis.setTextColor(getResources().getColor(R.color.black_33));
                 tv_score.setTextColor(getResources().getColor(R.color.gray_99));
                 mDrvingSchools.clear();
-                //mStudyItemAdapter.notifyDataSetChanged();
+                mStudyItemAdapter.notifyDataSetChanged();
                 getData();
             }
         });
@@ -135,7 +135,7 @@ public class StudyCarFragment extends BaseFragment {
                 tv_dis.setTextColor(getResources().getColor(R.color.gray_99));
                 tv_score.setTextColor(getResources().getColor(R.color.black_33));
                 mDrvingSchools.clear();
-                //mStudyItemAdapter.notifyDataSetChanged();
+                mStudyItemAdapter.notifyDataSetChanged();
                 getData();
             }
         });

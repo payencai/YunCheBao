@@ -84,6 +84,12 @@ public class SetPasswordActivity extends AppCompatActivity {
                  }
             }
         });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
     private void login(String phone,String code){
         Map<String, Object> params = new HashMap<>();
@@ -96,9 +102,10 @@ public class SetPasswordActivity extends AppCompatActivity {
                 try {
                     Toast.makeText(SetPasswordActivity.this,"登录成功",Toast.LENGTH_LONG).show();
                     JSONObject object = new JSONObject(result);
-                    JSONObject data=object.getJSONObject("data");
+
                     int code = object.getInt("resultCode");
                     if(code==0){
+                        JSONObject data=object.getJSONObject("data");
                         UserInfo userInfo=new Gson().fromJson(data.toString(),UserInfo.class);
                         MyApplication.setUserInfo(userInfo);
                         MyApplication.setIsLogin(true);

@@ -64,6 +64,12 @@ public class RegisteredBindActivity extends AppCompatActivity {
                 bindAndLogin();
             }
         });
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void bindAndLogin() {
@@ -71,7 +77,7 @@ public class RegisteredBindActivity extends AppCompatActivity {
         Map<String, Object> params = new HashMap<>();
         params.put("username", account.getEditableText().toString());
         params.put("nickName", "云车" + account.getEditableText().toString().substring(7));
-        params.put("headPortrait", "http://1234.jpg");
+        params.put("headPortrait", "http://pic.616pic.com/ys_bnew_img/00/12/71/u3OyCgBP5v.jpg");
         params.put("password", pwd.getEditableText().toString());
         if (type.equals("1")) {
             url = PlatformContans.User.bindQQ;
@@ -88,10 +94,9 @@ public class RegisteredBindActivity extends AppCompatActivity {
                 try {
                     // Toast.makeText(RegisteredBindActivity.this, "登录成功", Toast.LENGTH_LONG).show();
                     JSONObject object = new JSONObject(result);
-                    JSONObject data = object.getJSONObject("data");
-                    String message = object.getString("message");
                     int code = object.getInt("resultCode");
                     if (code == 0) {
+                        JSONObject data = object.getJSONObject("data");
                         Toast.makeText(RegisteredBindActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                         UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
                         MyApplication.setUserInfo(userInfo);
@@ -101,6 +106,7 @@ public class RegisteredBindActivity extends AppCompatActivity {
                         setResult(3, intent);
                         finish();
                     } else {
+                        String message = object.getString("message");
                         Toast.makeText(RegisteredBindActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
 

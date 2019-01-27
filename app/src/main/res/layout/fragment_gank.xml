@@ -11,7 +11,7 @@
         <RelativeLayout
             android:id="@+id/rl_top"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="52dp"
             android:gravity="center_vertical"
             android:background="@color/white"
             android:orientation="horizontal">
@@ -75,6 +75,7 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@color/white"
@@ -84,11 +85,11 @@
             <!-- ToDO:// 换肤框架 暂不支持TabLayout:tabBackground属性 -->
             <android.support.design.widget.TabLayout
                 android:id="@+id/tab_gank"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 app:tabBackground="@color/white"
-                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabIndicatorColor="@color/white"
                 app:tabMode="scrollable"
                 app:tabSelectedTextColor="@color/black_33"
                 app:tabTextColor="@color/gray_99" />

@@ -19,9 +19,15 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.application.MyApplication;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.CoordinateConverter;
@@ -30,6 +36,7 @@ import com.baidu.platform.comapi.map.G;
 import com.baike.MagzineCoverActivity;
 import com.bbcircle.CarShowDetailActivity;
 import com.bbcircle.CommentsActivity;
+import com.bbcircle.NewDrvingActivity;
 import com.bumptech.glide.Glide;
 import com.chat.MessageMainActivity;
 import com.cityselect.CityListActivity;
@@ -63,6 +70,7 @@ import com.rongcloud.sidebar.ContactsAdapter;
 import com.system.WebviewActivity;
 import com.system.adapter.HomeListAdapter;
 import com.system.model.HomeImage;
+import com.system.model.Weather;
 import com.tool.view.ListViewForScrollView;
 import com.vipcenter.RegisterActivity;
 import com.vipcenter.UserCenterActivity;
@@ -99,6 +107,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import go.error;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.model.GroupUserInfo;
 import io.rong.imlib.RongIMClient;
@@ -114,6 +123,18 @@ public class HomeFragment extends BaseFragment {
     private Context ctx;
     //轮播图片
     private List<Map<String, String>> imageList = new ArrayList<>();
+    @BindView(R.id.tv_wendu)
+    TextView tv_wendu;
+    @BindView(R.id.tv_city)
+    TextView tv_city;
+    @BindView(R.id.tv_wash)
+    TextView tv_wash;
+    @BindView(R.id.tv_go)
+    TextView tv_go;
+    @BindView(R.id.tv_locate)
+    TextView tv_locate;
+    @BindView(R.id.tv_weather)
+    TextView tv_weather;
     @BindView(R.id.slideshowView)
     com.youth.banner.Banner banner;
     @BindView(R.id.lv_home)
@@ -122,11 +143,20 @@ public class HomeFragment extends BaseFragment {
     LinearLayout menuLay5;
     @BindView(R.id.menuLay7)
     LinearLayout menuLay7;
+    @BindView(R.id.rl_weather)
+    RelativeLayout rl_weather;
+    @BindView(R.id.ll_item1)
+    LinearLayout ll_item1;
+    @BindView(R.id.ll_item2)
+    LinearLayout ll_item2;
+    @BindView(R.id.ll_item3)
+    LinearLayout ll_item3;
     List<HomeImage> mHomeImages;
     HomeListAdapter mHomeListAdapter;
     private PullToRefreshScrollView pullToRefreshScrollView;
 
-    List<Banner> mBanners=new ArrayList<>();
+    List<Banner> mBanners = new ArrayList<>();
+
     private void google(double mLatitude, double mLongitude) {
         if (isAvilible(getContext(), "com.google.android.apps.maps")) {
             Uri gmmIntentUri = Uri.parse("google.navigation:q="
@@ -145,6 +175,7 @@ public class HomeFragment extends BaseFragment {
             startActivity(intent);
         }
     }
+
     private void showDialog(final LatLng latLng) {
         final Dialog dialog = new Dialog(getContext(), R.style.dialog);
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_map, null);
@@ -197,6 +228,7 @@ public class HomeFragment extends BaseFragment {
         });
         dialog.show();
     }
+
     private void baidu(double mLatitude, double mLongitude) {
         LatLng poit = new LatLng(mLatitude, mLongitude);
         if (isAvilible(getContext(), "com.baidu.BaiduMap")) {// 传入指定应用包名
@@ -262,20 +294,51 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, rootView);
         MyApplication.setDataSave(new ListDataSave(MyApplication.getContext(), "data"));
-
+        initLocation();
         getImageUrl();
         init();
         return rootView;
     }
-
     List<UrlBean> mUrlBeans = new ArrayList<>();
-    List<String> images=new ArrayList<>();
-    private void initBanner(){
+    List<String> images = new ArrayList<>();
+    public AMapLocationClient mLocationClient = null;
+    //声明AMapLocationClientOption对象
+    public AMapLocationClientOption mLocationOption = null;
+    //声明定位回调监听器
+    public AMapLocationListener mLocationListener = new AMapLocationListener() {
+        @Override
+        public void onLocationChanged(AMapLocation aMapLocation) {
+            Log.e("locate", aMapLocation.getAddress());
+            getWeather(aMapLocation.getCity());
+            tv_locate.setText(aMapLocation.getCity());
+            MyApplication.setaMapLocation(aMapLocation);
+
+        }
+    };
+
+    private void initLocation() {
+        //初始化定位
+        mLocationClient = new AMapLocationClient(getContext());
+//设置定位回调监听
+        mLocationClient.setLocationListener(mLocationListener);
+        mLocationOption = new AMapLocationClientOption();
+        mLocationOption.setOnceLocation(true);
+
+        if (null != mLocationOption) {
+            mLocationClient.setLocationOption(mLocationOption);
+            mLocationClient.stopLocation();
+
+        }
+        mLocationClient.startLocation();
+       // Log.e("locate", mLocationClient.getVersion() + "gfg");
+    }
+
+
+    private void initBanner() {
         banner.setImageLoader(new com.youth.banner.loader.ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {
@@ -287,13 +350,13 @@ public class HomeFragment extends BaseFragment {
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                Log.e("url",mBanners.get(position).getPicture()+"-"+mBanners.get(position).getSkipUrl());
-                Intent intent=new Intent(getContext(),WebviewActivity.class);
-                String url=mBanners.get(position).getSkipUrl();
-                if(!url.contains("http")&&!url.contains("https")){
-                    url="http://"+url;
+                Log.e("url", mBanners.get(position).getPicture() + "-" + mBanners.get(position).getSkipUrl());
+                Intent intent = new Intent(getContext(), WebviewActivity.class);
+                String url = mBanners.get(position).getSkipUrl();
+                if (!url.contains("http") && !url.contains("https")) {
+                    url = "http://" + url;
                 }
-                intent.putExtra("url",url);
+                intent.putExtra("url", url);
                 startActivity(intent);
             }
         });
@@ -302,6 +365,66 @@ public class HomeFragment extends BaseFragment {
         banner.setDelayTime(2000);//设置轮播时间
         banner.setImages(images);//设置图片源
         banner.start();
+    }
+
+    private void getWeather(String city) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("city", city);
+        HttpProxy.obtain().get(PlatformContans.Commom.getTodayTemperatureByCity, params,"", new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("getToday",result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    jsonObject = jsonObject.getJSONObject("data");
+                    JSONObject today = jsonObject.getJSONObject("today");
+                    Weather weather = new Gson().fromJson(today.toString(), Weather.class);
+                    tv_city.setText(weather.getCity());
+                    tv_go.setText(weather.getTravelIndex());
+                    tv_wash.setText(weather.getWashIndex());
+                    tv_wendu.setText(weather.getTemp());
+                    tv_weather.setText(weather.getWeather()+"/"+weather.getWind()+" "+weather.getTemperature());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+                Log.e("getToday",error);
+            }
+        });
+    }
+
+    private void getHomeImage(int superId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("superId", superId);
+        HttpProxy.obtain().get(PlatformContans.Commom.getSkipUrlResult, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    jsonObject = jsonObject.getJSONObject("data");
+                    JSONArray data = jsonObject.getJSONArray("list");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        HomeImage urlBean = new Gson().fromJson(item.toString(), HomeImage.class);
+                        mHomeImages.add(urlBean);
+                    }
+                    Log.e("getSkipUrlResult", result);
+                    mHomeListAdapter.notifyDataSetChanged();
+                    lv_home.setFocusable(true);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 
 
@@ -378,13 +501,48 @@ public class HomeFragment extends BaseFragment {
 
         getBaner();
 
+        ll_item1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHomeImages.clear();
+                getHomeImage(3);
+            }
+        });
+        rl_weather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent3 = new Intent(getContext(), WebviewActivity.class);
+                intent3.putExtra("url", "http://www.yunchebao.com:8080/weather/?city="+MyApplication.getaMapLocation().getCity());
+                startActivity(intent3);
+            }
+        });
+        ll_item2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHomeImages.clear();
+                getHomeImage(4);
+            }
+        });
+        ll_item3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHomeImages.clear();
+                getHomeImage(5);
+            }
+        });
+        mHomeImages = new ArrayList<>();
 
-        mHomeImages=new ArrayList<>();
-        for (int i = 0; i <6 ; i++) {
-            mHomeImages.add(new HomeImage());
-        }
-        mHomeListAdapter=new HomeListAdapter(getContext(),mHomeImages);
+        mHomeListAdapter = new HomeListAdapter(getContext(), mHomeImages);
         lv_home.setAdapter(mHomeListAdapter);
+        lv_home.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent3 = new Intent(getContext(), WebviewActivity.class);
+                intent3.putExtra("url", mHomeImages.get(position).getUrl());
+                startActivity(intent3);
+            }
+        });
+        lv_home.setFocusable(false);
         pullToRefreshScrollView = (PullToRefreshScrollView) rootView.findViewById(R.id.my_scrollview);
         pullToRefreshScrollView.setScrollingWhileRefreshingEnabled(true);//滚动的时候不加载数据
         pullToRefreshScrollView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
@@ -398,7 +556,7 @@ public class HomeFragment extends BaseFragment {
             public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
             }
         });
-
+        getHomeImage(3);
     }
 
     private void requestMethod(int type) {
@@ -409,37 +567,6 @@ public class HomeFragment extends BaseFragment {
 
                 break;
         }
-    }
-
-
-    private void getData() {
-        final com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
-        if (userinfo != null)
-            HttpProxy.obtain().get(PlatformContans.Chat.getCrowdsList, userinfo.getToken(), new ICallBack() {
-                @Override
-                public void OnSuccess(String result) {
-                    Log.e("apply", result);
-                    try {
-                        JSONObject jsonObject = new JSONObject(result);
-                        JSONArray data = jsonObject.getJSONArray("data");
-                        List<MyGroup> myGroups = new ArrayList<>();
-                        for (int i = 0; i < data.length(); i++) {
-                            JSONObject item = data.getJSONObject(i);
-                            MyGroup myGroup = new Gson().fromJson(item.toString(), MyGroup.class);
-                            myGroup.save();
-                            myGroups.add(myGroup);
-                        }
-                        MyApplication.getDataSave().setDataList("groups", myGroups);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(String error) {
-                }
-            });
     }
 
 
@@ -461,120 +588,8 @@ public class HomeFragment extends BaseFragment {
 
     }
 
-    private void connect(String token) {
 
-        RongIM.connect(token, new RongIMClient.ConnectCallback() {
-            /**
-             * Token 错误。可以从下面两点检查 1.  Token 是否过期，如果过期您需要向 App Server 重新请求一个新的 Token
-             *                  2.  token 对应的 appKey 和工程里设置的 appKey 是否一致
-             */
-
-            @Override
-            public void onTokenIncorrect() {
-
-            }
-
-            /**
-             * 连接融云成功
-             * @param userid 当前 token 对应的用户 id
-             */
-            @Override
-            public void onSuccess(String userid) {
-                RongIM.getInstance().setCurrentUserInfo(new io.rong.imlib.model.UserInfo(MyApplication.getUserInfo().getId(), MyApplication.getUserInfo().getName(), Uri.parse(MyApplication.getUserInfo().getHeadPortrait())));
-                RongIM.setGroupInfoProvider(new RongIM.GroupInfoProvider() {
-                    @Override
-                    public Group getGroupInfo(String s) {
-                        List<MyGroup> myFriends = LitePal.findAll(MyGroup.class);
-                        Log.e("data",s);
-                        for (int i = 0; i < myFriends.size(); i++) {
-                            MyGroup myFriend = myFriends.get(i);
-                            String myid = myFriend.getHxCrowdId();
-                            final String name = myFriend.getCrowdName();
-                            final String head = myFriend.getImage();
-                            if (s.equals(myid)) {
-                                io.rong.imlib.model.Group userInfo = new io.rong.imlib.model.Group(s, name, Uri.parse(head));
-                                RongIM.getInstance().refreshGroupInfoCache(userInfo);
-                            }
-                        }
-                        return null;
-                    }
-                },true
-                );
-                RongIM.setGroupUserInfoProvider(new RongIM.GroupUserInfoProvider() {
-                    @Override
-                    public GroupUserInfo getGroupUserInfo(String s, String s1) {
-                        return null;
-                    }
-                },true);
-                RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
-                    @Override
-                    public io.rong.imlib.model.UserInfo getUserInfo(String s) {
-                        List<MyFriend> myFriends = LitePal.findAll(MyFriend.class);
-                        Log.e("data",s);
-                        for (int i = 0; i < myFriends.size(); i++) {
-                            MyFriend myFriend = myFriends.get(i);
-                            String myid = myFriend.getMyid();
-                            final String name = myFriend.getName();
-                            final String head = myFriend.getHeadPortrait();
-                            if (s.equals(myid)) {
-                                io.rong.imlib.model.UserInfo userInfo = new io.rong.imlib.model.UserInfo(s, name, Uri.parse(head));
-                                RongIM.getInstance().refreshUserInfoCache(userInfo);
-                            }
-                        }
-                        return null;
-                    }
-                }, true);
-
-                startActivity(new Intent(getContext(), ChatActivity.class));
-                Log.d("LoginActivity", "--onSuccess" + userid);
-            }
-
-            /**
-             * 连接融云失败
-             * @param errorCode 错误码，可到官网 查看错误码对应的注释
-             */
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-                Log.d("LoginActivity", "--onSuccess" + errorCode.getMessage() + errorCode.getValue());
-            }
-        });
-    }
-
-    private void getContacts() {
-        LitePal.deleteAll(MyFriend.class);
-        com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
-        if (userinfo != null)
-            HttpProxy.obtain().get(PlatformContans.Chat.getMyFriendList, userinfo.getToken(), new ICallBack() {
-                @Override
-                public void OnSuccess(String result) {
-                    Log.e("getContacts", result);
-                    try {
-                        JSONObject jsonObject = new JSONObject(result);
-                        JSONArray data = jsonObject.getJSONArray("data");
-                        List<MyFriend> myFriends = new ArrayList<>();
-                        for (int i = 0; i < data.length(); i++) {
-                            JSONObject item = data.getJSONObject(i);
-                            MyFriend myFriend = new Gson().fromJson(item.toString(), MyFriend.class);
-                            myFriends.add(myFriend);
-                            if (!myFriend.isSaved())
-                                myFriend.save();
-                        }
-
-                        MyApplication.getDataSave().setDataList("friends", myFriends);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(String error) {
-
-                }
-            });
-    }
-
-    @OnClick({R.id.messenger_icon, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.menuLay4, R.id.menuLay7, R.id.menuLay5, R.id.menuLay6, R.id.menuLay8,R.id.menuLay9, R.id.user_center_icon})
+    @OnClick({R.id.messenger_icon, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.menuLay4, R.id.menuLay7, R.id.menuLay5, R.id.menuLay6, R.id.menuLay8, R.id.menuLay9, R.id.menuLay10, R.id.user_center_icon})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.messenger_icon:
@@ -595,30 +610,36 @@ public class HomeFragment extends BaseFragment {
             case R.id.menuLay3://4S店
                 ActivityAnimationUtils.commonTransition(getActivity(), Shop4SInfoActivity.class, ActivityConstans.Animation.FADE);
                 break;
-            case R.id.menuLay4://4S店
-                startActivity(new Intent(getContext(), MapShopActivity.class));
+            case R.id.menuLay4://驾校汇
+                startActivity(new Intent(getContext(), NewDrvingActivity.class));
                 //ActivityAnimationUtils.commonTransition(getActivity(), Shop4SInfoActivity.class, ActivityConstans.Animation.FADE);
                 break;
-            case R.id.menuLay5://4S店
-                Intent intent = new Intent(getContext(), WebviewActivity.class);
-                intent.putExtra("url", (String) v.getTag());
-                startActivity(intent);
+            case R.id.menuLay5://
+                ActivityAnimationUtils.commonTransition(getActivity(), YuedanHomeActivity.class, ActivityConstans.Animation.FADE);
+
                 //ActivityAnimationUtils.commonTransition(getActivity(), Shop4SInfoActivity.class, ActivityConstans.Animation.FADE);
                 break;
-            case R.id.menuLay6://道路救援
+            case R.id.menuLay6://加油站
+                // ActivityAnimationUtils.commonTransition(getActivity(), RoadAssistanceListActivity.class, ActivityConstans.Animation.FADE);
+                break;
+            case R.id.menuLay7://违章
                 ActivityAnimationUtils.commonTransition(getActivity(), RoadAssistanceListActivity.class, ActivityConstans.Animation.FADE);
-                break;
-            case R.id.menuLay7://道路救援
-                Intent intent2 = new Intent(getContext(), WebviewActivity.class);
-                intent2.putExtra("url", (String) v.getTag());
-                startActivity(intent2);
                 //ActivityAnimationUtils.commonTransition(getActivity(), RoadAssistanceListActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay8://约单
-                ActivityAnimationUtils.commonTransition(getActivity(), YuedanHomeActivity.class, ActivityConstans.Animation.FADE);
+                Intent intent = new Intent(getContext(), WebviewActivity.class);
+                intent.putExtra("url", mUrlBeans.get(0).getUrl());
+                startActivity(intent);
                 break;
-            case R.id.menuLay9://约单
-                showDialog(new LatLng(MyApplication.getaMapLocation().getLatitude(),MyApplication.getaMapLocation().getLongitude()));
+            case R.id.menuLay9://地图导航
+                showDialog(new LatLng(MyApplication.getaMapLocation().getLatitude(), MyApplication.getaMapLocation().getLongitude()));
+                //ActivityAnimationUtils.commonTransition(getActivity(), YuedanHomeActivity.class, ActivityConstans.Animation.FADE);
+                break;
+            case R.id.menuLay10://滴滴
+                Intent intent3 = new Intent(getContext(), WebviewActivity.class);
+                intent3.putExtra("url", mUrlBeans.get(1).getUrl());
+                startActivity(intent3);
+                //showDialog(new LatLng(MyApplication.getaMapLocation().getLatitude(),MyApplication.getaMapLocation().getLongitude()));
                 //ActivityAnimationUtils.commonTransition(getActivity(), YuedanHomeActivity.class, ActivityConstans.Animation.FADE);
                 break;
 //            case R.id.newGoodsLay://新品尝鲜
@@ -631,10 +652,10 @@ public class HomeFragment extends BaseFragment {
 //                ActivityAnimationUtils.commonTransition(getActivity(), CityListActivity.class, ActivityConstans.Animation.FADE);
 //                break;
             case R.id.user_center_icon://个人中心
-                if(MyApplication.isLogin)
-                ActivityAnimationUtils.commonTransition(getActivity(), UserCenterActivity.class, ActivityConstans.Animation.FADE);
-                else{
-                    startActivity(new Intent(getContext(),RegisterActivity.class));
+                if (MyApplication.isLogin)
+                    ActivityAnimationUtils.commonTransition(getActivity(), UserCenterActivity.class, ActivityConstans.Animation.FADE);
+                else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
                 }
                 break;
 //            case R.id.magList:

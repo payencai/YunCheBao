@@ -206,6 +206,14 @@ public class RentCarFragment extends BaseFragment implements OnHeaderClickListen
                 tv_tag.setText(mAreas.get(position).getName());
                 mAreaItemAdapter.setSelectedPosition(position);
                 mAreaItemAdapter.notifyDataSetChanged();
+                Area area=mAreas.get(position);
+                mRentCars.clear();
+                if(position==0){
+                    getShop(1,"");
+                }else{
+                    getShop(2,area.getName());
+                }
+
             }
         });
         lv_right.setOnItemClickListener(new AdapterView.OnItemClickListener() {
