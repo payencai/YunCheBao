@@ -88,16 +88,16 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
     }
 
     private void autoLogin() {
-        String phone= (String) SPUtils.get(MainActivity.this,"phone","");
-        String pwd= (String) SPUtils.get(MainActivity.this,"pwd","");
-        if(!TextUtils.isEmpty(phone)){
-            loginByPwd(phone,pwd);
-        }else{
+        String phone = (String) SPUtils.get(MainActivity.this, "phone", "");
+        String pwd = (String) SPUtils.get(MainActivity.this, "pwd", "");
+        if (!TextUtils.isEmpty(phone)) {
+            loginByPwd(phone, pwd);
+        } else {
             initview();
         }
     }
 
-    private void loginByPwd(String account,String pwd){
+    private void loginByPwd(String account, String pwd) {
         Map<String, Object> params = new HashMap<>();
         params.put("username", account);
         params.put("password", pwd);
@@ -108,17 +108,17 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                 try {
                     //Toast.makeText(RegisterActivity.this,"",Toast.LENGTH_LONG).show();
                     JSONObject object = new JSONObject(result);
-                    JSONObject data=object.getJSONObject("data");
+                    JSONObject data = object.getJSONObject("data");
                     int code = object.getInt("resultCode");
-                    if(code==0){
+                    if (code == 0) {
                         //Toast.makeText(MainActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
-                        UserInfo userInfo =new Gson().fromJson(data.toString(),UserInfo.class);
+                        UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
                         MyApplication.setUserInfo(userInfo);
                         MyApplication.setIsLogin(true);
                         initview();
                         getData();
 
-                    }else{
+                    } else {
                         initview();
                     }
 
@@ -166,9 +166,13 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         fm = getSupportFragmentManager();
         fragment1 = new HomeFragment();
         fragment2 = new CheyiFragment();
-        if (MyApplication.isLogin)
-            fragment3 = NewBabyFragment.newInstance();
-        else {
+        if (MyApplication.isLogin && RongIM.getInstance().getConversationList() != null) {
+            if (RongIM.getInstance().getConversationList().size() > 0) {
+                fragment3 = NewBabyFragment.newInstance();
+            } else {
+                fragment3 = new AnotherBabyFragment();
+            }
+        } else {
             fragment3 = new AnotherBabyFragment();
         }
         fragment4 = new NewBaikeFragment();
@@ -274,14 +278,15 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                     if (fragment3 instanceof NewBabyFragment) {
 
                     } else {
-                        if (isFrist) {
-                            isFrist = false;
-                            fragments.remove(2);
-                            fragment3=NewBabyFragment.newInstance();
-                            fragments.add(2,fragment3);
-                            fm.beginTransaction().add(R.id.main_frame, fragment3).commit();
-                            //fm.beginTransaction().replace(R.id.main_frame, new NewBabyFragment()).commit();
-                        }
+                        if (RongIM.getInstance().getConversationList() != null)
+                            if (isFrist) {
+                                isFrist = false;
+                                fragments.remove(2);
+                                fragment3 = NewBabyFragment.newInstance();
+                                fragments.add(2, fragment3);
+                                fm.beginTransaction().add(R.id.main_frame, fragment3).commit();
+                                //fm.beginTransaction().replace(R.id.main_frame, new NewBabyFragment()).commit();
+                            }
                     }
                 }
                 showFragment(2);
@@ -305,6 +310,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                 break;
         }
     }
+
     private void getContacts() {
         LitePal.deleteAll(MyFriend.class);
         com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
@@ -324,7 +330,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                             if (!myFriend.isSaved())
                                 myFriend.save();
                         }
-                       // MyApplication.getDataSave().setDataList("friends", myFriends);
+                        // MyApplication.getDataSave().setDataList("friends", myFriends);
                         connect(MyApplication.getUserInfo().getHxPassword());
 
 
@@ -339,6 +345,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                 }
             });
     }
+
     private void getData() {
         final com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
         if (userinfo != null)
@@ -369,6 +376,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                 }
             });
     }
+
     private void connect(String token) {
 
         RongIM.connect(token, new RongIMClient.ConnectCallback() {
@@ -393,7 +401,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                                                 @Override
                                                 public Group getGroupInfo(String s) {
                                                     List<MyGroup> myFriends = LitePal.findAll(MyGroup.class);
-                                                    Log.e("data",s);
+                                                    Log.e("data", s);
                                                     for (int i = 0; i < myFriends.size(); i++) {
                                                         MyGroup myFriend = myFriends.get(i);
                                                         String myid = myFriend.getHxCrowdId();
@@ -406,19 +414,19 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                                                     }
                                                     return null;
                                                 }
-                                            },true
+                                            }, true
                 );
                 RongIM.setGroupUserInfoProvider(new RongIM.GroupUserInfoProvider() {
                     @Override
                     public GroupUserInfo getGroupUserInfo(String s, String s1) {
                         return null;
                     }
-                },true);
+                }, true);
                 RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
                     @Override
                     public io.rong.imlib.model.UserInfo getUserInfo(String s) {
                         List<MyFriend> myFriends = LitePal.findAll(MyFriend.class);
-                        Log.e("data",s);
+                        Log.e("data", s);
                         for (int i = 0; i < myFriends.size(); i++) {
                             MyFriend myFriend = myFriends.get(i);
                             String myid = myFriend.getMyid();

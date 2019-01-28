@@ -433,7 +433,12 @@
         <activity android:name="com.newversion.NewSelfDrvingActivity" />
         <activity android:name="com.newversion.NewCarFriendActivity" />
         <activity android:name="com.newversion.NewContactsActivity" />
-        <activity android:name="com.bbcircle.NewDrvingActivity"></activity>
+        <activity android:name="com.bbcircle.NewDrvingActivity" />
+        <activity android:name="com.order.ServiceCarActivity" />
+        <activity android:name="com.order.NewPublishActivity" />
+        <activity android:name="com.vipcenter.MyPhoneActivity" />
+        <activity android:name="com.vipcenter.NewPhoneActivity" />
+        <activity android:name="com.vipcenter.MyFocusActivity"></activity>
     </application>
 
 </manifest>

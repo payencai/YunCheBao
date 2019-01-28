@@ -12,22 +12,31 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.application.MyApplication;
+import com.bbcircle.NewDrvingActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.chat.MessageMainActivity;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.http.HttpProxy;
+import com.http.ICallBack;
 import com.maket.ShopCartActivity;
 import com.nohttp.sample.NoHttpBaseActivity;
+import com.order.NewPublishActivity;
+import com.order.ServiceCarActivity;
+import com.payencai.library.view.CircleImageView;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.vipcenter.model.UserInfo;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import butterknife.OnClick;
-import de.hdodenhof.circleimageview.CircleImageView;
 import io.rong.imlib.RongIMClient;
 
 /**
@@ -40,7 +49,7 @@ public class UserCenterActivity extends NoHttpBaseActivity {
     @BindView(R.id.info)
     TextView infoText;
     @BindView(R.id.headIcon)
-    ImageView headIcon;
+    CircleImageView headIcon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,18 +60,51 @@ public class UserCenterActivity extends NoHttpBaseActivity {
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(40)))
                 .into(headIcon);
         initLoginView();
+        getUserData();
+        infoText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserCenterActivity.this,MyFocusActivity.class));
+            }
+        });
+    }
+
+
+    private void getUserData(){
+        HttpProxy.obtain().get(PlatformContans.User.getUserFocusNumber, MyApplication.getUserInfo().getToken(), new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result",result);
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    JSONObject data=jsonObject.getJSONObject("data");
+                    int userFocusNumber=data.getInt("userFocusNumber");
+                    int otherFocusNumber=data.getInt("otherFocusNumber");
+                    infoText.setText("关注"+userFocusNumber+"|粉丝"+otherFocusNumber);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 
     private void initLoginView() {
+
         if (PlatformContans.isLogin) {
-            findViewById(R.id.signIn).setVisibility(View.GONE);
+
             nameText.setText("登录");
             infoText.setVisibility(View.GONE);
         } else {
-            findViewById(R.id.signIn).setVisibility(View.VISIBLE);
+
             nameText.setText("洗护宝专家");
             infoText.setVisibility(View.VISIBLE);
         }
+        nameText.setText(MyApplication.getUserInfo().getName());
     }
 
     @Override
@@ -109,9 +151,12 @@ public class UserCenterActivity extends NoHttpBaseActivity {
 
     }
 
-    @OnClick({R.id.back, R.id.headIcon, R.id.signIn, R.id.shopCart, R.id.message, R.id.middleMenu1, R.id.middleMenu2, R.id.middleMenu3, R.id.lay1, R.id.lay2, R.id.lay3, R.id.lay4, R.id.lay5, R.id.lay6, R.id.lay7, R.id.lay8, R.id.lay9, R.id.lay10, R.id.lay11})
+    @OnClick({R.id.back, R.id.headIcon, R.id.rl_mypublish,R.id.signIn, R.id.shopCart, R.id.message, R.id.middleMenu1, R.id.middleMenu2, R.id.middleMenu3, R.id.lay1, R.id.lay2, R.id.lay3, R.id.lay4, R.id.lay5, R.id.lay6, R.id.lay7, R.id.lay8, R.id.lay9, R.id.lay10, R.id.lay11})
     public void Onclick(View v) {
         switch (v.getId()) {
+            case R.id.rl_mypublish:
+                startActivity(new Intent(UserCenterActivity.this, NewPublishActivity.class));
+                break;
             case R.id.back:
                 onBackPressed();
                 break;
@@ -154,7 +199,7 @@ public class UserCenterActivity extends NoHttpBaseActivity {
                 ActivityAnimationUtils.commonTransition(UserCenterActivity.this, HistoryListActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.lay5://手机认证
-                ActivityAnimationUtils.commonTransition(UserCenterActivity.this, MobileCertificationActivity.class, ActivityConstans.Animation.FADE);
+                ActivityAnimationUtils.commonTransition(UserCenterActivity.this, MyPhoneActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.lay6://身份证认证
                 ActivityAnimationUtils.commonTransition(UserCenterActivity.this, IDCardCertificationActivity.class, ActivityConstans.Animation.FADE);
@@ -169,7 +214,7 @@ public class UserCenterActivity extends NoHttpBaseActivity {
                 ActivityAnimationUtils.commonTransition(UserCenterActivity.this, FeedbackHelpActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.lay11://洗护评论
-                ActivityAnimationUtils.commonTransition(UserCenterActivity.this, WashCommentActivity.class, ActivityConstans.Animation.FADE);
+                ActivityAnimationUtils.commonTransition(UserCenterActivity.this, ServiceCarActivity.class, ActivityConstans.Animation.FADE);
                 break;
         }
     }

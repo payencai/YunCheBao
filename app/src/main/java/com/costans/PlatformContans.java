@@ -29,9 +29,15 @@ public class PlatformContans {
         public static final String updatePwd=root+"/user/updatePassword";
         public static final String bindQQ=root+"/user/bindByQQ";
         public static final String bindWechat=root+"/user/bindByWx";
-
         public static final String getIdentityVerification=root+"/user/getIdentityVerification";
         public static final String addIdentityVerification=root+"/user/addIdentityVerification";
+
+
+        public static final String bindTelephone=root+"/user/bindTelephone";
+        public static final String relieveTelephone=root+"/user/relieveTelephone";
+        public static final String getUserFocusNumber=root+"/user/getUserFocusNumber";
+        public static final String getOtherFocusList=root+ "/user/getOtherFocusList";
+
     }
     public static class WiKi{
         public static final String getWikiClassifyByType=root+ "/wikiClassify/getWikiClassifyByType" ;
@@ -155,7 +161,7 @@ public class PlatformContans {
         public static final String addOldCarUserCar=root+ "/oldcar/addOldCarUserCar";
         public static final String getOldCarMerchantCarByApp=root+ "/oldcar/getOldCarMerchantCarByApp";
         public static final String getOldCarMerchantCarByUser=root+ "/oldcar/getOldCarMerchantCarByUser";
-      //  public static final String getWashRepairServeResultByShopId=root+ "/carWashRepairShop/getWashRepairServeResultByShopId";
+        // public static final String getWashRepairServeResultByShopId=root+ "/carWashRepairShop/getWashRepairServeResultByShopId";
     }
     public static class CarOrder{
         public static final String addCarOrder=root+ "/carOrder/addCarOrder";
@@ -212,6 +218,8 @@ public class PlatformContans {
         public static final String getUserComment=root+ "/evaluation/getMerchantEvaluationByUser";
         public static final String getDrivingSchoolPhoto=root+"/drivingschool/getDrivingSchoolPhoto";
     }
+
+
     public static class LoginContacts {
         public static final String FILENAME = "fckg";
         public static String NOT_FIRST_ENTER = "NOT_FIRST_ENTER";
@@ -231,7 +239,11 @@ public class PlatformContans {
 
     }
 
-
+    public static  class Order{
+        public static final String getUserOrderList=root+ "/carWashRepairShop/getUserOrderList";
+        public static final String getUserCarOrder=root+ "/carOrder/getUserCarOrder";
+       // public static final String getNewOldIndex=root+ "/carcategory/getNewOldIndex";
+    }
 
     public static String data = "{\"code\":0,\"msg\":\"\\u83b7\\u53d6\\u5546\\u54c1\\u6210\\u529f\",\"data\":[{\"cat\":\"汽车服务\",\"goods\":[{\"id\":\"1001\",\"name\":\"标准洗车-轿车\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"100\",\"sold_num\":\"2\"},{\"id\":\"1003\",\"name\":\"标准洗车-五座轿车\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"}]},{\"cat\":\"汽车美容\",\"goods\":[{\"id\":\"1004\",\"name\":\"全车抛光\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1005\",\"name\":\"内饰清洗\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1006\",\"name\":\"全车打蜡\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"0\"},{\"id\":\"1007\",\"name\":\"空调除臭\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"1\"}]}]}";
     public static String data2 = "{\"code\":0,\"msg\":\"\\u83b7\\u53d6\\u5546\\u54c1\\u6210\\u529f\",\"data\":[{\"cat\":\"附近门店\",\"goods\":[{\"id\":\"1001\",\"name\":\"爱琴海购物公园送车点\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"100\",\"sold_num\":\"2\"},{\"id\":\"1003\",\"name\":\"荷泰花园酒店送车点\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"}]},{\"cat\":\"机场/火车站\",\"goods\":[{\"id\":\"1004\",\"name\":\"昆明站\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1005\",\"name\":\"长水机场\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1006\",\"name\":\"昆明南站\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"0\"},{\"id\":\"1007\",\"name\":\"昆明北站\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"1\"}]}]}";

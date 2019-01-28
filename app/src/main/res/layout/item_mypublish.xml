@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <ImageView
+           android:id="@+id/iv_car"
+           android:scaleType="fitXY"
+           android:src="@mipmap/car_icon"
+           android:layout_width="130dp"
+           android:layout_height="90dp" />
+       <LinearLayout
+           android:layout_marginLeft="10dp"
+           android:orientation="vertical"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:id="@+id/tv_name"
+                   android:textSize="14sp"
+                   android:textColor="@color/black_33"
+                   android:text="迈巴赫S级轿车"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+               <TextView
+                   android:id="@+id/tv_state"
+                   android:layout_alignParentRight="true"
+                   android:textSize="12sp"
+                   android:textColor="@color/yellow_02"
+                   android:text="待售卖"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+           </RelativeLayout>
+           <LinearLayout
+               android:layout_marginTop="5dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:textColor="@color/gray_99"
+                   android:textSize="13sp"
+                   android:text="上传时间："
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+               <TextView
+                   android:id="@+id/tv_time"
+                   android:textColor="@color/black_33"
+                   android:textSize="13sp"
+                   android:text="2017年11月20号"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+           </LinearLayout>
+           <LinearLayout
+               android:layout_marginTop="5dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:textColor="@color/gray_99"
+                   android:textSize="13sp"
+                   android:text="售卖价格："
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+               <TextView
+                   android:id="@+id/tv_price"
+                   android:textColor="#F95204"
+                   android:textSize="13sp"
+                   android:text="20万"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+           </LinearLayout>
+       </LinearLayout>
+   </LinearLayout>
+    <RelativeLayout
+       android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="12sp"
+            android:textColor="@color/gray_99"
+            android:text="买家付款自动完成售卖"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_alignParentRight="true"
+            android:textSize="15sp"
+            android:textColor="@color/gray_99"
+            android:text="取消售卖"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</LinearLayout>

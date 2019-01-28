@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.vipcenter.MyPhoneActivity">
+    <include layout="@layout/top_title_layout"></include>
+    <LinearLayout
+
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="手机号"
+            android:textColor="@color/black_33"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="13202908144"
+            android:textColor="@color/gray_99"
+            android:textSize="15sp" />
+    </LinearLayout>
+    <View
+        android:layout_marginRight="20dp"
+        android:background="#e2e2e2"
+        android:layout_marginLeft="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></View>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:textSize="12sp"
+        android:layout_marginLeft="40dp"
+        android:text="您的手机已认证"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_change"
+        android:textSize="14sp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/white"
+        android:background="@color/yellow_02"
+        android:gravity="center"
+        android:text="更换手机号"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+</LinearLayout>

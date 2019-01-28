@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallLib\\build\\intermediates\\res\\merged\\release\\layout\\notification_action.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallLib\\build\\intermediates\\exploded-aar\\com.android.support\\support-compat\\26.0.0\\res\\layout\\notification_action.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallLib\\build\\intermediates\\res\\merged\\release\\layout\\notification_action_tombstone.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallLib\\build\\intermediates\\exploded-aar\\com.android.support\\support-compat\\26.0.0\\res\\layout\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallLib\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_icon_group.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallLib\\build\\intermediates\\exploded-aar\\com.android.support\\support-compat\\26.0.0\\res\\layout\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallLib\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_part_time.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallLib\\build\\intermediates\\exploded-aar\\com.android.support\\support-compat\\26.0.0\\res\\layout\\notification_template_part_time.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallLib\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_part_chronometer.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallLib\\build\\intermediates\\exploded-aar\\com.android.support\\support-compat\\26.0.0\\res\\layout\\notification_template_part_chronometer.xml"
+    }
+]

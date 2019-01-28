@@ -23,7 +23,7 @@
                 android:src="@mipmap/back_white" />
 
             <ImageView
-                android:visibility="gone"
+
                 android:id="@+id/shopCart"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
@@ -32,7 +32,7 @@
                 android:src="@mipmap/shopcart_white_icon" />
 
             <ImageView
-                android:visibility="gone"
+
                 android:id="@+id/message"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
@@ -40,7 +40,7 @@
                 android:padding="14dp"
                 android:src="@mipmap/chat_white_icon" />
 
-            <ImageView
+            <com.payencai.library.view.CircleImageView
                 android:scaleType="fitXY"
                 android:src="@mipmap/notlogin_head"
                 android:id="@+id/headIcon"
@@ -78,6 +78,7 @@
             </LinearLayout>
 
             <LinearLayout
+
                 android:visibility="gone"
                 android:id="@+id/signIn"
                 android:layout_width="78dp"
@@ -343,6 +344,7 @@
                     android:background="@color/gray_ee"></View>
 
                 <RelativeLayout
+                    android:visibility="gone"
                     android:id="@+id/lay3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -512,7 +514,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@id/iv_mycar"
-                        android:text="我的车辆"
+                        android:text="我的车"
                         android:textColor="@color/black_33"
                         android:textSize="14sp" />
 

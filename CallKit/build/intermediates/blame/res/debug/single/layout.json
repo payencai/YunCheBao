@@ -1,0 +1,626 @@
+[
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_audio_call_user_info.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_audio_call_user_info.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_information_notification_message.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_information_notification_message.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_cs_alert_warning.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_cs_alert_warning.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_time.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\com.android.support\\support-compat\\26.0.0\\res\\layout\\notification_template_part_time.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_discussion_notification_message.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_discussion_notification_message.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_dialog_popup_prompt.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_dialog_popup_prompt.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_observer_hint.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_observer_hint.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_public_service_list.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_public_service_list.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_input_pager_layout.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_input_pager_layout.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_icon_group.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\com.android.support\\support-compat\\26.0.0\\res\\layout\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_call_bottom_connected_button_layout.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_call_bottom_connected_button_layout.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_picsel_grid_camera.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_picsel_grid_camera.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_public_service_input_menus.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_public_service_input_menus.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_pic_popup_window.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_pic_popup_window.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_text_message.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_text_message.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media_custom.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\com.android.support\\support-media-compat\\26.0.0\\res\\layout\\notification_template_media_custom.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_progress.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_progress.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_float_box.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_float_box.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\callkit_conference_search_top_layout.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\callkit_conference_search_top_layout.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_preview_fragment.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_preview_fragment.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_wi_vo_popup.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_wi_vo_popup.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_location_marker_info_window.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_location_marker_info_window.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_plugin_pager.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ext_plugin_pager.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_picsel_original.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_picsel_original.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_fr_dialog_alter.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_fr_dialog_alter.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_map_nearby_info_item.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_map_nearby_info_item.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_msg_multi_call_end.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_msg_multi_call_end.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_call_user_info_incoming.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_call_user_info_incoming.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_sub_menu_item.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ext_sub_menu_item.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ac_file_preview_content.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ac_file_preview_content.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_action.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\com.android.support\\support-media-compat\\26.0.0\\res\\layout\\notification_media_action.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\com.android.support\\support-compat\\26.0.0\\res\\layout\\notification_action.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_cs_item_single_choice.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_cs_item_single_choice.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_sub_menu_container.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ext_sub_menu_container.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_dialog_popup_options.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_dialog_popup_options.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_emoji_grid_view.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ext_emoji_grid_view.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_multi_video_calling_bottom_view.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_multi_video_calling_bottom_view.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_public_service_message.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_public_service_message.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_location_search_activity.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_location_search_activity.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_input_edit_text.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ext_input_edit_text.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_custom.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\com.android.support\\support-media-compat\\26.0.0\\res\\layout\\notification_template_big_media_custom.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_fr_public_service_inf.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_fr_public_service_inf.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_cancel_action.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\com.android.support\\support-media-compat\\26.0.0\\res\\layout\\notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_fr_file_list.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_fr_file_list.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_pop_menu.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_pop_menu.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_location_search_item.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_location_search_item.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_plugin_item.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ext_plugin_item.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_cs_single_choice_layout.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_cs_single_choice_layout.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_cs_evaluate.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_cs_evaluate.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_menu_container.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ext_menu_container.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_file_message.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_file_message.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_icon_rt_location_marker.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_icon_rt_location_marker.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_plugin_grid_view.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ext_plugin_grid_view.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_fr_public_service_sub_list.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_fr_public_service_sub_list.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ac_file_manager.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ac_file_manager.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_location_message.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_location_message.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_wi_block_popup.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_wi_block_popup.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_dialog_popup_prompt_warning.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_dialog_popup_prompt_warning.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_mention_list_item.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_mention_list_item.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_chronometer.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\com.android.support\\support-compat\\26.0.0\\res\\layout\\notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\callkit_rc_voip_activity_select_member.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\callkit_rc_voip_activity_select_member.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_text_message_evaluate.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_text_message_evaluate.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_activity_single_call.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_activity_single_call.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_fr_conversation_member_list.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_fr_conversation_member_list.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow_custom.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\com.android.support\\support-media-compat\\26.0.0\\res\\layout\\notification_template_big_media_narrow_custom.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ac_file_download.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ac_file_download.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_activity_select_member.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_activity_select_member.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_fr_image.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_fr_image.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_public_service_search.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_public_service_search.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\com.android.support\\support-media-compat\\26.0.0\\res\\layout\\notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_multi_video_top_view.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_multi_video_top_view.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_camera.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_camera.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_dialog_popup_prompt.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_dialog_popup_prompt.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_fragment_base_setting.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_fragment_base_setting.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ac_albums.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ac_albums.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_picsel_activity.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_picsel_activity.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_emoticon_tab_item.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ext_emoticon_tab_item.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\callkit_rc_voip_activity_select_member_layout.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\callkit_rc_voip_activity_select_member_layout.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_picprev_activity.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_picprev_activity.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_refresh_list_view.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_refresh_list_view.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_item_incoming_maudio.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_item_incoming_maudio.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\com.android.support\\support-media-compat\\26.0.0\\res\\layout\\notification_template_big_media.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_voice_message.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_voice_message.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_location_preview_activity.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_location_preview_activity.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_app_service_conversation.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_app_service_conversation.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_dialog_popup_options_item.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_dialog_popup_options_item.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ac_file_list.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ac_file_list.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_fr_conversation.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_fr_conversation.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_discussion_conversation.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_discussion_conversation.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_wi_block.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_wi_block.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_picsel_catalog_listview.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_picsel_catalog_listview.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_root_menu_item.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ext_root_menu_item.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_call_bottom_incoming_button_layout.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_call_bottom_incoming_button_layout.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_base_activity_layout.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_base_activity_layout.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_notification_realtime_location.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_notification_realtime_location.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_rich_content_message.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_rich_content_message.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_picsel_grid_item.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_picsel_grid_item.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ac_webview.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ac_webview.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_location_search_title_bar.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_location_search_title_bar.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ac_camera.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ac_camera.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_fr_messagelist.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_fr_messagelist.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_multi_video_call.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_multi_video_call.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\activity_call_select_member2.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\activity_call_select_member2.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_wi_notice.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_wi_notice.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_lines_media.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\com.android.support\\support-media-compat\\26.0.0\\res\\layout\\notification_template_lines_media.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_indicator.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ext_indicator.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_audio_call_user_info_incoming.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_audio_call_user_info_incoming.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_fr_conversationlist.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_fr_conversationlist.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_listitem_select_member.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_listitem_select_member.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_conversation_member.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_conversation_member.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_emoji_pager.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ext_emoji_pager.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\callkit_multivideo_gaussianblur.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\callkit_multivideo_gaussianblur.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_emoji_item.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ext_emoji_item.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\callkit_actionbar_option_text_layout.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\callkit_actionbar_option_text_layout.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action_tombstone.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\com.android.support\\support-compat\\26.0.0\\res\\layout\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_fr_photo.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_fr_photo.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_base_conversation.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_base_conversation.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\callkit_view_search_bar_layout.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\callkit_view_search_bar_layout.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_group_information_notification_message.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_group_information_notification_message.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\com.android.support\\support-media-compat\\26.0.0\\res\\layout\\notification_template_media.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_layout_network_unavailable.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_layout_network_unavailable.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_mention_members.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_mention_members.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_conversation.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_conversation.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_public_service_input_menu.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_public_service_input_menu.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_new_message_divider.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_new_message_divider.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_message.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_message.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_voice_input.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ext_voice_input.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_video_call_user_info.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_video_call_user_info.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_emoticon_tab_container.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ext_emoticon_tab_container.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_extension_bar.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ext_extension_bar.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_contact_container.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_contact_container.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_item_outgoing_maudio.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_item_outgoing_maudio.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_actions_container.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ext_actions_container.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_group_conversation.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_group_conversation.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_public_service_rich_content_message.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_public_service_rich_content_message.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_ac_muti_audio.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_ac_muti_audio.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_fr_public_service_search.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_fr_public_service_search.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_conversation_notification_container.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_conversation_notification_container.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_plugin_location_activity.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_plugin_location_activity.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_user_info_mutlaudio.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_user_info_mutlaudio.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_public_service_input_menu_item.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_public_service_input_menu_item.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_location_real_time_activity.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_location_real_time_activity.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_public_service_conversation.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_public_service_conversation.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ac_picture_pager.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_ac_picture_pager.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_system_conversation.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_system_conversation.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_cs_alert_human_evaluation.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_cs_alert_human_evaluation.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_wi_file_list_adapter.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_wi_file_list_adapter.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_user_info.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_user_info.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_share_location_message.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_share_location_message.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_picsel_preview.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_picsel_preview.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_cs_leave_message.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_cs_leave_message.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_image_message.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_image_message.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_public_service_multi_rich_content_message.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_item_public_service_multi_rich_content_message.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_user_portrait.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_user_portrait.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_cs_alert_robot_evaluation.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\exploded-aar\\sealtalk-android-master\\IMKit\\unspecified\\res\\layout\\rc_cs_alert_robot_evaluation.xml"
+    },
+    {
+        "merged": "D:\\listercai\\sealtalk-android-master\\CallKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_voip_viewlet_remote_user.xml",
+        "source": "D:\\listercai\\sealtalk-android-master\\CallKit\\src\\main\\res\\layout\\rc_voip_viewlet_remote_user.xml"
+    }
+]
