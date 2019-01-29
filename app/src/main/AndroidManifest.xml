@@ -259,9 +259,7 @@
         <activity android:name="com.vipcenter.AllCollectionActivity" />
         <activity android:name="com.vipcenter.MyPublishListActivity" />
         <activity android:name="com.vipcenter.ShopMainListActivity" />
-        <activity android:name="com.vipcenter.OrderChatDetailActivity" />
         <activity android:name="com.vipcenter.OrderDetailActivity" />
-        <activity android:name="com.vipcenter.MyCustomServiceChatActivity" />
         <activity android:name="com.vipcenter.WashCommentActivity" />
         <activity android:name="com.vipcenter.WashCommentSubmitActivity" />
         <!-- 礼品汇 -->
@@ -284,25 +282,12 @@
         <activity android:name="com.yuedan.BookMessageActivity" />
         <activity android:name="com.yuedan.BookNeedDetailActivity" />
         <activity android:name="com.yuedan.BookNeedCancelDetailActivity" />
-        <activity android:name="com.yuedan.BookChatDetailActivity" />
 
         <!-- 公用 -->
         <activity android:name="com.cityselect.CityListActivity" />
         <activity android:name="com.xihubao.CarBrandSelectActivity" />
 
-        <!-- 聊天 -->
-        <activity android:name="com.chat.CustomServiceActivity" />
-        <activity android:name="com.chat.ui.CallActivity" />
-        <activity android:name="com.chat.ui.ContextMenuActivity" />
-        <activity android:name="com.chat.ui.ForwardMessageActivity" />
-        <activity android:name="com.chat.ui.ImageGridActivity" />
-        <activity android:name="com.chat.ui.PickContactNoCheckboxActivity" />
-        <activity android:name="com.chat.ui.RecorderVideoActivity" />
-        <activity android:name="com.chat.ui.UserProfileActivity" />
-        <activity android:name="com.chat.ui.VideoCallActivity" />
-        <activity android:name="com.chat.ui.VoiceCallActivity" />
-        <activity android:name="com.chat.MessageMainActivity" />
-        <activity android:name="com.chat.ChatUserDetailActivity" />
+
 
         <service android:name="com.amap.api.location.APSService" />
 
@@ -315,26 +300,8 @@
             android:name="EASEMOB_APPKEY"
             android:value="Your AppKey" />
         <!-- 声明sdk所需的service SDK核心功能 -->
-        <service
-            android:name="com.hyphenate.chat.EMChatService"
-            android:exported="true" />
-        <service
-            android:name="com.hyphenate.chat.EMJobService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-        <!-- 声明sdk所需的receiver -->
-        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
 
-                <data android:scheme="package" />
-            </intent-filter>
-            <!-- 可选filter -->
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.USER_PRESENT" />
-            </intent-filter>
-        </receiver>
+
 
         <activity android:name="com.vipcenter.LoginByaccountActivity" />
         <activity android:name="com.vipcenter.BindPhoneActivity" />
@@ -438,7 +405,17 @@
         <activity android:name="com.order.NewPublishActivity" />
         <activity android:name="com.vipcenter.MyPhoneActivity" />
         <activity android:name="com.vipcenter.NewPhoneActivity" />
-        <activity android:name="com.vipcenter.MyFocusActivity"></activity>
+        <activity android:name="com.vipcenter.MyFocusActivity" />
+        <activity android:name="com.newversion.FriendCircleActivity" />
+        <activity
+            android:windowSoftInputMode="stateHidden"
+            android:name="com.newversion.MyTagsActivity" />
+        <activity
+            android:windowSoftInputMode="stateHidden"
+            android:name="com.newversion.CreateTagsActivity" />
+        <activity
+            android:windowSoftInputMode="stateHidden"
+            android:name="com.newversion.ChooseUserActivity"></activity>
     </application>
 
 </manifest>

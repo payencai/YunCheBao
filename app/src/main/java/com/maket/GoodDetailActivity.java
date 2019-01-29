@@ -1,28 +1,19 @@
 package com.maket;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.LinearLayout;
 
-import com.chat.CustomServiceActivity;
-import com.chat.helper.Constant;
+
 import com.example.yunchebao.R;
 import com.maket.fragment.GoodCommentFragment;
 import com.maket.fragment.GoodDetailFragment;
 import com.maket.fragment.GoodDetailInfoFragment;
 import com.maket.model.GoodList;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
 import com.tool.adapter.MyFragmentPagerAdapter;
-import com.vipcenter.OrderChatDetailActivity;
-import com.vipcenter.OrderConfirmActivity;
-import com.vipcenter.ShopMainListActivity;
-import com.yuedan.BookChatDetailActivity;
 
 import java.util.ArrayList;
 

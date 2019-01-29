@@ -20,7 +20,7 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.application.MyApplication;
-import com.baidu.mapapi.map.BitmapDescriptorFactory;
+
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.entity.PhoneArticleEntity;

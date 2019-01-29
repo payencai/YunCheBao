@@ -3,7 +3,7 @@ package com.vipcenter;
 import android.os.Bundle;
 import android.view.View;
 
-import com.chat.MessageMainActivity;
+
 import com.example.yunchebao.R;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.tool.ActivityAnimationUtils;
@@ -59,7 +59,7 @@ public class MyCustomerServiceActivity extends NoHttpBaseActivity {
                 onBackPressed();
                 break;
             case R.id.lay1:
-                ActivityAnimationUtils.commonTransition(MyCustomerServiceActivity.this, MyCustomServiceChatActivity.class, ActivityConstans.Animation.FADE);
+               // ActivityAnimationUtils.commonTransition(MyCustomerServiceActivity.this, MyCustomServiceChatActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.lay2:
                 callToPhoneSweetAlert("10010");

@@ -16,7 +16,7 @@ import com.bbcircle.NewDrvingActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.chat.MessageMainActivity;
+
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.http.HttpProxy;
@@ -175,7 +175,7 @@ public class UserCenterActivity extends NoHttpBaseActivity {
                 ActivityAnimationUtils.commonTransition(UserCenterActivity.this, ShopCartActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.message:
-                ActivityAnimationUtils.commonTransition(UserCenterActivity.this, MessageMainActivity.class, ActivityConstans.Animation.FADE);
+               // ActivityAnimationUtils.commonTransition(UserCenterActivity.this, MessageMainActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.middleMenu1://我的钱包
                 ActivityAnimationUtils.commonTransition(UserCenterActivity.this, MyWalletActivity.class, ActivityConstans.Animation.FADE);

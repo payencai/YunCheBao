@@ -18,8 +18,9 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-        ndk {
-            "arm64-v8a"
+        ndk     {
+            //设置支持的so库架构
+            abiFilters "armeabi-v7a"
         }
     }
     buildTypes {
@@ -91,7 +92,7 @@ dependencies {
     compile 'com.github.w446108264:XhsEmoticonsKeyboard:2.0.4'
     compile project(path: ':reclib-emoticons')
     compile 'com.github.w446108264:AndroidEmoji:1.0.0'
-    compile project(':easeui')
+   // compile project(':easeui')
     compile 'com.squareup.okhttp3:okhttp:3.10.0'
     compile 'com.parse:parse-android:1.13.1'
     configurations.all {
@@ -104,6 +105,7 @@ dependencies {
             }
         }
     }
+    compile 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
     compile 'com.youth.banner:banner:1.4.10'
     ///compile 'com.github.nanchen2251:WaveSideBar:1.0.6'
     compile 'com.android.support:cardview-v7:25.3.1'

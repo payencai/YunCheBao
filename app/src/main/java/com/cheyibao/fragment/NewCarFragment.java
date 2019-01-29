@@ -16,7 +16,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.application.MyApplication;
-import com.baidu.platform.comapi.map.A;
+
 import com.cheyibao.CarSecondBrandActivity;
 import com.cheyibao.NewCarActivity;
 import com.cheyibao.NewCarListActivity;

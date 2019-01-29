@@ -18,7 +18,7 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.application.MyApplication;
-import com.baidu.mapapi.model.LatLng;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.RentCarOrderActivity;
 import com.cheyibao.RentShopDetailActivity;

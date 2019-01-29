@@ -21,11 +21,8 @@ import com.bbcircle.fragment.HotArticleFragment;
 import com.bbcircle.fragment.RacePublishFragment;
 import com.bbcircle.fragment.SelfDrivingFragment;
 import com.bumptech.glide.Glide;
-import com.chat.MessageMainActivity;
-import com.cheyibao.fragment.NewCarFragment;
-import com.cheyibao.fragment.OldCarFragment;
-import com.cheyibao.fragment.RentCarFragment;
-import com.cheyibao.fragment.StudyCarFragment;
+
+
 import com.costans.PlatformContans;
 import com.entity.Banner;
 import com.example.godseflrefresh.GodSeflRefreshView;

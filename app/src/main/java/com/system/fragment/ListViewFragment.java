@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.baidu.platform.comapi.map.A;
+
 import com.example.yunchebao.R;
 import com.system.adapter.TestAdapter;
 

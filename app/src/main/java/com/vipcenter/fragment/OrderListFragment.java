@@ -1,7 +1,6 @@
 package com.vipcenter.fragment;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.application.MyApplication;
@@ -22,21 +20,16 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.GoodsOrderDetailActivity;
-import com.maket.model.GoodList;
 import com.nohttp.sample.BaseFragment;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
-import com.tool.BottomMenuDialog;
 import com.vipcenter.CheckLogisticsActivity;
 import com.vipcenter.HaveGotGoodsActivity;
-import com.vipcenter.OrderChatDetailActivity;
 import com.vipcenter.OrderCommentSubmitActivity;
 import com.vipcenter.OrderConfirmActivity;
-import com.vipcenter.OrderDetailActivity;
 import com.vipcenter.OrderReturnTypeActivity;
 import com.vipcenter.adapter.OrderListAdapter;
 import com.vipcenter.view.PayWayDialog;
-import com.yuedan.BookChatDetailActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -205,7 +198,7 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
                 // ActivityAnimationUtils.commonTransition(getActivity(), OrderDetailActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case 1://联系
-                ActivityAnimationUtils.commonTransition(getActivity(), OrderChatDetailActivity.class, ActivityConstans.Animation.FADE);
+                //ActivityAnimationUtils.commonTransition(getActivity(), OrderChatDetailActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case 2://取消
                 intent = new Intent(getContext(), GoodsOrderDetailActivity.class);

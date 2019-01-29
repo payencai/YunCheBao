@@ -44,7 +44,7 @@ public class OrderDetailActivity extends NoHttpBaseActivity {
                 ActivityAnimationUtils.commonTransition(OrderDetailActivity.this, OrderComplaintActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.lianxi:
-                ActivityAnimationUtils.commonTransition(OrderDetailActivity.this, OrderChatDetailActivity.class, ActivityConstans.Animation.FADE);
+                //ActivityAnimationUtils.commonTransition(OrderDetailActivity.this, OrderChatDetailActivity.class, ActivityConstans.Animation.FADE);
                 break;
         }
     }

@@ -34,7 +34,7 @@ import com.bbcircle.fragment.DriverFragment;
 import com.bbcircle.fragment.RacePublishFragment;
 import com.bbcircle.fragment.SelfDrivingFragment;
 import com.bumptech.glide.Glide;
-import com.chat.MessageMainActivity;
+
 import com.costans.PlatformContans;
 import com.entity.Banner;
 import com.entity.PhoneMagEntity;

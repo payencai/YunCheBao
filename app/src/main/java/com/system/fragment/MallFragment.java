@@ -18,7 +18,7 @@ import com.application.MyApplication;
 import com.bbcircle.AllKindActivity;
 import com.bbcircle.data.ClassItem;
 import com.bumptech.glide.Glide;
-import com.chat.MessageMainActivity;
+
 import com.costans.PlatformContans;
 import com.entity.Banner;
 import com.entity.PhoneGoodEntity;

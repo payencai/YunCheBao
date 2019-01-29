@@ -143,7 +143,7 @@ public class ShopMainListActivity extends NoHttpFragmentBaseActivity implements 
                 ActivityAnimationUtils.commonTransition(ShopMainListActivity.this, ShopCartActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.customerServiceBtn:
-                ActivityAnimationUtils.commonTransition(ShopMainListActivity.this, OrderChatDetailActivity.class, ActivityConstans.Animation.FADE);
+                //ActivityAnimationUtils.commonTransition(ShopMainListActivity.this, OrderChatDetailActivity.class, ActivityConstans.Animation.FADE);
                 break;
         }
     }

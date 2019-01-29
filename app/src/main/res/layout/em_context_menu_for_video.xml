@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="20dp"
@@ -17,7 +18,7 @@
         android:id="@+id/forward"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/em_context_menu_item_bg"
+
         android:clickable="true"
         android:gravity="center_vertical"
         android:onClick="delete"
@@ -40,7 +41,7 @@
         android:id="@+id/recall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/em_context_menu_item_bg"
+
         android:clickable="true"
         android:gravity="center_vertical"
         android:onClick="recall"

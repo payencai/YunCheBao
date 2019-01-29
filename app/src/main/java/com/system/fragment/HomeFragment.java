@@ -28,17 +28,15 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.amap.api.maps.model.LatLng;
 import com.application.MyApplication;
-import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.utils.CoordinateConverter;
-import com.baidu.platform.comapi.map.A;
-import com.baidu.platform.comapi.map.G;
+
 import com.baike.MagzineCoverActivity;
 import com.bbcircle.CarShowDetailActivity;
 import com.bbcircle.CommentsActivity;
 import com.bbcircle.NewDrvingActivity;
 import com.bumptech.glide.Glide;
-import com.chat.MessageMainActivity;
+
 import com.cityselect.CityListActivity;
 import com.costans.PlatformContans;
 import com.entity.Banner;

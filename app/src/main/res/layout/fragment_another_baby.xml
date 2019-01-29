@@ -197,6 +197,7 @@
                android:layout_height="wrap_content" />
        </LinearLayout>
        <LinearLayout
+           android:visibility="gone"
            android:id="@+id/ll_item6"
            android:layout_marginTop="5dp"
            android:background="@color/white"
@@ -269,20 +270,23 @@
                android:layout_height="wrap_content" />
        </LinearLayout>
        <RelativeLayout
+           android:paddingBottom="5dp"
+           android:paddingTop="5dp"
+           android:layout_marginBottom="3dp"
            android:layout_marginTop="5dp"
            android:id="@+id/rl_stranger"
            android:background="@color/white"
            android:layout_width="match_parent"
-           android:layout_height="40dp">
+           android:layout_height="wrap_content">
            <ImageView
                android:id="@+id/msg"
                android:layout_marginLeft="15dp"
                android:layout_centerVertical="true"
                android:src="@mipmap/msg"
-               android:layout_width="20dp"
-               android:layout_height="20dp" />
+               android:layout_width="40dp"
+               android:layout_height="40dp" />
            <TextView
-               android:layout_marginLeft="10dp"
+               android:layout_marginLeft="15dp"
                android:layout_toRightOf="@+id/msg"
                android:textColor="@color/black_33"
                android:layout_centerInParent="true"

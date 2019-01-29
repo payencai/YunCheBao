@@ -58,7 +58,7 @@ public class NewPublish {
     private String firstId;
     private String firstName;
     private String id;
-    private int insuranceValidTime;
+    private String insuranceValidTime;
     private int isDel;
     private String lastValidateCar;
     private String linkman;
@@ -184,11 +184,11 @@ public class NewPublish {
         this.id = id;
     }
 
-    public int getInsuranceValidTime() {
+    public String getInsuranceValidTime() {
         return insuranceValidTime;
     }
 
-    public void setInsuranceValidTime(int insuranceValidTime) {
+    public void setInsuranceValidTime(String insuranceValidTime) {
         this.insuranceValidTime = insuranceValidTime;
     }
 

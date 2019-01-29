@@ -13,9 +13,6 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.cheyibao.OldCarDetailActivity;
-import com.cheyibao.OldCarListActivity;
-import com.cheyibao.adapter.CarRecommendListAdapter;
 import com.costans.PlatformContans;
 import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
@@ -24,7 +21,6 @@ import com.nohttp.sample.BaseFragment;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.view.TopMiddlePopup;
-import com.yuedan.BookChatDetailActivity;
 import com.yuedan.adapter.BookMessageListAdapter;
 
 import java.util.ArrayList;
@@ -97,7 +93,7 @@ public class BookMessageFragment extends BaseFragment {
 //                        break;
 //                }
                 PlatformContans.OBJECT_MAP.put(PlatformContans.LoginContacts.BOOK_TYPE_ID,position);
-                ActivityAnimationUtils.commonTransition(getActivity(), BookChatDetailActivity.class, ActivityConstans.Animation.FADE);
+               // ActivityAnimationUtils.commonTransition(getActivity(), BookChatDetailActivity.class, ActivityConstans.Animation.FADE);
             }
         });
     }

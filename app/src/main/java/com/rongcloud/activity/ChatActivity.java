@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.application.MyApplication;
 import com.example.yunchebao.R;
@@ -21,6 +22,7 @@ import com.rongcloud.activity.stranger.SaomaActivity;
 import com.rongcloud.activity.stranger.StrangerMsgActivity;
 import com.rongcloud.model.MyFriend;
 import com.rongcloud.model.MyGroup;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import org.litepal.LitePal;
 
@@ -210,7 +212,7 @@ public class ChatActivity extends FragmentActivity {
         ll_shaoma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ChatActivity.this, SaomaActivity.class));
+                startActivityForResult(new Intent(ChatActivity.this, SaomaActivity.class),1);
             }
         });
         ll_qrcode.setOnClickListener(new View.OnClickListener() {
@@ -229,5 +231,23 @@ public class ChatActivity extends FragmentActivity {
 
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            //处理扫描结果（在界面上显示）
+            if (null != data) {
+                Bundle bundle = data.getExtras();
+                if (bundle == null) {
+                    return;
+                }
+                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                    String result = bundle.getString(CodeUtils.RESULT_STRING);
+                    Toast.makeText(ChatActivity.this, "解析结果:" + result, Toast.LENGTH_LONG).show();
+                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                    Toast.makeText(ChatActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
 }

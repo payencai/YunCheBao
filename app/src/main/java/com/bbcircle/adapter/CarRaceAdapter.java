@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.baidu.platform.comapi.map.I;
+
 import com.bbcircle.data.CarFriend;
 import com.bbcircle.data.CarRace;
 import com.bbcircle.data.CarShow;

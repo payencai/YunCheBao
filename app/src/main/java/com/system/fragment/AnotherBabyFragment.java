@@ -2,17 +2,26 @@ package com.system.fragment;
 
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
 import com.application.MyApplication;
 import com.example.yunchebao.R;
+import com.newversion.FriendCircleActivity;
+import com.newversion.MyTagsActivity;
 import com.newversion.NewCarFriendActivity;
 import com.newversion.NewContactsActivity;
 import com.newversion.NewSelfDrvingActivity;
+import com.rongcloud.activity.AddFriendActivity;
+import com.rongcloud.activity.CreateGroupActivity;
+import com.rongcloud.activity.stranger.SaomaActivity;
+import com.rongcloud.activity.stranger.StrangerMsgActivity;
 import com.vipcenter.RegisterActivity;
 import com.vipcenter.UserCenterActivity;
 
@@ -33,29 +42,29 @@ public class AnotherBabyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_another_baby, container, false);
-        ButterKnife.bind(this,view);
+        View view = inflater.inflate(R.layout.fragment_another_baby, container, false);
+        ButterKnife.bind(this, view);
 
         view.findViewById(R.id.ll_item1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 if(MyApplication.isLogin){
-                     Intent intent=new Intent(getContext(), NewContactsActivity.class);
-                     intent.putExtra("type",1);
-                     startActivity(intent);
-                 }else{
-                     startActivity(new Intent(getContext(), RegisterActivity.class));
-                 }
+                if (MyApplication.isLogin) {
+                    Intent intent = new Intent(getContext(), NewContactsActivity.class);
+                    intent.putExtra("type", 1);
+                    startActivity(intent);
+                } else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
             }
         });
         view.findViewById(R.id.ll_item2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(MyApplication.isLogin){
-                    Intent intent=new Intent(getContext(), NewContactsActivity.class);
-                    intent.putExtra("type",2);
+                if (MyApplication.isLogin) {
+                    Intent intent = new Intent(getContext(), NewContactsActivity.class);
+                    intent.putExtra("type", 2);
                     startActivity(intent);
-                }else{
+                } else {
                     startActivity(new Intent(getContext(), RegisterActivity.class));
                 }
             }
@@ -63,17 +72,18 @@ public class AnotherBabyFragment extends Fragment {
         view.findViewById(R.id.ll_item3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(getContext(), FriendCircleActivity.class));
 
             }
         });
         view.findViewById(R.id.ll_item4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(MyApplication.isLogin){
-                    Intent intent=new Intent(getContext(), NewContactsActivity.class);
-                    intent.putExtra("type",3);
+                if (MyApplication.isLogin) {
+                    Intent intent = new Intent(getContext(), NewContactsActivity.class);
+                    intent.putExtra("type", 3);
                     startActivity(intent);
-                }else{
+                } else {
                     startActivity(new Intent(getContext(), RegisterActivity.class));
                 }
             }
@@ -81,15 +91,14 @@ public class AnotherBabyFragment extends Fragment {
         view.findViewById(R.id.ll_item5).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (MyApplication.isLogin)
+                    startActivity(new Intent(getContext(), MyTagsActivity.class));
+                else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
             }
         });
-        view.findViewById(R.id.ll_item6).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
         view.findViewById(R.id.ll_item7).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,13 +111,22 @@ public class AnotherBabyFragment extends Fragment {
                 startActivity(new Intent(getContext(), NewCarFriendActivity.class));
             }
         });
-
+        view.findViewById(R.id.rl_stranger).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MyApplication.isLogin)
+                    startActivity(new Intent(getContext(), StrangerMsgActivity.class));
+                else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
+            }
+        });
         view.findViewById(R.id.user_center_icon).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(MyApplication.isLogin){
+                if (MyApplication.isLogin) {
                     startActivity(new Intent(getContext(), UserCenterActivity.class));
-                }else{
+                } else {
                     startActivity(new Intent(getContext(), RegisterActivity.class));
                 }
             }
@@ -116,10 +134,64 @@ public class AnotherBabyFragment extends Fragment {
         view.findViewById(R.id.messenger_icon).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                initWindow(v);
             }
         });
         return view;
     }
 
+    private void initWindow(View view) {
+        PopupWindow popupWindow = new PopupWindow(getContext());
+        popupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        View v = LayoutInflater.from(getContext()).inflate(R.layout.dialog_four_menu, null);
+        LinearLayout ll_friends = (LinearLayout) v.findViewById(R.id.ll_friends);
+        LinearLayout ll_group = (LinearLayout) v.findViewById(R.id.ll_group);
+        LinearLayout ll_shaoma = (LinearLayout) v.findViewById(R.id.ll_shaoma);
+        LinearLayout ll_qrcode = (LinearLayout) v.findViewById(R.id.ll_qrcode);
+        ll_friends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MyApplication.isLogin)
+                    startActivity(new Intent(getContext(), AddFriendActivity.class));
+                else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
+            }
+        });
+        ll_group.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MyApplication.isLogin)
+                    startActivity(new Intent(getContext(), CreateGroupActivity.class));
+                else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
+            }
+        });
+        ll_shaoma.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(getContext(), SaomaActivity.class), 1);
+            }
+        });
+        ll_qrcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MyApplication.isLogin) {
+                    //startActivity(new Intent(getContext(), CreateGroupActivity.class));}
+                } else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
+            }
+        });
+
+        popupWindow.setContentView(v);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        popupWindow.setOutsideTouchable(false);
+        popupWindow.setFocusable(true);
+        popupWindow.showAsDropDown(view);
+
+
+    }
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mcxtzhang.swipemenulib.SwipeMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:padding="15dp"
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.payencai.library.view.CircleImageView
+            android:id="@+id/head"
+            android:scaleType="fitXY"
+            android:src="@mipmap/notlogin_head"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:id="@+id/tv_name"
+            android:textSize="15sp"
+            android:textColor="@color/black_33"
+            android:text="哈哈哈标签（2）"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:background="@color/color_red"
+        android:text="删除"
+        android:textColor="@android:color/white"/>
+</com.mcxtzhang.swipemenulib.SwipeMenuLayout>

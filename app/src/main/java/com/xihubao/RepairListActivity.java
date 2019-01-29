@@ -14,7 +14,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 import com.application.MyApplication;
-import com.baidu.platform.comapi.map.J;
+
 import com.baiiu.filter.DropDownMenu;
 import com.baiiu.filter.interfaces.OnFilterDoneListener;
 import com.costans.PlatformContans;

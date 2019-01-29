@@ -44,11 +44,12 @@ import io.rong.imkit.RongIM;
 
 public class GroupManageActivity extends AppCompatActivity {
     Group mGroupUser;
-    private List<ContactModel> mContactModels;
+
     private List<ContactModel> mShowModels;
     private RecyclerView mRecyclerView;
     private WaveSideBarView mWaveSideBarView;
     private EditText mSearchEditText;
+    private List<ContactModel> mContactModels;
     private ContactsAdapter mAdapter;
     List<String> userid = new ArrayList<>();
     @BindView(R.id.back)

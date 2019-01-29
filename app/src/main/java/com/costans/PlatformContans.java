@@ -45,7 +45,13 @@ public class PlatformContans {
     }
     public static class Shop{
         public static final String getMerchantById=root+ "/merchant/getMerchantById" ;
-
+    }
+    public static class Label{
+        public static final String addLabel=root+ "/label/addLabel" ;
+        public static final String getLabelList=root+ "/label/getLabelList" ;
+        public static final String deleteLabel=root+ "/label/deleteLabel" ;
+        public static final String update=root+ "/label/update" ;
+        public static final String updateLabel=root+ "/label/updateLabel" ;
 
     }
     public static class Gift{

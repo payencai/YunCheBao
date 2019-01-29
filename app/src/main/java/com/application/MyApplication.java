@@ -5,13 +5,12 @@ import android.app.Application;
 import android.content.Context;
 
 import com.amap.api.location.AMapLocation;
-import com.chat.helper.DemoHelper;
+
 import com.entity.PhoneUserEntity;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.http.HttpProxy;
 import com.http.processor.OkHttpProcessor;
-import com.hyphenate.chat.EMOptions;
-import com.hyphenate.easeui.EaseUI;
+
 import com.nohttp.Logger;
 import com.nohttp.NoHttp;
 import com.rongcloud.adapter.ListDataSave;
@@ -19,6 +18,7 @@ import com.rongcloud.sidebar.ContactModel;
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.tencent.tauth.Tencent;
 import com.tool.ExceptionHandler;
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.vipcenter.model.UserInfo;
 
 
@@ -108,14 +108,12 @@ public class MyApplication extends Application {
         //初始化Fresco
         initFresco();
         //初始化EaseUI
-        initEaseUI();
+
         HttpProxy.init(new OkHttpProcessor());
-
+        ZXingLibrary.initDisplayOpinion(this);
     }
 
-    private void initEaseUI() {
-        DemoHelper.getInstance().init(context);
-    }
+
 
 
     private void initCrashHandler() { // 系统崩溃处理

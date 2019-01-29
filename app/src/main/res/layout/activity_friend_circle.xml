@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.tool.listview.PersonalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/sv_shop"
+    tools:context="com.newversion.FriendCircleActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:background="@mipmap/bg_cirlce"
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+            <ImageView
+                android:id="@+id/back"
+                android:layout_margin="15dp"
+                android:src="@mipmap/white_back"
+                android:layout_width="20dp"
+                android:layout_height="18dp" />
+            <ImageView
+                android:id="@+id/tv_pub"
+                android:layout_alignParentRight="true"
+                android:layout_margin="15dp"
+                android:src="@mipmap/camera_icon"
+                android:layout_width="20dp"
+                android:layout_height="18dp" />
+            <com.payencai.library.view.CircleImageView
+                android:id="@+id/iv_head"
+                android:layout_margin="15dp"
+                android:layout_alignParentBottom="true"
+                android:src="@mipmap/notlogin_head"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+        </RelativeLayout>
+        <com.tool.listview.PersonalListView
+            android:id="@+id/lv_shop"
+            android:divider="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></com.tool.listview.PersonalListView>
+    </LinearLayout>
+
+</com.tool.listview.PersonalScrollView>

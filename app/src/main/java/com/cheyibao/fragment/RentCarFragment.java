@@ -57,7 +57,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.hyphenate.easeui.model.EaseDefaultEmojiconDatas.getData;
 
 /**
  * Created by sdhcjhss on 2017/12/9.
