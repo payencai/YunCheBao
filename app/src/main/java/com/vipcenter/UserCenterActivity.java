@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 
+import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.http.HttpProxy;
@@ -25,7 +26,9 @@ import com.maket.ShopCartActivity;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.order.NewPublishActivity;
 import com.order.ServiceCarActivity;
+import com.payencai.library.util.ToastUtil;
 import com.payencai.library.view.CircleImageView;
+import com.system.MainActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.vipcenter.model.UserInfo;
@@ -37,6 +40,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import butterknife.OnClick;
+import io.rong.callkit.util.SPUtils;
 import io.rong.imlib.RongIMClient;
 
 /**
@@ -50,6 +54,8 @@ public class UserCenterActivity extends NoHttpBaseActivity {
     TextView infoText;
     @BindView(R.id.headIcon)
     CircleImageView headIcon;
+    @BindView(R.id.tv_exit)
+    SuperTextView tv_exit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,9 +157,16 @@ public class UserCenterActivity extends NoHttpBaseActivity {
 
     }
 
-    @OnClick({R.id.back, R.id.headIcon, R.id.rl_mypublish,R.id.signIn, R.id.shopCart, R.id.message, R.id.middleMenu1, R.id.middleMenu2, R.id.middleMenu3, R.id.lay1, R.id.lay2, R.id.lay3, R.id.lay4, R.id.lay5, R.id.lay6, R.id.lay7, R.id.lay8, R.id.lay9, R.id.lay10, R.id.lay11})
+    @OnClick({R.id.back, R.id.tv_exit,R.id.headIcon, R.id.rl_mypublish,R.id.signIn, R.id.shopCart, R.id.message, R.id.middleMenu1, R.id.middleMenu2, R.id.middleMenu3, R.id.lay1, R.id.lay2, R.id.lay3, R.id.lay4, R.id.lay5, R.id.lay6, R.id.lay7, R.id.lay8, R.id.lay9, R.id.lay10, R.id.lay11})
     public void Onclick(View v) {
         switch (v.getId()) {
+            case R.id.tv_exit:
+                MyApplication.isLogin=false;
+                MyApplication.setUserInfo(null);
+                SPUtils.put(UserCenterActivity.this, "phone", "");
+                ToastUtil.showToast(this,"已退出");
+                finish();
+                break;
             case R.id.rl_mypublish:
                 startActivity(new Intent(UserCenterActivity.this, NewPublishActivity.class));
                 break;

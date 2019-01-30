@@ -28,6 +28,8 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:inputType="phone"
+                android:id="@+id/et_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -54,6 +56,7 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/et_brand"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -80,6 +83,7 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/et_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -106,6 +110,7 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/et_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -131,6 +136,7 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/et_des"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -144,6 +150,7 @@
         </LinearLayout>
 
         <com.coorchice.library.SuperTextView
+            android:id="@+id/tv_pub"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="22dp"

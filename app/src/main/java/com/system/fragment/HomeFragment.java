@@ -600,10 +600,14 @@ public class HomeFragment extends BaseFragment {
                 //ActivityAnimationUtils.commonTransition(getActivity(), MessageMainActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay1://洗车店
-                ActivityAnimationUtils.commonTransition(getActivity(), WashCarListActivity.class, ActivityConstans.Animation.FADE);
+                Bundle bundle=new Bundle();
+                bundle.putInt("type",1);
+                ActivityAnimationUtils.commonTransition(getActivity(), WashCarListActivity.class, ActivityConstans.Animation.FADE,bundle);
                 break;
             case R.id.menuLay2://修理店
-                ActivityAnimationUtils.commonTransition(getActivity(), RepairListActivity.class, ActivityConstans.Animation.FADE);
+                Bundle bundle2=new Bundle();
+                bundle2.putInt("type",2);
+                ActivityAnimationUtils.commonTransition(getActivity(), WashCarListActivity.class, ActivityConstans.Animation.FADE,bundle2);
                 break;
             case R.id.menuLay3://4S店
                 ActivityAnimationUtils.commonTransition(getActivity(), Shop4SInfoActivity.class, ActivityConstans.Animation.FADE);

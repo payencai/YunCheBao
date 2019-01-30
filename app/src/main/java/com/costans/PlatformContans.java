@@ -224,24 +224,21 @@ public class PlatformContans {
         public static final String getUserComment=root+ "/evaluation/getMerchantEvaluationByUser";
         public static final String getDrivingSchoolPhoto=root+"/drivingschool/getDrivingSchoolPhoto";
     }
+    public static  class Appointment{
+        public static final String addNewCarAppointment=root+ "/appointment/addNewCarAppointment";
+        public static final String addOldCarAppointment=root+ "/appointment/addOldCarAppointment";
+        public static final String addRoadRescueAppointment=root+ "/appointment/addRoadRescueAppointment";
+    }
 
 
     public static class LoginContacts {
         public static final String FILENAME = "fckg";
-        public static String NOT_FIRST_ENTER = "NOT_FIRST_ENTER";
         public static String IS_AUTO_LOGIN = "isAutoLogin";
         public static String IS_REM_PASSWORD = "ispassword";
         public static String IS_REM_USERNAME = "isuserinfo";
         public static String PASSWORD = "password";
         public static String USERNAME = "username";
-        public static Double lat = null;
-        public static Double lng = null;
         public static String BOOK_TYPE_ID = "BOOK_TYPE_ID";
-        public static int BOOK_TYPE_WASH_ID = 1;
-        public static int BOOK_TYPE_REPAIR_ID = 2;
-        public static int BOOK_TYPE_NEW_ID = 3;
-        public static int BOOK_TYPE_OLD_ID = 4;
-
 
     }
 

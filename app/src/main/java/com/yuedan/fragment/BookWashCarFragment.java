@@ -232,6 +232,7 @@ public class BookWashCarFragment extends BaseFragment {
             public void OnSuccess(String result) {
                 dialog.dismiss();
                 Toast.makeText(getContext(),"发布成功",Toast.LENGTH_LONG).show();
+
                 Log.e("result",result);
             }
 

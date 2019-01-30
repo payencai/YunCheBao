@@ -675,6 +675,7 @@
             </LinearLayout>
 
             <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_exit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
