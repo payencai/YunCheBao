@@ -128,6 +128,9 @@
 
                     <android.support.design.widget.TabLayout
                         android:id="@+id/tab_school"
+                        app:tabGravity="center"
+                        app:tabPaddingStart="20dp"
+                        app:tabPaddingEnd="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:tabBackground="@color/white"
@@ -162,6 +165,9 @@
 
                     <android.support.design.widget.TabLayout
                         android:id="@+id/tab_comment"
+                        app:tabGravity="center"
+                        app:tabPaddingStart="20dp"
+                        app:tabPaddingEnd="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:tabBackground="@color/white"

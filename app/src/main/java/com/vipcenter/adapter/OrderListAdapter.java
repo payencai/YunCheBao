@@ -94,6 +94,8 @@ public class OrderListAdapter extends BaseAdapter {
         } else {
             vh = (viewHolder) convertView.getTag();
         }
+        vh.totalNum.setText("共"+list.get(position).getNumber()+"件商品  需付款：");
+        vh.totalPrice.setText("￥"+list.get(position).getTotal());
         vh.shopName.setText(list.get(position).getShopName());
         //  vh.orderStatus.setText(StatusTools.getOrderStatusName(entity.getStatus()));
         vh.root.setOnClickListener(new View.OnClickListener() {

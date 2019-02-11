@@ -293,7 +293,11 @@ public class MallFragment extends BaseFragment {
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.user_center_icon:
-                ActivityAnimationUtils.commonTransition(getActivity(), UserCenterActivity.class, ActivityConstans.Animation.FADE);
+                if(MyApplication.isLogin)
+                   ActivityAnimationUtils.commonTransition(getActivity(), UserCenterActivity.class, ActivityConstans.Animation.FADE);
+                else{
+                    startActivity(new Intent(getContext(),RegisterActivity.class));
+                }
                 break;
             case R.id.shop_cart_icon:
                 if(MyApplication.isIsLogin())

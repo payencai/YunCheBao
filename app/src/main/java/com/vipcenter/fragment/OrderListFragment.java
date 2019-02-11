@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.application.MyApplication;
+import com.bbcircle.DriverFriendsDetailActivity;
 import com.costans.PlatformContans;
 import com.entity.PhoneOrderEntity;
 import com.example.yunchebao.R;
@@ -41,6 +42,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import io.rong.imkit.RongIM;
 
 
 public class OrderListFragment extends BaseFragment implements OnClickListener {
@@ -198,6 +200,8 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
                 // ActivityAnimationUtils.commonTransition(getActivity(), OrderDetailActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case 1://联系
+                String userId = list.get(location).getUserId();
+                RongIM.getInstance().startPrivateChat(getContext(),userId, list.get(location).getShopName());
                 //ActivityAnimationUtils.commonTransition(getActivity(), OrderChatDetailActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case 2://取消
@@ -235,7 +239,6 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
                 break;
         }
     }
-
 
 
     /**

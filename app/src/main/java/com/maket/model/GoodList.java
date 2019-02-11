@@ -111,7 +111,7 @@ public class GoodList implements Serializable{
         return discountPrice;
     }
 
-    public void setDiscountPrice(int discountPrice) {
+    public void setDiscountPrice(double discountPrice) {
         this.discountPrice = discountPrice;
     }
 
@@ -159,7 +159,7 @@ public class GoodList implements Serializable{
         return originalPrice;
     }
 
-    public void setOriginalPrice(int originalPrice) {
+    public void setOriginalPrice(double originalPrice) {
         this.originalPrice = originalPrice;
     }
 

@@ -70,17 +70,17 @@ public class AllCollectionActivity extends NoHttpFragmentBaseActivity  {
 
     private void initFragmentList() {
         mTitleList.add("洗护宝");
-       // mTitleList.add("二手车");
+        mTitleList.add("二手车");
         mTitleList.add("帖子");
-//        mTitleList.add("商品");
-//        mTitleList.add("驾校汇");
+        mTitleList.add("商品");
+        mTitleList.add("驾校汇");
 //        mTitleList.add("新车整车");
 //        mTitleList.add("店铺");
         mFragments.add(new WashCollectFragment());
-       // mFragments.add(new OldCarFragment());
+        mFragments.add(new OldCarFragment());
         mFragments.add(new ArticleFragment());
-//        mFragments.add(new GoodsCollectFragment());
-//        mFragments.add(new StudyListFragment());
+        mFragments.add(new GoodsCollectFragment());
+        mFragments.add(new StudyListFragment());
 //        mFragments.add(new NewCarFragment());
 //        mFragments.add(new ShopCollectListFragment());
     }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/img"
+        android:layout_width="120dp"
+        android:layout_height="85dp"
+       android:src="@mipmap/car_icon"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="别克昂科威 2017款 20T 四驱豪华型"
+            android:textSize="14sp"
+            android:textColor="@color/black_33"/>
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_name2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="14sp"
+            android:textColor="@color/black_33"/>
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/item2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2016年/1.0万公里  淄博  商家"
+            android:textColor="@color/gray_99"
+            android:layout_marginTop="6dp"
+            android:textSize="10sp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/yellow_77"
+                android:text="低至18.20万"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

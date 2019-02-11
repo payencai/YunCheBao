@@ -59,6 +59,8 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
     OldCar mOldCar;
     @BindView(R.id.slideshowView)
     Banner banner;
+    @BindView(R.id.collectBtn)
+    ImageView collectIcon;
     @BindView(R.id.tv_name)
     TextView tv_name;
     @BindView(R.id.tv_oldprice)
@@ -120,8 +122,7 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
         }
         setContentView(R.layout.oldcar_detail_layout);
         initView();
-        getParams();
-        getShop();
+
     }
 
     private void getParams() {
@@ -163,7 +164,9 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
             }
         });
     }
+
     Merchant merchant;
+
     private void getShop() {
         Map<String, Object> params = new HashMap<>();
         params.put("merchantId", mOldCar.getMerchantId());
@@ -173,7 +176,7 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject data = jsonObject.getJSONObject("data");
-                     merchant = new Gson().fromJson(data.toString(), Merchant.class);
+                    merchant = new Gson().fromJson(data.toString(), Merchant.class);
                     tv_address.setText(merchant.getProvince() + merchant.getCity() + merchant.getDistrict() + merchant.getAddress());
                     tv_grade.setText(merchant.getGrade() + "");
                     tv_shopname.setText(merchant.getName());
@@ -189,10 +192,7 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
         });
     }
 
-    private void initView() {
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "车辆详情");
-        ButterKnife.bind(this);
-        //网络地址获取轮播图
+    private void setData(OldCar mOldCar) {
         if (!TextUtils.isEmpty(mOldCar.getCarCategoryDetail().getBanner1()) && !"null".equals(mOldCar.getCarCategoryDetail().getBanner1()))
             images.add(mOldCar.getCarCategoryDetail().getBanner1());
         if (!TextUtils.isEmpty(mOldCar.getCarCategoryDetail().getBanner2()) && !"null".equals(mOldCar.getCarCategoryDetail().getBanner2()))
@@ -209,33 +209,6 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
         if (!TextUtils.isEmpty(mOldCar.getThirdName()) && !"null".equals(mOldCar.getThirdName())) {
             name = name + mOldCar.getThirdName();
         }
-        tv_seecomment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(OldCarDetailActivity.this, OldCarCommentActivity.class);
-                intent.putExtra("id", mOldCar.getMerchantId());
-                startActivity(intent);
-            }
-        });
-        tv_sale.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(OldCarDetailActivity.this, OldCarShopActivity.class);
-                intent.putExtra("flag", 1);
-                intent.putExtra("id", mOldCar.getMerchantId());
-                startActivity(intent);
-            }
-        });
-        tv_comment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(OldCarDetailActivity.this, OldCarShopActivity.class);
-                intent.putExtra("flag", 2);
-                intent.putExtra("id", mOldCar.getMerchantId());
-                startActivity(intent);
-            }
-        });
-        // tv_shopname.setText(mOldCar.get);
         tv_name.setText(name);
         tv_nickname.setText(mOldCar.getLinkman());
         tv_content.setText("车辆描述: " + mOldCar.getCarCategoryDetail().getRemark());
@@ -265,6 +238,67 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
         lv_photo.setAdapter(mOldCarImageAdapter);
         banner.setFocusableInTouchMode(true);
         banner.requestFocus();
+        isCollect();
+        getParams();
+        getShop();
+    }
+
+    private void getDetail() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", mOldCar.getId());
+        HttpProxy.obtain().get(PlatformContans.OldCar.getOldCarMerchantCarById, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    OldCar oldCar = new Gson().fromJson(data.toString(), OldCar.class);
+                    setData(oldCar);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    private void initView() {
+        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "车辆详情");
+        ButterKnife.bind(this);
+        //网络地址获取轮播图
+
+        getDetail();
+        tv_seecomment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OldCarDetailActivity.this, OldCarCommentActivity.class);
+                intent.putExtra("id", mOldCar.getMerchantId());
+                startActivity(intent);
+            }
+        });
+        tv_sale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OldCarDetailActivity.this, OldCarShopActivity.class);
+                intent.putExtra("flag", 1);
+                intent.putExtra("id", mOldCar.getMerchantId());
+                startActivity(intent);
+            }
+        });
+        tv_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OldCarDetailActivity.this, OldCarShopActivity.class);
+                intent.putExtra("flag", 2);
+                intent.putExtra("id", mOldCar.getMerchantId());
+                startActivity(intent);
+            }
+        });
+        // tv_shopname.setText(mOldCar.get);
 
 
     }
@@ -307,9 +341,19 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
         banner.start();
     }
 
-    @OnClick({R.id.back, R.id.toDetailConfig, R.id.askLowPriceBtn, R.id.callForMoreBtn})
+    @OnClick({R.id.back, R.id.collectBtn, R.id.toDetailConfig, R.id.askLowPriceBtn, R.id.callForMoreBtn})
     public void OnClick(View v) {
         switch (v.getId()) {
+            case R.id.collectBtn:
+                if (isCollect == 0) {
+                    isCollect = 1;
+                    collectIcon.setImageResource(R.mipmap.collect_yellow);
+                } else if (isCollect == 1) {
+                    isCollect = 0;
+                    collectIcon.setImageResource(R.mipmap.collect_gray_hole);
+                }
+                collect();
+                break;
             case R.id.back:
                 onBackPressed();
                 break;
@@ -323,14 +367,14 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
 //                ActivityAnimationUtils.commonTransition(OldCarDetailActivity.this, SellerDetailActivity.class, ActivityConstans.Animation.FADE);
 //                break;
             case R.id.askLowPriceBtn:
-                if(MyApplication.isLogin){
-                    if(mOldCar.getType()==1)
-                      postOrder();
-                    else if(mOldCar.getType()==2){
+                if (MyApplication.isLogin) {
+                    if (mOldCar.getType() == 1)
+                        postOrder();
+                    else if (mOldCar.getType() == 2) {
                         ActivityAnimationUtils.commonTransition(OldCarDetailActivity.this, AskLowPriceActivity.class, ActivityConstans.Animation.FADE);
                     }
-                }else{
-                    startActivity(new Intent(OldCarDetailActivity.this,RegisterActivity.class));
+                } else {
+                    startActivity(new Intent(OldCarDetailActivity.this, RegisterActivity.class));
                 }
 
                 break;
@@ -339,24 +383,97 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
                 break;
         }
     }
-    private void postOrder(){
-        Map<String,Object> params=new HashMap<>();
-        params.put("commodityId",mOldCar.getId());
-        params.put("shopId",merchant.getId());
-        params.put("shopName",merchant.getName());
-        params.put("title",merchant.getName());
-        params.put("image",mOldCar.getCarImage());
-        params.put("number",1);
-        params.put("type",2);
-        params.put("telephone",mOldCar.getLinkmanTelephone());
-        params.put("seat",mOldCar.getCarCategoryDetail().getSeat());
-        params.put("carCategory",mOldCar.getCarCategoryDetail().getModels());
+
+
+    int isCollect = -1;
+
+    public void isCollect() {
+        Map<String, Object> params = new HashMap<>();
+        String token = "";
+        if (MyApplication.isLogin) {
+            token = MyApplication.getUserInfo().getId();
+        }
+        params.put("userId", token);
+        params.put("oldCarMerchantCarId", mOldCar.getId());
+        HttpProxy.obtain().get(PlatformContans.Collect.getOldCarCollection, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int data = jsonObject.getInt("data");
+                    if (data == 0) {
+                        isCollect = 0;
+                        collectIcon.setImageResource(R.mipmap.collect_gray_hole);
+                    } else if (data == 1) {
+                        isCollect = 1;
+                        collectIcon.setImageResource(R.mipmap.collect_yellow);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    public void collect() {
+        Map<String, Object> params = new HashMap<>();
+        String token = "";
+        if (MyApplication.isLogin) {
+            token = MyApplication.getUserInfo().getToken();
+        }
+        params.put("carImage", mOldCar.getCarImage());
+        params.put("carPrice", mOldCar.getNewPrice());
+        params.put("firstName", mOldCar.getFirstName());
+        params.put("secondName", mOldCar.getSecondName());
+        params.put("thirdName", mOldCar.getThirdName());
+        params.put("oldCarMerchantCarId", mOldCar.getId());
+        params.put("type", mOldCar.getType());
+        String json = new Gson().toJson(params);
+        HttpProxy.obtain().post(PlatformContans.Collect.addOldCarCollection, token, json, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+
+    private void postOrder() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("commodityId", mOldCar.getId());
+        params.put("shopId", merchant.getId());
+        params.put("shopName", merchant.getName());
+        params.put("title", merchant.getName());
+        params.put("image", mOldCar.getCarImage());
+        params.put("number", 1);
+        params.put("type", 2);
+        params.put("telephone", mOldCar.getLinkmanTelephone());
+        params.put("seat", mOldCar.getCarCategoryDetail().getSeat());
+        params.put("carCategory", mOldCar.getCarCategoryDetail().getModels());
         HttpProxy.obtain().post(PlatformContans.CarOrder.addCarOrder, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("result",result);
+                Log.e("result", result);
                 try {
-                    JSONObject jsonObject=new JSONObject(result);
+                    JSONObject jsonObject = new JSONObject(result);
                     int code = jsonObject.getInt("resultCode");
                     if (code == 0) {
                         String orderId = jsonObject.getString("data");
@@ -364,8 +481,8 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
                         intent.putExtra("money", mOldCar.getNewPrice() + "");
                         intent.putExtra("orderid", orderId);
                         startActivity(intent);
-                    }else if(code==9999){
-                        ToastUtils.showLongToast(OldCarDetailActivity.this,"请先去实名认证");
+                    } else if (code == 9999) {
+                        ToastUtils.showLongToast(OldCarDetailActivity.this, "请先去实名认证");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

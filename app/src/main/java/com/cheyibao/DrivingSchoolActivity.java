@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.application.MyApplication;
 import com.bbcircle.fragment.CarShowFragment;
 import com.bbcircle.fragment.DriverFragment;
 import com.bbcircle.fragment.RacePublishFragment;
@@ -33,9 +34,11 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+import com.maket.GoodDetailActivity;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.system.WebviewActivity;
 import com.tool.ActivityConstans;
+import com.tool.TabUtils;
 import com.tool.UIControlUtils;
 import com.tool.adapter.CommentPagerAdapter;
 import com.tool.adapter.MyFragmentPagerAdapter;
@@ -99,6 +102,7 @@ public class DrivingSchoolActivity extends AppCompatActivity {
         setContentView(R.layout.driving_school_detail);
         ButterKnife.bind(this);
         initView();
+        banner.setFocusable(true);
         initTab();
         getBanner();
     }
@@ -154,35 +158,7 @@ public class DrivingSchoolActivity extends AppCompatActivity {
     public DrvingSchool getDrvingSchool() {
         return mDrvingSchool;
     }
-    public void setIndicator(TabLayout tabs, int leftDip, int rightDip) {
-        Class<?> tabLayout = tabs.getClass();
-        Field tabStrip = null;
-        try {
-            tabStrip = tabLayout.getDeclaredField("mTabStrip");
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
-        tabStrip.setAccessible(true);
-        LinearLayout llTab = null;
-        try {
-            llTab = (LinearLayout) tabStrip.get(tabs);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
 
-        int left = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, leftDip, Resources.getSystem().getDisplayMetrics());
-        int right = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, rightDip, Resources.getSystem().getDisplayMetrics());
-
-        for (int i = 0; i < llTab.getChildCount(); i++) {
-            View child = llTab.getChildAt(i);
-            child.setPadding(0, 0, 0, 0);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1);
-            params.leftMargin = left;
-            params.rightMargin = right;
-            child.setLayoutParams(params);
-            child.invalidate();
-        }
-    }
 
     private void initTab(){
         // mTitleList.add("热帖");
@@ -194,85 +170,25 @@ public class DrivingSchoolActivity extends AppCompatActivity {
         mBottomTitles.add("教练评论");
         mBottomFragments.add(new SchoolCommentFragment());
         mBottomFragments.add(new CoashCommentFragment());
-        tab_comment.setTabMode(TabLayout.MODE_FIXED);
-        tab_comment.setupWithViewPager(vp_comment);
-        tab_school.setTabMode(TabLayout.MODE_FIXED);
-        tab_school.setupWithViewPager(vp_school);
-
         MyFragmentPagerAdapter schoolAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), mTopFragments, mTopTitles);
-        vp_school.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-//                if (position == 0) {
-//                    vp_school.resetHeight(0);
-//                } else if (position == 1) {
-//                    vp_school.resetHeight(1);
-//                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        vp_school.setAdapter(schoolAdapter);
-        vp_school.setOffscreenPageLimit(1);
-        schoolAdapter.notifyDataSetChanged();
-
         CommentPagerAdapter commentAdapter = new CommentPagerAdapter(getSupportFragmentManager(), mBottomFragments, mBottomTitles);
         vp_comment.setAdapter(commentAdapter);
-        vp_comment.setOffscreenPageLimit(1);
-        vp_comment.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-//                if (position == 0) {
-//                    vp_comment.resetHeight(0);
-//                } else if (position == 1) {
-//                    vp_comment.resetHeight(1);
-//                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        commentAdapter.notifyDataSetChanged();
-        tab_school.post(new Runnable() {
-            @Override
-            public void run() {
-                setIndicator(tab_school, 40, 40);
-            }
-        });
-        tab_comment.post(new Runnable() {
-            @Override
-            public void run() {
-                setIndicator(tab_comment, 40, 40);
-            }
-        });
-
-
+        vp_school.setAdapter(schoolAdapter);
+        tab_comment.setupWithViewPager(vp_comment);
+        tab_school.setupWithViewPager(vp_school);
+        TabUtils.setWidth(tab_comment);
+        TabUtils.setWidth(tab_school);
     }
     private void initView() {
 
         ctx = this;
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW,"驾校详情");
-        findViewById(R.id.shareBtn).setVisibility(View.VISIBLE);
+        findViewById(R.id.shareBtn).setVisibility(View.GONE);
         tv_name.setText(mDrvingSchool.getName());
         tv_address.setText(mDrvingSchool.getAddress());
         tv_score.setText(mDrvingSchool.getScore()+"分");
         sr_score.setRating((float) mDrvingSchool.getScore());
-
+        isCollect();
     }
 
     @OnClick({R.id.back,R.id.collectBtn})
@@ -282,14 +198,80 @@ public class DrivingSchoolActivity extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.collectBtn:
-                if (isCollected){
-                    isCollected = false;
+                if (isCollect==0){
+                    isCollect=1;
                     collectIcon.setImageResource(R.mipmap.collect_yellow);
-                }else{
-                    isCollected = true;
+                }else if(isCollect==1){
+                    isCollect=0;
                     collectIcon.setImageResource(R.mipmap.collect_gray_hole);
                 }
+                collect();
                 break;
         }
     }
+
+    int isCollect = -1;
+
+    public void isCollect() {
+        Map<String, Object> params = new HashMap<>();
+        String token = "";
+        if (MyApplication.isLogin) {
+            token = MyApplication.getUserInfo().getId();
+        }
+        params.put("userId", token);
+        params.put("merchantId", mDrvingSchool.getId());
+        HttpProxy.obtain().get(PlatformContans.Collect.getDrivingSchoolCollection, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int data = jsonObject.getInt("data");
+                    if (data==0) {
+                        isCollect = 0;
+                        collectIcon.setImageResource(R.mipmap.collect_gray_hole);
+                    } else if(data==1){
+                        isCollect = 1;
+                        collectIcon.setImageResource(R.mipmap.collect_yellow);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    public void collect() {
+        Map<String, Object> params = new HashMap<>();
+        String token = "";
+        if (MyApplication.isLogin) {
+            token = MyApplication.getUserInfo().getToken();
+        }
+        params.put("merchantId", mDrvingSchool.getId());
+        HttpProxy.obtain().post(PlatformContans.Collect.addDrivingSchoolCollection,token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
 }

@@ -27,12 +27,12 @@ public class DrivingSchoolListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return list.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return list.get(position);
     }
 
     @Override

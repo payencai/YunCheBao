@@ -127,6 +127,7 @@ public class GoodDetailFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.maket_good_detail_layout, container, false);
         ButterKnife.bind(this, rootView);
+
         init();
         return rootView;
     }
@@ -164,7 +165,7 @@ public class GoodDetailFragment extends BaseFragment {
         originalPriceText.setText("专柜价: ￥" + mGoodDetail.getOriginalPrice());
         originalPriceText.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中间横线
         tv_commentNum.setText("用户评价(" + mGoodDetail.getCommentData().getNumber() + ")");
-        tv_name.setText(mGoodDetail.getName() + mGoodDetail.getFirstName() + mGoodDetail.getSecondName());
+        tv_name.setText(mGoodDetail.getName());
         sr_score.setRating((float) mGoodDetail.getCommentData().getScore());
         tv_score.setText(mGoodDetail.getCommentData().getScore() + "分");
     }
@@ -268,6 +269,9 @@ public class GoodDetailFragment extends BaseFragment {
             }
         });
         ll_comment.setVisibility(View.GONE);
+
+
+        isCollect();
         getDetail();
         getAddress(1);
         getSizeAndColor();
@@ -610,7 +614,8 @@ public class GoodDetailFragment extends BaseFragment {
         this.listener = listener;
     }
 
-    @OnClick({R.id.commentLay, R.id.configSelectLay, R.id.addressLay, R.id.toCustomServiceBtn, R.id.toShopDetailBtn, R.id.submitBtn, R.id.ll_carshop})
+    @OnClick({R.id.commentLay, R.id.iv_heart,
+            R.id.configSelectLay, R.id.addressLay, R.id.toCustomServiceBtn, R.id.toShopDetailBtn, R.id.submitBtn, R.id.ll_carshop})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.commentLay:
@@ -620,6 +625,19 @@ public class GoodDetailFragment extends BaseFragment {
                 break;
             case R.id.configSelectLay:
                 attenConfigToast();
+                break;
+            case R.id.iv_heart:
+                if (MyApplication.isLogin) {
+                    if (isCollect == 0) {
+                        isCollect = 1;
+                        collect();
+                    } else if (isCollect == 1) {
+                        isCollect = 0;
+                        uncollect();
+                    }
+                }else{
+                    startActivity(new Intent(getContext(),RegisterActivity.class));
+                }
                 break;
             case R.id.addressLay:
                 attenAddressToast();
@@ -640,7 +658,7 @@ public class GoodDetailFragment extends BaseFragment {
                     bundle.putSerializable("detail", mGoodDetail);
                     bundle.putSerializable("count", count);
                     ActivityAnimationUtils.commonTransition(getActivity(), SinglePayActivity.class, ActivityConstans.Animation.FADE, bundle);
-                }else{
+                } else {
                     startActivity(new Intent(getContext(), RegisterActivity.class));
                 }
                 break;
@@ -649,6 +667,106 @@ public class GoodDetailFragment extends BaseFragment {
                     addToShopCar();
                 break;
         }
+    }
+
+    int isCollect = -1;
+
+    public void isCollect() {
+        Map<String, Object> params = new HashMap<>();
+        String token = "";
+        if (MyApplication.isLogin) {
+            token = MyApplication.getUserInfo().getToken();
+        }
+        GoodDetailActivity activity = (GoodDetailActivity) getActivity();
+        params.put("commodityId", activity.getGoodList().getId());
+        HttpProxy.obtain().get(PlatformContans.Collect.isCollectionByCommodityId, params, token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String data = jsonObject.getString("data");
+                    if ("0".equals(data)) {
+                        isCollect = 0;
+                        iv_heart.setImageResource(R.mipmap.white_heart_icon);
+                    } else {
+                        isCollect = 1;
+                        iv_heart.setImageResource(R.mipmap.orange_heart_icon);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+
+    public void uncollect() {
+        String token = "";
+        if (MyApplication.isLogin) {
+            token = MyApplication.getUserInfo().getToken();
+        }
+        Map<String, Object> params = new HashMap<>();
+        GoodDetailActivity activity = (GoodDetailActivity) getActivity();
+        params.put("commodityId", activity.getGoodList().getId());
+        HttpProxy.obtain().post(PlatformContans.Collect.deleteCommodityCollection, token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        iv_heart.setImageResource(R.mipmap.white_heart_icon);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    public void collect() {
+        String token = "";
+        if (MyApplication.isLogin) {
+            token = MyApplication.getUserInfo().getToken();
+        }
+        Map<String, Object> params = new HashMap<>();
+        GoodDetailActivity activity = (GoodDetailActivity) getActivity();
+        params.put("commodityId", activity.getGoodList().getId());
+        HttpProxy.obtain().post(PlatformContans.Collect.addCommodityCollection, token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        iv_heart.setImageResource(R.mipmap.orange_heart_icon);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 
 }

@@ -46,6 +46,8 @@ public class PlatformContans {
     public static class Shop{
         public static final String getMerchantById=root+ "/merchant/getMerchantById" ;
     }
+
+
     public static class Label{
         public static final String addLabel=root+ "/label/addLabel" ;
         public static final String getLabelList=root+ "/label/getLabelList" ;
@@ -124,6 +126,11 @@ public class PlatformContans {
     }
 
     public static class Collect{
+
+        public static final String addOldCarCollection=root + "/carCollection/addOldCarCollection";
+        public static final String getOldCarCollection=root + "/carCollection/getOldCarCollection";
+        public static final String getOldCarCollectionList=root + "/carCollection/getOldCarCollectionList";
+
         public static final String addCarCollection=root + "/washCollection/addWashCollection";
         public static final String isCollectionByShopId=root + "/washCollection/isCollectionByShopId";
         public static final String getWashCollectionList=root + "/washCollection/getWashCollectionList";
@@ -132,6 +139,15 @@ public class PlatformContans {
         public static final String addBabyCollection=root + "/babyCircleCollection/addBabyCollection";
         public static final String getBabyCollection=root + "/babyCircleCollection/getBabyCollection";
         public static final String getCollectionById=root + "/babyCircleCollection/getCollectionById";
+
+        public static final String addCommodityCollection=root+ "/commodityCollection/addCommodityCollection";
+        public static final String deleteCommodityCollection=root+ "/commodityCollection/deleteCommodityCollection";
+        public static final String getCommodityCollectionList=root+ "/commodityCollection/getCommodityCollectionList" ;
+        public static final String isCollectionByCommodityId=root+ "/commodityCollection/isCollectionByCommodityId" ;
+
+        public static final String addDrivingSchoolCollection=root + "/drivingSchoolCollection/addDrivingSchoolCollection";
+        public static final String getDrivingSchoolCollection=root + "/drivingSchoolCollection/getDrivingSchoolCollection";
+        public static final String getDrivingSchoolCollectionList=root + "/drivingSchoolCollection/getDrivingSchoolCollectionList";
     }
     public static class Commom{
         public static final String findCarWashRepairShopList=root+ "/carWashRepairShop/findCarWashRepairShopList";
@@ -167,7 +183,7 @@ public class PlatformContans {
         public static final String addOldCarUserCar=root+ "/oldcar/addOldCarUserCar";
         public static final String getOldCarMerchantCarByApp=root+ "/oldcar/getOldCarMerchantCarByApp";
         public static final String getOldCarMerchantCarByUser=root+ "/oldcar/getOldCarMerchantCarByUser";
-        // public static final String getWashRepairServeResultByShopId=root+ "/carWashRepairShop/getWashRepairServeResultByShopId";
+         public static final String getOldCarMerchantCarById=root+ "/oldcar/getOldCarMerchantCarById";
     }
     public static class CarOrder{
         public static final String addCarOrder=root+ "/carOrder/addCarOrder";

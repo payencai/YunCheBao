@@ -62,9 +62,10 @@ public class UserCenterActivity extends NoHttpBaseActivity {
         setContentView(R.layout.user_center_layout);
         ButterKnife.bind(this);
          //headIcon.setImageURI(Uri.parse(MyApplication.getUserInfo().getHeadPortrait()));
+        if(MyApplication.isLogin){
         Glide.with(this).load(MyApplication.getUserInfo().getHeadPortrait())
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(40)))
-                .into(headIcon);
+                .into(headIcon);}
         initLoginView();
         getUserData();
         infoText.setOnClickListener(new View.OnClickListener() {

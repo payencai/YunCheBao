@@ -1,6 +1,7 @@
 package com.cheyibao.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -79,8 +80,9 @@ public class CarRecommendListAdapter extends BaseAdapter {
             value=value+"  个人";
         }
         vh.item2.setText(value);
-        vh.tv_price.setText("低至￥"+oldCar.getNewPrice());
-        vh.tv_newprice.setText("新车含税￥"+oldCar.getOldPrice());
+        vh.tv_price.setText("低至￥"+oldCar.getOldPrice());
+        vh.tv_newprice.setText("新车含税￥"+oldCar.getNewPrice());
+        vh.tv_newprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         return convertView;
     }
 

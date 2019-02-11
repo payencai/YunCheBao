@@ -1,6 +1,8 @@
 package com.cheyibao.fragment;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -8,117 +10,145 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.application.MyApplication;
 import com.cheyibao.DrivingSchoolActivity;
 import com.cheyibao.adapter.DrivingSchoolListAdapter;
+import com.costans.PlatformContans;
 import com.entity.PhoneShopEntity;
 import com.example.yunchebao.R;
+import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.http.HttpProxy;
+import com.http.ICallBack;
+import com.maket.GoodDetailActivity;
+import com.maket.model.GoodList;
+import com.maket.model.LoadMoreListView;
 import com.nohttp.sample.BaseFragment;
+import com.system.adapter.SchoolCollectAdapter;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
+import com.vipcenter.adapter.GoodCollectAdapter;
+import com.vipcenter.model.GoodsCollect;
+import com.vipcenter.model.SchoolCollect;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class StudyListFragment extends BaseFragment implements OnClickListener{
 
-
-    private final static String TAG = "StudyListFragment";
-    ListView mListView;
-
-    PullToRefreshListView pullToRefreshListView;
-    private int typeId;//
-    private DrivingSchoolListAdapter adapter;
-    private StudyListFragment obj;
-    private View view;
-    private List<PhoneShopEntity> list = new ArrayList<>();
-
-
-    private boolean isDown = true;//true 下拉动作  false 上拉操作
-    private int pageNum = 1;//查询页
-
+    @BindView(R.id.lv_loadmore)
+    LoadMoreListView listView;
+    @BindView(R.id.srl_collect)
+    SwipeRefreshLayout srl_collect;
+    private List<SchoolCollect> list;
+    private SchoolCollectAdapter adapter;
+    int page = 1;
+    boolean isLoadMore = false;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-        view = LayoutInflater.from(getActivity()).inflate(R.layout.listview_replace, null);
-        initView();
-        return view;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.listview_loadmore, container, false);
+        ButterKnife.bind(this, rootView);
+        init();
+        return rootView;
     }
 
-    private void initView() {
-        pullToRefreshListView = (PullToRefreshListView)view.findViewById(R.id.listview);
-        mListView = pullToRefreshListView.getRefreshableView();
-        mListView.setDivider(getResources().getDrawable(R.color.gray_ee));
-        mListView.setDividerHeight(1);
-        obj = this;
-        adapter = new DrivingSchoolListAdapter(getActivity(),list);
-        mListView.setAdapter(adapter);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    private void init() {
+
+        listView.setDivider(getResources().getDrawable(R.color.gray_cc));
+        listView.setDividerHeight(1);
+        list = new ArrayList<>();
+        adapter = new SchoolCollectAdapter(getContext(), list);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ActivityAnimationUtils.commonTransition(getActivity(), DrivingSchoolActivity.class, ActivityConstans.Animation.FADE);
+                Bundle bundle=new Bundle();
+//                GoodList goodList=new GoodList();
+//                GoodsCollect goodsCollect=list.get(position);
+//                goodList.setId(goodsCollect.getCommodityId());
+//                goodList.setOriginalPrice(goodsCollect.getOriginalPrice());
+//                goodList.setDiscountPrice(goodsCollect.getDiscountPrice());
+//                goodList.setCommodityImage(goodsCollect.getCommodityImage());
+//                goodList.setName(goodsCollect.getCommodityName());
+              //  bundle.putSerializable("data",goodList);
+               // ActivityAnimationUtils.commonTransition(getActivity(), GoodDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
             }
         });
-        pullToRefreshListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);//支持下拉
-        pullToRefreshListView.setScrollingWhileRefreshingEnabled(true);//滚动的时候不加载数据
-        pullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+        listView.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
             @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                pullToRefreshListView.onRefreshComplete();
-                isDown = true;
-                pageNum = 1;
+            public void onloadMore() {
+                page++;
+                getData();
+            }
+        });
+        srl_collect.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                page=1;
+                list.clear();
+                getData();
+            }
+        });
+        getData();
 
+    }
+
+    private void getData() {
+        String token = "";
+        if (MyApplication.isLogin) {
+            token = MyApplication.getUserInfo().getToken();
+        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("page", page);
+        HttpProxy.obtain().get(PlatformContans.Collect.getDrivingSchoolCollectionList, params, token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                if(srl_collect.isRefreshing()){
+                    srl_collect.setRefreshing(false);
+                }
+                Log.e("getdata", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    jsonObject=jsonObject.getJSONObject("data");
+                    JSONArray data = jsonObject.getJSONArray("beanList");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        SchoolCollect baikeItem = new Gson().fromJson(item.toString(), SchoolCollect.class);
+                        list.add(baikeItem);
+                    }
+                    adapter.notifyDataSetChanged();
+                    //updateData();
+                    listView.setLoadCompleted();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                isDown = false;
-                pageNum++;
+            public void onFailure(String error) {
 
             }
         });
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-    }
-
-    /* 摧毁该Fragment，一般是FragmentActivity 被摧毁的时候伴随着摧毁 */
-    @Override
-    public void onDestroy() {
-        // TODO Auto-generated method stub
-        super.onDestroy();
-
     }
 
 
-
-
-    public void setPosition(int position) {
-        setTypeId(position);
-//        adapter.setTypeId(position);
-
-    }
-
-    public int getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
-    }
 
     @Override
     public void onClick(View v) {
-
-
-
 
     }
 }
