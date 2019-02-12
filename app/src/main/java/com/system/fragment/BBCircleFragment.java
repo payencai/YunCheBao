@@ -72,8 +72,8 @@ import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
  */
 
 public class BBCircleFragment extends BaseFragment {
-    private ArrayList<String> mTitleList ;
-    private ArrayList<Fragment> mFragments ;
+    private ArrayList<String> mTitleList;
+    private ArrayList<Fragment> mFragments;
     //@BindView(R.id.id_stickynavlayout_viewpager)
     ViewPager vpGank;
     //@BindView(R.id.id_stickynavlayout_indicator)
@@ -152,16 +152,16 @@ public class BBCircleFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_circle, container, false);
         ButterKnife.bind(this, rootView);
-        vpGank= (ViewPager) rootView.findViewById(R.id.id_stickynavlayout_viewpager);
-        tabGank= (TabLayout) rootView.findViewById(R.id.id_stickynavlayout_indicator);
+        vpGank = (ViewPager) rootView.findViewById(R.id.id_stickynavlayout_viewpager);
+        tabGank = (TabLayout) rootView.findViewById(R.id.id_stickynavlayout_indicator);
         getBaner();
         initFragmentList();
         return rootView;
     }
 
     private void initFragmentList() {
-        mTitleList=new ArrayList<>();
-        mFragments=new ArrayList<>();
+        mTitleList = new ArrayList<>();
+        mFragments = new ArrayList<>();
         myAdapter = new MyFragmentPagerAdapter(getChildFragmentManager(), mFragments, mTitleList);
         vpGank.setAdapter(myAdapter);
         vpGank.setOffscreenPageLimit(1);
@@ -179,7 +179,7 @@ public class BBCircleFragment extends BaseFragment {
         myAdapter.notifyDataSetChanged();
     }
 
-    @OnClick({R.id.messenger_icon, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3,R.id.user_center_icon})
+    @OnClick({R.id.messenger_icon, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.user_center_icon})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.messenger_icon:
@@ -187,7 +187,7 @@ public class BBCircleFragment extends BaseFragment {
                     startActivityForResult(new Intent(getContext(), ChatActivity.class), 1);
                     //connect(MyApplication.getUserInfo().getHxPassword());
                 } else {
-                    startActivityForResult(new Intent(getContext(), RegisterActivity.class), 2);
+                    startActivityForResult(new Intent(getContext(), RegisterActivity.class), 5);
                 }
                 //ActivityAnimationUtils.commonTransition(getActivity(), MessageMainActivity.class, ActivityConstans.Animation.FADE);
                 break;
@@ -198,25 +198,29 @@ public class BBCircleFragment extends BaseFragment {
                 if (MyApplication.isLogin)
                     ActivityAnimationUtils.commonTransition(getActivity(), AllCollectionActivity.class, ActivityConstans.Animation.FADE);
                 else
-                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                    startActivityForResult(new Intent(getContext(), RegisterActivity.class), 5);
                 break;
             case R.id.menuLay3:
                 if (MyApplication.isLogin)
                     ActivityAnimationUtils.commonTransition(getActivity(), HistoryListActivity.class, ActivityConstans.Animation.FADE);
                 else
-                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                    startActivityForResult(new Intent(getContext(), RegisterActivity.class), 5);
                 break;
             case R.id.user_center_icon:
-                if(MyApplication.isLogin)
-                    ActivityAnimationUtils.commonTransition(getActivity(), UserCenterActivity.class, ActivityConstans.Animation.FADE);
-                else{
-                    startActivity(new Intent(getContext(),RegisterActivity.class));
+                if (MyApplication.isLogin)
+                    startActivityForResult(new Intent(getContext(), UserCenterActivity.class), 5);
+                else {
+                    startActivityForResult(new Intent(getContext(), RegisterActivity.class), 5);
                 }
                 break;
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==5){
 
-
-
+        }
+    }
 }

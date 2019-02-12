@@ -200,8 +200,11 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
                 // ActivityAnimationUtils.commonTransition(getActivity(), OrderDetailActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case 1://联系
-                String userId = list.get(location).getUserId();
-                RongIM.getInstance().startPrivateChat(getContext(),userId, list.get(location).getShopName());
+                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+                intent.putExtra("data", list.get(location));
+                startActivity(intent);
+                //String userId = list.get(location).getUserId();
+                //RongIM.getInstance().startPrivateChat(getContext(),userId, list.get(location).getShopName());
                 //ActivityAnimationUtils.commonTransition(getActivity(), OrderChatDetailActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case 2://取消

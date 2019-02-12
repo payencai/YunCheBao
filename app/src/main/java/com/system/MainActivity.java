@@ -53,6 +53,12 @@ import io.rong.imkit.RongIM;
 import io.rong.imkit.model.GroupUserInfo;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Group;
+import io.rong.imlib.model.Message;
+import io.rong.imlib.model.MessageContent;
+import io.rong.message.FileMessage;
+import io.rong.message.ImageMessage;
+import io.rong.message.TextMessage;
+import io.rong.message.VoiceMessage;
 
 public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnClickListener {
 
@@ -168,6 +174,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         fragment2 = new CheyiFragment();
         if (MyApplication.isLogin && RongIM.getInstance().getConversationList() != null) {
             if (RongIM.getInstance().getConversationList().size() > 0) {
+                Log.e("conver", "size");
                 fragment3 = NewBabyFragment.newInstance();
             } else {
                 fragment3 = new AnotherBabyFragment();
@@ -246,13 +253,15 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
 
     private void hideAllFragment() {
         for (Fragment fragment : fragments) {
-            fm.beginTransaction().hide(fragment).commit();
+            fm.beginTransaction().hide(fragment).commitAllowingStateLoss();
         }
     }
 
     private void showFragment(int position) {
-        fm.beginTransaction().show(fragments.get(position)).commit();
+        fm.beginTransaction().show(fragments.get(position)).commitAllowingStateLoss();
     }
+
+    boolean isEmpty = true;
 
     @Override
     public void onClick(View view) {
@@ -278,15 +287,27 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                     if (fragment3 instanceof NewBabyFragment) {
 
                     } else {
-                        if (RongIM.getInstance().getConversationList() != null)
-                            if (isFrist) {
-                                isFrist = false;
-                                fragments.remove(2);
-                                fragment3 = NewBabyFragment.newInstance();
-                                fragments.add(2, fragment3);
-                                fm.beginTransaction().add(R.id.main_frame, fragment3).commit();
-                                //fm.beginTransaction().replace(R.id.main_frame, new NewBabyFragment()).commit();
-                            }
+
+                        if (RongIM.getInstance().getConversationList() != null) {
+                            if (RongIM.getInstance().getConversationList().size() > 0)
+                                if (isFrist) {
+                                    Log.e("conver", "conver");
+                                    fragment3 = NewBabyFragment.newInstance();
+                                    isFrist = false;
+                                    fragments.remove(2);
+                                    fragments.add(2, fragment3);
+                                    fm.beginTransaction().add(R.id.main_frame, fragment3).commit();
+                                    //fm.beginTransaction().replace(R.id.main_frame, new NewBabyFragment()).commit();
+                                }
+                        }
+                    }
+
+                } else {
+                    if (fragment3 instanceof NewBabyFragment) {
+                        fragments.remove(2);
+                        fragment3 = new AnotherBabyFragment();
+                        fragments.add(2, fragment3);
+                        fm.beginTransaction().add(R.id.main_frame, fragment3).commit();
                     }
                 }
                 showFragment(2);
@@ -416,12 +437,12 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                                                 }
                                             }, true
                 );
-                RongIM.setGroupUserInfoProvider(new RongIM.GroupUserInfoProvider() {
-                    @Override
-                    public GroupUserInfo getGroupUserInfo(String s, String s1) {
-                        return null;
-                    }
-                }, true);
+//                RongIM.setGroupUserInfoProvider(new RongIM.GroupUserInfoProvider() {
+//                    @Override
+//                    public GroupUserInfo getGroupUserInfo(String s, String s1) {
+//                        return null;
+//                    }
+//                }, true);
                 RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
                     @Override
                     public io.rong.imlib.model.UserInfo getUserInfo(String s) {
@@ -429,7 +450,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                         Log.e("data", s);
                         for (int i = 0; i < myFriends.size(); i++) {
                             MyFriend myFriend = myFriends.get(i);
-                            String myid = myFriend.getMyid();
+                            String myid = myFriend.getUserId();
                             final String name = myFriend.getName();
                             final String head = myFriend.getHeadPortrait();
                             if (s.equals(myid)) {
@@ -440,6 +461,70 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                         return null;
                     }
                 }, true);
+
+                RongIM.getInstance().setSendMessageListener(new RongIM.OnSendMessageListener() {
+                    @Override
+                    public Message onSend(Message message) {
+                        Map<String, Object> params = new HashMap<>();
+                        params.put("userId", message.getSenderUserId());
+                        params.put("nickName", MyApplication.getUserInfo().getName());
+                        params.put("avatar", MyApplication.getUserInfo().getHeadPortrait());
+                        String extra = new Gson().toJson(params);
+                        message.setExtra(extra);
+                        return message;
+                    }
+
+                    @Override
+                    public boolean onSent(Message message, RongIM.SentMessageErrorCode sentMessageErrorCode) {
+                        return false;
+                    }
+                });
+                RongIM.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
+                    @Override
+                    public boolean onReceived(Message message, int i) {
+
+                        TextMessage textMessage= (TextMessage) message.getContent();
+//                        FileMessage fileMessage= (FileMessage) message.getContent();
+//                        VoiceMessage voiceMessage= (VoiceMessage) message.getContent();
+//                        ImageMessage imageMessage= (ImageMessage) message.getContent();
+                        String extra="";
+                        if(textMessage!=null){
+                            extra=textMessage.getExtra();
+                        }
+//                        if(fileMessage!=null){
+//                            extra=fileMessage.getExtra();
+//                        }
+//                        if(imageMessage!=null){
+//                            extra=imageMessage.getExtra();
+//                        }
+//                        if(voiceMessage!=null){
+//                            extra=voiceMessage.getExtra();
+//                        }
+                        if(!TextUtils.isEmpty(extra)){
+                            try {
+
+                                JSONObject jsonObject=new JSONObject(extra);
+                                String userid=jsonObject.getString("userId");
+                                String username=jsonObject.getString("nickName");
+                                String avatar=jsonObject.getString("avatar");
+                                avatar=avatar.replaceAll( "\\\\",  "");
+                                String finalAvatar = avatar;
+                                Log.e("extra",extra);
+                                RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+                                    @Override
+                                    public io.rong.imlib.model.UserInfo getUserInfo(String s) {
+                                        io.rong.imlib.model.UserInfo userInfo=new io.rong.imlib.model.UserInfo(userid,username,Uri.parse(finalAvatar));
+                                        return userInfo;
+                                    }
+                                }, true);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        return true;
+                    }
+                });
+
 
                 //startActivity(new Intent(Re, ChatActivity.class));
                 Log.d("LoginActivity", "--onSuccess" + userid);
@@ -456,4 +541,38 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         });
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode >= 6) {
+            if (MyApplication.isLogin && fragment3 instanceof AnotherBabyFragment) {
+                if (RongIM.getInstance().getConversationList() != null) {
+                    if (RongIM.getInstance().getConversationList().size() > 0)
+                        if (isFrist) {
+                            Log.e("conver", "conver");
+                            hideAllFragment();
+                            fragment3 = NewBabyFragment.newInstance();
+                            isFrist = false;
+                            fragments.remove(2);
+                            fragments.add(2, fragment3);
+                            fm.beginTransaction().add(R.id.main_frame, fragment3).commitAllowingStateLoss();
+                            showFragment(2);
+
+                        }
+                }
+                // showFragment(2);
+
+
+            }
+            if (!MyApplication.isLogin && fragment3 instanceof NewBabyFragment) {
+                hideAllFragment();
+                fragments.remove(2);
+                fragment3 = new AnotherBabyFragment();
+                fragments.add(2, fragment3);
+                // showFragment(2);
+                fm.beginTransaction().add(R.id.main_frame, fragment3).commitAllowingStateLoss();
+                showFragment(2);
+            }
+        }
+    }
 }

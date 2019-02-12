@@ -129,7 +129,7 @@ public class FriendDetailActivity extends AppCompatActivity {
         sendmsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RongIM.getInstance().startPrivateChat(FriendDetailActivity.this, mContactModel.getId(), mContactModel.getName());
+                RongIM.getInstance().startPrivateChat(FriendDetailActivity.this, mContactModel.getUserId(), mContactModel.getName());
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
@@ -147,13 +147,13 @@ public class FriendDetailActivity extends AppCompatActivity {
         tv_video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RongCallKit.startSingleCall(FriendDetailActivity.this,  mContactModel.getId(), RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
+                RongCallKit.startSingleCall(FriendDetailActivity.this,  mContactModel.getUserId(), RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
             }
         });
         tv_voice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RongCallKit.startSingleCall(FriendDetailActivity.this,  mContactModel.getId(), RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
+                RongCallKit.startSingleCall(FriendDetailActivity.this,  mContactModel.getUserId(), RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
             }
         });
     }

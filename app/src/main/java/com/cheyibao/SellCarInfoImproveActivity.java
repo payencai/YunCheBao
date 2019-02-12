@@ -332,7 +332,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
         params.put("distance", b_dis);
         params.put("linkman", et_name.getEditableText().toString());
         params.put("linkmanTelephone", et_phone.getEditableText().toString());
-        params.put("insuranceValidTime", Integer.parseInt(time2Text.getEditableText().toString()));
+        params.put("insuranceValidTime", time2Text.getEditableText().toString());
         params.put("lastValidateCar", "2019-04-10 12:21:21");
         params.put("linkmanBuyCarInvoice", image3);
         params.put("linkmanDrivingLicense", image2);

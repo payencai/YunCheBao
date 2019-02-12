@@ -78,7 +78,7 @@ public class AddFriendDetailActivity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RongIM.getInstance().startPrivateChat(AddFriendDetailActivity.this, mFriend.getHxAccount(), mFriend.getName());
+                RongIM.getInstance().startPrivateChat(AddFriendDetailActivity.this, mFriend.getUserId(), mFriend.getName());
             }
         });
         chatname.setText(mFriend.getName());

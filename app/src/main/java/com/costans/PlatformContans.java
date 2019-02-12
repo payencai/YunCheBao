@@ -11,11 +11,7 @@ public class PlatformContans {
     public static String rootUrl = "http://192.168.3.5:8899";
     //public static String rootUrl = root + ":8899/" + rootTag;//真实部署地址
     //http://api.cn.ronghub.com/user/getToken.[format] portraitUri,name,userId.post
-    public static int ViewPagerTag = 0;//主页标签
     public static Map<String, Object> OBJECT_MAP = new HashMap<String, Object>();// 所有数据静态
-
-    public static String DataSetId = "";
-    public static String SignToken = "";
     public static boolean isLogin = false;
     public static class User{
         public static final String updateUser=root+"/user/updateUser";
@@ -85,26 +81,21 @@ public class PlatformContans {
         public static final String updateUserAddress=root+ "/userAddress/updateUserAddress";
     }
     public static class GoodsOrder{
-
         public static final String getGoodsComment=root+ "/babyMerchantOrder/getBabyMerchantCommentListByCommodityId";
         public static final String addOrder=root+ "/babyMerchantOrder/addOrder";
         public static final String addOrderByShoppingCar=root+ "/babyMerchantOrder/addOrderByShoppingCar";
         public static final String addShoppingCar=root+ "/babyMerchantOrder/addShoppingCar";
-
+        public static final String deleteShoppingCar=root+ "/babyMerchantOrder/deleteShoppingCar";
+        public static final String getShoppingCarList=root+ "/babyMerchantOrder/getShoppingCarList";
+        public static final String updateShoppingCarNumber=root+ "/babyMerchantOrder/updateShoppingCarNumber";
+        public static final String getMyOrderList=root+ "/babyMerchantOrder/getMyOrderList";
+        public static final String getBabyMerchantOrderItemByOrderId=root+ "/babyMerchantOrder/getBabyMerchantOrderItemByOrderId";
+        public static final String deliveryOrder=root+ "/babyMerchantOrder/delivery";
         public static final String addBabyMerchantComment=root+ "/babyMerchantOrder/addBabyMerchantComment";
         public static final String applyRefund=root+ "/babyMerchantOrder/applyRefund";
         public static final String deleteOrder=root+ "/babyMerchantOrder/delete";
-
-        public static final String deleteShoppingCar=root+ "/babyMerchantOrder/deleteShoppingCar";
         public static final String finishOrder=root+ "/babyMerchantOrder/finish";
-        public static final String getShoppingCarList=root+ "/babyMerchantOrder/getShoppingCarList";
-
-        public static final String updateShoppingCarNumber=root+ "/babyMerchantOrder/updateShoppingCarNumber";
-        public static final String getBabyMerchantOrderItemByOrderId=root+ "/babyMerchantOrder/getBabyMerchantOrderItemByOrderId";
-        public static final String deliveryOrder=root+ "/babyMerchantOrder/delivery";
-
-
-        public static final String getMyOrderList=root+ "/babyMerchantOrder/getMyOrderList";
+        public static final String cancelOrder=root+ "/babyMerchantOrder/cancel";
     }
     public static class BabyCircle{
         public static final String getSelfDrivingCircleList=root+ "/babyCircle/getSelfDrivingCircleList" ;
@@ -168,11 +159,13 @@ public class PlatformContans {
     public static class RoadRescue{
         public static final String getRoadRescueShopListByApp=root+ "/roadRescue/getRoadRescueShopListByApp";
     }
-
     public static class CarWashRepairShop{
         public static final String getWashRepairCommentDetailsList=root+ "/carWashRepairShop/getWashRepairCommentDetailsList";
         public static final String getCarWashRepairShopListByApp=root+ "/carWashRepairShop/getCarWashRepairShopListByApp";
         public static final String getWashRepairServeResultByShopId=root+ "/carWashRepairShop/getWashRepairServeResultByShopId";
+        public static final String addWashRepairOrder=root+ "/carWashRepairShop/addWashRepairOrder";
+        public static final String addWashRepairOrderComment=root+ "/carWashRepairShop/addWashRepairOrderComment";
+        public static final String cancelWashRepairOrder=root+ "/carWashRepairShop/cancelWashRepairOrder";
     }
     public static class CarRent{
         public static final String getRentCarPhoto=root+ "/rentcar/getRentCarPhoto";
@@ -188,8 +181,6 @@ public class PlatformContans {
     public static class CarOrder{
         public static final String addCarOrder=root+ "/carOrder/addCarOrder";
         public static final String cancelCarOrder=root+ "/carOrder/cancelCarOrder";
-        public static final String getUserCarOrder=root+ "/carOrder/getUserCarOrder";
-
     }
     public static class Pay{
         public static final String babyMerchantOrderPay=root+ "/alipay/babyMerchantOrderPay";

@@ -77,8 +77,8 @@ public class NewBabyFragment extends ConversationListFragment {
         if(type == Conversation.ConversationType.PRIVATE){
             isExits=true;
             for (int i = 0; i <myFriends.size() ; i++) {
-                if(myFriends.get(i).getMyid().equals(targetId)){
-                    Log.v("userid",myFriends.get(i).getMyid()+"---"+targetId);
+                if(myFriends.get(i).getUserId().equals(targetId)){
+                    Log.v("userid",myFriends.get(i).getUserId()+"---"+targetId);
                     isExits=false;
                     break;
                 }
@@ -185,9 +185,7 @@ public class NewBabyFragment extends ConversationListFragment {
             @Override
             public void onClick(View v) {
                 if(MyApplication.isLogin){
-                    startActivity(new Intent(getContext(), UserCenterActivity.class));
-                }else{
-                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                    startActivityForResult(new Intent(getContext(), UserCenterActivity.class),12);
                 }
             }
         });
@@ -246,5 +244,6 @@ public class NewBabyFragment extends ConversationListFragment {
                 }
             }
         }
+
     }
 }

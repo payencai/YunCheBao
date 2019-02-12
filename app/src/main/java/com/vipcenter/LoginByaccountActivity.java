@@ -268,6 +268,7 @@ public class LoginByaccountActivity extends AppCompatActivity {
                         UserInfo userInfo =new Gson().fromJson(data.toString(),UserInfo.class);
                         MyApplication.setUserInfo(userInfo);
                         MyApplication.setIsLogin(true);
+                        MyApplication.isLogin=true;
                         SPUtils.put(LoginByaccountActivity.this,"phone",account);
                         SPUtils.put(LoginByaccountActivity.this,"pwd",pwd);
                         Intent intent=new Intent();

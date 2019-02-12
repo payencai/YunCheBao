@@ -53,7 +53,7 @@ public class AnotherBabyFragment extends Fragment {
                     intent.putExtra("type", 1);
                     startActivity(intent);
                 } else {
-                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class),6);
                 }
             }
         });
@@ -65,7 +65,7 @@ public class AnotherBabyFragment extends Fragment {
                     intent.putExtra("type", 2);
                     startActivity(intent);
                 } else {
-                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class),7);
                 }
             }
         });
@@ -84,7 +84,7 @@ public class AnotherBabyFragment extends Fragment {
                     intent.putExtra("type", 3);
                     startActivity(intent);
                 } else {
-                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class),8);
                 }
             }
         });
@@ -94,7 +94,7 @@ public class AnotherBabyFragment extends Fragment {
                 if (MyApplication.isLogin)
                     startActivity(new Intent(getContext(), MyTagsActivity.class));
                 else {
-                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class),9);
                 }
             }
         });
@@ -117,7 +117,7 @@ public class AnotherBabyFragment extends Fragment {
                 if (MyApplication.isLogin)
                     startActivity(new Intent(getContext(), StrangerMsgActivity.class));
                 else {
-                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class),10);
                 }
             }
         });
@@ -127,7 +127,7 @@ public class AnotherBabyFragment extends Fragment {
                 if (MyApplication.isLogin) {
                     startActivity(new Intent(getContext(), UserCenterActivity.class));
                 } else {
-                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class),11);
                 }
             }
         });

@@ -32,7 +32,13 @@ public class NewPublishAdapter extends BaseQuickAdapter<NewPublish,BaseViewHolde
         tv_name.setText(item.getFirstName()+item.getSecondName()+item.getFirstName());
         tv_price.setText("￥"+item.getNewPrice());
         tv_time.setText(item.getCreateTime().substring(0,10));
-        Glide.with(mContext).load(item.getCarImage()).into(iv_car);
+        if(item.getCarImage().contains(",")){
+            String [] images=item.getCarImage().split(",");
+            Glide.with(mContext).load(images[0]).into(iv_car);
+        }else{
+            Glide.with(mContext).load(item.getCarImage()).into(iv_car);
+        }
+
         if(item.getState()==2){
             tv_state.setText("已完成");
             tv_cancel.setVisibility(View.GONE);

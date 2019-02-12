@@ -15,6 +15,7 @@
         android:background="@color/white">
 
         <ImageView
+            android:id="@+id/back"
             android:layout_width="15dp"
             android:layout_height="18dp"
             android:layout_centerVertical="true"
@@ -146,6 +147,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <TextView
+                            android:id="@+id/tv_cancel"
                             android:layout_gravity="center_vertical"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -154,11 +156,10 @@
                             android:textColor="@color/gray_99"
                             android:textSize="14sp" />
                         <com.coorchice.library.SuperTextView
-                            android:id="@+id/fukuan"
+                            android:id="@+id/tv_pay"
                             style="@style/order_bottom_super_btn_2"
                             android:text="付款"
                             android:textColor="@color/white"
-
                             fresco:corner="4dp"
                             fresco:solid="@color/yellow_65" />
                     </LinearLayout>
@@ -265,6 +266,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <RelativeLayout
+                    android:id="@+id/rl_contacts"
                     android:background="@drawable/shape_param_unselect"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
@@ -287,6 +289,7 @@
 
                 </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/rl_phone"
                     android:background="@drawable/shape_param_unselect"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"

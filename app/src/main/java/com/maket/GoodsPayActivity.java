@@ -54,12 +54,14 @@ public class GoodsPayActivity extends AppCompatActivity {
     @BindView(R.id.price2)
     TextView price2;
     String money;
+    String flag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_pay);
         orderId=getIntent().getStringExtra("orderid");
         money=getIntent().getStringExtra("money");
+        flag=getIntent().getStringExtra("flag");
         ButterKnife.bind(this);
         initView();
     }
@@ -127,6 +129,7 @@ public class GoodsPayActivity extends AppCompatActivity {
                     case 2:
                         break;
                     case 3:
+
                         getAlipayOrder(orderId);
                         break;
                 }
@@ -167,7 +170,13 @@ public class GoodsPayActivity extends AppCompatActivity {
 
         Map<String,Object> params=new HashMap<>();
         params.put("orderId",orderId);
-        HttpProxy.obtain().post(PlatformContans.Pay.babyMerchantOrderPay, params, new ICallBack() {
+        String url="";
+        if("1".equals(flag)){
+            url=PlatformContans.Pay.washRepairShopPay;
+        }else{
+            url=PlatformContans.Pay.babyMerchantOrderPay;
+        }
+        HttpProxy.obtain().post(url, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("rsult",result);

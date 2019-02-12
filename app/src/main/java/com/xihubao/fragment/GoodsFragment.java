@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.application.MyApplication;
 import com.costans.PlatformContans;
 import com.entity.GoodsListBean;
 import com.entity.PhoneShopEntity;
@@ -29,6 +30,7 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.maket.GoodsPayActivity;
 import com.nohttp.sample.BaseFragment;
 import com.nohttp.tools.HttpJsonClient;
 import com.tool.ActivityAnimationUtils;
@@ -54,6 +56,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import go.error;
 
 
 /**
@@ -62,82 +65,109 @@ import butterknife.ButterKnife;
 public class GoodsFragment extends BaseFragment {
 
     @BindView(R.id.goods_category_list)
-    ListView mGoodsCateGoryList;
+    ListView lv_category;
     @BindView(R.id.goods_recycleView)
     ListView goods_recycleView;
     ServerDetailAdapter mServerDetailAdapter;
     ServerCatogryAdapter mServerCatogryAdapter;
     String id;
     String type;
+    String money;
     //商品类别列表
-    private List<ServerType> mServerTypes=new ArrayList<>();
+    private List<ServerType> mServerTypes = new ArrayList<>();
     //商品列表
-    private List<ServerType.ServeListBean> mServeListBeans=new ArrayList<>();
+    private List<ServerType.ServeListBean> mServeListBeans = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.shop_detail_goods, container, false);
-        ButterKnife.bind(this,view);
-        id=this.getArguments().getString("id");
-        type=getArguments().getString("type");
+        View view = inflater.inflate(R.layout.shop_detail_goods, container, false);
+        ButterKnife.bind(this, view);
+        id = this.getArguments().getString("id");
+        type = getArguments().getString("type");
         initView(view);
         return view;
     }
+
     private void initView(View view) {
-        mServerCatogryAdapter=new ServerCatogryAdapter(getContext(),mServerTypes);
-        mGoodsCateGoryList.setAdapter(mServerCatogryAdapter);
-        mGoodsCateGoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mServerCatogryAdapter = new ServerCatogryAdapter(getContext(), mServerTypes);
+        lv_category.setAdapter(mServerCatogryAdapter);
+        lv_category.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mServeListBeans.clear();
                 mServeListBeans.addAll(mServerTypes.get(position).getServeList());
-                Log.e("res",mServerTypes.get(position).getServeList().size()+"");
+                mServerCatogryAdapter.setPos(position);
+                mServerCatogryAdapter.notifyDataSetChanged();
+                Log.e("res", mServerTypes.get(position).getServeList().size() + "");
                 mServerDetailAdapter.notifyDataSetChanged();
-                for (int i = 0; i < mServerCatogryAdapter.getCount(); i++) {
-                    View view1=mGoodsCateGoryList.getChildAt(i);
-                    if(i==position){
-                        view1.setBackgroundColor(getContext().getResources().getColor(R.color.white));
-                    }else{
-                        view1.setBackgroundColor(getContext().getResources().getColor(R.color.gray_e2));
-                    }
-
-                }
             }
         });
         goods_recycleView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(getContext(), WashPayActivity.class);
-                intent.putExtra("data",mServeListBeans.get(position));
-                intent.putExtra("type",type);
-                startActivity(intent);
+                money = mServeListBeans.get(position).getPrice() + "";
+                takeOrder(mServeListBeans.get(position).getId());
             }
         });
         getData();
     }
-    private void initDetaiListView(){
+
+    private void takeOrder(String id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        HttpProxy.obtain().post(PlatformContans.CarWashRepairShop.addWashRepairOrder, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result",result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        String orderid = jsonObject.getString("data");
+                        Intent intent = new Intent(getContext(), GoodsPayActivity.class);
+                        intent.putExtra("orderid", orderid);
+                        intent.putExtra("money", money);
+                        intent.putExtra("flag", "1");
+                        startActivity(intent);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+
+    private void initDetaiListView() {
         mServeListBeans.addAll(mServerTypes.get(0).getServeList());
-        mServerDetailAdapter=new ServerDetailAdapter(getContext(),mServeListBeans);
+        mServerDetailAdapter = new ServerDetailAdapter(getContext(), mServeListBeans);
         goods_recycleView.setAdapter(mServerDetailAdapter);
     }
-    private void getData(){
-        Map<String,Object> params=new HashMap<>();
-        params.put("shopId",id);
+
+    private void getData() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("shopId", id);
         HttpProxy.obtain().get(PlatformContans.CarWashRepairShop.getWashRepairServeResultByShopId, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("data",result);
+                Log.e("data", result);
                 try {
-                    JSONObject jsonObject=new JSONObject(result);
-                    JSONArray data=jsonObject.getJSONArray("data");
-                    for (int i = 0; i <data.length() ; i++) {
-                        JSONObject item=data.getJSONObject(i);
-                        ServerType serverType=new Gson().fromJson(item.toString(),ServerType.class);
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        ServerType serverType = new Gson().fromJson(item.toString(), ServerType.class);
                         mServerTypes.add(serverType);
                     }
                     mServerCatogryAdapter.notifyDataSetChanged();
-                    if(mServerTypes.size()>0){
+                    if (mServerTypes.size() > 0) {
                         initDetaiListView();
                     }
                 } catch (JSONException e) {
@@ -151,12 +181,13 @@ public class GoodsFragment extends BaseFragment {
             }
         });
     }
-    public static GoodsFragment newInstance(String id,String type){
-        GoodsFragment goodsFragment=new GoodsFragment();
-        Bundle bundle=new Bundle();
-        bundle.putString("id",id);
-        bundle.putString("type",type);
+
+    public static GoodsFragment newInstance(String id, String type) {
+        GoodsFragment goodsFragment = new GoodsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("id", id);
+        bundle.putString("type", type);
         goodsFragment.setArguments(bundle);
-        return  goodsFragment;
+        return goodsFragment;
     }
 }

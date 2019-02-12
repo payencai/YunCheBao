@@ -568,23 +568,7 @@ public class HomeFragment extends BaseFragment {
     }
 
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.e("code", requestCode + "");
-        if (requestCode == 2) {
-            if (data != null) {
-                UserInfo userInfo = (UserInfo) data.getSerializableExtra("user");
 
-//                getContacts();
-//                getData();
-//                if(userInfo!=null){
-//
-//                }
-                //connect(userInfo.getHxPassword());
-            }
-        }
-
-    }
 
 
     @OnClick({R.id.messenger_icon, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.menuLay4, R.id.menuLay7, R.id.menuLay5, R.id.menuLay6, R.id.menuLay8, R.id.menuLay9, R.id.menuLay10, R.id.user_center_icon})
@@ -592,10 +576,10 @@ public class HomeFragment extends BaseFragment {
         switch (v.getId()) {
             case R.id.messenger_icon:
                 if (MyApplication.isLogin) {
-                    startActivityForResult(new Intent(getContext(), ChatActivity.class), 1);
+                    startActivity(new Intent(getContext(), ChatActivity.class));
                     //connect(MyApplication.getUserInfo().getHxPassword());
                 } else {
-                    startActivityForResult(new Intent(getContext(), RegisterActivity.class), 2);
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
                 }
                 //ActivityAnimationUtils.commonTransition(getActivity(), MessageMainActivity.class, ActivityConstans.Animation.FADE);
                 break;

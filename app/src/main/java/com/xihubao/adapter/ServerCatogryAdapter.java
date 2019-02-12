@@ -20,6 +20,7 @@ import java.util.List;
 public class ServerCatogryAdapter extends BaseAdapter{
     Context mContext;
     List<ServerType> mServerTypes;
+    int pos=0;
     @Override
     public int getCount() {
         return mServerTypes.size();
@@ -28,6 +29,14 @@ public class ServerCatogryAdapter extends BaseAdapter{
     public ServerCatogryAdapter(Context context, List<ServerType> serverTypes) {
         mContext = context;
         mServerTypes = serverTypes;
+    }
+
+    public int getPos() {
+        return pos;
+    }
+
+    public void setPos(int pos) {
+        this.pos = pos;
     }
 
     @Override
@@ -42,9 +51,15 @@ public class ServerCatogryAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_goods_category_list,null);
         TextView name= (TextView) view.findViewById(R.id.goodsCategoryNameTV);
         name.setText(mServerTypes.get(position).getCategoryName());
+        if(pos==position){
+            view.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+        }else{
+            view.setBackgroundColor(mContext.getResources().getColor(R.color.gray_e2));
+        }
         return view;
     }
 }
