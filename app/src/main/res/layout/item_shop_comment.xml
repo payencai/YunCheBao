@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:text="这个教练是个超级大喷子，大家不要选择他了。这个教练是个超级大喷子，大家不要选择他了。这个教练是个超级大喷子，大家不要选择他了。这个教练是个超级大喷子，大家不要选择他了。"
+            android:text="这个教练是个超级大喷子，大家不要选择他了。这个教练是个超级大喷子，大家不要选择他了。"
             android:textColor="@color/black_33"
             android:textSize="14sp"
             android:id="@+id/iv_content"
@@ -63,10 +63,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <GridView
-            android:id="@+id/gridView"
+            android:id="@+id/gv_photo"
             android:horizontalSpacing="10dp"
             android:verticalSpacing="10dp"
-            android:numColumns="4"
+            android:numColumns="3"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></GridView>

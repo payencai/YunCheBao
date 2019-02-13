@@ -55,6 +55,8 @@ import io.rong.imkit.RongIM;
 import io.rong.imkit.model.GroupUserInfo;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Group;
+import io.rong.imlib.model.Message;
+import io.rong.message.TextMessage;
 
 /**
  * Created by sdhcjhss on 2018/1/6.
@@ -224,7 +226,7 @@ public class RegisterActivity extends AppCompatActivity {
                         Log.e("data",s);
                         for (int i = 0; i < myFriends.size(); i++) {
                             MyFriend myFriend = myFriends.get(i);
-                            String myid = myFriend.getMyid();
+                            String myid = myFriend.getUserId();
                             final String name = myFriend.getName();
                             final String head = myFriend.getHeadPortrait();
                             if (s.equals(myid)) {
@@ -235,7 +237,68 @@ public class RegisterActivity extends AppCompatActivity {
                         return null;
                     }
                 }, true);
+                RongIM.getInstance().setSendMessageListener(new RongIM.OnSendMessageListener() {
+                    @Override
+                    public Message onSend(Message message) {
+                        Map<String, Object> params = new HashMap<>();
+                        params.put("userId", message.getSenderUserId());
+                        params.put("nickName", MyApplication.getUserInfo().getName());
+                        params.put("avatar", MyApplication.getUserInfo().getHeadPortrait());
+                        String extra = new Gson().toJson(params);
+                        message.setExtra(extra);
+                        return message;
+                    }
 
+                    @Override
+                    public boolean onSent(Message message, RongIM.SentMessageErrorCode sentMessageErrorCode) {
+                        return false;
+                    }
+                });
+                RongIM.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
+                    @Override
+                    public boolean onReceived(Message message, int i) {
+
+                        TextMessage textMessage= (TextMessage) message.getContent();
+//                        FileMessage fileMessage= (FileMessage) message.getContent();
+//                        VoiceMessage voiceMessage= (VoiceMessage) message.getContent();
+//                        ImageMessage imageMessage= (ImageMessage) message.getContent();
+                        String extra="";
+                        if(textMessage!=null){
+                            extra=textMessage.getExtra();
+                        }
+//                        if(fileMessage!=null){
+//                            extra=fileMessage.getExtra();
+//                        }
+//                        if(imageMessage!=null){
+//                            extra=imageMessage.getExtra();
+//                        }
+//                        if(voiceMessage!=null){
+//                            extra=voiceMessage.getExtra();
+//                        }
+                        if(!TextUtils.isEmpty(extra)){
+                            try {
+
+                                JSONObject jsonObject=new JSONObject(extra);
+                                String userid=jsonObject.getString("userId");
+                                String username=jsonObject.getString("nickName");
+                                String avatar=jsonObject.getString("avatar");
+                                avatar=avatar.replaceAll( "\\\\",  "");
+                                String finalAvatar = avatar;
+                                Log.e("extra",extra);
+                                RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+                                    @Override
+                                    public io.rong.imlib.model.UserInfo getUserInfo(String s) {
+                                        io.rong.imlib.model.UserInfo userInfo=new io.rong.imlib.model.UserInfo(userid,username,Uri.parse(finalAvatar));
+                                        return userInfo;
+                                    }
+                                }, true);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        return true;
+                    }
+                });
                 //startActivity(new Intent(Re, ChatActivity.class));
                 Log.d("LoginActivity", "--onSuccess" + userid);
             }

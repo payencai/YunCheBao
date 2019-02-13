@@ -1,37 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.listview.DragScrollLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
-    android:fitsSystemWindows="true"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-   >
+    android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray_ee"
-        android:fitsSystemWindows="true">
+        android:fillViewport="false">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsing"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            //这里我放了一个banner图，这里可以放任何你想放到tab上面的东西，都将处于外层滑动之中，数量多少无所谓。
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingBottom="26dp">
-                <com.tool.slideshowview.SlideShowView
-                    android:id="@+id/bg_img"
-                    android:fitsSystemWindows="true"
-                    android:layout_width="fill_parent"
-                    android:layout_height="210dp"
-                    android:visibility="visible" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:elevation="1dp"
+                        android:id="@+id/back"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_margin="15dp"
+                        android:clickable="true"
+                        android:src="@mipmap/back_circle" />
+
+                    <com.tool.slideshowview.SlideShowView
+                        android:id="@+id/bg_img"
+                        android:layout_width="fill_parent"
+                        android:layout_height="210dp"
+                        android:fitsSystemWindows="true"
+                        android:visibility="visible" />
+                </RelativeLayout>
 
 
                 <LinearLayout
@@ -61,6 +73,7 @@
                                 android:textColor="@color/black_33" />
 
                             <ImageView
+                                android:visibility="gone"
                                 android:id="@+id/icon"
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
@@ -94,7 +107,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="16dp"
-                                android:text="购买人数"
+                                android:text="商家级别"
                                 android:textColor="@color/gray_99"
                                 android:textSize="10sp" />
 
@@ -102,8 +115,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
-                                android:text="0"
-                                android:textColor="@color/black_33"
+                                android:text="1"
+                                android:textColor="@color/yellow_02"
                                 android:textSize="14sp" />
 
                         </LinearLayout>
@@ -131,7 +144,7 @@
                         android:background="@color/yellow_77">
 
                         <ImageView
-                             android:id="@+id/iv_heart"
+                            android:id="@+id/iv_heart"
                             android:layout_width="26dp"
                             android:layout_height="26dp"
                             android:layout_centerInParent="true"
@@ -143,7 +156,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginTop="5dp"
-                    android:background="@mipmap/map_bg"
+                    android:background="@color/white"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -152,27 +165,44 @@
                         android:layout_weight="5"
                         android:orientation="vertical"
                         android:padding="10dp">
-
-                        <TextView
-                            android:id="@+id/address"
+                        <LinearLayout
+                            android:gravity="center_vertical"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@mipmap/location_gray_icon"
-                            android:drawablePadding="10dp"
-                            android:text="永平路136号"
-                            android:textColor="@color/gray_99"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:src="@mipmap/location_gray_icon"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp" />
+                            <TextView
+                                android:layout_marginLeft="5dp"
+                                android:id="@+id/address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="永平路136号"
+                                android:textColor="@color/gray_99"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                        <LinearLayout
                             android:layout_marginTop="10dp"
-                            android:drawableLeft="@mipmap/time_gray_icon"
-                            android:drawablePadding="10dp"
-                            android:text="营业时间：8:00-18:30"
-                            android:textColor="@color/gray_99"
-                            android:textSize="12sp" />
+                            android:gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:scaleType="centerCrop"
+                                android:src="@mipmap/time_gray_icon"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp" />
+                            <TextView
+                                android:layout_marginLeft="5dp"
+                                android:id="@+id/time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="营业时间：8:00-18:30"
+                                android:textColor="@color/gray_99"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -201,56 +231,39 @@
 
                 </LinearLayout>
             </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
-            <android.support.v7.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp">
-
-                    <ImageView
-                        android:id="@+id/back"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:clickable="true"
-                        android:src="@mipmap/back_circle" />
-
-                    <ImageView
-                        android:visibility="gone"
-                        android:id="@+id/shareBtn"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:clickable="true"
-                        android:scaleType="fitStart"
-                        android:src="@mipmap/share_icon" />
-                </RelativeLayout>
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.CollapsingToolbarLayout>
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/slidinglayout"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="5dp"
-            android:background="@android:color/white"
-            app:tabIndicatorColor="@color/colorPrimary"
-            app:tabIndicatorHeight="0dp"
-            app:tabSelectedTextColor="@color/colorPrimary"
-            app:tabTextAppearance="@style/TabLayoutTextStyle"
-            app:tabTextColor="@color/black_33" />
-    </android.support.design.widget.AppBarLayout>
-
+    <!--<com.flyco.tablayout.SlidingTabLayout-->
+        <!--android:id="@+id/slidinglayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--app:tl_indicator_width="50dp"-->
+        <!--android:background="@android:color/white"-->
+        <!--app:tabIndicatorColor="@color/colorPrimary"-->
+        <!--app:tabIndicatorHeight="0dp"-->
+        <!--app:tabSelectedTextColor="@color/colorPrimary"-->
+        <!--app:tabTextAppearance="@style/TabLayoutTextStyle"-->
+        <!--app:tabTextColor="@color/black_33" />-->
+    <com.flyco.tablayout.SlidingTabLayout
+        app:tl_indicator_height="3dp"
+        app:tl_tab_space_equal="true"
+        app:tl_indicator_width_equal_title="true"
+        app:tl_indicator_color="@color/colorPrimary"
+        app:tl_textSelectColor="@color/colorPrimary"
+        app:tl_textUnselectColor="@color/black_33"
+        android:id="@+id/slidinglayout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white"
+       />
     <android.support.v4.view.ViewPager
-        android:layout_marginTop="3dp"
         android:id="@+id/vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="3dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</android.support.design.widget.CoordinatorLayout>
+</com.listview.DragScrollLayout>

@@ -9,6 +9,9 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.util.Log;
@@ -35,6 +38,8 @@ import com.example.yunchebao.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.flyco.tablayout.CommonTabLayout;
+import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
@@ -64,13 +69,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class WashCarDetailActivity extends NoHttpFragmentBaseActivity {
-    private CollapsingToolbarLayout collapsingToolbarLayout;
-    private AppBarLayout appBarLayout;
-    private TabLayout slidingTabLayout;
+public class WashCarDetailActivity extends FragmentActivity {
+
+    private SlidingTabLayout slidingTabLayout;
     private List<Map<String, String>> imageList = new ArrayList<>();
     //fragment列表
-    private List<Fragment> mFragments=new ArrayList<>();
+    private ArrayList<Fragment> mFragments=new ArrayList<>();
     //tab名的列表
     private List<String> mTitles=new ArrayList<>();
     private ViewPager viewPager;
@@ -94,30 +98,26 @@ public class WashCarDetailActivity extends NoHttpFragmentBaseActivity {
     @BindView(R.id.iv_heart)
     ImageView iv_heart;
     int isCollect;
+    String [] titles={"服务","评价"
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.washcar_shop_detail);
-        FitStateUI.setImmersionStateMode(this);
         ButterKnife.bind(this);
-
-
         mCarShop= (CarShop) getIntent().getExtras().getSerializable("id");
-       // setStatusBar();
-       // setCollsapsing();
         type=mCarShop.getBanner();
         initView();
-        requestMethod(0);
+        initViewPager();
     }
 
-    private void requestMethod(int type) {
-        setFrom(new PhoneShopEntity());
 
-    }
+
+
 
     private void initView() {
-        appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
-        slidingTabLayout = (TabLayout) findViewById(R.id.slidinglayout);
+
+        slidingTabLayout = (SlidingTabLayout) findViewById(R.id.slidinglayout);
         viewPager = (ViewPager) findViewById(R.id.vp);
         List<String> result = Arrays.asList(mCarShop.getBanner().split(","));
         for (int i = 0; i < result.size(); i++) {
@@ -148,10 +148,14 @@ public class WashCarDetailActivity extends NoHttpFragmentBaseActivity {
         getIsCollect();
     }
     private void collect(){
+        String token="";
+        if(MyApplication.isLogin){
+            token=MyApplication.getUserInfo().getToken();
+        }
         Map<String,Object> params=new HashMap<>();
         params.put("shopId",mCarShop.getId());
         params.put("type",1);
-        HttpProxy.obtain().post(PlatformContans.Collect.addCarCollection, MyApplication.getUserInfo().getToken(),params , new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Collect.addCarCollection, token,params , new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("heart",result);
@@ -167,10 +171,14 @@ public class WashCarDetailActivity extends NoHttpFragmentBaseActivity {
         });
     }
     private void getIsCollect(){
+        String token="";
+        if(MyApplication.isLogin){
+            token=MyApplication.getUserInfo().getToken();
+        }
         Map<String,Object> params=new HashMap<>();
         params.put("shopId",mCarShop.getId());
         params.put("type",1);
-        HttpProxy.obtain().get(PlatformContans.Collect.isCollectionByShopId, params, "", new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.Collect.isCollectionByShopId, params, token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("heart",result);
@@ -197,10 +205,14 @@ public class WashCarDetailActivity extends NoHttpFragmentBaseActivity {
         });
     }
     private void deleteCollect(){
+        String token="";
+        if(MyApplication.isLogin){
+            token=MyApplication.getUserInfo().getToken();
+        }
         Map<String,Object> params=new HashMap<>();
         params.put("shopId",mCarShop.getId());
         params.put("type",1);
-        HttpProxy.obtain().post(PlatformContans.Collect.deleteWashCollection,  MyApplication.getUserInfo().getToken(),params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Collect.deleteWashCollection,  token,params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("heart",result);
@@ -216,90 +228,67 @@ public class WashCarDetailActivity extends NoHttpFragmentBaseActivity {
             }
         });
     }
-    private void setViewPager(String comment_num) {
+    private void initViewPager() {
         GoodsFragment goodsFragment=GoodsFragment.newInstance(mCarShop.getId(),type);
         EvaluateFragment evaluateFragment=EvaluateFragment.newInstance(mCarShop.getId());
         mFragments.add(goodsFragment);
         mFragments.add(evaluateFragment);
-
         mTitles.add("服务");
-        mTitles.add("评价("+comment_num+")");
-
-        adapter=new TabFragmentAdapter(getSupportFragmentManager(),mFragments,mTitles);
+        mTitles.add("评价");
+        MyPagerAdapter adapter=new MyPagerAdapter(getSupportFragmentManager());
+       // adapter=new TabFragmentAdapter(getSupportFragmentManager(),mFragments,mTitles);
         viewPager.setAdapter(adapter);
-        slidingTabLayout.setupWithViewPager(viewPager);
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                switch (position){
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+        slidingTabLayout.setViewPager(viewPager);
+//        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                switch (position){
+//                    case 0:
+//                        break;
+//                    case 1:
+//                        break;
+//                    case 2:
+//                        break;
+//                }
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
     }
 
+    private class MyPagerAdapter extends FragmentPagerAdapter {
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
-    private void setCollsapsing() {
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing);
-        collapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(R.color.blue_9DD9));
-        collapsingToolbarLayout.setContentScrim(getResources().getDrawable(R.color.float_transparent));
-    }
+        @Override
+        public int getCount() {
+            return mFragments.size();
+        }
 
-    private void setStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        } else {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles[position];
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragments.get(position);
         }
     }
-
-
-
-
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-
-
-    private void setFrom(PhoneShopEntity rShop) {
-        setViewPager(mCarShop.getNumber()+"");
-
-    }
-
-    @OnClick({R.id.back,R.id.shareBtn})
+    @OnClick({R.id.back})
     public void OnClick(View v){
         switch (v.getId()){
             case R.id.back:
                 onBackPressed();
-                break;
-            case R.id.shareBtn:
-//                requestMethod(1);
                 break;
         }
     }

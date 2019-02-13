@@ -36,6 +36,7 @@ public class CarOrderAdapter extends BaseQuickAdapter<CarOrder,BaseViewHolder> {
             TextView tv_content=helper.getView(R.id.tv_content);
             TextView tv_price1=helper.getView(R.id.tv_price1);
             TextView btn_comment=helper.getView(R.id.btn_comment);
+            helper.addOnClickListener(R.id.btn_comment);
             tv_content.setText(item.getServeCategory());
             tv_name1.setText(item.getShopName());
             tv_washtype.setText(item.getServeTitle());
@@ -63,6 +64,7 @@ public class CarOrderAdapter extends BaseQuickAdapter<CarOrder,BaseViewHolder> {
             TextView tv_state=helper.getView(R.id.tv_carstate);
             TextView tv_note=helper.getView(R.id.tv_note);
             TextView tv_cancel=helper.getView(R.id.tv_cancel);
+            helper.addOnClickListener(R.id.tv_cancel);
             ImageView iv_car=helper.getView(R.id.iv_car);
             if(item.getState()==2){
 

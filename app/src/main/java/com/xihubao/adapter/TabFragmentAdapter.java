@@ -37,7 +37,6 @@ public class TabFragmentAdapter extends FragmentPagerAdapter {
     //此方法用来显示tab上的名字
     @Override
     public CharSequence getPageTitle(int position) {
-
         return mTitles.get(position % mTitles.size());
     }
 }

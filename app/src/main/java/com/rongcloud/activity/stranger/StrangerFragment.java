@@ -55,7 +55,7 @@ public class StrangerFragment extends ConversationListFragment {
         boolean isExits=false;
         if(type == Conversation.ConversationType.PRIVATE){
             for (int i = 0; i <myFriends.size() ; i++) {
-                if(myFriends.get(i).getMyid().equals(targetId)){
+                if(myFriends.get(i).getUserId().equals(targetId)){
                     Log.v("userid",myFriends.get(i).getMyid()+"---"+targetId);
                     isExits=true;
                     break;

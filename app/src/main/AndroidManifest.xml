@@ -287,8 +287,6 @@
         <activity android:name="com.cityselect.CityListActivity" />
         <activity android:name="com.xihubao.CarBrandSelectActivity" />
 
-
-
         <service android:name="com.amap.api.location.APSService" />
 
         <meta-data
@@ -301,11 +299,20 @@
             android:value="Your AppKey" />
         <!-- 声明sdk所需的service SDK核心功能 -->
 
-
-
         <activity android:name="com.vipcenter.LoginByaccountActivity" />
         <activity android:name="com.vipcenter.BindPhoneActivity" />
         <activity android:name="com.vipcenter.SetPasswordActivity" />
+
+
+        <provider
+            android:authorities="com.yancy.gallerypickdemo.fileprovider"
+            android:name="com.tool.CustomFileProvider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths"/>
+        </provider>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -408,14 +415,15 @@
         <activity android:name="com.vipcenter.MyFocusActivity" />
         <activity android:name="com.newversion.FriendCircleActivity" />
         <activity
-            android:windowSoftInputMode="stateHidden"
-            android:name="com.newversion.MyTagsActivity" />
+            android:name="com.newversion.MyTagsActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
-            android:windowSoftInputMode="stateHidden"
-            android:name="com.newversion.CreateTagsActivity" />
+            android:name="com.newversion.CreateTagsActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
-            android:windowSoftInputMode="stateHidden"
-            android:name="com.newversion.ChooseUserActivity"></activity>
+            android:name="com.newversion.ChooseUserActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name="com.vipcenter.PubCommentActivity"></activity>
     </application>
 
 </manifest>

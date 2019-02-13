@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.vipcenter.PubCommentActivity">
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:src="@mipmap/back"
+            android:padding="17dp"
+            android:layout_centerVertical="true"
+            android:layout_width="50dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textColor="@color/black_33"
+            android:textSize="16sp"
+            android:text="发表评论"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_pub"
+            android:textSize="14sp"
+            android:text="发布"
+            android:textColor="@color/yellow_02"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <LinearLayout
+        android:paddingBottom="30dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="14sp"
+                android:textColor="@color/black_33"
+                android:text="你觉得卖方如何"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                android:id="@+id/sb_score"
+                android:layout_marginLeft="10dp"
+                android:layout_width="100dp"
+                android:layout_height="13dp" />
+            <TextView
+                android:id="@+id/tv_des"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/gray_66"
+                android:textSize="14sp"
+                android:text="非常好"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <EditText
+            android:id="@+id/et_content"
+            android:maxHeight="120dp"
+            android:gravity="top"
+            android:textSize="14sp"
+            android:textColorHint="#ccc"
+            android:textColor="@color/gray_66"
+            android:hint="宝贝满足您的期待吗？说说它的优点和美中不足的地方"
+            android:padding="10dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <GridView
+            android:layout_margin="10dp"
+            android:horizontalSpacing="5dp"
+            android:verticalSpacing="5dp"
+            android:id="@+id/gv_photo"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:numColumns="3"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </GridView>
+        <LinearLayout
+            android:id="@+id/ll_add"
+            android:background="@drawable/shape_xuxian"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:layout_width="75dp"
+            android:layout_height="75dp">
+            <ImageView
+                android:layout_marginTop="15dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/gallery_pick_camera"
+                android:layout_width="25dp"
+                android:layout_height="20dp" />
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textSize="10sp"
+                android:textColor="@color/gray_99"
+                android:text="添加图片"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

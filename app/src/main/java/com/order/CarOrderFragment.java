@@ -1,6 +1,7 @@
 package com.order;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,8 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.payencai.library.util.ToastUtil;
+import com.vipcenter.PubCommentActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,7 +65,7 @@ public class CarOrderFragment extends Fragment {
     }
 
     private void initView() {
-        state=getArguments().getInt("state");
+        state = getArguments().getInt("state");
         mCarOrders = new ArrayList<>();
         mCarOrderAdapter = new CarOrderAdapter(R.layout.item_car_order, mCarOrders);
         mCarOrderAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -73,10 +76,88 @@ public class CarOrderFragment extends Fragment {
                 getWashOrder();
             }
         }, rv_order);
+        mCarOrderAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                CarOrder carOrder = (CarOrder) adapter.getItem(position);
+                if (carOrder.getFlag() == 1) {//洗护宝订单
+                    if (carOrder.getState() == 2) {
+                        washCancel(carOrder.getId());
+                    } else if (carOrder.getState() == 3) {
+                        Intent intent = new Intent(getContext(), PubCommentActivity.class);
+                        intent.putExtra("id", carOrder.getId());
+                        startActivity(intent);
+                    }
+                } else if (carOrder.getFlag() == 2) {//车易宝订单
+                    if (carOrder.getState() == 2) {
+                        carCancel(carOrder.getId());
+                    } else if (carOrder.getState() == 3) {
+
+                    }
+                }
+            }
+        });
         rv_order.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_order.setAdapter(mCarOrderAdapter);
         getWashOrder();
 
+    }
+
+    private void washCancel(String id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        HttpProxy.obtain().post(PlatformContans.CarWashRepairShop.cancelWashRepairOrder, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        ToastUtil.showToast(getContext(), "取消成功");
+                        page = 1;
+                        getWashOrder();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    private void carCancel(String id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("orderId", id);
+        HttpProxy.obtain().post(PlatformContans.CarOrder.cancelCarOrder, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        ToastUtil.showToast(getContext(), "取消成功");
+                        page = 1;
+                        getWashOrder();
+                    } else {
+                        String msg = jsonObject.getString("message");
+                        ToastUtil.showToast(getContext(), msg);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 
     private void getWashOrder() {
@@ -86,7 +167,7 @@ public class CarOrderFragment extends Fragment {
         HttpProxy.obtain().get(PlatformContans.Order.getUserOrderList, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("result",result);
+                Log.e("result", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     int code = jsonObject.getInt("resultCode");
@@ -113,14 +194,14 @@ public class CarOrderFragment extends Fragment {
         });
     }
 
-    private void getCarOrder(List<CarOrder>carOrderList) {
+    private void getCarOrder(List<CarOrder> carOrderList) {
         Map<String, Object> params = new HashMap<>();
         params.put("state", state);
         params.put("page", page);
         HttpProxy.obtain().get(PlatformContans.Order.getUserCarOrder, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("result",result);
+                Log.e("result", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     int code = jsonObject.getInt("resultCode");
@@ -131,16 +212,15 @@ public class CarOrderFragment extends Fragment {
                             JSONObject item = data.getJSONObject(i);
                             CarOrder carOrder = new Gson().fromJson(item.toString(), CarOrder.class);
                             carOrder.setFlag(2);
-                            if(isLoadMore){
+                            if (isLoadMore) {
                                 mCarOrder.add(carOrder);
-                            }
-                            else{
+                            } else {
                                 carOrderList.add(carOrder);
                             }
                         }
                         if (isLoadMore) {
                             isLoadMore = false;
-                            mCarOrderAdapter.addData(0,carOrderList);
+                            mCarOrderAdapter.addData(0, carOrderList);
                             mCarOrderAdapter.addData(mCarOrder);
                             if (data.length() > 0)
                                 mCarOrderAdapter.loadMoreComplete();

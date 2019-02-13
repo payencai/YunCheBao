@@ -4,11 +4,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.cheyibao.model.ShopComment;
+import com.costans.PlatformContans;
 import com.entity.PhoneCommentEntity;
 import com.entity.PhoneShopEntity;
 import com.eowise.recyclerview.stickyheaders.StickyHeadersItemDecoration;
@@ -16,44 +19,70 @@ import com.example.yunchebao.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
+import com.http.HttpProxy;
+import com.http.ICallBack;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+import com.maket.model.LoadMoreListView;
 import com.nohttp.sample.BaseFragment;
+import com.xihubao.adapter.WashCommentAdapter;
+import com.xihubao.model.WashComment;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class EvaluateFragment extends BaseFragment {
 
-    private String keywords;
-    private StickyHeadersItemDecoration top;
-    private PhoneShopEntity entity;
 
-    private List<PhoneCommentEntity> list = new ArrayList<>();
-    MyAapter adapter;
+
+    private List<WashComment> list = new ArrayList<>();
+    WashCommentAdapter mWashCommentAdapter;
     private View view;
     String shopid;
+    boolean isLoadMore=false;
+    int page=1;
+    @BindView(R.id.lv_comment)
+    LoadMoreListView lv_comment;
+
+    public List<WashComment> getList() {
+        return list;
+    }
+
+    public void setList(List<WashComment> list) {
+        this.list = list;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.detail_evaluate_list, null);
+        view = inflater.inflate(R.layout.fragment_washcomment, null);
         shopid=getArguments().getString("shopId");
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycleView);
-        init(recyclerView);
-
+        ButterKnife.bind(this,view);
+        mWashCommentAdapter=new WashCommentAdapter(getContext(),list);
+        lv_comment.setAdapter(mWashCommentAdapter);
+        lv_comment.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
+            @Override
+            public void onloadMore() {
+                 page++;
+                 isLoadMore=true;
+                 lv_comment.setLoadCompleted();
+                 getData();
+            }
+        });
+        getData();
         return view;
     }
 
-
-
-    public static EvaluateFragment getInstance(String mTitle) {
-        EvaluateFragment tabFragment = null;
-        if (tabFragment == null) {
-            tabFragment = new EvaluateFragment();
-        }
-        tabFragment.keywords = mTitle;
-        return tabFragment;
-    }
 
     public static EvaluateFragment newInstance(String shopId) {
         EvaluateFragment tabFragment = new EvaluateFragment();
@@ -62,45 +91,38 @@ public class EvaluateFragment extends BaseFragment {
         tabFragment.setArguments(bundle);
         return tabFragment;
     }
-    private void init(RecyclerView recyclerView) {
-        adapter = new MyAapter();
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
-    }
+    public void getData() {
 
-    private class MyAapter extends RecyclerView.Adapter<MyAapter.ViewHolder> {
+        Map<String, Object> params = new HashMap<>();
+        params.put("page", page);
+        params.put("shopId", shopid);
+        HttpProxy.obtain().get(PlatformContans.CarWashRepairShop.getWashRepairCommentDetailsList, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("getUserComment", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        WashComment baikeItem = new Gson().fromJson(item.toString(), WashComment.class);
+                        list.add(baikeItem);
+                    }
 
+                    mWashCommentAdapter.notifyDataSetChanged();
 
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.evaluate_list_item, viewGroup, false);
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return 3;
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            private final TextView item1;
-            private final TextView item2;
-            private final TextView item3;
-            private final SimpleDraweeView img;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                item1 = (TextView) itemView.findViewById(R.id.item1);
-                item2 = (TextView) itemView.findViewById(R.id.item2);
-                item3 = (TextView) itemView.findViewById(R.id.item3);
-                img = (SimpleDraweeView) itemView.findViewById(R.id.img);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
+
+
 }
 
