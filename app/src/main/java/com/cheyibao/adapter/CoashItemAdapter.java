@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.bbcircle.data.ClassItem;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.cheyibao.DrivingOrderActivity;
 import com.cheyibao.model.CoachItem;
 import com.example.yunchebao.R;
@@ -86,7 +88,11 @@ public class CoashItemAdapter extends BaseAdapter{
                 mOnSelectListener.onSelect(position);
             }
         });
-        Glide.with(mContext).load(coachItem.getCoachHead()).into(iv_head);
+
+        RequestOptions mRequestOptions = RequestOptions.circleCropTransform()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                .skipMemoryCache(true);//不做内存缓存
+        Glide.with(mContext).load(coachItem.getCoachHead()).apply(mRequestOptions).into(iv_head);
         simpleRatingBar.setRating(coachItem.getScore());
         return view;
     }

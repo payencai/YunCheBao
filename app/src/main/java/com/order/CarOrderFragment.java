@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 
 import com.application.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.cheyibao.AddRentCommentActivity;
+import com.cheyibao.AddSchoolCommentActivity;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
@@ -92,7 +94,15 @@ public class CarOrderFragment extends Fragment {
                     if (carOrder.getState() == 2) {
                         carCancel(carOrder.getId());
                     } else if (carOrder.getState() == 3) {
-
+                        if(carOrder.getType()==4){
+                            Intent intent = new Intent(getContext(), AddSchoolCommentActivity.class);
+                            intent.putExtra("item", carOrder);
+                            startActivity(intent);
+                        }else{
+                            Intent intent = new Intent(getContext(), AddRentCommentActivity.class);
+                            intent.putExtra("item", carOrder);
+                            startActivity(intent);
+                        }
                     }
                 }
             }

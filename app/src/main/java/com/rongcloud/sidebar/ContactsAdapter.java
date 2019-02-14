@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.yunchebao.R;
 
 import java.util.List;
@@ -66,7 +68,14 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
             holder.tvIndex.setVisibility(View.GONE);
         }
         holder.tvName.setText(contact.getName());
-        Glide.with(holder.itemView.getContext()).load(contact.getHeadPortrait()).into(holder.ivAvatar);
+
+        RequestOptions mRequestOptions = RequestOptions.circleCropTransform()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                .skipMemoryCache(true);//不做内存缓存
+        mRequestOptions.error(R.mipmap.ic_default_head);
+        mRequestOptions.placeholder(R.mipmap.ic_default_head);
+       // Glide.with(mContext).load(coashComment.getHeadPortrait()).apply(mRequestOptions).into(iv_userhead);
+        Glide.with(holder.itemView.getContext()).load(contact.getHeadPortrait()).apply(mRequestOptions).into(holder.ivAvatar);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

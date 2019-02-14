@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.yunchebao.R;
 import com.rongcloud.activity.contact.GroupDetailActivity;
 import com.rongcloud.model.GroupUser;
@@ -51,7 +53,13 @@ public class GridAdapter extends BaseAdapter {
         ImageView imageView = (ImageView) convertView.findViewById(R.id.head);
         ImageView iv_change = (ImageView) convertView.findViewById(R.id.iv_change);
         if(mGroupUsers.size()>0){
-         Glide.with(mContext).load(mGroupUsers.get(position).getHeadPortrait()).into(imageView);
+
+            RequestOptions mRequestOptions = RequestOptions.circleCropTransform()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                    .skipMemoryCache(true);//不做内存缓存
+            mRequestOptions.error(R.mipmap.ic_default_head);
+            mRequestOptions.placeholder(R.mipmap.ic_default_head);
+         Glide.with(mContext).load(mGroupUsers.get(position).getHeadPortrait()).apply(mRequestOptions).into(imageView);
          tv.setText(mGroupUsers.get(position).getNickName());}
          if(mGroupUsers.get(position).getFlag()!=0){
             ll_commom.setVisibility(View.GONE);

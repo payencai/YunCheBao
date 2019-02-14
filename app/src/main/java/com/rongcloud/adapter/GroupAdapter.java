@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.yunchebao.R;
 import com.rongcloud.model.Group;
 
@@ -52,7 +54,12 @@ public class GroupAdapter extends BaseAdapter {
             mana.setVisibility(View.VISIBLE);
         }
         tv_name.setText(mGroups.get(position).getCrowdName());
-        Glide.with(mContext).load(mGroups.get(position).getImage()).into(imageView);
+        RequestOptions mRequestOptions = RequestOptions.circleCropTransform()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                .skipMemoryCache(true);//不做内存缓存
+        mRequestOptions.error(R.mipmap.ic_default_head);
+        mRequestOptions.placeholder(R.mipmap.ic_default_head);
+        Glide.with(mContext).load(mGroups.get(position).getImage()).apply(mRequestOptions).into(imageView);
         return view;
     }
 }

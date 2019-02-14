@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -206,7 +207,7 @@ public class ShopCartActivity extends NoHttpBaseActivity {
                             // shoppingCarIds.add(phoneShopEntity.getId());
                         }
                     }
-
+                    if(!TextUtils.isEmpty(shoppingCarIds))
                     goodsSelect.setShoppingCarIds(shoppingCarIds.substring(1));
                     goodsSelect.setShopId(shopid);
                     goodsSelect.setShopName(shopIdName.get(shopid));

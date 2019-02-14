@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.application.MyApplication;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.http.HttpProxy;
@@ -123,7 +125,12 @@ public class FriendDetailActivity extends AppCompatActivity {
 
 
     private void initView() {
-        Glide.with(this).load(mContactModel.getHeadPortrait()).into(head);
+        RequestOptions mRequestOptions = RequestOptions.circleCropTransform()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                .skipMemoryCache(true);//不做内存缓存
+        mRequestOptions.error(R.mipmap.ic_default_head);
+        mRequestOptions.placeholder(R.mipmap.ic_default_head);
+        Glide.with(this).load(mContactModel.getHeadPortrait()).apply(mRequestOptions).into(head);
         chatname.setText(mContactModel.getName());
         account.setText(mContactModel.getHxAccount());
         sendmsg.setOnClickListener(new View.OnClickListener() {

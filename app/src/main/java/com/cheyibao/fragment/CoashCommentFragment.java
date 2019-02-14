@@ -70,7 +70,7 @@ public class CoashCommentFragment extends Fragment {
         adapter = new CoashCommentAdapter(getContext(),list);
         listView.setAdapter(adapter);
 
-        //getData();
+        getData();
 
     }
     public void getData(){

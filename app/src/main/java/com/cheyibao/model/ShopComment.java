@@ -40,7 +40,7 @@ public class ShopComment {
     private String orderId;
     private String photo;
     private String replyTime;
-    private int score;
+    private double score;
     private int state;
     private int type;
     private String userId;
@@ -142,11 +142,11 @@ public class ShopComment {
         this.replyTime = replyTime;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 

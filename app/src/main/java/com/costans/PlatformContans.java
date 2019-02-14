@@ -236,7 +236,11 @@ public class PlatformContans {
         public static final String addOldCarAppointment=root+ "/appointment/addOldCarAppointment";
         public static final String addRoadRescueAppointment=root+ "/appointment/addRoadRescueAppointment";
     }
-
+    public static  class Evaluation{
+        public static final String addDrivingSchoolCoachEva=root+ "/drivingschool/addDrivingSchoolCoachEva";
+        public static final String addEvaluation=root+ "/evaluation/addEvaluation";
+        public static final String getMerchantEvaluationByUser=root+ "/evaluation/getMerchantEvaluationByUser";
+    }
 
     public static class LoginContacts {
         public static final String FILENAME = "fckg";

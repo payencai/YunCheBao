@@ -91,10 +91,7 @@ public class RentComentFragment extends Fragment {
                         ShopComment baikeItem = new Gson().fromJson(item.toString(), ShopComment.class);
                         list.add(baikeItem);
                     }
-                    for (int i = 0; i <10 ; i++) {
-                        ShopComment shopComment = new ShopComment();
-                        list.add(shopComment);
-                    }
+
                     adapter.notifyDataSetChanged();
                     if(isLoadMore){
                         isLoadMore=false;

@@ -40,7 +40,7 @@ public class CoashComment implements Serializable{
     private String name;
     private String photo;
     private String replyTime;
-    private int score;
+    private float score;
     private int state;
     private String userId;
     private List<String> photos;
@@ -141,11 +141,11 @@ public class CoashComment implements Serializable{
         this.replyTime = replyTime;
     }
 
-    public int getScore() {
+    public float getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(float score) {
         this.score = score;
     }
 

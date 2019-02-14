@@ -1,10 +1,12 @@
 package com.order;
 
+import java.io.Serializable;
+
 /**
  * 作者：凌涛 on 2019/1/28 14:00
  * 邮箱：771548229@qq..com
  */
-public class CarOrder {
+public class CarOrder implements Serializable{
 
     /**
      * carCategory : string

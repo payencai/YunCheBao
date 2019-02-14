@@ -69,7 +69,7 @@ public class SchoolCommentFragment extends Fragment {
         listView.setAdapter(adapter);
 
 
-      //  getData();
+        getData();
 
     }
     public void getData(){

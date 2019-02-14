@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.tool.listview.PersonalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <ImageView
+                android:src="@mipmap/back"
+                android:padding="17dp"
+                android:layout_centerVertical="true"
+                android:layout_width="50dp"
+                android:layout_height="match_parent" />
+            <TextView
+                android:textColor="@color/black_33"
+                android:textSize="16sp"
+                android:text="发表评论"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+        <LinearLayout
+
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="14sp"
+                    android:textColor="@color/black_33"
+                    android:text="店铺评分"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                    android:id="@+id/sb_score"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="13dp" />
+
+            </LinearLayout>
+            <EditText
+                android:id="@+id/et_content"
+                android:maxHeight="120dp"
+                android:gravity="top"
+                android:textSize="14sp"
+                android:textColorHint="#ccc"
+                android:textColor="@color/gray_66"
+                android:hint="对该店铺的服务有什么想说的吗？"
+                android:padding="10dp"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <com.tool.view.GridViewForScrollView
+                android:layout_margin="10dp"
+                android:horizontalSpacing="5dp"
+                android:verticalSpacing="5dp"
+                android:id="@+id/gv_photo"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:numColumns="3"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.tool.view.GridViewForScrollView>
+            <LinearLayout
+                android:id="@+id/ll_add"
+                android:background="@drawable/shape_xuxian"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:layout_width="75dp"
+                android:layout_height="75dp">
+                <ImageView
+                    android:layout_marginTop="15dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/gallery_pick_camera"
+                    android:layout_width="25dp"
+                    android:layout_height="20dp" />
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:textSize="10sp"
+                    android:textColor="@color/gray_99"
+                    android:text="添加图片"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv_shop"
+                        android:src="@mipmap/unselect"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp" />
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:text="匿名"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <TextView
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_99"
+                    android:layout_alignParentRight="true"
+                    android:text="你写的评论以匿名的形式展现"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="14sp"
+                    android:textColor="@color/black_33"
+                    android:text="教练评分"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                    android:id="@+id/sb_coash"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="13dp" />
+
+            </LinearLayout>
+            <EditText
+                android:id="@+id/et_coash"
+                android:maxHeight="120dp"
+                android:gravity="top"
+                android:textSize="14sp"
+                android:textColorHint="#ccc"
+                android:textColor="@color/gray_66"
+                android:hint="你有什么需要对教练说的吗？"
+                android:padding="10dp"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <com.tool.view.GridViewForScrollView
+                android:layout_margin="10dp"
+                android:horizontalSpacing="5dp"
+                android:verticalSpacing="5dp"
+                android:id="@+id/gv_coash"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:numColumns="3"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.tool.view.GridViewForScrollView>
+            <LinearLayout
+                android:id="@+id/ll_coash"
+                android:background="@drawable/shape_xuxian"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:layout_width="75dp"
+                android:layout_height="75dp">
+                <ImageView
+                    android:layout_marginTop="15dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/gallery_pick_camera"
+                    android:layout_width="25dp"
+                    android:layout_height="20dp" />
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:textSize="10sp"
+                    android:textColor="@color/gray_99"
+                    android:text="添加图片"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv_coash"
+                        android:src="@mipmap/unselect"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp" />
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:text="匿名"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <TextView
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_99"
+                    android:layout_alignParentRight="true"
+                    android:text="你写的评论以匿名的形式展现"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_pub"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_margin="15dp"
+            android:background="@color/yellow_02"
+            android:gravity="center"
+            android:text="提交评论"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+    </LinearLayout>
+
+</com.tool.listview.PersonalScrollView>

@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.application.MyApplication;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.http.HttpProxy;
@@ -50,7 +52,12 @@ public class ApplyDetailActivity extends AppCompatActivity {
         initView();
     }
     private void initView(){
-        Glide.with(this).load(mApplyFriend.getHeadPortrait()).into(iv_icon);
+        RequestOptions mRequestOptions = RequestOptions.circleCropTransform()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+                .skipMemoryCache(true);//不做内存缓存
+        mRequestOptions.error(R.mipmap.ic_default_head);
+        mRequestOptions.placeholder(R.mipmap.ic_default_head);
+        Glide.with(this).load(mApplyFriend.getHeadPortrait()).apply(mRequestOptions).into(iv_icon);
         chatname.setText(mApplyFriend.getName());
         account.setText(mApplyFriend.getId());
         refuse.setOnClickListener(new View.OnClickListener() {

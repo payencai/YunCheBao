@@ -32,8 +32,8 @@ public class RvCommentAdapter extends BaseQuickAdapter<ShopComment,BaseViewHolde
         if (item.getId()!=null) {
             iv_content.setText(item.getContent());
             tv_name.setText(item.getName());
-            tv_time.setText(item.getReplyTime().substring(0, 10));
-            starbar.setRating(item.getScore());
+            tv_time.setText(item.getCreateTime().substring(0,10)+"");
+            starbar.setRating((float) item.getScore());
             Glide.with(mContext).load(item.getHeadPortrait()).into(userhead);
         }
     }

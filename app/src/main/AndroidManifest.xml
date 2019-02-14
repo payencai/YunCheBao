@@ -303,17 +303,15 @@
         <activity android:name="com.vipcenter.BindPhoneActivity" />
         <activity android:name="com.vipcenter.SetPasswordActivity" />
 
-
         <provider
-            android:authorities="com.yancy.gallerypickdemo.fileprovider"
             android:name="com.tool.CustomFileProvider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:authorities="com.yancy.gallerypickdemo.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths"/>
+                android:resource="@xml/filepaths" />
         </provider>
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.yunchebao.FileProvider"
@@ -423,7 +421,9 @@
         <activity
             android:name="com.newversion.ChooseUserActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name="com.vipcenter.PubCommentActivity"></activity>
+        <activity android:name="com.vipcenter.PubCommentActivity" />
+        <activity android:name="com.cheyibao.AddSchoolCommentActivity" />
+        <activity android:name="com.cheyibao.AddRentCommentActivity"></activity>
     </application>
 
 </manifest>
