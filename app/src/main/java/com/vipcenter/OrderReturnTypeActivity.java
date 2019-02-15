@@ -33,13 +33,16 @@ public class OrderReturnTypeActivity extends NoHttpBaseActivity {
         ctx = this;
     }
 
-    @OnClick({R.id.back,R.id.lay1})
+    @OnClick({R.id.back,R.id.lay1,R.id.lay2})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.back:
                 onBackPressed();
                 break;
             case R.id.lay1:
+                ActivityAnimationUtils.commonTransition(OrderReturnTypeActivity.this,OrderReturnApplyActivity.class, ActivityConstans.Animation.FADE);
+                break;
+            case R.id.lay2:
                 ActivityAnimationUtils.commonTransition(OrderReturnTypeActivity.this,OrderReturnApplyActivity.class, ActivityConstans.Animation.FADE);
                 break;
         }

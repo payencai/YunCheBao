@@ -1,6 +1,7 @@
 package com.maket.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.coorchice.library.SuperTextView;
 import com.entity.PhoneOrderEntity;
 import com.example.yunchebao.R;
+import com.tool.ActivityAnimationUtils;
+import com.tool.ActivityConstans;
+import com.vipcenter.OrderReturnTypeActivity;
 
 import java.util.List;
 
@@ -49,12 +54,25 @@ public class GoodsOrderChildAdapter extends BaseAdapter {
         convertView = LayoutInflater.from(ctx).inflate(R.layout.item_order_child, null);
         ImageView iv_goods= (ImageView) convertView.findViewById(R.id.iv_goods);
         TextView tv_goodsname= (TextView) convertView.findViewById(R.id.tv_goodsname);
+        SuperTextView tv_shouhou= (SuperTextView) convertView.findViewById(R.id.tv_shouhou);
         TextView tv_num= (TextView) convertView.findViewById(R.id.tv_num);
         TextView tv_price= (TextView) convertView.findViewById(R.id.tv_price);
         Glide.with(ctx).load(list.get(position).getCommodityImage()).into(iv_goods);
         tv_goodsname.setText(list.get(position).getCommodityName());
         tv_num.setText("x"+list.get(position).getNumber());
         tv_price.setText("￥"+list.get(position).getPrice());
+        if(list.get(position).getState()==3){
+            tv_shouhou.setVisibility(View.VISIBLE);
+        }
+        tv_shouhou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ctx,OrderReturnTypeActivity.class);
+                intent.putExtra("data",list.get(position));
+                ctx.startActivity(intent);
+               // ActivityAnimationUtils.commonTransition(ctx, OrderReturnTypeActivity.class, ActivityConstans.Animation.FADE);
+            }
+        });
         return convertView;
     }
 

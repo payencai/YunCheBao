@@ -189,7 +189,7 @@ public class OrderListAdapter extends BaseAdapter {
             vh.shouhuo.setVisibility(View.GONE);
             vh.shouhou.setVisibility(View.VISIBLE);
             vh.pingjia.setVisibility(View.GONE);
-            vh.lianxi.setVisibility(View.VISIBLE);
+            vh.lianxi.setVisibility(View.GONE);
             vh.fukuan.setVisibility(View.GONE);
             vh.tixing.setVisibility(View.VISIBLE);
             vh.yanchang.setVisibility(View.GONE);
@@ -204,7 +204,7 @@ public class OrderListAdapter extends BaseAdapter {
             vh.lianxi.setVisibility(View.GONE);
             vh.fukuan.setVisibility(View.GONE);
             vh.tixing.setVisibility(View.GONE);
-            vh.yanchang.setVisibility(View.VISIBLE);
+            vh.yanchang.setVisibility(View.GONE);
             vh.wuliu.setVisibility(View.VISIBLE);
             vh.zailai.setVisibility(View.GONE);
         } else if (entity.getState() == 4) {

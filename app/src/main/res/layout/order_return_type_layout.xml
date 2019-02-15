@@ -1,12 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <include layout="@layout/top_title_layout"></include>
 
-    <include layout="@layout/order_detail_list_item"></include>
+    <LinearLayout
+
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginRight="5dp"
+            android:id="@+id/iv_goods"
+            android:scaleType="fitXY"
+            android:src="@mipmap/pic1"
+            android:layout_width="82dp"
+            android:layout_height="82dp" />
+        <RelativeLayout
+            android:padding="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_goodsname"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textSize="14sp"
+                    android:textColor="@color/black_33"
+                    android:layout_marginRight="20dp"
+                    android:layout_toLeftOf="@+id/tv_num"
+                    android:text="固铂Cooper ZEON ATP 205/55R16 91V 轮胎"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_99"
+                    android:id="@+id/tv_num"
+                    android:text="x1"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_alignParentBottom="true"
+                    android:id="@+id/tv_price"
+                    android:textColor="@color/yellow_02"
+                    android:textSize="14sp"
+                    android:text="￥432"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <com.coorchice.library.SuperTextView
+                    android:layout_alignParentBottom="true"
+                    android:id="@+id/tv_shouhou"
+                    android:padding="5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="申请售后"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    android:textColor="@color/white"
+                    android:layout_alignParentRight="true"
+                    fresco:corner="4dp"
+                    fresco:solid="@color/yellow_65" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/lay1"
@@ -41,6 +114,56 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text="未收到货（包含未签收），或卖家协商同意前提下"
+                android:textColor="@color/gray_99"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="6dp"
+                android:layout_height="9dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/arrow_right" />
+        </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/lay2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@mipmap/refund" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="退货换货"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="已收到货，需要退货已收到的货物"
                 android:textColor="@color/gray_99"
                 android:textSize="10sp" />
         </LinearLayout>

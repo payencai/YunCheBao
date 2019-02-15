@@ -196,7 +196,9 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
         Intent intent;
         switch (t) {
             case 0://详情
-
+                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+                intent.putExtra("data", list.get(location));
+                startActivity(intent);
                 // ActivityAnimationUtils.commonTransition(getActivity(), OrderDetailActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case 1://联系
@@ -220,25 +222,43 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
                 //  initDialog();
                 break;
             case 4://申请退货
-                ActivityAnimationUtils.commonTransition(getActivity(), OrderReturnTypeActivity.class, ActivityConstans.Animation.FADE);
+                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+                intent.putExtra("data", list.get(location));
+                startActivity(intent);
+                //ActivityAnimationUtils.commonTransition(getActivity(), OrderReturnTypeActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case 5://提醒
-                alert5Sweet();
+                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+                intent.putExtra("data", list.get(location));
+                startActivity(intent);
+                //alert5Sweet();
                 break;
             case 6://延长收货
                 alert6Sweet();
                 break;
             case 7://物流
-                ActivityAnimationUtils.commonTransition(getActivity(), CheckLogisticsActivity.class, ActivityConstans.Animation.FADE);
+                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+                intent.putExtra("data", list.get(location));
+                startActivity(intent);
+                //ActivityAnimationUtils.commonTransition(getActivity(), CheckLogisticsActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case 8://确认收货
-                alert8Sweet();
+                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+                intent.putExtra("data", list.get(location));
+                startActivity(intent);
+                //alert8Sweet();
                 break;
             case 9://再来一单
-                ActivityAnimationUtils.commonTransition(getActivity(), OrderConfirmActivity.class, ActivityConstans.Animation.FADE);
+                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+                intent.putExtra("data", list.get(location));
+                startActivity(intent);
+                //ActivityAnimationUtils.commonTransition(getActivity(), OrderConfirmActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case 10://评价
-                ActivityAnimationUtils.commonTransition(getActivity(), OrderCommentSubmitActivity.class, ActivityConstans.Animation.FADE);
+                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+                intent.putExtra("data", list.get(location));
+                startActivity(intent);
+                //ActivityAnimationUtils.commonTransition(getActivity(), OrderCommentSubmitActivity.class, ActivityConstans.Animation.FADE);
                 break;
         }
     }

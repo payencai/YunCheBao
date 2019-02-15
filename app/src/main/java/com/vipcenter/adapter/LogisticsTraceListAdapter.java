@@ -21,22 +21,22 @@ import java.util.List;
  * 列表适配器
  */
 public class LogisticsTraceListAdapter extends BaseAdapter {
-    private List<PhoneTraceEntity> list;
+    private List<PhoneTraceEntity.ListBean> list;
     private Context ctx;
 
-    public LogisticsTraceListAdapter(Context ctx, List<PhoneTraceEntity> list) {
+    public LogisticsTraceListAdapter(Context ctx, List<PhoneTraceEntity.ListBean> list) {
         this.list = list;
         this.ctx = ctx;
     }
 
     @Override
     public int getCount() {
-        return 5;
+        return list.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return list.get(position);
     }
 
     @Override
@@ -46,6 +46,7 @@ public class LogisticsTraceListAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+        PhoneTraceEntity.ListBean listBean=list.get(position);
         ViewHolder vh = null;
         if (convertView == null) {
             vh = new ViewHolder();
@@ -79,16 +80,8 @@ public class LogisticsTraceListAdapter extends BaseAdapter {
             }
             vh.icon.setVisibility(View.GONE);
         }
-//        final PhoneMagEntity entity = list.get(position);
-//        vh.name.setText(entity.getName());
-//        if (entity.getPic_2() != null && !entity.getPic_2().equals("")){
-//            Uri uri = Uri.parse(PlatformContans.rootUrl + entity.getPic_2());
-//            DraweeController controller = Fresco.newDraweeControllerBuilder()
-//                    .setUri(uri)
-//                    .setAutoPlayAnimations(true)
-//                    .build();
-//            vh.img.setController(controller);
-//        }
+        vh.item1.setText(listBean.getRemark());
+        vh.item2.setText(listBean.getDatetime());
         return convertView;
     }
 

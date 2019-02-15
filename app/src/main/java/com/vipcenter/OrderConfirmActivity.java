@@ -153,7 +153,6 @@ public class OrderConfirmActivity extends NoHttpBaseActivity {
         newSortGoods.remove(position);
         newSortGoods.add(position, goodEntity);
 
-
         //Toast.makeText(this,str+"----"+position,Toast.LENGTH_LONG).show();
     }
 

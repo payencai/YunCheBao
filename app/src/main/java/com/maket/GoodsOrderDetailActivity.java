@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,8 +24,12 @@ import com.maket.adapter.GoodsOrderDetailAdapter;
 import com.payencai.library.util.ToastUtil;
 import com.tool.BottomMenuDialog;
 import com.tool.listview.PersonalListView;
+import com.vipcenter.CheckLogisticsActivity;
+import com.vipcenter.OrderCommentSubmitActivity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -54,13 +59,30 @@ public class GoodsOrderDetailActivity extends AppCompatActivity {
     @BindView(R.id.tv_pay)
     SuperTextView tv_pay;
     @BindView(R.id.tv_cancel)
-    TextView tv_cancel;
+    SuperTextView tv_cancel;
+    @BindView(R.id.tv_wuliu)
+    SuperTextView tv_wuliu;
+    @BindView(R.id.tv_wuliu2)
+    SuperTextView tv_wuliu2;
+    @BindView(R.id.tv_confirm)
+    SuperTextView tv_confirm;
+    @BindView(R.id.tv_comment)
+    SuperTextView tv_comment;
     @BindView(R.id.rl_contacts)
     RelativeLayout rl_contacts;
     @BindView(R.id.rl_phone)
     RelativeLayout rl_phone;
     @BindView(R.id.back)
     ImageView back;
+    @BindView(R.id.ll_state1)
+    LinearLayout ll_state1;
+    @BindView(R.id.ll_state2)
+    LinearLayout ll_state2;
+    @BindView(R.id.ll_state3)
+    LinearLayout ll_state3;
+    @BindView(R.id.ll_state4)
+    LinearLayout ll_state4;
+
     GoodsOrderChildAdapter mGoodsOrderChildAdapter;
     private String[] items = new String[]{"我不想买了", "信息填写错误，重新拍", "卖家缺货", "同城见面交易", "其他原因"};
     private BottomMenuDialog bottomDialog;
@@ -74,7 +96,13 @@ public class GoodsOrderDetailActivity extends AppCompatActivity {
         initView();
     }
     private void initView(){
-        mGoodsOrderChildAdapter=new GoodsOrderChildAdapter(this,mPhoneOrderEntity.getItemList());
+        List<PhoneOrderEntity.ItemListBean>itemListBeans=new ArrayList<>();
+        for (int i = 0; i <mPhoneOrderEntity.getItemList().size() ; i++) {
+            PhoneOrderEntity.ItemListBean itemListBean=mPhoneOrderEntity.getItemList().get(i);
+            itemListBean.setState(mPhoneOrderEntity.getState());
+            itemListBeans.add(itemListBean);
+        }
+        mGoodsOrderChildAdapter=new GoodsOrderChildAdapter(this,itemListBeans);
         lv_goods.setAdapter(mGoodsOrderChildAdapter);
         tv_ordernum.setText("订单号: "+mPhoneOrderEntity.getOrderNo());
         tv_goodsnum.setText("共"+mPhoneOrderEntity.getNumber()+"件商品");
@@ -84,12 +112,20 @@ public class GoodsOrderDetailActivity extends AppCompatActivity {
         total4.setText("￥"+mPhoneOrderEntity.getTotal());
         switch(mPhoneOrderEntity.getState()){
             case 1:
+                tv_status.setText("待付款");
+                ll_state1.setVisibility(View.VISIBLE);
                 break;
             case 2:
+                tv_status.setText("待发货");
+                ll_state2.setVisibility(View.VISIBLE);
                 break;
             case 3:
+                tv_status.setText("待收货");
+                ll_state3.setVisibility(View.VISIBLE);
                 break;
             case 4:
+                tv_status.setText("待评价");
+                ll_state4.setVisibility(View.VISIBLE);
                 break;
         }
         tv_cancel.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +159,54 @@ public class GoodsOrderDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        //确认收货
+        tv_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmOrder();
+            }
+        });
+        tv_wuliu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GoodsOrderDetailActivity.this, CheckLogisticsActivity.class);
+                intent.putExtra("data",mPhoneOrderEntity);
+                startActivity(intent);
+            }
+        });
+        tv_wuliu2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GoodsOrderDetailActivity.this, CheckLogisticsActivity.class);
+                intent.putExtra("data",mPhoneOrderEntity);
+                startActivity(intent);
+            }
+        });
+        tv_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GoodsOrderDetailActivity.this, OrderCommentSubmitActivity.class);
+                intent.putExtra("data",mPhoneOrderEntity);
+                startActivity(intent);
+            }
+        });
+    }
+    private void confirmOrder(){
+        Map<String,Object> params=new HashMap<>();
+        params.put("orderId",mPhoneOrderEntity.getId());
+        HttpProxy.obtain().post(PlatformContans.GoodsOrder.finishOrder, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("reuslt",result);
+                ToastUtil.showToast(GoodsOrderDetailActivity.this,"操作成功");
+                finish();
+            }
+
+            @Override
+            public void onFailure(String error) {
+
             }
         });
     }

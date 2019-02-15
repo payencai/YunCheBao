@@ -288,6 +288,15 @@ public class PhoneOrderEntity implements Serializable{
          * secondSpecificationName : string
          * secondSpecificationValue : string
          */
+        private int state;
+
+        public int getState() {
+            return state;
+        }
+
+        public void setState(int state) {
+            this.state = state;
+        }
 
         private String commodityId;
         private String commodityImage;
@@ -307,6 +316,42 @@ public class PhoneOrderEntity implements Serializable{
         private String refuseTime;
         private String secondSpecificationName;
         private String secondSpecificationValue;
+        private String imgs;
+        private String content;
+        private double score;
+        private int isRealName=1;
+
+        public String getImgs() {
+            return imgs;
+        }
+
+        public void setImgs(String imgs) {
+            this.imgs = imgs;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public double getScore() {
+            return score;
+        }
+
+        public void setScore(double score) {
+            this.score = score;
+        }
+
+        public int getIsRealName() {
+            return isRealName;
+        }
+
+        public void setIsRealName(int isRealName) {
+            this.isRealName = isRealName;
+        }
 
         public String getCommodityId() {
             return commodityId;

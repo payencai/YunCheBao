@@ -246,7 +246,9 @@
         <activity android:name="com.vipcenter.CheckLogisticsActivity" />
         <activity android:name="com.vipcenter.HaveGotGoodsActivity" />
         <activity android:name="com.vipcenter.OrderCommentSubmitActivity" />
-        <activity android:name="com.vipcenter.OrderReturnApplyActivity" />
+        <activity
+            android:windowSoftInputMode="stateHidden"
+            android:name="com.vipcenter.OrderReturnApplyActivity" />
         <activity android:name="com.vipcenter.OrderReturnTypeActivity" />
         <activity android:name="com.vipcenter.OrderComplaintActivity" />
         <activity
