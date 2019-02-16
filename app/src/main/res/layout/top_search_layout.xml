@@ -31,6 +31,7 @@
 
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/messenger_icon"
         android:layout_width="41dp"
         android:layout_height="42dp"

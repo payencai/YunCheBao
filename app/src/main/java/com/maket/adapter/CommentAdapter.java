@@ -10,10 +10,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cheyibao.AddRentCommentActivity;
+import com.comment.EvaluationChoiceImageView;
 import com.costans.PlatformContans;
 import com.entity.PhoneOrderEntity;
 import com.example.yunchebao.R;
@@ -75,6 +77,13 @@ public class CommentAdapter  extends BaseQuickAdapter<PhoneOrderEntity.ItemListB
     public CommentAdapter(int layoutResId, @Nullable List<PhoneOrderEntity.ItemListBean> data) {
         super(layoutResId, data);
     }
+    private OnAddImageListener mOnAddImageListener;
+    public interface OnAddImageListener{
+        public  void addImage(int pos,EvaluationChoiceImageView evaluationChoiceImageView);
+    }
+    public  void setOnAddImageListener(OnAddImageListener mOnAddImageListener){
+        this.mOnAddImageListener=mOnAddImageListener;
+    }
     int count=0;
     @Override
     protected void convert(BaseViewHolder helper, PhoneOrderEntity.ItemListBean item) {
@@ -86,9 +95,24 @@ public class CommentAdapter  extends BaseQuickAdapter<PhoneOrderEntity.ItemListB
         EditText et_comment=helper.getView(R.id.et_comment);
         ImageView iv_show=helper.getView(R.id.iv_show);
         SimpleRatingBar sb_score=helper.getView(R.id.sb_score);
-        GridView gv_photo=helper.getView(R.id.gv_photo);
-        gv_photo.setAdapter(mPhotoAdapter);
-        helper.addOnClickListener(R.id.iv_select);
+        EvaluationChoiceImageView addimgs=helper.getView(R.id.addimgs);
+        addimgs.setOnClickAddImageListener(new EvaluationChoiceImageView.OnClickAddImageListener() {
+            @Override
+            public void onClickAddImage() {
+                //Toast.makeText(mContext, ""+itemposition, Toast.LENGTH_SHORT).show();
+                //这里将EvaluationChoiceImageView存到临时变量中好对不同的EvaluationChoiceImageView添加图片
+                mOnAddImageListener.addImage(helper.getPosition(),addimgs);
+                //mTempEvaluationChoiceImageView=itemRegularevaluationEvaluationchoiceimageview;
+               // mTempPosition=itemposition;
+               // choiceImage();
+            }
+        });
+        addimgs.setOnClickDeleteImageListener(new EvaluationChoiceImageView.OnClickDeleteImageListener() {
+            @Override
+            public void onClickDeleteImage(int position) {
+                //evaluationBeans.get(itemposition).getEvaluationImages().remove(position);
+            }
+        });
         sb_score.setOnRatingBarChangeListener(new SimpleRatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(SimpleRatingBar simpleRatingBar, float rating, boolean fromUser) {

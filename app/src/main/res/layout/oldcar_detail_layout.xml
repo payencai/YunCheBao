@@ -11,7 +11,7 @@
      <RelativeLayout
          android:layout_width="match_parent"
          android:layout_height="match_parent">
-         <com.tool.listview.PersonalScrollView
+         <com.cheyibao.model.ReboundScrollView
              android:id="@+id/scollview"
              android:layout_above="@+id/ll_bottom"
              android:layout_width="match_parent"
@@ -26,7 +26,7 @@
                  <com.youth.banner.Banner
                      android:id="@+id/slideshowView"
                      android:layout_width="match_parent"
-                     android:layout_height="247dp"
+                     android:layout_height="210dp"
                      android:background="@color/white"
                      android:visibility="visible" />
                  <!--广告栏banner  end-->
@@ -82,17 +82,29 @@
                      android:orientation="vertical"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content">
-                     <TextView
+                     <LinearLayout
+                         android:gravity="center_vertical"
+                         android:paddingLeft="15dp"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content">
+                         <com.payencai.library.view.CircleImageView
+                             android:layout_width="30dp"
+                             android:id="@+id/iv_head"
+                             android:scaleType="fitXY"
+                             android:src="@mipmap/ic_default_head"
+                             android:layout_height="30dp" />
+                         <TextView
+                             android:id="@+id/tv_nickname"
+                             android:layout_marginRight="20dp"
+                             android:layout_marginTop="10dp"
+                             android:layout_marginLeft="10dp"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="昵称"
+                             android:textColor="@color/black_33"
+                             android:textSize="14sp" />
+                     </LinearLayout>
 
-                         android:id="@+id/tv_nickname"
-                         android:layout_marginRight="20dp"
-                         android:layout_marginTop="10dp"
-                         android:layout_marginLeft="20dp"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:text="个人车主昵称"
-                         android:textColor="@color/black_33"
-                         android:textSize="17sp" />
                      <TextView
 
                          android:id="@+id/tv_content"
@@ -200,6 +212,7 @@
                              android:layout_width="0dp"
                              android:layout_height="match_parent" />
                          <TextView
+                             android:visibility="gone"
                              android:id="@+id/tv_comment"
                              android:textSize="10sp"
                              android:gravity="center"
@@ -457,7 +470,7 @@
                  </com.tool.listview.PersonalListView>
              </LinearLayout>
 
-         </com.tool.listview.PersonalScrollView>
+         </com.cheyibao.model.ReboundScrollView>
 
          <LinearLayout
              android:id="@+id/ll_bottom"

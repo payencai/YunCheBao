@@ -7,7 +7,7 @@
 
 
     <!--android:fitsSystemWindows="true"-->
-    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+    <com.cheyibao.model.ReboundScrollView
         android:id="@+id/my_scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -57,6 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
                     <ImageView
+                        android:visibility="gone"
                         android:id="@+id/messenger_icon"
                         android:layout_width="41dp"
                         android:layout_height="42dp"
@@ -103,13 +104,9 @@
                 android:visibility="visible" />
 
             <LinearLayout
-                android:elevation="2dp"
-                android:layout_marginTop="-10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/white_cornor_background"
+                android:background="@color/white"
                 android:orientation="vertical"
                 android:padding="10dp">
 
@@ -346,13 +343,13 @@
                 android:padding="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
-                android:layout_marginTop="-6dp"
+                android:layout_marginTop="5dp"
                 android:background="@color/white">
 
                 <TextView
                     android:textStyle="bold"
                     android:textColor="@color/black_33"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
                     android:textSize="24sp"
                     android:text="19"
                     android:id="@+id/tv_wendu"
@@ -365,7 +362,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="10dp"
 
                     android:layout_toRightOf="@+id/tv_wendu"
@@ -634,5 +631,5 @@
 
 
         </LinearLayout>
-    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+    </com.cheyibao.model.ReboundScrollView>
 </LinearLayout>

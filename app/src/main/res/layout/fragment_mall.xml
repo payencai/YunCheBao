@@ -48,6 +48,7 @@
                     android:src="@mipmap/shoppingcart_icon" />
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/messenger_icon"
                     android:layout_width="37dp"
                     android:layout_height="41dp"

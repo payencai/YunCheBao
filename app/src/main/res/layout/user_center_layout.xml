@@ -289,7 +289,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@id/iv_pub"
-                        android:text="我发布的"
+                        android:text="个人售卖"
                         android:textColor="@color/black_33"
                         android:textSize="14sp" />
 
@@ -325,7 +325,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@id/icon11"
-                        android:text="服务车辆"
+                        android:text="我的服务"
                         android:textColor="@color/black_33"
                         android:textSize="14sp" />
 
@@ -414,6 +414,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -496,6 +497,7 @@
                 android:background="@color/white"
                 android:orientation="vertical">
                 <RelativeLayout
+                    android:visibility="gone"
                     android:id="@+id/rl_mycar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -151,7 +151,7 @@ public class HomeFragment extends BaseFragment {
     LinearLayout ll_item3;
     List<HomeImage> mHomeImages;
     HomeListAdapter mHomeListAdapter;
-    private PullToRefreshScrollView pullToRefreshScrollView;
+
 
     List<Banner> mBanners = new ArrayList<>();
 
@@ -484,13 +484,7 @@ public class HomeFragment extends BaseFragment {
 
             }
         });
-//        //网络地址获取轮播图
-//        imageList.clear();
-//        for (int i = 0; i < 3; i++) {
-//            Map<String, String> image_uri = new HashMap<String, String>();
-//            image_uri.put("imageUrls", "https://you.autoimg.cn/_autohomecar__zhouyouji/657C2F909017074F9C59CA0B88DA0F0BDDC9.jpg?imageMogr2/format/jpg/thumbnail/790|watermark/2/text/5rG96L2m5LmL5a62/font/5b6u6L2v6ZuF6buR/fontsize/270/fill/I0ZGRkZGRg==");
-//            imageList.add(image_uri);
-//        }
+
 
     }
 
@@ -541,31 +535,11 @@ public class HomeFragment extends BaseFragment {
             }
         });
         lv_home.setFocusable(false);
-        pullToRefreshScrollView = (PullToRefreshScrollView) rootView.findViewById(R.id.my_scrollview);
-        pullToRefreshScrollView.setScrollingWhileRefreshingEnabled(true);//滚动的时候不加载数据
-        pullToRefreshScrollView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-        pullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-                requestMethod(0);
-            }
 
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-            }
-        });
         getHomeImage(3);
     }
 
-    private void requestMethod(int type) {
-        pullToRefreshScrollView.onRefreshComplete();
-        Request<String> request = null;
-        switch (type) {
-            case 0://获取首页信息
 
-                break;
-        }
-    }
 
 
 

@@ -26,6 +26,7 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.lljjcoder.style.citylist.Toast.ToastUtils;
 import com.nohttp.sample.NoHttpBaseActivity;
+import com.payencai.library.view.CircleImageView;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
@@ -103,10 +104,11 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
     PersonalListView lv_params;
     @BindView(R.id.lv_photo)
     PersonalListView lv_photo;
+    @BindView(R.id.iv_head)
+    CircleImageView iv_head;
     @BindView(R.id.tv_seecomment)
     TextView tv_seecomment;
-    @BindView(R.id.scollview)
-    PersonalScrollView scrollView;
+
     List<String> images = new ArrayList<>();
     NewCarParamsAdapter mNewCarParamsAdapter;
     NewCarParams mNewCarParams;
@@ -210,15 +212,16 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
             name = name + mOldCar.getThirdName();
         }
         tv_name.setText(name);
-        tv_nickname.setText(mOldCar.getLinkman());
+        tv_nickname.setText(mOldCar.getName());
         tv_content.setText("车辆描述: " + mOldCar.getCarCategoryDetail().getRemark());
         tv_color.setText(mOldCar.getColor());
         tv_nexttime.setText(mOldCar.getLastValidateCar().substring(0, 10));
         tv_regtime.setText(mOldCar.getRegistrationTime().substring(0, 10));
         tv_num.setText(mOldCar.getChange() + "次");
-        tv_priod.setText(mOldCar.getInsuranceValidTime() + "天");
+        tv_priod.setText(mOldCar.getInsuranceValidTime() );
         tv_city.setText(mOldCar.getRegistrationAddress());
         tv_dis.setText(mOldCar.getDistance() + "");
+        Glide.with(this).load(mOldCar.getHeadPortrait()).into(iv_head);
         if (mOldCar.getType() == 1) {
             ll_shop.setVisibility(View.VISIBLE);
         } else {

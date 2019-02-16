@@ -152,6 +152,7 @@ public class PlatformContans {
         public static final String getSkipUrlResult=root+"/common/getSkipUrlResult";
         public static final String getTodayTemperatureByCity=root+ "/common/getTodayTemperatureByCity";
         public static final String getExpressResult=root+ "/common/getExpressResult";
+        public static final String getSplash=root+ "/common/getPicture";
     }
     public static class FourShop{
         public static final String getFourShopListByApp=root + "/fourShop/getFourShopListByApp";

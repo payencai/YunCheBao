@@ -45,6 +45,24 @@ public class OldCar implements Serializable{
      * type : 0
      * userId : string
      */
+    private String headPortrait;
+    private String name;
+
+    public String getHeadPortrait() {
+        return headPortrait;
+    }
+
+    public void setHeadPortrait(String headPortrait) {
+        this.headPortrait = headPortrait;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     private int audit;
     private CarCategoryDetailBean carCategoryDetail;

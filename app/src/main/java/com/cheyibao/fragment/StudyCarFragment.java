@@ -1,5 +1,6 @@
 package com.cheyibao.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -11,11 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.application.MyApplication;
 import com.bbcircle.data.CarShow;
+import com.bumptech.glide.Glide;
 import com.cheyibao.DrivingSchoolActivity;
 import com.cheyibao.adapter.StudyItemAdapter;
 import com.cheyibao.model.DrvingSchool;
@@ -27,6 +30,7 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
+import com.system.WebviewActivity;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.tool.listview.PersonalListView;
@@ -38,6 +42,8 @@ import com.tool.viewpager.ScrollIndicatorView;
 import com.vipcenter.RegisterActivity;
 import com.xihubao.Shop4SListActivity;
 import com.xihubao.fragment.Shop4SListFragment;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,7 +69,7 @@ public class StudyCarFragment extends BaseFragment {
     @BindView(R.id.tv_score)
     TextView tv_score;
     @BindView(R.id.slideshowView)
-    SlideShowView slideShowView;
+    com.youth.banner.Banner banner;
     @BindView(R.id.scollview)
     PersonalScrollView mPersonalScrollView;
     StudyItemAdapter mStudyItemAdapter;
@@ -71,7 +77,7 @@ public class StudyCarFragment extends BaseFragment {
     int type = 1;
     //轮播图片
     private List<Map<String, String>> imageList = new ArrayList<>();
-
+    List<Banner> mBanners = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,7 +87,35 @@ public class StudyCarFragment extends BaseFragment {
         getBaner();
         return rootView;
     }
-
+    private void initBanner() {
+        banner.setImageLoader(new com.youth.banner.loader.ImageLoader() {
+            @Override
+            public void displayImage(Context context, Object path, ImageView imageView) {
+                //此处可以自行选择，我直接用的Picasso
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                Glide.with(getContext()).load((String) path).into(imageView);
+            }
+        });
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Log.e("url", mBanners.get(position).getPicture() + "-" + mBanners.get(position).getSkipUrl());
+                Intent intent = new Intent(getContext(), WebviewActivity.class);
+                String url = mBanners.get(position).getSkipUrl();
+                if (!url.contains("http") && !url.contains("https")) {
+                    url = "http://" + url;
+                }
+                intent.putExtra("url", url);
+                startActivity(intent);
+            }
+        });
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
+        banner.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位置
+        banner.setDelayTime(2000);//设置轮播时间
+        banner.setImages(images);//设置图片源
+        banner.start();
+    }
+    List<String> images = new ArrayList<>();
     private void getBaner() {
         imageList.clear();
         Map<String, Object> params = new HashMap<>();
@@ -96,12 +130,11 @@ public class StudyCarFragment extends BaseFragment {
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
                         Banner banner = new Gson().fromJson(item.toString(), Banner.class);
+                        mBanners.add(banner);
                         String url = item.getString("picture");
-                        Map<String, String> image_uri = new HashMap<String, String>();
-                        image_uri.put("imageUrls", url);
-                        imageList.add(image_uri);
+                        images.add(url);
                     }
-                    slideShowView.setImageUrls(imageList);
+                   initBanner();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

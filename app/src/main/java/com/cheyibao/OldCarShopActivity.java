@@ -49,13 +49,10 @@ public class OldCarShopActivity extends AppCompatActivity {
 
     private void initFragmentList() {
         mTitleList.add("在售车型");
-        mTitleList.add("查看评论");
         mFragments.add(new OldCarSaleFragment());
-        mFragments.add(new OldCarCommentFragment());
         mMyFragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragments, mTitleList);
         vpGank.setAdapter(mMyFragmentPagerAdapter);
         tabGank.setupWithViewPager(vpGank);
-        if (flag == 2)
-            vpGank.setCurrentItem(1);
+
     }
 }

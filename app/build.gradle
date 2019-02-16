@@ -131,8 +131,13 @@ dependencies {
     implementation 'cn.bingoogolapple:bga-refreshlayout:1.1.8@aar'
     implementation project(':CallKit')
     implementation 'com.github.dongjunkun:DropDownMenu:1.0.4'
-   // implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+    // implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
     compile 'com.github.YancyYe:GalleryPick:1.2.1'
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     implementation 'com.zhihu.android:matisse:0.5.2-beta4'
+    implementation 'com.nex3z:flow-layout:1.2.4'
+//https://blog.csdn.net/moy1995/article/details/77880075
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+    //图片压缩
+    implementation 'top.zibin:Luban:1.1.7'
 }

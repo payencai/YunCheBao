@@ -15,10 +15,10 @@
             layout="@layout/top_title_layout"
             android:visibility="gone"></include>
 
-        <com.tool.slideshowview.SlideShowView
+        <com.youth.banner.Banner
             android:id="@+id/slideshowView"
             android:layout_width="match_parent"
-            android:layout_height="150dp"></com.tool.slideshowview.SlideShowView>
+            android:layout_height="210dp"></com.youth.banner.Banner>
 
         <LinearLayout
             android:layout_width="match_parent"

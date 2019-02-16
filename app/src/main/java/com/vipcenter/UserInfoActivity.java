@@ -34,6 +34,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
+import com.payencai.library.view.CircleImageView;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
@@ -66,13 +67,15 @@ import okhttp3.Response;
 
 public class UserInfoActivity extends NoHttpBaseActivity {
     @BindView(R.id.sd_head)
-    ImageView sd_head;
+    CircleImageView sd_head;
     @BindView(R.id.tv_account)
     TextView tv_account;
     @BindView(R.id.tv_nickname)
     TextView tv_nickname;
     @BindView(R.id.tv_sex)
     TextView tv_sex;
+    @BindView(R.id.tv_baohao)
+    TextView tv_baohao;
     /**
      * 裁剪图片
      */
@@ -279,7 +282,6 @@ public class UserInfoActivity extends NoHttpBaseActivity {
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "个人资料");
         ButterKnife.bind(this);
         Glide.with(this).load(MyApplication.getUserInfo().getHeadPortrait())
-                .apply(RequestOptions.bitmapTransform(new RoundedCorners(20)))
                 .into(sd_head);
         sd_head.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -287,12 +289,13 @@ public class UserInfoActivity extends NoHttpBaseActivity {
                 showDialog();
             }
         });
-        tv_account.setText(MyApplication.getUserInfo().getHxAccount());
-        tv_nickname.setText(MyApplication.getUserInfo().getUsername());
+        tv_account.setText(MyApplication.getUserInfo().getUsername());
+        tv_nickname.setText(MyApplication.getUserInfo().getName());
+        tv_baohao.setText(MyApplication.getUserInfo().getHxAccount());
         tv_sex.setText(MyApplication.getUserInfo().getSex());
     }
 
-    @OnClick({R.id.back, R.id.addressLay})
+    @OnClick({R.id.back, R.id.addressLay,R.id.rl_phone,R.id.rl_idcard})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.back:
@@ -300,6 +303,12 @@ public class UserInfoActivity extends NoHttpBaseActivity {
                 break;
             case R.id.addressLay:
                 ActivityAnimationUtils.commonTransition(UserInfoActivity.this, AddressListActivity.class, ActivityConstans.Animation.FADE);
+                break;
+            case R.id.rl_idcard:
+                ActivityAnimationUtils.commonTransition(UserInfoActivity.this, IDCardCertificationActivity.class, ActivityConstans.Animation.FADE);
+                break;
+            case R.id.rl_phone:
+                ActivityAnimationUtils.commonTransition(UserInfoActivity.this, MyPhoneActivity.class, ActivityConstans.Animation.FADE);
                 break;
         }
     }

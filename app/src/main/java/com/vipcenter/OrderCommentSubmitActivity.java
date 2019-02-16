@@ -19,6 +19,9 @@ import android.widget.TextView;
 import com.application.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.AddRentCommentActivity;
+import com.comment.Comment;
+import com.comment.CommentReuslt;
+import com.comment.EvaluationChoiceImageView;
 import com.costans.PlatformContans;
 import com.entity.PhoneGoodEntity;
 import com.entity.PhoneOrderEntity;
@@ -32,6 +35,7 @@ import com.maket.adapter.CommentAdapter;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.payencai.library.util.ToastUtil;
 import com.tool.ActivityConstans;
+import com.tool.FileUtil;
 import com.tool.GlideImageEngine;
 import com.tool.GlideImageLoader;
 import com.tool.UIControlUtils;
@@ -65,6 +69,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 /**
  * Created by sdhcjhss on 2018/1/5.
@@ -74,46 +81,56 @@ public class OrderCommentSubmitActivity extends NoHttpBaseActivity {
 
     PhoneOrderEntity mPhoneOrderEntity;
     String imgs = "";
-    int isAnonymous=1;
+    int isAnonymous = 1;
     @BindView(R.id.tv_pub)
     TextView tv_pub;
     @BindView(R.id.rv_comment)
     RecyclerView rv_comment;
     CommentAdapter mCommentAdapter;
+    int position;
+    private EvaluationChoiceImageView mTempEvaluationChoiceImageView;//存放临时的EvaluationChoiceImageView
+    List<PhoneOrderEntity.ItemListBean> mItemListBeans = new ArrayList<>();
+    List<CommentReuslt> mCommentReuslts = new ArrayList<>();
 
-    List<PhoneOrderEntity.ItemListBean>mItemListBeans=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_comment_submit_layout);
         ButterKnife.bind(this);
-        mPhoneOrderEntity= (PhoneOrderEntity) getIntent().getSerializableExtra("data");
+        mPhoneOrderEntity = (PhoneOrderEntity) getIntent().getSerializableExtra("data");
         mPhoneOrderEntity.getItemList();
         initView();
     }
 
     private void initView() {
+
         mItemListBeans.addAll(mPhoneOrderEntity.getItemList());
-        mCommentAdapter=new CommentAdapter(R.layout.item_goods_comment,mPhoneOrderEntity.getItemList());
-        mCommentAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        mCommentAdapter = new CommentAdapter(R.layout.item_goods_comment, mPhoneOrderEntity.getItemList());
+        mCommentAdapter.setOnAddImageListener(new CommentAdapter.OnAddImageListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if(view.getId()==R.id.iv_select){
-                    // 进入相册 以下是例子：用不到的api可以不写
-                    Matisse.from(OrderCommentSubmitActivity.this)
-                            .choose(MimeType.ofImage())
-                            .countable(true)
-                            .maxSelectable(6)
-                            .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-                            .thumbnailScale(0.85f)
-                            .imageEngine(new GlideImageEngine())
-                            .forResult(188);
-                }
+            public void addImage(int pos, EvaluationChoiceImageView evaluationChoiceImageView) {
+                mTempEvaluationChoiceImageView = evaluationChoiceImageView;
+                position = pos;
+                Matisse.from(OrderCommentSubmitActivity.this)
+                        .choose(MimeType.ofImage())
+                        .countable(true)
+                        .maxSelectable(1)
+                        .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                        .thumbnailScale(0.85f)
+                        .imageEngine(new GlideImageEngine())
+                        .forResult(188);
             }
         });
         rv_comment.setLayoutManager(new LinearLayoutManager(this));
         rv_comment.setAdapter(mCommentAdapter);
+        for (int i = 0; i < mItemListBeans.size(); i++) {
+            PhoneOrderEntity.ItemListBean itemListBean = mItemListBeans.get(i);
+            CommentReuslt commentReuslt = new CommentReuslt();
+            commentReuslt.setOrderItemId(itemListBean.getId());
+            mCommentReuslts.add(commentReuslt);
+        }
     }
+
     List<Uri> mSelected;
 
     @Override
@@ -121,50 +138,95 @@ public class OrderCommentSubmitActivity extends NoHttpBaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 188 && resultCode == RESULT_OK) {
             mSelected = Matisse.obtainResult(data);
-            List<String> path=new ArrayList<>();
-            for (int i = 0; i <mSelected.size() ; i++) {
-                path.add(mSelected.get(i).getPath());
-            }
-            mCommentAdapter.getPath().addAll(path);
-            mCommentAdapter.getPhotoAdapter().notifyDataSetChanged();
-            Log.d("Matisse", "mSelected: " + mSelected);
+            File fileByUri = FileUtil.getFileByUri(Matisse.obtainResult(data).get(0), this);
+//            压缩文件
+            Luban.with(this)
+                    .load(fileByUri)
+                    .ignoreBy(100)
+                    .filter(new CompressionPredicate() {
+                        @Override
+                        public boolean apply(String path) {
+                            return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                        }
+                    })
+                    .setCompressListener(new OnCompressListener() {
+                        @Override
+                        public void onStart() {
+                        }
+
+                        @Override
+                        public void onSuccess(File file) {
+                            //evaluationBeans.get(mTempPosition).getEvaluationImages().add(0,file);
+                            mTempEvaluationChoiceImageView.addImage(file.getAbsolutePath());
+                            upImage(PlatformContans.Commom.uploadImg, file, position);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                        }
+                    }).launch();
+
         }
     }
 
-    public void saveImgs(int position, String imgs){
+    public void upImage(String url, File file, int position) {
+        OkHttpClient mOkHttpClent = new OkHttpClient();
+
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("image", "image",
+                        RequestBody.create(MediaType.parse("image/png"), file));
+        RequestBody requestBody = builder.build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+        Call call = mOkHttpClent.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("upload", "onResponse: " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String string = response.body().string();
+                Log.e("upload", "onResponse: " + imgs);
+                try {
+                    JSONObject object = new JSONObject(string);
+                    int resultCode = object.getInt("resultCode");
+                    final String data = object.getString("data");
+                    mCommentReuslts.get(position).getImages().add(data);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+
+    public void saveImgs(int position, String imgs) {
         PhoneOrderEntity.ItemListBean itemListBean = mItemListBeans.get(position);
         itemListBean.setImgs(imgs);
         mItemListBeans.remove(position);
         mItemListBeans.add(position, itemListBean);
         //mCommentAdapter.setNewData(mItemListBeans);
     }
-    public void saveContent(int position,String content){
-        PhoneOrderEntity.ItemListBean itemListBean = mItemListBeans.get(position);
-        itemListBean.setContent(content);
-        mItemListBeans.remove(position);
-        mItemListBeans.add(position, itemListBean);
+
+    public void saveContent(int position, String content) {
+        mCommentReuslts.get(position).setContent(content);
     }
-    public void saveScore(int position,float score){
-        PhoneOrderEntity.ItemListBean itemListBean = mItemListBeans.get(position);
-        itemListBean.setScore(score);
-        mItemListBeans.remove(position);
-        mItemListBeans.add(position, itemListBean);
+
+    public void saveScore(int position, float score) {
+        mCommentReuslts.get(position).setScore((int) score);
     }
-    public void saveIsShow(int position,int isShow){
-        PhoneOrderEntity.ItemListBean itemListBean = mItemListBeans.get(position);
-        itemListBean.setIsRealName(isShow);
-        mItemListBeans.remove(position);
-        mItemListBeans.add(position, itemListBean);
+
+    public void saveIsShow(int position, int isShow) {
+        mCommentReuslts.get(position).setIsRealName(isShow);
     }
-    private void shopcomment(String comment, double score) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("orderItemId", mPhoneOrderEntity.getId());
-        params.put("content", comment);
-        params.put("isRealName", isAnonymous);
-        params.put("score", score);
-        if (!TextUtils.isEmpty(imgs))
-            params.put("imgs", imgs.substring(1));
-        String json=new Gson().toJson(params);
+
+    private void shopcomment(String json) {
+
         HttpProxy.obtain().post(PlatformContans.GoodsOrder.addBabyMerchantComment, MyApplication.getUserInfo().getToken(), json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -175,8 +237,8 @@ public class OrderCommentSubmitActivity extends NoHttpBaseActivity {
                     if (code == 0) {
                         ToastUtil.showToast(OrderCommentSubmitActivity.this, "发布成功");
                         finish();
-                    }else{
-                        String msg=jsonObject.getString("message");
+                    } else {
+                        String msg = jsonObject.getString("message");
                         ToastUtil.showToast(OrderCommentSubmitActivity.this, msg);
                     }
                 } catch (JSONException e) {
@@ -192,10 +254,25 @@ public class OrderCommentSubmitActivity extends NoHttpBaseActivity {
     }
 
     @OnClick({R.id.tv_pub})
-    public void OnClick(View v){
-        switch (v.getId()){
-            case  R.id.tv_pub:
-               // shopcomment(comment,score);
+    public void OnClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_pub:
+                List<Comment> comments = new ArrayList<>();
+                for (int i = 0; i < mCommentReuslts.size(); i++) {
+                    CommentReuslt commentReuslt = mCommentReuslts.get(i);
+                    Comment comment = new Comment();
+                    comment.setContent(commentReuslt.getContent());
+                    comment.setImgs(commentReuslt.getImgs());
+                    comment.setIsRealName(commentReuslt.getIsRealName());
+                    comment.setScore(commentReuslt.getScore());
+                    comment.setOrderItemId(commentReuslt.getOrderItemId());
+                    comments.add(comment);
+                }
+                String json = new Gson().toJson(comments);
+                json = "{\n" +
+                        "  \"data\": " + json + "}";
+                Log.e("mCommentReuslts", json);
+                shopcomment(json);
                 break;
 
 

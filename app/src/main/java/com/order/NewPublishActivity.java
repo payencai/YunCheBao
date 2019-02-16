@@ -58,8 +58,8 @@ public class NewPublishActivity extends AppCompatActivity {
 
 
     private void initFragmentList() {
-        mTitleList.add("售卖中的");
-        mTitleList.add("已卖出的");
+        mTitleList.add("售卖中");
+        mTitleList.add("已完成");
         mFragments.add(NewPublishFragment.newInstance(1));
         mFragments.add(NewPublishFragment.newInstance(2));
 

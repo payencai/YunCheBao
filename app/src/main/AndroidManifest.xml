@@ -120,11 +120,7 @@
         <activity
             android:name="com.system.MainActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.tencent.tauth.AuthActivity"
@@ -247,8 +243,8 @@
         <activity android:name="com.vipcenter.HaveGotGoodsActivity" />
         <activity android:name="com.vipcenter.OrderCommentSubmitActivity" />
         <activity
-            android:windowSoftInputMode="stateHidden"
-            android:name="com.vipcenter.OrderReturnApplyActivity" />
+            android:name="com.vipcenter.OrderReturnApplyActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name="com.vipcenter.OrderReturnTypeActivity" />
         <activity android:name="com.vipcenter.OrderComplaintActivity" />
         <activity
@@ -425,7 +421,14 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name="com.vipcenter.PubCommentActivity" />
         <activity android:name="com.cheyibao.AddSchoolCommentActivity" />
-        <activity android:name="com.cheyibao.AddRentCommentActivity"></activity>
+        <activity android:name="com.cheyibao.AddRentCommentActivity" />
+        <activity android:name="com.system.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
