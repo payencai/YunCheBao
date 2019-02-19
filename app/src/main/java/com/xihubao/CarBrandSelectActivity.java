@@ -61,7 +61,7 @@ public class CarBrandSelectActivity extends AppCompatActivity {
         if(requestCode==1){
             if(data!=null){
                 Intent intent = new Intent();
-                Log.e("data",data.getStringExtra("id"));
+               // Log.e("data",data.getStringExtra("id"));
                 intent.putExtra("name", data.getStringExtra("name"));
                 intent.putExtra("id", data.getStringExtra("id"));
                 intent.putExtra("id1", data.getStringExtra("id1"));

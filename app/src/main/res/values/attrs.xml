@@ -94,7 +94,20 @@
     </declare-styleable>
     <!-- sweetAlert  end -->
 
+    <!--自定义bottombar 属性-->
+    <attr name="arcHeight" format="dimension"/>
 
+    <declare-styleable name="RotateTextView">
+        <attr name="degree" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="ArcView">
+        <attr name="arcHeight"/>
+        <attr name="bgColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="ArcImageView">
+        <attr name="arcHeight"/>
+    </declare-styleable>
     <!-- 自定义RatingBar属性 -->
     <declare-styleable name="MyRatingBar">
         <attr name="progressColor" format="color"></attr>

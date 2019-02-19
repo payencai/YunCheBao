@@ -27,8 +27,7 @@ public class PlatformContans {
         public static final String bindWechat=root+"/user/bindByWx";
         public static final String getIdentityVerification=root+"/user/getIdentityVerification";
         public static final String addIdentityVerification=root+"/user/addIdentityVerification";
-
-
+        public static final String getMyWallet=root+"/user/getMyWallet";
         public static final String bindTelephone=root+"/user/bindTelephone";
         public static final String relieveTelephone=root+"/user/relieveTelephone";
         public static final String getUserFocusNumber=root+"/user/getUserFocusNumber";
@@ -42,8 +41,10 @@ public class PlatformContans {
     public static class Shop{
         public static final String getMerchantById=root+ "/merchant/getMerchantById" ;
     }
-
-
+    public static class MemberCard{
+        public static final String getMemberCardRuleList=root+ "/memberCard/getMemberCardRuleList" ;
+        public static final String addMemberCardOrder=root+ "/memberCard/addMemberCardOrder";
+    }
     public static class Label{
         public static final String addLabel=root+ "/label/addLabel" ;
         public static final String getLabelList=root+ "/label/getLabelList" ;
@@ -153,6 +154,7 @@ public class PlatformContans {
         public static final String getTodayTemperatureByCity=root+ "/common/getTodayTemperatureByCity";
         public static final String getExpressResult=root+ "/common/getExpressResult";
         public static final String getSplash=root+ "/common/getPicture";
+        public static final String adddrivingLicense=root+ "/drivingLicense/adddrivingLicense";
     }
     public static class FourShop{
         public static final String getFourShopListByApp=root + "/fourShop/getFourShopListByApp";

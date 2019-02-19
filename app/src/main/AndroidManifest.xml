@@ -119,9 +119,7 @@
         <activity android:name="io.rong.callkit.CallSelectMemberActivity" />
         <activity
             android:name="com.system.MainActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
@@ -429,6 +427,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.vipcenter.MycarActivity"></activity>
     </application>
 
 </manifest>

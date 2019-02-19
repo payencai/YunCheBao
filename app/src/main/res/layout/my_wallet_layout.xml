@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:background="#2c2a26"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -32,61 +33,49 @@
                 android:textColor="@color/white"
                 android:textSize="18sp" />
         </RelativeLayout>
+         <RelativeLayout
+             android:background="#2c2a26"
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="250dp">
+             <RelativeLayout
+                 android:elevation="1dp"
+                 android:layout_above="@+id/arcview"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+                 <TextView
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="30dp"
-            android:text="余额账户(元)"
-            android:textColor="@color/gray_c6"
-            android:textSize="14sp" />
+                     android:textSize="25sp"
+                     android:textColor="#CFBB8B"
+                     android:text="66666"
+                     android:layout_centerHorizontal="true"
+                     android:layout_alignParentBottom="true"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content" />
+             </RelativeLayout>
+             <ImageView
+                 android:layout_marginRight="25dp"
+                 android:layout_marginLeft="25dp"
+                 android:scaleType="fitXY"
+                 android:layout_centerHorizontal="true"
+                 android:layout_marginTop="20dp"
+                 android:src="@mipmap/ic_card"
+                 android:layout_width="match_parent"
+                 android:layout_height="180dp" />
+             <ImageView
+                 android:scaleType="fitXY"
+                 android:src="@mipmap/ic_huxing"
+                 android:id="@+id/arcview"
+                 android:layout_alignParentBottom="true"
+                 android:layout_width="match_parent"
+                 android:layout_height="120dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="40dp"
-            android:text="666.66"
-            android:textColor="@color/white"
-            android:textSize="60sp"
-            android:textStyle="bold" />
+             </ImageView>
+         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/yellow_26"
-            android:padding="10dp">
 
-            <com.coorchice.library.SuperTextView
-                android:id="@+id/toMoreBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:paddingBottom="6dp"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
-                android:paddingTop="6dp"
-                android:text="更多"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:corner="4dp"
-                app:solid="@color/yellow_26"
-                app:stroke_color="@color/yellow_65"
-                app:stroke_width="1dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:layout_toLeftOf="@id/toMoreBtn"
-                android:text="充值自动领宝币，兑换更多你想要的礼品"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
 
-        </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout
@@ -125,7 +114,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black_33"
             android:textSize="18sp"
-            android:text="充值"
+            android:text="购买会员卡"
             android:gravity="center_vertical"
             android:layout_centerVertical="true"
             android:drawableLeft="@mipmap/recharge"
@@ -177,7 +166,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black_33"
             android:textSize="18sp"
-            android:text="充值记录"
+            android:text="支付密码"
             android:gravity="center_vertical"
             android:layout_centerVertical="true"
             android:drawableLeft="@mipmap/record"

@@ -203,7 +203,7 @@ public class AddressAddActivity extends NoHttpBaseActivity {
     }
 
     private void update() {
-        int isDefult = 0;
+        int isDefult = 1;
         if (de_box.isChecked()) {
             isDefult = 1;
         } else {
