@@ -3,6 +3,7 @@ package com.application;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import com.amap.api.location.AMapLocation;
 
@@ -16,6 +17,7 @@ import com.nohttp.NoHttp;
 import com.rongcloud.adapter.ListDataSave;
 import com.rongcloud.sidebar.ContactModel;
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
+import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.tauth.Tencent;
 import com.tool.ExceptionHandler;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;

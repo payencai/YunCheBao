@@ -1,16 +1,26 @@
 package com.system.fragment;
 
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -117,7 +127,7 @@ import io.rong.imlib.model.Group;
  */
 public class HomeFragment extends BaseFragment {
 
-
+    private static final String TAG = "MainActivity";
     private Context ctx;
     //轮播图片
     private List<Map<String, String>> imageList = new ArrayList<>();
@@ -151,6 +161,8 @@ public class HomeFragment extends BaseFragment {
     LinearLayout ll_item3;
     List<HomeImage> mHomeImages;
     HomeListAdapter mHomeListAdapter;
+
+
 
 
     List<Banner> mBanners = new ArrayList<>();
@@ -296,6 +308,8 @@ public class HomeFragment extends BaseFragment {
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, rootView);
         MyApplication.setDataSave(new ListDataSave(MyApplication.getContext(), "data"));
+        if(Build.VERSION.SDK_INT>=28)
+            initGPS(getActivity());
         initLocation();
         getImageUrl();
         init();
@@ -311,28 +325,126 @@ public class HomeFragment extends BaseFragment {
         @Override
         public void onLocationChanged(AMapLocation aMapLocation) {
             Log.e("locate", aMapLocation.getAddress());
-            getWeather(aMapLocation.getCity());
-            tv_locate.setText(aMapLocation.getCity());
-            MyApplication.setaMapLocation(aMapLocation);
+            if (null != aMapLocation) {
+                getWeather(aMapLocation.getCity());
+                tv_locate.setText(aMapLocation.getCity());
+                MyApplication.setaMapLocation(aMapLocation);
+            } else {
+                tv_city.setText("定位失败");
+                tv_city.setVisibility(View.VISIBLE);
+                Log.e("定位失败", "aMapLocation is null");
+            }
 
         }
     };
+    LocationManager locationManager;
+    public  void initGPS(final Activity activity) {
 
+        locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+
+        // 判断GPS模块是否开启，如果没有则开启
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+
+            AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+            dialog.setMessage("安卓9.0及以上系统要使用定位功能，必须开启GPS");
+            dialog.setPositiveButton("设置", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialogInterface, int position) {
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    activity.startActivityForResult(intent, 1); // 设置完成后返回到原来的界面
+                }
+            });
+
+            dialog.setNeutralButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int position) {
+                    Log.d(TAG, "---> 取消");
+                    dialogInterface.dismiss();
+                    activity.finish();
+                }
+            });
+
+            AlertDialog alertDialog = dialog.create();
+
+            //点击外面不消失
+            alertDialog.setCanceledOnTouchOutside(false);
+            alertDialog.setCancelable(false);
+
+            alertDialog.show();
+
+        } else {
+            Log.d(TAG, "---> GPS模块已开启");
+            //Toast.makeText(activity, "GPS模块已开启", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+    /**
+     * 默认的定位参数
+     *
+     * @author
+     * @since 2.8.0
+     */
+    private AMapLocationClientOption getDefaultOption() {
+        AMapLocationClientOption mOption = new AMapLocationClientOption();
+        mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
+        mOption.setGpsFirst(false);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
+        //mOption.setHttpTimeOut(30000);//可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
+        //   mOption.setInterval(2000);//可选，设置定位间隔。默认为2秒
+        mOption.setNeedAddress(true);//可选，设置是否返回逆地理地址信息。默认是true
+        //   mOption.setOnceLocation(false);//可选，设置是否单次定位。默认是false
+        mOption.setOnceLocation(true);  //获取一次定位结果：
+        mOption.setOnceLocationLatest(false);//可选，设置是否等待wifi刷新，默认为false.如果设置为true,会自动变为单次定位，持续定位时不要使用
+        AMapLocationClientOption.setLocationProtocol(AMapLocationClientOption.AMapLocationProtocol.HTTP);//可选， 设置网络请求的协议。可选HTTP或者HTTPS。默认为HTTP
+        mOption.setSensorEnable(false);//可选，设置是否使用传感器。默认是false
+        mOption.setWifiScan(true); //可选，设置是否开启wifi扫描。默认为true，如果设置为false会同时停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差
+        mOption.setLocationCacheEnable(true); //可选，设置是否使用缓存定位，默认为true
+        return mOption;
+    }
+
+
+
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        destroyLocation();
+    }
+    /**
+     * 停止定位
+     *
+     * @author
+     * @since 2.8.0
+     */
+    private void stopLocation() {
+        // 停止定位
+        mLocationClient.stopLocation();
+    }
+
+    private void destroyLocation() {
+        if (null != mLocationClient) {
+            mLocationClient.onDestroy();
+            mLocationClient = null;
+            mLocationOption = null;
+
+
+        }
+    }
+    public  void startLocate(){
+        mLocationClient.startLocation();
+    }
     private void initLocation() {
         //初始化定位
         mLocationClient = new AMapLocationClient(getContext());
 //设置定位回调监听
+        mLocationOption=getDefaultOption();
+        mLocationClient.setLocationOption(mLocationOption);
         mLocationClient.setLocationListener(mLocationListener);
-        mLocationOption = new AMapLocationClientOption();
-        mLocationOption.setOnceLocation(true);
-
-        if (null != mLocationOption) {
-            mLocationClient.setLocationOption(mLocationOption);
-            mLocationClient.stopLocation();
-
-        }
         mLocationClient.startLocation();
-       // Log.e("locate", mLocationClient.getVersion() + "gfg");
+
     }
 
 
@@ -538,11 +650,6 @@ public class HomeFragment extends BaseFragment {
 
         getHomeImage(3);
     }
-
-
-
-
-
 
 
     @OnClick({R.id.messenger_icon, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.menuLay4, R.id.menuLay7, R.id.menuLay5, R.id.menuLay6, R.id.menuLay8, R.id.menuLay9, R.id.menuLay10, R.id.user_center_icon})

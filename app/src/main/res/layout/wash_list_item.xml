@@ -37,6 +37,7 @@
                 android:text="昆山汽车修理厂"/>
         </LinearLayout>
         <com.iarcuschin.simpleratingbar.SimpleRatingBar
+            android:id="@+id/sb_score"
             android:layout_marginTop="5dp"
             app:srb_maxStarSize="10dp"
             android:layout_width="wrap_content"

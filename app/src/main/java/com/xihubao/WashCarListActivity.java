@@ -93,7 +93,8 @@ public class WashCarListActivity extends NoHttpBaseActivity {
     private void getJsonData() {
         String cityCode = "440110";
         if (MyApplication.getaMapLocation() != null)
-            cityCode = MyApplication.getaMapLocation().getAdCode().substring(0, 4) + "00";
+            if(!TextUtils.isEmpty(MyApplication.getaMapLocation().getAdCode())&&MyApplication.getaMapLocation().getAdCode().length()>4)
+               cityCode = MyApplication.getaMapLocation().getAdCode().substring(0, 4) + "00";
         String json = JsonUtil.getJson(this, "area.json");
         try {
             JSONObject jsonObject = new JSONObject(json);
@@ -200,7 +201,8 @@ public class WashCarListActivity extends NoHttpBaseActivity {
         adapter = new WashCarListAdapter(this, list);
         lv_car.setAdapter(adapter);
 //
-        tv_city.setText(MyApplication.getaMapLocation().getDistrict());
+        if(MyApplication.getaMapLocation()!=null)
+           tv_city.setText(MyApplication.getaMapLocation().getDistrict());
         lv_car.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -292,8 +294,7 @@ public class WashCarListActivity extends NoHttpBaseActivity {
             Log.e("res", res);
             try {
                 JSONObject jsonObject = new JSONObject(res);
-                jsonObject = jsonObject.getJSONObject("data");
-                JSONArray data = jsonObject.getJSONArray("beanList");
+                JSONArray data = jsonObject.getJSONArray("data");
                 for (int i = 0; i < data.length(); i++) {
                     JSONObject item = data.getJSONObject(i);
                     CarShop carShop = new Gson().fromJson(item.toString(), CarShop.class);

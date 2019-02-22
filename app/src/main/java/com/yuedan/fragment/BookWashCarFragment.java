@@ -37,6 +37,8 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.adapter.AttenAddressListAdapter;
 import com.nohttp.sample.BaseFragment;
+import com.system.X5WebviewActivity;
+import com.system.model.AddressBean;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.tool.WheelView;
@@ -76,6 +78,8 @@ public class BookWashCarFragment extends BaseFragment {
     RelativeLayout rl_washtype;
     @BindView(R.id.rl_time)
     RelativeLayout rl_time;
+    @BindView(R.id.addressLay)
+    RelativeLayout addressLay;
     WashCarType mWashCarType;
     @BindView(R.id.washtype)
     TextView washtype;
@@ -100,7 +104,7 @@ public class BookWashCarFragment extends BaseFragment {
     @BindView(R.id.et_phone)
     EditText et_phone;
     @BindView(R.id.et_address)
-    EditText et_address;
+    TextView et_address;
     @BindView(R.id.et_detail)
     EditText et_detail;
     List<WashCarType> mWashCarTypes = new ArrayList<>();
@@ -117,6 +121,15 @@ public class BookWashCarFragment extends BaseFragment {
         cartype = getArguments().getInt("type");
         initView();
         return rootView;
+    }
+    AddressBean mAddressBean;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==2&&data!=null){
+            mAddressBean= (AddressBean) data.getSerializableExtra("address");
+            Log.e("mAddressBean",mAddressBean.toString());
+        }
     }
 
     public static BookWashCarFragment newInstance(int type) {
@@ -216,7 +229,7 @@ public class BookWashCarFragment extends BaseFragment {
         params.put("telephone",et_phone.getEditableText().toString());
         params.put("type",cartype);
         params.put("detail",et_detail.getEditableText().toString());
-        params.put("address",et_address.getEditableText().toString());
+        params.put("address",et_address.getText().toString());
         params.put("price",mWashCarType.getPrice());
         params.put("earnestMoney",honmoney);
         params.put("appointmentTime",tv_time.getText().toString());
@@ -282,6 +295,12 @@ public class BookWashCarFragment extends BaseFragment {
                 }else {
                     startActivity(new Intent(getContext(), RegisterActivity.class));
                 }
+            }
+        });
+        addressLay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(getContext(),X5WebviewActivity.class),2);
             }
         });
         tv_item1.setOnClickListener(new View.OnClickListener() {
@@ -432,12 +451,5 @@ public class BookWashCarFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.addressLay})
-    public void OnClick(View v) {
-        switch (v.getId()) {
-            case R.id.addressLay:
-                //attenAddressToast();
-                break;
-        }
-    }
+
 }

@@ -20,6 +20,7 @@ import com.entity.PhoneShopEntity;
 import com.example.yunchebao.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.rongcloud.model.CarShop;
+import com.tool.MathUtil;
 
 import java.net.URI;
 import java.util.List;
@@ -72,7 +73,7 @@ public class WashCarListAdapter extends BaseAdapter {
         item2.setText("评分" + carShop.getGrade() + "|订单" + carShop.getOrderNum());
         item3.setText(carShop.getAddress());
         item4.setText("￥" + carShop.getPrice());
-        item5.setText(carShop.getDistance() + "km");
+        item5.setText(MathUtil.getDoubleTwo(carShop.getDistance()) + "km");
         return view;
     }
 

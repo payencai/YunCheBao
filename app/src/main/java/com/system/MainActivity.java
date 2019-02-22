@@ -1,11 +1,20 @@
 package com.system;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -85,11 +94,15 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
     private TextView tv_tab4;
     private TextView tv_tab5;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FitStateUI.setImmersionStateMode(this);
         setContentView(R.layout.activity_main);
+
+        //openGPS(this);
         autoLogin();
     }
 
@@ -483,13 +496,13 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                     @Override
                     public boolean onReceived(Message message, int i) {
 
-                        TextMessage textMessage= (TextMessage) message.getContent();
+                        TextMessage textMessage = (TextMessage) message.getContent();
 //                        FileMessage fileMessage= (FileMessage) message.getContent();
 //                        VoiceMessage voiceMessage= (VoiceMessage) message.getContent();
 //                        ImageMessage imageMessage= (ImageMessage) message.getContent();
-                        String extra="";
-                        if(textMessage!=null){
-                            extra=textMessage.getExtra();
+                        String extra = "";
+                        if (textMessage != null) {
+                            extra = textMessage.getExtra();
                         }
 //                        if(fileMessage!=null){
 //                            extra=fileMessage.getExtra();
@@ -500,20 +513,20 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
 //                        if(voiceMessage!=null){
 //                            extra=voiceMessage.getExtra();
 //                        }
-                        if(!TextUtils.isEmpty(extra)){
+                        if (!TextUtils.isEmpty(extra)) {
                             try {
 
-                                JSONObject jsonObject=new JSONObject(extra);
-                                String userid=jsonObject.getString("userId");
-                                String username=jsonObject.getString("nickName");
-                                String avatar=jsonObject.getString("avatar");
-                                avatar=avatar.replaceAll( "\\\\",  "");
+                                JSONObject jsonObject = new JSONObject(extra);
+                                String userid = jsonObject.getString("userId");
+                                String username = jsonObject.getString("nickName");
+                                String avatar = jsonObject.getString("avatar");
+                                avatar = avatar.replaceAll("\\\\", "");
                                 String finalAvatar = avatar;
-                                Log.e("extra",extra);
+                                Log.e("extra", extra);
                                 RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
                                     @Override
                                     public io.rong.imlib.model.UserInfo getUserInfo(String s) {
-                                        io.rong.imlib.model.UserInfo userInfo=new io.rong.imlib.model.UserInfo(userid,username,Uri.parse(finalAvatar));
+                                        io.rong.imlib.model.UserInfo userInfo = new io.rong.imlib.model.UserInfo(userid, username, Uri.parse(finalAvatar));
                                         return userInfo;
                                     }
                                 }, true);
@@ -544,6 +557,10 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==1){
+            Toast.makeText(this, "GPS模块已开启", Toast.LENGTH_SHORT).show();
+            fragment1.startLocate();
+        }
         if (requestCode >= 6) {
             if (MyApplication.isLogin && fragment3 instanceof AnotherBabyFragment) {
                 if (RongIM.getInstance().getConversationList() != null) {

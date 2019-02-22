@@ -58,6 +58,7 @@ public class SplashActivity extends AppCompatActivity {
                 //页面的跳转
                 Intent intent=new Intent(SplashActivity.this,MainActivity.class);
                 startActivity(intent);
+                finish();
             }
             @Override
             public void onAnimationRepeat(Animation animation) {

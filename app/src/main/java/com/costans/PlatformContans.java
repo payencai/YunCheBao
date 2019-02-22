@@ -23,6 +23,7 @@ public class PlatformContans {
         public static final String loginByWechat=root+"/user/loginByWxId";
         public static final String loginByQQ=root+"/user/loginByQqId";
         public static final String updatePwd=root+"/user/updatePassword";
+        public static final String updatePayPassword=root+"/user/updatePayPassword";
         public static final String bindQQ=root+"/user/bindByQQ";
         public static final String bindWechat=root+"/user/bindByWx";
         public static final String getIdentityVerification=root+"/user/getIdentityVerification";
@@ -32,7 +33,10 @@ public class PlatformContans {
         public static final String relieveTelephone=root+"/user/relieveTelephone";
         public static final String getUserFocusNumber=root+"/user/getUserFocusNumber";
         public static final String getOtherFocusList=root+ "/user/getOtherFocusList";
-
+        public static final String getSpendRecord=root+ "/user/getSpendRecord";
+    }
+    public static class Wechat{
+        public static final String wechatPay=root+ "/wechatPay/wechatPay" ;
     }
     public static class WiKi{
         public static final String getWikiClassifyByType=root+ "/wikiClassify/getWikiClassifyByType" ;
@@ -44,6 +48,7 @@ public class PlatformContans {
     public static class MemberCard{
         public static final String getMemberCardRuleList=root+ "/memberCard/getMemberCardRuleList" ;
         public static final String addMemberCardOrder=root+ "/memberCard/addMemberCardOrder";
+        public static final String memberCardPay=root+ "/alipay/memberCardPay";
     }
     public static class Label{
         public static final String addLabel=root+ "/label/addLabel" ;
