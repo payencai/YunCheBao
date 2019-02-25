@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <TextView
+            android:id="@+id/tv_cancel"
             android:textSize="@dimen/text_size_16"
             android:textColor="@color/gray_99"
             android:layout_marginLeft="10dp"

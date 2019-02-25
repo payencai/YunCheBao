@@ -250,21 +250,21 @@ public class CarsShowRepublishActivity extends NoHttpBaseActivity {
      * @param localPath
      * @return
      */
-    public static Bitmap getLocalVideoBitmap(String localPath) {
-        Bitmap bitmap = null;
-        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-        try {
-            //根据文件路径获取缩略图
-            retriever.setDataSource(localPath);
-            //获得第一帧图片
-            bitmap = retriever.getFrameAtTime();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } finally {
-            retriever.release();
-        }
-        return bitmap;
-    }
+//    public static Bitmap getLocalVideoBitmap(String localPath) {
+//        Bitmap bitmap = null;
+//        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+//        try {
+//            //根据文件路径获取缩略图
+//            retriever.setDataSource(localPath);
+//            //获得第一帧图片
+//            bitmap = retriever.getFrameAtTime();
+//        } catch (IllegalArgumentException e) {
+//            e.printStackTrace();
+//        } finally {
+//            retriever.release();
+//        }
+//        return bitmap;
+//    }
 
     String image;
     String time;

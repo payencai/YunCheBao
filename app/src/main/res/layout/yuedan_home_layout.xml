@@ -29,7 +29,7 @@
             android:textSize="16sp" />
 
         <ImageView
-            android:visibility="gone"
+
             android:id="@+id/rightBtn"
             android:layout_width="45dp"
             android:layout_height="49dp"

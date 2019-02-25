@@ -42,7 +42,7 @@ public class CarSecondBrandActivity extends AppCompatActivity {
     List<CarBrand> mOldCarBrands = new ArrayList<>();
     List<CarBrand> mCarBrands = new ArrayList<>();
     String id;
-
+    String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +73,8 @@ public class CarSecondBrandActivity extends AppCompatActivity {
                     String id2=carBrand.getSecondId();
                     String id3=carBrand.getThirdId();
                     Intent intent = new Intent();
-                    intent.putExtra("name", carBrand.getName());
+                    String value=name+" "+carBrand.getName();
+                    intent.putExtra("name", value);
                     intent.putExtra("id1",id1);
                     intent.putExtra("id2",id2);
                     intent.putExtra("id3",id3);
@@ -125,8 +126,9 @@ public class CarSecondBrandActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new RecCarAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                if (mCarBrands.get(position).getLevel() == 2) {
 
+                if (mCarBrands.get(position).getLevel() == 2) {
+                    name=mCarBrands.get(position).getName();
                     getThirdData(mCarBrands.get(position));
                 } else {
                     getFourData(mCarBrands.get(position));

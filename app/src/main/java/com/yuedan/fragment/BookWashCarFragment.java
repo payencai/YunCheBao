@@ -46,6 +46,7 @@ import com.tool.viewpager.CustomDatePicker;
 import com.vipcenter.AddressAddActivity;
 import com.vipcenter.RegisterActivity;
 import com.vipcenter.model.PersonAddress;
+import com.xihubao.CarBrandSelectActivity;
 import com.yuedan.WashCarType;
 
 import org.json.JSONArray;
@@ -74,6 +75,10 @@ public class BookWashCarFragment extends BaseFragment {
     private static final String[] PLANETS = new String[]{"普通洗车", "特殊洗车"};
     private List<String> cartypes = new ArrayList<>();
     private Context ctx;
+    @BindView(R.id.rl_cartype)
+    RelativeLayout rl_cartype;
+    @BindView(R.id.rl_num)
+    RelativeLayout rl_num;
     @BindView(R.id.rl_washtype)
     RelativeLayout rl_washtype;
     @BindView(R.id.rl_time)
@@ -83,6 +88,8 @@ public class BookWashCarFragment extends BaseFragment {
     WashCarType mWashCarType;
     @BindView(R.id.washtype)
     TextView washtype;
+    @BindView(R.id.tv_cartype)
+    TextView tv_cartype;
     @BindView(R.id.item1)
     SuperTextView tv_item1;
     @BindView(R.id.item2)
@@ -103,14 +110,21 @@ public class BookWashCarFragment extends BaseFragment {
     TextView tv_public;
     @BindView(R.id.et_phone)
     EditText et_phone;
+    @BindView(R.id.et_note)
+    EditText et_note;
     @BindView(R.id.et_address)
     TextView et_address;
+    @BindView(R.id.tv_num)
+    TextView tv_num;
     @BindView(R.id.et_detail)
     EditText et_detail;
-    List<WashCarType> mWashCarTypes = new ArrayList<>();
-    int cartype;
+    List<WashCarType> mWashCarTypes;
+    int cartype=1;
     int position=0;
     double honmoney;
+    String carCategory;
+    String address;
+    private List<String> nums = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -119,6 +133,7 @@ public class BookWashCarFragment extends BaseFragment {
         ButterKnife.bind(this, rootView);
         ctx = getActivity();
         cartype = getArguments().getInt("type");
+        mWashCarTypes = new ArrayList<>();
         initView();
         return rootView;
     }
@@ -128,7 +143,13 @@ public class BookWashCarFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==2&&data!=null){
             mAddressBean= (AddressBean) data.getSerializableExtra("address");
+            address=mAddressBean.getPoiaddress();
+            et_address.setText(address);
             Log.e("mAddressBean",mAddressBean.toString());
+        }
+        if(requestCode==3&&data!=null){
+            carCategory=data.getStringExtra("name");
+            tv_cartype.setText(carCategory);
         }
     }
 
@@ -187,7 +208,10 @@ public class BookWashCarFragment extends BaseFragment {
         });
     }
 
-    private void showWashType() {
+    private void showSelectCount() {
+        for (int i = 1; i <=10 ; i++) {
+            nums.add(i+"");
+        }
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_washcar_type, null);
 
         final Dialog dialog = new Dialog(getContext(), R.style.MyDialog);
@@ -200,21 +224,19 @@ public class BookWashCarFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                mWashCarType=mWashCarTypes.get(position);
-
-                setUI();
+                tv_num.setText(wv.getSeletedItem());
             }
         });
         wv.setOffset(1);
-        wv.setItems(cartypes);
-        wv.setSeletion(position);
-        wv.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
-            @Override
-            public void onSelected(int selectedIndex, String item) {
-                position=selectedIndex-1;
-                Log.d("ddd", "[Dialog]selectedIndex: " + position + ", item: " + item);
-            }
-        });
+        wv.setItems(nums);
+        wv.setSeletion(0);
+//        wv.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
+//            @Override
+//            public void onSelected(int selectedIndex, String item) {
+//                position=selectedIndex-1;
+//                Log.d("ddd", "[Dialog]selectedIndex: " + position + ", item: " + item);
+//            }
+//        });
         //wv.setSeletion(0);
         Window window = dialog.getWindow();
         window.setGravity(Gravity.BOTTOM);
@@ -224,28 +246,31 @@ public class BookWashCarFragment extends BaseFragment {
         window.setAttributes(params);
 
     }
-    private void addService(final Dialog dialog){
+    private void addService(){
         Map<String,Object> params=new HashMap<>();
         params.put("telephone",et_phone.getEditableText().toString());
         params.put("type",cartype);
         params.put("detail",et_detail.getEditableText().toString());
-        params.put("address",et_address.getText().toString());
         params.put("price",mWashCarType.getPrice());
         params.put("earnestMoney",honmoney);
         params.put("appointmentTime",tv_time.getText().toString());
         params.put("category", washtype.getText().toString());
-        params.put("longitude",MyApplication.getaMapLocation().getLongitude()+"");
-        params.put("latitude",MyApplication.getaMapLocation().getLatitude()+"");
+        params.put("carCategory", carCategory);
+        params.put("range", Integer.parseInt(et_note.getEditableText().toString()));
+        params.put("shopNumber", Integer.parseInt(tv_num.getText().toString()));
+        params.put("longitude",mAddressBean.getLatlng().getLng()+"");
+        params.put("latitude",mAddressBean.getLatlng().getLat()+"");
+        params.put("province",mAddressBean.getProvince()+"");
+        params.put("city",mAddressBean.getCityname()+"");
+        params.put("area",mAddressBean.getDistrict()+"");
+        params.put("address",mAddressBean.getPoiaddress());
+        params.put("addressDetail",et_detail.getEditableText().toString());
         Log.e("result",params.toString());
-        params.put("province",MyApplication.getaMapLocation().getProvince()+"");
-        params.put("city",MyApplication.getaMapLocation().getCity()+"");
-        params.put("area",MyApplication.getaMapLocation().getDistrict()+"");
         HttpProxy.obtain().post(PlatformContans.Commom.addWashRepairAppointment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                dialog.dismiss();
+                //dialog.dismiss();
                 Toast.makeText(getContext(),"发布成功",Toast.LENGTH_LONG).show();
-
                 Log.e("result",result);
             }
 
@@ -265,7 +290,7 @@ public class BookWashCarFragment extends BaseFragment {
         tv_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addService(dialog);
+               // addService();
             }
         });
         Window window = dialog.getWindow();
@@ -288,10 +313,11 @@ public class BookWashCarFragment extends BaseFragment {
                     if(TextUtils.isEmpty(et_phone.getEditableText().toString())){
                         return;
                     }
-                    if(TextUtils.isEmpty(et_address.getEditableText().toString())){
+                    if(TextUtils.isEmpty(et_address.getText().toString())){
                         return;
                     }
-                    showConfirmDialog();
+                    addService();
+                    //showConfirmDialog();
                 }else {
                     startActivity(new Intent(getContext(), RegisterActivity.class));
                 }
@@ -363,11 +389,22 @@ public class BookWashCarFragment extends BaseFragment {
                 tv_item5.setTextColor(getResources().getColor(R.color.yellow_64));
             }
         });
-
+        rl_num.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSelectCount();
+            }
+        });
         rl_washtype.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showWashType();
+            }
+        });
+        rl_cartype.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(getContext(), CarBrandSelectActivity.class),3);
             }
         });
         rl_time.setOnClickListener(new View.OnClickListener() {
@@ -451,5 +488,49 @@ public class BookWashCarFragment extends BaseFragment {
 
     }
 
+    private void showWashType() {
 
+        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_washcar_type, null);
+
+        final Dialog dialog = new Dialog(getContext(), R.style.MyDialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable());
+        dialog.setContentView(view);
+        dialog.show();
+        WheelView wv = (WheelView) view.findViewById(R.id.wheelview);
+        TextView tv_confirm = (TextView) view.findViewById(R.id.tv_confirm);
+        TextView tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
+
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        tv_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                mWashCarType=mWashCarTypes.get(position);
+                setUI();
+            }
+        });
+        wv.setOffset(1);
+        wv.setItems(cartypes);
+        wv.setSeletion(position);
+        wv.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
+            @Override
+            public void onSelected(int selectedIndex, String item) {
+                //position=selectedIndex-1;
+               // Log.d("ddd", "[Dialog]selectedIndex: " + position + ", item: " + item);
+            }
+        });
+        //wv.setSeletion(0);
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams params = window.getAttributes();
+        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(params);
+
+    }
 }

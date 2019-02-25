@@ -62,7 +62,8 @@ public class CarBrandSelectActivity extends AppCompatActivity {
             if(data!=null){
                 Intent intent = new Intent();
                // Log.e("data",data.getStringExtra("id"));
-                intent.putExtra("name", data.getStringExtra("name"));
+                String value=name+" "+data.getStringExtra("name");
+                intent.putExtra("name", value);
                 intent.putExtra("id", data.getStringExtra("id"));
                 intent.putExtra("id1", data.getStringExtra("id1"));
                 intent.putExtra("id2", data.getStringExtra("id2"));
@@ -71,7 +72,7 @@ public class CarBrandSelectActivity extends AppCompatActivity {
             }
         }
     }
-
+    String name;
     private void initView() {
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "选品牌");
         ButterKnife.bind(this);
@@ -102,6 +103,7 @@ public class CarBrandSelectActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new RecCarAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                name=mCarBrands.get(position).getName();
                 Intent intent = new Intent(CarBrandSelectActivity.this, CarSecondBrandActivity.class);
                 intent.putExtra("id", mCarBrands.get(position).getId());
                 startActivityForResult(intent,1);

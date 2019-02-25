@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_margin="5dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/pic1"
+        android:layout_width="match_parent"
+        android:layout_height="70dp" />
+    <ImageView
+        android:id="@+id/iv_del"
+        android:layout_alignParentRight="true"
+        android:scaleType="fitXY"
+        android:src="@mipmap/delete"
+        android:layout_width="15dp"
+        android:layout_height="15dp" />
+</RelativeLayout>

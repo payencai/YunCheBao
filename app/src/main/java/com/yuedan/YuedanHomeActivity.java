@@ -1,31 +1,43 @@
 package com.yuedan;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.cheyibao.fragment.NewCarFragment;
 import com.cheyibao.fragment.OldCarFragment;
 import com.cheyibao.fragment.RentCarFragment;
 import com.cheyibao.fragment.StudyCarFragment;
+import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
+import com.tool.FileUtil;
 import com.tool.adapter.MyFragmentPagerAdapter;
 import com.yuedan.fragment.BookNewCarFragment;
 import com.yuedan.fragment.BookOldCarFragment;
+import com.yuedan.fragment.BookRepairFragment;
 import com.yuedan.fragment.BookRoadFragment;
 import com.yuedan.fragment.BookWashCarFragment;
+import com.zhihu.matisse.Matisse;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 /**
  * Created by sdhcjhss on 2018/1/22.
@@ -38,7 +50,8 @@ public class YuedanHomeActivity extends NoHttpFragmentBaseActivity {
     ViewPager vpGank;
     @BindView(R.id.tab_gank)
     TabLayout tabGank;
-
+    BookRepairFragment mBookRepairFragment;
+    BookRoadFragment mRoadFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,11 +79,13 @@ public class YuedanHomeActivity extends NoHttpFragmentBaseActivity {
         mTitleList.add("新车整车");
         mTitleList.add("二手车");
         mTitleList.add("道路救援");
+        mBookRepairFragment=BookRepairFragment.newInstance(2);
+        mRoadFragment=new BookRoadFragment();
         mFragments.add(BookWashCarFragment.newInstance(1));
-        mFragments.add(BookWashCarFragment.newInstance(2));
+        mFragments.add(mBookRepairFragment);
         mFragments.add(new BookNewCarFragment());
         mFragments.add(new BookOldCarFragment());
-        mFragments.add(new BookRoadFragment());
+        mFragments.add(mRoadFragment);
     }
 
     @OnClick({R.id.back, R.id.rightBtn})
@@ -84,4 +99,41 @@ public class YuedanHomeActivity extends NoHttpFragmentBaseActivity {
                 break;
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 188 && data != null) {
+            mRoadFragment.setImages(data);
+//            for (int i = 0; i < mSelected.size(); i++) {
+//                File fileByUri = FileUtil.getFileByUri(Matisse.obtainResult(data).get(i), this);
+//                Luban.with(this)
+//                        .load(fileByUri)
+//                        .ignoreBy(100)
+//                        .filter(new CompressionPredicate() {
+//                            @Override
+//                            public boolean apply(String path) {
+//                                return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+//                            }
+//                        })
+//                        .setCompressListener(new OnCompressListener() {
+//                            @Override
+//                            public void onStart() {
+//                            }
+//
+//                            @Override
+//                            public void onSuccess(File file) {
+//                                //evaluationBeans.get(mTempPosition).getEvaluationImages().add(0,file);
+//
+//
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//                            }
+//                        }).launch();
+//            }
+        }
+    }
+
 }
