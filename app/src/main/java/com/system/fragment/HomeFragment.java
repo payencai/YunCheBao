@@ -75,6 +75,7 @@ import com.rongcloud.model.MyFriend;
 import com.rongcloud.model.MyGroup;
 import com.rongcloud.sidebar.ContactModel;
 import com.rongcloud.sidebar.ContactsAdapter;
+import com.system.WebCarActivity;
 import com.system.WebviewActivity;
 import com.system.adapter.HomeListAdapter;
 import com.system.model.HomeImage;
@@ -681,7 +682,7 @@ public class HomeFragment extends BaseFragment {
                 startActivity(new Intent(getContext(), NewDrvingActivity.class));
                 //ActivityAnimationUtils.commonTransition(getActivity(), Shop4SInfoActivity.class, ActivityConstans.Animation.FADE);
                 break;
-            case R.id.menuLay5://
+            case R.id.menuLay5:///约单
                 ActivityAnimationUtils.commonTransition(getActivity(), YuedanHomeActivity.class, ActivityConstans.Animation.FADE);
 
                 //ActivityAnimationUtils.commonTransition(getActivity(), Shop4SInfoActivity.class, ActivityConstans.Animation.FADE);
@@ -689,11 +690,11 @@ public class HomeFragment extends BaseFragment {
             case R.id.menuLay6://加油站
                 // ActivityAnimationUtils.commonTransition(getActivity(), RoadAssistanceListActivity.class, ActivityConstans.Animation.FADE);
                 break;
-            case R.id.menuLay7://违章
+            case R.id.menuLay7://紧急
                 ActivityAnimationUtils.commonTransition(getActivity(), RoadAssistanceListActivity.class, ActivityConstans.Animation.FADE);
                 //ActivityAnimationUtils.commonTransition(getActivity(), RoadAssistanceListActivity.class, ActivityConstans.Animation.FADE);
                 break;
-            case R.id.menuLay8://约单
+            case R.id.menuLay8://违章
                 Intent intent = new Intent(getContext(), WebviewActivity.class);
                 intent.putExtra("url", mUrlBeans.get(0).getUrl());
                 startActivity(intent);
@@ -703,8 +704,8 @@ public class HomeFragment extends BaseFragment {
                 //ActivityAnimationUtils.commonTransition(getActivity(), YuedanHomeActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay10://滴滴
-                Intent intent3 = new Intent(getContext(), WebviewActivity.class);
-                intent3.putExtra("url", mUrlBeans.get(1).getUrl());
+                Intent intent3 = new Intent(getContext(), WebCarActivity.class);
+                intent3.putExtra("id", mUrlBeans.get(1).getId());
                 startActivity(intent3);
                 //showDialog(new LatLng(MyApplication.getaMapLocation().getLatitude(),MyApplication.getaMapLocation().getLongitude()));
                 //ActivityAnimationUtils.commonTransition(getActivity(), YuedanHomeActivity.class, ActivityConstans.Animation.FADE);

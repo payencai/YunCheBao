@@ -75,6 +75,7 @@ public class StudyCarFragment extends BaseFragment {
     StudyItemAdapter mStudyItemAdapter;
     List<DrvingSchool> mDrvingSchools = new ArrayList<>();
     int type = 1;
+    int page=1;
     //轮播图片
     private List<Map<String, String>> imageList = new ArrayList<>();
     List<Banner> mBanners = new ArrayList<>();
@@ -192,6 +193,7 @@ public class StudyCarFragment extends BaseFragment {
     private void getData() {
         Map<String, Object> params = new HashMap<>();
         params.put("type", type);
+        params.put("page", page);
         params.put("longitude", MyApplication.getaMapLocation().getLongitude() + "");
         params.put("latitude", MyApplication.getaMapLocation().getLatitude() + "");
         Log.e("params", params.toString());

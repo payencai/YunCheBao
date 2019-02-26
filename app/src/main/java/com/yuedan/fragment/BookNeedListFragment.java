@@ -43,7 +43,7 @@ public class BookNeedListFragment extends BaseFragment implements OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        view = LayoutInflater.from(getActivity()).inflate(R.layout.listview_only, null);
+        view = LayoutInflater.from(getActivity()).inflate(R.layout.listview_newonly, null);
         initView();
         return view;
     }

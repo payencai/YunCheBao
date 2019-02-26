@@ -173,8 +173,11 @@ public class GoodsPayActivity extends AppCompatActivity {
         String url="";
         if("1".equals(flag)){
             url=PlatformContans.Pay.washRepairShopPay;
-        }else{
+        }else if("2".equals(flag)){
             url=PlatformContans.Pay.babyMerchantOrderPay;
+        }else if("3".equals(flag)){
+            url=PlatformContans.Pay.appointmentPay;
+            params.put("price",money);
         }
         HttpProxy.obtain().post(url, params, new ICallBack() {
             @Override

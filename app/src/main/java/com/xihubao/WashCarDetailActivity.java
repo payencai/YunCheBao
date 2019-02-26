@@ -57,6 +57,7 @@ import com.rongcloud.model.CarShop;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.FitStateUI;
+import com.tool.MathUtil;
 import com.tool.UIControlUtils;
 import com.tool.slideshowview.SlideShowView;
 import com.vipcenter.RegisterActivity;
@@ -102,6 +103,8 @@ public class WashCarDetailActivity extends FragmentActivity {
     TextView dis;
     @BindView(R.id.address)
     TextView address;
+    @BindView(R.id.tv_grade)
+    TextView tv_grade;
     @BindView(R.id.collectIcon)
     RelativeLayout collectIcon;
     @BindView(R.id.iv_heart)
@@ -271,7 +274,8 @@ public class WashCarDetailActivity extends FragmentActivity {
         //bgImg.setImageURI(Uri.parse(mCarShop.getBanner()));
         shopname.setText(mCarShop.getShopName());
         score.setText(mCarShop.getGrade()+"");
-        dis.setText(mCarShop.getDistance()+"km");
+        dis.setText(MathUtil.getDoubleTwo(mCarShop.getDistance())+"km");
+        tv_grade.setText(mCarShop.getGrade()+"");
         address.setText(mCarShop.getAddress());
         collectIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -425,9 +429,15 @@ public class WashCarDetailActivity extends FragmentActivity {
             return mFragments.get(position);
         }
     }
-    @OnClick({R.id.back,R.id.league})
+    @OnClick({R.id.back,R.id.league,R.id.ll_shop})
     public void OnClick(View v){
         switch (v.getId()){
+
+            case R.id.ll_shop:
+                 Intent intent=new Intent(WashCarDetailActivity.this,ShopInfoActivity.class);
+                 intent.putExtra("id",mCarShop.getId());
+                 startActivity(intent);
+                break;
             case R.id.back:
                 onBackPressed();
                 break;

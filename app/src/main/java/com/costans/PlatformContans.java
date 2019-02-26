@@ -34,6 +34,7 @@ public class PlatformContans {
         public static final String getUserFocusNumber=root+"/user/getUserFocusNumber";
         public static final String getOtherFocusList=root+ "/user/getOtherFocusList";
         public static final String getSpendRecord=root+ "/user/getSpendRecord";
+        public static final String getUserResultById=root+ "/user/getUserResultById";
     }
     public static class Wechat{
         public static final String wechatPay=root+ "/wechatPay/wechatPay" ;
@@ -44,6 +45,9 @@ public class PlatformContans {
     }
     public static class Shop{
         public static final String getMerchantById=root+ "/merchant/getMerchantById" ;
+    }
+    public static class MerchAdmin{
+        public static final String getMerchInformationByShopId=root+ "/merchAdmin/getMerchInformationByShopId" ;
     }
     public static class MemberCard{
         public static final String getMemberCardRuleList=root+ "/memberCard/getMemberCardRuleList" ;
@@ -150,8 +154,8 @@ public class PlatformContans {
         public static final String findCarWashRepairShopList=root+ "/carWashRepairShop/findCarWashRepairShopList";
         public static final String uploadImg=root + "/image/uploadImage";
         public static final String uploadVideo=root + "/image/uploadVideo";
-        public static final String addWashRepairAppointment=root + "/appointment/addWashRepairAppointment";
-        public static final String addRoadRescueAppointment=root + "/appointment/addRoadRescueAppointment";
+
+
         public static final String getAppointmentCategoryListByApp=root + "/functionManager/getAppointmentCategoryListByApp";
         public static final String getSkipUrl=root+ "/common/getSkipUrl";
         public static final String getBannerList=root+"/banner/getBannerList";
@@ -196,6 +200,7 @@ public class PlatformContans {
         public static final String memberCardPay=root+ "/alipay/memberCardPay";
         public static final String carOrderPay=root+ "/alipay/carOrderPay";
         public static final String washRepairShopPay=root+ "/alipay/washRepairShopPay";
+        public static final String appointmentPay=root+ "/alipay/appointmentPay";
     }
     public static class Chat{
         public static final String searchFriendByKeyWord=root+"/huanxin/searchFriendByKeyWord";
@@ -241,9 +246,13 @@ public class PlatformContans {
         public static final String getDrivingSchoolPhoto=root+"/drivingschool/getDrivingSchoolPhoto";
     }
     public static  class Appointment{
+
         public static final String addNewCarAppointment=root+ "/appointment/addNewCarAppointment";
         public static final String addOldCarAppointment=root+ "/appointment/addOldCarAppointment";
         public static final String addRoadRescueAppointment=root+ "/appointment/addRoadRescueAppointment";
+        public static final String getMyAppointmentList=root+ "/appointment/getMyAppointmentList";
+        public static final String addWashRepairAppointment=root + "/appointment/addWashRepairAppointment";
+        public static final String deleteAppointmentById=root + "/appointment/deleteAppointmentById";
     }
     public static  class Evaluation{
         public static final String addDrivingSchoolCoachEva=root+ "/drivingschool/addDrivingSchoolCoachEva";

@@ -52,75 +52,99 @@
                     android:background="@color/white"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:orientation="vertical"
                         android:padding="10dp">
-
                         <LinearLayout
+                            android:orientation="vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/shopname"
-                                android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="兴启晟"
-                                android:textColor="@color/black_33" />
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
 
+                                <TextView
+                                    android:id="@+id/shopname"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="兴启晟"
+                                    android:textColor="@color/black_33" />
+
+                                <ImageView
+                                    android:visibility="gone"
+                                    android:id="@+id/icon"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:src="@mipmap/renzhen_icon" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="综合评分"
+                                    android:textColor="@color/gray_99"
+                                    android:textSize="10sp" />
+
+                                <TextView
+                                    android:id="@+id/score"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="4dp"
+                                    android:text="5.0"
+                                    android:textColor="@color/black_33"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="16dp"
+                                    android:text="商家级别"
+                                    android:textColor="@color/gray_99"
+                                    android:textSize="10sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_grade"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="4dp"
+                                    android:text="1"
+                                    android:textColor="@color/yellow_02"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/ll_shop"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent">
                             <ImageView
-                                android:visibility="gone"
-                                android:id="@+id/icon"
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:layout_marginLeft="10dp"
-                                android:src="@mipmap/renzhen_icon" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:orientation="horizontal">
-
+                                android:src="@mipmap/shophead"
+                                android:layout_width="35dp"
+                                android:layout_height="30dp" />
                             <TextView
+                                android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="综合评分"
+                                android:text="店主信息"
                                 android:textColor="@color/gray_99"
                                 android:textSize="10sp" />
-
-                            <TextView
-                                android:id="@+id/score"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:text="5.0"
-                                android:textColor="@color/black_33"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="16dp"
-                                android:text="商家级别"
-                                android:textColor="@color/gray_99"
-                                android:textSize="10sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:text="1"
-                                android:textColor="@color/yellow_02"
-                                android:textSize="14sp" />
-
                         </LinearLayout>
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/phoneIcon"

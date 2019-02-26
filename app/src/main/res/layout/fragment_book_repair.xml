@@ -248,17 +248,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="添加图片"
                     android:textColor="@color/black_33"
                     android:textSize="14sp" />
                 <GridView
+                    android:id="@+id/gv_pic"
                     android:layout_marginTop="5dp"
                     android:numColumns="4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"></GridView>
                 <ImageView
+                    android:id="@+id/iv_pic"
                     android:src="@mipmap/camera_default"
                     android:layout_width="70dp"
                     android:layout_height="60dp" />
@@ -289,9 +292,18 @@
                     android:layout_width="125dp"
                     android:layout_height="90dp">
                     <ImageView
+                        android:scaleType="fitXY"
+                        android:id="@+id/iv_video"
                         android:src="@mipmap/camera_default"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/iv_play"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/video_play_normal"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
                 </RelativeLayout>
             </LinearLayout>
             <LinearLayout

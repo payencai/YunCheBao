@@ -95,6 +95,7 @@ public class SaomaActivity extends AppCompatActivity {
             resultIntent.putExtras(bundle);
             SaomaActivity.this.setResult(RESULT_OK, resultIntent);
             SaomaActivity.this.finish();
+
         }
 
         @Override

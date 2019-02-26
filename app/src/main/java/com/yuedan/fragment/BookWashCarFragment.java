@@ -230,14 +230,7 @@ public class BookWashCarFragment extends BaseFragment {
         wv.setOffset(1);
         wv.setItems(nums);
         wv.setSeletion(0);
-//        wv.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
-//            @Override
-//            public void onSelected(int selectedIndex, String item) {
-//                position=selectedIndex-1;
-//                Log.d("ddd", "[Dialog]selectedIndex: " + position + ", item: " + item);
-//            }
-//        });
-        //wv.setSeletion(0);
+
         Window window = dialog.getWindow();
         window.setGravity(Gravity.BOTTOM);
         WindowManager.LayoutParams params = window.getAttributes();
@@ -266,7 +259,7 @@ public class BookWashCarFragment extends BaseFragment {
         params.put("address",mAddressBean.getPoiaddress());
         params.put("addressDetail",et_detail.getEditableText().toString());
         Log.e("result",params.toString());
-        HttpProxy.obtain().post(PlatformContans.Commom.addWashRepairAppointment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Appointment.addWashRepairAppointment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 //dialog.dismiss();
@@ -520,7 +513,7 @@ public class BookWashCarFragment extends BaseFragment {
         wv.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
             @Override
             public void onSelected(int selectedIndex, String item) {
-                //position=selectedIndex-1;
+                position=selectedIndex-1;
                // Log.d("ddd", "[Dialog]selectedIndex: " + position + ", item: " + item);
             }
         });

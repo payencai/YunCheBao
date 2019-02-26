@@ -4,8 +4,12 @@ package com.yuedan.fragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -19,6 +23,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,9 +42,15 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.adapter.AttenAddressListAdapter;
 import com.nohttp.sample.BaseFragment;
+import com.payencai.library.mediapicker.PickerActivity;
+import com.payencai.library.mediapicker.PickerConfig;
+import com.payencai.library.mediapicker.entity.Media;
+import com.payencai.library.util.VideoUtil;
 import com.system.X5WebviewActivity;
 import com.system.model.AddressBean;
 import com.tool.ActivityConstans;
+import com.tool.FileUtil;
+import com.tool.GlideImageEngine;
 import com.tool.UIControlUtils;
 import com.tool.WheelView;
 import com.vipcenter.AddressAddActivity;
@@ -46,21 +58,44 @@ import com.vipcenter.RegisterActivity;
 import com.vipcenter.model.PersonAddress;
 import com.xihubao.CarBrandSelectActivity;
 import com.yuedan.WashCarType;
+import com.yuedan.adapter.ImageAdapter;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.filter.Filter;
+import com.zhihu.matisse.internal.entity.IncapableCause;
+import com.zhihu.matisse.internal.entity.Item;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -111,9 +146,17 @@ public class BookRepairFragment extends BaseFragment {
     TextView tv_num;
     @BindView(R.id.et_address)
     TextView et_address;
-
     @BindView(R.id.et_detail)
     EditText et_detail;
+    @BindView(R.id.iv_video)
+    ImageView iv_video;
+    @BindView(R.id.iv_pic)
+    ImageView iv_pic;
+    @BindView(R.id.iv_play)
+    ImageView iv_play;
+    @BindView(R.id.gv_pic)
+    GridView gv_pic;
+    ImageAdapter mImageAdapter;
     List<WashCarType> mWashCarTypes;
     int cartype=1;
     int position=0;
@@ -122,6 +165,8 @@ public class BookRepairFragment extends BaseFragment {
     double honmoney;
     String carCategory;
     String address;
+    List<Uri> mSelected;
+    List<String> images;
     private List<String> nums = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -136,6 +181,142 @@ public class BookRepairFragment extends BaseFragment {
         return rootView;
     }
     AddressBean mAddressBean;
+    ArrayList<Media> defaultSelect = new ArrayList<>();
+
+    private void chooseVideo() {
+        Intent intent = new Intent(getContext(), PickerActivity.class);
+        intent.putExtra(PickerConfig.SELECT_MODE, PickerConfig.PICKER_VIDEO);//default image and video (Optional)
+        long maxSize = 10485760L;//long long long long类型
+        intent.putExtra(PickerConfig.MAX_SELECT_SIZE, maxSize); //default 10MB (Optional)
+        intent.putExtra(PickerConfig.MAX_SELECT_COUNT, 1);  //default 40 (Optional)
+        intent.putExtra(PickerConfig.DEFAULT_SELECTED_LIST, defaultSelect); //(Optional)默认选中的照片
+        startActivityForResult(intent, 4);
+    }
+
+    public void upLoadVideo(String url, File file) {
+        OkHttpClient mOkHttpClent = new OkHttpClient();
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("file", "file",
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file));
+        RequestBody requestBody = builder.build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+        Call call = mOkHttpClent.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("upload", "onResponse: " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String string = response.body().string();
+                Log.e("upload", "onResponse: " + string);
+                try {
+                    JSONObject object = new JSONObject(string);
+                    int resultCode = object.getInt("resultCode");
+                    final String data = object.getString("data");
+                    video = data;
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            iv_play.setVisibility(View.VISIBLE);
+                        }
+                    });
+                    ///
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+
+    public void upImage(String url, File file) {
+        OkHttpClient mOkHttpClent = new OkHttpClient();
+
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("image", "image",
+                        RequestBody.create(MediaType.parse("image/png"), file));
+        RequestBody requestBody = builder.build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+        Call call = mOkHttpClent.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("upload", "onResponse: " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String string = response.body().string();
+                Log.e("upload", "onResponse: " + string);
+                try {
+                    JSONObject object = new JSONObject(string);
+                    int resultCode = object.getInt("resultCode");
+                    final String data = object.getString("data");
+                    if(!images.contains(data)){
+                        images.add(data);
+                    }
+                    if(images.size()==mSelected.size()){
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mImageAdapter.notifyDataSetChanged();
+                            }
+                        });
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+
+
+    public void setImages(Intent data) {
+
+        mSelected= Matisse.obtainResult(data);
+        for (int i = 0; i < mSelected.size(); i++) {
+            Log.e("images",Matisse.obtainPathResult(data).get(i));
+            File fileByUri = FileUtil.getFileByUri(Matisse.obtainResult(data).get(i), getContext());
+            Luban.with(getContext())
+                    .load(fileByUri)
+                    .ignoreBy(100)
+                    .filter(new CompressionPredicate() {
+                        @Override
+                        public boolean apply(String path) {
+                            return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                        }
+                    })
+                    .setCompressListener(new OnCompressListener() {
+                        @Override
+                        public void onStart() {
+                        }
+
+                        @Override
+                        public void onSuccess(File file) {
+                            //evaluationBeans.get(mTempPosition).getEvaluationImages().add(0,file);
+                            upImage(PlatformContans.Commom.uploadImg, file);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                        }
+                    }).launch();
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -148,6 +329,15 @@ public class BookRepairFragment extends BaseFragment {
         if(requestCode==3&&data!=null){
             carCategory=data.getStringExtra("name");
             tv_cartype.setText(carCategory);
+        }
+        if (requestCode == 4 && data != null) {
+            defaultSelect = data.getParcelableArrayListExtra(PickerConfig.EXTRA_RESULT);
+            if (defaultSelect.size() > 0) {
+                Bitmap bitmap = VideoUtil.voidToFirstBitmap(defaultSelect.get(0).path);
+                iv_video.setImageBitmap(bitmap);
+                File filevideo = new File(defaultSelect.get(0).path);
+                upLoadVideo(PlatformContans.Commom.uploadVideo, filevideo);
+            }
         }
     }
 
@@ -245,6 +435,9 @@ public class BookRepairFragment extends BaseFragment {
 
     }
     private void addService(){
+        for (int i = 0; i <images.size() ; i++) {
+            imgs=imgs+","+images.get(i);
+        }
         Map<String,Object> params=new HashMap<>();
         params.put("telephone",et_phone.getEditableText().toString());
         params.put("type",cartype);
@@ -263,8 +456,10 @@ public class BookRepairFragment extends BaseFragment {
         params.put("province",mAddressBean.getProvince()+"");
         params.put("city",mAddressBean.getCityname()+"");
         params.put("area",mAddressBean.getDistrict()+"");
+        params.put("imgs", imgs);
+        params.put("video", video);
         Log.e("result",params.toString());
-        HttpProxy.obtain().post(PlatformContans.Commom.addWashRepairAppointment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Appointment.addWashRepairAppointment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 //dialog.dismiss();
@@ -301,6 +496,30 @@ public class BookRepairFragment extends BaseFragment {
     }
     private void initView() {
         //initDatePicker();
+        images=new ArrayList<>();
+        mImageAdapter=new ImageAdapter(getContext(),images);
+        gv_pic.setAdapter(mImageAdapter);
+        iv_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                images.clear();
+                mImageAdapter.notifyDataSetChanged();
+                Matisse.from(getActivity())
+                        .choose(MimeType.ofImage())
+                        .countable(true)
+                        .maxSelectable(4)
+                        .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                        .thumbnailScale(0.85f)
+                        .imageEngine(new GlideImageEngine())
+                        .forResult(189);
+            }
+        });
+        iv_video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseVideo();
+            }
+        });
         tv_public.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -518,7 +737,7 @@ public class BookRepairFragment extends BaseFragment {
         wv.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
             @Override
             public void onSelected(int selectedIndex, String item) {
-                //position=selectedIndex-1;
+                position=selectedIndex-1;
                 // Log.d("ddd", "[Dialog]selectedIndex: " + position + ", item: " + item);
             }
         });

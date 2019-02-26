@@ -53,6 +53,16 @@ public class DrvingSchool implements Serializable{
     private String address;
     private String alipay;
     private String amEnd;
+    private String banner;
+
+    public String getBanner() {
+        return banner;
+    }
+
+    public void setBanner(String banner) {
+        this.banner = banner;
+    }
+
     private String amStart;
     private int audit;
     private String bankKey;

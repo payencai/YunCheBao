@@ -431,7 +431,12 @@
         <activity android:name="com.vipcenter.MyPayActivity" />
         <activity android:name="com.vipcenter.SetPayPasswordActivity" />
         <activity android:name="com.vipcenter.SetPayNextActivity" />
-        <activity android:name="com.system.X5WebviewActivity"></activity>
+        <activity android:name="com.system.X5WebviewActivity" />
+        <activity android:name="com.yuedan.MyYuedanActivity" />
+        <activity android:name="com.yuedan.YuedanPayActivity" />
+        <activity android:name="com.vipcenter.MyQrcodeActivity" />
+        <activity android:name="com.system.WebCarActivity" />
+        <activity android:name="com.xihubao.ShopInfoActivity"></activity>
     </application>
 
 </manifest>

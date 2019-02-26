@@ -117,6 +117,7 @@
                      android:textSize="14sp" />
              </RelativeLayout>
              <RelativeLayout
+                 android:id="@+id/rl_code"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:background="@drawable/top_line_bg"
@@ -225,8 +226,15 @@
                  android:layout_height="wrap_content"
                  android:background="@drawable/top_line_bg"
                  android:padding="10dp">
-
+                 <ImageView
+                     android:id="@+id/iv_car"
+                     android:layout_centerVertical="true"
+                     android:src="@mipmap/mycar"
+                     android:layout_width="25dp"
+                     android:layout_height="25dp" />
                  <TextView
+                     android:layout_marginLeft="10dp"
+                     android:layout_toRightOf="@id/iv_car"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                      android:layout_centerVertical="true"
@@ -255,6 +263,37 @@
                      android:textSize="14sp" />
              </RelativeLayout>
              <RelativeLayout
+                 android:background="@color/white"
+                 android:padding="10dp"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
+                 <TextView
+                     android:id="@+id/tv_car"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_centerVertical="true"
+                     android:text="车辆展示"
+                     android:textColor="@color/black_33"
+                     android:textSize="14sp" />
+                 <TextView
+                     android:layout_marginLeft="10dp"
+                     android:layout_toRightOf="@id/tv_car"
+                     android:layout_width="220dp"
+                     android:layout_height="wrap_content"
+                     android:layout_centerVertical="true"
+                     android:text="打开后将在个人资料和搜索好友时显示认证车辆"
+                     android:textColor="@color/gray_99"
+                     android:textSize="12sp" />
+                 <ImageView
+                     android:layout_marginRight="10dp"
+                     android:scaleType="fitXY"
+                     android:src="@mipmap/switch_open"
+                     android:layout_centerVertical="true"
+                     android:layout_alignParentRight="true"
+                     android:layout_width="35dp"
+                     android:layout_height="25dp" />
+             </RelativeLayout>
+             <RelativeLayout
                  android:id="@+id/addressLay"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
@@ -266,8 +305,8 @@
                      android:layout_height="wrap_content"
                      android:layout_centerVertical="true"
                      android:text="我的收货地址"
-                     android:textColor="@color/black_33"
-                     android:textSize="14sp" />
+                     android:textColor="#0D0D0D"
+                     android:textSize="16sp" />
 
                  <ImageView
                      android:id="@+id/arrow5"
@@ -294,8 +333,16 @@
                  android:layout_height="50dp"
                  android:background="@drawable/top_line_bg"
                  android:padding="10dp">
+                 <ImageView
+                     android:id="@+id/iv_phone"
+                     android:layout_centerVertical="true"
+                     android:src="@mipmap/phone_icon"
+                     android:layout_width="20dp"
+                     android:layout_height="25dp" />
 
                  <TextView
+                     android:layout_marginLeft="5dp"
+                     android:layout_toRightOf="@id/iv_phone"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                      android:layout_centerVertical="true"
@@ -319,8 +366,15 @@
                  android:layout_height="50dp"
                  android:background="@drawable/top_line_bg"
                  android:padding="10dp">
-
+                 <ImageView
+                     android:id="@+id/iv_card"
+                     android:layout_centerVertical="true"
+                     android:src="@mipmap/phone_icon"
+                     android:layout_width="25dp"
+                     android:layout_height="25dp" />
                  <TextView
+                     android:layout_marginLeft="5dp"
+                     android:layout_toRightOf="@id/iv_card"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                      android:layout_centerVertical="true"

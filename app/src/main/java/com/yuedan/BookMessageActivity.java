@@ -38,7 +38,7 @@ public class BookMessageActivity extends NoHttpFragmentBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.market_good_detail_main);
         ButterKnife.bind(this);
-        findViewById(R.id.bottomMenuLay).setVisibility(View.GONE);
+
 //        requestMethod(0);
         initFragmentList();
         /**

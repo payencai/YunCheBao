@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:padding="15dp"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_gravity="center_vertical"
+        android:scaleType="fitXY"
+        android:src="@mipmap/pic1"
+        android:layout_width="70dp"
+        android:layout_height="70dp" />
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_name"
+            android:textSize="14sp"
+            android:textColor="@color/black_33"
+            android:text="啥啥啥修理店"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp"
+            android:textColor="@color/gray_99"
+            android:text="发布时间：1995.12.12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/delete"
+                    android:text="删除"
+                    android:textSize="13sp"
+                    android:gravity="center"
+                    android:textColor="@color/gray_66"
+                    android:layout_height="25dp"
+                    android:layout_width="50dp"
+                    fresco:corner="4dp"
+                    fresco:solid="@color/white"
+                    fresco:stroke_color="@color/gray_e2"
+                    fresco:stroke_width="1dp" />
+
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/fukuan"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:layout_height="25dp"
+                    android:layout_width="50dp"
+                    android:text="付款"
+                    android:textColor="@color/white"
+                    fresco:corner="4dp"
+                    fresco:solid="@color/yellow_65" />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

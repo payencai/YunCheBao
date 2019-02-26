@@ -95,7 +95,7 @@ public class YuedanHomeActivity extends NoHttpFragmentBaseActivity {
                 onBackPressed();
                 break;
             case R.id.rightBtn:
-                ActivityAnimationUtils.commonTransition(YuedanHomeActivity.this, BookMessageActivity.class, ActivityConstans.Animation.FADE);
+                ActivityAnimationUtils.commonTransition(YuedanHomeActivity.this, MyYuedanActivity.class, ActivityConstans.Animation.FADE);
                 break;
         }
     }
@@ -105,34 +105,9 @@ public class YuedanHomeActivity extends NoHttpFragmentBaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 188 && data != null) {
             mRoadFragment.setImages(data);
-//            for (int i = 0; i < mSelected.size(); i++) {
-//                File fileByUri = FileUtil.getFileByUri(Matisse.obtainResult(data).get(i), this);
-//                Luban.with(this)
-//                        .load(fileByUri)
-//                        .ignoreBy(100)
-//                        .filter(new CompressionPredicate() {
-//                            @Override
-//                            public boolean apply(String path) {
-//                                return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
-//                            }
-//                        })
-//                        .setCompressListener(new OnCompressListener() {
-//                            @Override
-//                            public void onStart() {
-//                            }
-//
-//                            @Override
-//                            public void onSuccess(File file) {
-//                                //evaluationBeans.get(mTempPosition).getEvaluationImages().add(0,file);
-//
-//
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable e) {
-//                            }
-//                        }).launch();
-//            }
+        }
+        if (requestCode == 189 && data != null) {
+            mBookRepairFragment.setImages(data);
         }
     }
 

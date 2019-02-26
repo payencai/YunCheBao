@@ -2,9 +2,11 @@ package com.yuedan.fragment;
 
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -47,16 +49,24 @@ import com.xihubao.CarBrandSelectActivity;
 import com.yuedan.adapter.ImageAdapter;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.filter.Filter;
+import com.zhihu.matisse.internal.entity.CaptureStrategy;
+import com.zhihu.matisse.internal.entity.IncapableCause;
+import com.zhihu.matisse.internal.entity.Item;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -80,6 +90,12 @@ public class BookRoadFragment extends Fragment {
     EditText et_phone;
     @BindView(R.id.et_address)
     TextView et_address;
+    @BindView(R.id.tv_item1)
+    TextView tv_item1;
+    @BindView(R.id.tv_item2)
+    TextView tv_item2;
+    @BindView(R.id.tv_item3)
+    TextView tv_item3;
     @BindView(R.id.et_detail)
     EditText et_detail;
     @BindView(R.id.et_color)
@@ -239,7 +255,13 @@ public class BookRoadFragment extends Fragment {
                     int resultCode = object.getInt("resultCode");
                     final String data = object.getString("data");
                     video = data;
-                    iv_play.setVisibility(View.VISIBLE);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            iv_play.setVisibility(View.VISIBLE);
+                        }
+                    });
+                    ///
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -333,15 +355,36 @@ public class BookRoadFragment extends Fragment {
         images=new ArrayList<>();
         mImageAdapter=new ImageAdapter(getContext(),images);
         gv_pic.setAdapter(mImageAdapter);
+        tv_item1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               et_detail.setText(tv_item1.getText().toString());
+            }
+        });
+        tv_item2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et_detail.setText(tv_item2.getText().toString());
+            }
+        });
+        tv_item3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et_detail.setText(tv_item3.getText().toString());
+            }
+        });
         iv_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                images.clear();
+                mImageAdapter.notifyDataSetChanged();
                 Matisse.from(getActivity())
                         .choose(MimeType.ofImage())
                         .countable(true)
                         .maxSelectable(4)
-                        .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                       .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
                         .thumbnailScale(0.85f)
+                        .captureStrategy(new CaptureStrategy(true, "com.yancy.gallerypickdemo.fileprovider"))
                         .imageEngine(new GlideImageEngine())
                         .forResult(188);
             }
@@ -416,7 +459,7 @@ public class BookRoadFragment extends Fragment {
         params.put("imgs", imgs);
         params.put("video", video);
         Log.e("result", params.toString());
-        HttpProxy.obtain().post(PlatformContans.Commom.addRoadRescueAppointment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Appointment.addRoadRescueAppointment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
 

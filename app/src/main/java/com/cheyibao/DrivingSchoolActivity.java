@@ -12,6 +12,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -100,6 +101,7 @@ public class DrivingSchoolActivity extends AppCompatActivity {
     SimpleRatingBar sr_score;
     @BindView(R.id.tv_score)
     TextView tv_score;
+    String id;
     DrvingSchool mDrvingSchool;
     private ArrayList<String> mTopTitles = new ArrayList<>(2);
     private ArrayList<Fragment> mTopFragments = new ArrayList<>(2);
@@ -112,11 +114,48 @@ public class DrivingSchoolActivity extends AppCompatActivity {
         mDrvingSchool= (DrvingSchool) getIntent().getSerializableExtra("data");
         setContentView(R.layout.driving_school_detail);
         ButterKnife.bind(this);
+        ctx = this;
+        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW,"驾校详情");
+        findViewById(R.id.shareBtn).setVisibility(View.GONE);
+        if(mDrvingSchool==null){
+            id=getIntent().getStringExtra("id");
+            getDetail(id);
+        }else{
+            init();
+        }
+
+    }
+    private void getDetail(String id){
+        Map<String, Object> params = new HashMap<>();
+        params.put("merchantId", id);
+        HttpProxy.obtain().get(PlatformContans.Shop.getMerchantById, params,"", new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject  data = jsonObject.getJSONObject("data");
+                    mDrvingSchool=new Gson().fromJson(data.toString(),DrvingSchool.class);
+                    init();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    private void init() {
         initView();
-        banner.setFocusable(true);
+        isCollect();
         initTab();
         getBanner();
     }
+
     private void google(double mLatitude, double mLongitude) {
         if (isAvilible(this, "com.google.android.apps.maps")) {
             Uri gmmIntentUri = Uri.parse("google.navigation:q="
@@ -274,32 +313,17 @@ public class DrivingSchoolActivity extends AppCompatActivity {
         banner.start();
     }
     private void getBanner(){
-        Map<String, Object> params = new HashMap<>();
-        params.put("merchantId", mDrvingSchool.getId());
-        HttpProxy.obtain().get(PlatformContans.DrivingSchool.getDrivingSchoolPhoto, params, new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Log.e("getBannerList", result);
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    for (int i = 0; i < data.length(); i++) {
-                        String url = data.getString(i);
-                        images.add(url);
-                    }
-                    initBanner();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+        String banner=mDrvingSchool.getBanner();
+        if(!TextUtils.isEmpty(banner)){
+            String imgs[]=banner.split(",");
+            for (int i = 0; i <imgs.length ; i++) {
+                images.add(imgs[i]);
             }
+            initBanner();
+        }
 
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
     }
+
     public DrvingSchool getDrvingSchool() {
         return mDrvingSchool;
     }
@@ -326,9 +350,7 @@ public class DrivingSchoolActivity extends AppCompatActivity {
     }
     private void initView() {
 
-        ctx = this;
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW,"驾校详情");
-        findViewById(R.id.shareBtn).setVisibility(View.GONE);
+
         tv_name.setText(mDrvingSchool.getName());
         tv_address.setText(mDrvingSchool.getAddress());
         tv_score.setText(mDrvingSchool.getScore()+"分");
@@ -340,7 +362,7 @@ public class DrivingSchoolActivity extends AppCompatActivity {
                 showDialog(latLng);
             }
         });
-        isCollect();
+
     }
 
     @OnClick({R.id.back,R.id.collectBtn})

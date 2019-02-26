@@ -295,7 +295,7 @@ public class UserInfoActivity extends NoHttpBaseActivity {
         tv_sex.setText(MyApplication.getUserInfo().getSex());
     }
 
-    @OnClick({R.id.back, R.id.addressLay,R.id.rl_phone,R.id.rl_idcard,R.id.rl_mycar})
+    @OnClick({R.id.back, R.id.addressLay,R.id.rl_phone,R.id.rl_idcard,R.id.rl_mycar,R.id.rl_code})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.back:
@@ -312,6 +312,9 @@ public class UserInfoActivity extends NoHttpBaseActivity {
                 break;
             case R.id.rl_mycar:
                 ActivityAnimationUtils.commonTransition(UserInfoActivity.this, MycarActivity.class, ActivityConstans.Animation.FADE);
+                break;
+            case R.id.rl_code:
+                startActivity(new Intent(UserInfoActivity.this,MyQrcodeActivity.class));
                 break;
         }
     }

@@ -20,11 +20,11 @@ public class MyWallet {
     private String id;
     private String password;
     private int goldCoin;
-    private int balance;
+    private double balance;
     private String memberCardUpdateTime;
     private int isHasMemberCard;
     private String memberCardImage;
-    private int total;
+    private double total;
 
     public String getId() {
         return id;
@@ -50,11 +50,11 @@ public class MyWallet {
         this.goldCoin = goldCoin;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
@@ -82,11 +82,11 @@ public class MyWallet {
         this.memberCardImage = memberCardImage;
     }
 
-    public int getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 }
