@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:background="@drawable/white_shape">
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="身份认证"
+        android:textColor="@color/black_33"
+        android:textSize="16sp" />
+
+    <TextView
+        android:textColor="@color/black_33"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/tv_name"
+        android:layout_marginLeft="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/et_season"
+        android:background="@color/white"
+        android:text="你还没有实名认证！"
+        android:textSize="14sp" />
+
+    <RelativeLayout
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/et_season"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:textSize="16sp"
+            android:textColor="@color/black_33"
+            android:gravity="center"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:text="跳过" />
+
+        <TextView
+            android:id="@+id/tv_submit"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:background="@drawable/dialog_apply"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:text="去认证" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -76,19 +76,24 @@ public class UserInfoActivity extends NoHttpBaseActivity {
     TextView tv_sex;
     @BindView(R.id.tv_baohao)
     TextView tv_baohao;
+    @BindView(R.id.iv_switch)
+    ImageView iv_switch;
     /**
      * 裁剪图片
      */
     Uri photoOutputUri;
     Uri photoUri;
     String image;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_info_layout);
         initView();
     }
+
     File tempFile;
+
     public void openCamera() {
         //獲取系統版本
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
@@ -113,7 +118,7 @@ public class UserInfoActivity extends NoHttpBaseActivity {
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
                     //申请WRITE_EXTERNAL_STORAGE权限
-                    Toast.makeText(this,"请开启存储权限",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "请开启存储权限", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 photoUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
@@ -121,7 +126,7 @@ public class UserInfoActivity extends NoHttpBaseActivity {
             }
         }
         // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_CAREMA
-       startActivityForResult(intent, 2);
+        startActivityForResult(intent, 2);
     }
 
     /*
@@ -131,8 +136,6 @@ public class UserInfoActivity extends NoHttpBaseActivity {
         return Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED);
     }
-
-
 
 
     @Override
@@ -188,7 +191,7 @@ public class UserInfoActivity extends NoHttpBaseActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-               openCamera();
+                openCamera();
             }
         });
         dialog.findViewById(R.id.tv_select_gallery).setOnClickListener(new View.OnClickListener() {
@@ -216,6 +219,7 @@ public class UserInfoActivity extends NoHttpBaseActivity {
                 photoOutputUri = Uri.parse("file:////sdcard/image_output.jpg"));
         startActivityForResult(cropPhotoIntent, 3);
     }
+
     public void upImage(String url, File file) {
         OkHttpClient mOkHttpClent = new OkHttpClient();
 
@@ -247,7 +251,7 @@ public class UserInfoActivity extends NoHttpBaseActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                           // Glide.with(DriverFriendsRepublishActivity.this).load(data).into(iv_img);
+                            // Glide.with(DriverFriendsRepublishActivity.this).load(data).into(iv_img);
                             Glide.with(UserInfoActivity.this).load(image)
                                     .apply(RequestOptions.bitmapTransform(new RoundedCorners(20)))
                                     .into(sd_head);
@@ -263,13 +267,14 @@ public class UserInfoActivity extends NoHttpBaseActivity {
             }
         });
     }
-    private void updateHead(){
-        Map<String,Object> params=new HashMap<>();
-        params.put("headPortrait",image);
-        HttpProxy.obtain().post(PlatformContans.User.updateUser,MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+
+    private void updateHead() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("headPortrait", image);
+        HttpProxy.obtain().post(PlatformContans.User.updateUser, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                  Log.e("resutl",result);
+                Log.e("resutl", result);
             }
 
             @Override
@@ -278,6 +283,7 @@ public class UserInfoActivity extends NoHttpBaseActivity {
             }
         });
     }
+
     private void initView() {
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "个人资料");
         ButterKnife.bind(this);
@@ -293,11 +299,44 @@ public class UserInfoActivity extends NoHttpBaseActivity {
         tv_nickname.setText(MyApplication.getUserInfo().getName());
         tv_baohao.setText(MyApplication.getUserInfo().getHxAccount());
         tv_sex.setText(MyApplication.getUserInfo().getSex());
+        if(MyApplication.getUserInfo().getCarShowState()==1){
+            iv_switch.setImageResource(R.mipmap.switch_open);
+        }else{
+            iv_switch.setImageResource(R.mipmap.switch_close);
+        }
     }
+    private void setState(int state){
+        Map<String, Object> params = new HashMap<>();
+        params.put("state", state);
+        HttpProxy.obtain().get(PlatformContans.User.setCarShowState, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("resutl", result);
+                if(state==1){
+                    iv_switch.setImageResource(R.mipmap.switch_open);
+                    MyApplication.getUserInfo().setCarShowState(1);
+                }else{
+                    MyApplication.getUserInfo().setCarShowState(2);
+                    iv_switch.setImageResource(R.mipmap.switch_close);
+                }
+            }
 
-    @OnClick({R.id.back, R.id.addressLay,R.id.rl_phone,R.id.rl_idcard,R.id.rl_mycar,R.id.rl_code})
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    @OnClick({R.id.back, R.id.addressLay, R.id.rl_phone, R.id.rl_idcard, R.id.rl_mycar, R.id.rl_code,R.id.iv_switch})
     public void OnClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_switch:
+                if(MyApplication.getUserInfo().getCarShowState()==1){
+                    setState(2);
+                }else{
+                    setState(1);
+                }
+                break;
             case R.id.back:
                 onBackPressed();
                 break;
@@ -314,7 +353,7 @@ public class UserInfoActivity extends NoHttpBaseActivity {
                 ActivityAnimationUtils.commonTransition(UserInfoActivity.this, MycarActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.rl_code:
-                startActivity(new Intent(UserInfoActivity.this,MyQrcodeActivity.class));
+                startActivity(new Intent(UserInfoActivity.this, MyQrcodeActivity.class));
                 break;
         }
     }

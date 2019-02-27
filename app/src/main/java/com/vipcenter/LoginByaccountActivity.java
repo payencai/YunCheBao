@@ -1,11 +1,16 @@
 package com.vipcenter;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -247,7 +252,38 @@ public class LoginByaccountActivity extends AppCompatActivity {
         });
     }
 
+    private void showDialog() {
+        final Dialog dialog = new Dialog(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_jump, null);
+        TextView tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
+        TextView tv_submit = (TextView) view.findViewById(R.id.tv_submit);
+        tv_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                startActivity(new Intent(LoginByaccountActivity.this,IDCardCertificationActivity.class));
+                finish();
+            }
+        });
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Intent intent = new Intent();
+                //intent.putExtra("user", userInfo);
+                setResult(5, intent);
+                finish();
+            }
+        });
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams layoutParams = window.getAttributes();
+        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(layoutParams);
 
+    }
 
     private void loginByPwd(String account,String pwd){
         Map<String, Object> params = new HashMap<>();
@@ -271,10 +307,17 @@ public class LoginByaccountActivity extends AppCompatActivity {
                         MyApplication.isLogin=true;
                         SPUtils.put(LoginByaccountActivity.this,"phone",account);
                         SPUtils.put(LoginByaccountActivity.this,"pwd",pwd);
-                        Intent intent=new Intent();
-                        intent.putExtra("user",userInfo);
-                        setResult(5,intent);
-                        finish();
+                        int isShow= (int) SPUtils.get(LoginByaccountActivity.this,"isShow",0);
+                        if(isShow==0){
+                            SPUtils.put(LoginByaccountActivity.this,"isShow",1);
+                            showDialog();
+                        }
+                        else if(isShow==1){
+                            Intent intent = new Intent();
+                            intent.putExtra("user", userInfo);
+                            setResult(5, intent);
+                            finish();
+                        }
                     }else{
                         Toast.makeText(LoginByaccountActivity.this,msg,Toast.LENGTH_SHORT).show();
                     }

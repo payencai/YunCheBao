@@ -285,6 +285,7 @@
                      android:textColor="@color/gray_99"
                      android:textSize="12sp" />
                  <ImageView
+                     android:id="@+id/iv_switch"
                      android:layout_marginRight="10dp"
                      android:scaleType="fitXY"
                      android:src="@mipmap/switch_open"

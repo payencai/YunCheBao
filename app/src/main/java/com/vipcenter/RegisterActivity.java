@@ -1,5 +1,6 @@
 package com.vipcenter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,7 +12,11 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -51,6 +56,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import go.error;
+import io.rong.callkit.util.SPUtils;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.model.GroupUserInfo;
 import io.rong.imlib.RongIMClient;
@@ -314,49 +321,39 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-
-    private void loginByPhone(String phone, String code) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("username", phone);
-        params.put("code", code);
-        Log.e("params", params.toString());
-        HttpProxy.obtain().post(PlatformContans.User.loginByPhone, params, new ICallBack() {
+    private void showDialog() {
+        final Dialog dialog = new Dialog(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_jump, null);
+        TextView tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
+        TextView tv_submit = (TextView) view.findViewById(R.id.tv_submit);
+        tv_submit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void OnSuccess(String result) {
-                Log.e("loginByPhone", result);
-                try {
-                    ///Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_LONG).show();
-                    JSONObject object = new JSONObject(result);
-                    int code = object.getInt("resultCode");
-                    String msg=object.getString("message");
-                    if (code == 0) {
-                        JSONObject data = object.getJSONObject("data");
-                        Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                        UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
-                        MyApplication.setUserInfo(userInfo);
-                        MyApplication.setIsLogin(true);
-                        getData();
-                        Intent intent = new Intent();
-                        intent.putExtra("user", userInfo);
-                        setResult(1, intent);
-                        finish();
-                    }else{
-                        Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onFailure(String error) {
-
+            public void onClick(View v) {
+                dialog.dismiss();
+                startActivity(new Intent(RegisterActivity.this,IDCardCertificationActivity.class));
+                finish();
             }
         });
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Intent intent = new Intent();
+                //intent.putExtra("user", userInfo);
+                setResult(1, intent);
+                finish();
+            }
+        });
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams layoutParams = window.getAttributes();
+        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(layoutParams);
+
     }
+
     /**
      * 微信登录
      */
@@ -406,7 +403,54 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    private void loginByQQ(final String openid) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("qqId", openid);
+        HttpProxy.obtain().post(PlatformContans.User.loginByQQ, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject object = new JSONObject(result);
+                    int code = object.getInt("resultCode");
+                    if (code == 0) {
+                        JSONObject data = object.getJSONObject("data");
+                        Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                        UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
+                        MyApplication.setUserInfo(userInfo);
+                        MyApplication.setIsLogin(true);
+                        getData();
+                        int isShow= (int) SPUtils.get(RegisterActivity.this,"isShow",0);
+                        if(isShow==0){
+                            SPUtils.put(RegisterActivity.this,"isShow",1);
+                            showDialog();
+                        }
+                        else if(isShow==1){
+                            Intent intent = new Intent();
+                            intent.putExtra("user", userInfo);
+                            setResult(1, intent);
+                            finish();
+                        }
+                    }
+                    else if(code==7001){
+                        Intent  intent=new Intent(RegisterActivity.this,BindPhoneActivity.class);
+                        intent.putExtra("openid",openid+"1");
+                        startActivity(intent);
+                    }
 
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     private void loginByWeChat(final String openid) {
         Map<String, Object> params = new HashMap<>();
         params.put("wxId", openid);
@@ -424,10 +468,17 @@ public class RegisterActivity extends AppCompatActivity {
                         MyApplication.setUserInfo(userInfo);
                         MyApplication.setIsLogin(true);
                         getData();
-                        Intent intent = new Intent();
-                        intent.putExtra("user", userInfo);
-                        setResult(3, intent);
-                        finish();
+                        int isShow= (int) SPUtils.get(RegisterActivity.this,"isShow",0);
+                        if(isShow==0){
+                            SPUtils.put(RegisterActivity.this,"isShow",1);
+                            showDialog();
+                        }
+                        else if(isShow==1){
+                            Intent intent = new Intent();
+                            intent.putExtra("user", userInfo);
+                            setResult(3, intent);
+                            finish();
+                        }
                     }
                     else if(code==7000){
                         Intent  intent=new Intent(RegisterActivity.this,BindPhoneActivity.class);
@@ -449,7 +500,56 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+    private void loginByPhone(String phone, String code) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("username", phone);
+        params.put("code", code);
+        Log.e("params", params.toString());
+        HttpProxy.obtain().post(PlatformContans.User.loginByPhone, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("loginByPhone", result);
+                try {
+                    ///Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_LONG).show();
+                    JSONObject object = new JSONObject(result);
+                    int code = object.getInt("resultCode");
+                    String msg=object.getString("message");
+                    if (code == 0) {
+                        JSONObject data = object.getJSONObject("data");
+                        Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                        UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
+                        MyApplication.setUserInfo(userInfo);
+                        MyApplication.setIsLogin(true);
+                        getData();
+                        int isShow= (int) SPUtils.get(RegisterActivity.this,"isShow",0);
+                        if(isShow==0){
+                            SPUtils.put(RegisterActivity.this,"isShow",1);
+                            showDialog();
+                        }
+                        else if(isShow==1){
+                            Intent intent = new Intent();
+                            intent.putExtra("user", userInfo);
+                            setResult(1, intent);
+                            finish();
+                        }
 
+                    }else{
+                        Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     private void initOpenIdAndToken(Object object) {
         //Toast.makeText(RegisterActivity.this, "fdfgg", Toast.LENGTH_SHORT).show();
         JSONObject jb = (JSONObject) object;
@@ -466,47 +566,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void loginByQQ(final String openid) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("qqId", openid);
-        HttpProxy.obtain().post(PlatformContans.User.loginByQQ, params, new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Log.e("result", result);
-                try {
-                    JSONObject object = new JSONObject(result);
-                    int code = object.getInt("resultCode");
-                    if (code == 0) {
-                        JSONObject data = object.getJSONObject("data");
-                        Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                        UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
-                        MyApplication.setUserInfo(userInfo);
-                        MyApplication.setIsLogin(true);
-                        getData();
-                        Intent intent = new Intent();
-                        intent.putExtra("user", userInfo);
-                        setResult(1, intent);
-                        finish();
-                    }
-                    else if(code==7001){
-                        Intent  intent=new Intent(RegisterActivity.this,BindPhoneActivity.class);
-                        intent.putExtra("openid",openid+"1");
-                        startActivity(intent);
-                    }
 
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
-    }
 
 
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cheyibao.NewCarDetailActivity;
@@ -13,6 +14,7 @@ import com.cheyibao.NewCarShopActivity;
 import com.cheyibao.model.Shop;
 import com.cheyibao.model.ShopComment;
 import com.example.yunchebao.R;
+import com.xihubao.ShopInfoActivity;
 
 import java.util.List;
 
@@ -69,6 +71,7 @@ public class ShopItemAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.item_shop, null);
         TextView tv_name = (TextView) convertView.findViewById(R.id.tv_name);
+        LinearLayout ll_head= (LinearLayout) convertView.findViewById(R.id.ll_head);
         TextView tv_address = (TextView) convertView.findViewById(R.id.tv_address);
         TextView tv_sale = (TextView) convertView.findViewById(R.id.tv_sale);
         TextView tv_comment = (TextView) convertView.findViewById(R.id.tv_comment);
@@ -81,6 +84,14 @@ public class ShopItemAdapter extends BaseAdapter {
                 Intent intent=new Intent(mContext,NewCarShopActivity.class);
                 intent.putExtra("flag",1);
                 intent.putExtra("data",mClassItems.get(position));
+                mContext.startActivity(intent);
+            }
+        });
+        ll_head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ShopInfoActivity.class);
+                intent.putExtra("id", mClassItems.get(position).getId());
                 mContext.startActivity(intent);
             }
         });

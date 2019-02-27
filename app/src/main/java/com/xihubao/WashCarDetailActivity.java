@@ -429,10 +429,12 @@ public class WashCarDetailActivity extends FragmentActivity {
             return mFragments.get(position);
         }
     }
-    @OnClick({R.id.back,R.id.league,R.id.ll_shop})
+    @OnClick({R.id.back,R.id.league,R.id.ll_shop,R.id.phoneIcon})
     public void OnClick(View v){
         switch (v.getId()){
-
+            case R.id.phoneIcon:
+                callPhone(mCarShop.getSaleTelephone());
+                break;
             case R.id.ll_shop:
                  Intent intent=new Intent(WashCarDetailActivity.this,ShopInfoActivity.class);
                  intent.putExtra("id",mCarShop.getId());
@@ -447,4 +449,12 @@ public class WashCarDetailActivity extends FragmentActivity {
                 break;
         }
     }
+
+    public void callPhone(String phoneNum) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        startActivity(intent);
+    }
+
 }
