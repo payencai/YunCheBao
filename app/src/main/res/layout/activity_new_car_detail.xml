@@ -38,7 +38,7 @@
             <com.youth.banner.Banner
                 android:id="@+id/banner"
                 android:layout_width="fill_parent"
-                android:layout_height="150dp"
+                android:layout_height="200dp"
               />
             <LinearLayout
                 android:background="@color/white"
@@ -154,15 +154,7 @@
                         android:text="查看评论"
                         android:layout_width="0dp"
                         android:layout_height="match_parent" />
-                    <TextView
-                        android:textSize="10sp"
-                        android:gravity="center"
-                        android:layout_weight="1"
-                        android:textColor="@color/black_33"
-                        android:layout_marginLeft="15dp"
-                        android:text="商家客服"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" />
+
                 </LinearLayout>
             </LinearLayout>
             <com.tool.listview.PersonalListView
@@ -204,12 +196,13 @@
                 android:background="#fbefd0"
                 android:textSize="16sp"
                 android:gravity="center"
-                android:text="购买车辆"
+                android:text="商家客服"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent" />
 
             <RelativeLayout
+                android:id="@+id/rl_phone"
                 android:background="#F3CA65"
                 android:textSize="16sp"
                 android:layout_weight="1"

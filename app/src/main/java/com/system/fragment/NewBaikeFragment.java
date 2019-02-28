@@ -101,7 +101,11 @@ public class NewBaikeFragment extends Fragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 BaikeItem baikeItem= (BaikeItem) adapter.getItem(position);
                 Intent intent = new Intent(getContext(), WebviewActivity.class);
-                intent.putExtra("url", baikeItem.getContent());
+                String token="";
+                if(MyApplication.isLogin){
+                    token=MyApplication.getUserInfo().getToken();
+                }
+                intent.putExtra("url", baikeItem.getContent()+"?token="+token);
                 startActivity(intent);
             }
         });

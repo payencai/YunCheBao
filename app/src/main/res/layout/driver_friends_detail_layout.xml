@@ -3,17 +3,74 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/gray_ee"
     android:orientation="vertical">
 
-    <include layout="@layout/top_title_layout"></include>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
 
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="全部收藏"
+            android:textColor="@color/black_33"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:id="@+id/searchLay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="搜索"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:id="@+id/tv_heart"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_toLeftOf="@id/collectBtn"
+            android:padding="15dp"
+            android:src="@mipmap/orange_heart_icon"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/gray_ee"></View>
+    </RelativeLayout>
     <RelativeLayout
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ScrollView
+        <com.tool.listview.PersonalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/ll_bottom">
@@ -141,28 +198,28 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+
                                 android:gravity="center"
                                 android:padding="6dp"
                                 android:text="+ 关注"
                                 android:textColor="@color/yellow_65"
                                 android:textSize="14sp"
-                                android:visibility="gone" />
+                               />
 
                             <View
+                                android:layout_marginRight="10dp"
                                 android:layout_width="1dp"
                                 android:layout_height="14dp"
                                 android:background="@color/black_0d"
-                                android:visibility="gone"></View>
+                               ></View>
 
                             <TextView
-
                                 android:id="@+id/contacts"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_marginRight="10dp"
                                 android:text="联系Ta"
                                 android:textColor="@color/yellow_65"
                                 android:textSize="14sp" />
@@ -186,109 +243,63 @@
 
                     </com.bbcircle.view.NoScrollWebView>
 
-                    <TextView
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_comment"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/item_circle_comment"
+                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="15dp"
-                        android:text="行程安排：
-第一天：北京---吉林省四平市（8月18日）
-行程：全程860公里，全程高速。早上8点出发，预计用时10小时，下午6点到达：晚上住在四平市区内。
-活动：无。
-第二天：四平市---沅江市兴和鲜族自治乡（8月19日）
-第二天：四平市---沅江市兴和鲜族自治乡（8月19日"
-                        android:textColor="@color/black_33"
-                        android:textSize="14sp"
-                        android:visibility="gone" />
+                        android:layout_height="wrap_content">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:layout_marginBottom="50dp"
-                        android:background="#4df3ca65"
-                        android:padding="10dp"
-                        android:visibility="gone">
+                    </android.support.v7.widget.RecyclerView>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="7311"
-                            android:textColor="@color/yellow_65"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:drawablePadding="6dp"
-                            android:drawableRight="@mipmap/yellow_arrow_small"
-                            android:text="展开更多详情"
-                            android:textColor="@color/yellow_65"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
                 </LinearLayout>
 
 
             </LinearLayout>
-        </ScrollView>
+        </com.tool.listview.PersonalScrollView>
 
-        <LinearLayout
+        <RelativeLayout
+
             android:id="@+id/ll_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
+            android:padding="10dp"
             android:background="@drawable/top_line_bg"
             android:orientation="horizontal">
 
+            <EditText
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:textColor="@color/black_33"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@id/tv_pub"
+                android:layout_marginLeft="10dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/et_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/comment_shape"
+                android:hint="写下你的评论..."
+                android:orientation="vertical"
+                android:textColorHint="#ccc"
+                android:textSize="14sp"></EditText>
             <TextView
-                android:id="@+id/commentLay"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:hint="发表回帖……"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:textColorHint="@color/yellow_65"
-                android:textSize="14sp"></TextView>
-
-            <LinearLayout
-                android:id="@+id/ll_heart"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <ImageView
-                    android:id="@+id/tv_heart"
-                    android:layout_width="19dp"
-                    android:layout_height="18dp"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/collect_gray_hole" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/shareBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="19dp"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/replay_icon" />
-            </LinearLayout>
-
-        </LinearLayout>
+                android:textSize="14sp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/tv_pub"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/black_33"
+                android:text="发布"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
     </RelativeLayout>
 
 </LinearLayout>

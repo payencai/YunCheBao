@@ -2,6 +2,7 @@ package com.cheyibao;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,9 +10,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.application.MyApplication;
+import com.bbcircle.CarShowDetailActivity;
 import com.bumptech.glide.Glide;
 import com.caryibao.NewCar;
 import com.cheyibao.adapter.NewCarParamsAdapter;
@@ -43,6 +46,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.rong.imkit.RongIM;
 
 public class NewCarDetailActivity extends AppCompatActivity {
     @BindView(R.id.tv_sale)
@@ -67,6 +71,8 @@ public class NewCarDetailActivity extends AppCompatActivity {
     TextView tv_param;
     @BindView(R.id.tv_car)
     TextView tv_buy;
+    @BindView(R.id.rl_phone)
+    RelativeLayout rl_phone;
     NewCarParamsAdapter mNewCarParamsAdapter;
     List<String> images = new ArrayList<>();
     List<Shop> mShops = new ArrayList<>();
@@ -84,7 +90,12 @@ public class NewCarDetailActivity extends AppCompatActivity {
         getMerchat();
         getParams();
     }
-
+    public void callPhone(String phoneNum) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        startActivity(intent);
+    }
     private void getParams() {
         Map<String, Object> params = new HashMap<>();
         params.put("carCategoryDetailId", mNewCar.getCarCategoryDetailId());
@@ -218,11 +229,20 @@ public class NewCarDetailActivity extends AppCompatActivity {
         tv_buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(MyApplication.isLogin)
-                    postOrder();
+                if(MyApplication.isLogin){
+                    RongIM.getInstance().startPrivateChat(NewCarDetailActivity.this, merchant.getId(), merchant.getName());
+                }
+                   // postOrder();
                 else{
                     startActivity(new Intent(NewCarDetailActivity.this, RegisterActivity.class));
                 }
+            }
+        });
+        rl_phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              callPhone(merchant.getServiceTelephone());
+
             }
         });
         tv_oldprice.setText("厂家指导价" + mNewCar.getAdvicePrice());

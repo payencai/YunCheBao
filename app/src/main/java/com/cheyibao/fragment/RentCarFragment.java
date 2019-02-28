@@ -100,10 +100,11 @@ public class RentCarFragment extends BaseFragment implements OnHeaderClickListen
         getShop(1, "");
         return rootView;
     }
-
+    int page=1;
     private void getShop(int type, String area) {
         Map<String, Object> params = new HashMap<>();
         params.put("type", type);
+        params.put("page",page);
         if (!TextUtils.isEmpty(area))
             params.put("region", area);
         params.put("longitude", MyApplication.getaMapLocation().getLongitude() + "");

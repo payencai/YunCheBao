@@ -125,6 +125,12 @@ public class PlatformContans {
         public static final String addCarCommunicationCircle=root+ "/babyCircle/addCarCommunicationCircle" ;
         public static final String addCarShowCircle=root + "/babyCircle/addCarShowCircle";
         public static final String getMyCircle=root+"/babyCircle/getMyCircle";
+
+        public static final String addBabyCircleComment=root+ "/babyCircle/addBabyCircleComment";
+        public static final String replyBabyCircleComment=root + "/babyCircle/replyBabyCircleComment";
+        public static final String getBabyCircleCommentDetailsById=root+"/babyCircle/getBabyCircleCommentDetailsById";
+
+
     }
 
     public static class Collect{

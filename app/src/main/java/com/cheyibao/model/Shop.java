@@ -79,7 +79,7 @@ public class Shop implements Serializable{
     private String pmSatrt;
     private String province;
     private String rejectReason;
-    private int score;
+    private float score;
     private String serviceTelephone;
     private int state;
     private String telephone;
@@ -321,11 +321,11 @@ public class Shop implements Serializable{
         this.rejectReason = rejectReason;
     }
 
-    public int getScore() {
+    public float getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(float score) {
         this.score = score;
     }
 

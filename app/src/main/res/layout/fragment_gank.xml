@@ -41,6 +41,7 @@
 
 
             <TextView
+                android:visibility="gone"
                 android:textColor="@color/yellow_64"
                 android:textSize="14sp"
                 android:gravity="center"

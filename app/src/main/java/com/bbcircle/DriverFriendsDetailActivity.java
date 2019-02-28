@@ -1,18 +1,25 @@
 package com.bbcircle;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -20,23 +27,30 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.MyApplication;
+import com.bbcircle.adapter.CircleCommentAdapter;
 import com.bbcircle.data.CarFriendDetail;
+import com.bbcircle.data.CircleComment;
 import com.bbcircle.data.SeldDrvingDetail;
 import com.bbcircle.view.NoScrollWebView;
+import com.bbcircle.view.SoftKeyBoardListener;
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
+import com.payencai.library.util.ToastUtil;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
+import com.tool.MathUtil;
 import com.tool.SimpleCommonUtils;
 import com.tool.UIControlUtils;
 import com.tool.slideshowview.SlideShowView;
 import com.vipcenter.RegisterActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -78,20 +92,61 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
     ImageView tv_head;
     @BindView(R.id.tv_heart)
     ImageView iv_heart;
-    @BindView(R.id.ll_heart)
-    LinearLayout ll_heart;
     @BindView(R.id.contacts)
     TextView tv_contact;
     @BindView(R.id.webView)
     NoScrollWebView mWebView;
+    @BindView(R.id.rv_comment)
+    RecyclerView rv_comment;
+    @BindView(R.id.et_comment)
+    EditText et_comment;
+    @BindView(R.id.tv_pub)
+    TextView tv_pub;
+    CircleCommentAdapter mCircleCommentAdapter;
+    List<CircleComment> mCircleComments = new ArrayList<>();
+    int page = 1;
+    String commentId;
     int id;
+    CarFriendDetail mSeldDrvingDetail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driver_friends_detail_layout);
         initView();
+
     }
-    CarFriendDetail mSeldDrvingDetail;
+
+    private void getComment() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", mSeldDrvingDetail.getId());
+        params.put("type", 2);
+        params.put("page", 1);
+        HttpProxy.obtain().get(PlatformContans.BabyCircle.getBabyCircleCommentDetailsById, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                try {
+                    Log.e("getComment", MyApplication.getUserInfo().getToken());
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        CircleComment circleComment = new Gson().fromJson(item.toString(), CircleComment.class);
+                        mCircleComments.add(circleComment);
+                    }
+                    mCircleCommentAdapter.setNewData(mCircleComments);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
     private void initWebview(String url) {
         WebSettings settings = mWebView.getSettings();
         mWebView.requestFocusFromTouch();
@@ -118,6 +173,7 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
         });
         mWebView.loadUrl(url);
     }
+
     private void setUi() {
         if (mSeldDrvingDetail != null) {
             Map<String, String> image_uri = new HashMap<String, String>();
@@ -130,17 +186,19 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
             initWebview(mSeldDrvingDetail.getContent());
             tv_name.setText(mSeldDrvingDetail.getName());
             initWebview(mSeldDrvingDetail.getContent());
-            if(mSeldDrvingDetail.getIsCollection()==1){
+            if (mSeldDrvingDetail.getIsCollection() == 1) {
                 iv_heart.setImageResource(R.mipmap.orange_heart_icon);
-            }else{
+            } else {
                 //iv_heart.setImageResource(R.mipmap.white_heart_icon);
             }
             Glide.with(this).load(mSeldDrvingDetail.getHeadPortrait()).into(tv_head);
         }
+        getComment();
     }
+
     private void getDatail() {
         Map<String, Object> params = new HashMap<>();
-        params.put("userId",MyApplication.getUserInfo().getId());
+        params.put("userId", MyApplication.getUserInfo().getId());
         params.put("id", id);
         HttpProxy.obtain().get(PlatformContans.BabyCircle.getCarCommunicationCircleById, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
             @Override
@@ -162,6 +220,7 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
             }
         });
     }
+
     private void collect() {
         Map<String, Object> params = new HashMap<>();
         params.put("circleId", mSeldDrvingDetail.getId());
@@ -172,16 +231,15 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
         HttpProxy.obtain().post(PlatformContans.Collect.addBabyCollection, MyApplication.getUserInfo().getToken(), json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                if(mSeldDrvingDetail.getIsCollection()==0) {
+                if (mSeldDrvingDetail.getIsCollection() == 0) {
                     Toast.makeText(DriverFriendsDetailActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
                     iv_heart.setImageResource(R.mipmap.orange_heart_icon);
-                }
-                else {
+                } else {
                     Toast.makeText(DriverFriendsDetailActivity.this, "取消成功", Toast.LENGTH_SHORT).show();
                     iv_heart.setImageResource(R.mipmap.collect_gray_hole);
                 }
                 getDatail();
-               // Toast.makeText(DriverFriendsDetailActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(DriverFriendsDetailActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -196,8 +254,8 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "详情");
         ctx = this;
         //网络地址获取轮播图
-        id=getIntent().getExtras().getInt("id");
-        ll_heart.setOnClickListener(new View.OnClickListener() {
+        id = getIntent().getExtras().getInt("id");
+        iv_heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (MyApplication.isLogin) {
@@ -210,10 +268,40 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
         tv_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("userid",mSeldDrvingDetail.getUserId());
+                Log.e("userid", mSeldDrvingDetail.getUserId());
                 RongIM.getInstance().startPrivateChat(DriverFriendsDetailActivity.this, mSeldDrvingDetail.getUserId(), mSeldDrvingDetail.getName());
             }
         });
+        SoftKeyBoardListener.setListener(DriverFriendsDetailActivity.this, new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
+            @Override
+            public void keyBoardShow(int height) {
+                //Toast.makeText(getActivity(), "键盘显示 高度" + height, Toast.LENGTH_SHORT).show();
+                //introl_iv.setBackground(null);  //使LOGO消失
+            }
+            @Override
+            public void keyBoardHide(int height) {
+                commentId="";
+               // Toast.makeText(DriverFriendsDetailActivity.this, "键盘隐藏 高度" + height, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        mCircleCommentAdapter = new CircleCommentAdapter(R.layout.item_circle_comment, mCircleComments);
+        mCircleCommentAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (view.getId() == R.id.tv_reply) {
+                    CircleComment circleComment= (CircleComment) adapter.getItem(position);
+                    commentId=circleComment.getId();
+                  //  ToastUtil.showToast(DriverFriendsDetailActivity.this, "回复");
+                    showSoftInputFromWindow(et_comment);
+                }
+            }
+        });
+        rv_comment.setLayoutManager(new LinearLayoutManager(this));
+        rv_comment.setHasFixedSize(true);
+        rv_comment.setNestedScrollingEnabled(false);
+        rv_comment.setAdapter(mCircleCommentAdapter);
         getDatail();
 //        imageList.clear();
 //        for (int i = 0; i < 3; i++) {
@@ -223,6 +311,66 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
 //            imageList.add(image_uri);
 //        }
 //        slideShowView.setImageUrls(imageList);
+    }
+    /**
+     * EditText获取焦点并显示软键盘
+     */
+    /**
+     * EditText获取焦点并显示软键盘
+     */
+    public void showSoftInputFromWindow(EditText editText) {
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+
+    }
+
+    private void comment() {
+        String content = et_comment.getEditableText().toString();
+        Map<String, Object> params = new HashMap<>();
+        params.put("circleId", mSeldDrvingDetail.getId());
+        params.put("content", content);
+        params.put("type", 2);
+        HttpProxy.obtain().post(PlatformContans.BabyCircle.addBabyCircleComment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                page = 1;
+                mCircleComments.clear();
+                getComment();
+                //Toast.makeText(DriverFriendsDetailActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    private void reply(String id) {
+        String content = et_comment.getEditableText().toString();
+        Map<String, Object> params = new HashMap<>();
+        params.put("recordId", id);
+        params.put("content", content);
+        HttpProxy.obtain().post(PlatformContans.BabyCircle.replyBabyCircleComment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result",result);
+                page = 1;
+                mCircleComments.clear();
+                getComment();
+                //Toast.makeText(DriverFriendsDetailActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 
     private void initKeyBoardPopWindow(EmoticonsEditText editText) {
@@ -360,19 +508,20 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
 
     }
 
-    @OnClick({R.id.back, R.id.commentLay, R.id.shareBtn})
+    @OnClick({R.id.back,R.id.tv_pub})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.back:
                 onBackPressed();
                 break;
-            case R.id.commentLay:
-                attenToast();
+            case R.id.tv_pub:
+                if(TextUtils.isEmpty(commentId)){
+                    comment();
+                }else{
+                    reply(commentId);
+                }
                 break;
-            case R.id.shareBtn:
-                setToast("第三方");
-//                attenShareToast();
-                break;
+
         }
     }
 }

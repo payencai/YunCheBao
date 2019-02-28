@@ -1,15 +1,19 @@
 package com.system;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.example.yunchebao.R;
+import com.vipcenter.RegisterActivity;
 
 public class WebviewActivity extends AppCompatActivity {
     String url;
@@ -20,6 +24,7 @@ public class WebviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
         url = getIntent().getStringExtra("url");
+        Log.e("url",url);
         mWebView = (WebView) findViewById(R.id.webView);
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,9 +32,23 @@ public class WebviewActivity extends AppCompatActivity {
                 finish();
             }
         });
+        mWebView.addJavascriptInterface(new Pay(),"No");
         initWebview();
     }
+    public class Pay {
 
+        // 有返回结果
+        @JavascriptInterface
+        public void  Login(String paramFromJS) {
+            startActivity(new Intent(WebviewActivity.this, RegisterActivity.class));
+        }
+
+        // 返回结果
+        @JavascriptInterface
+        public void back() {
+            finish();
+        }
+    }
     private void initWebview() {
         WebSettings settings = mWebView.getSettings();
         //mWebView.requestFocusFromTouch();
