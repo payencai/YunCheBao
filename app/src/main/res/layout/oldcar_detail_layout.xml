@@ -223,6 +223,7 @@
                              android:layout_width="0dp"
                              android:layout_height="match_parent" />
                          <TextView
+                             android:visibility="gone"
                              android:id="@+id/tv_service"
                              android:textSize="10sp"
                              android:gravity="center"
@@ -492,9 +493,8 @@
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                      android:layout_centerInParent="true"
-
                      android:drawablePadding="10dp"
-                     android:text="购买车辆"
+                     android:text="商家客服"
                      android:textColor="@color/yellow_77"
                      android:textSize="17sp" />
 

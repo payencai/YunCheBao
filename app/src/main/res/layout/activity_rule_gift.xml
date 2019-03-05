@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/rl_top"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:gravity="center_vertical"
+            android:background="@color/white"
+            android:orientation="horizontal">
+            <!--搜索栏-->
+
+            <LinearLayout
+                android:id="@+id/leftIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="32dp"
+                    android:layout_height="48dp"
+                    android:padding="10dp"
+                    android:src="@mipmap/back"
+                     />
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:textColor="@color/black_33"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:text="宝币使用帮助"
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+
+
+                />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <!--app:tabBackground="@drawable/ripple_tab_bg"-->
+            <!-- ToDO:// 换肤框架 暂不支持TabLayout:tabBackground属性 -->
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_gank"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                app:tabBackground="@color/white"
+                app:tabIndicatorColor="@color/white"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/black_33"
+                app:tabTextColor="@color/gray_99" />
+
+
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_gank"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff2f4f5">
+
+        </android.support.v4.view.ViewPager>
+    </LinearLayout>
+
+
+</LinearLayout>

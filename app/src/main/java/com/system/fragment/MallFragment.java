@@ -16,12 +16,10 @@ import android.widget.ScrollView;
 
 import com.application.MyApplication;
 import com.bbcircle.AllKindActivity;
-import com.bbcircle.data.ClassItem;
 import com.bumptech.glide.Glide;
 
 import com.costans.PlatformContans;
 import com.entity.Banner;
-import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -32,29 +30,20 @@ import com.maket.GoodDetailActivity;
 import com.maket.MarketSelectListActivity;
 import com.maket.ShopCartActivity;
 import com.maket.adapter.GridMenuAdapter;
-import com.maket.adapter.KnowYouAdapter;
+import com.maket.adapter.RentGoodsAdapter;
 import com.maket.model.GoodList;
 import com.maket.model.GoodMenu;
-import com.maket.model.KnowYou;
-import com.nohttp.rest.Request;
-import com.nohttp.rest.Response;
+import com.maket.model.RentGoods;
 import com.nohttp.sample.BaseFragment;
-import com.nohttp.sample.HttpListener;
-import com.nohttp.tools.HttpJsonClient;
 import com.rongcloud.activity.ChatActivity;
 import com.system.WebviewActivity;
-import com.system.adapter.HomeMenuListAdapter;
+import com.system.adapter.GoodsListAdapter;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
-import com.tool.listview.PersonalListView;
-import com.tool.slideshowview.SlideShowView;
 import com.tool.view.GridViewForScrollView;
-import com.tool.view.HorizontalListView;
 import com.vipcenter.RegisterActivity;
 import com.vipcenter.UserCenterActivity;
 import com.xihubao.NewGoodsListActivity;
-import com.xihubao.RepairListActivity;
-import com.xihubao.WashCarListActivity;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -89,17 +78,18 @@ public class MallFragment extends BaseFragment {
     GridViewForScrollView middleGrid;
     @BindView(R.id.gv_type)
     GridViewForScrollView menuGrid;
-    @BindView(R.id.downGrid)
-    PersonalListView listView;
-    KnowYouAdapter mKnowYouAdapter;
+    @BindView(R.id.gv_rentest)
+    GridViewForScrollView gv_rentest;
+    RentGoodsAdapter mRentlyAdapter;
+    GoodsListAdapter mHotAdapter;
     GridMenuAdapter mGridMenuAdapter;
-    HomeMenuListAdapter menuAdapter;
     private PullToRefreshScrollView pullToRefreshScrollView;
     private List<GoodList> hotList;
+    List<RentGoods> mRentGoods=new ArrayList<>();
     List<GoodMenu> mGoodMenus=new ArrayList<>();
     List<Banner> mBanners = new ArrayList<>();
     List<String> images = new ArrayList<>();
-    List<GoodList> mKnowYous=new ArrayList<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -110,12 +100,7 @@ public class MallFragment extends BaseFragment {
         getBaner();
         getMenu();
         getHotGoods();
-        if(!MyApplication.isLogin){
-            ll_knowyou.setVisibility(View.GONE);
-        }else{
-            ll_knowyou.setVisibility(View.VISIBLE);
-            getKnowYou();
-        }
+        getRently();
         return rootView;
     }
     private void getHotGoods(){
@@ -134,7 +119,37 @@ public class MallFragment extends BaseFragment {
                         GoodList baikeItem = new Gson().fromJson(item.toString(), GoodList.class);
                         hotList.add(baikeItem);
                     }
-                    menuAdapter.notifyDataSetChanged();
+                    mHotAdapter.notifyDataSetChanged();
+                    //updateData();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    private void getRently(){
+        Map<String,Object> params=new HashMap<>();
+        params.put("type",2);
+        HttpProxy.obtain().get(PlatformContans.GoodMenu.getGoodMenu, params,new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("getGoodMenu",result);
+                Log.e("getdata", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        RentGoods baikeItem = new Gson().fromJson(item.toString(), RentGoods.class);
+                        mRentGoods.add(baikeItem);
+                    }
+                    mRentlyAdapter.notifyDataSetChanged();
                     //updateData();
 
                 } catch (JSONException e) {
@@ -149,46 +164,14 @@ public class MallFragment extends BaseFragment {
         });
     }
     int page=1;
-    private void getKnowYou(){
-        String token="";
-        if(MyApplication.isLogin){
-            token=MyApplication.getUserInfo().getToken();
-        }
-        Map<String,Object> params=new HashMap<>();
-        params.put("page",page);
-        HttpProxy.obtain().get(PlatformContans.GoodMenu.getUserCommodity, params,token,new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Log.e("getUserCommodity",result);
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    for (int i = 0; i < data.length(); i++) {
-                        JSONObject item = data.getJSONObject(i);
-                        GoodList baikeItem = new Gson().fromJson(item.toString(), GoodList.class);
-                        mKnowYous.add(baikeItem);
-                    }
-                    mKnowYouAdapter.notifyDataSetChanged();
-                    //updateData();
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
-    }
 
     @Override
     public void onResume() {
         super.onResume();
         page=1;
-        mKnowYous.clear();
-        getKnowYou();
+
+       /// getKnowYou();
     }
 
     private void getMenu(){
@@ -227,11 +210,11 @@ public class MallFragment extends BaseFragment {
 //        for (int i = 0; i < 12; i++) {
 //            middleList.add(new PhoneGoodEntity());
 //        }
-        menuAdapter = new HomeMenuListAdapter(ctx, hotList);
-        mKnowYouAdapter=new KnowYouAdapter(ctx,mKnowYous);
+        mHotAdapter = new GoodsListAdapter(ctx, hotList);
+        mRentlyAdapter=new RentGoodsAdapter(ctx,mRentGoods);
         mGridMenuAdapter=new GridMenuAdapter(ctx,mGoodMenus);
-        middleGrid.setAdapter(menuAdapter);
-        listView.setAdapter(mKnowYouAdapter);
+        middleGrid.setAdapter(mHotAdapter);
+        gv_rentest.setAdapter(mRentlyAdapter);
         menuGrid.setAdapter(mGridMenuAdapter);
         middleGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -242,13 +225,13 @@ public class MallFragment extends BaseFragment {
                 ActivityAnimationUtils.commonTransition(getActivity(), GoodDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
             }
         });
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gv_rentest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("data",mKnowYous.get(position));
-                ActivityAnimationUtils.commonTransition(getActivity(), GoodDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
+//                Bundle bundle=new Bundle();
+//                bundle.putSerializable("data",mRentGoods.get(position));
+//                ActivityAnimationUtils.commonTransition(getActivity(), GoodDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
             }
         });
         menuGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -264,19 +247,17 @@ public class MallFragment extends BaseFragment {
             }
         });
         pullToRefreshScrollView = (PullToRefreshScrollView) rootView.findViewById(R.id.my_scrollview);
-        pullToRefreshScrollView.setScrollingWhileRefreshingEnabled(true);//滚动的时候不加载数据
         pullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         pullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-
+                Log.e("gkfkgk","gkfkgk");
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
                 Log.e("gkfkgk","gkfkgk");
                 page++;
-                getKnowYou();
                 ll_knowyou.setVisibility(View.VISIBLE);
                 refreshView.onRefreshComplete();
             }

@@ -371,8 +371,10 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
 //                break;
             case R.id.askLowPriceBtn:
                 if (MyApplication.isLogin) {
-                    if (mOldCar.getType() == 1)
-                        postOrder();
+                    if (mOldCar.getType() == 1){
+
+                    }
+                       // postOrder();
                     else if (mOldCar.getType() == 2) {
                         ActivityAnimationUtils.commonTransition(OldCarDetailActivity.this, AskLowPriceActivity.class, ActivityConstans.Animation.FADE);
                     }

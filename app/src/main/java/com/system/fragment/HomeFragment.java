@@ -1,7 +1,6 @@
 package com.system.fragment;
 
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -14,13 +13,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +26,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,40 +36,19 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.model.LatLng;
 import com.application.MyApplication;
 
-import com.baike.MagzineCoverActivity;
-import com.bbcircle.CarShowDetailActivity;
-import com.bbcircle.CommentsActivity;
 import com.bbcircle.NewDrvingActivity;
 import com.bumptech.glide.Glide;
 
-import com.cityselect.CityListActivity;
 import com.costans.PlatformContans;
 import com.entity.Banner;
-import com.entity.FourShop;
-import com.entity.PhoneGoodEntity;
 import com.entity.UrlBean;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.GoodDetailActivity;
-import com.maket.model.GoodList;
-import com.maket.model.KnowYou;
-import com.nohttp.rest.Request;
-import com.nohttp.rest.Response;
 import com.nohttp.sample.BaseFragment;
-import com.nohttp.sample.HttpListener;
-import com.nohttp.tools.HttpJsonClient;
 import com.rongcloud.activity.ChatActivity;
-import com.rongcloud.activity.contact.FriendDetailActivity;
 import com.rongcloud.adapter.ListDataSave;
-import com.rongcloud.model.Friend;
-import com.rongcloud.model.MyFriend;
-import com.rongcloud.model.MyGroup;
-import com.rongcloud.sidebar.ContactModel;
-import com.rongcloud.sidebar.ContactsAdapter;
 import com.system.WebCarActivity;
 import com.system.WebviewActivity;
 import com.system.adapter.HomeListAdapter;
@@ -83,17 +57,8 @@ import com.system.model.Weather;
 import com.tool.view.ListViewForScrollView;
 import com.vipcenter.RegisterActivity;
 import com.vipcenter.UserCenterActivity;
-import com.system.adapter.HomeMenuListAdapter;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
-import com.tool.slideshowview.SlideShowView;
-import com.tool.view.GridViewForScrollView;
-import com.tool.view.HorizontalListView;
-import com.vipcenter.model.UserInfo;
-import com.xihubao.BrandGoodsListActivity;
-import com.xihubao.MapShopActivity;
-import com.xihubao.NewGoodsListActivity;
-import com.xihubao.RepairListActivity;
 import com.xihubao.RoadAssistanceListActivity;
 import com.xihubao.Shop4SInfoActivity;
 import com.xihubao.WashCarListActivity;
@@ -104,7 +69,6 @@ import com.yuedan.YuedanHomeActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.litepal.LitePal;
 
 
 import java.net.URISyntaxException;
@@ -116,11 +80,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import go.error;
-import io.rong.imkit.RongIM;
-import io.rong.imkit.model.GroupUserInfo;
-import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.Group;
 
 
 /**

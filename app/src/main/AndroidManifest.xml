@@ -426,6 +426,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="yunchebao.com"
+                    android:scheme="yunchebao" />
+            </intent-filter>
         </activity>
         <activity android:name="com.vipcenter.MycarActivity" />
         <activity android:name="com.vipcenter.MyPayActivity" />
@@ -436,7 +446,8 @@
         <activity android:name="com.yuedan.YuedanPayActivity" />
         <activity android:name="com.vipcenter.MyQrcodeActivity" />
         <activity android:name="com.system.WebCarActivity" />
-        <activity android:name="com.xihubao.ShopInfoActivity"></activity>
+        <activity android:name="com.xihubao.ShopInfoActivity" />
+        <activity android:name="com.maket.RentestGoodsActivity"></activity>
     </application>
 
 </manifest>

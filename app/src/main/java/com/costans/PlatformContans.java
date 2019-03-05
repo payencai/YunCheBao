@@ -36,6 +36,8 @@ public class PlatformContans {
         public static final String getSpendRecord=root+ "/user/getSpendRecord";
         public static final String getUserResultById=root+ "/user/getUserResultById";
         public static final String setCarShowState=root+"/user/setCarShowState";
+        public static final String getDynamic=root+"/user/getDynamic";
+        public static final String getNotice=root+"/user/getNotice";
     }
     public static class Wechat{
         public static final String wechatPay=root+ "/wechatPay/wechatPay" ;
@@ -70,6 +72,7 @@ public class PlatformContans {
         public static final String getGiftOrder=root+ "/giftCommodityOrder/getGiftOrder" ;
         public static final String getGiftOrderListByUserId=root+  "/giftCommodityOrder/getGiftOrderListByUserId";
         public static final String getCoinRecordByUserId=root+ "/coinRecord/getCoinRecordByUserId" ;
+        public static final String getCoinRuleList=root+ "/coinRule/getCoinRuleList" ;
     }
     public static class GoodMenu{
         public static final String getBabyMerchantCategoryList=root+ "/babycategory/getBabyMerchantCategoryList";
@@ -80,7 +83,7 @@ public class PlatformContans {
         public static final String getUserCommodity=root+ "/babymercommodity/getUserCommodity";
     }
     public static class GoodInfo{
-
+        public static final String getCommodityByDistince=root+ "/babymercommodity/getCommodityByDistince";
         public static final String getGoodDetail=root+ "/babymercommodity/getBabyMerchantCommodity";
         public static final String getGoodParams=root+ "/babymercommodity/getBabyMerComParam";
         public static final String getBabyMerComFirstSpecifications=root+ "/babymercommodity/getBabyMerComFirstSpecifications";

@@ -40,22 +40,20 @@ public class GiftRuleActivity extends NoHttpFragmentBaseActivity {
     ViewPager vpGank;
     @BindView(R.id.tab_gank)
     TabLayout tabGank;
-    @BindView(R.id.rl_top)
-    RelativeLayout rl_top;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_gank);
+        setContentView(R.layout.activity_rule_gift);
+        ButterKnife.bind(this);
         initView();
     }
 
     private void initView() {
-        ButterKnife.bind(this);
-        //findViewById(R.id.topPanel).setVisibility(View.VISIBLE);
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "宝币使用帮助");
+
         initFragmentList();
-        rl_top.setVisibility(View.GONE);
+
         /**
          * 注意使用的是：getChildFragmentManager，
          * 这样setOffscreenPageLimit()就可以添加上，保留相邻3个实例，切换时不会卡
