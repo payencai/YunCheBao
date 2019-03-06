@@ -447,7 +447,12 @@
         <activity android:name="com.vipcenter.MyQrcodeActivity" />
         <activity android:name="com.system.WebCarActivity" />
         <activity android:name="com.xihubao.ShopInfoActivity" />
-        <activity android:name="com.maket.RentestGoodsActivity"></activity>
+        <activity android:name="com.maket.RentestGoodsActivity" />
+        <activity android:name="com.xihubao.RoadActivity" />
+        <activity android:name="com.system.SearchActivity" />
+        <activity
+            android:windowSoftInputMode="stateHidden"
+            android:name="com.system.SearchFinishActivity"></activity>
     </application>
 
 </manifest>

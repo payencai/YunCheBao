@@ -49,6 +49,7 @@ import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
 import com.rongcloud.activity.ChatActivity;
 import com.rongcloud.adapter.ListDataSave;
+import com.system.SearchActivity;
 import com.system.WebCarActivity;
 import com.system.WebviewActivity;
 import com.system.adapter.HomeListAdapter;
@@ -59,6 +60,7 @@ import com.vipcenter.RegisterActivity;
 import com.vipcenter.UserCenterActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
+import com.xihubao.RoadActivity;
 import com.xihubao.RoadAssistanceListActivity;
 import com.xihubao.Shop4SInfoActivity;
 import com.xihubao.WashCarListActivity;
@@ -612,9 +614,12 @@ public class HomeFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.messenger_icon, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.menuLay4, R.id.menuLay7, R.id.menuLay5, R.id.menuLay6, R.id.menuLay8, R.id.menuLay9, R.id.menuLay10, R.id.user_center_icon})
+    @OnClick({R.id.messenger_icon,R.id.search_lay, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.menuLay4, R.id.menuLay7, R.id.menuLay5, R.id.menuLay6, R.id.menuLay8, R.id.menuLay9, R.id.menuLay10, R.id.user_center_icon})
     public void OnClick(View v) {
         switch (v.getId()) {
+            case R.id.search_lay:
+                startActivity(new Intent(getContext(), SearchActivity.class));
+                break;
             case R.id.messenger_icon:
                 if (MyApplication.isLogin) {
                     startActivity(new Intent(getContext(), ChatActivity.class));
@@ -650,7 +655,7 @@ public class HomeFragment extends BaseFragment {
                 // ActivityAnimationUtils.commonTransition(getActivity(), RoadAssistanceListActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay7://紧急
-                ActivityAnimationUtils.commonTransition(getActivity(), RoadAssistanceListActivity.class, ActivityConstans.Animation.FADE);
+                ActivityAnimationUtils.commonTransition(getActivity(), RoadActivity.class, ActivityConstans.Animation.FADE);
                 //ActivityAnimationUtils.commonTransition(getActivity(), RoadAssistanceListActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay8://违章

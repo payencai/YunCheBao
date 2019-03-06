@@ -164,8 +164,7 @@ public class PlatformContans {
         public static final String findCarWashRepairShopList=root+ "/carWashRepairShop/findCarWashRepairShopList";
         public static final String uploadImg=root + "/image/uploadImage";
         public static final String uploadVideo=root + "/image/uploadVideo";
-
-
+        public static final String searchAll=root+"/common/searchAll";
         public static final String getAppointmentCategoryListByApp=root + "/functionManager/getAppointmentCategoryListByApp";
         public static final String getSkipUrl=root+ "/common/getSkipUrl";
         public static final String getBannerList=root+"/banner/getBannerList";
@@ -181,6 +180,7 @@ public class PlatformContans {
     }
     public static class RoadRescue{
         public static final String getRoadRescueShopListByApp=root+ "/roadRescue/getRoadRescueShopListByApp";
+        public static final String getRoadRescueServeListForApp=root+ "/roadRescue/getRoadRescueServeListForApp";
     }
     public static class CarWashRepairShop{
         public static final String getCarWashRepairShopListByApp=root+ "/carWashRepairShop/getCarWashRepairShopListByApp";

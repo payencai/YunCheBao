@@ -17,6 +17,15 @@ public class ApplyFriend implements Serializable{
      * rejectReason : null
      * createTime : 2018-12-22 18:36:15
      */
+    private String hxAccount;
+
+    public String getHxAccount() {
+        return hxAccount;
+    }
+
+    public void setHxAccount(String hxAccount) {
+        this.hxAccount = hxAccount;
+    }
 
     private String id;
     private String userId;

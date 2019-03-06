@@ -13,6 +13,7 @@ import com.example.yunchebao.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.rongcloud.model.CarShop;
 import com.xihubao.model.RoadItem;
+import com.xihubao.model.RoadService;
 
 import java.util.List;
 
@@ -22,9 +23,9 @@ import java.util.List;
  */
 public class RoadItemAdapter extends BaseAdapter {
     private Context ctx;
-    private List<RoadItem.RoadRescueServeListBean> list;
+    private List<RoadService> list;
 
-    public RoadItemAdapter(Context ctx, List<RoadItem.RoadRescueServeListBean> list) {
+    public RoadItemAdapter(Context ctx, List<RoadService> list) {
         this.ctx = ctx;
         this.list = list;
     }
@@ -48,7 +49,7 @@ public class RoadItemAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View view= LayoutInflater.from(ctx).inflate(R.layout.item_road_detail,null);
-        RoadItem.RoadRescueServeListBean carShop=list.get(position);
+        RoadService carShop=list.get(position);
         TextView title= (TextView) view.findViewById(R.id.title);
         TextView content= (TextView) view.findViewById(R.id.content);
         title.setText(carShop.getTitle());

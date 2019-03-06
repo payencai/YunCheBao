@@ -175,8 +175,8 @@ public class RoadAssistanceListActivity extends NoHttpBaseActivity {
                 refreshListView.onRefreshComplete();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-                    jsonObject = jsonObject.getJSONObject("data");
-                    JSONArray data = jsonObject.getJSONArray("beanList");
+                    //jsonObject = jsonObject.getJSONObject("data");
+                    JSONArray data = jsonObject.getJSONArray("data");
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
                         RoadItem phoneShopEntity = new Gson().fromJson(item.toString(), RoadItem.class);

@@ -15,19 +15,32 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.application.MyApplication;
+import com.costans.PlatformContans;
 import com.entity.PhoneShopEntity;
 import com.example.yunchebao.R;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.http.HttpProxy;
+import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.xihubao.adapter.AssistanceListAdapter;
 import com.xihubao.adapter.RoadItemAdapter;
+import com.xihubao.model.Road;
 import com.xihubao.model.RoadItem;
+import com.xihubao.model.RoadService;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,7 +53,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class AssistanceDetailActivity extends NoHttpBaseActivity {
     Context ctx;
-    RoadItem mPhoneShopEntity;
+    Road mPhoneShopEntity;
     @BindView(R.id.address)
     TextView address;
     @BindView(R.id.shopname)
@@ -52,16 +65,42 @@ public class AssistanceDetailActivity extends NoHttpBaseActivity {
     @BindView(R.id.listview)
     ListView listView;
     private RoadItemAdapter adapter;
-    private List<RoadItem.RoadRescueServeListBean> list=new ArrayList<>();
+    private List<RoadService> list=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.assistance_detail_layout);
-        mPhoneShopEntity= (RoadItem) getIntent().getSerializableExtra("entity");
-        Log.e("entity",mPhoneShopEntity.getRoadRescueServeList().size()+"");
+        mPhoneShopEntity= (Road) getIntent().getSerializableExtra("entity");
         initView();
+        getService();
     }
+    private void getService(){
+        Map<String, Object> params = new HashMap<>();
+        params.put("shopId", mPhoneShopEntity.getId());
+        HttpProxy.obtain().get(PlatformContans.RoadRescue.getRoadRescueServeListForApp, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("road", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        RoadService road = new Gson().fromJson(item.toString(), RoadService.class);
+                        list.add(road);
+                    }
+                    adapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     private void initView() {
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW,"服务项目");
         ButterKnife.bind(this);
@@ -71,9 +110,6 @@ public class AssistanceDetailActivity extends NoHttpBaseActivity {
             phone.setText("商家电话 : "+mPhoneShopEntity.getSaleTelephone());
             shopname.setText(mPhoneShopEntity.getShopName());
             mSimpleDraweeView.setImageURI(Uri.parse(mPhoneShopEntity.getLogo()));
-        }
-        for (int i = 0; i <mPhoneShopEntity.getRoadRescueServeList().size() ; i++) {
-            list.add(mPhoneShopEntity.getRoadRescueServeList().get(i));
         }
         adapter = new RoadItemAdapter(ctx, list);
         listView.setAdapter(adapter);

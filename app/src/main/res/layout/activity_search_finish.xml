@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.system.SearchFinishActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="50dp"
+            android:layout_height="48dp"
+            android:padding="15dp"
+            android:src="@mipmap/back" />
+
+        <RelativeLayout
+            android:id="@+id/search_lay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_toLeftOf="@id/tv_search"
+            android:layout_toRightOf="@id/back"
+            android:background="@drawable/gray_circle_background">
+
+            <EditText
+                android:id="@+id/et_word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:background="@null"
+                android:drawableLeft="@mipmap/search__small_icon"
+                android:drawablePadding="5dp"
+                android:hint="搜索您想要的"
+                android:textColor="@color/gray_99"
+                android:textColorHint="#ccc"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:text="搜索" />
+    </RelativeLayout>
+
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:color/white"
+        app:tl_indicator_color="@color/yellow_64"
+        app:tl_indicator_corner_radius="30dp"
+        app:tl_indicator_height="3dp"
+        app:tl_indicator_width="30dp"
+        app:tl_tab_padding="10dp"
+        app:tl_tab_space_equal="false"
+        app:tl_textSelectColor="@color/yellow_64"
+        app:tl_textUnselectColor="@android:color/black"
+        app:tl_textsize="14sp" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</LinearLayout>

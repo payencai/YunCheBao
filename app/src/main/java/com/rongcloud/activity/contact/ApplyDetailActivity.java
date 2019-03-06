@@ -3,6 +3,8 @@ package com.rongcloud.activity.contact;
 import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +20,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.costans.PlatformContans;
+import com.entity.UserMsg;
 import com.example.yunchebao.R;
+import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.rongcloud.model.ApplyFriend;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,10 +46,16 @@ public class ApplyDetailActivity extends AppCompatActivity {
     TextView chatname;
     @BindView(R.id.account)
     TextView account;
+    @BindView(R.id.tv_sex)
+    TextView tv_sex;
+    @BindView(R.id.tv_car)
+    TextView tv_car;
     @BindView(R.id.iv_icon)
     ImageView iv_icon;
     @BindView(R.id.back)
     ImageView back;
+    @BindView(R.id.cd_card)
+    CardView cd_card;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +63,41 @@ public class ApplyDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_apply_detail);
         ButterKnife.bind(this);
         initView();
+        getDetail();
+    }
+    private void setUi( UserMsg userMsg){
+        tv_sex.setText(userMsg.getSex());
+        if(userMsg.getCarShowState()==1){
+            cd_card.setVisibility(View.VISIBLE);
+            if(userMsg.getCarList()!=null){
+                if(userMsg.getCarList().size()>0)
+                    tv_car.setText(userMsg.getCarList().get(0).getCarLogo());
+            }
+
+        }
+    }
+    private void getDetail(){
+        Map<String,Object> params=new HashMap<>();
+        params.put("userId",mApplyFriend.getUserId());
+        HttpProxy.obtain().get(PlatformContans.User.getUserResultById, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("detail",result);
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    JSONObject data=jsonObject.getJSONObject("data");
+                    UserMsg userMsg=new Gson().fromJson(data.toString(),UserMsg.class);
+                    setUi(userMsg);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
     private void initView(){
         RequestOptions mRequestOptions = RequestOptions.circleCropTransform()
@@ -59,7 +107,7 @@ public class ApplyDetailActivity extends AppCompatActivity {
         mRequestOptions.placeholder(R.mipmap.ic_default_head);
         Glide.with(this).load(mApplyFriend.getHeadPortrait()).apply(mRequestOptions).into(iv_icon);
         chatname.setText(mApplyFriend.getName());
-        account.setText(mApplyFriend.getId());
+        account.setText(mApplyFriend.getHxAccount());
         refuse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
