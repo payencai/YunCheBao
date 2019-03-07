@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.application.MyApplication;
+import com.bbcircle.DrivingSelfDetailActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
@@ -33,6 +34,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.rong.imkit.RongIM;
 
 public class MyFocusActivity extends AppCompatActivity {
     List<MyFocus> mMyFocusList;
@@ -45,7 +47,7 @@ public class MyFocusActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_focus);
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "粉丝");
+        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "关注");
         ButterKnife.bind(this);
         initView();
     }
@@ -68,6 +70,15 @@ public class MyFocusActivity extends AppCompatActivity {
                 getData();
             }
         },rv_focus);
+        mFocusAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                MyFocus myFocus= (MyFocus) adapter.getItem(position);
+                if(view.getId()==R.id.tv_chat){
+                    RongIM.getInstance().startPrivateChat(MyFocusActivity.this, myFocus.getUserId(), myFocus.getName());
+                }
+            }
+        });
         rv_focus.setLayoutManager(new LinearLayoutManager(this));
         rv_focus.setAdapter(mFocusAdapter);
         getData();
@@ -75,7 +86,7 @@ public class MyFocusActivity extends AppCompatActivity {
     private void getData(){
         Map<String,Object> params=new HashMap<>();
         params.put("page",page);
-        HttpProxy.obtain().get(PlatformContans.User.getOtherFocusList, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.User.getUserFocusList, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result",result);
@@ -83,24 +94,18 @@ public class MyFocusActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     int code = jsonObject.getInt("resultCode");
                     if (code == 0) {
-
                         JSONArray data = jsonObject.getJSONArray("data");
-                        List<MyFocus> mCarOrder = new ArrayList<>();
                         for (int i = 0; i < data.length(); i++) {
                             JSONObject item = data.getJSONObject(i);
                             MyFocus carOrder = new Gson().fromJson(item.toString(), MyFocus.class);
-                            mCarOrder.add(carOrder);
+                            mMyFocusList.add(carOrder);
                         }
                         if (isLoadMore) {
                             isLoadMore = false;
-                            mFocusAdapter.addData(mCarOrder);
-                            if (data.length() > 0)
-                                mFocusAdapter.loadMoreComplete();
-                            else {
-                                mFocusAdapter.loadMoreEnd(true);
-                            }
+                            mFocusAdapter.addData(mMyFocusList);
                         } else {
-                            mFocusAdapter.setNewData(mCarOrder);
+                            mFocusAdapter.setNewData(mMyFocusList);
+                            mFocusAdapter.loadMoreEnd(true);
                         }
                     }
                 } catch (JSONException e) {

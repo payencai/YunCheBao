@@ -1,8 +1,9 @@
 package com.cheyibao.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class NewCar {
+public class NewCar implements Serializable{
 
     /**
      * advicePrice : 0
@@ -188,7 +189,7 @@ public class NewCar {
         this.thirdName = thirdName;
     }
 
-    public static class CarCategoryDetailBean {
+    public static class CarCategoryDetailBean implements Serializable{
         /**
          * advicePrice : 0
          * banner1 : string

@@ -6,9 +6,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.caryibao.NewCar;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.cheyibao.model.NewCar;
+
 import com.example.yunchebao.R;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.system.model.WashRepair;

@@ -8,6 +8,14 @@ import java.io.Serializable;
  */
 public class CarShop implements Serializable{
 
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
     /**
      * address : string
      * amStart : 2018-12-18T09:05:23.739Z
@@ -28,9 +36,10 @@ public class CarShop implements Serializable{
      * saleTelephone : string
      * shopName : string
      */
+
     private int  orderNum;
     private int number;
-
+    private double score;
     public int getNumber() {
         return number;
     }

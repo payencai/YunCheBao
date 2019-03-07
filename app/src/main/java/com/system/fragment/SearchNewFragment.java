@@ -1,6 +1,7 @@
 package com.system.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -11,8 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.caryibao.NewCar;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.cheyibao.model.NewCar;
+import com.cheyibao.NewCarDetailActivity;
+import com.cheyibao.NewCarListActivity;
+import com.cheyibao.OldCarDetailActivity;
+
+
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
@@ -21,6 +27,8 @@ import com.http.ICallBack;
 import com.system.adapter.SearchNewAdapter;
 import com.system.adapter.WashRepairAdapter;
 import com.system.model.WashRepair;
+import com.tool.ActivityAnimationUtils;
+import com.tool.ActivityConstans;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,10 +53,21 @@ public class SearchNewFragment extends Fragment {
     List<NewCar> mRoads;
     @BindView(R.id.rv_road)
     RecyclerView rv_road;
-    public SearchNewFragment() {
-        // Required empty public constructor
-    }
 
+    String word;
+    public static SearchNewFragment newInstance(String value) {
+        SearchNewFragment fragment=new SearchNewFragment();
+        Bundle bundle=new Bundle();
+        bundle.putString("word",value);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+    public  void getNewData(String value){
+        word=value;
+        page=1;
+        mRoads.clear();
+        getData();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,6 +75,7 @@ public class SearchNewFragment extends Fragment {
 
         View view=inflater.inflate(R.layout.fragment_search_new, container, false);
         ButterKnife.bind(this,view);
+        word=getArguments().getString("word");
         initView();
         return view;
     }
@@ -67,17 +87,22 @@ public class SearchNewFragment extends Fragment {
             @Override
             public void onLoadMoreRequested() {
                 page++;
-                getData();
                 isLoadMore=true;
+                getData();
+
             }
         },rv_road);
         mRoadAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                Road road= (Road) adapter.getItem(position);
-//                Intent intent =new Intent(getContext(),AssistanceDetailActivity.class);
-//                intent.putExtra("entity",road);
-//                startActivity(intent);
+                Bundle bundle=new Bundle();
+                NewCar newCar=(NewCar)adapter.getItem(position);
+                bundle.putSerializable("data",newCar);
+                Intent intent=new Intent(getContext(), NewCarDetailActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+
+               // ActivityAnimationUtils.commonTransition(getActivity(), NewCarDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
             }
         });
         rv_road.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));

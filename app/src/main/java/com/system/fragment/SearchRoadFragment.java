@@ -50,7 +50,20 @@ public class SearchRoadFragment extends Fragment {
     public SearchRoadFragment() {
         // Required empty public constructor
     }
-
+    String word;
+    public static SearchRoadFragment newInstance(String value) {
+        SearchRoadFragment fragment=new SearchRoadFragment();
+        Bundle bundle=new Bundle();
+        bundle.putString("word",value);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+    public  void getNewData(String value){
+        word=value;
+        page=1;
+        mRoads.clear();
+        getData();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,6 +72,7 @@ public class SearchRoadFragment extends Fragment {
 
         View view=inflater.inflate(R.layout.fragment_search_road, container, false);
         ButterKnife.bind(this,view);
+        word=getArguments().getString("word");
         initView();
         return view;
     }
@@ -70,8 +84,9 @@ public class SearchRoadFragment extends Fragment {
             @Override
             public void onLoadMoreRequested() {
                 page++;
-                getData();
                 isLoadMore=true;
+                getData();
+
             }
         },rv_road);
         mRoadAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

@@ -69,7 +69,7 @@
                         android:textColor="@color/black_33"
                         android:textSize="14sp"
                         android:id="@+id/tv_locate"
-                        android:text="定位失败"
+                        android:text="定位中"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -189,7 +189,7 @@
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="50dp"
-                            android:src="@mipmap/home_menu_3" />
+                            android:src="@mipmap/ic_school" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -238,7 +238,7 @@
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="50dp"
-                            android:src="@mipmap/home_menu_4" />
+                            android:src="@mipmap/ic_you" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -324,7 +324,7 @@
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="50dp"
-                            android:src="@mipmap/home_menu_7" />
+                            android:src="@mipmap/ic_yue" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -407,8 +407,9 @@
 
 
                         <TextView
+                            android:layout_toLeftOf="@id/tv_go"
                             android:id="@+id/tv_weather"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="5dp"
@@ -417,6 +418,7 @@
                             android:textSize="@dimen/text_size_16" />
 
                         <TextView
+
                             android:id="@+id/tv_go"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -434,6 +436,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/rl_notice"
                 android:paddingTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
@@ -463,6 +466,7 @@
                         android:layout_weight="1">
 
                         <View
+                            android:visibility="gone"
                             android:id="@+id/black1"
                             android:layout_width="5dp"
                             android:layout_height="5dp"
@@ -470,21 +474,26 @@
                             android:background="#000000"></View>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:singleLine="true"
+                            android:layout_marginRight="20dp"
+                            android:layout_toLeftOf="@id/tv_cointime"
+                            android:id="@+id/tv_coin"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="5dp"
                             android:layout_toRightOf="@id/black1"
-                            android:text="您收获了30宝币"
+                            android:text="暂无数据"
                             android:textColor="@color/black_0d"
                             android:textSize="@dimen/text_size_16" />
 
                         <TextView
+                            android:id="@+id/tv_cointime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:text="5分钟前"
+                            android:text=""
                             android:textColor="@color/gray_99"
                             android:textSize="@dimen/text_size_14" />
                     </RelativeLayout>
@@ -496,6 +505,7 @@
                         android:layout_weight="1">
 
                         <View
+                            android:visibility="gone"
                             android:id="@+id/black2"
                             android:layout_width="5dp"
                             android:layout_height="5dp"
@@ -503,21 +513,23 @@
                             android:background="#000000"></View>
 
                         <TextView
+                            android:id="@+id/tv_chat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="5dp"
                             android:layout_toRightOf="@id/black2"
-                            android:text="您收获了30宝币"
+                            android:text=""
                             android:textColor="@color/black_0d"
                             android:textSize="@dimen/text_size_16" />
 
                         <TextView
+                            android:id="@+id/tv_chattime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:text="5分钟前"
+                            android:text=""
                             android:textColor="@color/gray_99"
                             android:textSize="@dimen/text_size_14" />
                     </RelativeLayout>

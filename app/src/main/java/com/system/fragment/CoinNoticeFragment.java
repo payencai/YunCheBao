@@ -13,23 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.application.MyApplication;
-import com.bbcircle.data.CarShow;
+import com.caryibao.NewCar;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.cheyibao.NewCarDetailActivity;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.rongcloud.model.CarShop;
-import com.system.adapter.WashRepairAdapter;
-import com.system.model.WashRepair;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
-import com.xihubao.AssistanceDetailActivity;
-import com.xihubao.WashCarDetailActivity;
-import com.xihubao.WashCarListActivity;
-import com.xihubao.adapter.RoadAdapter;
-import com.xihubao.model.Road;
+import com.system.adapter.CoinNoticeAdapter;
+import com.system.adapter.SearchNewAdapter;
+import com.system.model.CoinNotice;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,47 +37,32 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchWashFragment extends Fragment {
+public class CoinNoticeFragment extends Fragment {
 
     int page=1;
     boolean isLoadMore=false;
-    WashRepairAdapter mRoadAdapter;
-    List<CarShop> mRoads;
+    CoinNoticeAdapter mRoadAdapter;
+    List<CoinNotice> mRoads;
     @BindView(R.id.rv_road)
     RecyclerView rv_road;
-    String word;
-    public static SearchWashFragment newInstance(String value) {
-        SearchWashFragment fragment=new SearchWashFragment();
-        Bundle bundle=new Bundle();
-        bundle.putString("word",value);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-    public  void getNewData(String value){
-        word=value;
-        page=1;
-        mRoads.clear();
-        getData();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-        View view=inflater.inflate(R.layout.fragment_search_wash, container, false);
+        View view=inflater.inflate(R.layout.fragment_search_new, container, false);
         ButterKnife.bind(this,view);
-        word=getArguments().getString("word");
         initView();
         return view;
     }
 
     private void initView() {
         mRoads=new ArrayList<>();
-        mRoadAdapter=new WashRepairAdapter(R.layout.item_search_wash,mRoads);
+        mRoadAdapter=new CoinNoticeAdapter(R.layout.item_coin_notice,mRoads);
         mRoadAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -96,40 +75,28 @@ public class SearchWashFragment extends Fragment {
         mRoadAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Bundle bundle = new Bundle();
-                CarShop carShow= (CarShop) adapter.getItem(position);
-                Log.e("pos", position + "");
-                bundle.putSerializable("id",carShow );
-                bundle.putString("type", "洗车店");
-                bundle.putInt("flag", 1);
-                if (MyApplication.isLogin)
-                    ActivityAnimationUtils.commonTransition(getActivity(), WashCarDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
+
             }
         });
-        rv_road.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+
         rv_road.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_road.setAdapter(mRoadAdapter);
-
         getData();
     }
 
     private void getData(){
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
-        params.put("keyword", word);
-        params.put("searchType", 2);
-        Log.e("road",params.toString());
-        HttpProxy.obtain().get(PlatformContans.Commom.searchAll, params,"", new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.User.getNotice, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("road", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-                    jsonObject = jsonObject.getJSONObject("data");
-                    JSONArray data = jsonObject.getJSONArray("list");
+                    JSONArray data = jsonObject.getJSONArray("data");
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
-                        CarShop road = new Gson().fromJson(item.toString(), CarShop.class);
+                        CoinNotice road = new Gson().fromJson(item.toString(), CoinNotice.class);
                         mRoads.add(road);
                     }
                     mRoadAdapter.setNewData(mRoads);

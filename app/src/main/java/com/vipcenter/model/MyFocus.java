@@ -6,51 +6,28 @@ package com.vipcenter.model;
  */
 public class MyFocus {
 
+
     /**
-     * createTime : 2019-01-28T11:21:50.971Z
-     * friends : {"friendId":"string","id":"string","isNotice":0,"nickName":"string","userId":"string"}
-     * headPortrait : string
-     * id : string
-     * isFocus : string
-     * isFriend : string
-     * name : string
-     * userId : string
-     * userType : 0
+     * id : 7a04b4db-0e11-4413-a55b-0db50c7f8ce4
+     * userId : 5ed5fe0f-8708-4974-ac84-6122f402fb65
+     * name : hwxkNI6BzF
+     * headPortrait : http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019021318193652
+     * createTime : 2019-03-07 17:50:38
+     * userType : 1
+     * friends : null
+     * isFriend : 0
+     * isFocus : null
      */
 
-    private String createTime;
-    private FriendsBean friends;
-    private String headPortrait;
     private String id;
-    private String isFocus;
-    private String isFriend;
-    private String name;
     private String userId;
+    private String name;
+    private String headPortrait;
+    private String createTime;
     private int userType;
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public FriendsBean getFriends() {
-        return friends;
-    }
-
-    public void setFriends(FriendsBean friends) {
-        this.friends = friends;
-    }
-
-    public String getHeadPortrait() {
-        return headPortrait;
-    }
-
-    public void setHeadPortrait(String headPortrait) {
-        this.headPortrait = headPortrait;
-    }
+    private Object friends;
+    private String isFriend;
+    private Object isFocus;
 
     public String getId() {
         return id;
@@ -58,30 +35,6 @@ public class MyFocus {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getIsFocus() {
-        return isFocus;
-    }
-
-    public void setIsFocus(String isFocus) {
-        this.isFocus = isFocus;
-    }
-
-    public String getIsFriend() {
-        return isFriend;
-    }
-
-    public void setIsFriend(String isFriend) {
-        this.isFriend = isFriend;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getUserId() {
@@ -92,6 +45,30 @@ public class MyFocus {
         this.userId = userId;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getHeadPortrait() {
+        return headPortrait;
+    }
+
+    public void setHeadPortrait(String headPortrait) {
+        this.headPortrait = headPortrait;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
     public int getUserType() {
         return userType;
     }
@@ -100,59 +77,27 @@ public class MyFocus {
         this.userType = userType;
     }
 
-    public static class FriendsBean {
-        /**
-         * friendId : string
-         * id : string
-         * isNotice : 0
-         * nickName : string
-         * userId : string
-         */
+    public Object getFriends() {
+        return friends;
+    }
 
-        private String friendId;
-        private String id;
-        private int isNotice;
-        private String nickName;
-        private String userId;
+    public void setFriends(Object friends) {
+        this.friends = friends;
+    }
 
-        public String getFriendId() {
-            return friendId;
-        }
+    public String getIsFriend() {
+        return isFriend;
+    }
 
-        public void setFriendId(String friendId) {
-            this.friendId = friendId;
-        }
+    public void setIsFriend(String isFriend) {
+        this.isFriend = isFriend;
+    }
 
-        public String getId() {
-            return id;
-        }
+    public Object getIsFocus() {
+        return isFocus;
+    }
 
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public int getIsNotice() {
-            return isNotice;
-        }
-
-        public void setIsNotice(int isNotice) {
-            this.isNotice = isNotice;
-        }
-
-        public String getNickName() {
-            return nickName;
-        }
-
-        public void setNickName(String nickName) {
-            this.nickName = nickName;
-        }
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
+    public void setIsFocus(Object isFocus) {
+        this.isFocus = isFocus;
     }
 }

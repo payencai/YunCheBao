@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.cheyibao.NewCarDetailActivity;
+import com.cheyibao.OldCarDetailActivity;
 import com.cheyibao.model.NewCar;
 import com.cheyibao.model.OldCar;
 import com.costans.PlatformContans;
@@ -21,6 +23,8 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.system.adapter.SearchNewAdapter;
 import com.system.adapter.SearchOldAdapter;
+import com.tool.ActivityAnimationUtils;
+import com.tool.ActivityConstans;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,7 +52,20 @@ public class SearchOldFragment extends Fragment {
     public SearchOldFragment() {
         // Required empty public constructor
     }
-
+    String word;
+    public static SearchOldFragment newInstance(String value) {
+        SearchOldFragment fragment=new SearchOldFragment();
+        Bundle bundle=new Bundle();
+        bundle.putString("word",value);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+    public  void getNewData(String value){
+        word=value;
+        page=1;
+        mRoads.clear();
+        getData();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,6 +73,7 @@ public class SearchOldFragment extends Fragment {
 
         View view=inflater.inflate(R.layout.fragment_search_new, container, false);
         ButterKnife.bind(this,view);
+        word=getArguments().getString("word");
         initView();
         return view;
     }
@@ -67,17 +85,18 @@ public class SearchOldFragment extends Fragment {
             @Override
             public void onLoadMoreRequested() {
                 page++;
-                getData();
                 isLoadMore=true;
+                getData();
+
             }
         },rv_road);
         mRoadAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                Road road= (Road) adapter.getItem(position);
-//                Intent intent =new Intent(getContext(),AssistanceDetailActivity.class);
-//                intent.putExtra("entity",road);
-//                startActivity(intent);
+                Bundle bundle=new Bundle();
+                OldCar newCar=(OldCar)adapter.getItem(position);
+                bundle.putSerializable("data",newCar);
+                ActivityAnimationUtils.commonTransition(getActivity(), OldCarDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
             }
         });
         rv_road.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));

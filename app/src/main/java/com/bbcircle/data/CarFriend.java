@@ -36,6 +36,15 @@ public class CarFriend {
     private String title;
     private String userId;
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    private int type;
     public String getAddress() {
         return address;
     }

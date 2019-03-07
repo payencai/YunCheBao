@@ -1,6 +1,7 @@
 package com.cheyibao.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,13 +85,15 @@ public class CoashCommentAdapter extends BaseAdapter{
         tv_time.setText("2011-12-10");
         sb_score.setRating(coashComment.getScore());
         images=new ArrayList<>();
-        if(mClassItems.get(position).getPhoto().contains(",")){
-            String[] img=mClassItems.get(position).getPhoto().split(",");
-            for (int i = 0; i <img.length ; i++) {
-                images.add(img[i]);
+        if(!TextUtils.isEmpty(mClassItems.get(position).getPhoto())){
+            if(mClassItems.get(position).getPhoto().contains(",")){
+                String[] img=mClassItems.get(position).getPhoto().split(",");
+                for (int i = 0; i <img.length ; i++) {
+                    images.add(img[i]);
+                }
+            }else{
+                images.add(mClassItems.get(position).getPhoto());
             }
-        }else{
-            images.add(mClassItems.get(position).getPhoto());
         }
         iv_coashhead.setImageResource(R.mipmap.ic_default_head);
         tv_coashname.setText("匿名用户");

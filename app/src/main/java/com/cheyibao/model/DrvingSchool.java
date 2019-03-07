@@ -75,7 +75,7 @@ public class DrvingSchool implements Serializable{
     private double distance;
     private String district;
     private String geoHash;
-    private double grade;
+    private int grade;
     private String header;
     private String id;
     private String idKey;
@@ -219,11 +219,11 @@ public class DrvingSchool implements Serializable{
         this.geoHash = geoHash;
     }
 
-    public double getGrade() {
+    public int getGrade() {
         return grade;
     }
 
-    public void setGrade(double grade) {
+    public void setGrade(int  grade) {
         this.grade = grade;
     }
 

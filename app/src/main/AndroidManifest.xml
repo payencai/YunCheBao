@@ -451,8 +451,9 @@
         <activity android:name="com.xihubao.RoadActivity" />
         <activity android:name="com.system.SearchActivity" />
         <activity
-            android:windowSoftInputMode="stateHidden"
-            android:name="com.system.SearchFinishActivity"></activity>
+            android:name="com.system.SearchFinishActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name="com.system.NoticeActivity"></activity>
     </application>
 
 </manifest>

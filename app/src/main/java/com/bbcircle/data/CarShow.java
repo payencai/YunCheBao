@@ -1,10 +1,12 @@
 package com.bbcircle.data;
 
+import java.io.Serializable;
+
 /**
  * 作者：凌涛 on 2018/12/28 18:47
  * 邮箱：771548229@qq..com
  */
-public class CarShow {
+public class CarShow implements Serializable{
     /**
      * commentNum : 0
      * content : string

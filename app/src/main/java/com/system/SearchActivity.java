@@ -3,11 +3,13 @@ package com.system;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.yunchebao.R;
+import com.payencai.library.util.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +31,10 @@ public class SearchActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.tv_search:
                 String value=et_word.getEditableText().toString();
+                if(TextUtils.isEmpty(value)){
+                    ToastUtil.showToast(this,"请输入搜索内容");
+                    return;
+                }
                 Intent intent=new Intent(this,SearchFinishActivity.class);
                 intent.putExtra("word",value);
                 startActivity(intent);

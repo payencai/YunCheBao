@@ -44,15 +44,19 @@ import com.entity.Banner;
 import com.entity.UrlBean;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
 import com.rongcloud.activity.ChatActivity;
 import com.rongcloud.adapter.ListDataSave;
+import com.system.NoticeActivity;
 import com.system.SearchActivity;
 import com.system.WebCarActivity;
 import com.system.WebviewActivity;
 import com.system.adapter.HomeListAdapter;
+import com.system.model.ChatNotice;
+import com.system.model.CoinNotice;
 import com.system.model.HomeImage;
 import com.system.model.Weather;
 import com.tool.view.ListViewForScrollView;
@@ -74,7 +78,10 @@ import org.json.JSONObject;
 
 
 import java.net.URISyntaxException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,6 +100,14 @@ public class HomeFragment extends BaseFragment {
     private Context ctx;
     //轮播图片
     private List<Map<String, String>> imageList = new ArrayList<>();
+    @BindView(R.id.tv_coin)
+    TextView tv_coin;
+    @BindView(R.id.tv_cointime)
+    TextView tv_cointime;
+    @BindView(R.id.tv_chat)
+    TextView tv_chat;
+    @BindView(R.id.tv_chattime)
+    TextView tv_chattime;
     @BindView(R.id.tv_wendu)
     TextView tv_wendu;
     @BindView(R.id.tv_city)
@@ -275,6 +290,7 @@ public class HomeFragment extends BaseFragment {
         initLocation();
         getImageUrl();
         init();
+
         return rootView;
     }
     List<UrlBean> mUrlBeans = new ArrayList<>();
@@ -438,7 +454,96 @@ public class HomeFragment extends BaseFragment {
         banner.setImages(images);//设置图片源
         banner.start();
     }
+    private void getChatNotice() {
+        SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String token="";
+        if(MyApplication.isLogin){
+            token=MyApplication.getUserInfo().getToken();
+        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("page", 1);
+        HttpProxy.obtain().get(PlatformContans.User.getDynamic, params,token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("getToday",result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i <data.length() ; i++) {
+                        JSONObject item=data.getJSONObject(i);
+                        ChatNotice coinNotice=new Gson().fromJson(item.toString(),ChatNotice.class);
+                        if(i==0){
+                            try {
+                                long from = new Date().getTime();
+                                long to=simpleFormat.parse(coinNotice.getCreateTime()).getTime();
+                                int minutes = (int) ((from - to)/(1000 * 60));
+                                if(minutes<60){
+                                    tv_chat.setText(coinNotice.getContent());
+                                    tv_chattime.setText(minutes+"分钟前");
+                                }
 
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+                Log.e("getToday",error);
+            }
+        });
+    }
+    private void getCoinNotice() {
+        SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String token="";
+        if(MyApplication.isLogin){
+            token=MyApplication.getUserInfo().getToken();
+        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("page", 1);
+        HttpProxy.obtain().get(PlatformContans.User.getNotice, params,token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("getToday",result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i <data.length() ; i++) {
+                        JSONObject item=data.getJSONObject(i);
+                        CoinNotice coinNotice=new Gson().fromJson(item.toString(),CoinNotice.class);
+                        if(i==0){
+                            try {
+                                long from = new Date().getTime();
+                                long to=simpleFormat.parse(coinNotice.getCreateTime()).getTime();
+                                int minutes = (int) ((from - to)/(1000 * 60));
+                                if(minutes<60){
+                                    tv_coin.setText(coinNotice.getTitle());
+                                    tv_cointime.setText(minutes+"分钟前");
+                                }
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+                Log.e("getToday",error);
+            }
+        });
+    }
     private void getWeather(String city) {
         Map<String, Object> params = new HashMap<>();
         params.put("city", city);
@@ -452,8 +557,8 @@ public class HomeFragment extends BaseFragment {
                     JSONObject today = jsonObject.getJSONObject("today");
                     Weather weather = new Gson().fromJson(today.toString(), Weather.class);
                     tv_city.setText(weather.getCity());
-                    tv_go.setText(weather.getTravelIndex());
-                    tv_wash.setText(weather.getWashIndex());
+                    tv_go.setText(weather.getTravelIndex()+"出行");
+                    tv_wash.setText(weather.getWashIndex()+"洗车");
                     tv_wendu.setText(weather.getTemp());
                     tv_weather.setText(weather.getWeather()+"/"+weather.getWind()+" "+weather.getTemperature());
                 } catch (JSONException e) {
@@ -604,19 +709,31 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent3 = new Intent(getContext(), WebviewActivity.class);
-                intent3.putExtra("url", mHomeImages.get(position).getUrl());
+                String url=mHomeImages.get(position).getUrl();
+                if(!url.contains("http://")&&!url.contains("https://")){
+                    if(url.contains("www")){
+                        url="http://"+url;
+                    }else{
+                        url="http://www."+url;
+                    }
+                }
+                intent3.putExtra("url", url);
                 startActivity(intent3);
             }
         });
         lv_home.setFocusable(false);
-
+        getChatNotice();
+        getCoinNotice();
         getHomeImage(3);
     }
 
 
-    @OnClick({R.id.messenger_icon,R.id.search_lay, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.menuLay4, R.id.menuLay7, R.id.menuLay5, R.id.menuLay6, R.id.menuLay8, R.id.menuLay9, R.id.menuLay10, R.id.user_center_icon})
+    @OnClick({R.id.messenger_icon,R.id.rl_notice,R.id.search_lay, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.menuLay4, R.id.menuLay7, R.id.menuLay5, R.id.menuLay6, R.id.menuLay8, R.id.menuLay9, R.id.menuLay10, R.id.user_center_icon})
     public void OnClick(View v) {
         switch (v.getId()) {
+            case R.id.rl_notice:
+                startActivity(new Intent(getContext(), NoticeActivity.class));
+                break;
             case R.id.search_lay:
                 startActivity(new Intent(getContext(), SearchActivity.class));
                 break;
@@ -671,18 +788,8 @@ public class HomeFragment extends BaseFragment {
                 Intent intent3 = new Intent(getContext(), WebCarActivity.class);
                 intent3.putExtra("id", mUrlBeans.get(1).getId());
                 startActivity(intent3);
-                //showDialog(new LatLng(MyApplication.getaMapLocation().getLatitude(),MyApplication.getaMapLocation().getLongitude()));
-                //ActivityAnimationUtils.commonTransition(getActivity(), YuedanHomeActivity.class, ActivityConstans.Animation.FADE);
                 break;
-//            case R.id.newGoodsLay://新品尝鲜
-//                ActivityAnimationUtils.commonTransition(getActivity(), NewGoodsListActivity.class, ActivityConstans.Animation.FADE);
-//                break;
-//            case R.id.recommendLay://为您推荐
-//                ActivityAnimationUtils.commonTransition(getActivity(), BrandGoodsListActivity.class, ActivityConstans.Animation.FADE);
-//                break;
-//            case R.id.cityLay://城市选择列表
-//                ActivityAnimationUtils.commonTransition(getActivity(), CityListActivity.class, ActivityConstans.Animation.FADE);
-//                break;
+
             case R.id.user_center_icon://个人中心
                 if (MyApplication.isLogin)
                     ActivityAnimationUtils.commonTransition(getActivity(), UserCenterActivity.class, ActivityConstans.Animation.FADE);
@@ -690,9 +797,7 @@ public class HomeFragment extends BaseFragment {
                     startActivity(new Intent(getContext(), RegisterActivity.class));
                 }
                 break;
-//            case R.id.magList:
-//                ActivityAnimationUtils.commonTransition(getActivity(), MagzineCoverActivity.class, ActivityConstans.Animation.FADE);
-//                break;
+
         }
     }
 }

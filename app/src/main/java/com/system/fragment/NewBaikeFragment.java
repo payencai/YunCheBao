@@ -105,7 +105,7 @@ public class NewBaikeFragment extends Fragment {
                 if(MyApplication.isLogin){
                     token=MyApplication.getUserInfo().getToken();
                 }
-                intent.putExtra("url", baikeItem.getContent()+"?token="+token);
+                intent.putExtra("url", "http://www.yunchebao.com:8080/h5baby/?id="+baikeItem.getId()+"&token="+token);
                 startActivity(intent);
             }
         });

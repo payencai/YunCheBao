@@ -1,7 +1,6 @@
 package com.system.fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -12,23 +11,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.application.MyApplication;
-import com.bbcircle.data.CarShow;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.cheyibao.model.NewCar;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.rongcloud.model.CarShop;
-import com.system.adapter.WashRepairAdapter;
-import com.system.model.WashRepair;
+import com.maket.GoodDetailActivity;
+import com.maket.MarketSelectListActivity;
+import com.maket.model.GoodList;
+import com.system.adapter.SearchGoodsAdapter;
+import com.system.adapter.SearchNewAdapter;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
-import com.xihubao.AssistanceDetailActivity;
-import com.xihubao.WashCarDetailActivity;
-import com.xihubao.WashCarListActivity;
-import com.xihubao.adapter.RoadAdapter;
 import com.xihubao.model.Road;
 
 import org.json.JSONArray;
@@ -46,17 +42,20 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchWashFragment extends Fragment {
+public class SearchGoodsFragment extends Fragment {
 
     int page=1;
     boolean isLoadMore=false;
-    WashRepairAdapter mRoadAdapter;
-    List<CarShop> mRoads;
+    SearchGoodsAdapter mRoadAdapter;
+    List<GoodList> mRoads;
     @BindView(R.id.rv_road)
     RecyclerView rv_road;
+    public SearchGoodsFragment() {
+        // Required empty public constructor
+    }
     String word;
-    public static SearchWashFragment newInstance(String value) {
-        SearchWashFragment fragment=new SearchWashFragment();
+    public static SearchGoodsFragment newInstance(String value) {
+        SearchGoodsFragment fragment=new SearchGoodsFragment();
         Bundle bundle=new Bundle();
         bundle.putString("word",value);
         fragment.setArguments(bundle);
@@ -73,8 +72,7 @@ public class SearchWashFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-        View view=inflater.inflate(R.layout.fragment_search_wash, container, false);
+        View view=inflater.inflate(R.layout.fragment_search_new, container, false);
         ButterKnife.bind(this,view);
         word=getArguments().getString("word");
         initView();
@@ -83,7 +81,7 @@ public class SearchWashFragment extends Fragment {
 
     private void initView() {
         mRoads=new ArrayList<>();
-        mRoadAdapter=new WashRepairAdapter(R.layout.item_search_wash,mRoads);
+        mRoadAdapter=new SearchGoodsAdapter(R.layout.item_know_you,mRoads);
         mRoadAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -96,14 +94,10 @@ public class SearchWashFragment extends Fragment {
         mRoadAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Bundle bundle = new Bundle();
-                CarShop carShow= (CarShop) adapter.getItem(position);
-                Log.e("pos", position + "");
-                bundle.putSerializable("id",carShow );
-                bundle.putString("type", "洗车店");
-                bundle.putInt("flag", 1);
-                if (MyApplication.isLogin)
-                    ActivityAnimationUtils.commonTransition(getActivity(), WashCarDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
+                GoodList road= (GoodList) adapter.getItem(position);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("data",road);
+                ActivityAnimationUtils.commonTransition(getActivity(), GoodDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
             }
         });
         rv_road.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
@@ -116,8 +110,8 @@ public class SearchWashFragment extends Fragment {
     private void getData(){
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
-        params.put("keyword", word);
-        params.put("searchType", 2);
+        params.put("keyword", "车");
+        params.put("searchType", 10);
         Log.e("road",params.toString());
         HttpProxy.obtain().get(PlatformContans.Commom.searchAll, params,"", new ICallBack() {
             @Override
@@ -129,7 +123,7 @@ public class SearchWashFragment extends Fragment {
                     JSONArray data = jsonObject.getJSONArray("list");
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
-                        CarShop road = new Gson().fromJson(item.toString(), CarShop.class);
+                        GoodList road = new Gson().fromJson(item.toString(), GoodList.class);
                         mRoads.add(road);
                     }
                     mRoadAdapter.setNewData(mRoads);
@@ -151,5 +145,4 @@ public class SearchWashFragment extends Fragment {
             }
         });
     }
-
 }

@@ -282,7 +282,7 @@ public class WashCarListActivity extends NoHttpBaseActivity {
         request.add("province",MyApplication.getaMapLocation().getProvince());
         request.add("city", MyApplication.getaMapLocation().getCity());
         request.add("area",tv_city.getText().toString());
-        //Log.e("params",request.getParamKeyValues())
+        Log.e("params",type+"");
         request(0, request, httpListener, true, true);
     }
 

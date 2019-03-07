@@ -38,6 +38,10 @@ public class PlatformContans {
         public static final String setCarShowState=root+"/user/setCarShowState";
         public static final String getDynamic=root+"/user/getDynamic";
         public static final String getNotice=root+"/user/getNotice";
+        public static final String addUserFocus=root+ "/user/addUserFocus";
+        public static final String deleteUserFocus=root+ "/user/deleteUserFocus";
+        public static final String getUserFocusList=root+ "/user/getUserFocusList";
+        public static final String isFocus=root+ "/user/isFocus";
     }
     public static class Wechat{
         public static final String wechatPay=root+ "/wechatPay/wechatPay" ;

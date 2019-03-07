@@ -20,7 +20,7 @@ public class ClassItem implements Serializable{
 
     private String className;
     private String classNo;
-    private int classPrice;
+    private double classPrice;
     private String createTime;
     private String id;
     private int isDel;
@@ -42,11 +42,11 @@ public class ClassItem implements Serializable{
         this.classNo = classNo;
     }
 
-    public int getClassPrice() {
+    public double getClassPrice() {
         return classPrice;
     }
 
-    public void setClassPrice(int classPrice) {
+    public void setClassPrice(double classPrice) {
         this.classPrice = classPrice;
     }
 

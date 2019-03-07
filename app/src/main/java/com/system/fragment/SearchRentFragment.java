@@ -1,6 +1,7 @@
 package com.system.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.cheyibao.RentShopDetailActivity;
 import com.cheyibao.model.NewCar;
 import com.cheyibao.model.RentCar;
 import com.costans.PlatformContans;
@@ -21,6 +23,7 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.system.adapter.SearchNewAdapter;
 import com.system.adapter.SearchRentAdapter;
+import com.xihubao.model.Road;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,13 +52,27 @@ public class SearchRentFragment extends Fragment {
         // Required empty public constructor
     }
 
-
+    String word;
+    public static SearchRentFragment newInstance(String value) {
+        SearchRentFragment fragment=new SearchRentFragment();
+        Bundle bundle=new Bundle();
+        bundle.putString("word",value);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+    public  void getNewData(String value){
+        word=value;
+        page=1;
+        mRoads.clear();
+        getData();
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view=inflater.inflate(R.layout.fragment_search_new, container, false);
         ButterKnife.bind(this,view);
+        word=getArguments().getString("word");
         initView();
         return view;
     }
@@ -67,17 +84,18 @@ public class SearchRentFragment extends Fragment {
             @Override
             public void onLoadMoreRequested() {
                 page++;
-                getData();
                 isLoadMore=true;
+                getData();
+
             }
         },rv_road);
         mRoadAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                Road road= (Road) adapter.getItem(position);
-//                Intent intent =new Intent(getContext(),AssistanceDetailActivity.class);
-//                intent.putExtra("entity",road);
-//                startActivity(intent);
+                RentCar rentCar= (RentCar) adapter.getItem(position);
+                Intent intent=new Intent(getContext(), RentShopDetailActivity.class);
+                intent.putExtra("data",rentCar);
+                startActivity(intent);
             }
         });
         rv_road.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
