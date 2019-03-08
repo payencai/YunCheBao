@@ -96,7 +96,7 @@ public class OldCarListActivity extends NoHttpBaseActivity {
     String shop = "商家";
     String one = "个人";
     int flag;
-    NewCarMenu mNewCarMenu;
+    CarBrand mNewCarMenu;
     String firstId="";//品牌Id;
     String startprice="";
     String endprice="";
@@ -108,9 +108,9 @@ public class OldCarListActivity extends NoHttpBaseActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             flag = bundle.getInt("price");
-            mNewCarMenu = (NewCarMenu) bundle.getSerializable("menu");
+            mNewCarMenu = (CarBrand) bundle.getSerializable("menu");
             if(mNewCarMenu!=null){
-                firstId=mNewCarMenu.getFirstId();
+                firstId=mNewCarMenu.getFistId();
             }
         }
 
@@ -180,26 +180,27 @@ public class OldCarListActivity extends NoHttpBaseActivity {
                 break;
             case -1:
                 startprice="0";
-                endprice="5";
+                endprice="50000";
                 tagStrList.add(price1);
                 break;
             case 5:
-                startprice="5";
-                endprice="10";
+                startprice="50000";
+                endprice="100000";
                 tagStrList.add(price2);
                 break;
             case 10:
-                startprice="10";
-                endprice="15";
+                startprice="100000";
+                endprice="150000";
                 tagStrList.add(price3);
                 break;
             case 15:
-                startprice="15";
-                endprice="30";
+                startprice="150000";
+                endprice="300000";
                 tagStrList.add(price4);
                 break;
             case 30:
-                startprice="30";
+                startprice="300000";
+                endprice="30000000";
                 tagStrList.add(price5);
                 break;
         }

@@ -71,6 +71,8 @@ public class NewCarDetailActivity extends AppCompatActivity {
     TextView tv_param;
     @BindView(R.id.tv_car)
     TextView tv_buy;
+    @BindView(R.id.tv_color)
+    TextView tv_color;
     @BindView(R.id.rl_phone)
     RelativeLayout rl_phone;
     NewCarParamsAdapter mNewCarParamsAdapter;
@@ -226,6 +228,12 @@ public class NewCarDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         tv_buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -254,6 +262,7 @@ public class NewCarDetailActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(mNewCar.getThirdName()) && !"null".equals(mNewCar.getThirdName())) {
             name = name + mNewCar.getThirdName();
         }
+        tv_color.setText(mNewCar.getColor());
         tv_name.setText(name);
         if (!TextUtils.isEmpty(mNewCar.getCarCategoryDetail().getBanner1()) && !"null".equals(mNewCar.getCarCategoryDetail().getBanner1()))
             images.add(mNewCar.getCarCategoryDetail().getBanner1());

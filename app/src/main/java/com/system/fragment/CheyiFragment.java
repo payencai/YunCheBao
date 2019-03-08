@@ -26,6 +26,7 @@ import com.example.yunchebao.R;
 import com.nohttp.sample.BaseFragment;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
+import com.tool.NoScrollViewPager;
 import com.tool.adapter.MyFragmentPagerAdapter;
 import com.vipcenter.RegisterActivity;
 import com.vipcenter.UserCenterActivity;
@@ -43,7 +44,7 @@ public class CheyiFragment extends BaseFragment {
     private ArrayList<String> mTitleList = new ArrayList<>(4);
     private ArrayList<Fragment> mFragments = new ArrayList<>(4);
     @BindView(R.id.vp_gank)
-    ViewPager vpGank;
+    NoScrollViewPager vpGank;
     @BindView(R.id.tab_gank)
     TabLayout tabGank;
     @BindView(R.id.messenger_icon)
@@ -53,7 +54,7 @@ public class CheyiFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_gank, container, false);
+        rootView = inflater.inflate(R.layout.fragment_cheyibao_new, container, false);
         ButterKnife.bind(this, rootView);
 //        requestMethod(0);
         user_center_icon.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +83,7 @@ public class CheyiFragment extends BaseFragment {
         tabGank.setTabMode(TabLayout.MODE_SCROLLABLE);
         tabGank.setupWithViewPager(vpGank);
         vpGank.setCurrentItem(0);
+        vpGank.setScroll(false);
         return rootView;
     }
     public AMapLocationClient mLocationClient = null;

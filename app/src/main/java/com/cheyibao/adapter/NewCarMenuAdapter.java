@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.cheyibao.model.NewCarMenu;
 import com.cheyibao.model.Shop;
 import com.example.yunchebao.R;
+import com.xihubao.model.CarBrand;
 
 import java.util.List;
 
@@ -20,19 +21,19 @@ import java.util.List;
  * 邮箱：771548229@qq..com
  */
 public class NewCarMenuAdapter extends BaseAdapter {
-    private List<NewCarMenu> mClassItems;
+    private List<CarBrand> mClassItems;
     private Context mContext;
 
-    public NewCarMenuAdapter(Context context, List<NewCarMenu> classItems) {
+    public NewCarMenuAdapter(Context context, List<CarBrand> classItems) {
         mClassItems = classItems;
         mContext = context;
     }
 
-    public List<NewCarMenu> getClassItems() {
+    public List<CarBrand> getClassItems() {
         return mClassItems;
     }
 
-    public void setClassItems(List<NewCarMenu> classItems) {
+    public void setClassItems(List<CarBrand> classItems) {
         mClassItems = classItems;
     }
 
@@ -65,7 +66,7 @@ public class NewCarMenuAdapter extends BaseAdapter {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.item_newcar_menu, null);
         ImageView iv_logo= (ImageView) convertView.findViewById(R.id.iv_logo);
         TextView tv_name= (TextView) convertView.findViewById(R.id.tv_name);
-        Glide.with(mContext).load(mClassItems.get(position).getLogo()).into(iv_logo);
+        Glide.with(mContext).load(mClassItems.get(position).getImage()).into(iv_logo);
         tv_name.setText(mClassItems.get(position).getName());
         return convertView;
     }

@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import com.bbcircle.data.ClassItem;
 import com.cheyibao.NewCarListActivity;
@@ -34,6 +36,7 @@ import com.tool.listview.PersonalScrollView;
 import com.tool.slideshowview.SlideShowView;
 import com.tool.view.GridViewForScrollView;
 import com.tool.view.ListViewForScrollView;
+import com.xihubao.model.CarBrand;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,7 +74,7 @@ public class OldCarFragment extends BaseFragment {
     @BindView(R.id.gv_newcar)
     GridViewForScrollView gv_newcar;
     NewCarMenuAdapter mNewCarMenuAdapter;
-    List<NewCarMenu> mNewCarMenus=new ArrayList<>();
+    List<CarBrand> mNewCarMenus=new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,15 +83,15 @@ public class OldCarFragment extends BaseFragment {
         getBaner();
         initView();
         mNewCarMenus.clear();
-        getMenu();
+       // getMenu();
 //        requestMethod(0);
         return rootView;
     }
 
-    private void getMenu() {
+    private void getBrand(int level) {
         Map<String, Object> params = new HashMap<>();
-        params.put("type", 2);
-        HttpProxy.obtain().get(PlatformContans.CarCategory.getNewOldIndex, params, new ICallBack() {
+        params.put("level", level);
+        HttpProxy.obtain().get(PlatformContans.CarCategory.getFirstCategory, params, "", new ICallBack() {
             @Override
             public void OnSuccess(String result) {
 
@@ -97,11 +100,12 @@ public class OldCarFragment extends BaseFragment {
                     JSONArray data = jsonObject.getJSONArray("data");
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
-                        NewCarMenu baikeItem = new Gson().fromJson(item.toString(), NewCarMenu.class);
+                        CarBrand baikeItem = new Gson().fromJson(item.toString(), CarBrand.class);
                         mNewCarMenus.add(baikeItem);
                     }
                     mNewCarMenuAdapter.notifyDataSetChanged();
-                    //Log.e("getdata", result);
+                    updateGridView(5);
+                    Log.e("getdata", result);
                     //adapter.notifyDataSetChanged();
                     //updateData();
 
@@ -116,6 +120,22 @@ public class OldCarFragment extends BaseFragment {
             }
         });
     }
+    private void updateGridView(int NUM){
+        int count = mNewCarMenuAdapter.getCount();
+        int columns = (count % 2 == 0) ? count / 2 : count / 2 + 1;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(columns * getResources().getDisplayMetrics().widthPixels / NUM,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        gv_newcar.setLayoutParams(params);
+        gv_newcar.setColumnWidth(getResources().getDisplayMetrics().widthPixels / NUM);
+        gv_newcar.setStretchMode(GridView.NO_STRETCH);
+        if (count <= 5) {
+            gv_newcar.setNumColumns(count);
+        } else {
+            gv_newcar.setNumColumns(columns);
+        }
+
+    }
+
     private void getBaner(){
         imageList.clear();
         Map<String,Object> params=new HashMap<>();
@@ -177,15 +197,15 @@ public class OldCarFragment extends BaseFragment {
         gv_newcar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                NewCarMenu newCarMenu=mNewCarMenus.get(position);
                 Intent intent=new Intent(getContext(),OldCarListActivity.class);
                 Bundle bundle=new Bundle();
-                bundle.putSerializable("menu",newCarMenu);
+                bundle.putSerializable("menu",mNewCarMenus.get(position));
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
         getData();
+        getBrand(1);
     }
     private void getData(){
         Map<String,Object> params=new HashMap<>();

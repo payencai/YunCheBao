@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.cheyibao.fragment.NewCarFragment;
@@ -32,6 +33,8 @@ public class NewCarShopActivity extends AppCompatActivity {
     TextView tv_shopname;
     @BindView(R.id.tv_address)
     TextView tv_address;
+    @BindView(R.id.tv_grade)
+    TextView  tv_grade;
     Shop mShop;
     int flag = 0;
     MyFragmentPagerAdapter mMyFragmentPagerAdapter;
@@ -44,7 +47,14 @@ public class NewCarShopActivity extends AppCompatActivity {
         mShop = (Shop) getIntent().getSerializableExtra("data");
         flag = getIntent().getIntExtra("flag", 0);
         tv_shopname.setText(mShop.getName());
-        tv_address.setText(mShop.getAddress());
+        tv_address.setText(mShop.getProvince()+mShop.getCity()+mShop.getDistrict()+mShop.getAddress());
+        tv_grade.setText(mShop.getGrade()+"");
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         initFragmentList();
     }
 

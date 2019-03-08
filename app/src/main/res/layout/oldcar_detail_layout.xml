@@ -76,13 +76,15 @@
                  </LinearLayout>
 
                  <LinearLayout
-                     android:background="@color/white"
                      android:visibility="gone"
+                     android:background="@color/white"
+                     android:layout_marginTop="5dp"
                      android:id="@+id/ll_person"
                      android:orientation="vertical"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content">
                      <LinearLayout
+                         android:paddingTop="10dp"
                          android:gravity="center_vertical"
                          android:paddingLeft="15dp"
                          android:layout_width="match_parent"
@@ -96,7 +98,7 @@
                          <TextView
                              android:id="@+id/tv_nickname"
                              android:layout_marginRight="20dp"
-                             android:layout_marginTop="10dp"
+
                              android:layout_marginLeft="10dp"
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
@@ -111,13 +113,14 @@
                          android:layout_marginRight="20dp"
                          android:layout_marginBottom="10dp"
                          android:layout_marginTop="10dp"
-                         android:layout_marginLeft="20dp"
+                         android:layout_marginLeft="15dp"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:text="看就看广泛大概风格广东富豪的风格和股份过户的感地方官梵蒂冈回复的光辉典范"
                          android:textColor="@color/gray_99"
                          android:textSize="12sp" />
                      <LinearLayout
+                         android:visibility="gone"
                          android:layout_marginBottom="10dp"
                          android:layout_marginRight="40dp"
                          android:layout_marginLeft="40dp"
@@ -149,58 +152,88 @@
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
                      android:background="@color/white"
-                     android:padding="15dp"
+                     android:padding="10dp"
                      android:orientation="vertical">
-
-                     <LinearLayout
+                     <RelativeLayout
                          android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:orientation="horizontal">
+                         android:layout_height="wrap_content">
+                         <LinearLayout
+                             android:layout_marginRight="20dp"
+                             android:layout_toLeftOf="@id/ll_head"
+                             android:orientation="vertical"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content">
+                             <LinearLayout
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:orientation="horizontal">
 
-                         <TextView
-                             android:id="@+id/tv_shopname"
-                             android:textColor="@color/black_33"
-                             android:textSize="14sp"
+                                 <TextView
+                                     android:id="@+id/tv_shopname"
+                                     android:textColor="@color/black_33"
+                                     android:textSize="14sp"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:text="云南隆创尚通" />
+
+                                 <TextView
+                                     android:id="@+id/tv_grade"
+                                     android:textColor="@color/white"
+                                     android:layout_marginLeft="10dp"
+                                     android:background="@color/yellow_02"
+                                     android:gravity="center"
+                                     android:layout_width="15dp"
+                                     android:layout_height="20dp"
+                                     android:text="1" />
+                             </LinearLayout>
+                             <LinearLayout
+                                 android:gravity="center_vertical"
+                                 android:layout_marginTop="5dp"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:orientation="horizontal">
+                                 <ImageView
+                                     android:src="@mipmap/location_gray_icon"
+                                     android:layout_width="12dp"
+                                     android:layout_height="15dp" />
+                                 <TextView
+                                     android:id="@+id/tv_address"
+                                     android:textColor="@color/gray_99"
+                                     android:layout_marginLeft="10dp"
+                                     android:textSize="12sp"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:text="昆明市滇池路542号（滇池路与日新路交叉口）" />
+
+                             </LinearLayout>
+                         </LinearLayout>
+                         <LinearLayout
+                             android:gravity="center_horizontal"
+                             android:id="@+id/ll_head"
+                             android:layout_alignParentRight="true"
+                             android:orientation="vertical"
                              android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:text="云南隆创尚通" />
+                             android:layout_height="wrap_content">
+                             <ImageView
+                                 android:src="@mipmap/shophead"
+                                 android:layout_width="25dp"
+                                 android:layout_height="25dp" />
+                             <TextView
+                                 android:layout_marginTop="5dp"
+                                 android:textSize="12sp"
+                                 android:textColor="@color/gray_99"
+                                 android:text="店主信息"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content" />
+                         </LinearLayout>
+                     </RelativeLayout>
 
-                         <TextView
-                             android:id="@+id/tv_grade"
-                             android:textColor="@color/white"
-                             android:layout_marginLeft="10dp"
-                             android:background="@color/yellow_02"
-                             android:gravity="center"
-                             android:layout_width="15dp"
-                             android:layout_height="20dp"
-                             android:text="1" />
-                     </LinearLayout>
-                     <LinearLayout
-                         android:gravity="center_vertical"
-                         android:layout_marginTop="5dp"
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:orientation="horizontal">
-                         <ImageView
-                             android:src="@mipmap/location_gray_icon"
-                             android:layout_width="12dp"
-                             android:layout_height="15dp" />
-                         <TextView
-                             android:id="@+id/tv_address"
-                             android:textColor="@color/gray_99"
-                             android:layout_marginLeft="10dp"
-                             android:textSize="12sp"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:text="昆明市滇池路542号（滇池路与日新路交叉口）" />
-
-                     </LinearLayout>
                      <LinearLayout
                          android:layout_marginTop="15dp"
                          android:background="@color/white"
                          android:orientation="horizontal"
                          android:layout_width="match_parent"
-                         android:layout_height="50dp">
+                         android:layout_height="40dp">
                          <TextView
                              android:id="@+id/tv_sale"
                              android:textSize="10sp"
@@ -239,7 +272,7 @@
                  </LinearLayout>
                  <RelativeLayout
                      android:background="@color/white"
-                     android:layout_marginTop="10dp"
+                     android:layout_marginTop="5dp"
                      android:paddingLeft="10dp"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content">
@@ -482,7 +515,7 @@
              android:orientation="horizontal">
 
              <RelativeLayout
-                 android:id="@+id/askLowPriceBtn"
+                 android:id="@+id/rl_chat"
                  android:layout_width="0dp"
                  android:layout_height="wrap_content"
                  android:layout_weight="1"
@@ -494,7 +527,7 @@
                      android:layout_height="wrap_content"
                      android:layout_centerInParent="true"
                      android:drawablePadding="10dp"
-                     android:text="商家客服"
+                     android:text="在线沟通"
                      android:textColor="@color/yellow_77"
                      android:textSize="17sp" />
 

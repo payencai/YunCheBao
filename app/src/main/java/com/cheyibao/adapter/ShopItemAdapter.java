@@ -14,6 +14,7 @@ import com.cheyibao.NewCarShopActivity;
 import com.cheyibao.model.Shop;
 import com.cheyibao.model.ShopComment;
 import com.example.yunchebao.R;
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.xihubao.ShopInfoActivity;
 
 import java.util.List;
@@ -69,15 +70,20 @@ public class ShopItemAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Shop shop=mClassItems.get(position);
         convertView = LayoutInflater.from(mContext).inflate(R.layout.item_shop, null);
         TextView tv_name = (TextView) convertView.findViewById(R.id.tv_name);
+        SimpleRatingBar score= (SimpleRatingBar) convertView.findViewById(R.id.sb_score);
         LinearLayout ll_head= (LinearLayout) convertView.findViewById(R.id.ll_head);
         TextView tv_address = (TextView) convertView.findViewById(R.id.tv_address);
+        TextView tv_score = (TextView) convertView.findViewById(R.id.tv_score);
         TextView tv_sale = (TextView) convertView.findViewById(R.id.tv_sale);
         TextView tv_comment = (TextView) convertView.findViewById(R.id.tv_comment);
         TextView tv_service = (TextView) convertView.findViewById(R.id.tv_service);
         tv_name.setText(mClassItems.get(position).getName());
-        tv_address.setText(mClassItems.get(position).getAddress());
+        score.setRating(shop.getScore());
+        tv_score.setText(shop.getScore()+"分");
+        tv_address.setText(shop.getProvince()+shop.getCity()+shop.getDistrict()+mClassItems.get(position).getAddress());
         tv_sale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

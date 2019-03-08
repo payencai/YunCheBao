@@ -156,26 +156,52 @@ public class NewCarListActivity extends NoHttpBaseActivity {
 
         switch (flag) {
             case 1:
-                startprice="5";
-                endprice="10";
-                tagStrList.add("5-10万");
+                startprice="0";
+                endprice="100000";
+                tagStrList.add("10万以下");
                 break;
             case 2:
-                startprice="10";
-                endprice="15";
-                tagStrList.add("10-15万");
+                startprice="100000";
+                endprice="250000";
+                tagStrList.add("10-25万");
                 break;
             case 3:
-                tagStrList.add("SUV");
+                startprice="250000";
+                endprice="400000";
+                tagStrList.add("25-40万");
+                break;
+            case 4:
+                startprice="400000";
+                endprice="550000";
+                tagStrList.add("40-55万");
                 break;
             case 5:
-                tagStrList.add(mNewCarMenu.getName());
-                firstId=mNewCarMenu.getFirstId();
+                startprice="550000";
+                endprice="700000";
+                tagStrList.add("55-70万");
                 break;
             case 6:
+                startprice="700000";
+                endprice="850000";
+                tagStrList.add("70-85万");
+                break;
+            case 7:
+                startprice="850000";
+                endprice="1000000";
+                tagStrList.add("85-100万");
+                break;
+            case 8:
+                startprice="1000000";
+                endprice="100000000";
+                tagStrList.add("100万以上");
+                break;
+            case 9:
+                break;
+            case 10:
                 tagStrList.add(mCarBrand.getName());
                 firstId=mCarBrand.getFistId();
                 break;
+
         }
     }
 

@@ -243,6 +243,7 @@ public class PlatformContans {
     public static  class NewCar{
         public static final String getMerchantList=root+"/newcar/getMerchantList";
         public static final String getComment=root+ "/evaluation/getMerchantEvaluationByUser";
+        public static final String getNewCarListByApp=root+ "/newcar/getNewCarListByApp";
         public static final String getNewCarMerchantMessage=root+ "/newcar/getNewCarMerchantMessage";
         public static final String getDetailParams=root+ "/newcar/getCarCategoryDetailParamById";
     }

@@ -45,6 +45,7 @@ public class NewCarCommentFragment extends Fragment {
     LoadMoreListView listView;
     int page=1;
     String id;
+    boolean isLoadMore=false;
     public NewCarCommentFragment() {
         // Required empty public constructor
     }
@@ -67,11 +68,12 @@ public class NewCarCommentFragment extends Fragment {
         list = new ArrayList<>();
         adapter = new ShopCommentAdapter(getContext(),list);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
+            public void onloadMore() {
+                page++;
+                isLoadMore=true;
+                getData();
             }
         });
         getData();
@@ -99,6 +101,10 @@ public class NewCarCommentFragment extends Fragment {
                         list.add(baikeItem);
                     }
                     adapter.notifyDataSetChanged();
+                    if(isLoadMore){
+                        isLoadMore=true;
+                        listView.setLoadCompleted();
+                    }
                     //updateData();
 
                 } catch (JSONException e) {

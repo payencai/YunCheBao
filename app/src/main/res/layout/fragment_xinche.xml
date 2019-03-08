@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.cheyibao.model.ReboundScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.tool.listview.PersonalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/ps_load"
     android:layout_height="match_parent"
     android:background="@color/gray_ee">
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -57,6 +59,31 @@
             android:visibility="visible" />
         <!--广告栏banner  end-->
 
+
+
+        <HorizontalScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            >
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+                <com.tool.view.GridViewForScrollView
+                    android:id="@+id/gv_newcar"
+                    android:stretchMode="columnWidth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </com.tool.view.GridViewForScrollView>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,8 +100,8 @@
                 android:layout_margin="6dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:padding="10dp"
-                android:text="5-10万"
+                android:padding="7dp"
+                android:text="10万以下"
                 android:textColor="@color/black_33"
                 android:textSize="12sp"
                 app:corner="6dp"
@@ -89,8 +116,8 @@
                 android:layout_margin="6dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:padding="10dp"
-                android:text="10-15万"
+                android:padding="7dp"
+                android:text="10-25万"
                 android:textColor="@color/black_33"
                 android:textSize="12sp"
                 app:corner="6dp"
@@ -105,8 +132,8 @@
                 android:layout_margin="6dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:padding="10dp"
-                android:text="SUV"
+                android:padding="7dp"
+                android:text="25-40万"
                 android:textColor="@color/black_33"
                 android:textSize="12sp"
                 app:corner="6dp"
@@ -121,9 +148,9 @@
                 android:layout_margin="6dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:padding="10dp"
-                android:text="更多条件"
-                android:textColor="@color/yellow_77"
+                android:padding="7dp"
+                android:text="40-55万"
+                android:textColor="@color/black_33"
                 android:textSize="12sp"
                 app:corner="6dp"
                 app:solid="@color/white"
@@ -132,270 +159,128 @@
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8dp">
 
-            <LinearLayout
-                android:id="@+id/menuLay1"
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_p55"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="6dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:padding="7dp"
+                android:text="55-70万"
+                android:textColor="@color/black_33"
+                android:textSize="12sp"
+                app:corner="6dp"
+                app:solid="@color/white"
+                app:stroke_color="@color/gray_ee"
+                app:stroke_width="1dp"></com.coorchice.library.SuperTextView>
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@mipmap/car_icon3" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="广汽传祺"
-                    android:textColor="@color/black_33"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/menuLay2"
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_p70"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="6dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:padding="7dp"
+                android:text="70-85万"
+                android:textColor="@color/black_33"
+                android:textSize="12sp"
+                app:corner="6dp"
+                app:solid="@color/white"
+                app:stroke_color="@color/gray_ee"
+                app:stroke_width="1dp"></com.coorchice.library.SuperTextView>
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@mipmap/car_icon1" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="宝马"
-                    android:textColor="@color/black_33"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/menuLay3"
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_p85"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="6dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:padding="7dp"
+                android:text="85-100万"
+                android:textColor="@color/black_33"
+                android:textSize="12sp"
+                app:corner="6dp"
+                app:solid="@color/white"
+                app:stroke_color="@color/gray_ee"
+                app:stroke_width="1dp"></com.coorchice.library.SuperTextView>
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@mipmap/car_icon5" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="WEY"
-                    android:textColor="@color/black_33"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/menuLay4"
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_p100"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="6dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@mipmap/car_icon4" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="荣威"
-                    android:textColor="@color/black_33"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/menuLay5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@mipmap/car_icon2" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="丰田"
-                    android:textColor="@color/black_33"
-                    android:textSize="12sp" />
-            </LinearLayout>
+                android:padding="7dp"
+                android:text="100万以上"
+                android:textColor="@color/black_33"
+                android:textSize="12sp"
+                app:corner="6dp"
+                app:solid="@color/white"
+                app:stroke_color="@color/gray_ee"
+                app:stroke_width="1dp"></com.coorchice.library.SuperTextView>
         </LinearLayout>
-
-        <LinearLayout
-            android:visibility="gone"
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/toAllCars"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <LinearLayout
-                android:id="@+id/menuLay6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@mipmap/car_icon4" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="大众"
-                    android:textColor="@color/black_33"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/menuLay7"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@mipmap/car_icon5" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="福特"
-                    android:textColor="@color/black_33"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/menuLay8"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@mipmap/car_icon5" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="WEY"
-                    android:textColor="@color/black_33"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/menuLay9"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@mipmap/car_icon4" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="日产"
-                    android:textColor="@color/black_33"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/menuLay10"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@mipmap/car_icon2" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="吉利"
-                    android:textColor="@color/black_33"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <com.tool.view.GridViewForScrollView
-            android:numColumns="5"
-            android:id="@+id/gv_newcar"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="查看全部车型"
+            android:textColor="@color/white_fe"
+            android:textSize="14sp"
+            app:corner="2dp"
+            app:solid="@color/yellow_65"></com.coorchice.library.SuperTextView>
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
 
-        </com.tool.view.GridViewForScrollView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:drawableLeft="@mipmap/title_line_orange"
+                android:drawablePadding="10dp"
+                android:text="新品推荐"
+                android:textColor="@color/black_33" />
 
 
-        <com.tool.view.ListViewForScrollView
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/gengduo_icon"
+                android:visibility="gone" />
+        </RelativeLayout>
+        <com.tool.listview.PersonalListView
             android:id="@+id/listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:focusable="false"
-            android:background="@color/white"></com.tool.view.ListViewForScrollView>
-        <!--字母导航栏-->
-        <com.nanchen.wavesidebar.WaveSideBarView
-            android:id="@+id/index_layout"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:visibility="gone"
-            app:sidebar_lazy_respond="false"
-            app:sidebar_text_color="@color/colorAccent" />
+            android:background="@color/white">
+
+        </com.tool.listview.PersonalListView>
+
 
 
     </LinearLayout>
 
-</com.cheyibao.model.ReboundScrollView>
+</com.tool.listview.PersonalScrollView>

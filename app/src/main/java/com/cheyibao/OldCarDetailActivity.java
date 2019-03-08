@@ -2,6 +2,7 @@ package com.cheyibao;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.application.MyApplication;
+import com.bbcircle.DrivingSelfDetailActivity;
 import com.bumptech.glide.Glide;
 import com.cheyibao.adapter.NewCarParamsAdapter;
 import com.cheyibao.adapter.OldCarImageAdapter;
@@ -35,6 +37,7 @@ import com.tool.listview.PersonalScrollView;
 import com.tool.slideshowview.SlideShowView;
 import com.vipcenter.OrderDetailActivity;
 import com.vipcenter.RegisterActivity;
+import com.xihubao.ShopInfoActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -51,6 +54,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import io.rong.imkit.RongIM;
 
 /**
  * Created by sdhcjhss on 2017/12/28.
@@ -172,9 +176,11 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
     private void getShop() {
         Map<String, Object> params = new HashMap<>();
         params.put("merchantId", mOldCar.getMerchantId());
+
         HttpProxy.obtain().get(PlatformContans.Shop.getMerchantById, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject data = jsonObject.getJSONObject("data");
@@ -202,8 +208,9 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
         if (!TextUtils.isEmpty(mOldCar.getCarCategoryDetail().getBanner3()) && !"null".equals(mOldCar.getCarCategoryDetail().getBanner3()))
             images.add(mOldCar.getCarCategoryDetail().getBanner3());
         initBanner();
-        tv_oldprice.setText("新车含税:￥" + mOldCar.getOldPrice());
-        tv_newprice.setText("￥" + mOldCar.getNewPrice());
+        tv_oldprice.setText("新车含税:￥" + mOldCar.getNewPrice());
+        tv_newprice.setText("￥" + mOldCar.getOldPrice());
+        tv_oldprice.getPaint().setFlags( Paint.STRIKE_THRU_TEXT_FLAG );
         String name = mOldCar.getFirstName();
         if (!TextUtils.isEmpty(mOldCar.getSecondName()) && !"null".equals(mOldCar.getSecondName())) {
             name = name + mOldCar.getSecondName();
@@ -243,7 +250,8 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
         banner.requestFocus();
         isCollect();
         getParams();
-        getShop();
+        if(!TextUtils.isEmpty(mOldCar.getMerchantId()))
+            getShop();
     }
 
     private void getDetail() {
@@ -344,9 +352,14 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
         banner.start();
     }
 
-    @OnClick({R.id.back, R.id.collectBtn, R.id.toDetailConfig, R.id.askLowPriceBtn, R.id.callForMoreBtn})
+    @OnClick({R.id.back, R.id.collectBtn, R.id.toDetailConfig, R.id.rl_chat, R.id.callForMoreBtn,R.id.ll_head})
     public void OnClick(View v) {
         switch (v.getId()) {
+            case R.id.ll_head:
+                Intent intent2 = new Intent(OldCarDetailActivity.this, ShopInfoActivity.class);
+                intent2.putExtra("id", merchant.getId());
+                startActivity(intent2);
+                break;
             case R.id.collectBtn:
                 if (isCollect == 0) {
                     isCollect = 1;
@@ -369,18 +382,18 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
 //            case R.id.toSellerDetail:
 //                ActivityAnimationUtils.commonTransition(OldCarDetailActivity.this, SellerDetailActivity.class, ActivityConstans.Animation.FADE);
 //                break;
-            case R.id.askLowPriceBtn:
-                if (MyApplication.isLogin) {
-                    if (mOldCar.getType() == 1){
-
-                    }
-                       // postOrder();
-                    else if (mOldCar.getType() == 2) {
-                        ActivityAnimationUtils.commonTransition(OldCarDetailActivity.this, AskLowPriceActivity.class, ActivityConstans.Animation.FADE);
-                    }
-                } else {
-                    startActivity(new Intent(OldCarDetailActivity.this, RegisterActivity.class));
+            case R.id.rl_chat:
+                if(TextUtils.isEmpty(mOldCar.getMerchantId())){
+                    RongIM.getInstance().startPrivateChat(OldCarDetailActivity.this, mOldCar.getUserId(), mOldCar.getLinkman());
+                }else{
+                    RongIM.getInstance().startPrivateChat(OldCarDetailActivity.this, merchant.getId(), merchant.getName());
                 }
+
+//                if (MyApplication.isLogin) {
+//                   // RongIM.getInstance().startPrivateChat(OldCarDetailActivity.this, merchant.getId(), merchant.getName());
+//                } else {
+//                    startActivity(new Intent(OldCarDetailActivity.this, RegisterActivity.class));
+//                }
 
                 break;
             case R.id.callForMoreBtn:
