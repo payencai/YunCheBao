@@ -1,6 +1,9 @@
 package com.cheyibao.model;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,100 +12,87 @@ import java.util.List;
  */
 public class RentCar implements Serializable{
 
+
     /**
      * address : string
-     * alipay : string
+     * agencyId : string
      * amEnd : string
      * amStart : string
-     * audit : 0
-     * bankKey : string
-     * bankName : string
+     * banner : string
      * brand : string
-     * businessImage : string
      * city : string
-     * closeTime : 2019-01-08T09:38:01.094Z
-     * createTime : 2019-01-08T09:38:01.094Z
+     * createTime : 0
      * distance : 0
      * district : string
      * geoHash : string
      * grade : 0
-     * header : string
      * id : string
-     * idKey : string
      * latitude : string
      * location : {"lat":0,"lon":0}
      * logo : string
      * longitude : string
      * merchantNo : string
      * name : string
+     * number : 0
+     * orderNum : 0
      * pmEnd : string
      * pmSatrt : string
      * province : string
-     * rejectReason : string
      * score : 0
      * serviceTelephone : string
-     * state : 0
-     * telephone : string
-     * timeLimit : 2019-01-08T09:38:01.094Z
-     * timeLimitDay : 0
      * type : 0
-     * user : [{"createTime":"2019-01-08T09:38:01.094Z","headPortrait":"string","id":"string","lastLoginIp":"string","lastLoginTime":"2019-01-08T09:38:01.094Z","name":"string","password":"string","role":"string","shopId":"string","shopType":0,"token":"string","username":"string"}]
-     * wechat : string
      */
 
     private String address;
-    private String alipay;
+    private String agencyId;
     private String amEnd;
     private String amStart;
-    private int audit;
-    private String bankKey;
-    private String bankName;
+    private String banner;
     private String brand;
-    private String businessImage;
     private String city;
-    private String closeTime;
     private String createTime;
     private double distance;
     private String district;
     private String geoHash;
     private int grade;
-    private String header;
     private String id;
-    private String idKey;
     private String latitude;
     private LocationBean location;
     private String logo;
     private String longitude;
     private String merchantNo;
     private String name;
+    private int number;
+    private int orderNum;
     private String pmEnd;
     private String pmSatrt;
     private String province;
-    private String rejectReason;
-    private double score;
+    private float score;
     private String serviceTelephone;
-    private int state;
-    private String telephone;
-    private String timeLimit;
-    private int timeLimitDay;
     private int type;
-    private String wechat;
-    private List<UserBean> user;
-
+    private List<String> images=new ArrayList<>();
     public String getAddress() {
         return address;
     }
-
+    public List<String> getImages(){
+        if(!TextUtils.isEmpty(banner)){
+            String[]imgs=banner.split(",");
+            for (int i = 0; i <imgs.length ; i++) {
+                images.add(imgs[i]);
+            }
+        }
+        return images;
+    }
     public void setAddress(String address) {
         this.address = address;
     }
 
-    public String getAlipay() {
-        return alipay;
+    public String getAgencyId() {
+        return agencyId;
     }
 
-    public void setAlipay(String alipay) {
-        this.alipay = alipay;
+    public void setAgencyId(String agencyId) {
+        this.agencyId = agencyId;
     }
 
     public String getAmEnd() {
@@ -121,28 +111,12 @@ public class RentCar implements Serializable{
         this.amStart = amStart;
     }
 
-    public int getAudit() {
-        return audit;
+    public String getBanner() {
+        return banner;
     }
 
-    public void setAudit(int audit) {
-        this.audit = audit;
-    }
-
-    public String getBankKey() {
-        return bankKey;
-    }
-
-    public void setBankKey(String bankKey) {
-        this.bankKey = bankKey;
-    }
-
-    public String getBankName() {
-        return bankName;
-    }
-
-    public void setBankName(String bankName) {
-        this.bankName = bankName;
+    public void setBanner(String banner) {
+        this.banner = banner;
     }
 
     public String getBrand() {
@@ -153,28 +127,12 @@ public class RentCar implements Serializable{
         this.brand = brand;
     }
 
-    public String getBusinessImage() {
-        return businessImage;
-    }
-
-    public void setBusinessImage(String businessImage) {
-        this.businessImage = businessImage;
-    }
-
     public String getCity() {
         return city;
     }
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public String getCloseTime() {
-        return closeTime;
-    }
-
-    public void setCloseTime(String closeTime) {
-        this.closeTime = closeTime;
     }
 
     public String getCreateTime() {
@@ -217,28 +175,12 @@ public class RentCar implements Serializable{
         this.grade = grade;
     }
 
-    public String getHeader() {
-        return header;
-    }
-
-    public void setHeader(String header) {
-        this.header = header;
-    }
-
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getIdKey() {
-        return idKey;
-    }
-
-    public void setIdKey(String idKey) {
-        this.idKey = idKey;
     }
 
     public String getLatitude() {
@@ -289,6 +231,22 @@ public class RentCar implements Serializable{
         this.name = name;
     }
 
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public int getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(int orderNum) {
+        this.orderNum = orderNum;
+    }
+
     public String getPmEnd() {
         return pmEnd;
     }
@@ -313,19 +271,11 @@ public class RentCar implements Serializable{
         this.province = province;
     }
 
-    public String getRejectReason() {
-        return rejectReason;
-    }
-
-    public void setRejectReason(String rejectReason) {
-        this.rejectReason = rejectReason;
-    }
-
-    public double getScore() {
+    public float getScore() {
         return score;
     }
 
-    public void setScore(double score) {
+    public void setScore(float score) {
         this.score = score;
     }
 
@@ -337,60 +287,12 @@ public class RentCar implements Serializable{
         this.serviceTelephone = serviceTelephone;
     }
 
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public String getTimeLimit() {
-        return timeLimit;
-    }
-
-    public void setTimeLimit(String timeLimit) {
-        this.timeLimit = timeLimit;
-    }
-
-    public int getTimeLimitDay() {
-        return timeLimitDay;
-    }
-
-    public void setTimeLimitDay(int timeLimitDay) {
-        this.timeLimitDay = timeLimitDay;
-    }
-
     public int getType() {
         return type;
     }
 
     public void setType(int type) {
         this.type = type;
-    }
-
-    public String getWechat() {
-        return wechat;
-    }
-
-    public void setWechat(String wechat) {
-        this.wechat = wechat;
-    }
-
-    public List<UserBean> getUser() {
-        return user;
-    }
-
-    public void setUser(List<UserBean> user) {
-        this.user = user;
     }
 
     public static class LocationBean implements Serializable{
@@ -416,132 +318,6 @@ public class RentCar implements Serializable{
 
         public void setLon(double lon) {
             this.lon = lon;
-        }
-    }
-
-    public static class UserBean implements Serializable{
-        /**
-         * createTime : 2019-01-08T09:38:01.094Z
-         * headPortrait : string
-         * id : string
-         * lastLoginIp : string
-         * lastLoginTime : 2019-01-08T09:38:01.094Z
-         * name : string
-         * password : string
-         * role : string
-         * shopId : string
-         * shopType : 0
-         * token : string
-         * username : string
-         */
-
-        private String createTime;
-        private String headPortrait;
-        private String id;
-        private String lastLoginIp;
-        private String lastLoginTime;
-        private String name;
-        private String password;
-        private String role;
-        private String shopId;
-        private int shopType;
-        private String token;
-        private String username;
-
-        public String getCreateTime() {
-            return createTime;
-        }
-
-        public void setCreateTime(String createTime) {
-            this.createTime = createTime;
-        }
-
-        public String getHeadPortrait() {
-            return headPortrait;
-        }
-
-        public void setHeadPortrait(String headPortrait) {
-            this.headPortrait = headPortrait;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getLastLoginIp() {
-            return lastLoginIp;
-        }
-
-        public void setLastLoginIp(String lastLoginIp) {
-            this.lastLoginIp = lastLoginIp;
-        }
-
-        public String getLastLoginTime() {
-            return lastLoginTime;
-        }
-
-        public void setLastLoginTime(String lastLoginTime) {
-            this.lastLoginTime = lastLoginTime;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
-
-        public String getRole() {
-            return role;
-        }
-
-        public void setRole(String role) {
-            this.role = role;
-        }
-
-        public String getShopId() {
-            return shopId;
-        }
-
-        public void setShopId(String shopId) {
-            this.shopId = shopId;
-        }
-
-        public int getShopType() {
-            return shopType;
-        }
-
-        public void setShopType(int shopType) {
-            this.shopType = shopType;
-        }
-
-        public String getToken() {
-            return token;
-        }
-
-        public void setToken(String token) {
-            this.token = token;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        public void setUsername(String username) {
-            this.username = username;
         }
     }
 }

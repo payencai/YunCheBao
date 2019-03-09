@@ -2,7 +2,6 @@ package com.maket.adapter;
 
 import android.content.Context;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
-import com.maket.model.GoodsType;
-import com.vipcenter.OrderConfirmActivity;
+import com.maket.OrderConfirmActivity;
 
 import java.util.List;
 

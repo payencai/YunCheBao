@@ -86,7 +86,15 @@ public class PlatformContans {
         public static final String getHotCommodity=root+ "/babymercommodity/getHotCommodity";
         public static final String getUserCommodity=root+ "/babymercommodity/getUserCommodity";
     }
+    public static class GoodCollect{
+        public static final String getBabyMerchantCollection=root+ "/babyMerchantCollection/getBabyMerchantCollection";
+        public static final String addBabyMerchantCollection=root+ "/babyMerchantCollection/addBabyMerchantCollection";
+        public static final String deleteCommodityCollection=root+ "/babyMerchantCollection/deleteCommodityCollection";
+
+    }
     public static class GoodInfo{
+        public static final String getBabyMerchantShopResultById=root+ "/babymerchant/getBabyMerchantShopResultById";
+        public static final String getMerchantCommodityList=root+ "/babymercommodity/getMerchantCommodityList";
         public static final String getCommodityByDistince=root+ "/babymercommodity/getCommodityByDistince";
         public static final String getGoodDetail=root+ "/babymercommodity/getBabyMerchantCommodity";
         public static final String getGoodParams=root+ "/babymercommodity/getBabyMerComParam";

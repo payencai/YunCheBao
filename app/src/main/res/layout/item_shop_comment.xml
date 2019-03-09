@@ -62,13 +62,14 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <GridView
             android:id="@+id/gv_photo"
-            android:horizontalSpacing="10dp"
-            android:verticalSpacing="10dp"
-            android:numColumns="3"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></GridView>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:horizontalSpacing="10dp"
+            android:numColumns="3"
+            android:verticalSpacing="10dp"></GridView>
     </LinearLayout>
 </LinearLayout>

@@ -83,7 +83,7 @@ public class MallFragment extends BaseFragment {
     RentGoodsAdapter mRentlyAdapter;
     GoodsListAdapter mHotAdapter;
     GridMenuAdapter mGridMenuAdapter;
-    private PullToRefreshScrollView pullToRefreshScrollView;
+
     private List<GoodList> hotList;
     List<RentGoods> mRentGoods=new ArrayList<>();
     List<GoodMenu> mGoodMenus=new ArrayList<>();
@@ -246,22 +246,8 @@ public class MallFragment extends BaseFragment {
                 }
             }
         });
-        pullToRefreshScrollView = (PullToRefreshScrollView) rootView.findViewById(R.id.my_scrollview);
-        pullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
-        pullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-                Log.e("gkfkgk","gkfkgk");
-            }
 
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-                Log.e("gkfkgk","gkfkgk");
-                page++;
-                ll_knowyou.setVisibility(View.VISIBLE);
-                refreshView.onRefreshComplete();
-            }
-        });
+
 
 
     }
@@ -270,9 +256,11 @@ public class MallFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.messenger_icon, R.id.user_center_icon, R.id.shop_cart_icon,R.id.middleMore})
+    @OnClick({R.id.messenger_icon, R.id.user_center_icon, R.id.shop_cart_icon,R.id.middleMore,R.id.search_lay})
     public void OnClick(View v) {
         switch (v.getId()) {
+            case R.id.search_lay:
+                break;
             case R.id.user_center_icon:
                 if(MyApplication.isLogin)
                    ActivityAnimationUtils.commonTransition(getActivity(), UserCenterActivity.class, ActivityConstans.Animation.FADE);

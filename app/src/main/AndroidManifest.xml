@@ -246,7 +246,7 @@
         <activity android:name="com.vipcenter.OrderReturnTypeActivity" />
         <activity android:name="com.vipcenter.OrderComplaintActivity" />
         <activity
-            android:name="com.vipcenter.OrderConfirmActivity"
+            android:name="com.maket.OrderConfirmActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.vipcenter.RegisterActivity"
@@ -453,7 +453,8 @@
         <activity
             android:name="com.system.SearchFinishActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name="com.system.NoticeActivity"></activity>
+        <activity android:name="com.system.NoticeActivity" />
+        <activity android:name="com.baike.BaikeTagActivity"></activity>
     </application>
 
 </manifest>

@@ -2,9 +2,7 @@ package com.maket;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -17,20 +15,14 @@ import android.widget.TextView;
 import com.application.MyApplication;
 import com.costans.PlatformContans;
 import com.entity.PhoneGoodEntity;
-import com.entity.PhoneShopEntity;
 import com.example.yunchebao.R;
-import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.adapter.ShopCartAdapter;
-import com.maket.model.GoodParam;
 import com.maket.model.GoodsSelect;
 import com.nohttp.sample.NoHttpBaseActivity;
-import com.payencai.library.util.ToastUtil;
-import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
-import com.vipcenter.OrderConfirmActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,7 +33,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringJoiner;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

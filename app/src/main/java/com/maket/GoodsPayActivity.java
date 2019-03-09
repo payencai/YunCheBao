@@ -1,7 +1,6 @@
 package com.maket;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -15,13 +14,11 @@ import android.widget.TextView;
 
 import com.alipay.PayResult;
 import com.alipay.sdk.app.PayTask;
-import com.application.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
-import com.vipcenter.OrderConfirmActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

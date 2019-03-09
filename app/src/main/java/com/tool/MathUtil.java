@@ -14,4 +14,8 @@ public class MathUtil {
         DecimalFormat df = new DecimalFormat("0.000");
         return df.format(data);
     }
+    public static  String getOne(double data) {
+        DecimalFormat df = new DecimalFormat("0.0");
+        return df.format(data);
+    }
 }

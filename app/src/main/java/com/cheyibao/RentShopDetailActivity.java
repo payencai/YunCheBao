@@ -1,5 +1,6 @@
 package com.cheyibao;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -8,9 +9,12 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -27,22 +31,28 @@ import com.cheyibao.adapter.RentCarImageAdapter;
 import com.cheyibao.adapter.RentShopListAdapter;
 import com.cheyibao.fragment.RentComentFragment;
 import com.cheyibao.fragment.RentShopFragment;
+import com.cheyibao.model.Merchant;
 import com.cheyibao.model.RentCar;
 import com.costans.PlatformContans;
 import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
+import com.flyco.tablayout.SlidingTabLayout;
+import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.maket.adapter.GoodsCommentImageAdapter;
 import com.maket.adapter.GoodsOrderImageAdapter;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.tool.ActivityConstans;
+import com.tool.MathUtil;
 import com.tool.UIControlUtils;
 import com.tool.adapter.MyFragmentPagerAdapter;
 import com.tool.listview.PersonalScrollView;
 import com.tool.listview.PersonalViewPager;
 import com.tool.view.GridViewForScrollView;
 import com.tool.view.HorizontalListView;
+import com.xihubao.ShopInfoActivity;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -59,6 +69,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by sdhcjhss on 2017/12/24.
@@ -66,8 +77,9 @@ import butterknife.OnClick;
 
 public class RentShopDetailActivity extends AppCompatActivity {
     private Context ctx;
-
-    TabLayout tab_shop;
+    @BindView(R.id.tab_layout)
+    SlidingTabLayout tab_shop;
+    @BindView(R.id.viewpager)
     ViewPager vp_shop;
     @BindView(R.id.tv_shopname)
     TextView tv_shopname;
@@ -77,13 +89,18 @@ public class RentShopDetailActivity extends AppCompatActivity {
     TextView tv_phone;
     @BindView(R.id.hlv_photo)
     HorizontalListView hlv_photo;
-    MyFragmentPagerAdapter mMyFragmentPagerAdapter;
-    private List<String> mTabTitles=new ArrayList<>();
-    private List<Fragment> mFragments=new ArrayList<>();
+    @BindView(R.id.sb_score)
+    SimpleRatingBar sb_score;
+    @BindView(R.id.tv_score)
+    TextView tv_score;
+    @BindView(R.id.tv_grade)
+    TextView tv_grade;
+    ArrayList<Fragment> mFragments=new ArrayList<>();
     GoodsOrderImageAdapter mRentCarImageAdapter;
     List<String> images=new ArrayList<>();
     RentCar mRentCar;
-
+    Merchant merchant;
+    String [] titles={"租借车型","查看评论"};
     public RentCar getRentCar() {
         return mRentCar;
     }
@@ -104,7 +121,10 @@ public class RentShopDetailActivity extends AppCompatActivity {
     private void setUI(){
         tv_shopname.setText(mRentCar.getName());
         tv_address.setText(mRentCar.getProvince()+mRentCar.getCity()+mRentCar.getDistrict()+mRentCar.getAddress());
-        tv_phone.setText(mRentCar.getTelephone());
+        tv_phone.setText(mRentCar.getServiceTelephone());
+        tv_score.setText(MathUtil.getOne(mRentCar.getScore())+"分");
+        sb_score.setRating(mRentCar.getScore());
+        tv_grade.setText(mRentCar.getGrade()+"");
         tv_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,9 +132,34 @@ public class RentShopDetailActivity extends AppCompatActivity {
                 showDialog(latLng);
             }
         });
-        getPhoto();
+        if(!TextUtils.isEmpty(mRentCar.getBanner())){
+            mRentCarImageAdapter=new GoodsOrderImageAdapter(RentShopDetailActivity.this,mRentCar.getImages());
+            hlv_photo.setAdapter(mRentCarImageAdapter);
+        }
+        getMerchat();
     }
+    private void getMerchat() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("merchantId", mRentCar.getId());
+        HttpProxy.obtain().get(PlatformContans.Shop.getMerchantById, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    merchant = new Gson().fromJson(data.toString(), Merchant.class);
+                   // tv_phone.setText(mRentCar.getServiceTelephone());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     private void google(double mLatitude, double mLongitude) {
         if (isAvilible(this, "com.google.android.apps.maps")) {
             Uri gmmIntentUri = Uri.parse("google.navigation:q="
@@ -250,55 +295,73 @@ public class RentShopDetailActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        vp_shop= (ViewPager) findViewById(R.id.id_stickynavlayout_viewpager);
-        tab_shop= (TabLayout)findViewById(R.id.id_stickynavlayout_indicator);
-        mTabTitles.add("租借车型");
-        mTabTitles.add("查看评论");
+
         mFragments.add(new RentShopFragment());
         mFragments.add(new RentComentFragment());
-        mMyFragmentPagerAdapter=new MyFragmentPagerAdapter(getSupportFragmentManager(),mFragments,mTabTitles);
-        vp_shop.setAdapter(mMyFragmentPagerAdapter);
-        vp_shop.setOffscreenPageLimit(1);
-        tab_shop.setupWithViewPager(vp_shop);
+        tab_shop.setViewPager(vp_shop,titles,this,mFragments);
 
     }
 
-    @OnClick({R.id.back})
+    @OnClick({R.id.back,R.id.iv_head,R.id.tv_call})
     public void Onclick(View v){
         switch (v.getId()){
+            case R.id.tv_call:
+                callToPhoneSweetAlert(mRentCar.getServiceTelephone());
+                break;
+            case R.id.iv_head:
+                Intent intent = new Intent(RentShopDetailActivity.this, ShopInfoActivity.class);
+                intent.putExtra("id", mRentCar.getId());
+                startActivity(intent);
+               // callToPhoneSweetAlert(mRentCar.getServiceTelephone());
+                break;
             case R.id.back:
                 onBackPressed();
                 break;
         }
     }
 
-
-    private void getPhoto(){
-        Map<String, Object> params = new HashMap<>();
-        params.put("merchantId",mRentCar.getId());
-        HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarPhoto, params, new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Log.e("getBannerList", result);
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    for (int i = 0; i < data.length(); i++) {
-                        String url = data.getString(i);
-                        images.add(url);
-                    }
-                    mRentCarImageAdapter=new GoodsOrderImageAdapter(RentShopDetailActivity.this,images);
-                    hlv_photo.setAdapter(mRentCarImageAdapter);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+    public void callToPhone(String phone) {
+        /**
+         *  借助ContextCompat.checkSelfPermission()方法判断是否授予权限，接收两个参数，Context和具体权限名，方法的返回值与
+         *  PackageManager.PERMISSION_GRANTED做比较，相等说明已经授权
+         */
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            /**
+             * 同样借助ContextCompat.requestPermissions()方法弹出权限申请的对话框
+             * 参数为Context,具体权限名，作为返回结果的识别码（自定义）
+             */
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 1);
+        } else {
+            //已授权拨打电话
+            try {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + phone));
+                startActivity(intent);
+            } catch (SecurityException e) {
+                e.printStackTrace();
             }
-
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
+        }
     }
+    public void callToPhoneSweetAlert(final String phone) {
+        new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE)
+                .setTitleText("确定要电话联系商家吗？")
+                .setConfirmText("拨打")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
+                        callToPhone(phone);
+                    }
+                })
+                .setCancelText("算了")
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+
 }

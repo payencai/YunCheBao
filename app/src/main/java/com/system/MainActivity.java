@@ -74,7 +74,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
     private static final String TAG = "MainActivity";
     HomeFragment fragment1;
     CheyiFragment fragment2;
-    Fragment fragment3;
+    AnotherBabyFragment fragment3;
     NewBaikeFragment fragment4;
     MallFragment fragment5;
 
@@ -185,16 +185,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         fm = getSupportFragmentManager();
         fragment1 = new HomeFragment();
         fragment2 = new CheyiFragment();
-        if (MyApplication.isLogin && RongIM.getInstance().getConversationList() != null) {
-            if (RongIM.getInstance().getConversationList().size() > 0) {
-                Log.e("conver", "size");
-                fragment3 = NewBabyFragment.newInstance();
-            } else {
-                fragment3 = new AnotherBabyFragment();
-            }
-        } else {
-            fragment3 = new AnotherBabyFragment();
-        }
+        fragment3 = new AnotherBabyFragment();
         fragment4 = new NewBaikeFragment();
         fragment5 = new MallFragment();
         fragments = new ArrayList<>();
@@ -296,33 +287,6 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                 //状态重置
                 resetStateForTagbar(R.id.main_fl_3);
                 hideAllFragment();
-                if (MyApplication.isLogin) {
-                    if (fragment3 instanceof NewBabyFragment) {
-
-                    } else {
-
-                        if (RongIM.getInstance().getConversationList() != null) {
-                            if (RongIM.getInstance().getConversationList().size() > 0)
-                                if (isFrist) {
-                                    Log.e("conver", "conver");
-                                    fragment3 = NewBabyFragment.newInstance();
-                                    isFrist = false;
-                                    fragments.remove(2);
-                                    fragments.add(2, fragment3);
-                                    fm.beginTransaction().add(R.id.main_frame, fragment3).commit();
-                                    //fm.beginTransaction().replace(R.id.main_frame, new NewBabyFragment()).commit();
-                                }
-                        }
-                    }
-
-                } else {
-                    if (fragment3 instanceof NewBabyFragment) {
-                        fragments.remove(2);
-                        fragment3 = new AnotherBabyFragment();
-                        fragments.add(2, fragment3);
-                        fm.beginTransaction().add(R.id.main_frame, fragment3).commit();
-                    }
-                }
                 showFragment(2);
 
                 break;
@@ -561,35 +525,6 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
             Toast.makeText(this, "GPS模块已开启", Toast.LENGTH_SHORT).show();
             fragment1.startLocate();
         }
-        if (requestCode >= 6) {
-            if (MyApplication.isLogin && fragment3 instanceof AnotherBabyFragment) {
-                if (RongIM.getInstance().getConversationList() != null) {
-                    if (RongIM.getInstance().getConversationList().size() > 0)
-                        if (isFrist) {
-                            Log.e("conver", "conver");
-                            hideAllFragment();
-                            fragment3 = NewBabyFragment.newInstance();
-                            isFrist = false;
-                            fragments.remove(2);
-                            fragments.add(2, fragment3);
-                            fm.beginTransaction().add(R.id.main_frame, fragment3).commitAllowingStateLoss();
-                            showFragment(2);
 
-                        }
-                }
-                // showFragment(2);
-
-
-            }
-            if (!MyApplication.isLogin && fragment3 instanceof NewBabyFragment) {
-                hideAllFragment();
-                fragments.remove(2);
-                fragment3 = new AnotherBabyFragment();
-                fragments.add(2, fragment3);
-                // showFragment(2);
-                fm.beginTransaction().add(R.id.main_frame, fragment3).commitAllowingStateLoss();
-                showFragment(2);
-            }
-        }
     }
 }

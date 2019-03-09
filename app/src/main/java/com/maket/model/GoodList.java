@@ -10,54 +10,44 @@ public class GoodList implements Serializable{
 
 
     /**
-     * audit : 0
      * babyMerchantId : string
-     * babyMerchantName : string
-     * commentData : {"number":0,"score":0}
      * commodityDetail : string
      * commodityImage : string
-     * createTime : 2019-01-14T05:14:55.632Z
+     * createTime : 0
      * discountPrice : 0
+     * distance : 0
      * firstId : string
-     * firstName : string
+     * geoHash : string
      * id : string
-     * isDel : 0
+     * latitude : string
+     * location : {"lat":0,"lon":0}
+     * longitude : string
      * name : string
+     * number : 0
+     * orderNum : 0
      * originalPrice : 0
-     * rejectReason : string
+     * score : 0
      * secondId : string
-     * secondName : string
-     * serviceTelephone : string
-     * state : 0
      */
 
-    private int audit;
     private String babyMerchantId;
-    private String babyMerchantName;
-    private CommentDataBean commentData;
     private String commodityDetail;
     private String commodityImage;
-    private String createTime;
+
     private double discountPrice;
+    private double distance;
     private String firstId;
-    private String firstName;
+    private String geoHash;
     private String id;
-    private int isDel;
+    private String latitude;
+    private LocationBean location;
+    private String longitude;
     private String name;
+    private int number;
+    private int orderNum;
     private double originalPrice;
-    private String rejectReason;
+    private float score;
     private String secondId;
-    private String secondName;
-    private String serviceTelephone;
-    private int state;
-
-    public int getAudit() {
-        return audit;
-    }
-
-    public void setAudit(int audit) {
-        this.audit = audit;
-    }
 
     public String getBabyMerchantId() {
         return babyMerchantId;
@@ -65,22 +55,6 @@ public class GoodList implements Serializable{
 
     public void setBabyMerchantId(String babyMerchantId) {
         this.babyMerchantId = babyMerchantId;
-    }
-
-    public String getBabyMerchantName() {
-        return babyMerchantName;
-    }
-
-    public void setBabyMerchantName(String babyMerchantName) {
-        this.babyMerchantName = babyMerchantName;
-    }
-
-    public CommentDataBean getCommentData() {
-        return commentData;
-    }
-
-    public void setCommentData(CommentDataBean commentData) {
-        this.commentData = commentData;
     }
 
     public String getCommodityDetail() {
@@ -99,13 +73,6 @@ public class GoodList implements Serializable{
         this.commodityImage = commodityImage;
     }
 
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
 
     public double getDiscountPrice() {
         return discountPrice;
@@ -113,6 +80,14 @@ public class GoodList implements Serializable{
 
     public void setDiscountPrice(double discountPrice) {
         this.discountPrice = discountPrice;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 
     public String getFirstId() {
@@ -123,12 +98,12 @@ public class GoodList implements Serializable{
         this.firstId = firstId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getGeoHash() {
+        return geoHash;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setGeoHash(String geoHash) {
+        this.geoHash = geoHash;
     }
 
     public String getId() {
@@ -139,12 +114,28 @@ public class GoodList implements Serializable{
         this.id = id;
     }
 
-    public int getIsDel() {
-        return isDel;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setIsDel(int isDel) {
-        this.isDel = isDel;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public LocationBean getLocation() {
+        return location;
+    }
+
+    public void setLocation(LocationBean location) {
+        this.location = location;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public String getName() {
@@ -155,6 +146,22 @@ public class GoodList implements Serializable{
         this.name = name;
     }
 
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public int getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(int orderNum) {
+        this.orderNum = orderNum;
+    }
+
     public double getOriginalPrice() {
         return originalPrice;
     }
@@ -163,12 +170,12 @@ public class GoodList implements Serializable{
         this.originalPrice = originalPrice;
     }
 
-    public String getRejectReason() {
-        return rejectReason;
+    public float getScore() {
+        return score;
     }
 
-    public void setRejectReason(String rejectReason) {
-        this.rejectReason = rejectReason;
+    public void setScore(float score) {
+        this.score = score;
     }
 
     public String getSecondId() {
@@ -179,53 +186,29 @@ public class GoodList implements Serializable{
         this.secondId = secondId;
     }
 
-    public String getSecondName() {
-        return secondName;
-    }
-
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
-    }
-
-    public String getServiceTelephone() {
-        return serviceTelephone;
-    }
-
-    public void setServiceTelephone(String serviceTelephone) {
-        this.serviceTelephone = serviceTelephone;
-    }
-
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    public static class CommentDataBean implements Serializable{
+    public static class LocationBean implements Serializable{
         /**
-         * number : 0
-         * score : 0
+         * lat : 0
+         * lon : 0
          */
 
-        private int number;
-        private double score;
+        private double lat;
+        private double lon;
 
-        public int getNumber() {
-            return number;
+        public double getLat() {
+            return lat;
         }
 
-        public void setNumber(int number) {
-            this.number = number;
+        public void setLat(double lat) {
+            this.lat = lat;
         }
 
-        public double getScore() {
-            return score;
+        public double getLon() {
+            return lon;
         }
 
-        public void setScore(double score) {
-            this.score = score;
+        public void setLon(double lon) {
+            this.lon = lon;
         }
     }
 }

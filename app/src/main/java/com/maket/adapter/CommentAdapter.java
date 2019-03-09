@@ -3,47 +3,22 @@ package com.maket.adapter;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.cheyibao.AddRentCommentActivity;
 import com.comment.EvaluationChoiceImageView;
-import com.costans.PlatformContans;
 import com.entity.PhoneOrderEntity;
 import com.example.yunchebao.R;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
-import com.tool.GlideImageLoader;
 import com.vipcenter.OrderCommentSubmitActivity;
-import com.vipcenter.OrderConfirmActivity;
 import com.vipcenter.adapter.PhotoAdapter;
-import com.yancy.gallerypick.config.GalleryConfig;
-import com.yancy.gallerypick.config.GalleryPick;
-import com.yancy.gallerypick.inter.IHandlerCallBack;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 /**
  * 作者：凌涛 on 2019/2/15 15:52

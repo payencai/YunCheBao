@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.application.MyApplication;
+import com.baike.BaikeTagActivity;
 import com.baike.fragment.BaikeItemFragment;
 import com.baike.model.BaikeItem;
 import com.baike.model.ClassifyWiki;
@@ -81,6 +82,7 @@ public class NewBaikeFragment extends Fragment {
     List<String> images = new ArrayList<>();
     View rootView=null;
     View header;
+    int pos=0;
     HorizontalListView lv_type;
     com.youth.banner.Banner mBanner;
     List<ClassifyWiki> mClassifyWikis1 ;
@@ -158,6 +160,7 @@ public class NewBaikeFragment extends Fragment {
     private View getheaderView(){
         header=LayoutInflater.from(getContext()).inflate(R.layout.header_baike,null);
         TextView tv_type= (TextView) header.findViewById(R.id.tv_type);
+        ImageView iv_add= (ImageView) header.findViewById(R.id.iv_add);
         header.findViewById(R.id.menuLay1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,6 +171,15 @@ public class NewBaikeFragment extends Fragment {
                 mBaikeTypeAdapter.notifyDataSetChanged();
                 mClassifyWikis1.clear();
                 getType(type);
+            }
+        });
+        iv_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 Intent intent=new Intent(getContext(), BaikeTagActivity.class);
+                 intent.putExtra("type",type);
+                 intent.putExtra("pos",pos);
+                 startActivityForResult(intent,1);
             }
         });
         header.findViewById(R.id.menuLay2).setOnClickListener(new View.OnClickListener() {
@@ -216,6 +228,7 @@ public class NewBaikeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                  page=1;
+                 pos=position;
                  mBaikeTypeAdapter.setPos(position);
                  mBaikeTypeAdapter.notifyDataSetChanged();
                  getData(mClassifyWikis1.get(position).getId());
@@ -339,4 +352,15 @@ public class NewBaikeFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==1&&data!=null){
+            page=1;
+            pos=data.getExtras().getInt("pos",0);
+            mBaikeTypeAdapter.setPos(pos);
+            mBaikeTypeAdapter.notifyDataSetChanged();
+            getData(mClassifyWikis1.get(pos).getId());
+        }
+    }
 }

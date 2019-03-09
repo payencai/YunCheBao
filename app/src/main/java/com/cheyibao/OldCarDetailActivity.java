@@ -397,7 +397,11 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
 
                 break;
             case R.id.callForMoreBtn:
-                callToPhoneSweetAlert("10010");
+                if(merchant!=null)
+                   callToPhoneSweetAlert(merchant.getServiceTelephone());
+                else{
+                    callToPhoneSweetAlert(mOldCar.getLinkmanTelephone());
+                }
                 break;
         }
     }

@@ -1,17 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.cheyibao.model.ReboundScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/theForm"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_f4"
     android:orientation="vertical">
-
-
-    <!--android:fitsSystemWindows="true"-->
-    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
-        android:id="@+id/my_scrollview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -84,9 +77,10 @@
             </RelativeLayout>
 
             <com.youth.banner.Banner
+
                 android:id="@+id/slideshowView"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="210dp"
                 android:visibility="visible" />
              <com.tool.view.GridViewForScrollView
                  android:paddingBottom="5dp"
@@ -181,6 +175,6 @@
 
             </LinearLayout>
         </LinearLayout>
-    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 
-</LinearLayout>
+
+</com.cheyibao.model.ReboundScrollView>

@@ -62,7 +62,7 @@ public class GoodCollectListAdapter extends BaseAdapter {
         }
 
 
-        tv_name.setText(goodList.getName()+" "+goodList.getFirstName()+" " +goodList.getSecondName());
+        tv_name.setText(goodList.getName());
         tv_new.setText("￥"+goodList.getDiscountPrice());
         tv_old.setText("￥"+goodList.getOriginalPrice());
         tv_old.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG ); //中间横线

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    android:textSize="14sp"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_tag"
+    android:background="@color/white"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="标签"
+    android:textColor="@color/gray_66">
+</TextView>

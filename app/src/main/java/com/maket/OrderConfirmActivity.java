@@ -1,4 +1,4 @@
-package com.vipcenter;
+package com.maket;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.application.MyApplication;
 import com.costans.PlatformContans;
@@ -16,30 +15,22 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.GoodsPayActivity;
 import com.maket.adapter.GoodsPayAdapter;
 import com.maket.model.GoodsSelect;
 import com.nohttp.sample.NoHttpBaseActivity;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
-import com.tool.UIControlUtils;
 import com.tool.listview.PersonalListView;
+import com.vipcenter.AddressListActivity;
 import com.vipcenter.model.PersonAddress;
 import com.vipcenter.view.PayCashierDialog;
-import com.vipcenter.view.PayWayDialog;
-import com.xihubao.fragment.GoodsFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

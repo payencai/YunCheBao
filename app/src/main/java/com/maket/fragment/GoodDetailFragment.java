@@ -34,7 +34,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
-import com.lljjcoder.Constant;
 import com.maket.GoodDetailActivity;
 import com.maket.SinglePayActivity;
 import com.maket.adapter.AttenAddressListAdapter;
@@ -51,7 +50,7 @@ import com.tool.ActivityConstans;
 import com.tool.view.GridViewForScrollView;
 import com.tool.view.HorizontalListView;
 import com.vipcenter.AddressAddActivity;
-import com.vipcenter.OrderConfirmActivity;
+import com.maket.OrderConfirmActivity;
 import com.vipcenter.RegisterActivity;
 import com.vipcenter.ShopMainListActivity;
 import com.vipcenter.model.PersonAddress;
@@ -71,6 +70,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.rong.imkit.RongIM;
 
 /**
  * Created by sdhcjhss on 2018/1/9.
@@ -643,12 +643,13 @@ public class GoodDetailFragment extends BaseFragment {
                 attenAddressToast();
                 break;
             case R.id.toCustomServiceBtn:
-//                Intent intent = new Intent(getContext(), OrderChatDetailActivity.class);
-//                intent.putExtra(Constant.EXTRA_USER_ID, "哈哈");
-//                startActivity(intent);
+                RongIM.getInstance().startPrivateChat(getContext(),mGoodDetail.getBabyMerchantId(),mGoodDetail.getBabyMerchantName());
                 break;
             case R.id.toShopDetailBtn:
-                ActivityAnimationUtils.commonTransition(getActivity(), ShopMainListActivity.class, ActivityConstans.Animation.FADE);
+
+                Bundle bundle2=new Bundle();
+                bundle2.putString("id",mGoodDetail.getBabyMerchantId());
+                ActivityAnimationUtils.commonTransition(getActivity(), ShopMainListActivity.class, ActivityConstans.Animation.FADE,bundle2);
                 break;
             case R.id.submitBtn:
                 if (MyApplication.isLogin) {

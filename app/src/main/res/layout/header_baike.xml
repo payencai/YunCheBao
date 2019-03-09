@@ -132,15 +132,29 @@
             android:layout_height="wrap_content" >
 
         </TextView>
-
-        <com.tool.view.HorizontalListView
-            android:layout_marginLeft="10dp"
-            android:id="@+id/lv_type"
-
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="wrap_content">
+            <com.tool.view.HorizontalListView
 
-        </com.tool.view.HorizontalListView>
+                android:layout_toLeftOf="@id/iv_add"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/lv_type"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+            </com.tool.view.HorizontalListView>
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/iv_add"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/add"
+                android:layout_width="15dp"
+                android:layout_height="15dp" />
+        </RelativeLayout>
+
 
     </LinearLayout>
 </LinearLayout>

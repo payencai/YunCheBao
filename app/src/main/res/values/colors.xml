@@ -116,6 +116,6 @@
     <color name="brown">#D99F5A</color>
     <color name="brown_22">#996922</color>
     <color name="brown_4f">#906f4f</color>
-
+    <color name="helftransparent">#80000000</color>
 
 </resources>

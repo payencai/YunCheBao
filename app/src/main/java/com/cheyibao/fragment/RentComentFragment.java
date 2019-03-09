@@ -69,7 +69,7 @@ public class RentComentFragment extends Fragment {
         adapter = new RvCommentAdapter(R.layout.item_shop_comment, list);
         listView.setLayoutManager(new LinearLayoutManager(getContext()));
         listView.setAdapter(adapter);
-         getData();
+        getData();
 
     }
 

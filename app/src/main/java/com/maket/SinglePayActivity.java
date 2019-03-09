@@ -19,7 +19,6 @@ import com.http.ICallBack;
 import com.maket.model.GoodDetail;
 import com.maket.model.GoodParam;
 import com.vipcenter.AddressListActivity;
-import com.vipcenter.OrderConfirmActivity;
 import com.vipcenter.model.PersonAddress;
 
 import org.json.JSONArray;

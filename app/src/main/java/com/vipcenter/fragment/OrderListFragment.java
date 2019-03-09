@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.application.MyApplication;
-import com.bbcircle.DriverFriendsDetailActivity;
 import com.costans.PlatformContans;
 import com.entity.PhoneOrderEntity;
 import com.example.yunchebao.R;
@@ -24,11 +23,7 @@ import com.maket.GoodsOrderDetailActivity;
 import com.nohttp.sample.BaseFragment;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
-import com.vipcenter.CheckLogisticsActivity;
 import com.vipcenter.HaveGotGoodsActivity;
-import com.vipcenter.OrderCommentSubmitActivity;
-import com.vipcenter.OrderConfirmActivity;
-import com.vipcenter.OrderReturnTypeActivity;
 import com.vipcenter.adapter.OrderListAdapter;
 import com.vipcenter.view.PayWayDialog;
 
@@ -42,7 +37,6 @@ import java.util.List;
 import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import io.rong.imkit.RongIM;
 
 
 public class OrderListFragment extends BaseFragment implements OnClickListener {
