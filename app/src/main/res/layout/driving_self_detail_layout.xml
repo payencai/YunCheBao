@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/gray_ee"
     android:orientation="vertical">
 
     <include layout="@layout/top_title_layout"></include>
@@ -14,7 +13,7 @@
         <com.tool.listview.PersonalScrollView
             android:layout_above="@+id/ll_bottom"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             >
 
             <LinearLayout
@@ -142,13 +141,13 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp">
 
-                    <com.facebook.drawee.view.SimpleDraweeView
+                    <com.payencai.library.view.CircleImageView
                         android:layout_width="46dp"
                         android:id="@+id/head"
                         android:layout_height="46dp"
                         android:layout_marginLeft="5dp"
-                        app:placeholderImage="@mipmap/icon"
-                        app:placeholderImageScaleType="fitXY" />
+                        android:src="@mipmap/icon"
+                        android:scaleType="fitXY"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"

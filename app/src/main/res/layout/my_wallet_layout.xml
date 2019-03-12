@@ -115,7 +115,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black_33"
             android:textSize="18sp"
-            android:text="购买会员卡"
+            android:text="购买洗护卡"
             android:gravity="center_vertical"
             android:layout_centerVertical="true"
             android:drawableLeft="@mipmap/recharge"

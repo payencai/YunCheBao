@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bbcircle.data.CarShow;
 import com.bumptech.glide.Glide;
 import com.example.yunchebao.R;
+import com.payencai.library.view.CircleImageView;
 
 import java.util.List;
 
@@ -63,13 +64,15 @@ public class CarShowAdapter extends BaseAdapter{
         CarShow carShow=mCarShows.get(position);
         convertView= LayoutInflater.from(mContext).inflate(R.layout.item_car_show,null);
         ImageView iv_car= (ImageView) convertView.findViewById(R.id.iv_car);
-        ImageView head= (ImageView) convertView.findViewById(R.id.head);
+        CircleImageView head= (CircleImageView) convertView.findViewById(R.id.head);
         TextView name= (TextView) convertView.findViewById(R.id.name);
         TextView time= (TextView) convertView.findViewById(R.id.time);
+        TextView tv_read= (TextView) convertView.findViewById(R.id.tv_read);
         TextView content= (TextView) convertView.findViewById(R.id.content);
         Glide.with(mContext).load(carShow.getHeadPortrait()).into(head);
         Glide.with(mContext).load(carShow.getImage()).into(iv_car);
         name.setText(carShow.getName());
+        tv_read.setText(carShow.getCommentNum()+"");
         time.setText(carShow.getCreateTime());
         content.setText(carShow.getTitle());
         return convertView;

@@ -504,7 +504,7 @@ public class GoodDetailFragment extends BaseFragment {
     private void getAddress(int type) {
         String token = "";
         if (MyApplication.isLogin) {
-            token = MyApplication.getUserInfo().getToken();
+            token = MyApplication.token;
         } else {
             tv_address.setText(MyApplication.getaMapLocation().getProvince() + MyApplication.getaMapLocation().getCity() + MyApplication.getaMapLocation().getDistrict());
         }
@@ -521,7 +521,7 @@ public class GoodDetailFragment extends BaseFragment {
                     JSONArray data = jsonObject.getJSONArray("data");
                     int code = jsonObject.getInt("resultCode");
                     if (code == 0) {
-                        if (type == 2) {
+                        if (type == 0) {
                             for (int i = 0; i < data.length(); i++) {
                                 JSONObject item = data.getJSONObject(i);
                                 PersonAddress baikeItem = new Gson().fromJson(item.toString(), PersonAddress.class);
@@ -602,7 +602,7 @@ public class GoodDetailFragment extends BaseFragment {
                 startActivityForResult(new Intent(getActivity(), AddressAddActivity.class), 1);
             }
         });
-        getAddress(2);
+        getAddress(0);
     }
 
 

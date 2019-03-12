@@ -20,6 +20,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.ShopCartActivity;
@@ -62,12 +63,9 @@ public class UserCenterActivity extends NoHttpBaseActivity {
         setContentView(R.layout.user_center_layout);
         ButterKnife.bind(this);
          //headIcon.setImageURI(Uri.parse(MyApplication.getUserInfo().getHeadPortrait()));
-        if(MyApplication.isLogin){
-        Glide.with(this).load(MyApplication.getUserInfo().getHeadPortrait())
-                .apply(RequestOptions.bitmapTransform(new RoundedCorners(40)))
-                .into(headIcon);}
-        initLoginView();
-        getUserData();
+        getUserInfo();
+        getFocus();
+
         infoText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,9 +74,35 @@ public class UserCenterActivity extends NoHttpBaseActivity {
         });
     }
 
+    private void getUserInfo(){
+        HttpProxy.obtain().get(PlatformContans.User.getUserResult, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result",result);
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    JSONObject data=jsonObject.getJSONObject("data");
+                    UserInfo userInfo=new Gson().fromJson(data.toString(),UserInfo.class);
+                    MyApplication.setUserInfo(userInfo);
+                    if(MyApplication.isLogin){
+                        Glide.with(UserCenterActivity.this).load(MyApplication.getUserInfo().getHeadPortrait())
+                                .apply(RequestOptions.bitmapTransform(new RoundedCorners(40)))
+                                .into(headIcon);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
-    private void getUserData(){
-        HttpProxy.obtain().get(PlatformContans.User.getUserFocusNumber, MyApplication.getUserInfo().getToken(), new ICallBack() {
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    private void getFocus(){
+        HttpProxy.obtain().get(PlatformContans.User.getUserFocusNumber, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result",result);
@@ -100,24 +124,17 @@ public class UserCenterActivity extends NoHttpBaseActivity {
         });
     }
 
-    private void initLoginView() {
 
-        if (PlatformContans.isLogin) {
-
-            nameText.setText("登录");
-            infoText.setVisibility(View.GONE);
-        } else {
-
-            nameText.setText("洗护宝专家");
-            infoText.setVisibility(View.VISIBLE);
-        }
-        nameText.setText(MyApplication.getUserInfo().getName());
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
-        initLoginView();
+        if(MyApplication.isLogin){
+            Glide.with(UserCenterActivity.this).load(MyApplication.getUserInfo().getHeadPortrait())
+                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(40)))
+                    .into(headIcon);
+        }
+        nameText.setText(MyApplication.getUserInfo().getName());
     }
 
     /**

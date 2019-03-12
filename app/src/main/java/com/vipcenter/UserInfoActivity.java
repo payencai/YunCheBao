@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,12 +14,15 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +42,7 @@ import com.payencai.library.view.CircleImageView;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
+import com.tool.WheelView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,8 +50,10 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -137,7 +144,9 @@ public class UserInfoActivity extends NoHttpBaseActivity {
                 Environment.MEDIA_MOUNTED);
     }
 
-
+    int position=0;
+    String sex="男";
+    private List<String> cartypes = new ArrayList<>();
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -159,6 +168,96 @@ public class UserInfoActivity extends NoHttpBaseActivity {
         }
 
 
+    }
+    private void showSexDialog() {
+        cartypes.clear();
+        cartypes.add("男");
+        cartypes.add("女");
+        View view = getLayoutInflater().inflate(R.layout.dialog_washcar_type, null);
+        final Dialog dialog = new Dialog(this, R.style.MyDialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable());
+        dialog.setContentView(view);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+        WheelView wv = (WheelView) view.findViewById(R.id.wheelview);
+        TextView tv_confirm = (TextView) view.findViewById(R.id.tv_confirm);
+        TextView tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
+
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        tv_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                updateSex(sex);
+            }
+        });
+        wv.setOffset(1);
+        wv.setItems(cartypes);
+        wv.setSeletion(position);
+        wv.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
+            @Override
+            public void onSelected(int selectedIndex, String item) {
+                 sex=item;
+                 Log.d("ddd", "[Dialog]selectedIndex: " + position + ", item: " + item);
+            }
+        });
+        //wv.setSeletion(0);
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams params = window.getAttributes();
+        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(params);
+
+    }
+
+    private void showNickDialog() {
+        final Dialog dialog = new Dialog(this, R.style.dialog);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_nick, null);
+        //获得dialog的window窗口
+        //将自定义布局加载到dialog上
+        TextView tv_confirm= (TextView) dialogView.findViewById(R.id.tv_confirm);
+        EditText et_nick= (EditText) dialogView.findViewById(R.id.et_nick);
+        TextView tv_cancel= (TextView) dialogView.findViewById(R.id.tv_cancel);
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        tv_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                String name=et_nick.getEditableText().toString();
+                if(!TextUtils.isEmpty(name)){
+                    updateNick(name);
+                    tv_nickname.setText(name);
+                }
+            }
+        });
+        dialog.setContentView(dialogView);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+        Window window = dialog.getWindow();
+        WindowManager windowManager=getWindowManager();
+        Display display=windowManager.getDefaultDisplay();
+        //设置dialog在屏幕底部
+        window.setGravity(Gravity.CENTER);
+        //设置dialog弹出时的动画效果，从屏幕底部向上弹出
+        //获得window窗口的属性
+        android.view.WindowManager.LayoutParams lp = window.getAttributes();
+        //设置窗口宽度为充满全屏
+        lp.width = (int) (display.getWidth()*0.7);
+        //设置窗口高度为包裹内容
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        //将设置好的属性set回去
+        window.setAttributes(lp);
     }
 
     private void showDialog() {
@@ -271,10 +370,13 @@ public class UserInfoActivity extends NoHttpBaseActivity {
     private void updateHead() {
         Map<String, Object> params = new HashMap<>();
         params.put("headPortrait", image);
-        HttpProxy.obtain().post(PlatformContans.User.updateUser, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        String token=MyApplication.token;
+        Log.e("token",token+"");
+        HttpProxy.obtain().post(PlatformContans.User.updateUser, token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("resutl", result);
+                MyApplication.getUserInfo().setHeadPortrait(image);
             }
 
             @Override
@@ -283,7 +385,40 @@ public class UserInfoActivity extends NoHttpBaseActivity {
             }
         });
     }
+    private void updateNick(String name) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", name);
+        HttpProxy.obtain().post(PlatformContans.User.updateUser, MyApplication.token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("resutl", result);
+                MyApplication.getUserInfo().setName(name);
 
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    private void updateSex(String sex) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("sex", sex);
+        HttpProxy.obtain().post(PlatformContans.User.updateUser, MyApplication.token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("sex", result);
+                MyApplication.getUserInfo().setSex(sex);
+                tv_sex.setText(sex);
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     private void initView() {
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "个人资料");
         ButterKnife.bind(this);
@@ -327,9 +462,15 @@ public class UserInfoActivity extends NoHttpBaseActivity {
             }
         });
     }
-    @OnClick({R.id.back, R.id.addressLay, R.id.rl_phone, R.id.rl_idcard, R.id.rl_mycar, R.id.rl_code,R.id.iv_switch})
+    @OnClick({R.id.back, R.id.addressLay, R.id.rl_sex,R.id.rl_phone, R.id.rl_idcard, R.id.rl_mycar, R.id.rl_code,R.id.iv_switch,R.id.rl_nick})
     public void OnClick(View v) {
         switch (v.getId()) {
+            case R.id.rl_sex:
+                showSexDialog();
+                break;
+            case R.id.rl_nick:
+                showNickDialog();
+                break;
             case R.id.iv_switch:
                 if(MyApplication.getUserInfo().getCarShowState()==1){
                     setState(2);

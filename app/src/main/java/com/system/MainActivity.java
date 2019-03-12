@@ -99,7 +99,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FitStateUI.setImmersionStateMode(this);
+        //FitStateUI.setImmersionStateMode(this);
         setContentView(R.layout.activity_main);
 
         //openGPS(this);
@@ -132,6 +132,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                     if (code == 0) {
                         //Toast.makeText(MainActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
                         UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
+                        MyApplication.token=userInfo.getToken();
                         MyApplication.setUserInfo(userInfo);
                         MyApplication.setIsLogin(true);
                         initview();

@@ -17,6 +17,7 @@ import com.cheyibao.model.CoachItem;
 import com.cheyibao.model.CoashComment;
 import com.example.yunchebao.R;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+import com.payencai.library.view.CircleImageView;
 import com.vipcenter.adapter.PhotoAdapter;
 
 import java.util.ArrayList;
@@ -74,8 +75,8 @@ public class CoashCommentAdapter extends BaseAdapter{
         CoashComment coashComment=mClassItems.get(position);
         GridView gv_photo= (GridView) convertView.findViewById(R.id.gv_photo);
         TextView tv_content = (TextView) convertView.findViewById(R.id.tv_content);
-        ImageView iv_userhead= (ImageView) convertView.findViewById(R.id.userhead);
-        ImageView iv_coashhead= (ImageView) convertView.findViewById(R.id.coashhead);
+        CircleImageView iv_userhead= (CircleImageView) convertView.findViewById(R.id.userhead);
+        CircleImageView iv_coashhead= (CircleImageView) convertView.findViewById(R.id.coashhead);
         TextView tv_name= (TextView) convertView.findViewById(R.id.tv_name);
         TextView tv_coashname= (TextView) convertView.findViewById(R.id.tv_coashname);
         TextView tv_time = (TextView) convertView.findViewById(R.id.tv_time);

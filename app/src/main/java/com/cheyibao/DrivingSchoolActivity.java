@@ -55,6 +55,7 @@ import com.tool.adapter.CommentPagerAdapter;
 import com.tool.adapter.MyFragmentPagerAdapter;
 import com.tool.listview.PersonalScrollView;
 import com.tool.listview.PersonalViewPager;
+import com.xihubao.ShopInfoActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -101,6 +102,8 @@ public class DrivingSchoolActivity extends AppCompatActivity {
     SimpleRatingBar sr_score;
     @BindView(R.id.tv_score)
     TextView tv_score;
+    @BindView(R.id.tv_grade)
+    TextView tv_grade;
     String id;
     DrvingSchool mDrvingSchool;
     private ArrayList<String> mTopTitles = new ArrayList<>(2);
@@ -108,34 +111,36 @@ public class DrivingSchoolActivity extends AppCompatActivity {
 
     private ArrayList<String> mBottomTitles = new ArrayList<>(2);
     private ArrayList<Fragment> mBottomFragments = new ArrayList<>(2);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDrvingSchool= (DrvingSchool) getIntent().getSerializableExtra("data");
+        mDrvingSchool = (DrvingSchool) getIntent().getSerializableExtra("data");
         setContentView(R.layout.driving_school_detail);
         ButterKnife.bind(this);
         ctx = this;
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW,"驾校详情");
+        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "驾校详情");
         findViewById(R.id.shareBtn).setVisibility(View.GONE);
-        if(mDrvingSchool==null){
-            id=getIntent().getStringExtra("id");
+        if (mDrvingSchool == null) {
+            id = getIntent().getStringExtra("id");
             getDetail(id);
-        }else{
+        } else {
             init();
         }
 
     }
-    private void getDetail(String id){
+
+    private void getDetail(String id) {
         Map<String, Object> params = new HashMap<>();
         params.put("merchantId", id);
-        HttpProxy.obtain().get(PlatformContans.Shop.getMerchantById, params,"", new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.Shop.getMerchantById, params, "", new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-                    JSONObject  data = jsonObject.getJSONObject("data");
-                    mDrvingSchool=new Gson().fromJson(data.toString(),DrvingSchool.class);
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    mDrvingSchool = new Gson().fromJson(data.toString(), DrvingSchool.class);
                     init();
 
                 } catch (JSONException e) {
@@ -149,6 +154,7 @@ public class DrivingSchoolActivity extends AppCompatActivity {
             }
         });
     }
+
     private void init() {
         initView();
         isCollect();
@@ -252,6 +258,7 @@ public class DrivingSchoolActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
     public static boolean isAvilible(Context context, String packageName) {
         // 获取packagemanager
         final PackageManager packageManager = context.getPackageManager();
@@ -269,6 +276,7 @@ public class DrivingSchoolActivity extends AppCompatActivity {
         // 判断packageNames中是否有目标程序的包名，有TRUE，没有FALSE
         return packageNames.contains(packageName);
     }
+
     private void gaode(double mLatitude, double mLongitude) {
         if (isAvilible(this, "com.autonavi.minimap")) {
             try {
@@ -290,8 +298,9 @@ public class DrivingSchoolActivity extends AppCompatActivity {
         }
     }
 
-    List<String> images=new ArrayList<>();
-    private void initBanner(){
+    List<String> images = new ArrayList<>();
+
+    private void initBanner() {
         banner.setImageLoader(new com.youth.banner.loader.ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {
@@ -312,11 +321,12 @@ public class DrivingSchoolActivity extends AppCompatActivity {
         banner.setImages(images);//设置图片源
         banner.start();
     }
-    private void getBanner(){
-        String banner=mDrvingSchool.getBanner();
-        if(!TextUtils.isEmpty(banner)){
-            String imgs[]=banner.split(",");
-            for (int i = 0; i <imgs.length ; i++) {
+
+    private void getBanner() {
+        String banner = mDrvingSchool.getBanner();
+        if (!TextUtils.isEmpty(banner)) {
+            String imgs[] = banner.split(",");
+            for (int i = 0; i < imgs.length; i++) {
                 images.add(imgs[i]);
             }
             initBanner();
@@ -329,7 +339,7 @@ public class DrivingSchoolActivity extends AppCompatActivity {
     }
 
 
-    private void initTab(){
+    private void initTab() {
         // mTitleList.add("热帖");
         mTopTitles.add("班级");
         mTopTitles.add("教练");
@@ -348,35 +358,43 @@ public class DrivingSchoolActivity extends AppCompatActivity {
         TabUtils.setWidth(tab_comment);
         TabUtils.setWidth(tab_school);
     }
+
     private void initView() {
 
-
+        tv_grade.setText(mDrvingSchool.getGrade()+"");
         tv_name.setText(mDrvingSchool.getName());
         tv_address.setText(mDrvingSchool.getAddress());
-        tv_score.setText(mDrvingSchool.getScore()+"分");
+        tv_score.setText(mDrvingSchool.getScore() + "分");
         sr_score.setRating((float) mDrvingSchool.getScore());
         tv_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LatLng latLng=new LatLng(Double.parseDouble(mDrvingSchool.getLatitude()),Double.parseDouble(mDrvingSchool.getLongitude()));
+                LatLng latLng = new LatLng(Double.parseDouble(mDrvingSchool.getLatitude()), Double.parseDouble(mDrvingSchool.getLongitude()));
                 showDialog(latLng);
             }
         });
 
     }
 
-    @OnClick({R.id.back,R.id.collectBtn})
-    public void Onclick(View v){
-        switch (v.getId()){
+    @OnClick({R.id.back, R.id.collectBtn, R.id.ll_head,R.id.callBtn})
+    public void Onclick(View v) {
+        switch (v.getId()) {
+            case R.id.callBtn:
+                break;
+            case R.id.ll_head:
+                Intent intent = new Intent(DrivingSchoolActivity.this, ShopInfoActivity.class);
+                intent.putExtra("id", mDrvingSchool.getId());
+                startActivity(intent);
+                break;
             case R.id.back:
                 onBackPressed();
                 break;
             case R.id.collectBtn:
-                if (isCollect==0){
-                    isCollect=1;
+                if (isCollect == 0) {
+                    isCollect = 1;
                     collectIcon.setImageResource(R.mipmap.collect_yellow);
-                }else if(isCollect==1){
-                    isCollect=0;
+                } else if (isCollect == 1) {
+                    isCollect = 0;
                     collectIcon.setImageResource(R.mipmap.collect_gray_hole);
                 }
                 collect();
@@ -401,10 +419,10 @@ public class DrivingSchoolActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     int data = jsonObject.getInt("data");
-                    if (data==0) {
+                    if (data == 0) {
                         isCollect = 0;
                         collectIcon.setImageResource(R.mipmap.collect_gray_hole);
-                    } else if(data==1){
+                    } else if (data == 1) {
                         isCollect = 1;
                         collectIcon.setImageResource(R.mipmap.collect_yellow);
                     }
@@ -428,7 +446,7 @@ public class DrivingSchoolActivity extends AppCompatActivity {
             token = MyApplication.getUserInfo().getToken();
         }
         params.put("merchantId", mDrvingSchool.getId());
-        HttpProxy.obtain().post(PlatformContans.Collect.addDrivingSchoolCollection,token, params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Collect.addDrivingSchoolCollection, token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);

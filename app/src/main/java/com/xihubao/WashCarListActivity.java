@@ -196,7 +196,13 @@ public class WashCarListActivity extends NoHttpBaseActivity {
     int pos = 0;
 
     private void initView() {
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "洗衣店");
+        String name="";
+        if(type==1){
+            name="洗车店";
+        }else{
+            name="修理店";
+        }
+        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, name);
         list = new ArrayList<>();
         adapter = new WashCarListAdapter(this, list);
         lv_car.setAdapter(adapter);

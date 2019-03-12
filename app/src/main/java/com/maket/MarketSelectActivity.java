@@ -1,10 +1,12 @@
 package com.maket;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.baiiu.filter.adapter.SimpleTextAdapter;
@@ -35,6 +37,10 @@ public class MarketSelectActivity extends NoHttpBaseActivity {
     private Context ctx;
     @BindView(R.id.singleGrid1)
     SingleGridView<String> singleGridView;
+    @BindView(R.id.et_min)
+    EditText et_min;
+    @BindView(R.id.et_max)
+    EditText et_max;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +93,14 @@ public class MarketSelectActivity extends NoHttpBaseActivity {
                 onBackPressed();
                 break;
             case R.id.submit:
-                onBackPressed();
+                String min=et_min.getEditableText().toString();
+                String max=et_max.getEditableText().toString();
+                Intent intent =new Intent();
+                intent.putExtra("min",min);
+                intent.putExtra("max",max);
+                setResult(1,intent);
+                finish();
+                //onBackPressed();
                 break;
         }
     }

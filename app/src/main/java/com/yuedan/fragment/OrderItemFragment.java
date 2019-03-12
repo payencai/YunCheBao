@@ -89,7 +89,7 @@ public class OrderItemFragment extends Fragment {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 YueOrder yueOrder= (YueOrder) adapter.getItem(position);
                 if(view.getId()==R.id.fukuan){
-                    showPay(yueOrder.getId());
+                    showPay(yueOrder.getId(),yueOrder.getShopName());
                 }else if(view.getId()==R.id.delete){
                     deleteOrder(yueOrder.getId());
                 }
@@ -139,10 +139,11 @@ public class OrderItemFragment extends Fragment {
             }
         });
     }
-    private void showPay(String id ) {
+    private void showPay(String id ,String name) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_pay_order, null);
         ImageView iv_del= (ImageView) view.findViewById(R.id.iv_del);
         TextView tv_confirm= (TextView) view.findViewById(R.id.tv_confirm);
+        TextView tv_name= (TextView) view.findViewById(R.id.tv_name);
         EditText et_money= (EditText) view.findViewById(R.id.et_money);
         final Dialog dialog = new Dialog(getContext(), R.style.MyDialog);
         iv_del.setOnClickListener(new View.OnClickListener() {
@@ -167,7 +168,7 @@ public class OrderItemFragment extends Fragment {
 
             }
         });
-
+        tv_name.setText(name);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable());
         dialog.setContentView(view);
         dialog.setCanceledOnTouchOutside(false);

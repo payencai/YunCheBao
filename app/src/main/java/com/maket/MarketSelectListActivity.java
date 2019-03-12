@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -98,10 +99,27 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
         getData(id);
 
     }
+    String orderByClause;
+    String sort;
+    String minPrice;
+    String maxPrice;
     private void getData(String id){
         Map<String,Object> params=new HashMap<>();
         params.put("page",page);
         params.put("secondId",id);
+        if(!TextUtils.isEmpty(orderByClause)){
+            params.put("orderByClause",orderByClause);
+        }
+        if(!TextUtils.isEmpty(sort)){
+            params.put("sort",sort);
+        }
+        if(!TextUtils.isEmpty(minPrice)){
+            params.put("minPrice",minPrice);
+        }
+        if(!TextUtils.isEmpty(maxPrice)){
+            params.put("maxPrice",maxPrice);
+        }
+
         HttpProxy.obtain().get(PlatformContans.GoodMenu.getGoodList, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -129,6 +147,18 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==1&data!=null){
+            minPrice=data.getStringExtra("min");
+            maxPrice=data.getStringExtra("max");
+            page=1;
+            list.clear();
+            getData(id);
+        }
+    }
+
     @OnClick({R.id.back, R.id.selectBtn, R.id.rankDefault, R.id.rankPrice, R.id.rankSale, R.id.pleaseLay})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -136,25 +166,33 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
                 onBackPressed();
                 break;
             case R.id.selectBtn:
-                ActivityAnimationUtils.commonTransition(MarketSelectListActivity.this, MarketSelectActivity.class, ActivityConstans.Animation.FADE);
+                startActivityForResult(new Intent(MarketSelectListActivity.this,MarketSelectActivity.class),1);
+                //ActivityAnimationUtils.commonTransition(MarketSelectListActivity.this, MarketSelectActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.rankPrice:
+                orderByClause="price";
                 if (type == 2) {
                     isPriceUp = isPriceUp ? false : true;
                 }
                 type = 2;
                 if (isPriceUp) {
+                    sort="asc";
                     Drawable myImage = res.getDrawable(R.mipmap.yellow_arrow_up_small);
                     rankPriceBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, myImage, null);
                 } else {
+                    sort="desc";
                     Drawable myImage = res.getDrawable(R.mipmap.yellow_arrow_small);
                     rankPriceBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, myImage, null);
                 }
                 rankDefaultBtn.setTextColor(ContextCompat.getColor(ctx, R.color.black_33));
                 rankSaleBtn.setTextColor(ContextCompat.getColor(ctx, R.color.black_33));
                 rankPriceBtn.setTextColor(ContextCompat.getColor(ctx, R.color.yellow_65));
+                page=1;
+                list.clear();
+                getData(id);
                 break;
             case R.id.rankSale:
+                orderByClause="orderNum";
                 if (type == 1) {
                     isPriceUp = isPriceUp ? false : true;
                 }
@@ -162,20 +200,32 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
                 rankSaleBtn.setTextColor(ContextCompat.getColor(ctx, R.color.yellow_65));
                 isSaleUp = isSaleUp ? false : true;
                 if (isSaleUp) {
+                    sort="asc";
                     Drawable myImage = res.getDrawable(R.mipmap.yellow_arrow_up_small);
                     rankSaleBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, myImage, null);
                 } else {
+                    sort="desc";
                     Drawable myImage = res.getDrawable(R.mipmap.yellow_arrow_small);
                     rankSaleBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, myImage, null);
                 }
                 rankPriceBtn.setTextColor(ContextCompat.getColor(ctx, R.color.black_33));
                 rankDefaultBtn.setTextColor(ContextCompat.getColor(ctx, R.color.black_33));
+                page=1;
+                list.clear();
+                getData(id);
                 break;
             case R.id.rankDefault:
                 type = 0;
+                sort="";
+                maxPrice="";
+                minPrice="";
+                orderByClause="";
                 rankSaleBtn.setTextColor(ContextCompat.getColor(ctx, R.color.black_33));
                 rankPriceBtn.setTextColor(ContextCompat.getColor(ctx, R.color.black_33));
                 rankDefaultBtn.setTextColor(ContextCompat.getColor(ctx, R.color.yellow_65));
+                page=1;
+                list.clear();
+                getData(id);
                 break;
             case R.id.pleaseLay:
                 startActivityForResult(new Intent(MarketSelectListActivity.this, CarBrandSelectActivity.class), 1);

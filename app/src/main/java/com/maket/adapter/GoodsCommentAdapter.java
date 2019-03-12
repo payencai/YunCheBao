@@ -60,7 +60,7 @@ public class GoodsCommentAdapter extends BaseAdapter {
         TextView item_time = (TextView) convertView.findViewById(R.id.item_time);
         TextView content = (TextView) convertView.findViewById(R.id.content);
         SimpleRatingBar srb_score = (SimpleRatingBar) convertView.findViewById(R.id.srb_score);
-        if (TextUtils.isEmpty(goodsComment.getHeadPortrait())) {
+        if (!TextUtils.isEmpty(goodsComment.getHeadPortrait())) {
             sdv_head.setImageURI(Uri.parse(goodsComment.getHeadPortrait()));
         }
         tv_name.setText(goodsComment.getNickName());

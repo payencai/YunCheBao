@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp">
         <ImageView
+            android:id="@+id/back"
             android:src="@mipmap/back"
             android:padding="15dp"
             android:layout_width="50dp"
@@ -20,6 +21,16 @@
             android:textColor="@color/black_33"
             android:layout_centerInParent="true"
             android:text="紧急救援"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_city"
+            android:textColor="@color/gray_66"
+            android:textSize="@dimen/sp_14"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="昆明"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>

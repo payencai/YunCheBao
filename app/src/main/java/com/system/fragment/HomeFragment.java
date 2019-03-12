@@ -732,7 +732,13 @@ public class HomeFragment extends BaseFragment {
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.rl_notice:
-                startActivity(new Intent(getContext(), NoticeActivity.class));
+                if (MyApplication.isLogin) {
+                    startActivity(new Intent(getContext(), NoticeActivity.class));
+                    //connect(MyApplication.getUserInfo().getHxPassword());
+                } else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
+
                 break;
             case R.id.search_lay:
                 startActivity(new Intent(getContext(), SearchActivity.class));

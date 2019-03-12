@@ -76,16 +76,14 @@ public class YuedanHomeActivity extends NoHttpFragmentBaseActivity {
     private void initFragmentList() {
         mTitleList.add("洗车店");
         mTitleList.add("修理店");
-        mTitleList.add("新车整车");
+        mTitleList.add("新车汇");
         mTitleList.add("二手车");
-        mTitleList.add("道路救援");
-        mBookRepairFragment=BookRepairFragment.newInstance(2);
-        mRoadFragment=new BookRoadFragment();
+        mTitleList.add("紧急救援");
         mFragments.add(BookWashCarFragment.newInstance(1));
-        mFragments.add(mBookRepairFragment);
+        mFragments.add(BookRepairFragment.newInstance(2));
         mFragments.add(new BookNewCarFragment());
         mFragments.add(new BookOldCarFragment());
-        mFragments.add(mRoadFragment);
+        mFragments.add(new BookRoadFragment());
     }
 
     @OnClick({R.id.back, R.id.rightBtn})

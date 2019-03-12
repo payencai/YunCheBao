@@ -66,6 +66,7 @@ public class StudyCarFragment extends BaseFragment {
     PersonalListView lv_study;
     @BindView(R.id.tv_dis)
     TextView tv_dis;
+
     @BindView(R.id.tv_score)
     TextView tv_score;
     @BindView(R.id.slideshowView)
@@ -162,6 +163,7 @@ public class StudyCarFragment extends BaseFragment {
                 getData();
             }
         });
+
         tv_score.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

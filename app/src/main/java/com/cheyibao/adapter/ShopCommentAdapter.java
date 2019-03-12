@@ -15,6 +15,7 @@ import com.cheyibao.model.CoashComment;
 import com.cheyibao.model.ShopComment;
 import com.example.yunchebao.R;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+import com.payencai.library.view.CircleImageView;
 import com.vipcenter.adapter.PhotoAdapter;
 
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ public class ShopCommentAdapter extends BaseAdapter {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.item_shop_comment, null);
         GridView gv_photo = (GridView) convertView.findViewById(R.id.gv_photo);
         TextView iv_content = (TextView) convertView.findViewById(R.id.iv_content);
-        ImageView userhead = (ImageView) convertView.findViewById(R.id.userhead);
+        CircleImageView userhead = (CircleImageView) convertView.findViewById(R.id.userhead);
         TextView tv_name = (TextView) convertView.findViewById(R.id.tv_name);
         TextView tv_time = (TextView) convertView.findViewById(R.id.tv_time);
         SimpleRatingBar starbar = (SimpleRatingBar) convertView.findViewById(R.id.starbar);

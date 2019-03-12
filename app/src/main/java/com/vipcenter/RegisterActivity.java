@@ -417,6 +417,7 @@ public class RegisterActivity extends AppCompatActivity {
                         JSONObject data = object.getJSONObject("data");
                         Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                         UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
+                        MyApplication.token=userInfo.getToken();
                         MyApplication.setUserInfo(userInfo);
                         MyApplication.setIsLogin(true);
                         getData();
@@ -465,6 +466,7 @@ public class RegisterActivity extends AppCompatActivity {
                         JSONObject data = object.getJSONObject("data");
                          Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                         UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
+                        MyApplication.token=userInfo.getToken();
                         MyApplication.setUserInfo(userInfo);
                         MyApplication.setIsLogin(true);
                         getData();
@@ -518,6 +520,7 @@ public class RegisterActivity extends AppCompatActivity {
                         JSONObject data = object.getJSONObject("data");
                         Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                         UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
+                        MyApplication.token=userInfo.getToken();
                         MyApplication.setUserInfo(userInfo);
                         MyApplication.setIsLogin(true);
                         getData();

@@ -38,6 +38,9 @@
                 android:padding="15dp">
 
                 <EditText
+                    android:id="@+id/et_min"
+                    android:inputType="number"
+                    android:paddingLeft="10dp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
@@ -51,6 +54,9 @@
                     android:background="@color/gray_ee"></View>
 
                 <EditText
+                    android:id="@+id/et_max"
+                    android:inputType="number"
+                    android:paddingLeft="10dp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"

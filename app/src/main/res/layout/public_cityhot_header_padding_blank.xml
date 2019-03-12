@@ -9,6 +9,7 @@
     android:paddingTop="@dimen/city_hot_margin_top">
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/current_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,6 +20,7 @@
         android:textSize="14sp" />
 
     <TextView
+        android:visibility="gone"
         style="@style/city_hot_header"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"

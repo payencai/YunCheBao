@@ -42,6 +42,7 @@ public class PlatformContans {
         public static final String deleteUserFocus=root+ "/user/deleteUserFocus";
         public static final String getUserFocusList=root+ "/user/getUserFocusList";
         public static final String isFocus=root+ "/user/isFocus";
+        public static final String getUserResult=root+ "/user/getUserResult";
     }
     public static class Wechat{
         public static final String wechatPay=root+ "/wechatPay/wechatPay" ;

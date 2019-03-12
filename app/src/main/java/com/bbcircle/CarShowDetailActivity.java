@@ -46,6 +46,7 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
+import com.payencai.library.util.ToastUtil;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.tool.ActivityConstans;
 import com.tool.SimpleCommonUtils;
@@ -111,12 +112,15 @@ public class CarShowDetailActivity extends NoHttpBaseActivity {
     EditText et_comment;
     @BindView(R.id.tv_pub)
     TextView tv_pub;
+    @BindView(R.id.tv_focus)
+    TextView tv_focus;
     CircleCommentAdapter mCircleCommentAdapter;
     List<CircleComment> mCircleComments = new ArrayList<>();
     int page = 1;
     String commentId;
     int id;
     int type;
+    String focus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,6 +156,69 @@ public class CarShowDetailActivity extends NoHttpBaseActivity {
         });
         mWebView.loadUrl(url);
     }
+    private void focus(String userId){
+        Map<String,Object> params=new HashMap<>();
+        params.put("otherId",userId);
+        params.put("type","1");
+        HttpProxy.obtain().post(PlatformContans.User.addUserFocus,MyApplication.getUserInfo().getToken(), params,  new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("focus",result);
+                ToastUtil.showToast(CarShowDetailActivity.this,"关注成功");
+                tv_focus.setText("取消关注");
+                focus="1";
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    private void isfocus(String userId){
+        Map<String,Object> params=new HashMap<>();
+        params.put("otherId",userId);
+        HttpProxy.obtain().get(PlatformContans.User.deleteUserFocus, params,  MyApplication.getUserInfo().getToken(),new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    focus=jsonObject.getString("data");
+                    if("1".equals(focus)){
+                        tv_focus.setText("取消关注");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    private void delfocus(String userId){
+        Map<String,Object> params=new HashMap<>();
+        params.put("otherId",userId);
+        HttpProxy.obtain().post(PlatformContans.User.deleteUserFocus,MyApplication.getUserInfo().getToken(), params,  new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("focus",result);
+                focus="0";
+                tv_focus.setText("+ 关注");
+                ToastUtil.showToast(CarShowDetailActivity.this,"已取消");
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+
     private void setUi() {
         if (mSeldDrvingDetail != null) {
             mSampleCoverVideo.setUpLazy(mSeldDrvingDetail.getVideo(),true,null,null,"");
@@ -234,7 +301,7 @@ public class CarShowDetailActivity extends NoHttpBaseActivity {
     }
     private void initView() {
         ButterKnife.bind(this);
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "汽车秀");
+        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "好友圈");
         ctx = this;
         horiList = new ArrayList<PhoneMagEntity>();
 
@@ -514,9 +581,16 @@ public class CarShowDetailActivity extends NoHttpBaseActivity {
 
     }
 
-    @OnClick({R.id.back,R.id.tv_pub})
+    @OnClick({R.id.back,R.id.tv_pub,R.id.tv_focus})
     public void OnClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_focus:
+                if("1".equals(focus)){
+                    delfocus(mSeldDrvingDetail.getUserId());
+                }else{
+                    focus(mSeldDrvingDetail.getUserId());
+                }
+                break;
             case R.id.back:
                 onBackPressed();
                 break;

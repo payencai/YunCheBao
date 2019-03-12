@@ -59,7 +59,7 @@ public class AddressAddActivity extends NoHttpBaseActivity {
     CityPickerView mPicker = new CityPickerView();
     private PhoneAddressEntity entity = null;
     int flag = 1;
-
+    String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +102,7 @@ public class AddressAddActivity extends NoHttpBaseActivity {
 
         if (mPersonAddress != null) {
             flag = 2;
+            id=mPersonAddress.getId();
             addrText.setText(mPersonAddress.getProvince() + mPersonAddress.getCity() + mPersonAddress.getDistrict());
             detailEdit.setText(mPersonAddress.getAddress());
             nameEdit.setText(mPersonAddress.getNickname());
@@ -123,7 +124,7 @@ public class AddressAddActivity extends NoHttpBaseActivity {
         if (de_box.isChecked()) {
             isDefult = 1;
         } else {
-            isDefult = 2;
+            isDefult =0;
         }
         Map<String, Object> params = new HashMap<>();
         params.put("address", detailEdit.getEditableText().toString());
@@ -134,7 +135,7 @@ public class AddressAddActivity extends NoHttpBaseActivity {
         params.put("province", mProvince);
         params.put("telephone", mobileEdit.getEditableText().toString());
         String json = new Gson().toJson(params);
-        HttpProxy.obtain().post(PlatformContans.AddressManage.addUserAddress, MyApplication.getUserInfo().getToken(), json, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.AddressManage.addUserAddress, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);
@@ -203,22 +204,24 @@ public class AddressAddActivity extends NoHttpBaseActivity {
     }
 
     private void update() {
-        int isDefult = 1;
+        int isDefult = 0;
         if (de_box.isChecked()) {
             isDefult = 1;
         } else {
-            isDefult = 2;
+            isDefult = 0;
         }
         Map<String, Object> params = new HashMap<>();
         params.put("address", detailEdit.getEditableText().toString());
         params.put("city", mCity);
+        params.put("id", id);
         params.put("district", mArea);
         params.put("isDefault", isDefult);
         params.put("nickname", nameEdit.getEditableText().toString());
         params.put("province", mProvince);
         params.put("telephone", mobileEdit.getEditableText().toString());
         String json = new Gson().toJson(params);
-        HttpProxy.obtain().post(PlatformContans.AddressManage.updateUserAddress, MyApplication.getUserInfo().getToken(), json, new ICallBack() {
+        Log.e("json",json);
+        HttpProxy.obtain().post(PlatformContans.AddressManage.updateUserAddress, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);

@@ -101,7 +101,7 @@ public class AddressListActivity extends NoHttpBaseActivity {
     private void getData(){
         String token= "";
         if(MyApplication.isLogin){
-            token=MyApplication.getUserInfo().getToken();
+            token=MyApplication.token;
         }
         Map<String,Object> params=new HashMap<>();
         params.put("page",page);
@@ -174,7 +174,7 @@ public class AddressListActivity extends NoHttpBaseActivity {
     private void delete(int pos){
         Map<String,Object> params=new HashMap<>();
         params.put("id",list.get(pos).getId());
-        HttpProxy.obtain().post(PlatformContans.AddressManage.deleteUserAddress,MyApplication.getUserInfo().getToken(),params,new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.AddressManage.deleteUserAddress,MyApplication.token,params,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("getGoodList", result);

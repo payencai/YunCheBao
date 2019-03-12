@@ -44,16 +44,30 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:layout_toLeftOf="@+id/collectBtn"
+                        android:layout_toLeftOf="@+id/ll_head"
                         android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tv_name"
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="诺亚驾校"
-                            android:textColor="@color/black_33"
-                            android:textSize="14sp" />
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/tv_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="诺亚驾校"
+                                android:textColor="@color/black_33"
+                                android:textSize="14sp" />
+                            <TextView
+                                android:id="@+id/tv_grade"
+                                android:layout_marginLeft="5dp"
+                                android:gravity="center"
+                                android:text="1"
+                                android:textSize="12sp"
+                                android:textColor="@color/white"
+                                android:background="@color/yellow_64"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp" />
+                        </LinearLayout>
+
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -88,6 +102,34 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_marginRight="20dp"
+                        android:layout_toLeftOf="@id/view"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/ll_head"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:src="@mipmap/shophead"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp" />
+                        <TextView
+                            android:layout_marginTop="5dp"
+                            android:textSize="12sp"
+                            android:textColor="@color/gray_99"
+                            android:text="店主信息"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="1dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@id/collectBtn"
+                        android:background="@color/gray_ee"></View>
+
+                    <LinearLayout
                         android:id="@+id/collectBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -109,13 +151,6 @@
                             android:textColor="@color/gray_66"
                             android:textSize="10sp" />
                     </LinearLayout>
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="30dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_toLeftOf="@id/collectBtn"
-                        android:background="@color/gray_ee"></View>
                 </RelativeLayout>
 
                 <LinearLayout
@@ -147,6 +182,7 @@
                     </com.cheyibao.list.AutofitViewPager>
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/more1"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
@@ -184,6 +220,7 @@
                     </com.cheyibao.list.AutofitViewPager>
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/more2"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"

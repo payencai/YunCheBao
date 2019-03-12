@@ -168,6 +168,7 @@ public class LoginByaccountActivity extends AppCompatActivity {
                         Toast.makeText(LoginByaccountActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                         UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
                         MyApplication.setUserInfo(userInfo);
+                        MyApplication.token=userInfo.getToken();
                         MyApplication.setIsLogin(true);
                   //      getData();
                         Intent intent = new Intent();
@@ -226,6 +227,7 @@ public class LoginByaccountActivity extends AppCompatActivity {
                         JSONObject data = object.getJSONObject("data");
                         Toast.makeText(LoginByaccountActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                         UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
+                        MyApplication.token=userInfo.getToken();
                         MyApplication.setUserInfo(userInfo);
                         MyApplication.setIsLogin(true);
                         Intent intent = new Intent();
@@ -300,11 +302,10 @@ public class LoginByaccountActivity extends AppCompatActivity {
                     String msg=object.getString("message");
                     if(code==0){
                         JSONObject data=object.getJSONObject("data");
-                        Toast.makeText(LoginByaccountActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
                         UserInfo userInfo =new Gson().fromJson(data.toString(),UserInfo.class);
                         MyApplication.setUserInfo(userInfo);
+                        MyApplication.token=userInfo.getToken();
                         MyApplication.setIsLogin(true);
-                        MyApplication.isLogin=true;
                         SPUtils.put(LoginByaccountActivity.this,"phone",account);
                         SPUtils.put(LoginByaccountActivity.this,"pwd",pwd);
                         int isShow= (int) SPUtils.get(LoginByaccountActivity.this,"isShow",0);

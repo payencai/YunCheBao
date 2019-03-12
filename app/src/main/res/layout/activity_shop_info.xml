@@ -31,11 +31,9 @@
         android:paddingBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/iv_logo"
-            android:scaleType="fitXY"
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
             android:layout_above="@id/rl_bottom"
-            android:src="@mipmap/test"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
         <RelativeLayout
@@ -69,6 +67,7 @@
                         android:layout_height="15dp" />
                 </LinearLayout>
                 <TextView
+                    android:layout_marginRight="20dp"
                     android:id="@+id/tv_content"
                     android:layout_marginTop="5dp"
                     android:textSize="13sp"
@@ -79,6 +78,7 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <LinearLayout
+                android:visibility="gone"
                 android:layout_centerVertical="true"
                 android:id="@+id/ll_right"
                 android:padding="10dp"
@@ -95,6 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/tv_add"
                     android:layout_marginTop="10dp"
                     android:background="@color/yellow_64"

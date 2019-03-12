@@ -30,6 +30,7 @@
             <com.payencai.library.view.CircleImageView
                 android:id="@+id/iv_head"
                 android:layout_margin="15dp"
+                android:scaleType="fitXY"
                 android:layout_alignParentBottom="true"
                 android:src="@mipmap/notlogin_head"
                 android:layout_width="50dp"

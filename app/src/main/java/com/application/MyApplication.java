@@ -45,6 +45,7 @@ public class MyApplication extends Application {
     private static UserInfo sUserInfo;
     private static List<ContactModel> sUserInfos;
     private static AMapLocation aMapLocation;
+    public static String token;
     public static List<ContactModel> getUserInfos() {
         return sUserInfos;
     }

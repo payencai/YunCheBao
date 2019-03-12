@@ -454,7 +454,8 @@
             android:name="com.system.SearchFinishActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name="com.system.NoticeActivity" />
-        <activity android:name="com.baike.BaikeTagActivity"></activity>
+        <activity android:name="com.baike.BaikeTagActivity" />
+        <activity android:name="com.maket.RentGoodsActivity"></activity>
     </application>
 
 </manifest>

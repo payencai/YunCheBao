@@ -30,6 +30,7 @@ public class GoodsTypeAdapter extends BaseQuickAdapter<GoodList,BaseViewHolder> 
         TextView tv_name= (TextView) helper.getView(R.id.tv_name);
         TextView tv_new = (TextView) helper.getView(R.id.tv_newprice);
         TextView tv_old = (TextView) helper.getView(R.id.tv_oldprice);
+        TextView tv_sale = (TextView) helper.getView(R.id.tv_sale);
         String urls=item.getCommodityImage();
         if(urls.contains(",")){
             String []images=item.getCommodityImage().split(",");
@@ -37,8 +38,7 @@ public class GoodsTypeAdapter extends BaseQuickAdapter<GoodList,BaseViewHolder> 
         }else{
             Glide.with(helper.itemView.getContext()).load(urls).into(iv_logo);
         }
-
-
+        tv_sale.setText("销量："+item.getNumber());
         tv_name.setText(item.getName());
         tv_new.setText("￥"+item.getDiscountPrice());
         tv_old.setText("￥"+item.getOriginalPrice());

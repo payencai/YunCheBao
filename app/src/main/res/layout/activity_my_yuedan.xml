@@ -20,7 +20,7 @@
             android:textColor="@color/black_33"
             android:textSize="16sp"
             android:layout_centerInParent="true"
-            android:text="我的约单"
+            android:text="我的约服务"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>

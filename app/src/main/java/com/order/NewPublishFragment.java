@@ -88,7 +88,7 @@ public class NewPublishFragment extends Fragment {
         params.put("state", state);
         params.put("page", page);
         Log.e("params",params.toString());
-        HttpProxy.obtain().get(PlatformContans.OldCar.getOldCarMerchantCarByUser, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.OldCar.getOldCarMerchantCarByUser, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result",result);

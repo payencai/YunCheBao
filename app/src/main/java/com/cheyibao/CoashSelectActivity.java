@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 
 import com.application.MyApplication;
 import com.cheyibao.adapter.CoashItemAdapter;
@@ -36,6 +37,8 @@ public class CoashSelectActivity extends AppCompatActivity {
     private CoashItemAdapter adapter;
     @BindView(R.id.lv_coash)
     LoadMoreListView listView;
+    @BindView(R.id.back)
+    ImageView back;
     int page=1;
     String id;
     boolean isLoadMore=false;
@@ -56,15 +59,15 @@ public class CoashSelectActivity extends AppCompatActivity {
         adapter.setOnSelectListener(new CoashItemAdapter.OnSelectListener() {
             @Override
             public void onSelect(int position) {
-
-            }
-        });
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent=new Intent();
                 intent.putExtra("coash",list.get(position));
                 setResult(0,intent);
+                finish();
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 finish();
             }
         });

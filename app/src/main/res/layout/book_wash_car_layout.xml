@@ -194,6 +194,7 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:visibility="gone"
                     android:layout_width="5dp"
                     android:layout_height="9dp"
                     android:layout_alignParentRight="true"
@@ -233,6 +234,7 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/iv_enter"
                     android:layout_width="5dp"
                     android:layout_height="9dp"
@@ -358,23 +360,15 @@
                     android:textColor="@color/black_33"
                     android:textSize="14sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:lineSpacingExtra="10dp"
-                    android:text="为您通知本地81%的服务者，并优先通知距离较近的服务商诚意金可退回您的约单账户。"
-                    android:textColor="@color/black_33"
-                    android:textSize="14sp" />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingTop="6dp">
-
                     <com.coorchice.library.SuperTextView
-                        android:id="@+id/item1"
+                        android:id="@+id/item6"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="6dp"
@@ -383,6 +377,19 @@
                         android:padding="8dp"
                         android:text="无"
                         android:textColor="@color/yellow_64"
+                        android:textSize="14sp"
+                        app:corner="16dp"
+                        app:solid="@color/gray_ee" />
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/item1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="6dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="5"
+                        android:textColor="@color/black_33"
                         android:textSize="14sp"
                         app:corner="16dp"
                         app:solid="@color/gray_ee" />

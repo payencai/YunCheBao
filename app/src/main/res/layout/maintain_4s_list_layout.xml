@@ -102,7 +102,7 @@
             android:layout_alignParentRight="true"
             android:id="@+id/calendarBtn"
             android:layout_width="60dp"
-            android:padding="12dp"
+            android:padding="18dp"
             android:scaleType="fitXY"
             android:layout_height="match_parent"
             android:src="@mipmap/calendar_icon"/>

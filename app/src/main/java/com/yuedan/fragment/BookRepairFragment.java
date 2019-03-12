@@ -40,6 +40,9 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.jzxiang.pickerview.TimePickerDialog;
+import com.jzxiang.pickerview.data.Type;
+import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.maket.adapter.AttenAddressListAdapter;
 import com.nohttp.sample.BaseFragment;
 import com.payencai.library.mediapicker.PickerActivity;
@@ -100,8 +103,8 @@ import top.zibin.luban.OnCompressListener;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BookRepairFragment extends BaseFragment {
-
+public class BookRepairFragment extends BaseFragment implements OnDateSetListener {
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private static final String[] PLANETS = new String[]{"普通洗车", "特殊洗车"};
     private List<String> cartypes = new ArrayList<>();
     private Context ctx;
@@ -130,6 +133,8 @@ public class BookRepairFragment extends BaseFragment {
     SuperTextView tv_item4;
     @BindView(R.id.item5)
     SuperTextView tv_item5;
+    @BindView(R.id.item6)
+    SuperTextView tv_item6;
     @BindView(R.id.tv_price)
     TextView tv_price;
     @BindView(R.id.tv_honMoney)
@@ -167,6 +172,7 @@ public class BookRepairFragment extends BaseFragment {
     String address;
     List<Uri> mSelected;
     List<String> images;
+    TimePickerDialog mTimePickerDialog;
     private List<String> nums = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -182,7 +188,21 @@ public class BookRepairFragment extends BaseFragment {
     }
     AddressBean mAddressBean;
     ArrayList<Media> defaultSelect = new ArrayList<>();
+    private void initTimePickerView() {
+        mTimePickerDialog = new TimePickerDialog.Builder()
+                .setCallBack(this)
+                .setCancelStringId("取消")
+                .setSureStringId("确定")
+                .setTitleStringId("预约时间")
+                .setCyclic(false)
+                .setThemeColor(getResources().getColor(R.color.timepicker_dialog_bg))
+                .setToolBarTextColorId(R.color.colorPrimary)
+                .setThemeColor(getResources().getColor(R.color.colorPrimary))
+                .setType(Type.ALL)
+                .setWheelItemTextSize(12)
+                .build();
 
+    }
     private void chooseVideo() {
         Intent intent = new Intent(getContext(), PickerActivity.class);
         intent.putExtra(PickerConfig.SELECT_MODE, PickerConfig.PICKER_VIDEO);//default image and video (Optional)
@@ -351,16 +371,14 @@ public class BookRepairFragment extends BaseFragment {
 
     private void setUI() {
 
-        tv_item1.setText(mWashCarType.getEarnestMoneyOne()+"元");
-        tv_item2.setText(mWashCarType.getEarnestMoneyTwo()+"元");
-        tv_item3.setText(mWashCarType.getEarnestMoneyThree()+"元");
-        tv_item4.setText(mWashCarType.getEarnestMoneyFour()+"元");
-        tv_item5.setText(mWashCarType.getEarnestMoneyFive()+"元");
+        tv_item1.setText((int)mWashCarType.getEarnestMoneyOne()+"元");
+        tv_item2.setText((int)mWashCarType.getEarnestMoneyTwo()+"元");
+        tv_item3.setText((int)mWashCarType.getEarnestMoneyThree()+"元");
+        tv_item4.setText((int)mWashCarType.getEarnestMoneyFour()+"元");
+        tv_item5.setText((int)mWashCarType.getEarnestMoneyFive()+"元");
         washtype.setText(mWashCarType.getName());
-        tv_price.setText(mWashCarType.getPrice()+"/次");
-        if(mWashCarType.getEarnestMoneyOne()<=0){
-            tv_item1.setText("无");
-        }
+        tv_price.setText(mWashCarType.getPrice()+"");
+
         honmoney=mWashCarType.getEarnestMoneyOne();
     }
 
@@ -446,7 +464,7 @@ public class BookRepairFragment extends BaseFragment {
         params.put("addressDetail",et_detail.getEditableText().toString());
         params.put("price",mWashCarType.getPrice());
         params.put("earnestMoney",honmoney);
-        params.put("appointmentTime",tv_time.getText().toString());
+        params.put("appointmentTime",tv_time.getText().toString()+":00");
         params.put("category", washtype.getText().toString());
         params.put("carCategory", carCategory);
         params.put("range", Integer.parseInt(et_note.getEditableText().toString()));
@@ -496,6 +514,7 @@ public class BookRepairFragment extends BaseFragment {
     }
     private void initView() {
         //initDatePicker();
+        initTimePickerView();
         images=new ArrayList<>();
         mImageAdapter=new ImageAdapter(getContext(),images);
         gv_pic.setAdapter(mImageAdapter);
@@ -556,6 +575,7 @@ public class BookRepairFragment extends BaseFragment {
                 tv_item3.setTextColor(getResources().getColor(R.color.black_33));
                 tv_item4.setTextColor(getResources().getColor(R.color.black_33));
                 tv_item5.setTextColor(getResources().getColor(R.color.black_33));
+                tv_item6.setTextColor(getResources().getColor(R.color.black_33));
             }
         });
         tv_item2.setOnClickListener(new View.OnClickListener() {
@@ -568,6 +588,7 @@ public class BookRepairFragment extends BaseFragment {
                 tv_item3.setTextColor(getResources().getColor(R.color.black_33));
                 tv_item4.setTextColor(getResources().getColor(R.color.black_33));
                 tv_item5.setTextColor(getResources().getColor(R.color.black_33));
+                tv_item6.setTextColor(getResources().getColor(R.color.black_33));
             }
         });
         tv_item3.setOnClickListener(new View.OnClickListener() {
@@ -580,6 +601,7 @@ public class BookRepairFragment extends BaseFragment {
                 tv_item2.setTextColor(getResources().getColor(R.color.black_33));
                 tv_item4.setTextColor(getResources().getColor(R.color.black_33));
                 tv_item5.setTextColor(getResources().getColor(R.color.black_33));
+                tv_item6.setTextColor(getResources().getColor(R.color.black_33));
             }
         });
         tv_item4.setOnClickListener(new View.OnClickListener() {
@@ -592,6 +614,7 @@ public class BookRepairFragment extends BaseFragment {
                 tv_item2.setTextColor(getResources().getColor(R.color.black_33));
                 tv_item3.setTextColor(getResources().getColor(R.color.black_33));
                 tv_item5.setTextColor(getResources().getColor(R.color.black_33));
+                tv_item6.setTextColor(getResources().getColor(R.color.black_33));
             }
         });
         tv_item5.setOnClickListener(new View.OnClickListener() {
@@ -604,6 +627,20 @@ public class BookRepairFragment extends BaseFragment {
                 tv_item3.setTextColor(getResources().getColor(R.color.black_33));
                 tv_item4.setTextColor(getResources().getColor(R.color.black_33));
                 tv_item5.setTextColor(getResources().getColor(R.color.yellow_64));
+                tv_item6.setTextColor(getResources().getColor(R.color.black_33));
+            }
+        });
+        tv_item6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                honmoney=0;
+                tv_honMoney.setText("诚意金：¥"+honmoney);
+                tv_item1.setTextColor(getResources().getColor(R.color.black_33));
+                tv_item2.setTextColor(getResources().getColor(R.color.black_33));
+                tv_item3.setTextColor(getResources().getColor(R.color.black_33));
+                tv_item4.setTextColor(getResources().getColor(R.color.black_33));
+                tv_item5.setTextColor(getResources().getColor(R.color.black_33));
+                tv_item6.setTextColor(getResources().getColor(R.color.yellow_64));
             }
         });
         rl_num.setOnClickListener(new View.OnClickListener() {
@@ -627,37 +664,7 @@ public class BookRepairFragment extends BaseFragment {
         rl_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar startDate = Calendar.getInstance();
-                startDate.set(1970, 1, 1);
-                Calendar endDate = Calendar.getInstance();
-                endDate.set(2049, 12, 31);
-
-                // customDatePicker.show(start);
-                TimePickerView timePickerView = new TimePickerBuilder(getContext(), new OnTimeSelectListener() {
-                    @Override
-                    public void onTimeSelect(Date date, View v) {
-                        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        tv_time.setText( sd.format(date));
-                    }
-                }).setType(new boolean[]{true, true, true, true, true, false})//只显示年月日时分不显示秒
-                        .setCancelText("取消")//取消按钮文字
-                        .setSubmitText("确定")//确认按钮文字
-                        .setTitleSize(20)//标题文字大小
-                        .setTitleText("时间选择")//标题文字
-                        .setOutSideCancelable(true)//点击屏幕，点在控件外部范围时，是否取消显示
-                        .isCyclic(false)//是否循环滚动
-                        .setTitleColor(Color.WHITE)//标题文字颜色
-                        .setSubmitColor(Color.WHITE)//确定按钮文字颜色
-                        .setCancelColor(Color.WHITE)//取消按钮文字颜色
-                        .setTitleBgColor(Color.BLUE)//标题背景颜色
-                        .setBgColor(Color.WHITE)//滚轮背景颜色
-                        .setRangDate(startDate, endDate)//默认是1900-2100年
-                        .setDate(Calendar.getInstance())// 打开默认选择系统时间
-                        .setLabel("年", "月", "日", "时", "分", "秒")
-                        .build();
-
-                timePickerView.show();
-
+                mTimePickerDialog.show(getFragmentManager(),"all");
             }
         });
         getData();
@@ -749,6 +756,17 @@ public class BookRepairFragment extends BaseFragment {
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(params);
 
+    }
+
+    @Override
+    public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
+        String text = getDateToString(millseconds);
+        tv_time.setText(text);
+    }
+
+    public String getDateToString(long time) {
+        Date d = new Date(time);
+        return sf.format(d);
     }
 
 }

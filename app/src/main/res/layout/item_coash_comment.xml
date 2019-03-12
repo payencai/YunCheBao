@@ -11,8 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.payencai.library.view.CircleImageView
             android:id="@+id/userhead"
+            android:scaleType="fitXY"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@mipmap/pic2" />
@@ -76,9 +77,10 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <ImageView
+            <com.payencai.library.view.CircleImageView
                 android:id="@+id/coashhead"
                 android:layout_width="30dp"
+                android:scaleType="fitXY"
                 android:layout_height="30dp"
                 android:src="@mipmap/pic2" />
             <TextView

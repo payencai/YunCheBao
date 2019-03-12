@@ -28,6 +28,8 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.GoodDetailActivity;
 import com.maket.MarketSelectListActivity;
+import com.maket.RentGoodsActivity;
+import com.maket.RentestGoodsActivity;
 import com.maket.ShopCartActivity;
 import com.maket.adapter.GridMenuAdapter;
 import com.maket.adapter.RentGoodsAdapter;
@@ -228,7 +230,9 @@ public class MallFragment extends BaseFragment {
         gv_rentest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Intent intent=new Intent(getContext(), RentGoodsActivity.class);
+                intent.putExtra("id",mRentGoods.get(position).getSecondId());
+                 startActivity(intent);
 //                Bundle bundle=new Bundle();
 //                bundle.putSerializable("data",mRentGoods.get(position));
 //                ActivityAnimationUtils.commonTransition(getActivity(), GoodDetailActivity.class, ActivityConstans.Animation.FADE,bundle);

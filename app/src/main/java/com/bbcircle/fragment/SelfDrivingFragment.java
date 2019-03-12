@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -65,6 +66,8 @@ public class SelfDrivingFragment extends BaseFragment {
     //    private Context ctx;
     @BindView(R.id.id_stickynavlayout_innerscrollview)
     RecyclerView listView;
+    @BindView(R.id.sr_refresh)
+    SwipeRefreshLayout sr_refresh;
     int page = 1;
     boolean isLoadMore = false;
     CommonAdapter<SelfDrive> mCommonAdapter;
@@ -96,6 +99,7 @@ public class SelfDrivingFragment extends BaseFragment {
 
     public void refreshData() {
         list.clear();
+        adapter.notifyDataSetChanged();
         page = 1;
         getData();
     }
@@ -132,6 +136,9 @@ public class SelfDrivingFragment extends BaseFragment {
                             adapter.setNewData(selfDrives);
                             adapter.loadMoreComplete();
                         }
+                    }
+                    if(sr_refresh.isRefreshing()){
+                        sr_refresh.setRefreshing(false);
                     }
                     //updateData();
 
@@ -206,6 +213,13 @@ public class SelfDrivingFragment extends BaseFragment {
             @Override
             public void onLoadMoreRequested() {
                 loadData();
+            }
+        });
+        sr_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+
             }
         });
         listView.setAdapter(adapter);

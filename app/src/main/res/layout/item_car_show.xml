@@ -9,8 +9,9 @@
        android:gravity="center_vertical"
        android:layout_width="match_parent"
        android:layout_height="wrap_content">
-       <ImageView
+       <com.payencai.library.view.CircleImageView
            android:id="@+id/head"
+           android:scaleType="fitXY"
            android:src="@mipmap/notlogin_head"
            android:layout_width="30dp"
            android:layout_height="30dp" />
@@ -78,17 +79,7 @@
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <ImageView
-                android:src="@mipmap/ic_dianzan"
-                android:layout_width="15dp"
-                android:layout_height="12dp" />
-            <TextView
-                android:gravity="center"
-                android:textSize="12sp"
-                android:layout_marginLeft="5dp"
-                android:text="0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+
 
             <ImageView
                 android:layout_marginLeft="15dp"
@@ -96,6 +87,7 @@
                 android:layout_width="15dp"
                 android:layout_height="12dp" />
             <TextView
+                android:id="@+id/tv_read"
                 android:gravity="top"
                 android:textSize="12sp"
                 android:layout_marginLeft="5dp"

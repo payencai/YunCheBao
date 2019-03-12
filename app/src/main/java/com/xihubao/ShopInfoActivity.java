@@ -1,6 +1,8 @@
 package com.xihubao;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,14 +27,19 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.rongcloud.activity.AddFriendDetailActivity;
 import com.rongcloud.model.ApplyGroup;
+import com.system.WebviewActivity;
 import com.system.model.ShopInfo;
 import com.vipcenter.model.UserInfo;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -41,8 +48,8 @@ import butterknife.ButterKnife;
 public class ShopInfoActivity extends AppCompatActivity {
     String id;
     ShopInfo mShopInfo;
-    @BindView(R.id.iv_logo)
-    ImageView iv_logo;
+    @BindView(R.id.banner)
+    com.youth.banner.Banner banner;
     @BindView(R.id.tv_nick)
     TextView tv_nick;
     @BindView(R.id.tv_add)
@@ -157,19 +164,39 @@ public class ShopInfoActivity extends AppCompatActivity {
                 }
             });
     }
+    List<String> mImages=new ArrayList<>();
     private void setData(){
         String images=mShopInfo.getImgs();
         if(!TextUtils.isEmpty(images)){
             if(images.contains(",")){
-                String[] imgs=images.split(",");
-                Glide.with(this).load(imgs[0]).into(iv_logo);
+                String [] imgs=images.split(",");
+                for (int i = 0; i <imgs.length ; i++) {
+                    mImages.add(imgs[i]);
+                }
             }else{
-                Glide.with(this).load(mShopInfo.getImgs()).into(iv_logo);
+                mImages.add(images);
             }
+            initBanner();
         }
-
         tv_account.setText(mShopInfo.getYcbAccount());
         tv_nick.setText(mShopInfo.getName());
         tv_content.setText(mShopInfo.getPersonSign());
+    }
+    private void initBanner() {
+
+        banner.setImageLoader(new com.youth.banner.loader.ImageLoader() {
+            @Override
+            public void displayImage(Context context, Object path, ImageView imageView) {
+                //此处可以自行选择，我直接用的Picasso
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                Glide.with(ShopInfoActivity.this).load((String) path).into(imageView);
+            }
+        });
+
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
+        banner.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位置
+        banner.setDelayTime(2000);//设置轮播时间
+        banner.setImages(mImages);//设置图片源
+        banner.start();
     }
 }

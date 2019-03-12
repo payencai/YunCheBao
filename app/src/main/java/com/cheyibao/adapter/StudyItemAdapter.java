@@ -50,6 +50,7 @@ public class StudyItemAdapter extends BaseAdapter {
         DrvingSchool drvingSchool = mDrvingSchools.get(position);
         convertView = LayoutInflater.from(mContext).inflate(R.layout.driving_school_list_item_layout, null);
         TextView name = (TextView) convertView.findViewById(R.id.name);
+        TextView tv_grade = (TextView) convertView.findViewById(R.id.tv_grade);
         TextView dis = (TextView) convertView.findViewById(R.id.dis);
         TextView score = (TextView) convertView.findViewById(R.id.score);
         TextView address = (TextView) convertView.findViewById(R.id.address);
@@ -58,6 +59,7 @@ public class StudyItemAdapter extends BaseAdapter {
         SimpleDraweeView draweeView = (SimpleDraweeView) convertView.findViewById(R.id.img);
         name.setText(drvingSchool.getName());
         DecimalFormat df = new DecimalFormat("0.00");
+        tv_grade.setText(drvingSchool.getGrade()+"");
         dis.setText("距离" + df.format(drvingSchool.getDistance()) + "km");
         score.setText(drvingSchool.getScore() + "");
         address.setText(drvingSchool.getAddress());

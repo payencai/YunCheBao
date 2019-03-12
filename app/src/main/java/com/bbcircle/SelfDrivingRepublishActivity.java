@@ -375,6 +375,7 @@ public class SelfDrivingRepublishActivity extends NoHttpFragmentBaseActivity imp
             public void OnSuccess(String result) {
                 Log.e("result", result);
                 ToastUtil.showToast(SelfDrivingRepublishActivity.this,"发布成功");
+                finish();
                 // ActivityAnimationUtils.commonTransition(SelfDrivingRepublishActivity.this, ReplyDescriptionActivity.class, ActivityConstans.Animation.FADE);
             }
 

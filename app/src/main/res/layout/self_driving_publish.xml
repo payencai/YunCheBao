@@ -73,7 +73,7 @@
                 android:visibility="gone"
                 android:id="@+id/iv_img"
                 android:padding="20dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/yellowcamera_icon"
                 android:layout_width="match_parent"
                 android:layout_height="210dp" />

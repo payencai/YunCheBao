@@ -74,6 +74,7 @@ public class GoodCommentFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 type = 1;
+                page=1;
                 comment1.setTextColor(getResources().getColor(R.color.yellow_02));
                 comment2.setTextColor(getResources().getColor(R.color.gray_99));
                 mGoodsComments.clear();
@@ -84,6 +85,7 @@ public class GoodCommentFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 type = 2;
+                page=1;
                 comment2.setTextColor(getResources().getColor(R.color.yellow_02));
                 comment1.setTextColor(getResources().getColor(R.color.gray_99));
                 mGoodsComments.clear();

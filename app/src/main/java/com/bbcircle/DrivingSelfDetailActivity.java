@@ -38,6 +38,7 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.payencai.library.util.ToastUtil;
+import com.payencai.library.view.CircleImageView;
 import com.rongcloud.activity.contact.FriendDetailActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
@@ -88,7 +89,7 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
     @BindView(R.id.name)
     TextView tv_name;
     @BindView(R.id.head)
-    ImageView tv_head;
+    CircleImageView tv_head;
     @BindView(R.id.tv_heart)
     ImageView iv_heart;
     @BindView(R.id.ll_heart)
@@ -242,7 +243,7 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
 
     private void initView() {
         ButterKnife.bind(this);
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "详情");
+        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "自驾游");
         id = getIntent().getExtras().getInt("id");
         //网络地址获取轮播图
         imageList.clear();

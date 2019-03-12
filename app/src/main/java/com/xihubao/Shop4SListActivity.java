@@ -133,11 +133,11 @@ public class Shop4SListActivity extends NoHttpFragmentBaseActivity {
         return weekDays[w];
     }
     private void initGrid() {
-        for (int i = 1; i < 8; i++) {
+        for (int i = 0; i < 7; i++) {
             WeekDate weekDate = new WeekDate();
             weekDate.setDate(getFetureDate(i));
             weekDate.setWeek(dateToWeek(getFetureDate(i)));
-            if(i==1){
+            if(i==0){
                 selectTime=weekDate.getDate();
                 mSListFragment.setTime(selectTime);
                 weekDate.setSelect(true);
@@ -183,13 +183,13 @@ public class Shop4SListActivity extends NoHttpFragmentBaseActivity {
     }
 
     private void updateWeekDate(String date){
-        for (int i = 1; i <8 ; i++) {
+        for (int i = 0; i <7 ; i++) {
             String time=getBeforeAfterDate(date,i);
             String week=dateToWeek(time);
             WeekDate weekDate=new WeekDate();
             weekDate.setDate(time);
             weekDate.setWeek(week);
-            if(i==1){
+            if(i==0){
                 selectTime=weekDate.getDate();
                 mSListFragment.setTime(selectTime);
                 weekDate.setSelect(true);

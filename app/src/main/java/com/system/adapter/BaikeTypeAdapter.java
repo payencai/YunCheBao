@@ -60,9 +60,11 @@ public class BaikeTypeAdapter extends BaseAdapter {
         if(pos==position){
             tv_category.setTextColor(mContext.getResources().getColor(R.color.black_33));
             v_index.setBackgroundColor(mContext.getResources().getColor(R.color.yellow_02));
+
         }else{
             tv_category.setTextColor(mContext.getResources().getColor(R.color.gray_99));
             v_index.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+
         }
         return convertView;
     }
