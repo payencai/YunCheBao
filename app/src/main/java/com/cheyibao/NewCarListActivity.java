@@ -28,6 +28,7 @@ import com.cheyibao.adapter.PriceGridAdapter;
 import com.cheyibao.model.NewCarMenu;
 import com.cheyibao.model.OldCar;
 import com.cheyibao.model.TestPopupWindow;
+import com.cheyibao.view.TypeSelectWindow;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.entity.PhoneGoodEntity;
@@ -74,7 +75,8 @@ public class NewCarListActivity extends NoHttpBaseActivity {
     int page = 1;
     @BindView(R.id.rule_line_tv)
     TextView topLineTv;
-
+    @BindView(R.id.cityName)
+    TextView cityName;
     private ArrayList<String> items = new ArrayList<String>();
     private boolean isClose = false, isOpen3 = false, isOpen = false;
     public static int screenW, screenH;
@@ -93,8 +95,10 @@ public class NewCarListActivity extends NoHttpBaseActivity {
     String firstId="";//品牌Id;
     String startprice="";
     String endprice="";
-    int type=0;//个人商家
+    String brand;
 
+    int type=0;//个人商家
+    int orderByClause=0;
     NewCarMenu mNewCarMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +126,9 @@ public class NewCarListActivity extends NoHttpBaseActivity {
         if(!TextUtils.isEmpty(endprice)){
             params.put("endprice", endprice);
         }
+        if(orderByClause>0){
+            params.put("orderByClause", orderByClause);
+        }
         Log.e("params",params.toString());
         HttpProxy.obtain().get(PlatformContans.NewCar.getNewCarMerchantMessage, params,  new ICallBack() {
             @Override
@@ -137,7 +144,7 @@ public class NewCarListActivity extends NoHttpBaseActivity {
                         list.add(baikeItem);
                     }
                     adapter.notifyDataSetChanged();
-                    //updateData();
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -217,16 +224,42 @@ public class NewCarListActivity extends NoHttpBaseActivity {
 
             @Override
             public void onTagClick(int position, String text) {
+                Log.e("onTagClick",text);
+                if(text.equals(brand)){
+                    firstId="";
+                    page=1;
+                    list.clear();
+                    getData();
+                }
+                if(text.equals("价格最低")||text.equals("价格最高")||text.equals("车龄最短")||text.equals("里程最少")){
+                    orderByClause=0;
+                    page=1;
+                    list.clear();
+                    getData();
+                }
                 mTagContainerLayout.removeTag(position);
             }
 
             @Override
             public void onTagLongClick(final int position, String text) {
-                mTagContainerLayout.removeTag(position);
-            }
 
+            }
             @Override
             public void onTagCrossClick(int position) {
+                String text=tagStrList.get(position);
+                Log.e("text",text);
+                if(text.equals(brand)){
+                    firstId="";
+                    page=1;
+                    list.clear();
+                    getData();
+                }
+                if(text.equals("价格最低")||text.equals("价格最高")||text.equals("车龄最短")||text.equals("里程最少")){
+                    orderByClause=0;
+                    page=1;
+                    list.clear();
+                    getData();
+                }
                 mTagContainerLayout.removeTag(position);
             }
         });
@@ -246,6 +279,7 @@ public class NewCarListActivity extends NoHttpBaseActivity {
                 ActivityAnimationUtils.commonTransition(NewCarListActivity.this, NewCarDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
             }
         });
+        cityName.setText(MyApplication.getaMapLocation().getCity());
         getData();
     }
 
@@ -261,14 +295,126 @@ public class NewCarListActivity extends NoHttpBaseActivity {
 
     PopupWindow popupWindow;
 
-    private void showSortPopupWindow() {
-        View view = LayoutInflater.from(this).inflate(R.layout.popup_select, null);
-        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.showAsDropDown(ll_select);
-        popupWindow.setOutsideTouchable(false);
-    }
+
+   private  void showTypeWindow(){
+       TypeSelectWindow typeSelectWindow=new TypeSelectWindow(this);
+       typeSelectWindow.showPopupWindow(ll_select);
+       View view=typeSelectWindow.getContentView();
+       TextView tv_pricemin= (TextView) view.findViewById(R.id.item1);
+       TextView tv_pricemax= (TextView) view.findViewById(R.id.item2);
+       TextView tv_carage= (TextView) view.findViewById(R.id.item3);
+       TextView tv_dis= (TextView) view.findViewById(R.id.item4);
+       tv_pricemin.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               orderByClause=1;
+               mTagContainerLayout.removeAllTags();
+               typeSelectWindow.dismissPopup();
+               if(tagStrList.size()>0){
+                   if(!tagStrList.contains("价格最低")&&!tagStrList.contains("价格最高")&&!tagStrList.contains("车龄最短")&&!tagStrList.contains("里程最少")){
+                       tagStrList.add("价格最低");
+                   }
+                   for (int i = 0; i <tagStrList.size() ; i++) {
+                       String tag=tagStrList.get(i);
+                       if(tag.equals("价格最低")||tag.equals("价格最高")||tag.equals("车龄最短")||tag.equals("里程最少")){
+                           tagStrList.remove(tag);
+                           tagStrList.add("价格最低");
+                           break;
+                       }
+                   }
+               }else{
+                   tagStrList.add("价格最低");
+               }
+               mTagContainerLayout.setTags(tagStrList);
+               page=1;
+               list.clear();
+               getData();
 
 
+           }
+       });
+       tv_pricemax.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               orderByClause=2;
+               mTagContainerLayout.removeAllTags();
+               typeSelectWindow.dismissPopup();
+               if(tagStrList.size()>0){
+                   if(!tagStrList.contains("价格最低")&&!tagStrList.contains("价格最高")&&!tagStrList.contains("车龄最短")&&!tagStrList.contains("里程最少")){
+                       tagStrList.add("价格最高");
+                   }
+                   for (int i = 0; i <tagStrList.size() ; i++) {
+                       String tag=tagStrList.get(i);
+                       if(tag.equals("价格最低")||tag.equals("价格最高")||tag.equals("车龄最短")||tag.equals("里程最少")){
+                           tagStrList.remove(tag);
+                           tagStrList.add("价格最高");
+                           break;
+                       }
+                   }
+               }else{
+                   tagStrList.add("价格最高");
+               }
+               mTagContainerLayout.setTags(tagStrList);
+               page=1;
+               list.clear();
+               getData();
+           }
+       });
+       tv_carage.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               orderByClause=3;
+               mTagContainerLayout.removeAllTags();
+               typeSelectWindow.dismissPopup();
+               if(tagStrList.size()>0){
+                   if(!tagStrList.contains("价格最低")&&!tagStrList.contains("价格最高")&&!tagStrList.contains("车龄最短")&&!tagStrList.contains("里程最少")){
+                       tagStrList.add("车龄最短");
+                   }
+                   for (int i = 0; i <tagStrList.size() ; i++) {
+                       String tag=tagStrList.get(i);
+                       if(tag.equals("价格最低")||tag.equals("价格最高")||tag.equals("车龄最短")||tag.equals("里程最少")){
+                           tagStrList.remove(tag);
+                           tagStrList.add("车龄最短");
+                           break;
+                       }
+                   }
+               }else{
+                   tagStrList.add("车龄最短");
+               }
+               mTagContainerLayout.setTags(tagStrList);
+               page=1;
+               list.clear();
+               getData();
+           }
+       });
+       tv_dis.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               orderByClause=4;
+               mTagContainerLayout.removeAllTags();
+               typeSelectWindow.dismissPopup();
+               if(tagStrList.size()>0){
+                   if(!tagStrList.contains("价格最低")&&!tagStrList.contains("价格最高")&&!tagStrList.contains("车龄最短")&&!tagStrList.contains("里程最少")){
+                       tagStrList.add("里程最少");
+                   }
+                   for (int i = 0; i <tagStrList.size() ; i++) {
+                       String tag=tagStrList.get(i);
+                       if(tag.equals("价格最低")||tag.equals("价格最高")||tag.equals("车龄最短")||tag.equals("里程最少")){
+                           tagStrList.remove(tag);
+                           tagStrList.add("里程最少");
+                           break;
+                       }
+                   }
+               }else{
+                   tagStrList.add("里程最少");
+               }
+               mTagContainerLayout.setTags(tagStrList);
+               page=1;
+               list.clear();
+               getData();
+           }
+       });
+   }
 
     /**
      * 设置弹窗内容
@@ -367,21 +513,23 @@ public class NewCarListActivity extends NoHttpBaseActivity {
                 onBackPressed();
                 break;
             case R.id.menu1:
-                if (popupWindow == null)
-                    showSortPopupWindow();
-                else {
-                    if (popupWindow.isShowing()) {
-                        popupWindow.dismiss();
-                    }else{
-                        showSortPopupWindow();
-                    }
-                }
+               // showSortPopupWindow();
+                showTypeWindow();
+//                if (popupWindow == null)
+//                    showSortPopupWindow();
+//                else {
+//                    if (popupWindow.isShowing()) {
+//                        popupWindow.dismiss();
+//                    }else{
+//                        showSortPopupWindow();
+//                    }
+//                }
 //                isOpen = isOpen?false:true;
 //                setPopup(0);
 //                middlePopup.show(ll_select);
                 break;
             case R.id.menu2:
-                startActivityForResult(new Intent(NewCarListActivity.this, CarBrandSelectActivity.class), 1);
+                startActivityForResult(new Intent(NewCarListActivity.this, SelectCarBrandActivity.class), 1);
                 break;
             case R.id.menu3:
                 isOpen3 = isOpen3 ? false : true;
@@ -391,10 +539,40 @@ public class NewCarListActivity extends NoHttpBaseActivity {
                 ActivityAnimationUtils.commonTransition(NewCarListActivity.this, OldCarSelectActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.rechargeBtn:
+                tagStrList.clear();
                 mTagContainerLayout.removeAllTags();
+                orderByClause=0;
+                firstId="";
+                startprice="";
+                startprice="";
+                page=1;
+                brand="";
+                list.clear();
+                getData();
+
                 break;
         }
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1&&data!=null){
+             mTagContainerLayout.removeAllTags();
+             String name=data.getStringExtra("name");
+             firstId=data.getStringExtra("id");
+             if(TextUtils.isEmpty(brand)){
+                 brand=name;
+                 tagStrList.add(brand);
+             }else{
+                 tagStrList.remove(brand);
+                 brand=name;
+                 tagStrList.add(brand);
+             }
+             mTagContainerLayout.setTags(tagStrList);
+             page=1;
+             list.clear();
+             getData();
+        }
+    }
 }

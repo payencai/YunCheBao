@@ -126,12 +126,18 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:scrollHorizontally">true</item>
     </style>
+    <style name="SelectPopupWindow">
+        <item name="android:windowEnterAnimation">@anim/p_in</item>
 
+    </style>
     <style name="AnimTopMiddle" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/push_top_in</item>
         <item name="android:windowExitAnimation">@anim/push_top_out</item>
     </style>
-
+    <style name="PopDown" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/pop_show</item>
+        <item name="android:windowExitAnimation">@anim/pop_hide</item>
+    </style>
     <!-- 支付方式Dialog 样式 -->
     <style name="recharge_pay_dialog" parent="@android:style/Theme.Dialog">
         <!-- 背景透明 -->

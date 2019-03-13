@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.application.MyApplication;
 
@@ -63,7 +64,10 @@ public class RepairListActivity extends NoHttpBaseActivity  {
     LinearLayout rl_right;
     @BindView(R.id.lv_car)
     LoadMoreListView lv_car;
+    @BindView(R.id.tv_type)
+    TextView tv_type;
     List<CarShop> list;
+
     WashCarListAdapter adapter;
     int page = 1;
 

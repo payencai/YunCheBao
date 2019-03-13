@@ -455,7 +455,8 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name="com.system.NoticeActivity" />
         <activity android:name="com.baike.BaikeTagActivity" />
-        <activity android:name="com.maket.RentGoodsActivity"></activity>
+        <activity android:name="com.maket.RentGoodsActivity" />
+        <activity android:name="com.cheyibao.SelectCarBrandActivity"></activity>
     </application>
 
 </manifest>

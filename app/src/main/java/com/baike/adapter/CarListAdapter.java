@@ -64,7 +64,7 @@ public class CarListAdapter extends BaseAdapter {
         vh.name2.setText(value);
         vh.img.setImageURI(Uri.parse(list.get(position).getCarCategoryDetail().getBanner1()));
         vh.name.setText(list.get(position).getFirstName());
-        vh.tv_price.setText("￥"+list.get(position).getMinPrice());
+        vh.tv_price.setText("￥"+list.get(position).getMinPrice()/10000+"万");
 //        }
         return convertView;
     }

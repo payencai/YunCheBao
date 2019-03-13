@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="#d8d8d8"
-    android:layout_width="wrap_content"
+    android:background="@color/white"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#d8d8d8"
+        android:background="@color/white"
         android:orientation="vertical">
 
 
@@ -21,7 +22,12 @@
             android:text="距离最近"
             android:textColor="@color/yellow_02"
             android:textSize="14sp" />
+        <View
+            android:alpha="0.5"
 
+            android:background="@color/gray_ee"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
 
         <TextView
             android:id="@+id/item2"
@@ -32,7 +38,11 @@
             android:textColor="@color/black_33"
             android:textSize="14sp" />
 
-
+        <View
+            android:alpha="0.5"
+            android:background="@color/gray_ee"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
         <TextView
             android:id="@+id/item3"
             android:layout_width="match_parent"
@@ -41,7 +51,11 @@
             android:text="等级优先"
             android:textColor="@color/black_33"
             android:textSize="14sp" />
-
+        <View
+            android:alpha="0.5"
+            android:background="@color/gray_ee"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
 
         <TextView
             android:id="@+id/item4"
@@ -53,9 +67,10 @@
             android:textSize="14sp" />
 
         <View
+            android:alpha="0.5"
+            android:background="@color/gray_ee"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#e2e2e2"></View>
+            android:layout_height="1dp"></View>
 
     </LinearLayout>
 

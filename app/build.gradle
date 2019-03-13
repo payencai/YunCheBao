@@ -139,6 +139,7 @@ dependencies {
     implementation 'com.nex3z:flow-layout:1.2.4'
     //https://blog.csdn.net/moy1995/article/details/77880075
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+    compile 'com.github.razerdp:BasePopup:2.1.9'
     //图片压缩
     implementation 'top.zibin:Luban:1.1.7'
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'

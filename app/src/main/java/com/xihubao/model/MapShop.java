@@ -42,7 +42,7 @@ public class MapShop implements Serializable{
     private String city;
     private String createTime;
     private double distance;
-    private double grade;
+    private int grade;
     private String id;
     private String latitude;
     private String logo;
@@ -122,11 +122,11 @@ public class MapShop implements Serializable{
         this.distance = distance;
     }
 
-    public double getGrade() {
+    public int getGrade() {
         return grade;
     }
 
-    public void setGrade(double grade) {
+    public void setGrade(int grade) {
         this.grade = grade;
     }
 

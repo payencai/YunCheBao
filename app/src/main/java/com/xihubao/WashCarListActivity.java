@@ -64,7 +64,8 @@ import butterknife.OnClick;
  */
 
 public class WashCarListActivity extends NoHttpBaseActivity {
-
+    @BindView(R.id.tv_type)
+    TextView tv_type;
     @BindView(R.id.rl_left)
     LinearLayout rl_left;
     @BindView(R.id.rl_right)
@@ -73,6 +74,8 @@ public class WashCarListActivity extends NoHttpBaseActivity {
     LoadMoreListView lv_car;
     @BindView(R.id.tv_city)
     TextView tv_city;
+    @BindView(R.id.view)
+            View line;
     List<CarShop> list;
     WashCarListAdapter adapter;
     int page = 1;
@@ -134,8 +137,9 @@ public class WashCarListActivity extends NoHttpBaseActivity {
             }
         });
         popupWindowcity = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindowcity.showAsDropDown(rl_right);
-        popupWindowcity.setOutsideTouchable(true);
+        popupWindowcity.setAnimationStyle(R.style.PopDown);
+        popupWindowcity.showAsDropDown(line);
+
 
     }
 
@@ -150,7 +154,7 @@ public class WashCarListActivity extends NoHttpBaseActivity {
         item1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                tv_type.setText("距离最近");
                 grade = 1;
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -162,6 +166,7 @@ public class WashCarListActivity extends NoHttpBaseActivity {
             @Override
             public void onClick(View v) {
                 popupWindow.dismiss();
+                tv_type.setText("评分优先");
                 grade = 2;
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -172,6 +177,7 @@ public class WashCarListActivity extends NoHttpBaseActivity {
             @Override
             public void onClick(View v) {
                 popupWindow.dismiss();
+                tv_type.setText("等级优先");
                 grade = 3;
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -183,13 +189,15 @@ public class WashCarListActivity extends NoHttpBaseActivity {
             public void onClick(View v) {
                 popupWindow.dismiss();
                 grade = 4;
+                tv_type.setText("订单优先");
                 list.clear();
                 adapter.notifyDataSetChanged();
                 getData();
             }
         });
-        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.showAsDropDown(rl_right);
+        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.showAsDropDown(line);
+        popupWindow.setAnimationStyle(R.style.PopDown);
         popupWindow.setOutsideTouchable(true);
     }
 

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="#88000000"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/ll_target"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:background="#e2e2e2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+        <TextView
+            android:paddingLeft="15dp"
+            android:id="@+id/item1"
+            android:textColor="@color/black_33"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:text="价格最低"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+        <View
+            android:background="#e2e2e2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+        <TextView
+            android:paddingLeft="15dp"
+            android:id="@+id/item2"
+            android:textColor="@color/black_33"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:text="价格最高"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+        <View
+            android:background="#e2e2e2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+        <TextView
+            android:paddingLeft="15dp"
+            android:id="@+id/item3"
+            android:textColor="@color/black_33"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:text="车龄最短"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+        <View
+            android:background="#e2e2e2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+        <TextView
+            android:paddingLeft="15dp"
+            android:id="@+id/item4"
+            android:textColor="@color/black_33"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:text="里程最少"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+        <View
+            android:background="#e2e2e2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></View>
+</LinearLayout>
