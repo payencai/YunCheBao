@@ -9,13 +9,24 @@ import java.util.List;
  */
 public class ServerType implements Serializable{
 
+
     /**
+     * categoryId : string
      * categoryName : string
-     * serveList : [{"categoryName":"string","content":"string","createTime":"2018-12-21T08:27:04.149Z","id":"string","price":0,"shopId":"string","startTime":"2018-12-21T08:27:04.149Z","state":0,"title":"string"}]
+     * serveList : [{"createTime":"2019-03-15T07:43:12.098Z","firstContent":"string","firstName":"string","firstServiceCategoryId":"string","id":"string","price":0,"secondContent":"string","secondName":"string","secondServiceCategoryId":"string","shopId":"string","type":0}]
      */
 
+    private String categoryId;
     private String categoryName;
     private List<ServeListBean> serveList;
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public String getCategoryName() {
         return categoryName;
@@ -35,42 +46,30 @@ public class ServerType implements Serializable{
 
     public static class ServeListBean implements Serializable{
         /**
-         * categoryName : string
-         * content : string
-         * createTime : 2018-12-21T08:27:04.149Z
+         * createTime : 2019-03-15T07:43:12.098Z
+         * firstContent : string
+         * firstName : string
+         * firstServiceCategoryId : string
          * id : string
-         * price : 0
+         * price : 0.0
+         * secondContent : string
+         * secondName : string
+         * secondServiceCategoryId : string
          * shopId : string
-         * startTime : 2018-12-21T08:27:04.149Z
-         * state : 0
-         * title : string
+         * type : 0
          */
 
-        private String categoryName;
-        private String content;
         private String createTime;
+        private String firstContent;
+        private String firstName;
+        private String firstServiceCategoryId;
         private String id;
         private double price;
+        private String secondContent;
+        private String secondName;
+        private String secondServiceCategoryId;
         private String shopId;
-        private String startTime;
-        private int state;
-        private String title;
-
-        public String getCategoryName() {
-            return categoryName;
-        }
-
-        public void setCategoryName(String categoryName) {
-            this.categoryName = categoryName;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
+        private int type;
 
         public String getCreateTime() {
             return createTime;
@@ -78,6 +77,30 @@ public class ServerType implements Serializable{
 
         public void setCreateTime(String createTime) {
             this.createTime = createTime;
+        }
+
+        public String getFirstContent() {
+            return firstContent;
+        }
+
+        public void setFirstContent(String firstContent) {
+            this.firstContent = firstContent;
+        }
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
+
+        public String getFirstServiceCategoryId() {
+            return firstServiceCategoryId;
+        }
+
+        public void setFirstServiceCategoryId(String firstServiceCategoryId) {
+            this.firstServiceCategoryId = firstServiceCategoryId;
         }
 
         public String getId() {
@@ -96,6 +119,30 @@ public class ServerType implements Serializable{
             this.price = price;
         }
 
+        public String getSecondContent() {
+            return secondContent;
+        }
+
+        public void setSecondContent(String secondContent) {
+            this.secondContent = secondContent;
+        }
+
+        public String getSecondName() {
+            return secondName;
+        }
+
+        public void setSecondName(String secondName) {
+            this.secondName = secondName;
+        }
+
+        public String getSecondServiceCategoryId() {
+            return secondServiceCategoryId;
+        }
+
+        public void setSecondServiceCategoryId(String secondServiceCategoryId) {
+            this.secondServiceCategoryId = secondServiceCategoryId;
+        }
+
         public String getShopId() {
             return shopId;
         }
@@ -104,28 +151,12 @@ public class ServerType implements Serializable{
             this.shopId = shopId;
         }
 
-        public String getStartTime() {
-            return startTime;
+        public int getType() {
+            return type;
         }
 
-        public void setStartTime(String startTime) {
-            this.startTime = startTime;
-        }
-
-        public int getState() {
-            return state;
-        }
-
-        public void setState(int state) {
-            this.state = state;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
+        public void setType(int type) {
+            this.type = type;
         }
     }
 }

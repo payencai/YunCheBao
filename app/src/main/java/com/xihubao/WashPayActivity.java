@@ -58,8 +58,8 @@ public class WashPayActivity extends AppCompatActivity {
 
         tv_price1.setText("￥"+mServeListBean.getPrice());
         tv_price2.setText("￥"+mServeListBean.getPrice());
-        tv_shop.setText(mServeListBean.getTitle());
-        tv_catagory.setText(mServeListBean.getCategoryName());
+        tv_shop.setText(mServeListBean.getFirstName());
+        tv_catagory.setText(mServeListBean.getFirstContent());
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -47,9 +47,9 @@ public class ServerDetailAdapter  extends BaseAdapter {
         TextView goodsCategoryName= (TextView) view.findViewById(R.id.goodsCategoryName);
         TextView price= (SuperTextView) view.findViewById(R.id.price);
         TextView tvGoodsDescription= (TextView) view.findViewById(R.id.tvGoodsDescription);
-        goodsCategoryName.setText(serveListBean.getTitle());
+        goodsCategoryName.setText(serveListBean.getSecondName());
         price.setText("￥"+serveListBean.getPrice());
-        tvGoodsDescription.setText(serveListBean.getContent());
+        tvGoodsDescription.setText(serveListBean.getSecondContent());
         return view;
     }
 }

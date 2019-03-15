@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_color"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/gray_stroke_r4"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <TextView
+        android:background="@drawable/shape_round_textview"
+        android:id="@+id/st_color"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_margin="10dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="黑色"
+        android:textColor="@color/gray_66"
+        android:textSize="14sp" />
+
+</LinearLayout>

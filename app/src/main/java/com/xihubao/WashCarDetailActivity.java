@@ -90,7 +90,7 @@ public class WashCarDetailActivity extends FragmentActivity {
     private ViewPager viewPager;
     private TabFragmentAdapter adapter;
     String id;
-    String type;
+    int type=0;
 
     CarShop mCarShop;
     @BindView(R.id.bg_img)
@@ -111,14 +111,16 @@ public class WashCarDetailActivity extends FragmentActivity {
     ImageView iv_heart;
     int isCollect;
     String [] titles={"服务","评价"
+
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.washcar_shop_detail);
         ButterKnife.bind(this);
         mCarShop= (CarShop) getIntent().getExtras().getSerializable("id");
-        type=mCarShop.getBanner();
+        type=getIntent().getExtras().getInt("flag");
         initView();
         initViewPager();
     }

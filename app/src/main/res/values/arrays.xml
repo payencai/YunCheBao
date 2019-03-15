@@ -10,10 +10,10 @@
     </string-array>
     <string-array name="indecator_array_licheng">
         <item>0</item>
-        <item>4</item>
-        <item>8</item>
-        <item>11</item>
-        <item>15</item>
+        <item>20</item>
+        <item>40</item>
+        <item>60</item>
+        <item>80</item>
         <item>不限</item>
     </string-array>
     <string-array name="indecator_array_pailiang">

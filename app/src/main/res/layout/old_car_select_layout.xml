@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,11 +9,12 @@
     <include layout="@layout/top_title_layout"></include>
 
     <ScrollView
+        android:layout_above="@id/submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:background="@color/white"
-        android:paddingBottom="80dp">
+       >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,297 +29,100 @@
                 android:text="车型"
                 android:textColor="@color/black_33"
                 android:textSize="14sp" />
+            <com.tool.view.GridViewForScrollView
+                android:layout_margin="10dp"
+                android:verticalSpacing="5dp"
+                android:horizontalSpacing="5dp"
+                android:numColumns="3"
+                android:id="@+id/sg_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+            </com.tool.view.GridViewForScrollView>
             <LinearLayout
+                android:visibility="gone"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:layout_margin="6dp"
-                    android:gravity="center_horizontal"
-                    android:background="@drawable/selector_filter_grid"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="28dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/select_2"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="两厢轿车"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:layout_margin="6dp"
-                    android:gravity="center_horizontal"
-                    android:background="@drawable/selector_filter_grid"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="28dp"
-                        android:src="@mipmap/select_3"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="三厢轿车"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:layout_margin="6dp"
-                    android:gravity="center_horizontal"
-                    android:background="@drawable/selector_filter_grid"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="28dp"
-                        android:src="@mipmap/select_pika"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="皮卡"/>
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:layout_margin="6dp"
-                    android:gravity="center_horizontal"
-                    android:background="@drawable/selector_filter_grid"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="28dp"
-                        android:src="@mipmap/select_paoche"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="跑车"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:layout_margin="6dp"
-                    android:gravity="center_horizontal"
-                    android:background="@drawable/selector_filter_grid"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="28dp"
-                        android:src="@mipmap/select_mianbao"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="面包车"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_margin="6dp"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:gravity="center_horizontal"
-                    android:background="@drawable/selector_filter_grid"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="28dp"
-                        android:src="@mipmap/select_whatever"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="不限"/>
-                </LinearLayout>
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="车辆来源"
-                android:textColor="@color/black_33"
-                android:textSize="14sp" />
-
-            <com.baiiu.filter.typeview.SingleGridView
-                android:id="@+id/singleGrid1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></com.baiiu.filter.typeview.SingleGridView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:padding="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="请选择车龄"
-                    android:textColor="@color/black_33"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="单位：年"
-                    android:textColor="@color/gray_99"
-                    android:textSize="10sp" />
-
+                android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="不限车龄"
+                    android:padding="15dp"
+                    android:text="车辆来源"
                     android:textColor="@color/black_33"
                     android:textSize="14sp" />
+
+                <com.tool.view.GridViewForScrollView
+                    android:layout_margin="10dp"
+                    android:verticalSpacing="5dp"
+                    android:horizontalSpacing="5dp"
+                    android:numColumns="3"
+                    android:id="@+id/sg_from"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></com.tool.view.GridViewForScrollView>
             </LinearLayout>
 
 
-            <com.warkiz.widget.IndicatorSeekBar
-                android:id="@+id/indicatorSeekBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:isb_indicator_color="#f3ca65"
-                app:isb_indicator_type="rectangle_rounded_corner"
-                app:isb_progress="100"
-                app:isb_seek_bar_type="discrete_ticks_texts"
-                app:isb_text_array="@array/indecator_array_cheling"
-                app:isb_text_color="#999999"
-                app:isb_text_size="14sp"
-                app:isb_thumb_color="#f3ca65"
-                app:isb_thumb_drawable="@mipmap/slippageicon"
-                app:isb_tick_color="#f3ca65"
-                app:isb_tick_num="6"
-                app:isb_tick_size="1dp"
-                app:isb_tick_type="oval"
-                app:isb_track_background_bar_color="#999999"
-                app:isb_track_progress_bar_color="#f3ca65" />
+
+
 
             <LinearLayout
+                android:visibility="gone"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:padding="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="行驶里程"
-                    android:textColor="@color/black_33"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="单位：万公里"
-                    android:textColor="@color/gray_99"
-                    android:textSize="10sp" />
-
-                <TextView
+                android:layout_height="wrap_content">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="不限里程"
-                    android:textColor="@color/black_33"
-                    android:textSize="14sp" />
-            </LinearLayout>
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:padding="15dp">
 
-            <com.warkiz.widget.IndicatorSeekBar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:isb_indicator_color="#f3ca65"
-                app:isb_indicator_type="rectangle_rounded_corner"
-                app:isb_progress="100"
-                app:isb_seek_bar_type="discrete_ticks_texts"
-                app:isb_text_array="@array/indecator_array_licheng"
-                app:isb_text_color="#999999"
-                app:isb_text_size="14sp"
-                app:isb_thumb_color="#f3ca65"
-                app:isb_thumb_drawable="@mipmap/slippageicon"
-                app:isb_tick_color="#f3ca65"
-                app:isb_tick_num="6"
-                app:isb_tick_size="1dp"
-                app:isb_tick_type="oval"
-                app:isb_track_background_bar_color="#999999"
-                app:isb_track_progress_bar_color="#f3ca65" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="行驶里程"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:padding="15dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="单位：万公里"
+                        android:textColor="@color/gray_99"
+                        android:textSize="10sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="请选择排量"
-                    android:textColor="@color/black_33"
-                    android:textSize="14sp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="不限里程"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="单位：升"
-                    android:textColor="@color/gray_99"
-                    android:textSize="10sp" />
-
-                <TextView
+                <com.warkiz.widget.IndicatorSeekBar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="不限排量"
-                    android:textColor="@color/black_33"
-                    android:textSize="14sp" />
+                    app:isb_indicator_color="#f3ca65"
+                    app:isb_indicator_type="rectangle_rounded_corner"
+                    app:isb_progress="100"
+                    app:isb_seek_bar_type="discrete_ticks_texts"
+                    app:isb_text_array="@array/indecator_array_licheng"
+                    app:isb_text_color="#999999"
+                    app:isb_text_size="14sp"
+                    app:isb_thumb_color="#f3ca65"
+                    app:isb_thumb_drawable="@mipmap/slippageicon"
+                    app:isb_tick_color="#f3ca65"
+                    app:isb_tick_num="6"
+                    app:isb_tick_size="1dp"
+                    app:isb_tick_type="oval"
+                    app:isb_track_background_bar_color="#999999"
+                    app:isb_track_progress_bar_color="#f3ca65" />
             </LinearLayout>
 
-            <com.warkiz.widget.IndicatorSeekBar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:isb_indicator_color="#f3ca65"
-                app:isb_indicator_type="rectangle_rounded_corner"
-                app:isb_progress="70"
-                app:isb_seek_bar_type="discrete_ticks_texts"
-                app:isb_text_array="@array/indecator_array_pailiang"
-                app:isb_text_color="#999999"
-                app:isb_text_size="14sp"
-                app:isb_thumb_color="#f3ca65"
-                app:isb_thumb_drawable="@mipmap/slippageicon"
-                app:isb_tick_color="#f3ca65"
-                app:isb_tick_num="6"
-                app:isb_tick_size="1dp"
-                app:isb_tick_type="oval"
-                app:isb_track_background_bar_color="#999999"
-                app:isb_track_progress_bar_color="#f3ca65" />
+
+
 
             <TextView
                 android:layout_width="match_parent"
@@ -328,10 +132,17 @@
                 android:textColor="@color/black_33"
                 android:textSize="14sp" />
 
-            <com.baiiu.filter.typeview.SingleGridView
-                android:id="@+id/singleGrid2"
+            <com.tool.view.GridViewForScrollView
+                android:layout_margin="10dp"
+                android:verticalSpacing="5dp"
+                android:horizontalSpacing="5dp"
+                android:numColumns="3"
+                android:id="@+id/sg_paifang"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></com.baiiu.filter.typeview.SingleGridView>
+                android:layout_height="wrap_content">
+
+            </com.tool.view.GridViewForScrollView>
+
 
             <TextView
                 android:layout_width="match_parent"
@@ -341,10 +152,16 @@
                 android:textColor="@color/black_33"
                 android:textSize="14sp" />
 
-            <com.baiiu.filter.typeview.SingleGridView
-                android:id="@+id/singleGrid3"
+            <com.tool.view.GridViewForScrollView
+                android:layout_margin="10dp"
+                android:verticalSpacing="5dp"
+                android:horizontalSpacing="5dp"
+                android:numColumns="3"
+                android:id="@+id/sg_ranyou"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></com.baiiu.filter.typeview.SingleGridView>
+                android:layout_height="wrap_content">
+
+            </com.tool.view.GridViewForScrollView>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -352,328 +169,18 @@
                 android:text="车身颜色"
                 android:textColor="@color/black_33"
                 android:textSize="14sp" />
-
-            <LinearLayout
+            <com.tool.view.GridViewForScrollView
+                android:layout_margin="10dp"
+                android:verticalSpacing="5dp"
+                android:horizontalSpacing="5dp"
+                android:numColumns="3"
+                android:id="@+id/sg_color"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp">
+                android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/gray_stroke_r4"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <com.coorchice.library.SuperTextView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_margin="10dp"
-                        app:corner="10dp"
-                        app:solid="@color/black_23" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="黑色"
-                        android:textColor="@color/gray_66"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/gray_stroke_r4"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <com.coorchice.library.SuperTextView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_margin="10dp"
-                        app:corner="10dp"
-                        app:solid="@color/gray_70" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="深灰色"
-                        android:textColor="@color/gray_66"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/gray_stroke_r4"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <com.coorchice.library.SuperTextView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_margin="10dp"
-                        app:corner="10dp"
-                        app:solid="@color/white"
-                        app:stroke_color="@color/gray_ee"
-                        app:stroke_width="1dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="白色"
-                        android:textColor="@color/gray_66"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </LinearLayout>
+            </com.tool.view.GridViewForScrollView>
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/gray_stroke_r4"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <com.coorchice.library.SuperTextView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_margin="10dp"
-                        app:corner="10dp"
-                        app:solid="@color/green_69" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="绿色"
-                        android:textColor="@color/gray_66"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/gray_stroke_r4"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <com.coorchice.library.SuperTextView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_margin="10dp"
-                        app:corner="10dp"
-                        app:solid="@color/red_4e" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="红色"
-                        android:textColor="@color/gray_66"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/gray_stroke_r4"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <com.coorchice.library.SuperTextView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_margin="10dp"
-                        app:corner="10dp"
-                        app:solid="@color/blue_f9" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="蓝色"
-                        android:textColor="@color/gray_66"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/gray_stroke_r4"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <com.coorchice.library.SuperTextView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_margin="10dp"
-                        app:corner="10dp"
-                        app:solid="@color/orange_95" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="香槟色"
-                        android:textColor="@color/gray_66"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/gray_stroke_r4"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <com.coorchice.library.SuperTextView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_margin="10dp"
-                        app:corner="10dp"
-                        app:solid="@color/orange_3d" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="橙色"
-                        android:textColor="@color/gray_66"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/gray_stroke_r4"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <com.coorchice.library.SuperTextView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_margin="10dp"
-                        app:corner="10dp"
-                        app:solid="@color/brown_22" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="咖啡色"
-                        android:textColor="@color/gray_66"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/gray_stroke_r4"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_margin="10dp"
-                        android:src="@mipmap/caise_icon" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="彩色"
-                        android:textColor="@color/gray_66"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/selected_bg_yellow_small"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_margin="10dp"
-                        android:src="@mipmap/qita_icon" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="其他"
-                        android:textColor="@color/gray_66"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/gray_stroke_r4"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:visibility="invisible">
-
-                    <com.coorchice.library.SuperTextView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_margin="10dp"
-                        app:corner="10dp"
-                        app:solid="@color/blue_f9" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="蓝色"
-                        android:textColor="@color/gray_66"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -682,11 +189,16 @@
                 android:textColor="@color/black_33"
                 android:textSize="14sp" />
 
-            <com.baiiu.filter.typeview.SingleGridView
-                android:id="@+id/singleGrid4"
+            <com.tool.view.GridViewForScrollView
+                android:layout_margin="10dp"
+                android:verticalSpacing="5dp"
+                android:horizontalSpacing="5dp"
+                android:numColumns="3"
+                android:id="@+id/sg_variableBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></com.baiiu.filter.typeview.SingleGridView>
+                android:layout_height="wrap_content">
 
+            </com.tool.view.GridViewForScrollView>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -695,10 +207,16 @@
                 android:textColor="@color/black_33"
                 android:textSize="14sp" />
 
-            <com.baiiu.filter.typeview.SingleGridView
-                android:id="@+id/singleGrid5"
+            <com.tool.view.GridViewForScrollView
+                android:layout_margin="10dp"
+                android:verticalSpacing="5dp"
+                android:horizontalSpacing="5dp"
+                android:numColumns="3"
+                android:id="@+id/sg_seat"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></com.baiiu.filter.typeview.SingleGridView>
+                android:layout_height="wrap_content">
+
+            </com.tool.view.GridViewForScrollView>
 
             <TextView
                 android:layout_width="match_parent"
@@ -708,43 +226,30 @@
                 android:textColor="@color/black_33"
                 android:textSize="14sp" />
 
-            <com.baiiu.filter.typeview.SingleGridView
-                android:id="@+id/singleGrid6"
+            <com.tool.view.GridViewForScrollView
+                android:layout_margin="10dp"
+                android:verticalSpacing="5dp"
+                android:horizontalSpacing="5dp"
+                android:numColumns="3"
+                android:id="@+id/sg_country"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></com.baiiu.filter.typeview.SingleGridView>
+                android:layout_height="wrap_content">
+
+            </com.tool.view.GridViewForScrollView>
 
 
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:id="@+id/submit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@drawable/top_line_bg"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="5"
-            android:gravity="center"
-            android:padding="18dp"
-            android:text="为您找到185162辆车"
-            android:textColor="@color/black_33"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/submit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:background="@color/yellow_65"
-            android:gravity="center"
-            android:padding="18dp"
-            android:text="查看"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-    </LinearLayout>
-</FrameLayout>
+        android:layout_height="45dp"
+        android:layout_weight="1"
+        android:background="@color/yellow_65"
+        android:gravity="center"
+        android:text="查看"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+</RelativeLayout>

@@ -224,7 +224,7 @@ public class WashCarListActivity extends NoHttpBaseActivity {
                 Log.e("pos", position + "");
                 bundle.putSerializable("id", list.get(position));
                 bundle.putString("type", "洗车店");
-                bundle.putInt("flag", 1);
+                bundle.putInt("flag",1);
                 if (MyApplication.isLogin)
                     ActivityAnimationUtils.commonTransition(WashCarListActivity.this, WashCarDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
                 else {

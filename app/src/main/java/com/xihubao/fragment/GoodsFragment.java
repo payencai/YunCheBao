@@ -71,7 +71,7 @@ public class GoodsFragment extends BaseFragment {
     ServerDetailAdapter mServerDetailAdapter;
     ServerCatogryAdapter mServerCatogryAdapter;
     String id;
-    String type;
+    int type;
     String money;
     //商品类别列表
     private List<ServerType> mServerTypes = new ArrayList<>();
@@ -84,7 +84,7 @@ public class GoodsFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.shop_detail_goods, container, false);
         ButterKnife.bind(this, view);
         id = this.getArguments().getString("id");
-        type = getArguments().getString("type");
+        type = getArguments().getInt("type");
         initView(view);
         return view;
     }
@@ -154,6 +154,7 @@ public class GoodsFragment extends BaseFragment {
     private void getData() {
         Map<String, Object> params = new HashMap<>();
         params.put("shopId", id);
+        params.put("type",type);
         HttpProxy.obtain().get(PlatformContans.CarWashRepairShop.getWashRepairServeResultByShopId, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -182,11 +183,11 @@ public class GoodsFragment extends BaseFragment {
         });
     }
 
-    public static GoodsFragment newInstance(String id, String type) {
+    public static GoodsFragment newInstance(String id, int type) {
         GoodsFragment goodsFragment = new GoodsFragment();
         Bundle bundle = new Bundle();
         bundle.putString("id", id);
-        bundle.putString("type", type);
+        bundle.putInt("type", type);
         goodsFragment.setArguments(bundle);
         return goodsFragment;
     }

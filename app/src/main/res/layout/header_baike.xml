@@ -50,7 +50,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+
                         android:text="装饰百科"
                         android:textColor="@color/gray_99"
                         android:textSize="14sp" />
@@ -75,7 +75,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+
                         android:text="养护百科"
                         android:textColor="@color/gray_99"
                         android:textSize="14sp" />
@@ -100,7 +100,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+
                         android:text="购车指南"
                         android:textColor="@color/gray_99"
                         android:textSize="14sp" />
@@ -118,13 +118,13 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/baike_menu_3" />
+                        android:src="@mipmap/ic_jiaotong" />
 
                     <TextView
                         android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+
                         android:text="交通百科"
                         android:textColor="@color/gray_99"
                         android:textSize="14sp" />

@@ -14,15 +14,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.application.MyApplication;
 import com.baike.adapter.MagzineListAdapter;
+import com.cheyibao.adapter.CarCommomAdapter;
 import com.cheyibao.adapter.CarRecommendListAdapter;
 import com.cheyibao.adapter.PriceGridAdapter;
 import com.cheyibao.model.NewCarMenu;
 import com.cheyibao.model.OldCar;
+import com.cheyibao.view.PriceSelectWindow;
+import com.cheyibao.view.TypeSelectWindow;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.entity.PhoneGoodEntity;
@@ -35,6 +40,7 @@ import com.nohttp.sample.NoHttpBaseActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
+import com.tool.view.GridViewForScrollView;
 import com.tool.view.TopMiddlePopup;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.xihubao.BrandGoodsListActivity;
@@ -63,20 +69,14 @@ import co.lujun.androidtagview.TagView;
 public class OldCarListActivity extends NoHttpBaseActivity {
     private List<OldCar> list;
     private CarRecommendListAdapter adapter;
-    private Context ctx;
+
     @BindView(R.id.listview)
     PullToRefreshListView refreshListView;
     ListView listView;
-
     @BindView(R.id.rule_line_tv)
     TextView topLineTv;
-
-    private ArrayList<String> items = new ArrayList<String>();
-    private boolean isClose = false, isOpen3 = false, isOpen = false;
-    public static int screenW, screenH;
-
-    private TopMiddlePopup middlePopup;
-
+    @BindView(R.id.cityName)
+    TextView cityName;
     int page = 1;
     @BindView(R.id.menu1)
     TextView menuText1;
@@ -84,14 +84,11 @@ public class OldCarListActivity extends NoHttpBaseActivity {
     TextView menuText2;
     @BindView(R.id.menu3)
     TextView menuText3;
-
+    @BindView(R.id.ll_select)
+    LinearLayout ll_select;
     List<String> tagStrList;
     private TagContainerLayout mTagContainerLayout;
-    String price1 = "5万以下";
-    String price2 = "5-10万";
-    String price3 = "10-15万";
-    String price4 = "15-30万";
-    String price5 = "30万以上";
+
     String brand = "品牌";
     String shop = "商家";
     String one = "个人";
@@ -101,6 +98,17 @@ public class OldCarListActivity extends NoHttpBaseActivity {
     String startprice="";
     String endprice="";
     int type=0;
+    String displacement = "";
+    String fuel = "";
+    String color = "";
+    String variableBox = "";
+    String seat = "";
+    String country = "";
+    String models = "";
+    String money;
+    int orderByClause = 0;
+    String sort;
+    String price ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +131,27 @@ public class OldCarListActivity extends NoHttpBaseActivity {
         params.put("page", page);
         if(!TextUtils.isEmpty(firstId)){
             params.put("firstId", firstId);
+        }
+        if (!TextUtils.isEmpty(fuel)) {
+            params.put("fuel", fuel);
+        }
+        if (!TextUtils.isEmpty(color)) {
+            params.put("color", color);
+        }
+        if (!TextUtils.isEmpty(seat)) {
+            params.put("seat", seat);
+        }
+        if (!TextUtils.isEmpty(models)) {
+            params.put("models", models);
+        }
+        if (!TextUtils.isEmpty(displacement)) {
+            params.put("displacement", displacement);
+        }
+        if (!TextUtils.isEmpty(variableBox)) {
+            params.put("variableBox", variableBox);
+        }
+        if (!TextUtils.isEmpty(country)) {
+            params.put("country", country);
         }
         if(!TextUtils.isEmpty(startprice)){
             params.put("startprice", startprice);
@@ -181,64 +210,109 @@ public class OldCarListActivity extends NoHttpBaseActivity {
             case -1:
                 startprice="0";
                 endprice="50000";
-                tagStrList.add(price1);
+                money="5万以下";
+                tagStrList.add(money);
                 break;
             case 5:
                 startprice="50000";
                 endprice="100000";
-                tagStrList.add(price2);
+                money="5万-10万";
+                tagStrList.add(money);
                 break;
             case 10:
                 startprice="100000";
                 endprice="150000";
-                tagStrList.add(price3);
+                money="10万-15万";
+                tagStrList.add(money);
                 break;
             case 15:
                 startprice="150000";
                 endprice="300000";
-                tagStrList.add(price4);
+                money="15万-30万";
+                tagStrList.add(money);
                 break;
             case 30:
                 startprice="300000";
                 endprice="30000000";
-                tagStrList.add(price5);
+                money="30万以上";
+                tagStrList.add(money);
                 break;
         }
+
         //tagStrList.add("10-20万");
     }
 
     private void initView() {
         ButterKnife.bind(this);
-        ctx = this;
-        getItemsName();
-        getScreenPixels();
+
 
         initTag();
+        cityName.setText(MyApplication.getaMapLocation().getCity());
         mTagContainerLayout = (TagContainerLayout) findViewById(R.id.tagcontainerLayout);
         mTagContainerLayout.setTags(tagStrList);
         mTagContainerLayout.setOnTagClickListener(new TagView.OnTagClickListener() {
 
             @Override
             public void onTagClick(int position, String text) {
-                mTagContainerLayout.removeTag(position);
+
             }
 
             @Override
             public void onTagLongClick(final int position, String text) {
-                mTagContainerLayout.removeTag(position);
+
             }
 
             @Override
             public void onTagCrossClick(int position) {
+                String text = tagStrList.get(position);
+                tagStrList.remove(text);
                 mTagContainerLayout.removeTag(position);
-            }
+                Log.e("text", text);
+                if (text.equals(brand)) {
+                    firstId = "";
+                }
+                if (text.equals("价格最低") || text.equals("价格最高") || text.equals("车龄最短") || text.equals("里程最少")) {
+                    orderByClause = 0;
 
+                }
+                if(text.equals(money)){
+                    startprice="";
+                    endprice="";
+                    money="";
+
+                }
+                if (text.equals(fuel)) {
+                    fuel = "";
+                }
+                if (text.equals(displacement)) {
+                    displacement = "";
+                }
+                if (text.equals(color)) {
+                    color = "";
+                }
+                if (text.equals(seat)) {
+                    seat = "";
+                }
+                if (text.equals(variableBox)) {
+                    variableBox = "";
+                }
+                if (text.equals(country)) {
+                    country = "";
+                }
+                if (text.equals(models)) {
+                    models = "";
+                }
+                page = 1;
+                list.clear();
+                getData();
+
+            }
         });
         listView = refreshListView.getRefreshableView();
         listView.setDivider(getResources().getDrawable(R.color.gray_cc));
         listView.setDividerHeight(1);
         list = new ArrayList<>();
-        adapter = new CarRecommendListAdapter(ctx, list);
+        adapter = new CarRecommendListAdapter(this, list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -252,171 +326,308 @@ public class OldCarListActivity extends NoHttpBaseActivity {
         });
     }
 
-    /**
-     * 获取屏幕的宽和高
-     */
-    public void getScreenPixels() {
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        screenW = metrics.widthPixels;
-        screenH = metrics.heightPixels;
-    }
 
-
-    /**
-     * 设置弹窗
-     *
-     * @param type
-     */
-    private void setPopup(int type) {
-        middlePopup = new TopMiddlePopup(OldCarListActivity.this, screenW, screenH,
-                onItemClickListener, items, type);
-        middlePopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
+    private void showTypeWindow() {
+        TypeSelectWindow typeSelectWindow = new TypeSelectWindow(this);
+        typeSelectWindow.showPopupWindow(ll_select);
+        View view = typeSelectWindow.getContentView();
+        TextView tv_pricemin = (TextView) view.findViewById(R.id.item1);
+        TextView tv_pricemax = (TextView) view.findViewById(R.id.item2);
+        TextView tv_carage = (TextView) view.findViewById(R.id.item3);
+        TextView tv_dis = (TextView) view.findViewById(R.id.item4);
+        tv_pricemin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDismiss() {
-                isOpen = false;
-                menuText1.setTextColor(getResources().getColor(R.color.black_33));
-                Drawable drawable = ContextCompat.getDrawable(ctx, R.mipmap.yellow_arrow_small);
-                drawable.setBounds(0, 0, 20, 0);
-                menuText1.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
+            public void onClick(View v) {
+                orderByClause = 1;
+                mTagContainerLayout.removeAllTags();
+                typeSelectWindow.dismissPopup();
+                if (tagStrList.size() > 0) {
+                    if (!tagStrList.contains("价格最低") && !tagStrList.contains("价格最高") && !tagStrList.contains("车龄最短") && !tagStrList.contains("里程最少")) {
+                        tagStrList.add("价格最低");
+                    }
+                    for (int i = 0; i < tagStrList.size(); i++) {
+                        String tag = tagStrList.get(i);
+                        if (tag.equals("价格最低") || tag.equals("价格最高") || tag.equals("车龄最短") || tag.equals("里程最少")) {
+                            tagStrList.remove(tag);
+                            tagStrList.add("价格最低");
+                            break;
+                        }
+                    }
+                } else {
+                    tagStrList.add("价格最低");
+                }
+                mTagContainerLayout.setTags(tagStrList);
+                page = 1;
+                list.clear();
+                getData();
+
+
             }
         });
-        if (isOpen) {
-            menuText1.setTextColor(getResources().getColor(R.color.colorPrimary));
-            Drawable drawable = ContextCompat.getDrawable(ctx, R.mipmap.yellow_arrow_small);
-            drawable.setBounds(0, 0, 20, 0);
-            menuText1.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
-        } else {
-            menuText1.setTextColor(getResources().getColor(R.color.black_33));
-            Drawable drawable = ContextCompat.getDrawable(ctx, R.mipmap.yellow_arrow_small);
-            drawable.setBounds(0, 0, 20, 0);
-            menuText1.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
-        }
-    }
-
-
-    /**
-     * 设置弹窗内容
-     *
-     * @return
-     */
-    private void getItemsName() {
-        items.add("智能排序");
-        items.add("价格最低");
-        items.add("价格最高");
-        items.add("最新发布");
-        items.add("车龄最短");
-        items.add("里程最少");
-    }
-
-
-    /**
-     * 弹窗点击事件
-     */
-    private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                                long id) {
-            middlePopup.dismiss();
-            menuText1.setText(items.get(position));
-            menuText1.setTextColor(ContextCompat.getColor(ctx, R.color.black_33));
-            Drawable drawable = ContextCompat.getDrawable(ctx, R.mipmap.yellow_arrow_small);
-            drawable.setBounds(0, 0, 20, 0);
-            menuText1.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
-        }
-    };
-    private TextView priceText;
-    private PopupWindow pw;
-
-    private void popPriceView() {
-        if (pw != null) {
-            if (isOpen3) {
-                pw.showAsDropDown(topLineTv, 0, 0);
-            } else {
-                pw.dismiss();
+        tv_pricemax.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderByClause = 2;
+                mTagContainerLayout.removeAllTags();
+                typeSelectWindow.dismissPopup();
+                if (tagStrList.size() > 0) {
+                    if (!tagStrList.contains("价格最低") && !tagStrList.contains("价格最高") && !tagStrList.contains("车龄最短") && !tagStrList.contains("里程最少")) {
+                        tagStrList.add("价格最高");
+                    }
+                    for (int i = 0; i < tagStrList.size(); i++) {
+                        String tag = tagStrList.get(i);
+                        if (tag.equals("价格最低") || tag.equals("价格最高") || tag.equals("车龄最短") || tag.equals("里程最少")) {
+                            tagStrList.remove(tag);
+                            tagStrList.add("价格最高");
+                            break;
+                        }
+                    }
+                } else {
+                    tagStrList.add("价格最高");
+                }
+                mTagContainerLayout.setTags(tagStrList);
+                page = 1;
+                list.clear();
+                getData();
             }
-        } else {
-            List<String> phases = new ArrayList<>();
-            phases.add("不限");
-            phases.add("3万以下");
-            phases.add("3-5万");
-            phases.add("5-7万");
-            phases.add("7-9万");
-            phases.add("9-12万");
-            phases.add("12-16万");
-            phases.add("16-20万");
-            phases.add("20万以上");
-            pw = new PopupWindow(ctx);
-            View view = LayoutInflater.from(ctx).inflate(R.layout.merge_filter_price_grid, null);
-            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
-            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-//                if (position == 0 || position == mTopGridData.size() + 1) {
-//                    return 4;
-//                }
-                    return 1;
+        });
+        tv_carage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderByClause = 3;
+                mTagContainerLayout.removeAllTags();
+                typeSelectWindow.dismissPopup();
+                if (tagStrList.size() > 0) {
+                    if (!tagStrList.contains("价格最低") && !tagStrList.contains("价格最高") && !tagStrList.contains("车龄最短") && !tagStrList.contains("里程最少")) {
+                        tagStrList.add("车龄最短");
+                    }
+                    for (int i = 0; i < tagStrList.size(); i++) {
+                        String tag = tagStrList.get(i);
+                        if (tag.equals("价格最低") || tag.equals("价格最高") || tag.equals("车龄最短") || tag.equals("里程最少")) {
+                            tagStrList.remove(tag);
+                            tagStrList.add("车龄最短");
+                            break;
+                        }
+                    }
+                } else {
+                    tagStrList.add("车龄最短");
                 }
-            });
-            recyclerView.setLayoutManager(gridLayoutManager);
-            recyclerView.setAdapter(new PriceGridAdapter(ctx, phases, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                TextView textView = (TextView) v;
-//                String text = (String) textView.getTag();
-//                if (textView == menuText3) {
-//                    menuText3 = null;
-//                    textView.setSelected(false);
-//                }else if (mTopGridData.contains(text)) {
-//                    if (menuText3 != null) {
-//                        menuText3.setSelected(false);
-//                    }
-//                    menuText3 = textView;
-//                    textView.setSelected(true);
-//                }
+                mTagContainerLayout.setTags(tagStrList);
+                page = 1;
+                list.clear();
+                getData();
+            }
+        });
+        tv_dis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderByClause = 4;
+                mTagContainerLayout.removeAllTags();
+                typeSelectWindow.dismissPopup();
+                if (tagStrList.size() > 0) {
+                    if (!tagStrList.contains("价格最低") && !tagStrList.contains("价格最高") && !tagStrList.contains("车龄最短") && !tagStrList.contains("里程最少")) {
+                        tagStrList.add("里程最少");
+                    }
+                    for (int i = 0; i < tagStrList.size(); i++) {
+                        String tag = tagStrList.get(i);
+                        if (tag.equals("价格最低") || tag.equals("价格最高") || tag.equals("车龄最短") || tag.equals("里程最少")) {
+                            tagStrList.remove(tag);
+                            tagStrList.add("里程最少");
+                            break;
+                        }
+                    }
+                } else {
+                    tagStrList.add("里程最少");
                 }
-            }));
-            SuperTextView bt_confirm = (SuperTextView) view.findViewById(R.id.bt_confirm);
-            bt_confirm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    pw.dismiss();
-                    isOpen3 = false;
-                }
-            });
-            priceText = (TextView) view.findViewById(R.id.priceText);
-            IndicatorSeekBar indicatorSeekBar = (IndicatorSeekBar) view.findViewById(R.id.indicatorSeekBar);
-            indicatorSeekBar.setOnSeekChangeListener(new IndicatorSeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(IndicatorSeekBar seekBar, int progress, float progressFloat, boolean fromUserTouch) {
+                mTagContainerLayout.setTags(tagStrList);
+                page = 1;
+                list.clear();
+                getData();
+            }
+        });
+    }
 
-                }
-
-                @Override
-                public void onSectionChanged(IndicatorSeekBar seekBar, int thumbPosOnTick, String textBelowTick, boolean fromUserTouch) {
-//                priceText.setText(textBelowTick+"及以下");
-                }
-
-                @Override
-                public void onStartTrackingTouch(IndicatorSeekBar seekBar, int thumbPosOnTick) {
-
-                }
-
-                @Override
-                public void onStopTrackingTouch(IndicatorSeekBar seekBar) {
-
-                }
-            });
-            pw.setContentView(view);
-            pw.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-            pw.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-            pw.setOutsideTouchable(true);
-            pw.showAsDropDown(topLineTv, 0, 0);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && data != null) {
+            mTagContainerLayout.removeAllTags();
+            String name = data.getStringExtra("name");
+            firstId = data.getStringExtra("id");
+            if (TextUtils.isEmpty(brand)) {
+                brand = name;
+                tagStrList.add(brand);
+            } else {
+                tagStrList.remove(brand);
+                brand = name;
+                tagStrList.add(brand);
+            }
+            mTagContainerLayout.setTags(tagStrList);
+            page = 1;
+            list.clear();
+            getData();
         }
+        if (requestCode == 2 && data != null) {
+            tagStrList.clear();
+            mTagContainerLayout.removeAllTags();
+            displacement = data.getStringExtra("displacement");
+            fuel = data.getStringExtra("fuel");
+            color = data.getStringExtra("color");
+            variableBox = data.getStringExtra("variableBox");
+            seat = data.getStringExtra("seat");
+            country = data.getStringExtra("country");
+            models = data.getStringExtra("models");
+            if (!TextUtils.isEmpty(displacement)) {
+                tagStrList.add(displacement);
+            }
+            if (!TextUtils.isEmpty(fuel)) {
+                tagStrList.add(fuel);
+            }
+            if (!TextUtils.isEmpty(color)) {
+                tagStrList.add(color);
+            }
+            if (!TextUtils.isEmpty(variableBox)) {
+                tagStrList.add(variableBox);
+            }
+            if (!TextUtils.isEmpty(seat)) {
+                tagStrList.add(seat);
+            }
+            if (!TextUtils.isEmpty(country)) {
+                tagStrList.add(country);
+            }
+            if (!TextUtils.isEmpty(models)) {
+                tagStrList.add(models);
+            }
+            if (!TextUtils.isEmpty(sort)) {
+                tagStrList.add(sort);
+            }
+            if (!TextUtils.isEmpty(money)) {
+                tagStrList.add(money);
+            }
+
+            if (!TextUtils.isEmpty(brand)) {
+                tagStrList.add(brand);
+            }
+            mTagContainerLayout.setTags(tagStrList);
+            page = 1;
+            list.clear();
+            getData();
+        }
+    }
+
+    private void showPriceWindow() {
+        price="不限";
+        List<String> listDatas = new ArrayList<>();
+        listDatas.add("不限");
+        listDatas.add("10万以下");
+        listDatas.add("10-25万");
+        listDatas.add("25-40万");
+        listDatas.add("40-60万");
+        listDatas.add("60-100万");
+        listDatas.add("100万以上");
+        CarCommomAdapter carCommomAdapte = new CarCommomAdapter(this, listDatas);
+        PriceSelectWindow typeSelectWindow = new PriceSelectWindow(this);
+        typeSelectWindow.showPopupWindow(ll_select);
+        View view = typeSelectWindow.getContentView();
+        TextView tv_confirm = (TextView) view.findViewById(R.id.tv_confirm);
+        tv_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                typeSelectWindow.dismissPopup();
+
+                if (!TextUtils.isEmpty(money)) {
+                    tagStrList.remove(money);
+                    if (!TextUtils.equals(price, "不限")) {
+                        tagStrList.add(price);
+                        money=price;
+                        switch (money) {
+                            case "10万以下":
+                                startprice = "0";
+                                endprice = "100000";
+                                break;
+                            case "10-25万":
+                                startprice = "100000";
+                                endprice = "250000";
+                                break;
+                            case "25-40万":
+                                endprice = "400000";
+                                startprice = "250000";
+                                break;
+                            case "40-60万":
+                                startprice = "400000";
+                                endprice = "600000";
+                                break;
+                            case "60-100万":
+                                endprice = "1000000";
+                                startprice = "600000";
+                                break;
+                            case "100万以上":
+                                startprice = "1000000";
+                                endprice = "100000000";
+                                break;
+                        }
+
+                    } else {
+                        startprice = "";
+                        endprice = "";
+                        money="";
+                    }
+                    mTagContainerLayout.removeAllTags();
+                    mTagContainerLayout.setTags(tagStrList);
+                } else {
+                    if (!TextUtils.equals(price, "不限")) {
+                        tagStrList.add(price);
+                        money=price;
+                        mTagContainerLayout.addTag(price);
+                        switch (price) {
+                            case "10万以下":
+                                startprice = "0";
+                                endprice = "100000";
+                                break;
+                            case "10-25万":
+                                startprice = "100000";
+                                endprice = "250000";
+                                break;
+                            case "25-40万":
+                                endprice = "400000";
+                                startprice = "250000";
+                                break;
+                            case "40-60万":
+                                startprice = "400000";
+                                endprice = "600000";
+                                break;
+                            case "60-100万":
+                                endprice = "1000000";
+                                startprice = "600000";
+                                break;
+                            case "100万以上":
+                                startprice = "1000000";
+                                endprice = "100000000";
+                                break;
+                        }
+
+                    }
+                }
+                page = 1;
+                list.clear();
+                getData();
+            }
+        });
+        GridViewForScrollView gridViewForScrollView = (GridViewForScrollView) view.findViewById(R.id.sg_price);
+        gridViewForScrollView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                carCommomAdapte.setPos(position);
+                carCommomAdapte.notifyDataSetChanged();
+                price = listDatas.get(position);
+            }
+        });
+        gridViewForScrollView.setAdapter(carCommomAdapte);
 
     }
+
+
+
 
     @OnClick({R.id.back, R.id.menu1, R.id.menu2, R.id.menu3, R.id.menu4, R.id.rechargeBtn})
     public void OnClick(View v) {
@@ -425,22 +636,37 @@ public class OldCarListActivity extends NoHttpBaseActivity {
                 onBackPressed();
                 break;
             case R.id.menu1:
-                isOpen = isOpen ? false : true;
-                setPopup(0);
-                middlePopup.show(topLineTv);
+                showTypeWindow();
                 break;
             case R.id.menu2:
-                startActivityForResult(new Intent(OldCarListActivity.this, CarBrandSelectActivity.class), 1);
+                startActivityForResult(new Intent(OldCarListActivity.this, SelectCarBrandActivity.class), 1);
+                //startActivityForResult(new Intent(OldCarListActivity.this, CarBrandSelectActivity.class), 1);
                 break;
             case R.id.menu3:
-                isOpen3 = isOpen3 ? false : true;
-                popPriceView();
+                showPriceWindow();
                 break;
             case R.id.menu4:
-                ActivityAnimationUtils.commonTransition(OldCarListActivity.this, OldCarSelectActivity.class, ActivityConstans.Animation.FADE);
+                startActivityForResult(new Intent(OldCarListActivity.this, OldCarSelectActivity.class), 2);
                 break;
             case R.id.rechargeBtn:
+                tagStrList.clear();
                 mTagContainerLayout.removeAllTags();
+                orderByClause = 0;
+                firstId = "";
+                startprice = "";
+                startprice = "";
+                page = 1;
+                brand = "";
+                displacement = "";
+                fuel = "";
+                color = "";
+                variableBox = "";
+                seat = "";
+                country = "";
+                models = "";
+                list.clear();
+                getData();
+
                 break;
         }
     }

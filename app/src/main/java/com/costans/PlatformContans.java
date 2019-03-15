@@ -197,7 +197,7 @@ public class PlatformContans {
     }
     public static class CarWashRepairShop{
         public static final String getCarWashRepairShopListByApp=root+ "/carWashRepairShop/getCarWashRepairShopListByApp";
-        public static final String getWashRepairServeResultByShopId=root+ "/carWashRepairShop/getWashRepairServeResultByShopId";
+        public static final String getWashRepairServeResultByShopId=root+ "/carWashRepairShop/getWashRepairServeListByShopId";
         public static final String addWashRepairOrder=root+ "/carWashRepairShop/addWashRepairOrder";
         public static final String addWashRepairOrderComment=root+ "/carWashRepairShop/addWashRepairOrderComment";
         public static final String cancelWashRepairOrder=root+ "/carWashRepairShop/cancelWashRepairOrder";
