@@ -129,12 +129,12 @@ public class UserCenterActivity extends NoHttpBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(MyApplication.isLogin){
-            Glide.with(UserCenterActivity.this).load(MyApplication.getUserInfo().getHeadPortrait())
-                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(40)))
-                    .into(headIcon);
-        }
-        nameText.setText(MyApplication.getUserInfo().getName());
+//        if(MyApplication.isLogin){
+//            Glide.with(UserCenterActivity.this).load(MyApplication.getUserInfo().getHeadPortrait())
+//                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(40)))
+//                    .into(headIcon);
+//        }
+//        nameText.setText(MyApplication.getUserInfo().getName());
     }
 
     /**
@@ -242,7 +242,7 @@ public class UserCenterActivity extends NoHttpBaseActivity {
                 ActivityAnimationUtils.commonTransition(UserCenterActivity.this, MyCustomerServiceActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.lay9://帮助反馈
-                ActivityAnimationUtils.commonTransition(UserCenterActivity.this, FeedbackHelpActivity.class, ActivityConstans.Animation.FADE);
+                ActivityAnimationUtils.commonTransition(UserCenterActivity.this, FeedbackSubmitActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.lay11://洗护评论
                 ActivityAnimationUtils.commonTransition(UserCenterActivity.this, ServiceCarActivity.class, ActivityConstans.Animation.FADE);

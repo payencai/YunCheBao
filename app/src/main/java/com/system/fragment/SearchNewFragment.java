@@ -126,16 +126,20 @@ public class SearchNewFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(result);
                     jsonObject = jsonObject.getJSONObject("data");
                     JSONArray data = jsonObject.getJSONArray("list");
+                    List<NewCar> newCars=new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
                         NewCar road = new Gson().fromJson(item.toString(), NewCar.class);
                         mRoads.add(road);
+                        newCars.add(road);
                     }
-                    mRoadAdapter.setNewData(mRoads);
+
                     if(isLoadMore){
                         isLoadMore=false;
+                        mRoadAdapter.addData(newCars);
                         mRoadAdapter.loadMoreComplete();
                     }else{
+                        mRoadAdapter.setNewData(mRoads);
                         mRoadAdapter.loadMoreEnd(true);
                     }
 

@@ -123,7 +123,7 @@ public class LoginByaccountActivity extends AppCompatActivity {
     private IWXAPI api;
     String getUserInfo = "https://api.weixin.qq.com/sns/userinfo?access_token=" + "access" + "&openid=" + "openId";
     private void setWXLogin() {
-        api= WXEntryActivity.getWXAPI();
+        api= MyApplication.mWxApi;
         if (api != null && api.isWXAppInstalled()) {
             SendAuth.Req req = new SendAuth.Req();
             req.scope = "snsapi_userinfo";

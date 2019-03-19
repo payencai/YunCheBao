@@ -278,7 +278,7 @@ public class BookWashCarFragment extends BaseFragment implements OnDateSetListen
         params.put("address",mAddressBean.getPoiaddress());
         params.put("addressDetail",et_detail.getEditableText().toString());
         Log.e("result",params.toString());
-        HttpProxy.obtain().post(PlatformContans.Appointment.addWashRepairAppointment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Appointment.addWashRepairAppointment, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 //dialog.dismiss();

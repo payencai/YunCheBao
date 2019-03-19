@@ -458,7 +458,7 @@ public class HomeFragment extends BaseFragment {
         SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String token="";
         if(MyApplication.isLogin){
-            token=MyApplication.getUserInfo().getToken();
+            token=MyApplication.token;
         }
         Map<String, Object> params = new HashMap<>();
         params.put("page", 1);
@@ -504,7 +504,7 @@ public class HomeFragment extends BaseFragment {
         SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String token="";
         if(MyApplication.isLogin){
-            token=MyApplication.getUserInfo().getToken();
+            token=MyApplication.token;
         }
         Map<String, Object> params = new HashMap<>();
         params.put("page", 1);

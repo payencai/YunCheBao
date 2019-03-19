@@ -210,7 +210,7 @@ public class AddSchoolCommentActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(imgs2))
             params.put("photo", imgs2.substring(1));
         String json=new Gson().toJson(params);
-        HttpProxy.obtain().post(PlatformContans.Evaluation.addDrivingSchoolCoachEva, MyApplication.getUserInfo().getToken(), json, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Evaluation.addDrivingSchoolCoachEva, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);
@@ -252,7 +252,7 @@ public class AddSchoolCommentActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(imgs))
             params.put("photo", imgs.substring(1));
         String json=new Gson().toJson(params);
-        HttpProxy.obtain().post(PlatformContans.Evaluation.addEvaluation, MyApplication.getUserInfo().getToken(), json, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Evaluation.addEvaluation, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);

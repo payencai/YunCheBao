@@ -11,6 +11,7 @@ import com.cheyibao.fragment.RentCarFragment;
 import com.cheyibao.fragment.StudyCarFragment;
 import com.cheyibao.fragment.StudyListFragment;
 import com.example.yunchebao.R;
+import com.flyco.tablayout.SlidingTabLayout;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
@@ -33,56 +34,38 @@ import butterknife.OnClick;
  */
 
 public class AllCollectionActivity extends NoHttpFragmentBaseActivity  {
-    private ArrayList<String> mTitleList = new ArrayList<>(2);
-    private ArrayList<Fragment> mFragments = new ArrayList<>(2);
-    @BindView(R.id.vp_gank)
-    ViewPager vpGank;
-    @BindView(R.id.tab_gank)
-    TabLayout tabGank;
 
+    private ArrayList<Fragment> mFragments ;
+    @BindView(R.id.vp_collect)
+    ViewPager vpGank;
+    @BindView(R.id.tab_collect)
+    SlidingTabLayout tabGank;
+    String []mTitles={"洗车/修理","新车汇","二手车","帖子","商品","驾校汇","店铺"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_collect);
+        ButterKnife.bind(this);
         initView();
     }
 
     private void initView() {
-        ButterKnife.bind(this);
 
         initFragmentList();
-        /**
-         * 注意使用的是：getChildFragmentManager，
-         * 这样setOffscreenPageLimit()就可以添加上，保留相邻3个实例，切换时不会卡
-         * 但会内存溢出，在显示时加载数据
-         */
-        MyFragmentPagerAdapter myAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragments, mTitleList);
-        vpGank.setAdapter(myAdapter);
-        // 左右预加载页面的个数
-        vpGank.setOffscreenPageLimit(1);
-        myAdapter.notifyDataSetChanged();
-        tabGank.setTabMode(TabLayout.MODE_SCROLLABLE);
-        tabGank.setupWithViewPager(vpGank);
 
     }
 
-
     private void initFragmentList() {
-        mTitleList.add("洗护宝");
-        mTitleList.add("二手车");
-        mTitleList.add("帖子");
-        mTitleList.add("商品");
-        mTitleList.add("驾校汇");
-//        mTitleList.add("新车整车");
-//        mTitleList.add("店铺");
+        mFragments=new ArrayList<>();
         mFragments.add(new WashCollectFragment());
+        mFragments.add(new NewCarFragment());
         mFragments.add(new OldCarFragment());
         mFragments.add(new ArticleFragment());
         mFragments.add(new GoodsCollectFragment());
         mFragments.add(new StudyListFragment());
-//        mFragments.add(new NewCarFragment());
-//        mFragments.add(new ShopCollectListFragment());
+        mFragments.add(new ShopCollectListFragment());
+        tabGank.setViewPager(vpGank,mTitles,this,mFragments);
     }
 
     @OnClick({R.id.back})

@@ -64,10 +64,10 @@ public class GiftBaobiCenterAllFragment extends BaseFragment {
     }
 
     public void getData(){
-        Log.e("token", MyApplication.getUserInfo().getToken());
+
         Map<String,Object> params=new HashMap<>();
         params.put("page",page);
-        HttpProxy.obtain().post(PlatformContans.Gift.getGiftOrderListByUserId, MyApplication.getUserInfo().getToken(),params,new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Gift.getGiftOrderListByUserId,MyApplication.token,params,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("getRecordtByUserId", result);

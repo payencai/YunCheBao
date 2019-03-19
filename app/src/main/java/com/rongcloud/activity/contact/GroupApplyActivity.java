@@ -92,9 +92,8 @@ public class GroupApplyActivity extends AppCompatActivity {
         if (state == 2) {
             params.put("rejectReason", reason);
         }
-        com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
-        if (userinfo != null)
-            HttpProxy.obtain().post(PlatformContans.Chat.updateCrowdApply, userinfo.getToken(), params, new ICallBack() {
+
+            HttpProxy.obtain().post(PlatformContans.Chat.updateCrowdApply, MyApplication.token, params, new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
                     if(dialog!=null)
@@ -167,9 +166,8 @@ public class GroupApplyActivity extends AppCompatActivity {
     }
 
     private void getData() {
-        com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
-        if (userinfo != null)
-            HttpProxy.obtain().get(PlatformContans.Chat.getCrowdApplyList, userinfo.getToken(), new ICallBack() {
+
+            HttpProxy.obtain().get(PlatformContans.Chat.getCrowdApplyList,MyApplication.token , new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
                     Log.e("groupapply", result);

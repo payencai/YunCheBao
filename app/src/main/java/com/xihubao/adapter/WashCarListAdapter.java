@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.entity.PhoneShopEntity;
 import com.example.yunchebao.R;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.rongcloud.model.CarShop;
 import com.tool.MathUtil;
 
@@ -64,11 +65,13 @@ public class WashCarListAdapter extends BaseAdapter {
         TextView item3 = (TextView) view.findViewById(R.id.item3);
         TextView item4 = (TextView) view.findViewById(R.id.item4);
         TextView item5 = (TextView) view.findViewById(R.id.item5);
+        SimpleRatingBar sb_score= (SimpleRatingBar) view.findViewById(R.id.sb_score);
         if (!TextUtils.isEmpty(carShop.getLogo())) {
             Uri uri = Uri.parse(carShop.getLogo());
             if (uri != null)
                 simpleDraweeView.setImageURI(uri);
         }
+        sb_score.setRating((float) carShop.getScore());
         item1.setText(carShop.getShopName());
         item2.setText("评分" + carShop.getGrade() + "|订单" + carShop.getOrderNum());
         item3.setText(carShop.getAddress());

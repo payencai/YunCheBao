@@ -443,7 +443,7 @@ public class UserInfoActivity extends NoHttpBaseActivity {
     private void setState(int state){
         Map<String, Object> params = new HashMap<>();
         params.put("state", state);
-        HttpProxy.obtain().get(PlatformContans.User.setCarShowState, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.User.setCarShowState, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("resutl", result);

@@ -120,16 +120,20 @@ public class SearchSchoolFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(result);
                     jsonObject = jsonObject.getJSONObject("data");
                     JSONArray data = jsonObject.getJSONArray("list");
+                    List<DrvingSchool> drvingSchools=new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
                         DrvingSchool road = new Gson().fromJson(item.toString(), DrvingSchool.class);
                         mRoads.add(road);
+                        drvingSchools.add(road);
                     }
-                    mRoadAdapter.setNewData(mRoads);
+
                     if(isLoadMore){
                         isLoadMore=false;
+                        mRoadAdapter.addData(drvingSchools);
                         mRoadAdapter.loadMoreComplete();
                     }else{
+                        mRoadAdapter.setNewData(mRoads);
                         mRoadAdapter.loadMoreEnd(true);
                     }
 

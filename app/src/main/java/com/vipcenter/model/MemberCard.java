@@ -18,7 +18,7 @@ public class MemberCard {
     private String id;
     private String name;
     private int faceValue;
-    private int price;
+    private double price;
     private String createTime;
     private String picture;
 
@@ -46,11 +46,11 @@ public class MemberCard {
         this.faceValue = faceValue;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

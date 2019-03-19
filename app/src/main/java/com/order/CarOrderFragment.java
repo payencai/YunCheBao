@@ -116,7 +116,7 @@ public class CarOrderFragment extends Fragment {
     private void washCancel(String id) {
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        HttpProxy.obtain().post(PlatformContans.CarWashRepairShop.cancelWashRepairOrder, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.CarWashRepairShop.cancelWashRepairOrder, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);
@@ -143,7 +143,7 @@ public class CarOrderFragment extends Fragment {
     private void carCancel(String id) {
         Map<String, Object> params = new HashMap<>();
         params.put("orderId", id);
-        HttpProxy.obtain().post(PlatformContans.CarOrder.cancelCarOrder, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.CarOrder.cancelCarOrder, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);
@@ -174,7 +174,7 @@ public class CarOrderFragment extends Fragment {
         Map<String, Object> params = new HashMap<>();
         params.put("state", state);
         params.put("page", page);
-        HttpProxy.obtain().get(PlatformContans.Order.getUserOrderList, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.Order.getUserOrderList, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);
@@ -208,7 +208,7 @@ public class CarOrderFragment extends Fragment {
         Map<String, Object> params = new HashMap<>();
         params.put("state", state);
         params.put("page", page);
-        HttpProxy.obtain().get(PlatformContans.Order.getUserCarOrder, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.Order.getUserCarOrder, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);

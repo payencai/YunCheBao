@@ -22,6 +22,7 @@ import com.rongcloud.activity.AddFriendActivity;
 import com.rongcloud.activity.CreateGroupActivity;
 import com.rongcloud.activity.stranger.SaomaActivity;
 import com.rongcloud.activity.stranger.StrangerMsgActivity;
+import com.system.View.MenuWindow;
 import com.vipcenter.RegisterActivity;
 import com.vipcenter.UserCenterActivity;
 
@@ -141,10 +142,8 @@ public class AnotherBabyFragment extends Fragment {
     }
 
     private void initWindow(View view) {
-        PopupWindow popupWindow = new PopupWindow(getContext());
-        popupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-        View v = LayoutInflater.from(getContext()).inflate(R.layout.dialog_four_menu, null);
+        MenuWindow menuWindow=new MenuWindow(getContext());
+        View v = menuWindow.getContentView();
         LinearLayout ll_friends = (LinearLayout) v.findViewById(R.id.ll_friends);
         LinearLayout ll_group = (LinearLayout) v.findViewById(R.id.ll_group);
         LinearLayout ll_shaoma = (LinearLayout) v.findViewById(R.id.ll_shaoma);
@@ -185,12 +184,8 @@ public class AnotherBabyFragment extends Fragment {
                 }
             }
         });
-
-        popupWindow.setContentView(v);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
-        popupWindow.setOutsideTouchable(false);
-        popupWindow.setFocusable(true);
-        popupWindow.showAsDropDown(view);
+        menuWindow.setBlurBackgroundEnable(true);
+        menuWindow.showPopupWindow(view);
 
 
     }

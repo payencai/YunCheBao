@@ -95,7 +95,7 @@ public class ShopCommentFragment extends Fragment {
         params.put("page",page);
         //params.put("merchantId",id);
         params.put("type",4);
-        HttpProxy.obtain().get(PlatformContans.DrivingSchool.getUserComment, params, MyApplication.getUserInfo().getToken(),new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.DrivingSchool.getUserComment, params, MyApplication.token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("getUserComment", result);

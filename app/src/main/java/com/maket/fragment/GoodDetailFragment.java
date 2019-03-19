@@ -173,7 +173,7 @@ public class GoodDetailFragment extends BaseFragment {
     public void addToShopCar() {
         String token = "";
         if (MyApplication.isLogin) {
-            token = MyApplication.getUserInfo().getToken();
+            token = MyApplication.token;
         }
         GoodDetailActivity goodDetailActivity = (GoodDetailActivity) getActivity();
         String firstId = mGoodParam.getId();
@@ -676,7 +676,7 @@ public class GoodDetailFragment extends BaseFragment {
         Map<String, Object> params = new HashMap<>();
         String token = "";
         if (MyApplication.isLogin) {
-            token = MyApplication.getUserInfo().getToken();
+            token = MyApplication.token;
         }
         GoodDetailActivity activity = (GoodDetailActivity) getActivity();
         params.put("commodityId", activity.getGoodList().getId());
@@ -711,7 +711,7 @@ public class GoodDetailFragment extends BaseFragment {
     public void uncollect() {
         String token = "";
         if (MyApplication.isLogin) {
-            token = MyApplication.getUserInfo().getToken();
+            token = MyApplication.token;
         }
         Map<String, Object> params = new HashMap<>();
         GoodDetailActivity activity = (GoodDetailActivity) getActivity();
@@ -742,7 +742,7 @@ public class GoodDetailFragment extends BaseFragment {
     public void collect() {
         String token = "";
         if (MyApplication.isLogin) {
-            token = MyApplication.getUserInfo().getToken();
+            token = MyApplication.token;
         }
         Map<String, Object> params = new HashMap<>();
         GoodDetailActivity activity = (GoodDetailActivity) getActivity();

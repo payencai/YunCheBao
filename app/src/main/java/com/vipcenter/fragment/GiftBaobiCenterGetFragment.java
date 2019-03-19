@@ -71,11 +71,11 @@ public class GiftBaobiCenterGetFragment extends BaseFragment {
         recyclerView.setAdapter(adapter);
     }
     public void getData() {
-        Log.e("token", MyApplication.getUserInfo().getToken());
+
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
         params.put("state",1);
-        HttpProxy.obtain().post(PlatformContans.Gift.getCoinRecordByUserId, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Gift.getCoinRecordByUserId,MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("getRecordtByUserId", result);

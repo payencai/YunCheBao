@@ -459,7 +459,7 @@ public class BookRoadFragment extends Fragment {
         params.put("imgs", imgs);
         params.put("video", video);
         Log.e("result", params.toString());
-        HttpProxy.obtain().post(PlatformContans.Appointment.addRoadRescueAppointment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Appointment.addRoadRescueAppointment, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
 

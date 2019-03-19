@@ -96,7 +96,7 @@ public class Shop4SOrderActivity extends NoHttpBaseActivity {
         params.put("buyTime",buyTime);
         params.put("mileage",mileage);
         UserInfo userInfo= MyApplication.getUserInfo();
-        String token=userInfo.getToken();
+        String token=MyApplication.token;
         Log.e("param",params.toString());
         HttpProxy.obtain().post(PlatformContans.FourShop.addFourShopOrder,token, params, new ICallBack() {
             @Override

@@ -140,16 +140,20 @@ public class SearchCircleFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(result);
                     jsonObject = jsonObject.getJSONObject("data");
                     JSONArray data = jsonObject.getJSONArray("list");
+                    List<CarFriend> carFriends=new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
                         CarFriend road = new Gson().fromJson(item.toString(), CarFriend.class);
                         mRoads.add(road);
+                        carFriends.add(road);
                     }
-                    mRoadAdapter.setNewData(mRoads);
+
                     if (isLoadMore) {
                         isLoadMore = false;
+                        mRoadAdapter.addData(carFriends);
                         mRoadAdapter.loadMoreComplete();
                     } else {
+                        mRoadAdapter.setNewData(mRoads);
                         mRoadAdapter.loadMoreEnd(true);
                     }
 

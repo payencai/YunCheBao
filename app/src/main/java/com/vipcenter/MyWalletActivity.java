@@ -29,11 +29,13 @@ import com.cheyibao.CarPayActivity;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.wxapi.WechatRes;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.payencai.library.util.ToastUtil;
+import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
@@ -117,9 +119,43 @@ public class MyWalletActivity extends AppCompatActivity {
     }
 
     private void payByWechat(String data){
+        Map<String,Object> params=new HashMap<>();
+        params.put("orderId",data);
+        HttpProxy.obtain().post(PlatformContans.WechatPay.memberCardPay, MyApplication.token, params,new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        JSONObject data=jsonObject.getJSONObject("data") ;
+                        WechatRes wechatRes=new Gson().fromJson(data.toString(),WechatRes.class);
+                        startWechatPay(wechatRes);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
-    private void alipay(String orderId){
+    private void startWechatPay(WechatRes payReponse){
+        PayReq req = new PayReq(); //调起微信APP的对象
+        req.appId = payReponse.getAppid();
+        req.partnerId = payReponse.getPartnerid();
+        req.prepayId = payReponse.getPrepayid();
+        req.nonceStr = payReponse.getNoncestr();
+        req.timeStamp = payReponse.getTimestamp();
+        req.packageValue = payReponse.getPackageX(); //Sign=WXPay
+        req.sign = payReponse.getSign();
+        MyApplication.mWxApi.sendReq(req); //发送调起微信的请求
+    }
+    private void startAlipay(String orderId){
         final Runnable payRunnable = new Runnable() {
 
             @Override
@@ -141,7 +177,7 @@ public class MyWalletActivity extends AppCompatActivity {
     private void payByAlipay(String data){
         Map<String,Object> params=new HashMap<>();
         params.put("orderId",data);
-        HttpProxy.obtain().post(PlatformContans.MemberCard.memberCardPay, MyApplication.getUserInfo().getToken(), params,new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.MemberCard.memberCardPay, MyApplication.token, params,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);
@@ -150,7 +186,7 @@ public class MyWalletActivity extends AppCompatActivity {
                     int code = jsonObject.getInt("resultCode");
                     if (code == 0) {
                         String data=jsonObject.getString("data") ;
-                        alipay(data);
+                        startAlipay(data);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -163,7 +199,6 @@ public class MyWalletActivity extends AppCompatActivity {
             }
         });
     }
-
     private void showPayDialog(String data) {
 
         Dialog dialog = new Dialog(this, R.style.dialog);
@@ -209,96 +244,6 @@ public class MyWalletActivity extends AppCompatActivity {
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT; //使用这种方式更改了dialog的框宽
         window.setAttributes(params);
     }
-    private void buyCard(String id) {
-        Map<String,Object> params=new HashMap<>();
-        params.put("id",id);
-        HttpProxy.obtain().post(PlatformContans.MemberCard.addMemberCardOrder, MyApplication.getUserInfo().getToken(), params,new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Log.e("result", result);
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    int code = jsonObject.getInt("resultCode");
-                    if (code == 0) {
-                        String data=jsonObject.getString("data") ;
-                        showPayDialog(data);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
-    }
-
-    MyWallet myWallet;
-    private void getWallet() {
-        HttpProxy.obtain().get(PlatformContans.User.getMyWallet, MyApplication.getUserInfo().getToken(), new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Log.e("result", result);
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    int code = jsonObject.getInt("resultCode");
-                    if (code == 0) {
-                        JSONObject data=jsonObject.getJSONObject("data") ;
-                        myWallet=new Gson().fromJson(data.toString(),MyWallet.class);
-                        tv_coin.setText(myWallet.getGoldCoin()+"");
-                        tv_total.setText(myWallet.getTotal()+"");
-                        if(myWallet.getIsHasMemberCard()==0){
-                            tv_total.setText("未购买");
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
-    }
-
-    private void getMemberCard() {
-        mMemberCards.clear();
-        HttpProxy.obtain().get(PlatformContans.MemberCard.getMemberCardRuleList, MyApplication.getUserInfo().getToken(), new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Log.e("result", result);
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    int code = jsonObject.getInt("resultCode");
-                    if (code == 0) {
-                        JSONArray jsonArray = jsonObject.getJSONArray("data");
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject item = jsonArray.getJSONObject(i);
-                            MemberCard memberCard = new Gson().fromJson(item.toString(), MemberCard.class);
-                            mMemberCards.add(memberCard);
-                        }
-                        showDialog();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
-    }
-
-    private void initView() {
-
-        getWallet();
-    }
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -332,6 +277,102 @@ public class MyWalletActivity extends AppCompatActivity {
             }
         };
     };
+
+
+
+
+
+
+    private void buyCard(String id) {
+        Map<String,Object> params=new HashMap<>();
+        params.put("id",id);
+        HttpProxy.obtain().post(PlatformContans.MemberCard.addMemberCardOrder, MyApplication.token, params,new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        String data=jsonObject.getString("data") ;
+                        showPayDialog(data);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    MyWallet myWallet;
+    private void getWallet() {
+        HttpProxy.obtain().get(PlatformContans.User.getMyWallet, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        JSONObject data=jsonObject.getJSONObject("data") ;
+                        myWallet=new Gson().fromJson(data.toString(),MyWallet.class);
+                        tv_coin.setText(myWallet.getGoldCoin()+"");
+                        tv_total.setText(myWallet.getTotal()+"");
+                        if(myWallet.getIsHasMemberCard()==0){
+                            tv_total.setText("未购买");
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    private void getMemberCard() {
+        mMemberCards.clear();
+        HttpProxy.obtain().get(PlatformContans.MemberCard.getMemberCardRuleList,MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        JSONArray jsonArray = jsonObject.getJSONArray("data");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject item = jsonArray.getJSONObject(i);
+                            MemberCard memberCard = new Gson().fromJson(item.toString(), MemberCard.class);
+                            mMemberCards.add(memberCard);
+                        }
+                        showDialog();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    private void initView() {
+
+        getWallet();
+    }
 
 
 

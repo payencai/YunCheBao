@@ -196,11 +196,28 @@ public class GoodsOrderDetailActivity extends AppCompatActivity {
     private void confirmOrder(){
         Map<String,Object> params=new HashMap<>();
         params.put("orderId",mPhoneOrderEntity.getId());
-        HttpProxy.obtain().post(PlatformContans.GoodsOrder.finishOrder, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.GoodsOrder.finishOrder, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("reuslt",result);
                 ToastUtil.showToast(GoodsOrderDetailActivity.this,"操作成功");
+                finish();
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    private void cancelOrder(){
+        Map<String,Object> params=new HashMap<>();
+        params.put("orderId",mPhoneOrderEntity.getId());
+        HttpProxy.obtain().post(PlatformContans.GoodsOrder.cancelOrder, MyApplication.token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("reuslt",result);
+                ToastUtil.showToast(GoodsOrderDetailActivity.this,"取消成功");
                 finish();
             }
 
@@ -232,22 +249,6 @@ public class GoodsOrderDetailActivity extends AppCompatActivity {
         bottomDialog = builder.create();
         bottomDialog.show();
     }
-    private void cancelOrder(){
-        Map<String,Object> params=new HashMap<>();
-        params.put("orderId",mPhoneOrderEntity.getId());
-        HttpProxy.obtain().post(PlatformContans.GoodsOrder.cancelOrder, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Log.e("reuslt",result);
-                ToastUtil.showToast(GoodsOrderDetailActivity.this,"取消成功");
-                finish();
-            }
 
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
-    }
 
 }

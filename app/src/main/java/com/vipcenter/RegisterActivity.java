@@ -122,7 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
         LitePal.deleteAll(MyFriend.class);
         com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
         if (userinfo != null)
-            HttpProxy.obtain().get(PlatformContans.Chat.getMyFriendList, userinfo.getToken(), new ICallBack() {
+            HttpProxy.obtain().get(PlatformContans.Chat.getMyFriendList, MyApplication.token, new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
                     Log.e("getContacts", result);
@@ -154,7 +154,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void getData() {
         final com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
         if (userinfo != null)
-            HttpProxy.obtain().get(PlatformContans.Chat.getCrowdsList, userinfo.getToken(), new ICallBack() {
+            HttpProxy.obtain().get(PlatformContans.Chat.getCrowdsList, MyApplication.token, new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
                     Log.e("apply", result);
@@ -374,7 +374,7 @@ public class RegisterActivity extends AppCompatActivity {
     private IWXAPI api;
     String getUserInfo = "https://api.weixin.qq.com/sns/userinfo?access_token=" + "access" + "&openid=" + "openId";
     private void setWXLogin() {
-        api= WXEntryActivity.getWXAPI();
+        api= MyApplication.mWxApi;
         if (api != null && api.isWXAppInstalled()) {
             SendAuth.Req req = new SendAuth.Req();
             req.scope = "snsapi_userinfo";

@@ -96,7 +96,7 @@ public class MyGroupDetailActivity extends AppCompatActivity {
         Map<String,Object> params=new HashMap<>();
         params.put("crowdId",mGroup.getId());
         final com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
-        HttpProxy.obtain().get(PlatformContans.Chat.getCrowdDetailsByCrowdId, params,userinfo.getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.Chat.getCrowdDetailsByCrowdId, params,MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("data",result);
@@ -143,7 +143,7 @@ public class MyGroupDetailActivity extends AppCompatActivity {
             Map<String, Object> params = new HashMap<>();
             params.put("crowdId",mGroup.getId());
             if (userInfo != null)
-                HttpProxy.obtain().post(PlatformContans.Chat.dismissCrowdByCrowdId, userInfo.getToken(), params, new ICallBack() {
+                HttpProxy.obtain().post(PlatformContans.Chat.dismissCrowdByCrowdId, MyApplication.token, params, new ICallBack() {
                     @Override
                     public void OnSuccess(String result) {
                         Log.e("delete", result);

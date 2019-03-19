@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.application.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.cheyibao.model.RentCar;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
@@ -119,16 +120,20 @@ public class SearchRoadFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(result);
                     jsonObject = jsonObject.getJSONObject("data");
                     JSONArray data = jsonObject.getJSONArray("list");
+                    List<Road> roads=new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
                         Road road = new Gson().fromJson(item.toString(), Road.class);
                         mRoads.add(road);
+                        roads.add(road);
                     }
-                    mRoadAdapter.setNewData(mRoads);
+
                     if(isLoadMore){
                         isLoadMore=false;
+                        mRoadAdapter.addData(roads);
                         mRoadAdapter.loadMoreComplete();
                     }else{
+                        mRoadAdapter.setNewData(mRoads);
                         mRoadAdapter.loadMoreEnd(true);
                     }
 

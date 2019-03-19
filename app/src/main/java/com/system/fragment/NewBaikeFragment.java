@@ -105,7 +105,7 @@ public class NewBaikeFragment extends Fragment {
                 Intent intent = new Intent(getContext(), WebviewActivity.class);
                 String token="";
                 if(MyApplication.isLogin){
-                    token=MyApplication.getUserInfo().getToken();
+                    token=MyApplication.token;
                 }
                 intent.putExtra("url", "http://www.yunchebao.com:8080/h5baby/?id="+baikeItem.getId()+"&token="+token);
                 startActivity(intent);

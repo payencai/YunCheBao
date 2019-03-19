@@ -10,17 +10,17 @@
         android:id="@+id/my_scrollview"
         android:layout_above="@+id/bottomMenuLay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <com.youth.banner.Banner
                 android:id="@+id/slideshowView"
                 android:layout_width="fill_parent"
-                android:layout_height="202dp"
+                android:layout_height="210dp"
                 android:visibility="visible" />
 
             <RelativeLayout

@@ -89,7 +89,7 @@ public class MobileCertificationActivity extends NoHttpBaseActivity {
         Map<String,Object> params=new HashMap<>();
         params.put("telephone",et_phone.getText().toString());
         params.put("code",et_code.getEditableText().toString());
-        HttpProxy.obtain().post(PlatformContans.User.relieveTelephone ,MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.User.relieveTelephone ,MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 try {

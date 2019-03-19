@@ -278,7 +278,7 @@ public class CarsShowRepublishActivity extends NoHttpBaseActivity {
         params.put("video", video);
         params.put("time", time);
         Log.e("result", params.toString());
-        HttpProxy.obtain().post(PlatformContans.BabyCircle.addCarShowCircle, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.BabyCircle.addCarShowCircle, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);

@@ -227,7 +227,7 @@ public class OrderCommentSubmitActivity extends NoHttpBaseActivity {
 
     private void shopcomment(String json) {
 
-        HttpProxy.obtain().post(PlatformContans.GoodsOrder.addBabyMerchantComment, MyApplication.getUserInfo().getToken(), json, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.GoodsOrder.addBabyMerchantComment, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);

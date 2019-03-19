@@ -80,7 +80,7 @@ public class CreateGroupActivity extends AppCompatActivity {
             params.put("crowdName", userInfo.getName() + new Date().getTime());
             Log.e("id",id);
             if (userInfo != null)
-                HttpProxy.obtain().post(PlatformContans.Chat.addCrowds, userInfo.getToken(), params, new ICallBack() {
+                HttpProxy.obtain().post(PlatformContans.Chat.addCrowds, MyApplication.token, params, new ICallBack() {
                     @Override
                     public void OnSuccess(String result) {
                         Log.e("friend", result);
@@ -111,7 +111,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     private void getContacts() {
         com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
         if (userinfo != null)
-            HttpProxy.obtain().get(PlatformContans.Chat.getMyFriendList, userinfo.getToken(), new ICallBack() {
+            HttpProxy.obtain().get(PlatformContans.Chat.getMyFriendList, MyApplication.token, new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
                     Log.e("group", result);

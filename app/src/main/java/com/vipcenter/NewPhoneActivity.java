@@ -89,7 +89,7 @@ public class NewPhoneActivity extends AppCompatActivity {
         Map<String,Object> params=new HashMap<>();
         params.put("telephone",et_phone.getEditableText().toString());
         params.put("code",et_code.getEditableText().toString());
-        HttpProxy.obtain().post(PlatformContans.User.bindTelephone ,MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.User.bindTelephone ,MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 try {

@@ -443,7 +443,7 @@ public class DrivingSchoolActivity extends AppCompatActivity {
         Map<String, Object> params = new HashMap<>();
         String token = "";
         if (MyApplication.isLogin) {
-            token = MyApplication.getUserInfo().getToken();
+            token = MyApplication.token;
         }
         params.put("merchantId", mDrvingSchool.getId());
         HttpProxy.obtain().post(PlatformContans.Collect.addDrivingSchoolCollection, token, params, new ICallBack() {

@@ -109,9 +109,9 @@ public class AddGroupDetailActivity extends AppCompatActivity {
         Map<String, Object> params = new HashMap<>();
         params.put("crowdId", mGroup.getId());
         params.put("applyReason", reason);
-        UserInfo userInfo = MyApplication.getUserInfo();
-        if (userInfo != null)
-            HttpProxy.obtain().post(PlatformContans.Chat.addCrowdApply, userInfo.getToken(), params, new ICallBack() {
+
+
+            HttpProxy.obtain().post(PlatformContans.Chat.addCrowdApply,MyApplication.token , params, new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
                     Log.e("friend", result);

@@ -97,7 +97,7 @@ public class SearchBaikeFragment extends Fragment {
                 Intent intent = new Intent(getContext(), WebviewActivity.class);
                 String token="";
                 if(MyApplication.isLogin){
-                    token=MyApplication.getUserInfo().getToken();
+                    token=MyApplication.token;
                 }
                 intent.putExtra("url", "http://www.yunchebao.com:8080/h5baby/?id="+baikeItem.getId()+"&token="+token);
                 startActivity(intent);
@@ -124,16 +124,19 @@ public class SearchBaikeFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(result);
                     jsonObject = jsonObject.getJSONObject("data");
                     JSONArray data = jsonObject.getJSONArray("list");
+                    List<BaikeItem> baikeItems=new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
                         BaikeItem road = new Gson().fromJson(item.toString(), BaikeItem.class);
                         mRoads.add(road);
+                        baikeItems.add(road);
                     }
-                    mRoadAdapter.setNewData(mRoads);
                     if(isLoadMore){
                         isLoadMore=false;
+                        mRoadAdapter.addData(baikeItems);
                         mRoadAdapter.loadMoreComplete();
                     }else{
+                        mRoadAdapter.setNewData(mRoads);
                         mRoadAdapter.loadMoreEnd(true);
                     }
 

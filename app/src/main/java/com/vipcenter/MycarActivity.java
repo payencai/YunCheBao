@@ -134,7 +134,7 @@ public class MycarActivity extends AppCompatActivity {
         params.put("plateNumber",plateNumber);
         params.put("userName",userName);
         String json=new Gson().toJson(params);
-        HttpProxy.obtain().post(PlatformContans.Commom.adddrivingLicense, MyApplication.getUserInfo().getToken(), json, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Commom.adddrivingLicense, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result",result);

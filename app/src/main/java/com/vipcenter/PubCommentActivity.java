@@ -132,7 +132,7 @@ public class PubCommentActivity extends AppCompatActivity {
         params.put("score", score);
         if (!TextUtils.isEmpty(imgs))
             params.put("imgs", imgs.substring(1));
-        HttpProxy.obtain().post(PlatformContans.CarWashRepairShop.addWashRepairOrderComment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.CarWashRepairShop.addWashRepairOrderComment,MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);

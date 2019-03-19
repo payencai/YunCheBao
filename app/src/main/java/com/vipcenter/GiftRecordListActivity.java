@@ -74,7 +74,7 @@ public class GiftRecordListActivity extends NoHttpBaseActivity {
     public void getData(){
         String token="";
         if(MyApplication.isLogin){
-            token=MyApplication.getUserInfo().getToken();
+            token=MyApplication.token;
         }
         //  Log.e("token",MyApplication.getUserInfo().getToken());
         Map<String,Object> params=new HashMap<>();

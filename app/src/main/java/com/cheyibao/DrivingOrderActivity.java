@@ -138,7 +138,7 @@ public class DrivingOrderActivity extends AppCompatActivity implements View.OnCl
          params.put("className",mClassItem.getClassName());
         params.put("coachId", mCoachItem.getId());
         params.put("coachName", mCoachItem.getCoachName());
-        HttpProxy.obtain().post(PlatformContans.CarOrder.addCarOrder, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.CarOrder.addCarOrder, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);

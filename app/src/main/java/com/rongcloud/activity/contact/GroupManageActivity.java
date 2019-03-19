@@ -84,7 +84,7 @@ public class GroupManageActivity extends AppCompatActivity {
             params.put("crowdId",mGroupUser.getId());
             Log.e("id",id);
             if (userInfo != null)
-                HttpProxy.obtain().post(PlatformContans.Chat.deleteCrowdByUserIds, userInfo.getToken(), params, new ICallBack() {
+                HttpProxy.obtain().post(PlatformContans.Chat.deleteCrowdByUserIds, MyApplication.token, params, new ICallBack() {
                     @Override
                     public void OnSuccess(String result) {
                         Log.e("delete", result);
@@ -124,7 +124,7 @@ public class GroupManageActivity extends AppCompatActivity {
             params.put("crowdId",mGroupUser.getId());
             Log.e("id",id);
             if (userInfo != null)
-                HttpProxy.obtain().post(PlatformContans.Chat.joinCrowdByUserIds, userInfo.getToken(), params, new ICallBack() {
+                HttpProxy.obtain().post(PlatformContans.Chat.joinCrowdByUserIds, MyApplication.token, params, new ICallBack() {
                     @Override
                     public void OnSuccess(String result) {
                         Log.e("friend", result);
@@ -158,7 +158,7 @@ public class GroupManageActivity extends AppCompatActivity {
         Map<String,Object> params=new HashMap<>();
         params.put("crowdId",mGroupUser.getId());
         final com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
-        HttpProxy.obtain().get(PlatformContans.Chat.getCrowdDetailsByCrowdId, params,userinfo.getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.Chat.getCrowdDetailsByCrowdId, params,MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("data",result);
@@ -196,7 +196,7 @@ public class GroupManageActivity extends AppCompatActivity {
     private void getContacts() {
         com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
         if (userinfo != null)
-            HttpProxy.obtain().get(PlatformContans.Chat.getMyFriendList, userinfo.getToken(), new ICallBack() {
+            HttpProxy.obtain().get(PlatformContans.Chat.getMyFriendList, MyApplication.token, new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
                     Log.e("group", result);

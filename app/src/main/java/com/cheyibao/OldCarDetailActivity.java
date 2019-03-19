@@ -448,7 +448,7 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
         Map<String, Object> params = new HashMap<>();
         String token = "";
         if (MyApplication.isLogin) {
-            token = MyApplication.getUserInfo().getToken();
+            token = MyApplication.token;
         }
         params.put("carImage", mOldCar.getCarImage());
         params.put("carPrice", mOldCar.getNewPrice());
@@ -490,7 +490,7 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
         params.put("telephone", mOldCar.getLinkmanTelephone());
         params.put("seat", mOldCar.getCarCategoryDetail().getSeat());
         params.put("carCategory", mOldCar.getCarCategoryDetail().getModels());
-        HttpProxy.obtain().post(PlatformContans.CarOrder.addCarOrder, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.CarOrder.addCarOrder, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);

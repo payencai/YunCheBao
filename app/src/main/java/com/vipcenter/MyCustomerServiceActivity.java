@@ -62,7 +62,7 @@ public class MyCustomerServiceActivity extends NoHttpBaseActivity {
                // ActivityAnimationUtils.commonTransition(MyCustomerServiceActivity.this, MyCustomServiceChatActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.lay2:
-                callToPhoneSweetAlert("10010");
+                callToPhoneSweetAlert("0871-68106401");
                 break;
         }
     }

@@ -370,7 +370,7 @@ public class SelfDrivingRepublishActivity extends NoHttpFragmentBaseActivity imp
         params.put("endTime", time2Text.getText().toString() + ":00");
         params.put("address", MyApplication.getaMapLocation().getAddress());
         Log.e("result", params.toString());
-        HttpProxy.obtain().post(PlatformContans.BabyCircle.addSelfDrivingCircle, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.BabyCircle.addSelfDrivingCircle, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);

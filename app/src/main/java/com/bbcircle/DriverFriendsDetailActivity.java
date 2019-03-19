@@ -121,11 +121,11 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
         params.put("id", mSeldDrvingDetail.getId());
         params.put("type", 2);
         params.put("page", 1);
-        HttpProxy.obtain().get(PlatformContans.BabyCircle.getBabyCircleCommentDetailsById, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.BabyCircle.getBabyCircleCommentDetailsById, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 try {
-                    Log.e("getComment", MyApplication.getUserInfo().getToken());
+                    //Log.e("getComment", MyApplication.getUserInfo().getToken());
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray data = jsonObject.getJSONArray("data");
                     for (int i = 0; i < data.length(); i++) {
@@ -200,11 +200,11 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
         Map<String, Object> params = new HashMap<>();
         params.put("userId", MyApplication.getUserInfo().getId());
         params.put("id", id);
-        HttpProxy.obtain().get(PlatformContans.BabyCircle.getCarCommunicationCircleById, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.BabyCircle.getCarCommunicationCircleById, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 try {
-                    Log.e("detail", MyApplication.getUserInfo().getToken());
+                    //Log.e("detail", MyApplication.getUserInfo().getToken());
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject data = jsonObject.getJSONObject("data");
                     mSeldDrvingDetail = new Gson().fromJson(data.toString(), CarFriendDetail.class);
@@ -228,7 +228,7 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
         params.put("title", mSeldDrvingDetail.getTitle());
         params.put("type", 2);
         String json = new Gson().toJson(params);
-        HttpProxy.obtain().post(PlatformContans.Collect.addBabyCollection, MyApplication.getUserInfo().getToken(), json, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Collect.addBabyCollection, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 if (mSeldDrvingDetail.getIsCollection() == 0) {
@@ -303,14 +303,7 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
         rv_comment.setNestedScrollingEnabled(false);
         rv_comment.setAdapter(mCircleCommentAdapter);
         getDatail();
-//        imageList.clear();
-//        for (int i = 0; i < 3; i++) {
-//            Map<String, String> image_uri = new HashMap<String, String>();
-//            image_uri.put("imageUrls", "http://image.tianjimedia.com/uploadImages/2015/217/32/17O1Z9FE863O.jpg");
-////            image_uri.put("imageUris", adList.get(i).getCid());
-//            imageList.add(image_uri);
-//        }
-//        slideShowView.setImageUrls(imageList);
+
     }
     /**
      * EditText获取焦点并显示软键盘
@@ -335,7 +328,7 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
         params.put("circleId", mSeldDrvingDetail.getId());
         params.put("content", content);
         params.put("type", 2);
-        HttpProxy.obtain().post(PlatformContans.BabyCircle.addBabyCircleComment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.BabyCircle.addBabyCircleComment, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 page = 1;
@@ -356,7 +349,7 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
         Map<String, Object> params = new HashMap<>();
         params.put("recordId", id);
         params.put("content", content);
-        HttpProxy.obtain().post(PlatformContans.BabyCircle.replyBabyCircleComment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.BabyCircle.replyBabyCircleComment, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result",result);

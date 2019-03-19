@@ -82,7 +82,7 @@ public class NewCarCommentFragment extends Fragment {
     public void getData(){
         String token="";
         if(MyApplication.isLogin){
-            token=MyApplication.getUserInfo().getToken();
+            token=MyApplication.token;
         }
         Map<String,Object> params=new HashMap<>();
         params.put("page",page);

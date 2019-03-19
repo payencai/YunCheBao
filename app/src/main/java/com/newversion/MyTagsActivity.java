@@ -51,7 +51,7 @@ public class MyTagsActivity extends AppCompatActivity {
     private void deleteTag(int  id){
         Map<String,Object> params=new HashMap<>();
         params.put("id",id);
-        HttpProxy.obtain().post(PlatformContans.Label.deleteLabel, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Label.deleteLabel, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result",result);
@@ -66,7 +66,7 @@ public class MyTagsActivity extends AppCompatActivity {
     }
     public void getData() {
 
-        HttpProxy.obtain().get(PlatformContans.Label.getLabelList, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.Label.getLabelList, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("getLabelList", result);

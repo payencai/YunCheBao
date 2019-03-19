@@ -79,7 +79,7 @@ public class ApplyDetailActivity extends AppCompatActivity {
     private void getDetail(){
         Map<String,Object> params=new HashMap<>();
         params.put("userId",mApplyFriend.getUserId());
-        HttpProxy.obtain().get(PlatformContans.User.getUserResultById, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.User.getUserResultById, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("detail",result);
@@ -166,9 +166,8 @@ public class ApplyDetailActivity extends AppCompatActivity {
         if (state == 2) {
             params.put("rejectReason", reason);
         }
-        com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
-        if (userinfo != null)
-            HttpProxy.obtain().post(PlatformContans.Chat.updateFriendApply, userinfo.getToken(), params, new ICallBack() {
+
+            HttpProxy.obtain().post(PlatformContans.Chat.updateFriendApply, MyApplication.token, params, new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
                     if(dialog!=null)

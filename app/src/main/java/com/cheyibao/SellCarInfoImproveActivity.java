@@ -339,7 +339,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
         params.put("linkmanRegistrationCertificate", image1);
         String json = new Gson().toJson(params);
         Log.e("json", json);
-        HttpProxy.obtain().post(PlatformContans.OldCar.addOldCarUserCar, MyApplication.getUserInfo().getToken(), json, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.OldCar.addOldCarUserCar, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);

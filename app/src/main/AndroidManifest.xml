@@ -150,6 +150,11 @@
                 <data android:scheme="sdksample" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- 洗护宝 -->
         <activity android:name="com.xihubao.WashCarListActivity" />
         <activity android:name="com.xihubao.WashCarDetailActivity" />
@@ -456,7 +461,8 @@
         <activity android:name="com.system.NoticeActivity" />
         <activity android:name="com.baike.BaikeTagActivity" />
         <activity android:name="com.maket.RentGoodsActivity" />
-        <activity android:name="com.cheyibao.SelectCarBrandActivity"></activity>
+        <activity android:name="com.cheyibao.SelectCarBrandActivity" />
+        <activity android:name="com.vipcenter.GiftMoreActivity"></activity>
     </application>
 
 </manifest>

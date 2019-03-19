@@ -109,7 +109,7 @@ public class NewFriendFragment extends Fragment {
         }
         com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
         if (userinfo != null)
-            HttpProxy.obtain().post(PlatformContans.Chat.updateFriendApply, userinfo.getToken(), params, new ICallBack() {
+            HttpProxy.obtain().post(PlatformContans.Chat.updateFriendApply, MyApplication.token, params, new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
                     if(dialog!=null)
@@ -178,7 +178,7 @@ public class NewFriendFragment extends Fragment {
     private void getData() {
         com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
         if (userinfo != null)
-            HttpProxy.obtain().get(PlatformContans.Chat.getFriendApplyList, userinfo.getToken(), new ICallBack() {
+            HttpProxy.obtain().get(PlatformContans.Chat.getFriendApplyList, MyApplication.token, new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
                     Log.e("apply", result);

@@ -163,7 +163,7 @@ public class ShopMainListActivity extends NoHttpFragmentBaseActivity {
     private void addCollect() {
         Map<String, Object> params = new HashMap<>();
         params.put("shopId", id);
-        HttpProxy.obtain().post(PlatformContans.GoodCollect.addBabyMerchantCollection, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.GoodCollect.addBabyMerchantCollection, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 collect = 1;
@@ -180,7 +180,7 @@ public class ShopMainListActivity extends NoHttpFragmentBaseActivity {
     private void delCollect() {
         Map<String, Object> params = new HashMap<>();
         params.put("shopId", id);
-        HttpProxy.obtain().post(PlatformContans.GoodCollect.deleteCommodityCollection, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.GoodCollect.deleteCommodityCollection, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
 

@@ -124,7 +124,7 @@ public class AddFriendDetailActivity extends AppCompatActivity {
         params.put("applyReason", reason);
         UserInfo userInfo = MyApplication.getUserInfo();
         if (userInfo != null)
-            HttpProxy.obtain().post(PlatformContans.Chat.addFriendApply, userInfo.getToken(), params, new ICallBack() {
+            HttpProxy.obtain().post(PlatformContans.Chat.addFriendApply, MyApplication.token, params, new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
                     Log.e("friend", result);

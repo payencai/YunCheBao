@@ -54,6 +54,7 @@ public class FriendDetailActivity extends AppCompatActivity {
     TextView tv_voice;
     @BindView(R.id.video)
     TextView tv_video;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +63,7 @@ public class FriendDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initView();
     }
+
     private void initWindow(View view) {
         final PopupWindow popupWindow = new PopupWindow(this);
         popupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -90,37 +92,37 @@ public class FriendDetailActivity extends AppCompatActivity {
     }
 
     private void deleteFriend(final PopupWindow popupWindow) {
-        final com.vipcenter.model.UserInfo userInfo = MyApplication.getUserInfo();
+
         Map<String, Object> params = new HashMap<>();
-        params.put("friendId",mContactModel.getUserId());
-        Log.e("friendId",mContactModel.getUserId());
-        if (userInfo != null)
-            HttpProxy.obtain().post(PlatformContans.Chat.deleteMyFriend, userInfo.getToken(), params, new ICallBack() {
-                @Override
-                public void OnSuccess(String result) {
-                    popupWindow.dismiss();
-                    Log.e("delete", result);
-                    try {
-                        JSONObject jsonObject = new JSONObject(result);
-                        int code = jsonObject.getInt("resultCode");
-                        if (code == 0) {
-                            Toast.makeText(FriendDetailActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+        params.put("friendId", mContactModel.getUserId());
+        Log.e("friendId", mContactModel.getUserId());
 
-                            finish();
-                        }else{
-                            //Toast.makeText(GroupManageActivity.this, msg, Toast.LENGTH_SHORT).show();
-                        }
+        HttpProxy.obtain().post(PlatformContans.Chat.deleteMyFriend, MyApplication.token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                popupWindow.dismiss();
+                Log.e("delete", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        Toast.makeText(FriendDetailActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        finish();
+                    } else {
+                        //Toast.makeText(GroupManageActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
-                }
 
-                @Override
-                public void onFailure(String error) {
-
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            });
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 
 
@@ -154,13 +156,13 @@ public class FriendDetailActivity extends AppCompatActivity {
         tv_video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RongCallKit.startSingleCall(FriendDetailActivity.this,  mContactModel.getUserId(), RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
+                RongCallKit.startSingleCall(FriendDetailActivity.this, mContactModel.getUserId(), RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
             }
         });
         tv_voice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RongCallKit.startSingleCall(FriendDetailActivity.this,  mContactModel.getUserId(), RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
+                RongCallKit.startSingleCall(FriendDetailActivity.this, mContactModel.getUserId(), RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
             }
         });
     }

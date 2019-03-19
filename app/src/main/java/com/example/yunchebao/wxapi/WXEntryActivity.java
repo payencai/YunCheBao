@@ -37,8 +37,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        iwxapi = WXAPIFactory.createWXAPI(this, "wx13acff5b460a0164", true);
-        iwxapi.registerApp("wx13acff5b460a0164");
+        iwxapi =MyApplication.mWxApi;
         iwxapi.handleIntent(getIntent(), this);
     }
 
@@ -91,22 +90,9 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
         }
     }
 
-    public static IWXAPI getWXAPI() {
-        if (iwxapi == null) {
-            iwxapi = WXAPIFactory.createWXAPI(MyApplication.getContext(), "wx13acff5b460a0164", true);
-            iwxapi.registerApp("wx13acff5b460a0164");
-        }
-        return iwxapi;
-    }
 
-    public static boolean isInstall() {
-        if (!iwxapi.isWXAppInstalled()) {
 
-            return false;
-        }
 
-        return true;
-    }
     private void loginByWeChat(final String openid) {
         Map<String, Object> params = new HashMap<>();
         params.put("wxId", openid);

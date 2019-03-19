@@ -161,7 +161,7 @@ public class RaceDetailActivity extends NoHttpBaseActivity {
         Map<String, Object> params = new HashMap<>();
         params.put("userId",MyApplication.getUserInfo().getId());
         params.put("id", id);
-        HttpProxy.obtain().get(PlatformContans.BabyCircle.getMatchCircleById, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.BabyCircle.getMatchCircleById, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 try {
@@ -188,7 +188,7 @@ public class RaceDetailActivity extends NoHttpBaseActivity {
         params.put("title", mSeldDrvingDetail.getTitle());
         params.put("type", 4);
         String json = new Gson().toJson(params);
-        HttpProxy.obtain().post(PlatformContans.Collect.addBabyCollection, MyApplication.getUserInfo().getToken(), json, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Collect.addBabyCollection, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 if(mSeldDrvingDetail.getIsCollection()==0) {

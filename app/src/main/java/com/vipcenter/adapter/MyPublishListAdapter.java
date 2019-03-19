@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.entity.PhoneArticleEntity;
@@ -21,7 +23,14 @@ import java.util.List;
 public class MyPublishListAdapter extends BaseAdapter {
     private List<Mypublish> list;
     private Context ctx;
-
+    private onDeleteClickListener mOnDeleteClickListener;
+    public void setOnDeleteClickListener(onDeleteClickListener mOnDeleteClickListener){
+        this.mOnDeleteClickListener=mOnDeleteClickListener;
+    }
+    public interface onDeleteClickListener{
+        void onClick(int pos);
+        void onItemClick(int pos);
+    }
     public MyPublishListAdapter(Context ctx, List<Mypublish> list) {
         this.list = list;
         this.ctx = ctx;
@@ -46,13 +55,26 @@ public class MyPublishListAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(ctx).inflate(R.layout.my_publish_list_item, null);
         TextView tv_content= (TextView) convertView.findViewById(R.id.item1);
+        LinearLayout ll_content= (LinearLayout) convertView.findViewById(R.id.ll_content);
         TextView tv_type= (TextView) convertView.findViewById(R.id.item2);
-        TextView tv_date= (TextView) convertView.findViewById(R.id.tv_date);
-        TextView tv_month= (TextView) convertView.findViewById(R.id.tv_month);
+        Button btnDelete= (Button) convertView.findViewById(R.id.btnDelete);
+        TextView tv_time= (TextView) convertView.findViewById(R.id.tv_time);
         tv_content.setText(list.get(position).getTitle());
-        String time=list.get(position).getCreateTime().substring(0,10);
-        tv_date.setText(time.substring(8,10));
-        tv_month.setText(time.substring(5,7)+"月");
+        String time=list.get(position).getCreateTime();
+        tv_time.setText(time);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnDeleteClickListener.onClick(position);
+
+            }
+        });
+        ll_content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnDeleteClickListener.onItemClick(position);
+            }
+        });
         switch (list.get(position).getType()){
             case 1:
                 tv_type.setText("自驾游");

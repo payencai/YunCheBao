@@ -4,10 +4,13 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ListView;
 
 import com.application.MyApplication;
@@ -21,6 +24,7 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.GoodsOrderDetailActivity;
 import com.nohttp.sample.BaseFragment;
+import com.payencai.library.util.ToastUtil;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.vipcenter.HaveGotGoodsActivity;
@@ -37,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import io.rong.imkit.RongIM;
 
 
 public class OrderListFragment extends BaseFragment implements OnClickListener {
@@ -73,14 +78,15 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
         obj = this;
         adapter = new OrderListAdapter(getActivity(), typeId, this, list);
         mListView.setAdapter(adapter);
-        pullToRefreshListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);//支持下拉
+        pullToRefreshListView.setMode(PullToRefreshBase.Mode.BOTH);//支持下拉
         pullToRefreshListView.setScrollingWhileRefreshingEnabled(true);//滚动的时候不加载数据
         pullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                pullToRefreshListView.onRefreshComplete();
+
                 isDown = true;
                 pageNum = 1;
+                pullToRefreshListView.onRefreshComplete();
                 initListData();
             }
 
@@ -101,37 +107,12 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        // initListData();
+
     }
 
     private void initListData() {
         List<PhoneOrderEntity> rlist = new ArrayList<>();
-//        switch (typeId) {
-//            case 0:
-//                rlist.add(new PhoneOrderEntity(1, "1"));
-//
-//
-//                break;
-//            case 1:
-//                rlist.add(new PhoneOrderEntity(1, "1"));
-//
-//                break;
-//            case 2:
-//                rlist.add(new PhoneOrderEntity(1, "2"));
-//
-//                break;
-//            case 3:
-//                rlist.add(new PhoneOrderEntity(1, "3"));
-//
-//                break;
-//            case 4:
-//                rlist.add(new PhoneOrderEntity(1, "4"));
-//
-//                break;
-//        }
-//
-//        list.clear();
-//        list.addAll(rlist);
+
         adapter.notifyDataSetChanged();
 
     }
@@ -139,10 +120,10 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
     private void getData(int state) {
         String token = "";
         if (MyApplication.isLogin) {
-            token = MyApplication.getUserInfo().getToken();
+            token = MyApplication.token;
         } else {
             return;
-            // tv.setText(MyApplication.getaMapLocation().getProvince() + MyApplication.getaMapLocation().getCity() + MyApplication.getaMapLocation().getDistrict());
+
         }
         Map<String, Object> params = new HashMap<>();
         params.put("page", pageNum);
@@ -183,7 +164,19 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
 
     }
 
-
+   private void showCancelDialog(){
+       Dialog dialog=new Dialog(getContext(),R.style.dialog);
+       View view =LayoutInflater.from(getContext()).inflate(R.layout.dialog_order_cancel,null);
+       dialog.setContentView(view);
+       dialog.show();
+       Window window=dialog.getWindow();
+       WindowManager windowManager=getActivity().getWindowManager();
+       WindowManager.LayoutParams layoutParams=window.getAttributes();
+       Display display=windowManager.getDefaultDisplay();
+       layoutParams.width= (int) (display.getWidth()*0.7);
+       layoutParams.height= ViewGroup.LayoutParams.WRAP_CONTENT;
+       window.setAttributes(layoutParams);
+   }
     //adapter中按钮点击事件
     public void onShortcutMenuClickListener(Integer t, Integer loc) {
         int location = loc.intValue();
@@ -196,17 +189,18 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
                 // ActivityAnimationUtils.commonTransition(getActivity(), OrderDetailActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case 1://联系
-                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-                intent.putExtra("data", list.get(location));
-                startActivity(intent);
-                //String userId = list.get(location).getUserId();
-                //RongIM.getInstance().startPrivateChat(getContext(),userId, list.get(location).getShopName());
+//                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+//                intent.putExtra("data", list.get(location));
+//                startActivity(intent);
+                String userId = list.get(location).getUserId();
+                RongIM.getInstance().startPrivateChat(getContext(),userId, list.get(location).getShopName());
                 //ActivityAnimationUtils.commonTransition(getActivity(), OrderChatDetailActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case 2://取消
-                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-                intent.putExtra("data", list.get(location));
-                startActivity(intent);
+                showCancelDialog();
+//                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+//                intent.putExtra("data", list.get(location));
+//                startActivity(intent);
                 //alertCancelPanel(getActivity());
                 break;
             case 3://付款
@@ -243,9 +237,9 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
                 //alert8Sweet();
                 break;
             case 9://再来一单
-                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-                intent.putExtra("data", list.get(location));
-                startActivity(intent);
+//                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+//                intent.putExtra("data", list.get(location));
+//                startActivity(intent);
                 //ActivityAnimationUtils.commonTransition(getActivity(), OrderConfirmActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case 10://评价
@@ -257,7 +251,40 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
         }
     }
 
+    private void confirmOrder(String id){
+        Map<String,Object> params=new HashMap<>();
+        params.put("orderId",id);
+        HttpProxy.obtain().post(PlatformContans.GoodsOrder.finishOrder, MyApplication.token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("reuslt",result);
+                ToastUtil.showToast(getContext(),"操作成功");
 
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    private void cancelOrder(String id){
+        Map<String,Object> params=new HashMap<>();
+        params.put("orderId",id);
+        HttpProxy.obtain().post(PlatformContans.GoodsOrder.cancelOrder, MyApplication.token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("reuslt",result);
+                ToastUtil.showToast(getContext(),"取消成功");
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     /**
      * 初始化支付方式Dialog
      */

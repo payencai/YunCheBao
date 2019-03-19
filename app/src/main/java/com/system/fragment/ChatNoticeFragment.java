@@ -84,7 +84,7 @@ public class ChatNoticeFragment extends Fragment {
     private void getData(){
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
-        HttpProxy.obtain().get(PlatformContans.User.getDynamic, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.User.getDynamic, params,MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("road", result);

@@ -15,6 +15,7 @@ import com.entity.PhoneCommBaseType;
 import com.example.yunchebao.R;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
 import com.tool.ActivityConstans;
+import com.tool.NoScrollViewPager;
 import com.tool.UIControlUtils;
 import com.tool.viewpager.IndicatorViewPager;
 import com.tool.viewpager.OnTransitionTextListener;
@@ -39,7 +40,7 @@ public class MyOrderListActivity extends NoHttpFragmentBaseActivity implements I
     @BindView(R.id.moretab_indicator)
     ScrollIndicatorView scrollIndicatorView;
     @BindView(R.id.viewPager)
-    ViewPager viewPager;
+    NoScrollViewPager viewPager;
     private HashMap<String, Fragment> fragmentList = new HashMap<String, Fragment>();
     private Context ctx;
 
@@ -79,9 +80,10 @@ public class MyOrderListActivity extends NoHttpFragmentBaseActivity implements I
     private void initMenu() {
         menuList.add(new PhoneCommBaseType(0, "全部"));
         menuList.add(new PhoneCommBaseType(1, "待付款"));
-        menuList.add(new PhoneCommBaseType(3, "待收货"));
         menuList.add(new PhoneCommBaseType(2, "待发货"));
+        menuList.add(new PhoneCommBaseType(3, "待收货"));
         menuList.add(new PhoneCommBaseType(4, "待评价"));
+        menuList.add(new PhoneCommBaseType(5, "退款/售后"));
     }
 
     @Override

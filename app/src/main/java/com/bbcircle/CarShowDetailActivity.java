@@ -160,7 +160,7 @@ public class CarShowDetailActivity extends NoHttpBaseActivity {
         Map<String,Object> params=new HashMap<>();
         params.put("otherId",userId);
         params.put("type","1");
-        HttpProxy.obtain().post(PlatformContans.User.addUserFocus,MyApplication.getUserInfo().getToken(), params,  new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.User.addUserFocus,MyApplication.token, params,  new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("focus",result);
@@ -178,7 +178,7 @@ public class CarShowDetailActivity extends NoHttpBaseActivity {
     private void isfocus(String userId){
         Map<String,Object> params=new HashMap<>();
         params.put("otherId",userId);
-        HttpProxy.obtain().get(PlatformContans.User.deleteUserFocus, params,  MyApplication.getUserInfo().getToken(),new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.User.deleteUserFocus, params,  MyApplication.token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 try {
@@ -202,7 +202,7 @@ public class CarShowDetailActivity extends NoHttpBaseActivity {
     private void delfocus(String userId){
         Map<String,Object> params=new HashMap<>();
         params.put("otherId",userId);
-        HttpProxy.obtain().post(PlatformContans.User.deleteUserFocus,MyApplication.getUserInfo().getToken(), params,  new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.User.deleteUserFocus,MyApplication.token, params,  new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("focus",result);
@@ -252,11 +252,11 @@ public class CarShowDetailActivity extends NoHttpBaseActivity {
         Map<String, Object> params = new HashMap<>();
         params.put("userId",MyApplication.getUserInfo().getId());
         params.put("id", id);
-        HttpProxy.obtain().get(PlatformContans.BabyCircle.getCarShowCircleDetailsById, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.BabyCircle.getCarShowCircleDetailsById, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 try {
-                    Log.e("detail", MyApplication.getUserInfo().getToken());
+                    //Log.e("detail", MyApplication.getUserInfo().getToken());
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject data = jsonObject.getJSONObject("data");
                     mSeldDrvingDetail = new Gson().fromJson(data.toString(), CarshowDetail.class);
@@ -279,7 +279,7 @@ public class CarShowDetailActivity extends NoHttpBaseActivity {
         params.put("title", mSeldDrvingDetail.getTitle());
         params.put("type", 3);
         String json = new Gson().toJson(params);
-        HttpProxy.obtain().post(PlatformContans.Collect.addBabyCollection, MyApplication.getUserInfo().getToken(), json, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Collect.addBabyCollection, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("heart", result);
@@ -379,7 +379,7 @@ public class CarShowDetailActivity extends NoHttpBaseActivity {
         params.put("circleId", mSeldDrvingDetail.getId());
         params.put("content", content);
         params.put("type", 3);
-        HttpProxy.obtain().post(PlatformContans.BabyCircle.addBabyCircleComment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.BabyCircle.addBabyCircleComment, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 page = 1;
@@ -400,7 +400,7 @@ public class CarShowDetailActivity extends NoHttpBaseActivity {
         Map<String, Object> params = new HashMap<>();
         params.put("recordId", id);
         params.put("content", content);
-        HttpProxy.obtain().post(PlatformContans.BabyCircle.replyBabyCircleComment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.BabyCircle.replyBabyCircleComment, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result",result);
@@ -416,25 +416,17 @@ public class CarShowDetailActivity extends NoHttpBaseActivity {
             }
         });
     }
-    private void initKeyBoardPopWindow(EmoticonsEditText editText) {
-        mKeyBoardPopWindow = new EmoticonsKeyBoardPopWindow(ctx);
 
-        EmoticonClickListener emoticonClickListener = SimpleCommonUtils.getCommonEmoticonClickListener(editText);
-        PageSetAdapter pageSetAdapter = new PageSetAdapter();
-        SimpleCommonUtils.addEmojiPageSetEntity(pageSetAdapter, this, emoticonClickListener);
-        SimpleCommonUtils.addXhsPageSetEntity(pageSetAdapter, this, emoticonClickListener);
-        mKeyBoardPopWindow.setAdapter(pageSetAdapter);
-    }
     private void getComment() {
         Map<String, Object> params = new HashMap<>();
         params.put("id", mSeldDrvingDetail.getId());
         params.put("type", 3);
         params.put("page", 1);
-        HttpProxy.obtain().get(PlatformContans.BabyCircle.getBabyCircleCommentDetailsById, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.BabyCircle.getBabyCircleCommentDetailsById, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 try {
-                    Log.e("getComment", MyApplication.getUserInfo().getToken());
+                    ///Log.e("getComment", MyApplication.getUserInfo().getToken());
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray data = jsonObject.getJSONArray("data");
                     for (int i = 0; i < data.length(); i++) {
@@ -474,112 +466,12 @@ public class CarShowDetailActivity extends NoHttpBaseActivity {
         }
     }
 
-    /**
-     * 自定义Toast信息显示面板,我要报名
-     *
-     * @Title: commonToastDefined
-     * @Description: TODO
-     * @param @param text
-     * @return void
-     * @throws
-     */
-    Dialog dialog;
-
-    public void attenToast() {
-        final View view = getLayoutInflater().inflate(R.layout.atten_comment_submit, null);
-        RelativeLayout ll = (RelativeLayout) view.findViewById(R.id.ll_root);
-        ll.getBackground().setAlpha(20);
-        dialog = new Dialog(this, R.style.DialogStyleNoTitle);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable());
-        dialog.setContentView(view);
-        dialog.show();
-        final EmoticonsEditText editText = (EmoticonsEditText) view.findViewById(R.id.et_content);
-        SimpleCommonUtils.initEmoticonsEditText(editText);
-        initKeyBoardPopWindow(editText);
-        ll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-            }
-        });
-        view.findViewById(R.id.cancelBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-            }
-        });
-        view.findViewById(R.id.submitBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-            }
-        });
-        view.findViewById(R.id.faceBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mKeyBoardPopWindow != null && mKeyBoardPopWindow.isShowing()) {
-                    mKeyBoardPopWindow.dismiss();
-                } else {
-                    if (mKeyBoardPopWindow == null) {
-                        initKeyBoardPopWindow(editText);
-                    }
-//                    mKeyBoardPopWindow.showPopupWindow();
-                    if (mKeyBoardPopWindow.isShowing()) {
-                        mKeyBoardPopWindow.dismiss();
-                    } else {
-                        mKeyBoardPopWindow.showAsDropDown(view.findViewById(R.id.faceBtn), 0, 0);
-                    }
-                }
-            }
-        });
 
 
-    }
-
-    public void attenShareToast() {
-        final View view = getLayoutInflater().inflate(R.layout.atten_comment_submit, null);
-        RelativeLayout ll = (RelativeLayout) view.findViewById(R.id.ll_root);
-        ll.getBackground().setAlpha(20);
-        dialog = new Dialog(this, R.style.DialogStyleNoTitle);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable());
-        dialog.setContentView(view);
-        dialog.show();
-        final EmoticonsEditText editText = (EmoticonsEditText) view.findViewById(R.id.et_content);
-        SimpleCommonUtils.initEmoticonsEditText(editText);
-        initKeyBoardPopWindow(editText);
-        ll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-            }
-        });
-        view.findViewById(R.id.cancelBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-            }
-        });
-        view.findViewById(R.id.submitBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-            }
-        });
 
 
-    }
+
+
 
     @OnClick({R.id.back,R.id.tv_pub,R.id.tv_focus})
     public void OnClick(View v) {

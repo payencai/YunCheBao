@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.entity.PhoneGoodEntity;
@@ -33,20 +35,23 @@ public class RecordListAdapter extends BaseQuickAdapter<GiftRecord, BaseViewHold
 
     @Override
     protected void convert(BaseViewHolder helper, GiftRecord item) {
-        SimpleDraweeView img = helper.getView(R.id.img);
-        TextView name = helper.getView(R.id.name);
-        TextView tv_coin = helper.getView(R.id.tv_coin);
-        TextView tv_time = helper.getView(R.id.tv_time);
-        name.setText(item.getCommodityName());
-        tv_coin.setText(item.getCommodityCoinCount()+"");
-        String url="";
-        if(!TextUtils.isEmpty(url)){
-            Uri uri = Uri.parse(url);
-            img.setImageURI(uri);
-        }else{
-            Uri uri = Uri.parse(item.getCommodityImage());
-            img.setImageURI(uri);
-        }
+        TextView tv_coin=helper.getView(R.id.tv_coin);
+        TextView tv_name=helper.getView(R.id.tv_name);
+        TextView tv_num=helper.getView(R.id.tv_num);
+        TextView tv_time=helper.getView(R.id.tv_time);
+        ImageView iv_logo=helper.getView(R.id.iv_logo);
+        tv_coin.setText("宝币："+item.getCommodityCoinCount());
+        tv_name.setText(item.getCommodityName());
         tv_time.setText(item.getCreateTime().substring(0,10));
+        tv_num.setText("件数："+item.getCommodityNumber());
+        String images = item.getCommodityImage();
+        if (!TextUtils.isEmpty(images)) {
+            if (images.contains(","))
+                Glide.with(helper.itemView.getContext()).load(images.split(",")[0]).into(iv_logo);
+            else{
+                Glide.with(helper.itemView.getContext()).load(images).into(iv_logo);
+            }
+        }
+
     }
 }

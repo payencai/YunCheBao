@@ -64,7 +64,7 @@ public class FriendListFragment extends Fragment {
     private void getContacts(){
         com.vipcenter.model.UserInfo userinfo= MyApplication.getUserInfo();
         if(userinfo!=null)
-            HttpProxy.obtain().get(PlatformContans.Chat.getMyFriendList, userinfo.getToken(), new ICallBack() {
+            HttpProxy.obtain().get(PlatformContans.Chat.getMyFriendList, MyApplication.token, new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
                     Log.e("group",result);

@@ -39,6 +39,15 @@ public class UserInfo implements Serializable{
     private String name;
     private String sex;
     private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     private String username;
     private List<CarListBean> carList;
 
@@ -130,13 +139,7 @@ public class UserInfo implements Serializable{
         this.sex = sex;
     }
 
-    public String getToken() {
-        return token;
-    }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
 
     public String getUsername() {
         return username;

@@ -57,7 +57,7 @@ public class ShopCartActivity extends NoHttpBaseActivity {
     public void deleteGoods(String id) {
         String token = "";
         if (MyApplication.isLogin) {
-            token = MyApplication.getUserInfo().getToken();
+            token = MyApplication.token;
         }
         Map<String, Object> params = new HashMap<>();
         params.put("shoppingCarId", id);
@@ -80,7 +80,7 @@ public class ShopCartActivity extends NoHttpBaseActivity {
     public void updateGoodsCar(String id, int number) {
         String token = "";
         if (MyApplication.isLogin) {
-            token = MyApplication.getUserInfo().getToken();
+            token = MyApplication.token;
         }
         Map<String, Object> params = new HashMap<>();
         params.put("shoppingCarId", id);
@@ -254,7 +254,7 @@ public class ShopCartActivity extends NoHttpBaseActivity {
 
 
     public void getShopCar() {
-        HttpProxy.obtain().get(PlatformContans.GoodsOrder.getShoppingCarList, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.GoodsOrder.getShoppingCarList, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("jjj", result);

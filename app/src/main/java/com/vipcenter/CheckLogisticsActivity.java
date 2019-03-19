@@ -71,7 +71,7 @@ public class CheckLogisticsActivity extends NoHttpBaseActivity {
         Map<String,Object> params=new HashMap<>();
         params.put("companyNo",mPhoneOrderEntity.getExpressCompanyNo());
         params.put("expressNo",mPhoneOrderEntity.getExpressNo());
-        HttpProxy.obtain().get(PlatformContans.Commom.getExpressResult, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.Commom.getExpressResult, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("getExpressResult",result);

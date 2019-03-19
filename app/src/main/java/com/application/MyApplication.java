@@ -17,6 +17,8 @@ import com.nohttp.NoHttp;
 import com.rongcloud.adapter.ListDataSave;
 import com.rongcloud.sidebar.ContactModel;
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.tauth.Tencent;
 import com.tool.ExceptionHandler;
@@ -43,6 +45,7 @@ public class MyApplication extends Application {
     private static MyApplication instance;
     private static Context context;
     private static UserInfo sUserInfo;
+    public static IWXAPI mWxApi;
     private static List<ContactModel> sUserInfos;
     private static AMapLocation aMapLocation;
     public static String token;
@@ -92,7 +95,13 @@ public class MyApplication extends Application {
     public static void setIsLogin(boolean isLogin) {
         MyApplication.isLogin = isLogin;
     }
+    private void registerToWX() {
+        //第二个参数是指你应用在微信开放平台上的AppID
+        mWxApi = WXAPIFactory.createWXAPI(this, "wx13acff5b460a0164", false);
+        // 将该app注册到微信
+        mWxApi.registerApp("wx13acff5b460a0164");
 
+    }
     @Override
     public void onCreate() {
         super.onCreate();
@@ -104,6 +113,7 @@ public class MyApplication extends Application {
         user = new PhoneUserEntity();
         GSYVideoType.setShowType(GSYVideoType.SCREEN_MATCH_FULL);
         LitePal.initialize(this);
+        registerToWX();
         // 系统崩溃处理
        // initCrashHandler();
         //初始化Nohttp

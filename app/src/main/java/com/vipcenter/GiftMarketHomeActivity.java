@@ -2,12 +2,14 @@ package com.vipcenter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import com.application.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -27,7 +29,9 @@ import com.tool.UIControlUtils;
 import com.tool.listview.PersonalScrollView;
 import com.tool.view.GridViewForScrollView;
 import com.vipcenter.adapter.GiftHomeListAdapter;
+import com.vipcenter.adapter.GiftMoreAdapter;
 import com.vipcenter.model.Gift;
+import com.vipcenter.model.MyWallet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,6 +54,8 @@ import butterknife.OnClick;
 public class GiftMarketHomeActivity extends AppCompatActivity {
     @BindView(R.id.rv_gift)
     RecyclerView rv_gift;
+    @BindView(R.id.tv_coin)
+    TextView tv_coin;
     @BindView(R.id.scrollview)
     PersonalScrollView mScrollView;
     GiftHomeListAdapter adapter;
@@ -93,11 +99,39 @@ public class GiftMarketHomeActivity extends AppCompatActivity {
             }
         });
         getData();
+        getWallet();
+    }
+
+    MyWallet myWallet;
+    private void getWallet() {
+        HttpProxy.obtain().get(PlatformContans.User.getMyWallet, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        JSONObject data=jsonObject.getJSONObject("data") ;
+                        myWallet=new Gson().fromJson(data.toString(),MyWallet.class);
+                        tv_coin.setText(myWallet.getGoldCoin()+"");
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
     public void getData(){
         String token="";
         if(MyApplication.isLogin){
-            token=MyApplication.getUserInfo().getToken();
+            token=MyApplication.token;
         }
       //  Log.e("token",MyApplication.getUserInfo().getToken());
         Map<String,Object> params=new HashMap<>();
@@ -142,7 +176,7 @@ public class GiftMarketHomeActivity extends AppCompatActivity {
                 ActivityAnimationUtils.commonTransition(GiftMarketHomeActivity.this, GiftBaobeiCenterActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay2:
-                ActivityAnimationUtils.commonTransition(GiftMarketHomeActivity.this, GiftRecordListActivity.class, ActivityConstans.Animation.FADE);
+                ActivityAnimationUtils.commonTransition(GiftMarketHomeActivity.this, GiftMoreActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay3:
                 ActivityAnimationUtils.commonTransition(GiftMarketHomeActivity.this, GiftRuleActivity.class, ActivityConstans.Animation.FADE);

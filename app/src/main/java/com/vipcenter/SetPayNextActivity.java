@@ -63,7 +63,7 @@ public class SetPayNextActivity extends AppCompatActivity implements PasswordVie
         params.put("telephone",phone);
         params.put("password",password);
         params.put("code",code);
-        HttpProxy.obtain().post(PlatformContans.User.updatePayPassword, MyApplication.getUserInfo().getToken(), params,new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.User.updatePayPassword, MyApplication.token, params,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);

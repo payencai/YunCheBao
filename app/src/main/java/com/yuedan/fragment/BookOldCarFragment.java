@@ -193,7 +193,7 @@ public class BookOldCarFragment extends BaseFragment {
         params.put("shopNumber",num);
         params.put("range",Integer.parseInt(et_note.getEditableText().toString()));
         Log.e("parmas",params.toString());
-        HttpProxy.obtain().post(PlatformContans.Appointment.addOldCarAppointment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Appointment.addOldCarAppointment, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Toast.makeText(getContext(),"发布成功",Toast.LENGTH_LONG).show();

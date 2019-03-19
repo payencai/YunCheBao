@@ -218,7 +218,7 @@ public class OrderListAdapter extends BaseAdapter {
             vh.tixing.setVisibility(View.GONE);
             vh.yanchang.setVisibility(View.GONE);
             vh.wuliu.setVisibility(View.VISIBLE);
-            vh.zailai.setVisibility(View.VISIBLE);
+            vh.zailai.setVisibility(View.GONE);
         }
 //
         return convertView;

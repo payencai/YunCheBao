@@ -107,7 +107,7 @@ public class SearchResultActivity extends AppCompatActivity {
         params.put("keyWord",content);
         UserInfo userInfo= MyApplication.getUserInfo();
         if(userInfo!=null)
-        HttpProxy.obtain().get(PlatformContans.Chat.searchFriendByKeyWord,params, userInfo.getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.Chat.searchFriendByKeyWord,params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("friend",content+"--"+result);
@@ -138,7 +138,7 @@ public class SearchResultActivity extends AppCompatActivity {
         params.put("keyWord",content);
         UserInfo userInfo= MyApplication.getUserInfo();
         if(userInfo!=null)
-            HttpProxy.obtain().get(PlatformContans.Chat.searchCrowdsByKeyWord,params, userInfo.getToken(), new ICallBack() {
+            HttpProxy.obtain().get(PlatformContans.Chat.searchCrowdsByKeyWord,params, MyApplication.token, new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
                     Log.e("group",result);

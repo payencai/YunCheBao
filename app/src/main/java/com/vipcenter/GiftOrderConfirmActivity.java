@@ -2,6 +2,7 @@ package com.vipcenter;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.MyApplication;
+import com.bumptech.glide.Glide;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
@@ -68,7 +70,8 @@ public class GiftOrderConfirmActivity extends NoHttpBaseActivity {
     TextView tv_coin3;
     @BindView(R.id.tv_coin4)
     TextView tv_coin4;
-
+    @BindView(R.id.tv_send)
+    SuperTextView tv_send;
     @BindView(R.id.et_code)
     EditText et_code;
 
@@ -84,7 +87,7 @@ public class GiftOrderConfirmActivity extends NoHttpBaseActivity {
     private void takeOrder(String json) {
         String token = "";
         if (MyApplication.isLogin) {
-            token = MyApplication.getUserInfo().getToken();
+            token = MyApplication.token;
         } else {
             return;
         }
@@ -97,7 +100,10 @@ public class GiftOrderConfirmActivity extends NoHttpBaseActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     int code = jsonObject.getInt("resultCode");
                     if (code == 0) {
-                        ActivityAnimationUtils.commonTransition(GiftOrderConfirmActivity.this, GiftPaySuccessActivity.class, ActivityConstans.Animation.FADE);
+                       ToastUtil.showToast(GiftOrderConfirmActivity.this,"兑换成功");
+                       finish();
+                    }else{
+                        ToastUtil.showToast(GiftOrderConfirmActivity.this,"验证码错误");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -148,7 +154,7 @@ public class GiftOrderConfirmActivity extends NoHttpBaseActivity {
     private void getAddress() {
         String token = "";
         if (MyApplication.isLogin) {
-            token = MyApplication.getUserInfo().getToken();
+            token = MyApplication.token;
         } else {
             // tv.setText(MyApplication.getaMapLocation().getProvince() + MyApplication.getaMapLocation().getCity() + MyApplication.getaMapLocation().getDistrict());
         }
@@ -191,7 +197,32 @@ public class GiftOrderConfirmActivity extends NoHttpBaseActivity {
             }
         });
     }
+    TimeCount mTimeCount;
+    int count=60;
+    class TimeCount extends CountDownTimer {
 
+        public TimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            tv_send.setEnabled(false);
+            tv_send.setBackgroundResource(R.drawable.gray_stroke_r4);
+            tv_send.setTextColor(getResources().getColor(R.color.gray_99));
+            tv_send.setText(millisUntilFinished / 1000 +"");
+        }
+
+        @Override
+        public void onFinish() {
+            count = 60;
+            tv_send.setText("获取验证码");
+            tv_send.setEnabled(true);
+            tv_send.setBackgroundResource(R.color.pink_db);
+            tv_send.setTextColor(getResources().getColor(R.color.red_39));
+
+        }
+    }
     private void initView() {
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "商品填写");
         ButterKnife.bind(this);
@@ -199,9 +230,18 @@ public class GiftOrderConfirmActivity extends NoHttpBaseActivity {
         tv_coin2.setText(mGift.getCoinCount() + "宝币");
         tv_coin3.setText(mGift.getCoinCount() + "宝币");
         tv_coin4.setText(mGift.getCoinCount() + "宝币");
-        tv_giftcoin.setText(mGift.getCoinCount() + "宝币");
+        tv_giftcoin.setText(mGift.getCoinCount()+"");
         tv_giftname.setText(mGift.getCommodityName());
         tv_gifttime.setText(mGift.getCreateTime().substring(0, 10));
+        String images = mGift.getCommodityImage();
+        if (!TextUtils.isEmpty(images)) {
+            if (images.contains(","))
+                Glide.with(this).load(images.split(",")[0]).into(gift_img);
+            else{
+                Glide.with(this).load(images).into(gift_img);
+            }
+        }
+        mTimeCount=new TimeCount(60000,1000);
 
     }
 
@@ -232,6 +272,7 @@ public class GiftOrderConfirmActivity extends NoHttpBaseActivity {
                 takeOrder(json);
                 break;
             case R.id.tv_send:
+                mTimeCount.start();
                 getCodeByType(personAddress.getTelephone());
                 break;
         }

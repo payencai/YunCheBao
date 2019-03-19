@@ -75,7 +75,7 @@ public class IDCardCertificationActivity extends NoHttpBaseActivity {
     }
 
     private void getIDInfo() {
-        String token = MyApplication.getUserInfo().getToken();
+        String token =MyApplication.token;
         HttpProxy.obtain().get(PlatformContans.User.getIdentityVerification, token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -158,7 +158,7 @@ public class IDCardCertificationActivity extends NoHttpBaseActivity {
         params.put("positiveImg", image1);
         params.put("backImg", image2);
         Log.e("result", params.toString());
-        HttpProxy.obtain().post(PlatformContans.User.addIdentityVerification, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.User.addIdentityVerification, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);

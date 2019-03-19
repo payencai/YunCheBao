@@ -477,7 +477,7 @@ public class BookRepairFragment extends BaseFragment implements OnDateSetListene
         params.put("imgs", imgs);
         params.put("video", video);
         Log.e("result",params.toString());
-        HttpProxy.obtain().post(PlatformContans.Appointment.addWashRepairAppointment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Appointment.addWashRepairAppointment,MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 //dialog.dismiss();

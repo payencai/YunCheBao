@@ -257,7 +257,7 @@ public class DriverFriendsRepublishActivity extends NoHttpBaseActivity {
         params.put("circleName",et_name.getEditableText().toString());
         params.put("address", MyApplication.getaMapLocation().getAddress());
         Log.e("result",params.toString());
-        HttpProxy.obtain().post(PlatformContans.BabyCircle.addCarCommunicationCircle, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.BabyCircle.addCarCommunicationCircle, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result",result);

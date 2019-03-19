@@ -1,6 +1,7 @@
 package com.vipcenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,9 @@ import com.application.MyApplication;
 import com.baike.MagzineCoverActivity;
 import com.baike.adapter.MagzineListAdapter;
 import com.baike.model.BaikeItem;
+import com.bbcircle.CarShowDetailActivity;
+import com.bbcircle.DriverFriendsDetailActivity;
+import com.bbcircle.DrivingSelfDetailActivity;
 import com.bbcircle.data.History;
 import com.costans.PlatformContans;
 import com.entity.PhoneMagEntity;
@@ -24,6 +28,7 @@ import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.vipcenter.adapter.HistoryListAdapter;
+import com.vipcenter.model.Mypublish;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,8 +64,9 @@ public class HistoryListActivity extends NoHttpBaseActivity {
     private void getHistory(){
         String token="";
         if(MyApplication.isLogin){
-            token=MyApplication.getUserInfo().getToken();
+            token=MyApplication.token;
         }
+
         HttpProxy.obtain().get(PlatformContans.BabyCircle.getHistoryList, token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -102,6 +108,27 @@ public class HistoryListActivity extends NoHttpBaseActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                position--;
+                History mypublish = list.get(position);
+                Intent intent;
+                switch (mypublish.getType()) {
+                    case 1:
+                        intent=new Intent(HistoryListActivity.this, DrivingSelfDetailActivity.class);
+                        intent.putExtra("id",mypublish.getId());
+                        startActivity(intent);
+                        break;
+                    case 2:
+                        intent=new Intent(HistoryListActivity.this, DriverFriendsDetailActivity.class);
+                        intent.putExtra("id",mypublish.getId());
+                        startActivity(intent);
+                        break;
+                    case 3:
+                        intent=new Intent(HistoryListActivity.this, CarShowDetailActivity.class);
+                        intent.putExtra("id",mypublish.getId());
+                        startActivity(intent);
+                        break;
+
+                }
             }
         });
     }

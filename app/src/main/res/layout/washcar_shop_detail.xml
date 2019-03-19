@@ -16,7 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            //这里我放了一个banner图，这里可以放任何你想放到tab上面的东西，都将处于外层滑动之中，数量多少无所谓。
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -103,7 +102,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="4dp"
                                     android:text="5.0"
-                                    android:textColor="@color/black_33"
+                                    android:textColor="@color/yellow_02"
                                     android:textSize="14sp" />
 
                                 <TextView
@@ -180,14 +179,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:background="@color/white"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="60dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:orientation="vertical"
                         android:padding="10dp">
@@ -260,19 +259,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <!--<com.flyco.tablayout.SlidingTabLayout-->
-        <!--android:id="@+id/slidinglayout"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="45dp"-->
-        <!--android:layout_gravity="bottom"-->
-        <!--android:layout_marginTop="5dp"-->
-        <!--app:tl_indicator_width="50dp"-->
-        <!--android:background="@android:color/white"-->
-        <!--app:tabIndicatorColor="@color/colorPrimary"-->
-        <!--app:tabIndicatorHeight="0dp"-->
-        <!--app:tabSelectedTextColor="@color/colorPrimary"-->
-        <!--app:tabTextAppearance="@style/TabLayoutTextStyle"-->
-        <!--app:tabTextColor="@color/black_33" />-->
+
     <com.flyco.tablayout.SlidingTabLayout
         app:tl_indicator_height="3dp"
         app:tl_tab_space_equal="true"

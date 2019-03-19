@@ -84,9 +84,8 @@ public class GroupListFragment extends Fragment {
     private void getData(){
         mGroups.clear();
         final com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
-
         if (userinfo != null)
-            HttpProxy.obtain().get(PlatformContans.Chat.getCrowdsList, userinfo.getToken(), new ICallBack() {
+            HttpProxy.obtain().get(PlatformContans.Chat.getCrowdsList, MyApplication.token, new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
                     Log.e("apply", result);

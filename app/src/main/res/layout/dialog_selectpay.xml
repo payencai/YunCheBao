@@ -2,12 +2,13 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:padding="10dp"
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
         android:id="@+id/rl_wechat"
-        android:padding="10dp"
+        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -15,8 +16,8 @@
             android:id="@+id/iv_wechat"
             android:scaleType="fitXY"
             android:src="@mipmap/weixin_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
         <LinearLayout
             android:layout_toLeftOf="@id/iv_choose"
             android:layout_toRightOf="@id/iv_wechat"
@@ -31,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:layout_marginTop="5dp"
                 android:textSize="10sp"
                 android:textColor="@color/gray_99"
                 android:text="推荐已经安装微信客户端的用户使用"
@@ -48,7 +50,7 @@
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/rl_alipay"
-        android:padding="10dp"
+        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -56,8 +58,8 @@
             android:id="@+id/iv_alipay"
             android:scaleType="fitXY"
             android:src="@mipmap/zhifubao_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
         <LinearLayout
             android:layout_toLeftOf="@id/iv_choose2"
             android:layout_toRightOf="@id/iv_alipay"
@@ -72,6 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:layout_marginTop="5dp"
                 android:textSize="10sp"
                 android:textColor="@color/gray_99"
                 android:text="推荐已经安装支付宝客户端的用户使用"
@@ -93,8 +96,10 @@
         android:textColor="@color/white"
         android:textSize="16sp"
         android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
         android:background="@color/green_67"
-        android:layout_margin="20dp"
+        android:layout_marginLeft="15dp"
         android:layout_width="match_parent"
         android:text="确认支付"
         android:layout_height="40dp" />

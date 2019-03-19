@@ -116,7 +116,7 @@ public class GoodsFragment extends BaseFragment {
     private void takeOrder(String id) {
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        HttpProxy.obtain().post(PlatformContans.CarWashRepairShop.addWashRepairOrder, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.CarWashRepairShop.addWashRepairOrder, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result",result);

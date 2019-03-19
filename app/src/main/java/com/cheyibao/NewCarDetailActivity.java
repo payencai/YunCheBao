@@ -189,7 +189,7 @@ public class NewCarDetailActivity extends AppCompatActivity {
         // params.put("telephone",mNewCar.getCarCategoryDetail().get);
         params.put("seat", mNewCar.getCarCategoryDetail().getSeat());
         params.put("carCategory", mNewCar.getCarCategoryDetail().getModels());
-        HttpProxy.obtain().post(PlatformContans.CarOrder.addCarOrder, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.CarOrder.addCarOrder, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);
@@ -281,7 +281,7 @@ public class NewCarDetailActivity extends AppCompatActivity {
     private void getShop() {
         String token = "";
         if (MyApplication.isLogin) {
-            token = MyApplication.getUserInfo().getToken();
+            token = MyApplication.token;
         }
         Map<String, Object> params = new HashMap<>();
         //params.put("page", page);

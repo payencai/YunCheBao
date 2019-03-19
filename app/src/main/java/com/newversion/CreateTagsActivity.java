@@ -87,7 +87,7 @@ public class CreateTagsActivity extends AppCompatActivity {
         Map<String,Object> params=new HashMap<>();
         params.put("name",et_name.getEditableText().toString());
         params.put("ids",ids.substring(0,ids.length()-1));
-        HttpProxy.obtain().post(PlatformContans.Label.addLabel, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Label.addLabel, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result",result);

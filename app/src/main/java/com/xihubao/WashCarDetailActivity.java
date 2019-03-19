@@ -275,7 +275,7 @@ public class WashCarDetailActivity extends FragmentActivity {
         bgImg.setImageUrls(imageList);
         //bgImg.setImageURI(Uri.parse(mCarShop.getBanner()));
         shopname.setText(mCarShop.getShopName());
-        score.setText(mCarShop.getGrade()+"");
+        score.setText(mCarShop.getScore()+"");
         dis.setText(MathUtil.getDoubleTwo(mCarShop.getDistance())+"km");
         tv_grade.setText(mCarShop.getGrade()+"");
         address.setText(mCarShop.getAddress());
@@ -297,7 +297,7 @@ public class WashCarDetailActivity extends FragmentActivity {
     private void collect(){
         String token="";
         if(MyApplication.isLogin){
-            token=MyApplication.getUserInfo().getToken();
+            token=MyApplication.token;
         }
         Map<String,Object> params=new HashMap<>();
         params.put("shopId",mCarShop.getId());
@@ -320,7 +320,7 @@ public class WashCarDetailActivity extends FragmentActivity {
     private void getIsCollect(){
         String token="";
         if(MyApplication.isLogin){
-            token=MyApplication.getUserInfo().getToken();
+            token=MyApplication.token;
         }
         Map<String,Object> params=new HashMap<>();
         params.put("shopId",mCarShop.getId());
@@ -354,7 +354,7 @@ public class WashCarDetailActivity extends FragmentActivity {
     private void deleteCollect(){
         String token="";
         if(MyApplication.isLogin){
-            token=MyApplication.getUserInfo().getToken();
+            token=MyApplication.token;
         }
         Map<String,Object> params=new HashMap<>();
         params.put("shopId",mCarShop.getId());

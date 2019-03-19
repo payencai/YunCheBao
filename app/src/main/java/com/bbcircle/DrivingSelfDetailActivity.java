@@ -154,11 +154,11 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
         params.put("id", mSeldDrvingDetail.getId());
         params.put("type", 1);
         params.put("page", 1);
-        HttpProxy.obtain().get(PlatformContans.BabyCircle.getBabyCircleCommentDetailsById, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.BabyCircle.getBabyCircleCommentDetailsById, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 try {
-                    Log.e("getComment", MyApplication.getUserInfo().getToken());
+                   // Log.e("getComment", MyApplication.getUserInfo().getToken());
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray data = jsonObject.getJSONArray("data");
                     for (int i = 0; i < data.length(); i++) {
@@ -212,7 +212,7 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
         params.put("title", mSeldDrvingDetail.getTitle());
         params.put("type", 1);
         String json = new Gson().toJson(params);
-        HttpProxy.obtain().post(PlatformContans.Collect.addBabyCollection, MyApplication.getUserInfo().getToken(), json, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Collect.addBabyCollection, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 if(mSeldDrvingDetail.getIsCollection()==0) {
@@ -305,11 +305,11 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
         Map<String, Object> params = new HashMap<>();
         params.put("userId",MyApplication.getUserInfo().getId());
         params.put("id", id);
-        HttpProxy.obtain().get(PlatformContans.BabyCircle.getSelfDrivingCircleDetailsById, params, MyApplication.getUserInfo().getToken(), new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.BabyCircle.getSelfDrivingCircleDetailsById, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 try {
-                    Log.e("detai", MyApplication.getUserInfo().getToken());
+                   // Log.e("detai", MyApplication.getUserInfo().getToken());
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject data = jsonObject.getJSONObject("data");
                     mSeldDrvingDetail = new Gson().fromJson(data.toString(), SeldDrvingDetail.class);
@@ -381,7 +381,7 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
         params.put("id",mSeldDrvingDetail.getId());
         params.put("name",name);
         params.put("telephone",phone);
-        HttpProxy.obtain().post(PlatformContans.BabyCircle.addSelfDrivingEnter, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.BabyCircle.addSelfDrivingEnter, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("enter",result);
@@ -412,7 +412,7 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
         Map<String,Object> params=new HashMap<>();
         params.put("otherId",userId);
         params.put("type","1");
-        HttpProxy.obtain().post(PlatformContans.User.addUserFocus,MyApplication.getUserInfo().getToken(), params,  new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.User.addUserFocus,MyApplication.token, params,  new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                   Log.e("focus",result);
@@ -430,7 +430,7 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
     private void isfocus(String userId){
         Map<String,Object> params=new HashMap<>();
         params.put("otherId",userId);
-        HttpProxy.obtain().get(PlatformContans.User.deleteUserFocus, params,  MyApplication.getUserInfo().getToken(),new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.User.deleteUserFocus, params,  MyApplication.token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 try {
@@ -454,7 +454,7 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
     private void delfocus(String userId){
         Map<String,Object> params=new HashMap<>();
         params.put("otherId",userId);
-        HttpProxy.obtain().post(PlatformContans.User.deleteUserFocus,MyApplication.getUserInfo().getToken(), params,  new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.User.deleteUserFocus,MyApplication.token, params,  new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("focus",result);
@@ -507,7 +507,7 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
         params.put("circleId", mSeldDrvingDetail.getId());
         params.put("content", content);
         params.put("type", 1);
-        HttpProxy.obtain().post(PlatformContans.BabyCircle.addBabyCircleComment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.BabyCircle.addBabyCircleComment, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 page = 1;
@@ -528,7 +528,7 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
         Map<String, Object> params = new HashMap<>();
         params.put("recordId", id);
         params.put("content", content);
-        HttpProxy.obtain().post(PlatformContans.BabyCircle.replyBabyCircleComment, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.BabyCircle.replyBabyCircleComment, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result",result);

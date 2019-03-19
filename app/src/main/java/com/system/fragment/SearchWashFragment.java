@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.application.MyApplication;
 import com.bbcircle.data.CarShow;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.cheyibao.model.DrvingSchool;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
@@ -127,16 +128,20 @@ public class SearchWashFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(result);
                     jsonObject = jsonObject.getJSONObject("data");
                     JSONArray data = jsonObject.getJSONArray("list");
+                    List<CarShop> carShops=new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
                         CarShop road = new Gson().fromJson(item.toString(), CarShop.class);
                         mRoads.add(road);
+                        carShops.add(road);
                     }
-                    mRoadAdapter.setNewData(mRoads);
+
                     if(isLoadMore){
                         isLoadMore=false;
+                        mRoadAdapter.addData(carShops);
                         mRoadAdapter.loadMoreComplete();
                     }else{
+                        mRoadAdapter.setNewData(mRoads);
                         mRoadAdapter.loadMoreEnd(true);
                     }
 

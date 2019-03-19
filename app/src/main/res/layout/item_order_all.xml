@@ -134,6 +134,7 @@
 
         <com.coorchice.library.SuperTextView
             android:id="@+id/zailai"
+
             style="@style/order_bottom_super_btn_4"
             android:text="再来一单"
             android:textColor="@color/gray_66"

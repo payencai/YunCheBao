@@ -10,13 +10,12 @@
     android:paddingRight="23dp"
     android:paddingTop="15dp">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/img"
+    <ImageView
+        android:id="@+id/iv_logo"
         android:layout_width="102dp"
         android:layout_height="103dp"
         android:src="@color/gray_ee"
-        app:placeholderImage="@mipmap/mag_img"
-        app:placeholderImageScaleType="fitXY" />
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,7 +27,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:layout_marginRight="20dp"
-            android:id="@+id/name"
+            android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="小米移动电源16000毫安"
@@ -36,6 +35,7 @@
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/tv_num"
             android:layout_marginBottom="10dp"
             android:layout_above="@+id/rl_bottom"
             android:layout_width="wrap_content"
@@ -54,21 +54,13 @@
             >
 
             <TextView
-                android:id="@+id/tv_name"
+                android:id="@+id/tv_coin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="宝币:"
+                android:text="宝币："
                 android:textColor="@color/gray_99"
                 android:textSize="12sp" />
-            <TextView
-                android:id="@+id/tv_coin"
-                android:layout_marginLeft="10dp"
-               android:layout_toRightOf="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="545656"
-                android:textColor="@color/yellow_02"
-                android:textSize="14sp" />
+
             <TextView
                 android:id="@+id/tv_time"
                 android:layout_centerVertical="true"

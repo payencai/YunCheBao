@@ -24,7 +24,7 @@ public class AboutUsActivity extends NoHttpBaseActivity {
     }
 
     private void initView() {
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW,"意见反馈");
+        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW,"关于我们");
         ButterKnife.bind(this);
     }
 

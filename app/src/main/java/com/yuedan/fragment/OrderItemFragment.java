@@ -102,7 +102,7 @@ public class OrderItemFragment extends Fragment {
     private void deleteOrder(String id){
         Map<String,Object> params=new HashMap<>();
         params.put("id",id);
-        HttpProxy.obtain().post(PlatformContans.Appointment.deleteAppointmentById, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Appointment.deleteAppointmentById, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("reuslt",result);
@@ -122,7 +122,7 @@ public class OrderItemFragment extends Fragment {
     private void payForOrder(String id,String money){
         Map<String,Object> params=new HashMap<>();
         params.put("id",id);
-        HttpProxy.obtain().post(PlatformContans.Pay.appointmentPay, MyApplication.getUserInfo().getToken(), params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Pay.appointmentPay,MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("reuslt",result);
@@ -186,7 +186,7 @@ public class OrderItemFragment extends Fragment {
     private void getData() {
         String token = "";
         if (MyApplication.isLogin) {
-            token = MyApplication.getUserInfo().getToken();
+            token = MyApplication.token;
         } else {
             return;
         }

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bbcircle.data.CarFriend;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.model.NewCar;
 import com.costans.PlatformContans;
@@ -121,16 +122,20 @@ public class SearchGoodsFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(result);
                     jsonObject = jsonObject.getJSONObject("data");
                     JSONArray data = jsonObject.getJSONArray("list");
+                    List<GoodList> goodLists=new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
                         GoodList road = new Gson().fromJson(item.toString(), GoodList.class);
                         mRoads.add(road);
+                        goodLists.add(road);
                     }
-                    mRoadAdapter.setNewData(mRoads);
+
                     if(isLoadMore){
                         isLoadMore=false;
+                        mRoadAdapter.addData(goodLists);
                         mRoadAdapter.loadMoreComplete();
                     }else{
+                        mRoadAdapter.setNewData(mRoads);
                         mRoadAdapter.loadMoreEnd(true);
                     }
 

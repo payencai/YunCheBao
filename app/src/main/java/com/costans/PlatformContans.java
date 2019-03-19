@@ -44,9 +44,7 @@ public class PlatformContans {
         public static final String isFocus=root+ "/user/isFocus";
         public static final String getUserResult=root+ "/user/getUserResult";
     }
-    public static class Wechat{
-        public static final String wechatPay=root+ "/wechatPay/wechatPay" ;
-    }
+
     public static class WiKi{
         public static final String getWikiClassifyByType=root+ "/wikiClassify/getWikiClassifyByType" ;
         public static final String getBabyWikiByclassifyId=root+ "/babyWiki/getBabyWikiByclassifyId";
@@ -147,6 +145,9 @@ public class PlatformContans {
         public static final String getBabyCircleCommentDetailsById=root+"/babyCircle/getBabyCircleCommentDetailsById";
 
 
+        public static final String deleteCarCommunicationCircle=root+ "/babyCircle/deleteCarCommunicationCircle";
+        public static final String deleteCarShowCircle=root + "/babyCircle/deleteCarShowCircle";
+        public static final String deleteSelfDrivingCircle=root+ "/babyCircle/deleteSelfDrivingCircle";
     }
 
     public static class Collect{
@@ -218,6 +219,14 @@ public class PlatformContans {
         public static final String addCarOrder=root+ "/carOrder/addCarOrder";
         public static final String cancelCarOrder=root+ "/carOrder/cancelCarOrder";
     }
+    public static class WechatPay{
+        public static final String appointmentPay=root+ "/wechatPay/appointmentPay";
+        public static final String babyMerchantOrderPay=root+ "/wechatPay/babyMerchantOrderPay";
+        public static final String carOrderPay=root+ "/wechatPay/carOrderPay";
+        public static final String memberCardPay=root+ "/wechatPay/memberCardPay";
+        public static final String washRepairPay=root+ "/wechatPay/washRepairPay";
+    }
+
     public static class Pay{
         public static final String babyMerchantOrderPay=root+ "/alipay/babyMerchantOrderPay";
         public static final String memberCardPay=root+ "/alipay/memberCardPay";
