@@ -74,6 +74,8 @@ public class GoodsOrderDetailActivity extends AppCompatActivity {
     RelativeLayout rl_phone;
     @BindView(R.id.back)
     ImageView back;
+    @BindView(R.id.tv_delete)
+    SuperTextView tv_delete;
     @BindView(R.id.ll_state1)
     LinearLayout ll_state1;
     @BindView(R.id.ll_state2)
@@ -111,6 +113,11 @@ public class GoodsOrderDetailActivity extends AppCompatActivity {
         total3.setText("￥"+mPhoneOrderEntity.getTotal());
         total4.setText("￥"+mPhoneOrderEntity.getTotal());
         switch(mPhoneOrderEntity.getState()){
+            case 0:
+                tv_status.setText("交易取消");
+                tv_delete.setVisibility(View.VISIBLE);
+                break;
+
             case 1:
                 tv_status.setText("待付款");
                 ll_state1.setVisibility(View.VISIBLE);

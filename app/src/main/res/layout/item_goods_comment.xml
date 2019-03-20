@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,11 +13,12 @@
         android:orientation="horizontal"
         android:padding="10dp">
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
+            android:id="@+id/iv_logo"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            app:placeholderImage="@mipmap/image_bbcircle"
-            app:placeholderImageScaleType="fitXY" />
+            android:scaleType="fitXY"
+            android:src="@mipmap/image_bbcircle" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,7 +41,8 @@
             android:layout_marginLeft="18dp"
             android:text="非常好"
             android:textColor="@color/gray_99"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
@@ -61,13 +64,14 @@
             android:minHeight="60dp"
             android:padding="10dp"
             android:textSize="14sp" />
+
         <com.comment.EvaluationChoiceImageView
             android:id="@+id/addimgs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         </com.comment.EvaluationChoiceImageView>
-        
+
 
         <View
             android:layout_width="match_parent"
@@ -82,9 +86,9 @@
 
             <ImageView
                 android:id="@+id/iv_show"
-                android:src="@mipmap/unselect"
                 android:layout_width="20dp"
-                android:layout_height="20dp" />
+                android:layout_height="20dp"
+                android:src="@mipmap/unselect" />
 
             <TextView
                 android:layout_width="wrap_content"

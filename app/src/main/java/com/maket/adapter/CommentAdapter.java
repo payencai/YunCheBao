@@ -3,11 +3,13 @@ package com.maket.adapter;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.comment.EvaluationChoiceImageView;
@@ -67,8 +69,18 @@ public class CommentAdapter  extends BaseQuickAdapter<PhoneOrderEntity.ItemListB
         count=0;
         mPhotoAdapter=new PhotoAdapter(mContext,path);
         pos=helper.getAdapterPosition();
+        ImageView iv_logo=helper.getView(R.id.iv_logo);
         EditText et_comment=helper.getView(R.id.et_comment);
+
         ImageView iv_show=helper.getView(R.id.iv_show);
+        String images=item.getCommodityImage();
+        if(!TextUtils.isEmpty(images)){
+            if(images.contains(",")){
+                String imgs[]=images.split(",");
+                images=imgs[0];
+            }
+        }
+        Glide.with(helper.itemView.getContext()).load(images).into(iv_logo);
         SimpleRatingBar sb_score=helper.getView(R.id.sb_score);
         EvaluationChoiceImageView addimgs=helper.getView(R.id.addimgs);
         addimgs.setOnClickAddImageListener(new EvaluationChoiceImageView.OnClickAddImageListener() {
@@ -116,7 +128,7 @@ public class CommentAdapter  extends BaseQuickAdapter<PhoneOrderEntity.ItemListB
             @Override
             public void onClick(View v) {
                 if(isShow==1){
-                    isShow=2;
+                    isShow=0;
                     iv_show.setImageResource(R.mipmap.select);
                 }else{
                     isShow=1;

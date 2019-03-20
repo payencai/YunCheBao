@@ -87,16 +87,11 @@ public class OrderListAdapter extends BaseAdapter {
             vh.wuliu = (SuperTextView) convertView.findViewById(R.id.wuliu);
             vh.zailai = (SuperTextView) convertView.findViewById(R.id.zailai);
             vh.root= (LinearLayout) convertView.findViewById(R.id.root);
-
-
-
             convertView.setTag(vh);
         } else {
             vh = (viewHolder) convertView.getTag();
         }
-        vh.totalNum.setText("共"+list.get(position).getNumber()+"件商品  需付款：");
-        vh.totalPrice.setText("￥"+list.get(position).getTotal());
-        vh.shopName.setText(list.get(position).getShopName());
+
         //  vh.orderStatus.setText(StatusTools.getOrderStatusName(entity.getStatus()));
         vh.root.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,12 +129,7 @@ public class OrderListAdapter extends BaseAdapter {
                 reflectMethod(5, position);
             }
         });
-        vh.yanchang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reflectMethod(6, position);
-            }
-        });
+
         vh.wuliu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,18 +142,16 @@ public class OrderListAdapter extends BaseAdapter {
                 reflectMethod(8, position);
             }
         });
-        vh.zailai.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reflectMethod(9, position);
-            }
-        });
+
         vh.pingjia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 reflectMethod(10, position);
             }
         });
+        vh.totalNum.setText("共"+list.get(position).getNumber()+"件商品  需付款：");
+        vh.totalPrice.setText("￥"+list.get(position).getTotal());
+        vh.shopName.setText(list.get(position).getShopName());
         images.clear();
         for (int i = 0; i <list.get(position).getItemList().size() ; i++) {
             images.add(list.get(position).getItemList().get(i).getCommodityImage());

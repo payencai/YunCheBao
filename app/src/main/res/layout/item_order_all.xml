@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:paddingBottom="5dp"
     android:paddingTop="15dp"
+    android:layout_marginTop="1dp"
     android:id="@+id/root"
     android:paddingLeft="15dp"
     android:background="@color/white"
@@ -35,7 +36,7 @@
             android:textSize="12sp"
             android:layout_marginRight="10dp"
             android:textColor="@color/yellow_63"
-            android:text="待付款"/>
+            android:text=""/>
     </RelativeLayout>
     <com.tool.view.HorizontalListView
         android:id="@+id/hl_good"
@@ -191,6 +192,14 @@
             fresco:corner="4dp"
             fresco:solid="@color/yellow_65" />
 
-
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/st_see"
+            style="@style/order_bottom_super_btn_2"
+            android:text="查看详情"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            fresco:corner="4dp"
+            fresco:solid="@color/yellow_65" />
     </LinearLayout>
+
 </LinearLayout>

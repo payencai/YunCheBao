@@ -185,18 +185,19 @@ public class OrderCommentSubmitActivity extends NoHttpBaseActivity {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.e("upload", "onResponse: " + e.getMessage());
+                Log.e("upload", "onResponse: error" + e.getMessage());
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String string = response.body().string();
-                Log.e("upload", "onResponse: " + imgs);
+                Log.e("upload", "onResponse: " + string);
                 try {
                     JSONObject object = new JSONObject(string);
                     int resultCode = object.getInt("resultCode");
                     final String data = object.getString("data");
                     mCommentReuslts.get(position).getImages().add(data);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

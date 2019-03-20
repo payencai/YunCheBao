@@ -70,6 +70,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import go.error;
 import io.rong.imkit.RongIM;
 
 /**
@@ -396,6 +397,7 @@ public class GoodDetailFragment extends BaseFragment {
                 if (listSize.size() > 0) {
                     int num = listSize.get(position).getComInventory() - 1;
                     tv_num.setText("库存: " + num);
+                    priceText.setText("￥" + listSize.get(position).getPrice());
                     tv_price.setText("￥" + listSize.get(position).getPrice());
                     tv_selectParams.setText(mGoodParam.getSpecificationsValue() + "," + goodSize.getSpecificationsValue() + "," + count + "件");
                 }
@@ -416,10 +418,16 @@ public class GoodDetailFragment extends BaseFragment {
         view.findViewById(R.id.buyNowBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.dismiss();
+                if (MyApplication.isLogin) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("param", mGoodParam);
+                    bundle.putSerializable("child", goodSize);
+                    bundle.putSerializable("detail", mGoodDetail);
+                    bundle.putSerializable("count", count);
+                    ActivityAnimationUtils.commonTransition(getActivity(), SinglePayActivity.class, ActivityConstans.Animation.FADE, bundle);
+                } else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
                 }
-                ActivityAnimationUtils.commonTransition(getActivity(), OrderConfirmActivity.class, ActivityConstans.Animation.FADE);
             }
         });
         if (listSize.size() > 0) {
@@ -485,8 +493,9 @@ public class GoodDetailFragment extends BaseFragment {
                             }
                         }
                     }
-                    if (mGoodParam != null)
-                        tv_selectParams.setText(mGoodParam.getSpecificationsValue() + "," + goodSize.getSpecificationsValue() + "," + "1件");
+                    if (mGoodParam != null){
+                        priceText.setText("￥"+mGoodParam.getSecondSpecifications().get(0).getPrice());
+                        tv_selectParams.setText(mGoodParam.getSpecificationsValue() + "," + goodSize.getSpecificationsValue() + "," + "1件");}
 
 
                 } catch (JSONException e) {

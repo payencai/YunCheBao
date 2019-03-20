@@ -1,33 +1,57 @@
 package com.vipcenter.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.alipay.PayResult;
+import com.alipay.sdk.app.PayTask;
 import com.application.MyApplication;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.entity.PhoneOrderEntity;
 import com.example.yunchebao.R;
+import com.example.yunchebao.wxapi.WechatRes;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.GoodsOrderDetailActivity;
+import com.maket.SinglePayActivity;
 import com.nohttp.sample.BaseFragment;
 import com.payencai.library.util.ToastUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
+import com.vipcenter.CheckLogisticsActivity;
 import com.vipcenter.HaveGotGoodsActivity;
+import com.vipcenter.OrderCommentSubmitActivity;
+import com.vipcenter.adapter.NewOrderAdapter;
 import com.vipcenter.adapter.OrderListAdapter;
 import com.vipcenter.view.PayWayDialog;
 
@@ -40,107 +64,145 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.rong.imkit.RongIM;
 
 
 public class OrderListFragment extends BaseFragment implements OnClickListener {
 
-
-    private final static String TAG = "OrderListFragment";
-    ListView mListView;
-
-    PullToRefreshListView pullToRefreshListView;
-    private int typeId;//
-    private OrderListAdapter adapter;
-    private OrderListFragment obj;
-    private View view;
-    private List<PhoneOrderEntity> list = new ArrayList<>();
-
-
-    private boolean isDown = true;//true 下拉动作  false 上拉操作
-    private int pageNum = 1;//查询页
-
-
+    int type = 1;
+    private static final int SDK_PAY_FLAG = 1;
+    NewOrderAdapter mNewOrderAdapter;
+    private List<PhoneOrderEntity> mPhoneOrderEntityList;
+    private boolean isLoadMore = false;
+    private int page = 1;//查询页
+    int state = 0;
+    @BindView(R.id.rv_order)
+    RecyclerView rv_order;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout mRefreshLayout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        view = LayoutInflater.from(getActivity()).inflate(R.layout.listview_newonly, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_order_list, null);
+        ButterKnife.bind(this, view);
         initView();
         return view;
     }
 
     private void initView() {
-        pullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.listview);
-        mListView = pullToRefreshListView.getRefreshableView();
-        mListView.setDivider(getResources().getDrawable(R.color.gray_ee));
-        mListView.setDividerHeight(1);
-        obj = this;
-        adapter = new OrderListAdapter(getActivity(), typeId, this, list);
-        mListView.setAdapter(adapter);
-        pullToRefreshListView.setMode(PullToRefreshBase.Mode.BOTH);//支持下拉
-        pullToRefreshListView.setScrollingWhileRefreshingEnabled(true);//滚动的时候不加载数据
-        pullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+        mPhoneOrderEntityList = new ArrayList<>();
+        state = getArguments().getInt("state");
+        mNewOrderAdapter = new NewOrderAdapter(R.layout.item_order_all, mPhoneOrderEntityList);
+        mNewOrderAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-
-                isDown = true;
-                pageNum = 1;
-                pullToRefreshListView.onRefreshComplete();
-                initListData();
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                isDown = false;
-                pageNum++;
-                initListData();
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                PhoneOrderEntity phoneOrderEntity = (PhoneOrderEntity) adapter.getItem(position);
+                Intent intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+                intent.putExtra("data", phoneOrderEntity);
+                startActivity(intent);
             }
         });
+        mNewOrderAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                page++;
+                isLoadMore=true;
 
-
-        list.clear();
-        getData(getTypeId());
-
+                getData();
+            }
+        },rv_order);
+        mNewOrderAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                PhoneOrderEntity phoneOrderEntity = (PhoneOrderEntity) adapter.getItem(position);
+                Intent intent;
+                switch (view.getId()) {
+                    case R.id.delete:
+                        deleteOrder(phoneOrderEntity.getId());
+                        break;
+                    case R.id.lianxi://联系卖家
+                        String userId = phoneOrderEntity.getUserId();
+                        RongIM.getInstance().startPrivateChat(getContext(), userId, phoneOrderEntity.getShopName());
+                        break;
+                    case R.id.quxiao://取消订单
+                        showCancelDialog(phoneOrderEntity.getId());
+                        break;
+                    case R.id.fukuan://付款
+                        showPayDialog(phoneOrderEntity.getId());
+                        break;
+                    case R.id.wuliu://物流
+                        intent = new Intent(getContext(), CheckLogisticsActivity.class);
+                        intent.putExtra("data", phoneOrderEntity);
+                        startActivity(intent);
+                        //showPayDialog(phoneOrderEntity.getId());
+                        break;
+                    case R.id.shouhou://退款
+                        showCancelDialog(phoneOrderEntity.getId());
+                        break;
+                    case R.id.shouhuo://收货
+                        confirmOrder(phoneOrderEntity);
+                        break;
+                    case R.id.pingjia:
+                        intent = new Intent(getContext(), OrderCommentSubmitActivity.class);
+                        intent.putExtra("data", phoneOrderEntity);
+                        startActivity(intent);
+                        break;
+                }
+            }
+        });
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page=1;
+                mPhoneOrderEntityList.clear();
+                mNewOrderAdapter.setNewData(mPhoneOrderEntityList);
+                getData();
+                refreshLayout.finishRefresh(1000);
+            }
+        });
+        rv_order.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv_order.setAdapter(mNewOrderAdapter);
+        getData();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
+    public static OrderListFragment newInstance(int state) {
+        OrderListFragment orderListFragment = new OrderListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("state", state);
+        orderListFragment.setArguments(bundle);
+        return orderListFragment;
     }
 
-    private void initListData() {
-        List<PhoneOrderEntity> rlist = new ArrayList<>();
-
-        adapter.notifyDataSetChanged();
-
-    }
-
-    private void getData(int state) {
-        String token = "";
-        if (MyApplication.isLogin) {
-            token = MyApplication.token;
-        } else {
-            return;
-
-        }
+    private void getData() {
         Map<String, Object> params = new HashMap<>();
-        params.put("page", pageNum);
+        params.put("page", page);
         params.put("state", state);
-        HttpProxy.obtain().get(PlatformContans.GoodsOrder.getMyOrderList, params, token, new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.GoodsOrder.getMyOrderList, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("getGoodList", result);
+                Log.e("getGoodList", page+"");
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray data = jsonObject.getJSONArray("data");
+                    List<PhoneOrderEntity> phoneOrderEntities=new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
-                        PhoneOrderEntity baikeItem = new Gson().fromJson(item.toString(), PhoneOrderEntity.class);
-                        list.add(baikeItem);
+                        PhoneOrderEntity phoneOrderEntity = new Gson().fromJson(item.toString(), PhoneOrderEntity.class);
+                        mPhoneOrderEntityList.add(phoneOrderEntity);
+                        phoneOrderEntities.add(phoneOrderEntity);
                     }
-                    adapter.notifyDataSetChanged();
+                    if(isLoadMore){
+                        isLoadMore=false;
+                        mNewOrderAdapter.addData(phoneOrderEntities);
+                        mNewOrderAdapter.loadMoreComplete();
+                    }else{
+                        mNewOrderAdapter.setNewData(mPhoneOrderEntityList);
+                        mNewOrderAdapter.loadMoreEnd(true);
+                    }
+
                     //updateData();
 
                 } catch (JSONException e) {
@@ -155,111 +217,166 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
         });
     }
 
-
-    /* 摧毁该Fragment，一般是FragmentActivity 被摧毁的时候伴随着摧毁 */
-    @Override
-    public void onDestroy() {
-        // TODO Auto-generated method stub
-        super.onDestroy();
-
+    private void showFinishDialog(PhoneOrderEntity mPhoneOrderEntity) {
+        Dialog dialog = new Dialog(getContext(), R.style.dialog);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_order_finish, null);
+        TextView tv_refused = (TextView) view.findViewById(R.id.tv_refused);
+        TextView tv_comment = (TextView) view.findViewById(R.id.tv_comment);
+        tv_refused.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        tv_comment.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Intent intent = new Intent(getContext(), OrderCommentSubmitActivity.class);
+                intent.putExtra("data",mPhoneOrderEntity);
+                startActivity(intent);
+            }
+        });
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+        Window window = dialog.getWindow();
+        WindowManager windowManager = getActivity().getWindowManager();
+        WindowManager.LayoutParams layoutParams = window.getAttributes();
+        Display display = windowManager.getDefaultDisplay();
+        layoutParams.width = (int) (display.getWidth() * 0.7);
+        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(layoutParams);
     }
 
-   private void showCancelDialog(){
-       Dialog dialog=new Dialog(getContext(),R.style.dialog);
-       View view =LayoutInflater.from(getContext()).inflate(R.layout.dialog_order_cancel,null);
-       dialog.setContentView(view);
-       dialog.show();
-       Window window=dialog.getWindow();
-       WindowManager windowManager=getActivity().getWindowManager();
-       WindowManager.LayoutParams layoutParams=window.getAttributes();
-       Display display=windowManager.getDefaultDisplay();
-       layoutParams.width= (int) (display.getWidth()*0.7);
-       layoutParams.height= ViewGroup.LayoutParams.WRAP_CONTENT;
-       window.setAttributes(layoutParams);
-   }
+    private void showCancelDialog(String id) {
+        Dialog dialog = new Dialog(getContext(), R.style.dialog);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_order_cancel, null);
+        TextView tv_refused = (TextView) view.findViewById(R.id.tv_refused);
+        TextView tv_agree = (TextView) view.findViewById(R.id.tv_agree);
+        tv_refused.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        tv_agree.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                cancelOrder(id);
+            }
+        });
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+        Window window = dialog.getWindow();
+        WindowManager windowManager = getActivity().getWindowManager();
+        WindowManager.LayoutParams layoutParams = window.getAttributes();
+        Display display = windowManager.getDefaultDisplay();
+        layoutParams.width = (int) (display.getWidth() * 0.7);
+        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(layoutParams);
+    }
+
     //adapter中按钮点击事件
-    public void onShortcutMenuClickListener(Integer t, Integer loc) {
-        int location = loc.intValue();
-        Intent intent;
-        switch (t) {
-            case 0://详情
-                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-                intent.putExtra("data", list.get(location));
-                startActivity(intent);
-                // ActivityAnimationUtils.commonTransition(getActivity(), OrderDetailActivity.class, ActivityConstans.Animation.FADE);
-                break;
-            case 1://联系
+//    public void onShortcutMenuClickListener(Integer t, Integer loc) {
+//        int location = loc.intValue();
+//        Intent intent;
+//        switch (t) {
+//            case 0://详情
 //                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
 //                intent.putExtra("data", list.get(location));
 //                startActivity(intent);
-                String userId = list.get(location).getUserId();
-                RongIM.getInstance().startPrivateChat(getContext(),userId, list.get(location).getShopName());
-                //ActivityAnimationUtils.commonTransition(getActivity(), OrderChatDetailActivity.class, ActivityConstans.Animation.FADE);
-                break;
-            case 2://取消
-                showCancelDialog();
+//                // ActivityAnimationUtils.commonTransition(getActivity(), OrderDetailActivity.class, ActivityConstans.Animation.FADE);
+//                break;
+//            case 1://联系
+////                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+////                intent.putExtra("data", list.get(location));
+////                startActivity(intent);
+//                String userId = list.get(location).getUserId();
+//                RongIM.getInstance().startPrivateChat(getContext(),userId, list.get(location).getShopName());
+//                //ActivityAnimationUtils.commonTransition(getActivity(), OrderChatDetailActivity.class, ActivityConstans.Animation.FADE);
+//                break;
+//            case 2://取消
+//                showCancelDialog();
+////                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+////                intent.putExtra("data", list.get(location));
+////                startActivity(intent);
+//                //alertCancelPanel(getActivity());
+//                break;
+//            case 3://付款
 //                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
 //                intent.putExtra("data", list.get(location));
 //                startActivity(intent);
-                //alertCancelPanel(getActivity());
-                break;
-            case 3://付款
-                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-                intent.putExtra("data", list.get(location));
-                startActivity(intent);
-                //  initDialog();
-                break;
-            case 4://申请退货
-                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-                intent.putExtra("data", list.get(location));
-                startActivity(intent);
-                //ActivityAnimationUtils.commonTransition(getActivity(), OrderReturnTypeActivity.class, ActivityConstans.Animation.FADE);
-                break;
-            case 5://提醒
-                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-                intent.putExtra("data", list.get(location));
-                startActivity(intent);
-                //alert5Sweet();
-                break;
-            case 6://延长收货
-                alert6Sweet();
-                break;
-            case 7://物流
-                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-                intent.putExtra("data", list.get(location));
-                startActivity(intent);
-                //ActivityAnimationUtils.commonTransition(getActivity(), CheckLogisticsActivity.class, ActivityConstans.Animation.FADE);
-                break;
-            case 8://确认收货
-                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-                intent.putExtra("data", list.get(location));
-                startActivity(intent);
-                //alert8Sweet();
-                break;
-            case 9://再来一单
+//                //  initDialog();
+//                break;
+//            case 4://申请退货
 //                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
 //                intent.putExtra("data", list.get(location));
 //                startActivity(intent);
-                //ActivityAnimationUtils.commonTransition(getActivity(), OrderConfirmActivity.class, ActivityConstans.Animation.FADE);
-                break;
-            case 10://评价
-                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-                intent.putExtra("data", list.get(location));
-                startActivity(intent);
-                //ActivityAnimationUtils.commonTransition(getActivity(), OrderCommentSubmitActivity.class, ActivityConstans.Animation.FADE);
-                break;
-        }
+//                //ActivityAnimationUtils.commonTransition(getActivity(), OrderReturnTypeActivity.class, ActivityConstans.Animation.FADE);
+//                break;
+//            case 5://提醒
+//                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+//                intent.putExtra("data", list.get(location));
+//                startActivity(intent);
+//                //alert5Sweet();
+//                break;
+//            case 6://延长收货
+//                alert6Sweet();
+//                break;
+//            case 7://物流
+//                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+//                intent.putExtra("data", list.get(location));
+//                startActivity(intent);
+//                //ActivityAnimationUtils.commonTransition(getActivity(), CheckLogisticsActivity.class, ActivityConstans.Animation.FADE);
+//                break;
+//            case 8://确认收货
+//                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+//                intent.putExtra("data", list.get(location));
+//                startActivity(intent);
+//                //alert8Sweet();
+//                break;
+//            case 9://再来一单
+////                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+////                intent.putExtra("data", list.get(location));
+////                startActivity(intent);
+//                //ActivityAnimationUtils.commonTransition(getActivity(), OrderConfirmActivity.class, ActivityConstans.Animation.FADE);
+//                break;
+//            case 10://评价
+//                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+//                intent.putExtra("data", list.get(location));
+//                startActivity(intent);
+//                //ActivityAnimationUtils.commonTransition(getActivity(), OrderCommentSubmitActivity.class, ActivityConstans.Animation.FADE);
+//                break;
+//        }
+//    }
+    private void deleteOrder(String id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("orderId", id);
+        HttpProxy.obtain().post(PlatformContans.GoodsOrder.deleteOrder, MyApplication.token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("reuslt", result);
+                ToastUtil.showToast(getContext(), "删除成功");
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 
-    private void confirmOrder(String id){
-        Map<String,Object> params=new HashMap<>();
-        params.put("orderId",id);
+    private void confirmOrder(PhoneOrderEntity  phoneOrderEntity) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("orderId", phoneOrderEntity.getId());
         HttpProxy.obtain().post(PlatformContans.GoodsOrder.finishOrder, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("reuslt",result);
-                ToastUtil.showToast(getContext(),"操作成功");
-
+                Log.e("reuslt", result);
+                showFinishDialog(phoneOrderEntity);
             }
 
             @Override
@@ -268,14 +385,32 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
             }
         });
     }
-    private void cancelOrder(String id){
-        Map<String,Object> params=new HashMap<>();
-        params.put("orderId",id);
+    private void refresh(){
+        page=1;
+        mPhoneOrderEntityList.clear();
+        mNewOrderAdapter.setNewData(mPhoneOrderEntityList);
+        getData();
+    }
+    private void cancelOrder(String id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("orderId", id);
         HttpProxy.obtain().post(PlatformContans.GoodsOrder.cancelOrder, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("reuslt",result);
-                ToastUtil.showToast(getContext(),"取消成功");
+                Log.e("reuslt", result);
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    int code=jsonObject.getInt("resultCode");
+                    if(code==0){
+                        ToastUtil.showToast(getContext(), "取消成功");
+                        refresh();
+                    }else{
+                        String msg=jsonObject.getString("message");
+                        ToastUtil.showToast(getContext(), msg);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
 
@@ -285,95 +420,169 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
             }
         });
     }
-    /**
-     * 初始化支付方式Dialog
-     */
-    private Dialog dialog;
 
-    private void initDialog() {
-        // 隐藏输入法
-        dialog = new PayWayDialog(getActivity(), R.style.recharge_pay_dialog, true, new View.OnClickListener() {
+
+    private void payByWechat(String data) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("orderId", data);
+        HttpProxy.obtain().post(PlatformContans.WechatPay.babyMerchantOrderPay, MyApplication.token, params, new ICallBack() {
             @Override
-            public void onClick(View v) {
-                //确认充值
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        JSONObject data = jsonObject.getJSONObject("data");
+                        WechatRes wechatRes = new Gson().fromJson(data.toString(), WechatRes.class);
+                        startWechatPay(wechatRes);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        refresh();
+    }
+
+    private void startWechatPay(WechatRes payReponse) {
+        PayReq req = new PayReq(); //调起微信APP的对象
+        req.appId = payReponse.getAppid();
+        req.partnerId = payReponse.getPartnerid();
+        req.prepayId = payReponse.getPrepayid();
+        req.nonceStr = payReponse.getNoncestr();
+        req.timeStamp = payReponse.getTimestamp();
+        req.packageValue = payReponse.getPackageX(); //Sign=WXPay
+        req.sign = payReponse.getSign();
+        MyApplication.mWxApi.sendReq(req); //发送调起微信的请求
+    }
+
+    private void startAlipay(String orderId) {
+        final Runnable payRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                PayTask alipay = new PayTask(getActivity());
+                Map<String, String> result = alipay.payV2(orderId, true);
+                Log.i("msp", result.toString());
+                Message msg = new Message();
+                msg.what = SDK_PAY_FLAG;
+                msg.obj = result;
+                mHandler.sendMessage(msg);
+            }
+        };
+
+        // 必须异步调用
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
+    }
+
+    private void payByAlipay(String data) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("orderId", data);
+        HttpProxy.obtain().post(PlatformContans.Pay.babyMerchantOrderPay, MyApplication.token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        String data = jsonObject.getString("data");
+                        startAlipay(data);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    private void showPayDialog(String data) {
+
+        Dialog dialog = new Dialog(getContext(), R.style.dialog);
         dialog.show();
+        View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_selectpay, null);
+        RelativeLayout rl_wechat = (RelativeLayout) contentView.findViewById(R.id.rl_wechat);
+        RelativeLayout rl_alipay = (RelativeLayout) contentView.findViewById(R.id.rl_alipay);
+        SuperTextView tv_confirm = (SuperTextView) contentView.findViewById(R.id.tv_confirm);
+        ImageView iv_wechat = (ImageView) contentView.findViewById(R.id.iv_choose);
+        ImageView iv_alipay = (ImageView) contentView.findViewById(R.id.iv_choose2);
+        tv_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                if (type == 1) {
+                    payByWechat(data);
+                } else {
+                    payByAlipay(data);
+                }
+            }
+        });
+        rl_wechat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type = 1;
+                iv_wechat.setVisibility(View.VISIBLE);
+                iv_alipay.setVisibility(View.GONE);
+            }
+        });
+        rl_alipay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type = 2;
+                iv_alipay.setVisibility(View.VISIBLE);
+                iv_wechat.setVisibility(View.GONE);
+            }
+        });
+        dialog.setContentView(contentView);
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams params = window.getAttributes();
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT; //使用这种方式更改了dialog的框宽
+        window.setAttributes(params);
     }
 
-
-    //提醒
-    private void alert5Sweet() {
-        new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE)
-                .setTitleText("您好！客服已提醒商家尽快发货，请勿重复点击！")
-                .setConfirmText("确认")
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @SuppressWarnings("unused")
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SDK_PAY_FLAG: {
+                    @SuppressWarnings("unchecked")
+                    PayResult payResult = new PayResult((Map<String, String>) msg.obj);
+                    String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+                    String resultStatus = payResult.getResultStatus();
+                    // 判断resultStatus 为9000则代表支付成功
+                    if (TextUtils.equals(resultStatus, "9000")) {
+                        Log.e("code", resultStatus);
+                        ToastUtil.showToast(getContext(),"支付成功");
+                        refresh();
                     }
-                })
-                .show();
-    }
+                    break;
+                }
+            }
+        }
 
-    //延长收货
-    private void alert6Sweet() {
-        new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE)
-                .setTitleText("确认延长收货时间？")
-                .setContentText("每笔订单只能延迟一次哦")
-                .setConfirmText("确定")
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
-                    }
-                })
-                .setCancelText("取消")
-                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
-                    }
-                })
-                .show();
-    }
+        ;
+    };
 
-    //确认收货
-    private void alert8Sweet() {
-        new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE)
-                .setTitleText("您是否收到该订单商品？")
-                .setConfirmText("已收货")
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
-                        ActivityAnimationUtils.commonTransition(getActivity(), HaveGotGoodsActivity.class, ActivityConstans.Animation.FADE);
-                    }
-                })
-                .setCancelText("未收货")
-                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
-                    }
-                })
-                .show();
-    }
-
-
-    public void setPosition(int position) {
-        setTypeId(position);
-//        adapter.setTypeId(position);
-
-    }
-
-    public int getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
-    }
 
     @Override
     public void onClick(View v) {

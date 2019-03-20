@@ -13,7 +13,7 @@ public class CommentReuslt {
     private int score;
     private int isRealName;
     private String content;
-    private String imgs;
+    private String imgs="";
     private String orderItemId;
     private List<String> images=new ArrayList<>();
 
@@ -43,14 +43,13 @@ public class CommentReuslt {
 
     public String getImgs() {
         for (int i = 0; i <images.size() ; i++) {
-            if(!TextUtils.isEmpty(images.get(i))&&!TextUtils.equals("null",images.get(i)))
-            imgs=imgs+","+images.get(i);
+             imgs=imgs+","+images.get(i);
         }
-
         if(!TextUtils.isEmpty(imgs)){
-            imgs=imgs.substring(1);
+            if(imgs.contains(","));{
+                imgs=imgs.substring(1);
+            }
         }
-
         return imgs;
     }
 

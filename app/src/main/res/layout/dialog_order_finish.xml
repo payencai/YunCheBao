@@ -25,14 +25,14 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/black_33"
-                android:text="是否退款"
+                android:text="确认收货成功"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_marginTop="20dp"
                 android:textSize="13sp"
                 android:textColor="@color/black_33"
-                android:text="商家尚未发货可立即退款"
+                android:text="您觉得还可以的话就去评论吧！"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -44,31 +44,28 @@
             <TextView
                 android:id="@+id/tv_refused"
                 android:layout_marginLeft="20dp"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:background="@drawable/dialog_apply"
-                android:gravity="center"
-                android:text="不退了"
-                android:layout_width="70dp"
-                android:layout_height="30dp" />
-            <TextView
-                android:id="@+id/tv_agree"
-                android:layout_marginRight="20dp"
+                android:textColor="@color/gray_99"
                 android:textSize="13sp"
                 android:background="@drawable/dialog_order_money"
                 android:gravity="center"
+                android:text="不了，谢谢"
+                android:layout_width="80dp"
+                android:layout_height="35dp" />
+            <TextView
+                android:id="@+id/tv_comment"
+                android:layout_marginRight="20dp"
+                android:textSize="13sp"
+                android:background="@drawable/dialog_apply"
+                android:textColor="@color/white"
+                android:gravity="center"
                 android:layout_alignParentRight="true"
-                android:text="还是要退"
-                android:layout_width="70dp"
-                android:layout_height="30dp" />
+                android:text="去评论"
+                android:layout_width="80dp"
+                android:layout_height="35dp" />
         </RelativeLayout>
     </LinearLayout>
-    <TextView
-        android:textColor="@color/white"
-        android:background="@drawable/shape_oval_order"
-        android:textSize="40dp"
-        android:gravity="center"
-        android:text="退"
+    <ImageView
+        android:src="@mipmap/ic_finish"
         android:layout_gravity="center_horizontal"
         android:layout_width="70dp"
         android:layout_height="70dp" />
