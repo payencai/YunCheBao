@@ -275,6 +275,8 @@
         <activity android:name="com.vipcenter.GiftOrderConfirmActivity" />
         <activity android:name="com.vipcenter.GiftPaySuccessActivity" />
         <activity android:name="com.vipcenter.GiftMyOrderListActivity" />
+        <!--入驻申请-->
+        <!--<activity android:name="com.vipcenter.EnteringActivity" />-->
 
         <!-- 约单 -->
         <activity
@@ -425,7 +427,7 @@
         <activity android:name="com.vipcenter.PubCommentActivity" />
         <activity android:name="com.cheyibao.AddSchoolCommentActivity" />
         <activity android:name="com.cheyibao.AddRentCommentActivity" />
-        <activity android:name="com.entering.EnteringActivity">
+        <activity android:name="com.vipcenter.EnteringActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

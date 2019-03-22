@@ -681,7 +681,7 @@
                     android:background="@color/gray_ee"></View>
 
                 <RelativeLayout
-
+                    android:id="@+id/lay12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp">

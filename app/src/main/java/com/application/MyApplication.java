@@ -3,6 +3,7 @@ package com.application;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 import android.util.Log;
 
 import com.amap.api.location.AMapLocation;
@@ -60,6 +61,12 @@ public class MyApplication extends Application {
 
     public static void setaMapLocation(AMapLocation aMapLocation) {
         MyApplication.aMapLocation = aMapLocation;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(base);
     }
 
     public static void setUserInfos(List<ContactModel> userInfos) {

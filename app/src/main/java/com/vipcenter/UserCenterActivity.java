@@ -175,7 +175,7 @@ public class UserCenterActivity extends NoHttpBaseActivity {
 
     }
 
-    @OnClick({R.id.back, R.id.tv_exit,R.id.headIcon, R.id.rl_mypublish,R.id.signIn, R.id.shopCart, R.id.message, R.id.middleMenu1, R.id.middleMenu2, R.id.middleMenu3, R.id.lay1, R.id.lay2, R.id.lay3, R.id.lay4, R.id.lay5, R.id.lay6, R.id.lay7, R.id.lay8, R.id.lay9, R.id.lay10, R.id.lay11})
+    @OnClick({R.id.back, R.id.tv_exit,R.id.headIcon, R.id.rl_mypublish,R.id.signIn, R.id.shopCart, R.id.message, R.id.middleMenu1, R.id.middleMenu2, R.id.middleMenu3, R.id.lay1, R.id.lay2, R.id.lay3, R.id.lay4, R.id.lay5, R.id.lay6, R.id.lay7, R.id.lay8, R.id.lay9, R.id.lay10, R.id.lay11,R.id.lay12})
     public void Onclick(View v) {
         switch (v.getId()) {
             case R.id.tv_exit:
@@ -246,6 +246,9 @@ public class UserCenterActivity extends NoHttpBaseActivity {
                 break;
             case R.id.lay11://洗护评论
                 ActivityAnimationUtils.commonTransition(UserCenterActivity.this, ServiceCarActivity.class, ActivityConstans.Animation.FADE);
+                break;
+            case R.id.lay12://入驻申请
+                ActivityAnimationUtils.commonTransition(UserCenterActivity.this, EnteringActivity.class, ActivityConstans.Animation.FADE);
                 break;
         }
     }
