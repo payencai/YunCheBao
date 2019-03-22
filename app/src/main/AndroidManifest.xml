@@ -425,7 +425,7 @@
         <activity android:name="com.vipcenter.PubCommentActivity" />
         <activity android:name="com.cheyibao.AddSchoolCommentActivity" />
         <activity android:name="com.cheyibao.AddRentCommentActivity" />
-        <activity android:name="com.system.SplashActivity">
+        <activity android:name="com.entering.EnteringActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -442,6 +442,7 @@
                     android:scheme="yunchebao" />
             </intent-filter>
         </activity>
+        <activity android:name="com.system.SplashActivity" />
         <activity android:name="com.vipcenter.MycarActivity" />
         <activity android:name="com.vipcenter.MyPayActivity" />
         <activity android:name="com.vipcenter.SetPayPasswordActivity" />
