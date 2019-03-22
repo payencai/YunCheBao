@@ -18,6 +18,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <LinearLayout
+
                     android:orientation="horizontal"
                     android:padding="10dp"
                     android:background="@color/white"
@@ -135,7 +136,7 @@
                     android:id="@+id/lay2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
+                    android:layout_marginTop="5dp"
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -155,7 +156,10 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:gravity="right"
+                            android:id="@+id/tv_reason"
+                            android:layout_marginLeft="40dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="请选择"
                             android:textColor="@color/gray_99"
@@ -172,6 +176,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -186,6 +192,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_price1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="￥999.00"
@@ -194,6 +201,8 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tv_price2"
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="15dp"
@@ -202,6 +211,7 @@
                     android:textSize="14sp" />
 
                 <LinearLayout
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -216,7 +226,7 @@
                         android:textSize="14sp" />
 
                     <EditText
-                        android:id="@+id/editText"
+                        android:id="@+id/et_said"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
@@ -227,23 +237,48 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="15dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="上传凭证（最多三张）"
-                        android:textColor="@color/black_33"
-                        android:textSize="14sp" />
+                    <GridView
+                        android:layout_margin="10dp"
+                        android:horizontalSpacing="5dp"
+                        android:verticalSpacing="5dp"
+                        android:id="@+id/gv_photo"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:numColumns="3"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:layout_width="72dp"
-                        android:layout_height="48dp"
-                        android:layout_margin="16dp"
-                        android:src="@mipmap/camera_default" />
+                    </GridView>
+                    <LinearLayout
+                        android:id="@+id/ll_add"
+                        android:background="@drawable/shape_xuxian"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:orientation="vertical"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp">
+                        <ImageView
+                            android:layout_marginTop="15dp"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/gallery_pick_camera"
+                            android:layout_width="25dp"
+                            android:layout_height="20dp" />
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:textSize="10sp"
+                            android:textColor="@color/gray_99"
+                            android:text="添加图片"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
