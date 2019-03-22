@@ -37,7 +37,7 @@ public class NewOrderAdapter extends BaseQuickAdapter<PhoneOrderEntity, BaseView
                 .addOnClickListener(R.id.shouhuo)
                 .addOnClickListener(R.id.shouhou)
                 .addOnClickListener(R.id.delete)
-               .addOnClickListener(R.id.pingjia);
+               .addOnClickListener(R.id.pingjia).addOnClickListener(R.id.st_see);
         TextView shopName = (TextView) helper.getView(R.id.shopName);
         HorizontalListView hl_good = (HorizontalListView) helper.getView(R.id.hl_good);
         TextView orderStatus = (TextView) helper.getView(R.id.statusName);

@@ -51,6 +51,7 @@ import com.tool.ActivityConstans;
 import com.vipcenter.CheckLogisticsActivity;
 import com.vipcenter.HaveGotGoodsActivity;
 import com.vipcenter.OrderCommentSubmitActivity;
+import com.vipcenter.RebackMoneyActivity;
 import com.vipcenter.adapter.NewOrderAdapter;
 import com.vipcenter.adapter.OrderListAdapter;
 import com.vipcenter.view.PayWayDialog;
@@ -100,7 +101,13 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 PhoneOrderEntity phoneOrderEntity = (PhoneOrderEntity) adapter.getItem(position);
-                Intent intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+                Intent intent ;
+                Log.e("state",phoneOrderEntity.getState()+"");
+                if(phoneOrderEntity.getState()==5){
+                    intent=new Intent(getContext(), RebackMoneyActivity.class);
+                }else{
+                    intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
+                }
                 intent.putExtra("data", phoneOrderEntity);
                 startActivity(intent);
             }
@@ -149,7 +156,8 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
                         intent = new Intent(getContext(), OrderCommentSubmitActivity.class);
                         intent.putExtra("data", phoneOrderEntity);
                         startActivity(intent);
-                        break;
+
+
                 }
             }
         });
