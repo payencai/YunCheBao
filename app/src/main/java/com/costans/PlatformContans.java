@@ -203,6 +203,7 @@ public class PlatformContans {
         public static final String addWashRepairOrderComment=root+ "/carWashRepairShop/addWashRepairOrderComment";
         public static final String cancelWashRepairOrder=root+ "/carWashRepairShop/cancelWashRepairOrder";
         public static final String getWashRepairCommentDetailsList=root+ "/carWashRepairShop/getWashRepairCommentDetailsList";
+        public static final String getWashRepairOrderCommentByOrderId=root+ "/carWashRepairShop/getWashRepairOrderCommentByOrderId";
     }
     public static class CarRent{
         public static final String getRentCarPhoto=root+ "/rentcar/getRentCarPhoto";
@@ -290,6 +291,7 @@ public class PlatformContans {
     public static  class Evaluation{
         public static final String addDrivingSchoolCoachEva=root+ "/drivingschool/addDrivingSchoolCoachEva";
         public static final String addEvaluation=root+ "/evaluation/addEvaluation";
+        public static final String addOrderEvaluation=root+ "/evaluation/addOrderEvaluation";
         public static final String getMerchantEvaluationByUser=root+ "/evaluation/getMerchantEvaluationByUser";
     }
 
@@ -307,7 +309,7 @@ public class PlatformContans {
     public static  class Order{
         public static final String getUserOrderList=root+ "/carWashRepairShop/getUserOrderList";
         public static final String getUserCarOrder=root+ "/carOrder/getUserCarOrder";
-       // public static final String getNewOldIndex=root+ "/carcategory/getNewOldIndex";
+        public static final String getEvaluationByOrderId=root+ "/evaluation/getEvaluationByOrderId";
     }
 
     public static String data = "{\"code\":0,\"msg\":\"\\u83b7\\u53d6\\u5546\\u54c1\\u6210\\u529f\",\"data\":[{\"cat\":\"汽车服务\",\"goods\":[{\"id\":\"1001\",\"name\":\"标准洗车-轿车\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"100\",\"sold_num\":\"2\"},{\"id\":\"1003\",\"name\":\"标准洗车-五座轿车\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"}]},{\"cat\":\"汽车美容\",\"goods\":[{\"id\":\"1004\",\"name\":\"全车抛光\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1005\",\"name\":\"内饰清洗\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1006\",\"name\":\"全车打蜡\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"0\"},{\"id\":\"1007\",\"name\":\"空调除臭\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"1\"}]}]}";

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.vipcenter.RentOrderDetailActivity">
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/back"
+            android:padding="15dp"
+            android:src="@mipmap/back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_centerInParent="true"
+            android:textSize="16sp"
+            android:textColor="@color/black_33"
+            android:text="详情"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.cheyibao.model.ReboundScrollView
+            android:orientation="vertical"
+            android:layout_above="@id/ll_bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:background="@color/white"
+                    android:padding="15dp"
+                    android:id="@+id/ll_type1"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="昆山汽车修理厂"
+                            android:textColor="@color/gray_66"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_washstate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="已完成"
+                            android:textColor="@color/yellow_65"
+                            android:textSize="14sp" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="2018-1-19"
+                        android:textColor="@color/gray_99"
+                        android:textSize="10sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/gray_ee"></View>
+
+                    <TextView
+                        android:id="@+id/tv_washtype"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="标准洗车-轿车"
+                        android:textColor="@color/black_33"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/tv_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="整车泡沫冲洗、轮胎冲洗清洁，车内吸尘、内饰简单清洁出尘。"
+                        android:textColor="@color/gray_99"
+                        android:textSize="10sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/gray_ee"></View>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="总价：¥55"
+                            android:textColor="@color/black_33"
+                            android:textSize="14sp" />
+
+                        <com.coorchice.library.SuperTextView
+                            android:id="@+id/btn_comment"
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:paddingBottom="6dp"
+                            android:paddingLeft="11dp"
+                            android:paddingRight="11dp"
+                            android:paddingTop="6dp"
+                            android:text="评价"
+                            android:textColor="@color/black_33"
+                            android:textSize="14sp"
+                            app:corner="2dp"
+                            />
+                    </RelativeLayout>
+                </LinearLayout>
+                <RelativeLayout
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:padding="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+
+                        android:textSize="16sp"
+                        android:textColor="@color/black_33"
+                        android:text="下单时间"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_alignParentRight="true"
+                        android:textSize="16sp"
+                        android:textColor="@color/black_33"
+                        android:text="2019-3-29"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:padding="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textSize="16sp"
+                        android:textColor="@color/black_33"
+                        android:text="商家电话"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_phone"
+                        android:layout_alignParentRight="true"
+                        android:textSize="16sp"
+                        android:textColor="@color/blue_9DD9"
+                        android:text="13202908144"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:padding="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textSize="16sp"
+                        android:textColor="@color/black_33"
+                        android:text="商家地址"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_alignParentRight="true"
+                        android:textSize="16sp"
+                        android:textColor="@color/blue_9DD9"
+                        android:text="大学城信息枢纽楼"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+            </LinearLayout>
+        </com.cheyibao.model.ReboundScrollView>
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/ll_bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_state1"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:id="@+id/tv_complain"
+                    android:gravity="center"
+                    android:text="商家投诉"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:background="@color/yellow_02"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/tv_comment"
+                    android:text="评价"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:background="@color/blue_9DD9"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_seecomment"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:background="@color/blue_9DD9"
+                android:gravity="center"
+                android:text="查看评论"
+                android:layout_width="match_parent"
+                android:layout_height="45dp" />
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_cancel"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:background="@color/red_4e"
+                android:gravity="center"
+                android:text="取消订单"
+                android:layout_width="match_parent"
+                android:layout_height="45dp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

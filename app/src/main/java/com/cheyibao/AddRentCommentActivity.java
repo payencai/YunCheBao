@@ -143,13 +143,11 @@ public class AddRentCommentActivity extends AppCompatActivity {
         params.put("orderId", mCarOrder.getOrderNo());
         params.put("content", comment);
         params.put("isAnonymous", isAnonymous);
-        params.put("merchantId", mCarOrder.getShopId());
         params.put("score", score);
-        params.put("type", 3);
         if (!TextUtils.isEmpty(imgs))
-            params.put("photo", imgs.substring(1));
+            params.put("imgs", imgs.substring(1));
         String json=new Gson().toJson(params);
-        HttpProxy.obtain().post(PlatformContans.Evaluation.addEvaluation, MyApplication.token, json, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Evaluation.addOrderEvaluation, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);

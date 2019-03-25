@@ -191,7 +191,7 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
         HttpProxy.obtain().get(PlatformContans.GoodsOrder.getMyOrderList, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("getGoodList", page+"");
+                Log.e("getGoodList", result+"");
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray data = jsonObject.getJSONArray("data");

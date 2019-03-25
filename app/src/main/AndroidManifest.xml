@@ -428,7 +428,7 @@
         <activity android:name="com.vipcenter.PubCommentActivity" />
         <activity android:name="com.cheyibao.AddSchoolCommentActivity" />
         <activity android:name="com.cheyibao.AddRentCommentActivity" />
-        <activity android:name="com.vipcenter.EnteringActivity"></activity>
+        <activity android:name="com.vipcenter.EnteringActivity" />
         <activity android:name="com.system.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -467,7 +467,11 @@
         <activity android:name="com.maket.RentGoodsActivity" />
         <activity android:name="com.cheyibao.SelectCarBrandActivity" />
         <activity android:name="com.vipcenter.GiftMoreActivity" />
-        <activity android:name="com.vipcenter.RebackMoneyActivity"></activity>
+        <activity android:name="com.vipcenter.RebackMoneyActivity" />
+        <activity android:name="com.vipcenter.RentOrderDetailActivity" />
+        <activity android:name="com.vipcenter.ShoolOrderDetailActivity" />
+        <activity android:name="com.vipcenter.WashOrderDetailActivity" />
+        <activity android:name="com.vipcenter.OrderCommentsActivity"></activity>
     </application>
 
 </manifest>

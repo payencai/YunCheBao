@@ -24,6 +24,7 @@ public class CarOrderAdapter extends BaseQuickAdapter<CarOrder,BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, CarOrder item) {
+
         LinearLayout ll_type1=helper.getView(R.id.ll_type1);
         LinearLayout ll_type2=helper.getView(R.id.ll_type2);
         if(item.getFlag()==1){
@@ -47,15 +48,21 @@ public class CarOrderAdapter extends BaseQuickAdapter<CarOrder,BaseViewHolder> {
                 btn_comment.setVisibility(View.VISIBLE);
                 btn_comment.setText("取消订单");
             }
-            if(item.getState()==3){
+           else if(item.getState()==3){
                 tv_state.setText("待评价");
                 btn_comment.setVisibility(View.VISIBLE);
                 btn_comment.setText("评价");
             }
-            if(item.getState()==4){
+           else if(item.getState()==4){
                 tv_state.setText("已完成");
                 btn_comment.setVisibility(View.VISIBLE);
                 btn_comment.setText("查看评论");
+
+            }else if(item.getState()==0){
+                tv_state.setText("已取消");
+                btn_comment.setVisibility(View.GONE);
+            }else{
+
             }
 
         }else if(item.getFlag()==2){
@@ -80,6 +87,7 @@ public class CarOrderAdapter extends BaseQuickAdapter<CarOrder,BaseViewHolder> {
             if(item.getState()==4){
                 tv_state.setText("已完成");
                 tv_note.setVisibility(View.VISIBLE);
+                tv_cancel.setText("查看评价");
             }
             TextView tv_date=helper.getView(R.id.tv_date);
             TextView tv_name=helper.getView(R.id.tv_name);

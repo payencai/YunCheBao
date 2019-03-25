@@ -30,6 +30,7 @@ public class NewOrderAdapter extends BaseQuickAdapter<PhoneOrderEntity, BaseView
 
     @Override
     protected void convert(BaseViewHolder helper, PhoneOrderEntity item) {
+        helper.setIsRecyclable(false);
         helper.addOnClickListener(R.id.lianxi)
                 .addOnClickListener(R.id.quxiao)
                 .addOnClickListener(R.id.fukuan)
@@ -101,17 +102,33 @@ public class NewOrderAdapter extends BaseQuickAdapter<PhoneOrderEntity, BaseView
             wuliu.setVisibility(View.VISIBLE);
             zailai.setVisibility(View.GONE);
         } else if (item.getState() == 4) {
-            orderStatus.setText("待评价");
-            quxiao.setVisibility(View.GONE);
-            shouhuo.setVisibility(View.GONE);
-            shouhou.setVisibility(View.GONE);
-            pingjia.setVisibility(View.VISIBLE);
-            lianxi.setVisibility(View.GONE);
-            fukuan.setVisibility(View.GONE);
-            tixing.setVisibility(View.GONE);
-            yanchang.setVisibility(View.GONE);
-            wuliu.setVisibility(View.VISIBLE);
-            zailai.setVisibility(View.GONE);
+            if(item.getIsComment()==1){
+                orderStatus.setText("交易完成");
+                quxiao.setVisibility(View.GONE);
+                shouhuo.setVisibility(View.GONE);
+                shouhou.setVisibility(View.GONE);
+                pingjia.setVisibility(View.GONE);
+                lianxi.setVisibility(View.GONE);
+                fukuan.setVisibility(View.GONE);
+                tixing.setVisibility(View.GONE);
+                yanchang.setVisibility(View.GONE);
+                wuliu.setVisibility(View.GONE);
+                zailai.setVisibility(View.GONE);
+                delete.setVisibility(View.VISIBLE);
+            }else{
+                orderStatus.setText("待评价");
+                quxiao.setVisibility(View.GONE);
+                shouhuo.setVisibility(View.GONE);
+                shouhou.setVisibility(View.GONE);
+                pingjia.setVisibility(View.VISIBLE);
+                lianxi.setVisibility(View.GONE);
+                fukuan.setVisibility(View.GONE);
+                tixing.setVisibility(View.GONE);
+                yanchang.setVisibility(View.GONE);
+                wuliu.setVisibility(View.VISIBLE);
+                zailai.setVisibility(View.GONE);
+            }
+
         }else if(item.getState() == 5){
             orderStatus.setText("售后");
             st_see.setVisibility(View.VISIBLE);
