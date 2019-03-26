@@ -22,7 +22,7 @@
             android:layout_centerInParent="true"
             android:textSize="18sp"
             android:textColor="@color/black_33"
-            android:text="陌生人"
+            android:text="聊天消息"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
@@ -30,8 +30,10 @@
         android:background="#e2e2e2"
         android:layout_width="match_parent"
         android:layout_height="1dp"></View>
-    <FrameLayout
-        android:id="@+id/fr_content"
+    <fragment
+        android:id="@+id/conversationlist"
+        android:name="io.rong.imkit.fragment.ConversationListFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="match_parent"
+         />
 </LinearLayout>

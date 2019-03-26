@@ -47,6 +47,7 @@
                 android:padding="15dp">
 
                 <TextView
+                    android:id="@+id/tv_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="退款中"
@@ -54,6 +55,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
@@ -77,12 +79,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="退款中"
+                        android:text="退款总金额"
                         android:textColor="@color/black_33"
                         android:textSize="14sp" />
 
                     <TextView
-
+                        android:id="@+id/tv_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -104,7 +106,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-
+                        android:id="@+id/tv_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -135,68 +137,14 @@
 
 
                 </RelativeLayout>
-
-                <LinearLayout
-                    android:background="#e2e2e2"
-                    android:padding="10dp"
+                <com.tool.view.ListViewForScrollView
                     android:layout_marginTop="15dp"
+                    android:id="@+id/lv_goods"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
+                </com.tool.view.ListViewForScrollView>
 
-                    <ImageView
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/pic1"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        />
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_marginLeft="15dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:ellipsize="end"
-                            android:maxLines="2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:text="哈哈哈哈官方"
-                            android:textColor="@color/black_33"
-                            android:textSize="14sp" />
-                        <TextView
 
-                            android:layout_marginTop="20dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:text="￥123"
-                            android:textColor="@color/red_4e"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                </LinearLayout>
-                <TextView
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="退款原因：低调低调"
-                    android:textColor="@color/gray_99"
-                    android:textSize="12sp" />
-                <TextView
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="退款金额：￥900"
-                    android:textColor="@color/gray_99"
-                    android:textSize="12sp" />
-                <TextView
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="申请时间：2018-01-21"
-                    android:textColor="@color/gray_99"
-                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
     </com.cheyibao.model.ReboundScrollView>

@@ -482,7 +482,7 @@ public class UserInfoActivity extends NoHttpBaseActivity {
                 onBackPressed();
                 break;
             case R.id.addressLay:
-                ActivityAnimationUtils.commonTransition(UserInfoActivity.this, AddressListActivity.class, ActivityConstans.Animation.FADE);
+                ActivityAnimationUtils.commonTransition(UserInfoActivity.this, ManaAddressActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.rl_idcard:
                 ActivityAnimationUtils.commonTransition(UserInfoActivity.this, IDCardCertificationActivity.class, ActivityConstans.Animation.FADE);

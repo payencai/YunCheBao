@@ -1,309 +1,320 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<LinearLayout
+
+    android:background="#4af3f3f3"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-   <LinearLayout
-       android:background="#f3f3f3"
-       android:orientation="vertical"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content">
-       <RelativeLayout
-           android:layout_width="match_parent"
-           android:layout_height="50dp"
-           android:gravity="center_vertical"
-           android:background="@color/white"
-           android:orientation="horizontal">
-           <!--搜索栏-->
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <!--搜索栏-->
 
-           <LinearLayout
-               android:id="@+id/leftIcon"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/leftIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-               <ImageView
-                   android:id="@+id/back"
-                   android:layout_width="32dp"
-                   android:layout_height="48dp"
-                   android:padding="10dp"
-                   android:src="@mipmap/back"
-                   android:visibility="gone" />
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="32dp"
+                android:layout_height="48dp"
+                android:padding="10dp"
+                android:src="@mipmap/back"
+                android:visibility="gone" />
 
-               <ImageView
-                   android:id="@+id/user_center_icon"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:padding="12dp"
-                   android:src="@mipmap/people_icon" />
-           </LinearLayout>
+            <ImageView
+                android:id="@+id/user_center_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:src="@mipmap/people_icon" />
+        </LinearLayout>
 
 
-           <ImageView
-               android:id="@+id/messenger_icon"
-               android:layout_width="41dp"
-               android:layout_height="42dp"
-               android:layout_centerVertical="true"
-               android:layout_alignParentRight="true"
-               android:padding="12dp"
-               android:src="@mipmap/add" />
+        <ImageView
+            android:id="@+id/messenger_icon"
+            android:layout_width="41dp"
+            android:layout_height="42dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:padding="12dp"
+            android:src="@mipmap/add" />
 
-           <RelativeLayout
-               android:id="@+id/search_lay"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:layout_margin="10dp"
-               android:layout_toLeftOf="@id/messenger_icon"
-               android:layout_toRightOf="@id/leftIcon"
-               >
+        <RelativeLayout
+            android:background="@drawable/grey_shape"
+            android:id="@+id/search_lay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_toLeftOf="@id/messenger_icon"
+            android:layout_toRightOf="@id/leftIcon"
+            >
 
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_centerInParent="true"
-                   android:drawableLeft="@mipmap/search__small_icon"
-                   android:drawablePadding="10dp"
-                   android:text="搜索您想要的"
-                   android:textColor="@color/gray_99"
-                   android:textSize="12sp" />
-           </RelativeLayout>
-       </RelativeLayout>
-       <LinearLayout
-           android:id="@+id/ll_item1"
-           android:background="@color/white"
-           android:gravity="center_vertical"
-           android:padding="15dp"
-           android:layout_width="match_parent"
-           android:layout_height="60dp">
-           <ImageView
-               android:padding="5dp"
-               android:scaleType="fitXY"
-               android:src="@mipmap/ic_contacts"
-               android:layout_width="40dp"
-               android:layout_height="40dp" />
-           <TextView
-               android:textSize="16sp"
-               android:layout_marginLeft="15dp"
-               android:textColor="@color/black_33"
-               android:text="通讯录"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" />
-       </LinearLayout>
-       <View
-           android:alpha="0.6"
-           android:layout_marginLeft="20dp"
-           android:layout_marginRight="20dp"
-           android:background="#e2e2e2"
-           android:layout_width="match_parent"
-           android:layout_height="0.5dp"></View>
-       <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@mipmap/search__small_icon"
+                android:drawablePadding="10dp"
+                android:text="搜索您想要的"
+                android:textColor="@color/gray_99"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <com.cheyibao.model.ReboundScrollView
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-           android:id="@+id/ll_item2"
-           android:background="@color/white"
-           android:gravity="center_vertical"
-           android:padding="15dp"
-           android:layout_width="match_parent"
-           android:layout_height="60dp">
-           <ImageView
-               android:padding="5dp"
-               android:scaleType="fitXY"
-               android:src="@mipmap/ic_addfriend"
-               android:layout_width="40dp"
-               android:layout_height="40dp" />
-           <TextView
-               android:textSize="16sp"
-               android:layout_marginLeft="15dp"
-               android:textColor="@color/black_33"
-               android:text="新加好友"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" />
-       </LinearLayout>
-       <LinearLayout
-           android:id="@+id/ll_item3"
-           android:layout_marginTop="5dp"
-           android:background="@color/white"
-           android:gravity="center_vertical"
-           android:padding="15dp"
-           android:layout_width="match_parent"
-           android:layout_height="60dp">
-           <ImageView
-               android:padding="5dp"
-               android:scaleType="fitXY"
-               android:src="@mipmap/ic_friendcircle"
-               android:layout_width="40dp"
-               android:layout_height="40dp" />
-           <TextView
-               android:textSize="16sp"
-               android:layout_marginLeft="15dp"
-               android:textColor="@color/black_33"
-               android:text="好友圈"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" />
-       </LinearLayout>
+            <LinearLayout
+
+                android:id="@+id/ll_item1"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+                <ImageView
+                    android:padding="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_contacts"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
+                <TextView
+                    android:textSize="16sp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black_33"
+                    android:text="通讯录"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:alpha="0.6"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#e2e2e2"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"></View>
+            <LinearLayout
+
+                android:id="@+id/ll_item2"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+                <ImageView
+                    android:padding="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_addfriend"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
+                <TextView
+                    android:textSize="16sp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black_33"
+                    android:text="新加好友"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_item3"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+                <ImageView
+                    android:padding="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_friendcircle"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
+                <TextView
+                    android:textSize="16sp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black_33"
+                    android:text="好友圈"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
 
 
-       <LinearLayout
-           android:id="@+id/ll_item4"
-           android:layout_width="match_parent"
-           android:layout_height="60dp"
-           android:layout_marginTop="5dp"
-           android:background="@color/white"
-           android:gravity="center_vertical"
-           android:padding="15dp">
+            <LinearLayout
+                android:id="@+id/ll_item4"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp">
 
-           <ImageView
-               android:layout_width="40dp"
-               android:layout_height="40dp"
-               android:padding="5dp"
-               android:scaleType="fitXY"
-               android:src="@mipmap/ic_group" />
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_group" />
 
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginLeft="15dp"
-               android:text="群聊"
-               android:textColor="@color/black_33"
-               android:textSize="16sp" />
-       </LinearLayout>
-       <View
-           android:alpha="0.6"
-           android:layout_marginLeft="20dp"
-           android:layout_marginRight="20dp"
-           android:background="#e2e2e2"
-           android:layout_width="match_parent"
-           android:layout_height="0.5dp"></View>
-       <LinearLayout
-           android:id="@+id/ll_item5"
-           android:background="@color/white"
-           android:gravity="center_vertical"
-           android:padding="15dp"
-           android:layout_width="match_parent"
-           android:layout_height="60dp">
-           <ImageView
-               android:padding="5dp"
-               android:scaleType="fitXY"
-               android:src="@mipmap/ic_tags"
-               android:layout_width="40dp"
-               android:layout_height="40dp" />
-           <TextView
-               android:textSize="16sp"
-               android:layout_marginLeft="15dp"
-               android:textColor="@color/black_33"
-               android:text="标签"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" />
-       </LinearLayout>
-       <LinearLayout
-           android:visibility="gone"
-           android:id="@+id/ll_item6"
-           android:layout_marginTop="5dp"
-           android:background="@color/white"
-           android:gravity="center_vertical"
-           android:padding="15dp"
-           android:layout_width="match_parent"
-           android:layout_height="60dp">
-           <ImageView
-               android:padding="5dp"
-               android:scaleType="fitXY"
-               android:src="@mipmap/ic_star"
-               android:layout_width="40dp"
-               android:layout_height="40dp" />
-           <TextView
-               android:textSize="16sp"
-               android:layout_marginLeft="15dp"
-               android:textColor="@color/black_33"
-               android:text="星标好友"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" />
-       </LinearLayout>
-       <LinearLayout
-           android:id="@+id/ll_item7"
-           android:layout_marginTop="5dp"
-           android:background="@color/white"
-           android:gravity="center_vertical"
-           android:padding="15dp"
-           android:layout_width="match_parent"
-           android:layout_height="60dp">
-           <ImageView
-               android:padding="5dp"
-               android:scaleType="fitXY"
-               android:src="@mipmap/ic_self"
-               android:layout_width="40dp"
-               android:layout_height="40dp" />
-           <TextView
-               android:textSize="16sp"
-               android:layout_marginLeft="15dp"
-               android:textColor="@color/black_33"
-               android:text="自驾游"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" />
-       </LinearLayout>
-       <View
-           android:alpha="0.6"
-           android:layout_marginLeft="20dp"
-           android:layout_marginRight="20dp"
-           android:background="#e2e2e2"
-           android:layout_width="match_parent"
-           android:layout_height="0.5dp"></View>
-       <LinearLayout
-           android:id="@+id/ll_item8"
-           android:background="@color/white"
-           android:gravity="center_vertical"
-           android:padding="15dp"
-           android:layout_width="match_parent"
-           android:layout_height="60dp">
-           <ImageView
-               android:padding="5dp"
-               android:scaleType="fitXY"
-               android:src="@mipmap/ic_car"
-               android:layout_width="40dp"
-               android:layout_height="40dp" />
-           <TextView
-               android:textSize="16sp"
-               android:layout_marginLeft="15dp"
-               android:textColor="@color/black_33"
-               android:text="车友汇"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" />
-       </LinearLayout>
-       <RelativeLayout
-           android:paddingBottom="5dp"
-           android:paddingTop="5dp"
-           android:layout_marginBottom="3dp"
-           android:layout_marginTop="5dp"
-           android:id="@+id/rl_stranger"
-           android:background="@color/white"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content">
-           <ImageView
-               android:id="@+id/msg"
-               android:layout_marginLeft="15dp"
-               android:layout_centerVertical="true"
-               android:src="@mipmap/msg"
-               android:layout_width="40dp"
-               android:layout_height="40dp" />
-           <TextView
-               android:layout_marginLeft="15dp"
-               android:layout_toRightOf="@+id/msg"
-               android:textColor="@color/black_33"
-               android:layout_centerInParent="true"
-               android:textSize="14sp"
-               android:text="陌生人消息"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="群聊"
+                    android:textColor="@color/black_33"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <View
+                android:alpha="0.6"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#e2e2e2"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"></View>
+            <LinearLayout
+                android:id="@+id/ll_item5"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+                <ImageView
+                    android:padding="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_tags"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
+                <TextView
+                    android:textSize="16sp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black_33"
+                    android:text="标签"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_item6"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+                <ImageView
+                    android:padding="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_star"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
+                <TextView
+                    android:textSize="16sp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black_33"
+                    android:text="星标好友"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_item7"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+                <ImageView
+                    android:padding="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_self"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
+                <TextView
+                    android:textSize="16sp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black_33"
+                    android:text="自驾游"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:alpha="0.6"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#e2e2e2"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"></View>
+            <LinearLayout
+                android:id="@+id/ll_item8"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+                <ImageView
+                    android:padding="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_car"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
+                <TextView
+                    android:textSize="16sp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black_33"
+                    android:text="车友汇"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <RelativeLayout
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/rl_stranger"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:padding="5dp"
+                    android:id="@+id/msg"
+                    android:layout_marginLeft="15dp"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/msg"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/msg"
+                    android:textColor="@color/black_33"
+                    android:layout_centerInParent="true"
+                    android:textSize="14sp"
+                    android:text="聊天消息"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-           <ImageView
-               android:src="@mipmap/arrow_right"
-               android:id="@+id/enter"
-               android:layout_marginRight="10dp"
-               android:layout_alignParentRight="true"
-               android:layout_centerVertical="true"
-               android:layout_width="8dp"
-               android:layout_height="15dp" />
-       </RelativeLayout>
-   </LinearLayout>
+                <ImageView
+                    android:src="@mipmap/arrow_right"
+                    android:id="@+id/enter"
+                    android:layout_marginRight="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="8dp"
+                    android:layout_height="15dp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </com.cheyibao.model.ReboundScrollView>
 
-</android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.rongcloud.activity.contact;
 
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +25,9 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.rongcloud.activity.AddFriendDetailActivity;
 import com.rongcloud.sidebar.ContactModel;
+import com.zyyoona7.popup.EasyPopup;
+import com.zyyoona7.popup.XGravity;
+import com.zyyoona7.popup.YGravity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.rong.callkit.RongCallKit;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
 public class FriendDetailActivity extends AppCompatActivity {
     ContactModel mContactModel;
@@ -65,33 +70,50 @@ public class FriendDetailActivity extends AppCompatActivity {
     }
 
     private void initWindow(View view) {
-        final PopupWindow popupWindow = new PopupWindow(this);
-        popupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-        View v = LayoutInflater.from(this).inflate(R.layout.dialog_group, null);
-        popupWindow.setContentView(v);
-        TextView content = (TextView) v.findViewById(R.id.content);
-        content.setText("删除好友");
-        LinearLayout ll_shaoma = (LinearLayout) v.findViewById(R.id.ll_shaoma);
-
+        EasyPopup mCirclePop = EasyPopup.create()
+                .setContentView(this, R.layout.dialog_friend_detail)
+                //是否允许点击PopupWindow之外的地方消失
+                .setFocusAndOutsideEnable(true)
+                //允许背景变暗
+                .setBackgroundDimEnable(true)
+                //变暗的透明度(0-1)，0为完全透明
+                .setDimValue(0.4f)
+                //变暗的背景颜色
+                .setDimColor(Color.BLACK)
+                .apply();
+        LinearLayout ll_shaoma = (LinearLayout) mCirclePop.findViewById(R.id.ll_shaoma);
+        LinearLayout ll_delete = (LinearLayout) mCirclePop.findViewById(R.id.ll_delete);
         ll_shaoma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // initWindow(rl_top);
-                deleteFriend(popupWindow);
+                mCirclePop.dismiss();
+                addToBlack(mContactModel.getUserId());
+            }
+        });
+        ll_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCirclePop.dismiss();
+                deleteFriend();
+            }
+        });
+        mCirclePop.showAtAnchorView(view, YGravity.BELOW,XGravity.ALIGN_RIGHT,0,0);
+    }
+    private void addToBlack(String userId){
+        RongIM.getInstance().addToBlacklist(userId, new RongIMClient.OperationCallback() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(FriendDetailActivity.this, "拉黑成功", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                Toast.makeText(FriendDetailActivity.this, "拉黑失败", Toast.LENGTH_SHORT).show();
             }
         });
 
-
-        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
-        popupWindow.setOutsideTouchable(false);
-        popupWindow.setFocusable(true);
-        popupWindow.showAsDropDown(view);
-
-
     }
-
-    private void deleteFriend(final PopupWindow popupWindow) {
+    private void deleteFriend() {
 
         Map<String, Object> params = new HashMap<>();
         params.put("friendId", mContactModel.getUserId());
@@ -100,7 +122,7 @@ public class FriendDetailActivity extends AppCompatActivity {
         HttpProxy.obtain().post(PlatformContans.Chat.deleteMyFriend, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                popupWindow.dismiss();
+
                 Log.e("delete", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -150,7 +172,7 @@ public class FriendDetailActivity extends AppCompatActivity {
         rl_top.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initWindow(v);
+                initWindow(rl_top);
             }
         });
         tv_video.setOnClickListener(new View.OnClickListener() {

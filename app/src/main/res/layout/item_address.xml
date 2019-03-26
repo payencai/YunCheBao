@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    >
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/two_line_bg"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="吴彦祖"
+                android:textColor="@color/black_33"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_alignParentRight="true"
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="13202908144"
+                android:textColor="@color/black_33"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:ellipsize="end"
+            android:textColor="@color/black_23"
+            android:maxLines="1"
+            android:text="云南省昆明市西山区前卫西路世纪半岛橄榄谷7栋7-6号" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/gray_ee"></View>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            >
+
+            <LinearLayout
+                android:id="@+id/ll_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp">
+
+                <CheckBox
+                    android:id="@+id/de_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/selector_checkbox"
+                    android:checked="false"
+                    android:clickable="false"
+                    android:focusable="false" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="设为默认" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_delete"
+                android:gravity="center_vertical"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:src="@mipmap/recycling"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp" />
+                <TextView
+                    android:id="@+id/deleteLay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:text="删除"
+                    android:textColor="@color/black_33"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginRight="10dp"
+                android:id="@+id/ll_edit"
+                android:gravity="center_vertical"
+                android:layout_toLeftOf="@+id/ll_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:src="@mipmap/edit"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:text="编辑"
+                    android:textColor="@color/black_33"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

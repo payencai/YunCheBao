@@ -48,23 +48,23 @@ public class StrangerFragment extends ConversationListFragment {
     }
 
 
-    @Override
-    public boolean shouldFilterConversation(Conversation.ConversationType type, String targetId) {
-
-        List<MyFriend> myFriends = LitePal.findAll(MyFriend.class);
-        boolean isExits=false;
-        if(type == Conversation.ConversationType.PRIVATE){
-            for (int i = 0; i <myFriends.size() ; i++) {
-                if(myFriends.get(i).getUserId().equals(targetId)){
-                    Log.v("userid",myFriends.get(i).getMyid()+"---"+targetId);
-                    isExits=true;
-                    break;
-                }
-            }
-        }
-        Log.v("userid",""+isExits);
-        return isExits;
-    }
+//    @Override
+//    public boolean shouldFilterConversation(Conversation.ConversationType type, String targetId) {
+//
+//        List<MyFriend> myFriends = LitePal.findAll(MyFriend.class);
+//        boolean isExits=false;
+//        if(type == Conversation.ConversationType.PRIVATE){
+//            for (int i = 0; i <myFriends.size() ; i++) {
+//                if(myFriends.get(i).getUserId().equals(targetId)){
+//                    Log.v("userid",myFriends.get(i).getMyid()+"---"+targetId);
+//                    isExits=true;
+//                    break;
+//                }
+//            }
+//        }
+//        Log.v("userid",""+isExits);
+//        return isExits;
+//    }
 
       @Override
     protected void initFragment(Uri uri) {

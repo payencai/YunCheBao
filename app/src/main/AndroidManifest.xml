@@ -471,7 +471,8 @@
         <activity android:name="com.vipcenter.RentOrderDetailActivity" />
         <activity android:name="com.vipcenter.ShoolOrderDetailActivity" />
         <activity android:name="com.vipcenter.WashOrderDetailActivity" />
-        <activity android:name="com.vipcenter.OrderCommentsActivity"></activity>
+        <activity android:name="com.vipcenter.OrderCommentsActivity" />
+        <activity android:name="com.vipcenter.ManaAddressActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:orientation="vertical"
+    android:padding="15dp"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/ll_shaoma"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/ic_black_menu"
+            android:layout_width="18dp"
+            android:layout_height="18dp" />
+        <TextView
+            android:id="@+id/content"
+            android:layout_gravity="center_vertical"
+            android:textSize="14sp"
+            android:textColor="@color/black_33"
+            android:layout_marginLeft="10dp"
+            android:text="拉入黑名单"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_delete"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/ic_black_delete"
+            android:layout_width="18dp"
+            android:layout_height="18dp" />
+        <TextView
+            android:id="@+id/delete"
+            android:layout_gravity="center_vertical"
+            android:textSize="14sp"
+            android:textColor="@color/black_33"
+            android:layout_marginLeft="10dp"
+            android:text="删除好友"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

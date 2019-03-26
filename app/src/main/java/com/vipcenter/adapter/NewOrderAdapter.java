@@ -21,7 +21,7 @@ import java.util.List;
  * 邮箱：771548229@qq..com
  */
 public class NewOrderAdapter extends BaseQuickAdapter<PhoneOrderEntity, BaseViewHolder> {
-    List<String> images = new ArrayList<>();
+
     GoodsOrderImageAdapter goodsOrderImageAdapter;
 
     public NewOrderAdapter(int layoutResId, @Nullable List<PhoneOrderEntity> data) {
@@ -38,7 +38,7 @@ public class NewOrderAdapter extends BaseQuickAdapter<PhoneOrderEntity, BaseView
                 .addOnClickListener(R.id.shouhuo)
                 .addOnClickListener(R.id.shouhou)
                 .addOnClickListener(R.id.delete)
-               .addOnClickListener(R.id.pingjia).addOnClickListener(R.id.st_see);
+               .addOnClickListener(R.id.pingjia).addOnClickListener(R.id.st_see).addOnClickListener(R.id.tixing);
         TextView shopName = (TextView) helper.getView(R.id.shopName);
         HorizontalListView hl_good = (HorizontalListView) helper.getView(R.id.hl_good);
         TextView orderStatus = (TextView) helper.getView(R.id.statusName);
@@ -59,7 +59,8 @@ public class NewOrderAdapter extends BaseQuickAdapter<PhoneOrderEntity, BaseView
         totalNum.setText("共" + item.getNumber() + "件商品  需付款：");
         totalPrice.setText("￥" + item.getTotal());
         shopName.setText(item.getShopName());
-        images.clear();
+
+        List<String> images = new ArrayList<>();
         for (int i = 0; i < item.getItemList().size(); i++) {
             images.add(item.getItemList().get(i).getCommodityImage());
         }

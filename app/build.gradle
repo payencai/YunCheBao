@@ -148,4 +148,6 @@ dependencies {
     //1.1.0 API改动过大，老用户升级需谨慎
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-21'
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-21'//没有使用特殊Header，可以不加这行
+    //popupwindow 背景变暗
+    compile 'com.github.zyyoona7:EasyPopup:1.1.2'
 }

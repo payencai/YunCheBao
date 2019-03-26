@@ -125,13 +125,16 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 PhoneOrderEntity phoneOrderEntity = (PhoneOrderEntity) adapter.getItem(position);
+                String userId = phoneOrderEntity.getUserId();
                 Intent intent;
                 switch (view.getId()) {
+                    case R.id.tixing:
+                        RongIM.getInstance().startPrivateChat(getContext(), userId, phoneOrderEntity.getShopName());
+                        break;
                     case R.id.delete:
                         deleteOrder(phoneOrderEntity.getId());
                         break;
                     case R.id.lianxi://联系卖家
-                        String userId = phoneOrderEntity.getUserId();
                         RongIM.getInstance().startPrivateChat(getContext(), userId, phoneOrderEntity.getShopName());
                         break;
                     case R.id.quxiao://取消订单
@@ -287,79 +290,7 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
         window.setAttributes(layoutParams);
     }
 
-    //adapter中按钮点击事件
-//    public void onShortcutMenuClickListener(Integer t, Integer loc) {
-//        int location = loc.intValue();
-//        Intent intent;
-//        switch (t) {
-//            case 0://详情
-//                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-//                intent.putExtra("data", list.get(location));
-//                startActivity(intent);
-//                // ActivityAnimationUtils.commonTransition(getActivity(), OrderDetailActivity.class, ActivityConstans.Animation.FADE);
-//                break;
-//            case 1://联系
-////                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-////                intent.putExtra("data", list.get(location));
-////                startActivity(intent);
-//                String userId = list.get(location).getUserId();
-//                RongIM.getInstance().startPrivateChat(getContext(),userId, list.get(location).getShopName());
-//                //ActivityAnimationUtils.commonTransition(getActivity(), OrderChatDetailActivity.class, ActivityConstans.Animation.FADE);
-//                break;
-//            case 2://取消
-//                showCancelDialog();
-////                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-////                intent.putExtra("data", list.get(location));
-////                startActivity(intent);
-//                //alertCancelPanel(getActivity());
-//                break;
-//            case 3://付款
-//                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-//                intent.putExtra("data", list.get(location));
-//                startActivity(intent);
-//                //  initDialog();
-//                break;
-//            case 4://申请退货
-//                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-//                intent.putExtra("data", list.get(location));
-//                startActivity(intent);
-//                //ActivityAnimationUtils.commonTransition(getActivity(), OrderReturnTypeActivity.class, ActivityConstans.Animation.FADE);
-//                break;
-//            case 5://提醒
-//                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-//                intent.putExtra("data", list.get(location));
-//                startActivity(intent);
-//                //alert5Sweet();
-//                break;
-//            case 6://延长收货
-//                alert6Sweet();
-//                break;
-//            case 7://物流
-//                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-//                intent.putExtra("data", list.get(location));
-//                startActivity(intent);
-//                //ActivityAnimationUtils.commonTransition(getActivity(), CheckLogisticsActivity.class, ActivityConstans.Animation.FADE);
-//                break;
-//            case 8://确认收货
-//                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-//                intent.putExtra("data", list.get(location));
-//                startActivity(intent);
-//                //alert8Sweet();
-//                break;
-//            case 9://再来一单
-////                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-////                intent.putExtra("data", list.get(location));
-////                startActivity(intent);
-//                //ActivityAnimationUtils.commonTransition(getActivity(), OrderConfirmActivity.class, ActivityConstans.Animation.FADE);
-//                break;
-//            case 10://评价
-//                intent = new Intent(getContext(), GoodsOrderDetailActivity.class);
-//                intent.putExtra("data", list.get(location));
-//                startActivity(intent);
-//                //ActivityAnimationUtils.commonTransition(getActivity(), OrderCommentSubmitActivity.class, ActivityConstans.Animation.FADE);
-//                break;
-//        }
-//    }
+
     private void deleteOrder(String id) {
         Map<String, Object> params = new HashMap<>();
         params.put("orderId", id);
@@ -368,6 +299,7 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
             public void OnSuccess(String result) {
                 Log.e("reuslt", result);
                 ToastUtil.showToast(getContext(), "删除成功");
+                refresh();
             }
 
             @Override
@@ -430,6 +362,13 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
     }
 
 
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        refresh();
+    }
     private void payByWechat(String data) {
         Map<String, Object> params = new HashMap<>();
         params.put("orderId", data);
@@ -456,13 +395,6 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
             }
         });
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        refresh();
-    }
-
     private void startWechatPay(WechatRes payReponse) {
         PayReq req = new PayReq(); //调起微信APP的对象
         req.appId = payReponse.getAppid();

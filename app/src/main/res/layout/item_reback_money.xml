@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:background="#e2e2e2"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:scaleType="fitXY"
+            android:src="@mipmap/pic1"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_name"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="哈哈哈哈官方"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="￥123"
+                android:textColor="@color/red_4e"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_cause"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="退款原因：低调低调"
+        android:textColor="@color/gray_99"
+        android:textSize="12sp" />
+    <TextView
+        android:id="@+id/tv_refusemoney"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="退款金额：￥900"
+        android:textColor="@color/gray_99"
+        android:textSize="12sp" />
+    <TextView
+        android:id="@+id/tv_refusetime"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="申请时间：2018-01-21"
+        android:textColor="@color/gray_99"
+        android:textSize="12sp" />
+</LinearLayout>

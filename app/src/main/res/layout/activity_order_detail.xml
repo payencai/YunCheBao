@@ -213,16 +213,7 @@
                             fresco:stroke_color="@color/gray_e2"
                             fresco:stroke_width="1dp" />
 
-                        <com.coorchice.library.SuperTextView
-                            android:id="@+id/tv_tishi"
-                            android:visibility="gone"
-                            style="@style/order_bottom_super_btn_4"
-                            android:text="提醒发货"
-                            android:textColor="@color/gray_66"
-                            fresco:corner="4dp"
-                            fresco:solid="@color/white"
-                            fresco:stroke_color="@color/gray_e2"
-                            fresco:stroke_width="1dp" />
+
 
                         <com.coorchice.library.SuperTextView
                             android:id="@+id/tv_lianxi"
