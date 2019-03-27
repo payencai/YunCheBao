@@ -59,6 +59,7 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/et_shop_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
@@ -77,6 +78,7 @@
                     android:background="@color/gray_e6" />
 
                 <LinearLayout
+                    android:id="@+id/ll_shop_type"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
@@ -90,11 +92,12 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_shop_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
-                        android:text="救援店铺"
+                        android:text=""
                         android:textColor="@color/gray_29"
                         android:textSize="14sp" />
 
@@ -112,6 +115,7 @@
                     android:background="@color/gray_e6" />
 
                 <LinearLayout
+                    android:id="@+id/ll_shop_address"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
@@ -125,6 +129,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_shop_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -160,12 +165,15 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/et_shop_address_detail"
                         android:layout_width="wrap_content"
-                        android:layout_height="150dp"
+                        android:layout_height="wrap_content"
+                        android:minLines="5"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_weight="1"
                         android:background="@null"
                         android:gravity="start"
+                        android:lineSpacingExtra="3dp"
                         android:hint="详细描述地址"
                         android:textColor="@color/gray_29"
                         android:textColorHint="@color/gray_c7"
@@ -201,13 +209,14 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/et_leader_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_weight="1"
                         android:background="@null"
                         android:gravity="right"
-                        android:hint="请输入负责人名称"
+                        android:hint="请输入负责人名字"
                         android:textColor="@color/gray_99"
                         android:textColorHint="@color/gray_c7"
                         android:textSize="14sp" />
@@ -233,6 +242,7 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/et_leader_tell"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
@@ -240,6 +250,8 @@
                         android:background="@null"
                         android:gravity="right"
                         android:hint="请输入负责人手机"
+                        android:inputType="phone"
+                        android:maxLength="11"
                         android:textColor="@color/gray_99"
                         android:textColorHint="@color/gray_c7"
                         android:textSize="14sp" />
@@ -265,6 +277,7 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/et_shop_tell"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
@@ -272,6 +285,7 @@
                         android:background="@null"
                         android:gravity="right"
                         android:hint="请输入商家电话"
+                        android:inputType="phone"
                         android:textColor="@color/gray_99"
                         android:textColorHint="@color/gray_c7"
                         android:textSize="14sp" />
@@ -297,6 +311,7 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/admin_account"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
@@ -325,6 +340,7 @@
                     android:textSize="12sp" />
 
                 <LinearLayout
+                    android:id="@+id/ll_brand"
                     android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -339,6 +355,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_brand"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -394,7 +411,7 @@
 
 
                         <ImageView
-                            android:id="@+id/iv_id1"
+                            android:id="@+id/iv_idcard_front"
                             android:layout_width="0dp"
                             android:layout_height="140dp"
                             android:layout_weight="1"
@@ -402,7 +419,7 @@
                             android:src="@mipmap/idcard2" />
 
                         <ImageView
-                            android:id="@+id/iv_id2"
+                            android:id="@+id/iv_idcard_back"
                             android:layout_width="0dp"
                             android:layout_height="140dp"
                             android:layout_marginLeft="15dp"
@@ -569,7 +586,7 @@
                         android:layout_marginTop="30dp"
                         android:layout_marginBottom="60dp"
                         android:layout_gravity="center"
-                        android:id="@+id/iv_id"
+                        android:id="@+id/iv_business_license"
                         android:layout_width="300dp"
                         android:layout_height="300dp"
                         android:layout_weight="1"
@@ -578,6 +595,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_inviter"
                     android:background="@color/white"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
@@ -595,6 +613,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_inviter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
