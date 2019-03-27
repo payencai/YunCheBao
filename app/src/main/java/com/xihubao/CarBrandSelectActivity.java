@@ -106,6 +106,7 @@ public class CarBrandSelectActivity extends AppCompatActivity {
                 name=mCarBrands.get(position).getName();
                 Intent intent = new Intent(CarBrandSelectActivity.this, CarSecondBrandActivity.class);
                 intent.putExtra("id", mCarBrands.get(position).getId());
+                intent.putExtra("logo", mCarBrands.get(position).getImage());
                 startActivityForResult(intent,1);
                 //setResult(1, intent);
                 //finish();

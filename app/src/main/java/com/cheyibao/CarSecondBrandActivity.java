@@ -43,11 +43,13 @@ public class CarSecondBrandActivity extends AppCompatActivity {
     List<CarBrand> mCarBrands = new ArrayList<>();
     String id;
     String name;
+    String logo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_second_brand);
         id = getIntent().getStringExtra("id");
+        logo=getIntent().getStringExtra("logo");
         initView();
     }
     private void getFourData(CarBrand carBrand) {
@@ -75,6 +77,7 @@ public class CarSecondBrandActivity extends AppCompatActivity {
                     Intent intent = new Intent();
                     String value=name+" "+carBrand.getName();
                     intent.putExtra("name", value);
+                    intent.putExtra("logo", logo);
                     intent.putExtra("id1",id1);
                     intent.putExtra("id2",id2);
                     intent.putExtra("id3",id3);
@@ -218,6 +221,7 @@ public class CarSecondBrandActivity extends AppCompatActivity {
                         intent.putExtra("id2",id2);
                         intent.putExtra("id3",id3);
                         intent.putExtra("id",detailId);
+                        intent.putExtra("logo", logo);
                         setResult(1, intent);
                         finish();
                     } else {

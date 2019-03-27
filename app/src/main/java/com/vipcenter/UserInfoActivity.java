@@ -491,7 +491,7 @@ public class UserInfoActivity extends NoHttpBaseActivity {
                 ActivityAnimationUtils.commonTransition(UserInfoActivity.this, MyPhoneActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.rl_mycar:
-                ActivityAnimationUtils.commonTransition(UserInfoActivity.this, MycarActivity.class, ActivityConstans.Animation.FADE);
+                ActivityAnimationUtils.commonTransition(UserInfoActivity.this, MyCarListActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.rl_code:
                 startActivity(new Intent(UserInfoActivity.this, MyQrcodeActivity.class));

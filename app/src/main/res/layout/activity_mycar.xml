@@ -26,133 +26,186 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
-    <LinearLayout
-        android:background="@color/white"
-        android:orientation="vertical"
+    <com.cheyibao.model.ReboundScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:layout_margin="15dp"
-            android:textColor="@color/black_33"
-            android:text="基本信息"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_margin="15dp"
-            android:textColor="@color/gray_99"
-            android:text="车型"
-            android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <RelativeLayout
-            android:id="@+id/rl_cartype"
-            android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/tv_cartype"
-                android:textSize="14sp"
-                android:layout_centerVertical="true"
-                android:textColor="@color/black_33"
-                android:layout_marginLeft="5dp"
-                android:text="请选择车型"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <ImageView
-
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:src="@mipmap/enter"
-                android:layout_width="10dp"
-                android:layout_height="10dp" />
-        </RelativeLayout>
-        <TextView
-            android:layout_margin="15dp"
-            android:textColor="@color/gray_99"
-            android:text="车牌号"
-            android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
         <LinearLayout
-            android:padding="10dp"
+            android:layout_marginTop="1dp"
+
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/tv_number"
-                android:drawablePadding="5dp"
-                android:layout_marginLeft="5dp"
-                android:text="粤A"
-                android:textColor="@color/black_33"
-                android:textSize="14sp"
-                android:drawableRight="@mipmap/arrow_down"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <EditText
-                android:textColorHint="#ccc"
-                android:id="@+id/et_number"
-                android:layout_marginLeft="10dp"
-                android:textSize="14sp"
-                android:hint="请输入车牌号"
+            android:layout_height="match_parent">
+            <LinearLayout
                 android:background="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_margin="15dp"
+                    android:textColor="@color/black_33"
+                    android:text="基本信息"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <View
+                    android:background="#f3f3f3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"></View>
+                <TextView
+                    android:layout_margin="15dp"
+                    android:textColor="@color/gray_99"
+                    android:text="车型"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <RelativeLayout
+                    android:background="@color/white"
+                    android:id="@+id/rl_cartype"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_cartype"
+                        android:textSize="14sp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/black_33"
+                        android:layout_marginLeft="5dp"
+                        android:text="请选择车型"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/enter"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp" />
+                </RelativeLayout>
+                <View
+                    android:background="#f3f3f3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"></View>
+                <TextView
+                    android:layout_margin="15dp"
+                    android:textColor="@color/gray_99"
+                    android:text="车牌号"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_number"
+                        android:drawablePadding="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:text="粤A"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp"
+                        android:drawableRight="@mipmap/arrow_down"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:textColorHint="#ccc"
+                        android:id="@+id/et_number"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="14sp"
+                        android:hint="请输入车牌号"
+                        android:background="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:background="@color/white"
+
+                    android:paddingLeft="15dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black_33"
+                    android:text="行驶证"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+                <View
+                    android:background="#f3f3f3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"></View>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="请拍摄并上传你的身份证照片"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <ImageView
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:id="@+id/iv_id1"
+                            android:scaleType="fitXY"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="100dp"
+                            android:src="@mipmap/idcard2" />
+
+                        <ImageView
+                            android:layout_marginRight="20dp"
+                            android:scaleType="fitXY"
+                            android:id="@+id/iv_id2"
+                            android:layout_marginLeft="20dp"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:src="@mipmap/idcard1" />
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_submit"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:text="认证"
+                    android:layout_margin="30dp"
+
+                    android:background="@color/yellow_02"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+
+
         </LinearLayout>
-        <TextView
-            android:layout_margin="15dp"
-            android:textColor="@color/black_33"
-            android:text="行驶证"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_margin="15dp"
-            android:textColor="@color/gray_99"
-            android:text="姓名"
-            android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    </com.cheyibao.model.ReboundScrollView>
 
-        <EditText
-            android:id="@+id/et_name"
-            android:textColorHint="#ccc"
-            android:textColor="@color/black_33"
-            android:layout_marginLeft="15dp"
-            android:textSize="14sp"
-            android:hint="请输入姓名"
-            android:background="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_margin="15dp"
-            android:textColor="@color/gray_99"
-            android:text="档案编号"
-            android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            android:layout_marginBottom="15dp"
-            android:id="@+id/et_bianhao"
-            android:textColorHint="#ccc"
-            android:textColor="@color/black_33"
-            android:layout_marginLeft="15dp"
-            android:textSize="14sp"
-            android:hint="请输入档案编号"
-            android:background="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tv_submit"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:text="认证"
-            android:layout_margin="15dp"
-            android:layout_marginTop="30dp"
-            android:background="@color/yellow_02"
-            android:layout_width="match_parent"
-            android:layout_height="45dp" />
-    </LinearLayout>
 </LinearLayout>

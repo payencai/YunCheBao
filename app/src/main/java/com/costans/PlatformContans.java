@@ -188,6 +188,12 @@ public class PlatformContans {
         public static final String getSplash=root+ "/common/getPicture";
         public static final String adddrivingLicense=root+ "/drivingLicense/adddrivingLicense";
     }
+    public static class DrivingLicense{
+        public static final String deleteMyCar=root + "/drivingLicense/deleteMyCar";
+        public static final String editByUser=root +  "/drivingLicense/editByUser";
+        public static final String getApplicationByUserId=root + "/drivingLicense/getApplicationByUserId";
+        public static final String updateCarToIsDefault=root +  "/drivingLicense/updateCarToIsDefault";
+    }
     public static class FourShop{
         public static final String getFourShopListByApp=root + "/fourShop/getFourShopListByApp";
         public static final String addFourShopOrder=root +  "/fourShop/addFourShopOrder";

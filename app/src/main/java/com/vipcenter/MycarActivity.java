@@ -2,6 +2,7 @@ package com.vipcenter;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.application.MyApplication;
+import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
@@ -28,16 +30,31 @@ import com.wx.wheelview.adapter.ArrayWheelAdapter;
 import com.wx.wheelview.widget.WheelView;
 import com.xihubao.CarBrandSelectActivity;
 import com.xihubao.Shop4SInfoActivity;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.engine.impl.GlideEngine;
+import com.zhihu.matisse.engine.impl.PicassoEngine;
+import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class MycarActivity extends AppCompatActivity {
     @BindView(R.id.tv_number)
@@ -46,10 +63,11 @@ public class MycarActivity extends AppCompatActivity {
     RelativeLayout rl_cartype;
     @BindView(R.id.tv_cartype)
     TextView tv_cartype;
-    @BindView(R.id.et_bianhao)
-    EditText et_bianhao;
-    @BindView(R.id.et_name)
-    EditText et_name;
+
+    @BindView(R.id.iv_id1)
+    ImageView iv_id1;
+    @BindView(R.id.iv_id2)
+    ImageView iv_id2;
     @BindView(R.id.et_number)
     EditText et_number;
     @BindView(R.id.tv_submit)
@@ -57,7 +75,10 @@ public class MycarActivity extends AppCompatActivity {
     @BindView(R.id.back)
     ImageView back;
     String carNumber;
-
+    String drivingBackImg;
+    String drivingPositiveImg;
+    String carLogo;
+    int flag=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,12 +94,56 @@ public class MycarActivity extends AppCompatActivity {
             switch (requestCode) {
                 case 1:
                     String brand = data.getExtras().getString("name");
+                    carLogo=data.getExtras().getString("logo");
                     tv_cartype.setText(brand);
                     break;
 
             }
         }
 
+    }
+
+    public void upImage(String url, File file) {
+        OkHttpClient mOkHttpClent = new OkHttpClient();
+
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("image", "image",
+                        RequestBody.create(MediaType.parse("image/png"), file));
+        RequestBody requestBody = builder.build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+        Call call = mOkHttpClent.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("upload", "onResponse: " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String string = response.body().string();
+                Log.e("upload", "onResponse: " + string);
+                try {
+                    JSONObject object = new JSONObject(string);
+                    int resultCode = object.getInt("resultCode");
+                    final String data = object.getString("data");
+                    if (flag == 1) {
+                        drivingPositiveImg = data;
+                        Glide.with(MycarActivity.this).load(drivingPositiveImg).into(iv_id1);
+                    } else {
+                        drivingBackImg = data;
+                        Glide.with(MycarActivity.this).load(drivingBackImg).into(iv_id2);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
     }
 
     private void initView() {
@@ -107,32 +172,69 @@ public class MycarActivity extends AppCompatActivity {
         tv_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name=et_name.getEditableText().toString();
-                String bianhao=et_bianhao.getEditableText().toString();
+                String name=MyApplication.getUserInfo().getName();
                 String cartype=tv_cartype.getText().toString();
                 carNumber=tv_number.getText().toString()+et_number.getEditableText().toString();
-                if(TextUtils.isEmpty(name)){
-                    return;
-                }
-                if(TextUtils.isEmpty(bianhao)){
-                    return;
-                }
                 if(TextUtils.isEmpty(cartype)){
                     return;
                 }
                 if(TextUtils.isEmpty(carNumber)){
                     return;
                 }
-                submit(bianhao,cartype,carNumber,name);
+                submit(cartype,carNumber,name);
+            }
+        });
+        iv_id1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flag = 1;
+                selectPic();
+            }
+        });
+        iv_id2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flag = 2;
+                selectPic();
             }
         });
     }
-    private void submit(String fileNumber,String models,String plateNumber,String userName){
+    private void selectPic(){
+        Matisse
+                .from(this)
+                //选择视频和图片
+                //选择图片
+                .choose(MimeType.ofImage())
+                //选择视频
+
+                //这两行要连用 是否在选择图片中展示照相 和适配安卓7.0 FileProvider
+                .capture(true)
+                .captureStrategy(new CaptureStrategy(true,"com.yancy.gallerypickdemo.fileprovider"))
+                //有序选择图片 123456...
+                .countable(true)
+                //最大选择数量为9
+                .maxSelectable(1)
+                //选择方向
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                //界面中缩略图的质量
+                .thumbnailScale(0.8f)
+                //蓝色主题
+                //黑色主题
+                .theme(R.style.Matisse_Dracula)
+                //Glide加载方式
+                //Picasso加载方式
+                .imageEngine(new PicassoEngine())
+                //请求码
+                .forResult(200);
+    }
+    private void submit(String models,String plateNumber,String userName){
         Map<String,Object> params=new HashMap<>();
-        params.put("fileNumber",fileNumber);
         params.put("models",models);
         params.put("plateNumber",plateNumber);
         params.put("userName",userName);
+        params.put("drivingBackImg",drivingBackImg);
+        params.put("drivingPositiveImg",drivingPositiveImg);
+        params.put("carLogo",carLogo);
         String json=new Gson().toJson(params);
         HttpProxy.obtain().post(PlatformContans.Commom.adddrivingLicense, MyApplication.token, json, new ICallBack() {
             @Override
@@ -142,8 +244,11 @@ public class MycarActivity extends AppCompatActivity {
                     JSONObject res=new JSONObject(result);
                     int code=res.getInt("resultCode");
                     if(code==0){
-                        ToastUtil.showToast(MycarActivity.this,"认证成功");
+                        ToastUtil.showToast(MycarActivity.this,"已成功提交申请");
                         finish();
+                    }else{
+                        String msg=res.getString("message");
+                        ToastUtil.showToast(MycarActivity.this,msg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
