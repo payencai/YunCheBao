@@ -158,7 +158,7 @@ public class BookWashCarFragment extends BaseFragment implements OnDateSetListen
                 .build();
 
     }
-    AddressBean mAddressBean;
+    private AddressBean mAddressBean;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -239,6 +239,15 @@ public class BookWashCarFragment extends BaseFragment implements OnDateSetListen
         dialog.show();
         WheelView wv = (WheelView) view.findViewById(R.id.wheelview);
         TextView tv_confirm = (TextView) view.findViewById(R.id.tv_confirm);
+        TextView tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
+
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
         tv_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

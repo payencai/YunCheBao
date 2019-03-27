@@ -46,13 +46,15 @@ public class CarBrandSelectActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     RecCarAdapter adapter;
     List<CarBrand> mCarBrands=new ArrayList<>();
+
+    private boolean oneLevelSelect;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.car_brand_list_layout);
         initView();
-
-
+        oneLevelSelect = getIntent().getBooleanExtra("oneLevelSelect",false);
     }
 
     @Override
@@ -72,6 +74,7 @@ public class CarBrandSelectActivity extends AppCompatActivity {
             }
         }
     }
+
     String name;
     private void initView() {
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "选品牌");
@@ -104,12 +107,16 @@ public class CarBrandSelectActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 name=mCarBrands.get(position).getName();
-                Intent intent = new Intent(CarBrandSelectActivity.this, CarSecondBrandActivity.class);
-                intent.putExtra("id", mCarBrands.get(position).getId());
-                intent.putExtra("logo", mCarBrands.get(position).getImage());
-                startActivityForResult(intent,1);
-                //setResult(1, intent);
-                //finish();
+                if(oneLevelSelect){
+                    Intent intent = new Intent();
+                    intent.putExtra("name", mCarBrands.get(position).getName());
+                    setResult(1, intent);
+                    finish();
+                }else {
+                    Intent intent = new Intent(CarBrandSelectActivity.this, CarSecondBrandActivity.class);
+                    intent.putExtra("id", mCarBrands.get(position).getId());
+                    startActivityForResult(intent, 1);
+                }
             }
         });
 

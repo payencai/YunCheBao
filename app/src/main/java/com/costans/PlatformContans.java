@@ -187,6 +187,7 @@ public class PlatformContans {
         public static final String getExpressResult=root+ "/common/getExpressResult";
         public static final String getSplash=root+ "/common/getPicture";
         public static final String adddrivingLicense=root+ "/drivingLicense/adddrivingLicense";
+        public static final String addShop=root+ "/common/addShop";
     }
     public static class DrivingLicense{
         public static final String deleteMyCar=root + "/drivingLicense/deleteMyCar";
@@ -317,6 +318,10 @@ public class PlatformContans {
         public static final String getUserCarOrder=root+ "/carOrder/getUserCarOrder";
         public static final String getEvaluationByOrderId=root+ "/evaluation/getEvaluationByOrderId";
     }
+    public static  class Agency{
+        public static final String getAgencyList =root+ "/agency/getAgencyUserListByApp\n";
+    }
+
 
     public static String data = "{\"code\":0,\"msg\":\"\\u83b7\\u53d6\\u5546\\u54c1\\u6210\\u529f\",\"data\":[{\"cat\":\"汽车服务\",\"goods\":[{\"id\":\"1001\",\"name\":\"标准洗车-轿车\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"100\",\"sold_num\":\"2\"},{\"id\":\"1003\",\"name\":\"标准洗车-五座轿车\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"}]},{\"cat\":\"汽车美容\",\"goods\":[{\"id\":\"1004\",\"name\":\"全车抛光\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1005\",\"name\":\"内饰清洗\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1006\",\"name\":\"全车打蜡\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"0\"},{\"id\":\"1007\",\"name\":\"空调除臭\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"1\"}]}]}";
     public static String data2 = "{\"code\":0,\"msg\":\"\\u83b7\\u53d6\\u5546\\u54c1\\u6210\\u529f\",\"data\":[{\"cat\":\"附近门店\",\"goods\":[{\"id\":\"1001\",\"name\":\"爱琴海购物公园送车点\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"100\",\"sold_num\":\"2\"},{\"id\":\"1003\",\"name\":\"荷泰花园酒店送车点\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"}]},{\"cat\":\"机场/火车站\",\"goods\":[{\"id\":\"1004\",\"name\":\"昆明站\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1005\",\"name\":\"长水机场\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1006\",\"name\":\"昆明南站\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"0\"},{\"id\":\"1007\",\"name\":\"昆明北站\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"1\"}]}]}";
