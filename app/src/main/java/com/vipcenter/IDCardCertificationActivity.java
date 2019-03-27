@@ -227,10 +227,22 @@ public class IDCardCertificationActivity extends NoHttpBaseActivity {
                     final String data = object.getString("data");
                     if (flag == 1) {
                         image1 = data;
-                        Glide.with(IDCardCertificationActivity.this).load(image1).into(iv_id1);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Glide.with(IDCardCertificationActivity.this).load(image1).into(iv_id1);
+                            }
+                        });
+
                     } else {
                         image2 = data;
-                        Glide.with(IDCardCertificationActivity.this).load(image2).into(iv_id2);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Glide.with(IDCardCertificationActivity.this).load(image2).into(iv_id2);
+                            }
+                        });
+
                     }
 
                 } catch (JSONException e) {

@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
+import com.tool.GlideImageEngine;
 import com.wx.wheelview.adapter.ArrayWheelAdapter;
 import com.wx.wheelview.widget.WheelView;
 import com.xihubao.CarBrandSelectActivity;
@@ -43,6 +44,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -97,6 +99,11 @@ public class MycarActivity extends AppCompatActivity {
                     carLogo=data.getExtras().getString("logo");
                     tv_cartype.setText(brand);
                     break;
+                case 201:
+                case 202:
+                    List<String> pathList = Matisse.obtainPathResult(data);
+                    upImage(PlatformContans.Commom.uploadImg,new File(pathList.get(0)));
+                    break;
 
             }
         }
@@ -132,10 +139,22 @@ public class MycarActivity extends AppCompatActivity {
                     final String data = object.getString("data");
                     if (flag == 1) {
                         drivingPositiveImg = data;
-                        Glide.with(MycarActivity.this).load(drivingPositiveImg).into(iv_id1);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Glide.with(MycarActivity.this).load(drivingPositiveImg).into(iv_id1);
+                            }
+                        });
+
                     } else {
                         drivingBackImg = data;
-                        Glide.with(MycarActivity.this).load(drivingBackImg).into(iv_id2);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Glide.with(MycarActivity.this).load(drivingBackImg).into(iv_id2);
+                            }
+                        });
+
                     }
 
                 } catch (JSONException e) {
@@ -188,18 +207,18 @@ public class MycarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 flag = 1;
-                selectPic();
+                selectPic(201);
             }
         });
         iv_id2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 flag = 2;
-                selectPic();
+                selectPic(202);
             }
         });
     }
-    private void selectPic(){
+    private void selectPic(int code){
         Matisse
                 .from(this)
                 //选择视频和图片
@@ -223,9 +242,9 @@ public class MycarActivity extends AppCompatActivity {
                 .theme(R.style.Matisse_Dracula)
                 //Glide加载方式
                 //Picasso加载方式
-                .imageEngine(new PicassoEngine())
+                .imageEngine(new GlideImageEngine())
                 //请求码
-                .forResult(200);
+                .forResult(code);
     }
     private void submit(String models,String plateNumber,String userName){
         Map<String,Object> params=new HashMap<>();
@@ -239,7 +258,7 @@ public class MycarActivity extends AppCompatActivity {
         HttpProxy.obtain().post(PlatformContans.Commom.adddrivingLicense, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("result",result);
+                Log.e("result",json+result);
                 try {
                     JSONObject res=new JSONObject(result);
                     int code=res.getInt("resultCode");

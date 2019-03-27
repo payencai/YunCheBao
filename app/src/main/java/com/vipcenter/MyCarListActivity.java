@@ -101,6 +101,13 @@ public class MyCarListActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        refresh();
+    }
+
     private void initView() {
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override

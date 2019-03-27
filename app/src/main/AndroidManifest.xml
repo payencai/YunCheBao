@@ -446,7 +446,9 @@
                     android:scheme="yunchebao" />
             </intent-filter>
         </activity>
-        <activity android:name="com.vipcenter.MycarActivity" />
+        <activity
+            android:windowSoftInputMode="stateHidden"
+            android:name="com.vipcenter.MycarActivity" />
         <activity android:name="com.vipcenter.MyPayActivity" />
         <activity android:name="com.vipcenter.SetPayPasswordActivity" />
         <activity android:name="com.vipcenter.SetPayNextActivity" />

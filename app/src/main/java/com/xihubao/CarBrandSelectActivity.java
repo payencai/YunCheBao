@@ -66,6 +66,7 @@ public class CarBrandSelectActivity extends AppCompatActivity {
                // Log.e("data",data.getStringExtra("id"));
                 String value=name+" "+data.getStringExtra("name");
                 intent.putExtra("name", value);
+                intent.putExtra("logo", data.getStringExtra("logo"));
                 intent.putExtra("id", data.getStringExtra("id"));
                 intent.putExtra("id1", data.getStringExtra("id1"));
                 intent.putExtra("id2", data.getStringExtra("id2"));
@@ -109,12 +110,14 @@ public class CarBrandSelectActivity extends AppCompatActivity {
                 name=mCarBrands.get(position).getName();
                 if(oneLevelSelect){
                     Intent intent = new Intent();
+                    intent.putExtra("logo", mCarBrands.get(position).getImage());
                     intent.putExtra("name", mCarBrands.get(position).getName());
                     setResult(1, intent);
                     finish();
                 }else {
                     Intent intent = new Intent(CarBrandSelectActivity.this, CarSecondBrandActivity.class);
                     intent.putExtra("id", mCarBrands.get(position).getId());
+                    intent.putExtra("logo", mCarBrands.get(position).getImage());
                     startActivityForResult(intent, 1);
                 }
             }
