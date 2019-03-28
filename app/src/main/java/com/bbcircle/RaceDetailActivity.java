@@ -57,13 +57,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.rong.imkit.RongIM;
-import sj.keyboard.EmoticonsKeyBoardPopWindow;
-import sj.keyboard.adpater.PageSetAdapter;
-import sj.keyboard.interfaces.EmoticonClickListener;
-import sj.keyboard.widget.EmoticonsEditText;
+
 
 public class RaceDetailActivity extends NoHttpBaseActivity {
-    private EmoticonsKeyBoardPopWindow mKeyBoardPopWindow;
+
     private Context ctx;
     List<PhoneMagEntity> horiList;
     @BindView(R.id.horiListview)
@@ -241,34 +238,7 @@ public class RaceDetailActivity extends NoHttpBaseActivity {
         getDatail();
     }
 
-    private void initKeyBoardPopWindow(EmoticonsEditText editText) {
-        mKeyBoardPopWindow = new EmoticonsKeyBoardPopWindow(ctx);
 
-        EmoticonClickListener emoticonClickListener = SimpleCommonUtils.getCommonEmoticonClickListener(editText);
-        PageSetAdapter pageSetAdapter = new PageSetAdapter();
-        SimpleCommonUtils.addEmojiPageSetEntity(pageSetAdapter, this, emoticonClickListener);
-        SimpleCommonUtils.addXhsPageSetEntity(pageSetAdapter, this, emoticonClickListener);
-        mKeyBoardPopWindow.setAdapter(pageSetAdapter);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
-                && mKeyBoardPopWindow != null && mKeyBoardPopWindow.isShowing()) {
-            mKeyBoardPopWindow.dismiss();
-            return false;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        GSYVideoManager.releaseAllVideos();
-        if (mKeyBoardPopWindow != null && mKeyBoardPopWindow.isShowing()) {
-            mKeyBoardPopWindow.dismiss();
-        }
-    }
 
     /**
      * 自定义Toast信息显示面板,我要报名
@@ -289,9 +259,9 @@ public class RaceDetailActivity extends NoHttpBaseActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable());
         dialog.setContentView(view);
         dialog.show();
-        final EmoticonsEditText editText = (EmoticonsEditText) view.findViewById(R.id.et_content);
-        SimpleCommonUtils.initEmoticonsEditText(editText);
-        initKeyBoardPopWindow(editText);
+
+
+
         ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -319,63 +289,14 @@ public class RaceDetailActivity extends NoHttpBaseActivity {
         view.findViewById(R.id.faceBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mKeyBoardPopWindow != null && mKeyBoardPopWindow.isShowing()) {
-                    mKeyBoardPopWindow.dismiss();
-                } else {
-                    if (mKeyBoardPopWindow == null) {
-                        initKeyBoardPopWindow(editText);
-                    }
-//                    mKeyBoardPopWindow.showPopupWindow();
-                    if (mKeyBoardPopWindow.isShowing()) {
-                        mKeyBoardPopWindow.dismiss();
-                    } else {
-                        mKeyBoardPopWindow.showAsDropDown(view.findViewById(R.id.faceBtn), 0, 0);
-                    }
-                }
+
             }
         });
 
 
     }
 
-    public void attenShareToast() {
-        final View view = getLayoutInflater().inflate(R.layout.atten_comment_submit, null);
-        RelativeLayout ll = (RelativeLayout) view.findViewById(R.id.ll_root);
-        ll.getBackground().setAlpha(20);
-        dialog = new Dialog(this, R.style.DialogStyleNoTitle);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable());
-        dialog.setContentView(view);
-        dialog.show();
-        final EmoticonsEditText editText = (EmoticonsEditText) view.findViewById(R.id.et_content);
-        SimpleCommonUtils.initEmoticonsEditText(editText);
-        initKeyBoardPopWindow(editText);
-        ll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-            }
-        });
-        view.findViewById(R.id.cancelBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-            }
-        });
-        view.findViewById(R.id.submitBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-            }
-        });
 
-
-    }
 
     @OnClick({R.id.back, R.id.commentLay, R.id.shareBtn})
     public void OnClick(View v) {

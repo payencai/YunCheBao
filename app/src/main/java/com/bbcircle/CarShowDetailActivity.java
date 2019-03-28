@@ -69,17 +69,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.rong.imkit.RongIM;
-import sj.keyboard.EmoticonsKeyBoardPopWindow;
-import sj.keyboard.adpater.PageSetAdapter;
-import sj.keyboard.interfaces.EmoticonClickListener;
-import sj.keyboard.widget.EmoticonsEditText;
+
 
 /**
  * Created by sdhcjhss on 2018/1/8.
  */
 
 public class CarShowDetailActivity extends NoHttpBaseActivity {
-    private EmoticonsKeyBoardPopWindow mKeyBoardPopWindow;
+
     private Context ctx;
     List<PhoneMagEntity> horiList;
 
@@ -446,24 +443,6 @@ public class CarShowDetailActivity extends NoHttpBaseActivity {
 
             }
         });
-    }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
-                && mKeyBoardPopWindow != null && mKeyBoardPopWindow.isShowing()) {
-            mKeyBoardPopWindow.dismiss();
-            return false;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        GSYVideoManager.releaseAllVideos();
-        if (mKeyBoardPopWindow != null && mKeyBoardPopWindow.isShowing()) {
-            mKeyBoardPopWindow.dismiss();
-        }
     }
 
 
