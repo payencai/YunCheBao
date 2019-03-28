@@ -20,15 +20,18 @@ import android.widget.Toast;
 
 import com.application.MyApplication;
 import com.costans.PlatformContans;
+import com.entity.UserMsg;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.rongcloud.activity.StrangerDelActivity;
 import com.rongcloud.adapter.ApplyFriendAdapter;
 import com.rongcloud.model.ApplyFriend;
 import com.rongcloud.sidebar.ContactModel;
 import com.rongcloud.sidebar.ContactsAdapter;
 import com.rongcloud.sidebar.PinnedHeaderDecoration;
+import com.system.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -138,7 +141,38 @@ public class NewFriendFragment extends Fragment {
         mShowModels.clear();
         getData();
     }
+    private void getPrivateDetail(String id){
+        Map<String,Object> params=new HashMap<>();
+        params.put("userId",id);
+        HttpProxy.obtain().get(PlatformContans.User.getUserResultById, params, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("detail",result);
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    JSONObject data=jsonObject.getJSONObject("data");
+                    UserMsg userMsg=new Gson().fromJson(data.toString(),UserMsg.class);
+                    Intent intent;
+                    if("1".equals(userMsg.getIsFriend())){
+                        intent=new Intent(getContext(), FriendDetailActivity.class);
+                        intent.putExtra("id",id);
+                        startActivity(intent);
+                    }else{
+                        intent=new Intent(getContext(), StrangerDelActivity.class);
+                        intent.putExtra("id",id);
+                        startActivity(intent);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     private void initView(View view) {
         mApplyFriendAdapter = new ApplyFriendAdapter(mShowModels);
         mApplyFriendAdapter.setOnItemClickListener(new ApplyFriendAdapter.OnItemClickListener() {
@@ -148,6 +182,8 @@ public class NewFriendFragment extends Fragment {
                     Intent intent = new Intent(getContext(), ApplyDetailActivity.class);
                     intent.putExtra("apply", contactModel);
                     startActivityForResult(intent,1);
+                }else{
+                    getPrivateDetail(contactModel.getUserId());
                 }
             }
 

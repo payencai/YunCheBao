@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
@@ -28,11 +29,16 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.application.MyApplication;
 import com.costans.PlatformContans;
+import com.entity.UserMsg;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
+import com.payencai.library.util.ToastUtil;
+import com.rongcloud.activity.StrangerDelActivity;
+import com.rongcloud.activity.contact.FriendDetailActivity;
+import com.rongcloud.activity.stranger.SaomaActivity;
 import com.rongcloud.model.MyFriend;
 import com.rongcloud.model.MyGroup;
 import com.system.fragment.AnotherBabyFragment;
@@ -44,6 +50,8 @@ import com.system.fragment.MallFragment;
 import com.system.fragment.NewBabyFragment;
 import com.system.fragment.NewBaikeFragment;
 import com.tool.FitStateUI;
+import com.tool.ImageUtil;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.vipcenter.LoginByaccountActivity;
 import com.vipcenter.model.UserInfo;
 
@@ -522,10 +530,55 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //ToastUtil.showToast(this,"解析成功");
         if(requestCode==1){
             Toast.makeText(this, "GPS模块已开启", Toast.LENGTH_SHORT).show();
             fragment1.startLocate();
         }
+        if(resultCode==200&&data!=null){
+            String result=data.getExtras().getString(CodeUtils.RESULT_STRING);
+            if(!TextUtils.isEmpty(result)){
+                if(result.contains("云车宝群组:")) {
 
+                }
+                else if(result.contains("云车宝好友:")){
+                    getPrivateDetail(result.substring(6));
+                }
+            }
+            //Log.e("result",result);
+        }
+
+    }
+    private void getPrivateDetail(String id){
+        Map<String,Object> params=new HashMap<>();
+        params.put("userId",id);
+        HttpProxy.obtain().get(PlatformContans.User.getUserResultById, params, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("detail",result);
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    JSONObject data=jsonObject.getJSONObject("data");
+                    UserMsg userMsg=new Gson().fromJson(data.toString(),UserMsg.class);
+                    Intent intent;
+                    if("1".equals(userMsg.getIsFriend())){
+                        intent=new Intent(MainActivity.this, FriendDetailActivity.class);
+                        intent.putExtra("id",id);
+                        startActivity(intent);
+                    }else{
+                        intent=new Intent(MainActivity.this, StrangerDelActivity.class);
+                        intent.putExtra("id",id);
+                        startActivity(intent);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 }

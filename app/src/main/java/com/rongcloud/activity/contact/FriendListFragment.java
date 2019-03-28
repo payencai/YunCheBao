@@ -22,7 +22,6 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nanchen.wavesidebar.Trans2PinYinUtil;
 import com.nanchen.wavesidebar.WaveSideBarView;
-import com.rongcloud.activity.AddFriendDetailActivity;
 import com.rongcloud.sidebar.ContactModel;
 import com.rongcloud.sidebar.ContactsAdapter;
 import com.rongcloud.sidebar.PinnedHeaderDecoration;
@@ -33,8 +32,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.rong.imkit.RongIM;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -92,7 +89,7 @@ public class FriendListFragment extends Fragment {
                             @Override
                             public void onClick(int position, ImageView imageView) {
                                 Intent intent=new Intent(getContext(),FriendDetailActivity.class);
-                                intent.putExtra("data",mShowModels.get(position));
+                                intent.putExtra("id",mShowModels.get(position).getUserId());
                                 startActivity(intent);
 
                             }

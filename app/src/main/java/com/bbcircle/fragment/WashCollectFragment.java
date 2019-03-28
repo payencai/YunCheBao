@@ -2,6 +2,8 @@ package com.bbcircle.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.bbcircle.DrivingSelfDetailActivity;
 import com.bbcircle.RaceDetailActivity;
 import com.bbcircle.adapter.WashCollectAdapter;
 import com.bbcircle.data.WashCollect;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.entity.PhoneArticleEntity;
 import com.example.yunchebao.R;
@@ -47,78 +50,75 @@ import butterknife.ButterKnife;
  */
 
 public class WashCollectFragment extends BaseFragment {
-    @BindView(R.id.listview)
-    PersonalListView listView;
-    private Context ctx;
-    List<WashCollect> list = new ArrayList<>();
-    WashCollectAdapter adapter;
+    @BindView(R.id.rv_collect)
+    RecyclerView rv_collect;
+    List<WashCollect> mWashCollects ;
+    WashCollectAdapter mWashCollectAdapter;
     int page=1;
+    boolean isLoadMore=false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.personal_list, container, false);
+        rootView = inflater.inflate(R.layout.fragment_collect_commom, container, false);
         ButterKnife.bind(this, rootView);
         init();
         return rootView;
     }
 
     private void init() {
-        ctx = getActivity();
-
-       // listView = refreshListView.getRefreshableView();
-        listView.setDivider(getResources().getDrawable(R.color.gray_cc));
-        listView.setDividerHeight(1);
-        list = new ArrayList<>();
-        adapter = new WashCollectAdapter(ctx, list);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mWashCollects=new ArrayList<>();
+        mWashCollectAdapter=new WashCollectAdapter(R.layout.wash_list_item,mWashCollects);
+        mWashCollectAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                position--;
-//                Bundle bundle=new Bundle();
-//                bundle.putInt("id",list.get(position).get());
-//                bundle.putInt("type",list.get(position).getType());
-//                switch (list.get(position).getType()){
-//                    case 1:
-//                        ActivityAnimationUtils.commonTransition(getActivity(), DrivingSelfDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
-//                        break;
-//                    case 2:
-//                        ActivityAnimationUtils.commonTransition(getActivity(), DriverFriendsDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
-//                        break;
-//                    case 3:
-//                        ActivityAnimationUtils.commonTransition(getActivity(), CarShowDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
-//                        break;
-//                    case 4:
-//                        ActivityAnimationUtils.commonTransition(getActivity(), RaceDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
-//                        break;
-//                }
+            public void onLoadMoreRequested() {
+                page++;
+                isLoadMore=true;
+                getData();
+            }
+        });
+        mWashCollectAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
             }
         });
+        rv_collect.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv_collect.setAdapter(mWashCollectAdapter);
         getData();
 
     }
     private void getData(){
-        String token="";
-        if(MyApplication.isLogin){
-            token=MyApplication.token;
-        }
+
         Map<String,Object> params=new HashMap<>();
         params.put("page",page);
-        HttpProxy.obtain().get(PlatformContans.Collect.getWashCollectionList, params,token,new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.Collect.getWashCollectionList, params,MyApplication.token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("washcollect", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray data = jsonObject.getJSONArray("data");
+                    List<WashCollect>washCollects=new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
                         WashCollect baikeItem = new Gson().fromJson(item.toString(), WashCollect.class);
-                        list.add(baikeItem);
+                        washCollects.add(baikeItem);
+                        mWashCollects.add(baikeItem);
                     }
-                    adapter.notifyDataSetChanged();
-                    //updateData();
+                    if(isLoadMore){
+                        isLoadMore=false;
+                        if(data.length()>0){
+                            mWashCollectAdapter.addData(washCollects);
+                            mWashCollectAdapter.loadMoreComplete();
+                        }else{
+                            mWashCollectAdapter.loadMoreEnd(true);
+                        }
+
+                    }else{
+                        mWashCollectAdapter.setNewData(mWashCollects);
+                    }
+
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();

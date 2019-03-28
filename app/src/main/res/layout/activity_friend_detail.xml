@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="com.rongcloud.activity.AddFriendDetailActivity">
+    tools:context="com.rongcloud.activity.StrangerDelActivity">
     <RelativeLayout
         android:background="@color/white"
         android:layout_width="match_parent"
@@ -106,6 +106,7 @@
                         </LinearLayout>
 
                         <RelativeLayout
+                            android:id="@+id/rl_nick"
                             android:layout_marginRight="20dp"
                             android:layout_centerVertical="true"
                             android:layout_alignParentRight="true"
@@ -126,9 +127,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"></View>
                     <RelativeLayout
+                        android:id="@+id/rl_tag"
                         android:layout_margin="15dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="30dp">
                         <TextView
                             android:textStyle="bold"
                             android:textSize="@dimen/text_size_16"
@@ -267,6 +269,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <ImageView
+                            android:id="@+id/iv_msg"
                             android:scaleType="fitXY"
                             android:layout_marginRight="15dp"
                             android:layout_alignParentRight="true"
@@ -289,6 +292,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <ImageView
+                            android:id="@+id/iv_top"
                             android:scaleType="fitXY"
                             android:layout_marginRight="15dp"
                             android:layout_alignParentRight="true"
@@ -299,6 +303,7 @@
                             android:layout_height="30dp" />
                     </RelativeLayout>
                     <RelativeLayout
+                        android:id="@+id/rl_clears"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="0dp">

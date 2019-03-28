@@ -2,6 +2,8 @@ package com.vipcenter.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +19,10 @@ import com.bbcircle.DrivingSelfDetailActivity;
 import com.bbcircle.RaceDetailActivity;
 import com.bbcircle.data.CarshowDetail;
 import com.bbcircle.data.SelfDrive;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.entity.PhoneArticleEntity;
+import com.entity.PhoneOrderEntity;
 import com.entity.PhoneShopEntity;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
@@ -33,6 +37,8 @@ import com.tool.ActivityConstans;
 import com.tool.listview.PersonalListView;
 import com.tool.view.ListViewForScrollView;
 import com.vipcenter.adapter.ArticleListAdapter;
+import com.vipcenter.adapter.NewCarCollectAdapter;
+import com.vipcenter.model.NewCarCollect;
 import com.xihubao.WashCarDetailActivity;
 import com.xihubao.adapter.WashCarListAdapter;
 
@@ -53,38 +59,40 @@ import butterknife.ButterKnife;
  */
 
 public class ArticleFragment extends BaseFragment {
-    @BindView(R.id.listview)
-    PersonalListView listView;
-    private Context ctx;
-    List<PhoneArticleEntity> list = new ArrayList<>();
-    ArticleListAdapter adapter;
+    @BindView(R.id.rv_collect)
+    RecyclerView rv_collect;
+    List<PhoneArticleEntity> mWashCollects ;
+    ArticleListAdapter mWashCollectAdapter;
     int page=1;
+    boolean isLoadMore=false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.personal_list, container, false);
+        rootView = inflater.inflate(R.layout.fragment_collect_commom, container, false);
         ButterKnife.bind(this, rootView);
         init();
         return rootView;
     }
 
     private void init() {
-        ctx = getActivity();
-
-      //  listView = refreshListView.getRefreshableView();
-        listView.setDivider(getResources().getDrawable(R.color.gray_cc));
-        listView.setDividerHeight(1);
-        list = new ArrayList<>();
-        adapter = new ArticleListAdapter(ctx, list);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mWashCollects=new ArrayList<>();
+        mWashCollectAdapter=new ArticleListAdapter(R.layout.item_article,mWashCollects);
+        mWashCollectAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               // position--;
+            public void onLoadMoreRequested() {
+                page++;
+                isLoadMore=true;
+                getData();
+            }
+        });
+        mWashCollectAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                PhoneArticleEntity item= (PhoneArticleEntity) adapter.getItem(position);
                 Bundle bundle=new Bundle();
-                bundle.putInt("id",list.get(position).getCircleId());
-                bundle.putInt("type",list.get(position).getType());
-                switch (list.get(position).getType()){
+                bundle.putInt("id",item.getCircleId());
+                bundle.putInt("type",item.getType());
+                switch (item.getType()){
                     case 1:
                         ActivityAnimationUtils.commonTransition(getActivity(), DrivingSelfDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
                         break;
@@ -98,34 +106,48 @@ public class ArticleFragment extends BaseFragment {
                         ActivityAnimationUtils.commonTransition(getActivity(), RaceDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
                         break;
                 }
-
             }
+
+
         });
+        rv_collect.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv_collect.setAdapter(mWashCollectAdapter);
         getData();
 
     }
     private void getData(){
-        String token="";
-        if(MyApplication.isLogin){
-            token=MyApplication.token;
-        }
+
         Map<String,Object> params=new HashMap<>();
         params.put("page",page);
-        HttpProxy.obtain().get(PlatformContans.Collect.getBabyCollection, params, token,new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.Collect.getBabyCollection, params, MyApplication.token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("getdata", result);
+                Log.e("getNewCarCollectionList", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     jsonObject=jsonObject.getJSONObject("data");
                     JSONArray data = jsonObject.getJSONArray("beanList");
+                    List<PhoneArticleEntity>washCollects=new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
                         PhoneArticleEntity baikeItem = new Gson().fromJson(item.toString(), PhoneArticleEntity.class);
-                        list.add(baikeItem);
+                        washCollects.add(baikeItem);
+                        mWashCollects.add(baikeItem);
                     }
-                    adapter.notifyDataSetChanged();
-                    //updateData();
+                    if(isLoadMore){
+                        isLoadMore=false;
+                        if(data.length()>0){
+                            mWashCollectAdapter.addData(washCollects);
+                            mWashCollectAdapter.loadMoreComplete();
+                        }else{
+                            mWashCollectAdapter.loadMoreEnd(true);
+                        }
+
+                    }else{
+                        mWashCollectAdapter.setNewData(mWashCollects);
+                    }
+
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();

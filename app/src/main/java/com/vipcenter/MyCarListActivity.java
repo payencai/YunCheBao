@@ -56,11 +56,12 @@ public class MyCarListActivity extends AppCompatActivity {
         mMyCars.clear();
         getData();
     }
-    private void changeToDefault(String id,int isdefault){
-        Map<String,Object> params=new HashMap<>();
-        params.put("id",id);
-        params.put("isDefault",isdefault);
-        HttpProxy.obtain().post(PlatformContans.DrivingLicense.updateCarToIsDefault ,MyApplication.token, params, new ICallBack() {
+
+    private void changeToDefault(String id, int isdefault) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("isDefault", isdefault);
+        HttpProxy.obtain().post(PlatformContans.DrivingLicense.updateCarToIsDefault, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 refresh();
@@ -73,21 +74,21 @@ public class MyCarListActivity extends AppCompatActivity {
         });
     }
 
-    private void delete(String id){
-        Map<String,Object> params=new HashMap<>();
-        params.put("id",id);
-        HttpProxy.obtain().post(PlatformContans.DrivingLicense.deleteMyCar ,MyApplication.token, params, new ICallBack() {
+    private void delete(String id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        HttpProxy.obtain().post(PlatformContans.DrivingLicense.deleteMyCar, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("result",result);
+                Log.e("result", result);
                 try {
-                    JSONObject jsonObject=new JSONObject(result);
-                    int code=jsonObject.getInt("resultCode");
-                    if(code==0){
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
                         refresh();
-                    }else{
-                        String  message=jsonObject.getString("message");
-                        ToastUtil.showToast(MyCarListActivity.this,message);
+                    } else {
+                        String message = jsonObject.getString("message");
+                        ToastUtil.showToast(MyCarListActivity.this, message);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -118,7 +119,7 @@ public class MyCarListActivity extends AppCompatActivity {
         findViewById(R.id.tv_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(MyCarListActivity.this,MycarActivity.class),1);
+                startActivityForResult(new Intent(MyCarListActivity.this, MycarActivity.class), 1);
             }
         });
         mMyCars = new ArrayList<>();
@@ -132,13 +133,18 @@ public class MyCarListActivity extends AppCompatActivity {
                         delete(myCar.getId());
                         break;
                     case R.id.ll_check:
-                        if(myCar.getIsDefault()==1)
-                            changeToDefault(myCar.getId(),0);
-                        else{
-                            changeToDefault(myCar.getId(),1);
+                        if (myCar.getIsDefault() == 1)
+                            changeToDefault(myCar.getId(), 0);
+                        else {
+                            changeToDefault(myCar.getId(), 1);
                         }
                         break;
                     case R.id.ll_item:
+                        if (myCar.getIsDefault() == 1) {
+                            Intent intent = new Intent(MyCarListActivity.this, MycarActivity.class);
+                            intent.putExtra("data", myCar);
+                            startActivity(intent);
+                        }
                         break;
                 }
             }

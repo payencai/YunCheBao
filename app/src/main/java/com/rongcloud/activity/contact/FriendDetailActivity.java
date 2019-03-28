@@ -1,16 +1,22 @@
 package com.rongcloud.activity.contact;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,11 +26,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.costans.PlatformContans;
+import com.entity.UserMsg;
 import com.example.yunchebao.R;
+import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.rongcloud.activity.AddFriendDetailActivity;
-import com.rongcloud.sidebar.ContactModel;
+import com.newversion.MyTagsActivity;
+import com.payencai.library.util.ToastUtil;
 import com.zyyoona7.popup.EasyPopup;
 import com.zyyoona7.popup.XGravity;
 import com.zyyoona7.popup.YGravity;
@@ -40,9 +48,10 @@ import butterknife.ButterKnife;
 import io.rong.callkit.RongCallKit;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 
 public class FriendDetailActivity extends AppCompatActivity {
-    ContactModel mContactModel;
+    UserMsg mUserMsg;
     @BindView(R.id.sendmsg)
     TextView sendmsg;
     @BindView(R.id.iv_icon)
@@ -59,11 +68,29 @@ public class FriendDetailActivity extends AppCompatActivity {
     TextView tv_voice;
     @BindView(R.id.video)
     TextView tv_video;
-
+    @BindView(R.id.iv_msg)
+    ImageView iv_msg;
+    @BindView(R.id.iv_top)
+    ImageView iv_top;
+    @BindView(R.id.rl_clears)
+    RelativeLayout   rl_clears;
+    @BindView(R.id.cd_car)
+    CardView cd_card;
+    @BindView(R.id.sex)
+    TextView  tv_sex;
+    @BindView(R.id.car)
+    TextView  tv_car;
+    @BindView(R.id.nickname)
+    TextView tv_nickname;
+    @BindView(R.id.rl_tag)
+    RelativeLayout  rl_tag;
+    Conversation.ConversationNotificationStatus conversationNotificationStatus1;
+    String id;
+    String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContactModel = (ContactModel) getIntent().getSerializableExtra("data");
+        id=getIntent().getStringExtra("id");
         setContentView(R.layout.activity_friend_detail);
         ButterKnife.bind(this);
         initView();
@@ -87,19 +114,21 @@ public class FriendDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCirclePop.dismiss();
-                addToBlack(mContactModel.getUserId());
+                addToBlack(id);
             }
         });
         ll_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mCirclePop.dismiss();
-                deleteFriend();
+                deleteFriend(id);
             }
         });
-        mCirclePop.showAtAnchorView(view, YGravity.BELOW,XGravity.ALIGN_RIGHT,0,0);
+
+        mCirclePop.showAtAnchorView(view, YGravity.BELOW, XGravity.ALIGN_RIGHT, 0, 0);
     }
-    private void addToBlack(String userId){
+
+    private void addToBlack(String userId) {
         RongIM.getInstance().addToBlacklist(userId, new RongIMClient.OperationCallback() {
             @Override
             public void onSuccess() {
@@ -113,11 +142,12 @@ public class FriendDetailActivity extends AppCompatActivity {
         });
 
     }
-    private void deleteFriend() {
+
+    private void deleteFriend(String id) {
 
         Map<String, Object> params = new HashMap<>();
-        params.put("friendId", mContactModel.getUserId());
-        Log.e("friendId", mContactModel.getUserId());
+        params.put("friendId", id);
+        //Log.e("friendId", mContactModel.getUserId());
 
         HttpProxy.obtain().post(PlatformContans.Chat.deleteMyFriend, MyApplication.token, params, new ICallBack() {
             @Override
@@ -146,21 +176,55 @@ public class FriendDetailActivity extends AppCompatActivity {
             }
         });
     }
-
-
-    private void initView() {
+    private void setUi( UserMsg userMsg){
+        tv_sex.setText(userMsg.getSex());
         RequestOptions mRequestOptions = RequestOptions.circleCropTransform()
                 .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
                 .skipMemoryCache(true);//不做内存缓存
         mRequestOptions.error(R.mipmap.ic_default_head);
         mRequestOptions.placeholder(R.mipmap.ic_default_head);
-        Glide.with(this).load(mContactModel.getHeadPortrait()).apply(mRequestOptions).into(head);
-        chatname.setText(mContactModel.getName());
-        account.setText(mContactModel.getHxAccount());
+        Glide.with(this).load(userMsg.getHeadPortrait()).apply(mRequestOptions).into(head);
+        chatname.setText(userMsg.getName());
+        account.setText(userMsg.getUsername());
+        tv_nickname.setText("");
+        if(userMsg.getCarShowState()==1){
+            cd_card.setVisibility(View.VISIBLE);
+            if(userMsg.getCarList()!=null){
+                if(userMsg.getCarList().size()>0)
+                    tv_car.setText(userMsg.getCarList().get(0).getModels());
+            }
+
+        }
+    }
+    private void getDetail(String id){
+        Map<String,Object> params=new HashMap<>();
+        params.put("userId",id);
+        HttpProxy.obtain().get(PlatformContans.User.getUserResultById, params, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("detail",result);
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    JSONObject data=jsonObject.getJSONObject("data");
+                    mUserMsg=new Gson().fromJson(data.toString(),UserMsg.class);
+                    setUi(mUserMsg);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    private void initView() {
+
         sendmsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RongIM.getInstance().startPrivateChat(FriendDetailActivity.this, mContactModel.getUserId(), mContactModel.getName());
+                RongIM.getInstance().startPrivateChat(FriendDetailActivity.this,id, mUserMsg.getName());
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
@@ -178,13 +242,193 @@ public class FriendDetailActivity extends AppCompatActivity {
         tv_video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RongCallKit.startSingleCall(FriendDetailActivity.this, mContactModel.getUserId(), RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
+                RongCallKit.startSingleCall(FriendDetailActivity.this, id, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
             }
         });
         tv_voice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RongCallKit.startSingleCall(FriendDetailActivity.this, mContactModel.getUserId(), RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
+                RongCallKit.startSingleCall(FriendDetailActivity.this, id, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
+            }
+        });
+        rl_clears.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RongIM.getInstance().deleteMessages(Conversation.ConversationType.PRIVATE, id, new RongIMClient.ResultCallback<Boolean>() {
+                    @Override
+                    public void onSuccess(Boolean aBoolean) {
+                        ToastUtil.showToast(FriendDetailActivity.this,"清除成功！");
+                    }
+
+                    @Override
+                    public void onError(RongIMClient.ErrorCode errorCode) {
+
+                    }
+                });
+            }
+        });
+        rl_tag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(FriendDetailActivity.this, MyTagsActivity.class));
+            }
+        });
+        getStatus();
+        getIsTop();
+        getDetail(id);
+        iv_msg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                RongIM.getInstance().setConversationNotificationStatus(Conversation.ConversationType.PRIVATE, id, conversationNotificationStatus1, new RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>() {
+                    @Override
+                    public void onSuccess(Conversation.ConversationNotificationStatus conversationNotificationStatus) {
+                        getStatus();
+                    }
+
+                    @Override
+                    public void onError(RongIMClient.ErrorCode errorCode) {
+
+                    }
+                });
+            }
+
+        });
+        iv_top.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                 RongIM.getInstance().setConversationToTop(Conversation.ConversationType.PRIVATE, id, isTop, new RongIMClient.ResultCallback<Boolean>() {
+                     @Override
+                     public void onSuccess(Boolean aBoolean) {
+                         getIsTop();
+                     }
+
+                     @Override
+                     public void onError(RongIMClient.ErrorCode errorCode) {
+
+                     }
+                 });
+            }
+        });
+        findViewById(R.id.rl_nick).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showNickDialog();
+            }
+        });
+
+
+    }
+    private void updateNick(String name) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("nickName", name);
+        params.put("id", mUserMsg.getId());
+        HttpProxy.obtain().post(PlatformContans.Chat.updateFriendsById, MyApplication.token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("resutl", result);
+
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    private void showNickDialog() {
+        final Dialog dialog = new Dialog(this, R.style.dialog);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_nick, null);
+        //获得dialog的window窗口
+        //将自定义布局加载到dialog上
+        TextView tv_confirm= (TextView) dialogView.findViewById(R.id.tv_confirm);
+        EditText et_nick= (EditText) dialogView.findViewById(R.id.et_nick);
+        TextView tv_cancel= (TextView) dialogView.findViewById(R.id.tv_cancel);
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        tv_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                String name=et_nick.getEditableText().toString();
+                if(!TextUtils.isEmpty(name)){
+                    updateNick(name);
+                    tv_nickname.setText(name);
+                }
+            }
+        });
+        dialog.setContentView(dialogView);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+        Window window = dialog.getWindow();
+        WindowManager windowManager=getWindowManager();
+        Display display=windowManager.getDefaultDisplay();
+        //设置dialog在屏幕底部
+        window.setGravity(Gravity.CENTER);
+        //设置dialog弹出时的动画效果，从屏幕底部向上弹出
+        //获得window窗口的属性
+        android.view.WindowManager.LayoutParams lp = window.getAttributes();
+        //设置窗口宽度为充满全屏
+        lp.width = (int) (display.getWidth()*0.7);
+        //设置窗口高度为包裹内容
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        //将设置好的属性set回去
+        window.setAttributes(lp);
+    }
+    boolean isTop=true;
+    private void getIsTop(){
+
+        RongIM.getInstance().getConversation(Conversation.ConversationType.PRIVATE, id, new RongIMClient.ResultCallback<Conversation>() {
+            @Override
+            public void onSuccess(Conversation conversation) {
+                if(conversation==null){
+                    isTop=true;
+                    iv_top.setImageResource(R.mipmap.white_switch);
+                }
+                else{
+                    if(conversation.isTop()){
+                        isTop=false;
+                        iv_top.setImageResource(R.mipmap.blue_switch);
+                    }else{
+                        isTop=true;
+                        iv_top.setImageResource(R.mipmap.white_switch);
+                    }
+                }
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+
+            }
+        });
+
+    }
+    private void getStatus(){
+        RongIM.getInstance().getConversationNotificationStatus(Conversation.ConversationType.PRIVATE, id, new RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>() {
+            @Override
+            public void onSuccess(Conversation.ConversationNotificationStatus conversationNotificationStatus) {
+                final int value = conversationNotificationStatus.getValue();
+
+                if (value == 1) {
+                    iv_msg.setImageResource(R.mipmap.white_switch);
+                    conversationNotificationStatus1 = conversationNotificationStatus.setValue(0);
+
+                } else {
+                    iv_msg.setImageResource(R.mipmap.blue_switch);
+                    conversationNotificationStatus1 = conversationNotificationStatus.setValue(1);
+                }
+
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                ToastUtil.showToast(FriendDetailActivity.this, errorCode.getMessage() + "");
             }
         });
     }

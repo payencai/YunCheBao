@@ -71,7 +71,7 @@ public class ApplyDetailActivity extends AppCompatActivity {
             cd_card.setVisibility(View.VISIBLE);
             if(userMsg.getCarList()!=null){
                 if(userMsg.getCarList().size()>0)
-                    tv_car.setText(userMsg.getCarList().get(0).getCarLogo());
+                    tv_car.setText(userMsg.getCarList().get(0).getModels());
             }
 
         }

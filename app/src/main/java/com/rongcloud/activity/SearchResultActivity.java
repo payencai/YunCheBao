@@ -10,16 +10,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.application.MyApplication;
 
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.rongcloud.activity.contact.FriendDetailActivity;
 import com.rongcloud.adapter.FriendAdapter;
 import com.rongcloud.adapter.GroupAdapter;
 import com.rongcloud.model.Friend;
@@ -67,10 +66,16 @@ public class SearchResultActivity extends AppCompatActivity {
         lv_result.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 if(type.equals("0")){//好友搜索
                     Friend friend= (Friend) mFriendAdapter.getItem(position);
-                    Intent intent=new Intent(SearchResultActivity.this,AddFriendDetailActivity.class);
-                    intent.putExtra("friend",friend);
+                    Intent intent;
+                    if("0".equals(friend.getIsFriend())){
+                        intent=new Intent(SearchResultActivity.this,StrangerDelActivity.class);
+                    }else{
+                        intent=new Intent(SearchResultActivity.this,FriendDetailActivity.class);
+                    }
+                    intent.putExtra("id",friend.getUserId());
                     startActivity(intent);
                 }else if(type.equals("1")){//群组搜索
                     Group group= (Group) mGroupAdapter.getItem(position);

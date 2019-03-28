@@ -75,6 +75,8 @@ public class NewCarDetailActivity extends AppCompatActivity {
     TextView tv_color;
     @BindView(R.id.rl_phone)
     RelativeLayout rl_phone;
+    @BindView(R.id.collectBtn)
+    ImageView collectIcon;
     NewCarParamsAdapter mNewCarParamsAdapter;
     List<String> images = new ArrayList<>();
     List<Shop> mShops = new ArrayList<>();
@@ -253,6 +255,19 @@ public class NewCarDetailActivity extends AppCompatActivity {
 
             }
         });
+        collectIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isCollect == 0) {
+                    isCollect = 1;
+                    collectIcon.setImageResource(R.mipmap.collect_yellow);
+                } else if (isCollect == 1) {
+                    isCollect = 0;
+                    collectIcon.setImageResource(R.mipmap.collect_gray_hole);
+                }
+                collect();
+            }
+        });
         tv_oldprice.setText("厂家指导价" + mNewCar.getAdvicePrice());
         tv_newprice.setText("￥" + mNewCar.getNakedCarPrice());
         String name = mNewCar.getFirstName();
@@ -273,10 +288,80 @@ public class NewCarDetailActivity extends AppCompatActivity {
         initBanner();
         mShopItemAdapter = new ShopItemAdapter(this, mShops);
         mListView.setAdapter(mShopItemAdapter);
-
+        isCollect();
         mShops.clear();
         getShop();
     }
+    int isCollect = -1;
+
+    public void isCollect() {
+        Map<String, Object> params = new HashMap<>();
+        String token = "";
+        if (MyApplication.isLogin) {
+            token = MyApplication.getUserInfo().getId();
+        }
+        params.put("userId", token);
+        params.put("NewCarMerMesId", mNewCar.getId());
+        HttpProxy.obtain().get(PlatformContans.Collect.getNewCarCollection, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int data = jsonObject.getInt("data");
+                    if (data == 0) {
+                        isCollect = 0;
+                        collectIcon.setImageResource(R.mipmap.collect_gray_hole);
+                    } else if (data == 1) {
+                        isCollect = 1;
+                        collectIcon.setImageResource(R.mipmap.collect_yellow);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    public void collect() {
+        Map<String, Object> params = new HashMap<>();
+        String token = "";
+        if (MyApplication.isLogin) {
+            token = MyApplication.token;
+        }
+        params.put("carImage", mNewCar.getCarCategoryDetail().getBanner1());
+        params.put("carPrice", mNewCar.getMinPrice());
+        params.put("firstName", mNewCar.getFirstName());
+        params.put("secondName", mNewCar.getSecondName());
+        params.put("thirdName", mNewCar.getThirdName());
+        params.put("newCarMerchantMessageId", mNewCar.getId());
+
+        String json = new Gson().toJson(params);
+        HttpProxy.obtain().post(PlatformContans.Collect.addNewCarCollection, token, json, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
 
     private void getShop() {
         String token = "";

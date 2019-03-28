@@ -346,7 +346,7 @@
         <activity android:name="com.rongcloud.activity.SearchAddActivity" />
         <activity android:name="com.rongcloud.activity.SearchResultActivity" />
         <activity android:name="com.rongcloud.activity.AddGroupDetailActivity" />
-        <activity android:name="com.rongcloud.activity.AddFriendDetailActivity" />
+        <activity android:name="com.rongcloud.activity.StrangerDelActivity" />
         <activity android:name="com.rongcloud.activity.CreateGroupActivity" />
         <activity
             android:name="com.rongcloud.activity.contact.MyContactActivity"
@@ -370,7 +370,6 @@
             </intent-filter>
         </activity>
         <activity android:name="com.rongcloud.activity.contact.FriendDetailActivity" />
-        <activity android:name="com.rongcloud.activity.contact.StrangerDetailActivity" />
         <activity android:name="com.rongcloud.activity.contact.ApplyDetailActivity" />
         <activity android:name="com.rongcloud.activity.stranger.SaomaActivity" />
         <activity android:name="com.tool.CalendarViewActivity" />
@@ -408,7 +407,9 @@
         <activity android:name="com.cheyibao.ClassSelelctActivity" />
         <activity android:name="com.newversion.NewSelfDrvingActivity" />
         <activity android:name="com.newversion.NewCarFriendActivity" />
-        <activity android:name="com.newversion.NewContactsActivity" />
+        <activity
+            android:name="com.newversion.NewContactsActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name="com.bbcircle.NewDrvingActivity" />
         <activity android:name="com.order.ServiceCarActivity" />
         <activity android:name="com.order.NewPublishActivity" />
@@ -429,7 +430,9 @@
         <activity android:name="com.cheyibao.AddSchoolCommentActivity" />
         <activity android:name="com.cheyibao.AddRentCommentActivity" />
         <activity android:name="com.vipcenter.EnteringActivity" />
-        <activity android:name="com.system.SplashActivity">
+        <activity
+            android:name="com.system.SplashActivity"
+            android:theme="@style/WelcomeStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -447,8 +450,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:windowSoftInputMode="stateHidden"
-            android:name="com.vipcenter.MycarActivity" />
+            android:name="com.vipcenter.MycarActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name="com.vipcenter.MyPayActivity" />
         <activity android:name="com.vipcenter.SetPayPasswordActivity" />
         <activity android:name="com.vipcenter.SetPayNextActivity" />
@@ -475,7 +478,8 @@
         <activity android:name="com.vipcenter.WashOrderDetailActivity" />
         <activity android:name="com.vipcenter.OrderCommentsActivity" />
         <activity android:name="com.vipcenter.ManaAddressActivity" />
-        <activity android:name="com.vipcenter.MyCarListActivity"></activity>
+        <activity android:name="com.vipcenter.MyCarListActivity" />
+        <activity android:name="com.rongcloud.activity.GroupQrcodeActivity"></activity>
     </application>
 
 </manifest>

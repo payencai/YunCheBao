@@ -2,7 +2,6 @@ package com.xihubao;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,20 +19,14 @@ import android.widget.Toast;
 import com.application.MyApplication;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
-import com.entity.Banner;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.rongcloud.activity.AddFriendDetailActivity;
-import com.rongcloud.model.ApplyGroup;
-import com.system.WebviewActivity;
 import com.system.model.ShopInfo;
 import com.vipcenter.model.UserInfo;
 import com.youth.banner.BannerConfig;
-import com.youth.banner.listener.OnBannerListener;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

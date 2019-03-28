@@ -643,6 +643,7 @@ public class NewCarListActivity extends NoHttpBaseActivity {
             case R.id.back:
                 onBackPressed();
                 break;
+
             case R.id.menu1:
 
                 showTypeWindow();

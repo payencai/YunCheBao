@@ -27,6 +27,7 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
 import com.tool.GlideImageEngine;
+import com.vipcenter.model.MyCar;
 import com.wx.wheelview.adapter.ArrayWheelAdapter;
 import com.wx.wheelview.widget.WheelView;
 import com.xihubao.CarBrandSelectActivity;
@@ -49,6 +50,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import go.error;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -80,12 +82,15 @@ public class MycarActivity extends AppCompatActivity {
     String drivingBackImg;
     String drivingPositiveImg;
     String carLogo;
+    String cartype;
     int flag=0;
+    MyCar mMyCar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mycar);
         ButterKnife.bind(this);
+        mMyCar= (MyCar) getIntent().getSerializableExtra("data");
         initView();
     }
 
@@ -166,6 +171,18 @@ public class MycarActivity extends AppCompatActivity {
     }
 
     private void initView() {
+
+        if(mMyCar!=null){
+            drivingPositiveImg=mMyCar.getDrivingPositiveImg();
+            drivingBackImg=mMyCar.getDrivingBackImg();
+            carLogo=mMyCar.getCarLogo();
+            cartype=mMyCar.getModels();
+            tv_cartype.setText(cartype);
+            tv_number.setText(mMyCar.getPlateNumber().substring(0,2));
+            et_number.setText(mMyCar.getPlateNumber().substring(2));
+            Glide.with(this).load(mMyCar.getDrivingPositiveImg()).into(iv_id1);
+            Glide.with(this).load(mMyCar.getDrivingBackImg()).into(iv_id2);
+        }
         tv_number.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,7 +209,7 @@ public class MycarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String name=MyApplication.getUserInfo().getName();
-                String cartype=tv_cartype.getText().toString();
+                cartype=tv_cartype.getText().toString();
                 carNumber=tv_number.getText().toString()+et_number.getEditableText().toString();
                 if(TextUtils.isEmpty(cartype)){
                     return;
@@ -200,7 +217,11 @@ public class MycarActivity extends AppCompatActivity {
                 if(TextUtils.isEmpty(carNumber)){
                     return;
                 }
-                submit(cartype,carNumber,name);
+                if(mMyCar==null)
+                    submit(cartype,carNumber,name);
+                else{
+                    update(cartype,carNumber,name);
+                }
             }
         });
         iv_id1.setOnClickListener(new View.OnClickListener() {
@@ -245,6 +266,42 @@ public class MycarActivity extends AppCompatActivity {
                 .imageEngine(new GlideImageEngine())
                 //请求码
                 .forResult(code);
+    }
+    private void update(String models,String plateNumber,String userName){
+        Map<String,Object> params=new HashMap<>();
+        params.put("models",models);
+        params.put("id",mMyCar.getId());
+        params.put("plateNumber",plateNumber);
+        params.put("userName",userName);
+        params.put("drivingBackImg",drivingBackImg);
+        params.put("drivingPositiveImg",drivingPositiveImg);
+        params.put("carLogo",carLogo);
+
+        HttpProxy.obtain().post(PlatformContans.DrivingLicense.editByUser,MyApplication.token, params,new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result",result);
+                try {
+                    JSONObject res=new JSONObject(result);
+                    int code=res.getInt("resultCode");
+                    if(code==0){
+                        ToastUtil.showToast(MycarActivity.this,"已成功提交申请");
+                        finish();
+                    }else{
+                        String msg=res.getString("message");
+                        ToastUtil.showToast(MycarActivity.this,msg);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
     private void submit(String models,String plateNumber,String userName){
         Map<String,Object> params=new HashMap<>();

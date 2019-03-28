@@ -38,6 +38,11 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
         getSplash();
@@ -45,7 +50,7 @@ public class SplashActivity extends AppCompatActivity {
     }
     private void startAni(){
         AlphaAnimation alphaAnimation=new AlphaAnimation(0.1f,1.0f);
-        alphaAnimation.setDuration(1000);//设置动画播放时长1000毫秒（1秒）
+        alphaAnimation.setDuration(3000);//设置动画播放时长1000毫秒（1秒）
         layoutSplash.startAnimation(alphaAnimation);
         //设置动画监听
         alphaAnimation.setAnimationListener(new Animation.AnimationListener() {

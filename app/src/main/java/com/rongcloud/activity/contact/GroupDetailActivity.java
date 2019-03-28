@@ -1,14 +1,22 @@
 package com.rongcloud.activity.contact;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,10 +34,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.payencai.library.view.CircleImageView;
 import com.rongcloud.activity.CreateGroupActivity;
+import com.rongcloud.activity.GroupQrcodeActivity;
 import com.rongcloud.adapter.GridAdapter;
 import com.rongcloud.model.Group;
 import com.rongcloud.model.GroupUser;
+import com.tool.view.GridViewForScrollView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +55,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.rong.imkit.RongIM;
+import io.rong.imkit.model.GroupUserInfo;
 
 public class GroupDetailActivity extends AppCompatActivity {
     //收缩时显示的行数
@@ -59,9 +71,8 @@ public class GroupDetailActivity extends AppCompatActivity {
 
     private GridAdapter mAdapter;
 
-    Group mGroup;
     @BindView(R.id.iv_icon)
-    ImageView iv_icon;
+    CircleImageView iv_icon;
     @BindView(R.id.chatname)
     TextView chatname;
     @BindView(R.id.crow)
@@ -80,14 +91,16 @@ public class GroupDetailActivity extends AppCompatActivity {
     RelativeLayout rl_top;
     @BindView(R.id.back)
     ImageView back;
+    String id;
+    String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mGroup= (Group) getIntent().getSerializableExtra("group");
+        id= (String) getIntent().getStringExtra("id");
         setContentView(R.layout.activity_group_detail);
         ButterKnife.bind(this);
         initView();
-        getData();
+        getDetail();
     }
     private void initWindow(View view) {
         PopupWindow popupWindow = new PopupWindow(this);
@@ -119,7 +132,7 @@ public class GroupDetailActivity extends AppCompatActivity {
         if (true) {
 
             Map<String, Object> params = new HashMap<>();
-            params.put("crowdId",mGroup.getId());
+            params.put("crowdId",id);
 
                 HttpProxy.obtain().post(PlatformContans.Chat.quitCrowdByCrowdId, MyApplication.token, params, new ICallBack() {
                     @Override
@@ -147,10 +160,10 @@ public class GroupDetailActivity extends AppCompatActivity {
                 });
         }
     }
-
-    private void getData(){
+    String cloudId;
+    private void getDetail(){
         Map<String,Object>params=new HashMap<>();
-        params.put("crowdId",mGroup.getId());
+        params.put("crowdId",id);
         HttpProxy.obtain().get(PlatformContans.Chat.getCrowdDetailsByCrowdId, params,MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -158,9 +171,14 @@ public class GroupDetailActivity extends AppCompatActivity {
                 try {
                     JSONObject Json=new JSONObject(result);
                     JSONObject data=Json.getJSONObject("data");
+                    name=data.getString("crowdName");
+                    cloudId=data.getString("hxCrowdId");
                     JSONArray indexList = data.getJSONArray("indexList");
                     JSONObject object=data.getJSONObject("indexUser");
                     GroupUser groupUser = new Gson().fromJson(object.toString(), GroupUser.class);
+                    chatname.setText(name);
+                    crow.setText(data.getString("id"));
+                    Glide.with(GroupDetailActivity.this).load(data.getString("image")).into(iv_icon);
                     nickname.setText(groupUser.getNickName());
                     people.setText(indexList.length()+"人");
                     for (int i = 0; i <indexList.length(); i++) {
@@ -188,7 +206,7 @@ public class GroupDetailActivity extends AppCompatActivity {
         sendmsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RongIM.getInstance().startGroupChat(GroupDetailActivity.this, mGroup.getHxCrowdId(), mGroup.getCrowdName());
+                RongIM.getInstance().startGroupChat(GroupDetailActivity.this, cloudId, name);
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
@@ -203,9 +221,20 @@ public class GroupDetailActivity extends AppCompatActivity {
                 initWindow(v);
             }
         });
-        chatname.setText(mGroup.getCrowdName());
-        crow.setText(mGroup.getHxCrowdId());
-        Glide.with(this).load(mGroup.getImage()).into(iv_icon);
+        findViewById(R.id.rl_code).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(GroupDetailActivity.this, GroupQrcodeActivity.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.rl_nick).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showNickDialog();
+            }
+        });
         mAllGroupUser = new ArrayList();
         mShowGroupUser = new ArrayList();
         mAdapter=new GridAdapter(this,mShowGroupUser);
@@ -229,6 +258,49 @@ public class GroupDetailActivity extends AppCompatActivity {
         //第一次调用
         //setListViewHeightBasedOnChildren(mGridView);
 
+    }
+    private void showNickDialog() {
+        final Dialog dialog = new Dialog(this, R.style.dialog);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_nick, null);
+        //获得dialog的window窗口
+        //将自定义布局加载到dialog上
+        TextView tv_confirm= (TextView) dialogView.findViewById(R.id.tv_confirm);
+        EditText et_nick= (EditText) dialogView.findViewById(R.id.et_nick);
+        TextView tv_cancel= (TextView) dialogView.findViewById(R.id.tv_cancel);
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        tv_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                String name=et_nick.getEditableText().toString();
+                if(!TextUtils.isEmpty(name)){
+                    RongIM.getInstance().refreshGroupUserInfoCache(new GroupUserInfo(cloudId,MyApplication.getUserInfo().getId(),name));
+                    nickname.setText(name);
+                }
+            }
+        });
+        dialog.setContentView(dialogView);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+        Window window = dialog.getWindow();
+        WindowManager windowManager=getWindowManager();
+        Display display=windowManager.getDefaultDisplay();
+        //设置dialog在屏幕底部
+        window.setGravity(Gravity.CENTER);
+        //设置dialog弹出时的动画效果，从屏幕底部向上弹出
+        //获得window窗口的属性
+        android.view.WindowManager.LayoutParams lp = window.getAttributes();
+        //设置窗口宽度为充满全屏
+        lp.width = (int) (display.getWidth()*0.7);
+        //设置窗口高度为包裹内容
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        //将设置好的属性set回去
+        window.setAttributes(lp);
     }
     public  void setGridViewHeightBasedOnChildren(GridView gridView) {
         // 获取GridView对应的Adapter

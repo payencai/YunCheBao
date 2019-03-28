@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="com.rongcloud.activity.AddFriendDetailActivity">
+    tools:context="com.rongcloud.activity.StrangerDelActivity">
     <RelativeLayout
         android:background="@color/white"
         android:layout_width="match_parent"
@@ -24,13 +24,21 @@
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <ImageView
-            android:layout_marginRight="10dp"
-            android:layout_centerVertical="true"
+        <RelativeLayout
+            android:id="@+id/rl_add"
+
             android:layout_alignParentRight="true"
-            android:src="@mipmap/blackview"
-            android:layout_width="40dp"
-            android:layout_height="5dp" />
+            android:layout_width="60dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_menu"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/blackview"
+                android:layout_width="40dp"
+                android:layout_height="5dp" />
+        </RelativeLayout>
     </RelativeLayout>
     <View
         android:background="#e2e2e2"
@@ -53,14 +61,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <ImageView
+                    <com.payencai.library.view.CircleImageView
 
                         android:scaleType="fitXY"
                         android:id="@+id/iv_icon"
                         android:layout_marginLeft="15dp"
                         android:src="@mipmap/login_img_icon"
                         android:layout_centerVertical="true"
-                        android:layout_width="30dp"
+                        android:layout_width="40dp"
                         android:layout_height="40dp" />
                     <TextView
                         android:id="@+id/chatname"
@@ -123,6 +131,7 @@
                             android:layout_height="wrap_content" />
                     </RelativeLayout>
                     <RelativeLayout
+                        android:id="@+id/rl_code"
                         android:layout_width="match_parent"
                         android:layout_height="40dp">
                         <TextView
@@ -143,6 +152,7 @@
                             android:layout_height="15dp" />
                     </RelativeLayout>
                     <RelativeLayout
+                        android:id="@+id/rl_nick"
                         android:layout_width="match_parent"
                         android:layout_height="40dp">
                         <TextView
@@ -257,21 +267,16 @@
                             android:layout_centerVertical="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
-                        <RelativeLayout
-                            android:id="@+id/rl_add"
-                            android:layout_marginRight="10dp"
+                        <ImageView
+                            android:id="@+id/iv_msg"
+                            android:scaleType="fitXY"
+                            android:layout_marginRight="15dp"
                             android:layout_alignParentRight="true"
-                            android:layout_width="60dp"
-                            android:layout_height="match_parent">
-                            <ImageView
-                                android:id="@+id/iv_menu"
-                                android:layout_marginRight="10dp"
-                                android:layout_centerVertical="true"
-                                android:layout_alignParentRight="true"
-                                android:src="@mipmap/blackview"
-                                android:layout_width="40dp"
-                                android:layout_height="5dp" />
-                        </RelativeLayout>
+                            android:src="@mipmap/white_switch"
+                            android:layout_marginLeft="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="40dp"
+                            android:layout_height="30dp" />
                     </RelativeLayout>
 
 

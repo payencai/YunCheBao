@@ -2,7 +2,9 @@ package com.system.fragment;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.application.MyApplication;
 import com.example.yunchebao.R;
@@ -18,13 +21,18 @@ import com.newversion.MyTagsActivity;
 import com.newversion.NewCarFriendActivity;
 import com.newversion.NewContactsActivity;
 import com.newversion.NewSelfDrvingActivity;
+import com.payencai.library.util.ToastUtil;
 import com.rongcloud.activity.AddFriendActivity;
 import com.rongcloud.activity.CreateGroupActivity;
 import com.rongcloud.activity.stranger.SaomaActivity;
 import com.rongcloud.activity.stranger.StrangerMsgActivity;
 import com.system.View.MenuWindow;
+import com.vipcenter.MyQrcodeActivity;
 import com.vipcenter.RegisterActivity;
 import com.vipcenter.UserCenterActivity;
+import com.zyyoona7.popup.EasyPopup;
+import com.zyyoona7.popup.XGravity;
+import com.zyyoona7.popup.YGravity;
 
 import butterknife.ButterKnife;
 
@@ -141,13 +149,30 @@ public class AnotherBabyFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //ToastUtil.showToast(getContext(),"解析成功");
+        Toast.makeText(getContext(), "---"+resultCode, Toast.LENGTH_SHORT).show();
+
+    }
+
     private void initWindow(View view) {
-        MenuWindow menuWindow=new MenuWindow(getContext());
-        View v = menuWindow.getContentView();
-        LinearLayout ll_friends = (LinearLayout) v.findViewById(R.id.ll_friends);
-        LinearLayout ll_group = (LinearLayout) v.findViewById(R.id.ll_group);
-        LinearLayout ll_shaoma = (LinearLayout) v.findViewById(R.id.ll_shaoma);
-        LinearLayout ll_qrcode = (LinearLayout) v.findViewById(R.id.ll_qrcode);
+        EasyPopup mCirclePop = EasyPopup.create()
+                .setContentView(getContext(), R.layout.dialog_four_menu)
+                //是否允许点击PopupWindow之外的地方消失
+                .setFocusAndOutsideEnable(true)
+                //允许背景变暗
+                .setBackgroundDimEnable(true)
+                //变暗的透明度(0-1)，0为完全透明
+                .setDimValue(0.4f)
+                //变暗的背景颜色
+                .setDimColor(Color.BLACK)
+                .apply();
+        LinearLayout ll_friends = (LinearLayout) mCirclePop.findViewById(R.id.ll_friends);
+        LinearLayout ll_group = (LinearLayout) mCirclePop.findViewById(R.id.ll_group);
+        LinearLayout ll_shaoma = (LinearLayout) mCirclePop.findViewById(R.id.ll_shaoma);
+        LinearLayout ll_qrcode = (LinearLayout) mCirclePop.findViewById(R.id.ll_qrcode);
         ll_friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,22 +196,21 @@ public class AnotherBabyFragment extends Fragment {
         ll_shaoma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getContext(), SaomaActivity.class), 1);
+                startActivityForResult(new Intent(getContext(), SaomaActivity.class), 5);
             }
         });
         ll_qrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (MyApplication.isLogin) {
-                    //startActivity(new Intent(getContext(), CreateGroupActivity.class));}
-                } else {
+                    startActivity(new Intent(getContext(), MyQrcodeActivity.class));
+                }
+                 else {
                     startActivity(new Intent(getContext(), RegisterActivity.class));
                 }
             }
         });
-        menuWindow.setBlurBackgroundEnable(true);
-        menuWindow.showPopupWindow(view);
-
+        mCirclePop.showAtAnchorView(view, YGravity.BELOW, XGravity.LEFT,0,0);
 
     }
 }

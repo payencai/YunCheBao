@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 
 import com.example.yunchebao.R;
+import com.payencai.library.util.ToastUtil;
 import com.tencent.tauth.Tencent;
 import com.tool.ImageUtil;
 import com.uuzuche.lib_zxing.activity.CaptureFragment;
@@ -60,6 +61,7 @@ public class SaomaActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //ToastUtil.showToast(this,"解析成功");
           if (requestCode == 112) {
             if (data != null) {
                 Uri uri = data.getData();
@@ -88,12 +90,13 @@ public class SaomaActivity extends AppCompatActivity {
     CodeUtils.AnalyzeCallback analyzeCallback = new CodeUtils.AnalyzeCallback() {
         @Override
         public void onAnalyzeSuccess(Bitmap mBitmap, String result) {
+            //ToastUtil.showToast(SaomaActivity.this,result);
             Intent resultIntent = new Intent();
             Bundle bundle = new Bundle();
             bundle.putInt(CodeUtils.RESULT_TYPE, CodeUtils.RESULT_SUCCESS);
             bundle.putString(CodeUtils.RESULT_STRING, result);
             resultIntent.putExtras(bundle);
-            SaomaActivity.this.setResult(RESULT_OK, resultIntent);
+            SaomaActivity.this.setResult(200, resultIntent);
             SaomaActivity.this.finish();
 
         }

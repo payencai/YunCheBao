@@ -3,6 +3,7 @@ package com.vipcenter;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.application.MyApplication;
@@ -27,5 +28,11 @@ public class MyQrcodeActivity extends AppCompatActivity {
         String url="云车宝好友:"+ MyApplication.getUserInfo().getId();
         Bitmap bitmap = CodeUtils.createImage(url,200,200,null);
         iv_qrcode.setImageBitmap(bitmap);
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

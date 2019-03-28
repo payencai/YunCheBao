@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="com.rongcloud.activity.AddFriendDetailActivity">
+    tools:context="com.rongcloud.activity.StrangerDelActivity">
     <RelativeLayout
         android:background="@color/white"
         android:layout_width="match_parent"

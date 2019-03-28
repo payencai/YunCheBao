@@ -30,7 +30,13 @@
         <item name="android:textColor">@color/button_text_color</item>
     </style>
     <!--  sweetAlert end  -->
-
+    <!--全屏启动页style1-->
+    <style name="WelcomeStyle" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowBackground">@drawable/ic_welcome</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
     <style name="split_line">
         <item name="android:background">@color/gray_e6</item>
         <item name="android:layout_width">match_parent</item>
