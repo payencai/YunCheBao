@@ -1,6 +1,7 @@
 package com.vipcenter.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -74,11 +75,16 @@ public class ShopCollectListFragment extends BaseFragment {
                 isLoadMore=true;
                 getData();
             }
-        });
+        },rv_collect);
         mWashCollectAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                ShopCollect shopCollect= (ShopCollect) adapter.getItem(position);
+                Intent intent=new Intent(getContext(),ShopMainListActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("id",shopCollect.getShopId());
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
         rv_collect.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -96,26 +102,31 @@ public class ShopCollectListFragment extends BaseFragment {
                 Log.e("getshop", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-                    jsonObject=jsonObject.getJSONObject("data");
-                    JSONArray data = jsonObject.getJSONArray("beanList");
-                    List<ShopCollect>washCollects=new ArrayList<>();
-                    for (int i = 0; i < data.length(); i++) {
-                        JSONObject item = data.getJSONObject(i);
-                        ShopCollect baikeItem = new Gson().fromJson(item.toString(), ShopCollect.class);
-                        washCollects.add(baikeItem);
-                        mWashCollects.add(baikeItem);
-                    }
-                    if(isLoadMore){
-                        isLoadMore=false;
-                        if(data.length()>0){
+                    int code=jsonObject.getInt("resultCode");
+                    if(code==0){
+                        jsonObject=jsonObject.getJSONObject("data");
+                        JSONArray data = jsonObject.getJSONArray("beanList");
+                        List<ShopCollect>washCollects=new ArrayList<>();
+                        for (int i = 0; i < data.length(); i++) {
+                            JSONObject item = data.getJSONObject(i);
+                            ShopCollect baikeItem = new Gson().fromJson(item.toString(), ShopCollect.class);
+                            washCollects.add(baikeItem);
+                            mWashCollects.add(baikeItem);
+                        }
+                        if(isLoadMore){
+                            isLoadMore=false;
                             mWashCollectAdapter.addData(washCollects);
-                            mWashCollectAdapter.loadMoreComplete();
+                            if(data.length()>0){
+                                mWashCollectAdapter.loadMoreComplete();
+                            }else{
+                                mWashCollectAdapter.loadMoreEnd(true);
+                            }
                         }else{
-                            mWashCollectAdapter.loadMoreEnd(true);
+                            mWashCollectAdapter.setNewData(mWashCollects);
                         }
 
                     }else{
-                        mWashCollectAdapter.setNewData(mWashCollects);
+                        mWashCollectAdapter.loadMoreEnd(true);
                     }
 
 

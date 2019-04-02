@@ -11,6 +11,7 @@ import com.costans.PlatformContans;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.payencai.library.util.ToastUtil;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
@@ -56,26 +57,22 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
     @Override
     public void onResp(BaseResp baseResp) {
         /*微信登录为getType为1，分享网页为2*/
-        Log.d("BaseResp", "onResp: ?????");
+
         Log.d("BaseResp", "" + baseResp.getType());
-        Log.d("BaseResp", "" + baseResp.errStr);
-        Log.d("BaseResp", "" + baseResp.openId);
-        Log.d("BaseResp", "" + baseResp.transaction);
-        Log.d("BaseResp", "" + baseResp.errCode);
-        Log.d("BaseResp", "" + baseResp.checkArgs());
+
         if (baseResp.getType() == WX_LOGIN) {
             SendAuth.Resp resp = (SendAuth.Resp) baseResp;
             switch (resp.errCode) {
                 case BaseResp.ErrCode.ERR_OK:
                     String code = String.valueOf(resp.code);
-                    requestOpenId("wx13acff5b460a0164", "201183149e3a890f02c216940d5333cb", code);
+                    requestOpenId("wx13acff5b460a0164", "27ea7c24ddd659fad3d02b831f8013d4", code);
                     break;
                 case BaseResp.ErrCode.ERR_AUTH_DENIED:
-                    //ToaskUtil.showToast(this, "拒绝授权");
+                    ToastUtil.showToast(this, "拒绝授权");
                     finish();
                     break;
                 case BaseResp.ErrCode.ERR_USER_CANCEL:
-                    //ToaskUtil.showToast(this, "用户取消");
+                    ToastUtil.showToast(this, "用户取消");
                     finish();
                     break;
             }
@@ -144,15 +141,11 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
         HttpProxy.obtain().get(url, "", new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+                Log.e("result",result);
                 try {
                     JSONObject object = new JSONObject(result);
                     String openid = object.getString("openid");
                     if (!TextUtils.isEmpty(openid)) {
-                       // loginByWeChat(openid);
-//                        Intent intent=new Intent();
-//                        intent.putExtra("openid",openid);
-//                        setResult(3,intent);
-//                        finish();
                         EventBus.getDefault().post(openid);
                         finish();
                     }

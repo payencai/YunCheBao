@@ -18,6 +18,8 @@ import com.bbcircle.adapter.WashCollectAdapter;
 import com.bbcircle.data.WashCollect;
 import com.caryibao.NewCar;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.cheyibao.NewCarDetailActivity;
+import com.cheyibao.NewCarListActivity;
 import com.cheyibao.NewCarSellerActivity;
 import com.costans.PlatformContans;
 import com.entity.PhoneGoodEntity;
@@ -84,7 +86,10 @@ public class NewCarFragment extends BaseFragment {
         mWashCollectAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                NewCarCollect newCarCollect= (NewCarCollect) adapter.getItem(position);
+                Bundle bundle=new Bundle();
+                bundle.putString("id", newCarCollect.getNewCarMerchantMessageId());
+                ActivityAnimationUtils.commonTransition(getActivity(), NewCarDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
             }
         });
         rv_collect.setLayoutManager(new LinearLayoutManager(getContext()));

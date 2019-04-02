@@ -118,14 +118,13 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
     NewCarParams mNewCarParams;
     OldCarImageAdapter mOldCarImageAdapter;
     List<String> mList = new ArrayList<>();
-
+    String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            mOldCar = (OldCar) bundle.getSerializable("data");
-        }
+        id=getIntent().getStringExtra("id");
+        mOldCar = (OldCar) bundle.getSerializable("data");
         setContentView(R.layout.oldcar_detail_layout);
         initView();
 
@@ -200,7 +199,7 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
         });
     }
 
-    private void setData(OldCar mOldCar) {
+    private void setData( ) {
         if (!TextUtils.isEmpty(mOldCar.getCarCategoryDetail().getBanner1()) && !"null".equals(mOldCar.getCarCategoryDetail().getBanner1()))
             images.add(mOldCar.getCarCategoryDetail().getBanner1());
         if (!TextUtils.isEmpty(mOldCar.getCarCategoryDetail().getBanner2()) && !"null".equals(mOldCar.getCarCategoryDetail().getBanner2()))
@@ -256,15 +255,15 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
 
     private void getDetail() {
         Map<String, Object> params = new HashMap<>();
-        params.put("id", mOldCar.getId());
+        params.put("id", id);
         HttpProxy.obtain().get(PlatformContans.OldCar.getOldCarMerchantCarById, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject data = jsonObject.getJSONObject("data");
-                    OldCar oldCar = new Gson().fromJson(data.toString(), OldCar.class);
-                    setData(oldCar);
+                    mOldCar = new Gson().fromJson(data.toString(), OldCar.class);
+                    setData();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -281,8 +280,6 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "车辆详情");
         ButterKnife.bind(this);
         //网络地址获取轮播图
-
-        getDetail();
         tv_seecomment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -310,6 +307,11 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
             }
         });
         // tv_shopname.setText(mOldCar.get);
+        if(mOldCar!=null){
+            setData();
+        }else{
+            getDetail();
+        }
 
 
     }

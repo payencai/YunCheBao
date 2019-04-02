@@ -222,7 +222,7 @@ public class WashCarListActivity extends NoHttpBaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
                 Log.e("pos", position + "");
-                bundle.putSerializable("id", list.get(position));
+                bundle.putSerializable("data", list.get(position));
                 bundle.putString("type", "洗车店");
                 bundle.putInt("flag",1);
                 if (MyApplication.isLogin)

@@ -103,14 +103,44 @@ public class RegisterActivity extends AppCompatActivity {
     BaseUiListener mBaseUiListener = new BaseUiListener();
     com.tencent.connect.UserInfo mInfo;
     private IWXAPI iwxapi;
+    TimeCount mTimeCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_layout);
         mTencent = Tencent.createInstance("101536200", getApplicationContext());
+        //mTencent = Tencent.createInstance("1108534147", getApplicationContext());
         EventBus.getDefault().register(this);
         initView();
     }
+
+
+    class TimeCount extends CountDownTimer {
+
+        public TimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            codeGetAgain.setEnabled(false);
+            codeGetAgain.setTextColor(getResources().getColor(R.color.gray_99));
+            count--;
+            //倒计时的过程中回调该函数
+            codeGetAgain.setText(count + "s");
+        }
+
+        @Override
+        public void onFinish() {
+            count=60;
+            codeGetAgain.setText("重新获取");
+            codeGetAgain.setEnabled(true);
+            codeGetAgain.setTextColor(getResources().getColor(R.color.yellow_02));
+            //倒计时结束时回调该函数
+        }
+    }
+
+
 
     @Override
     protected void onDestroy() {
@@ -721,6 +751,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        mTimeCount = new TimeCount(60000, 1000);
+
     }
 
     @Override
@@ -797,6 +829,7 @@ public class RegisterActivity extends AppCompatActivity {
                     JSONObject object = new JSONObject(result);
                     int code = object.getInt("resultCode");
                     if (code == 0) {
+                        mTimeCount.start();
                         Toast.makeText(RegisterActivity.this, "验证码已发送，请注意查收", Toast.LENGTH_LONG).show();
                         //注册,并且登录
                     } else {
@@ -841,34 +874,6 @@ public class RegisterActivity extends AppCompatActivity {
                 break;
             case R.id.codeGetAgain:
 
-                codeGetAgain.setEnabled(false);
-                codeGetAgain.setTextColor(getResources().getColor(R.color.gray_99));
-                new CountDownTimer(60 * 1000, 1000) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                count--;
-                                //倒计时的过程中回调该函数
-                                codeGetAgain.setText(count + "s");
-                                if (count == 0) {
-                                    count=60;
-                                    codeGetAgain.setText("重新获取");
-                                    codeGetAgain.setEnabled(true);
-                                    codeGetAgain.setTextColor(getResources().getColor(R.color.yellow_02));
-                                }
-                            }
-                        });
-
-
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        //倒计时结束时回调该函数
-                    }
-                }.start();
                 getCodeByType(ty, phoneNum.getText().toString());
                 codeNumEdit.setText("");
                 break;

@@ -48,6 +48,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import go.error;
 
 /**
  * Created by sdhcjhss on 2018/1/6.
@@ -108,31 +109,35 @@ public class GoodsCollectFragment extends BaseFragment {
         HttpProxy.obtain().get(PlatformContans.Collect.getCommodityCollectionList, params, MyApplication.token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("getNewCarCollectionList", page +"--"+result);
+                Log.e("getGoods", page +"--"+result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    List<GoodsCollect>washCollects=new ArrayList<>();
-                    for (int i = 0; i < data.length(); i++) {
-                        JSONObject item = data.getJSONObject(i);
-                        GoodsCollect baikeItem = new Gson().fromJson(item.toString(), GoodsCollect.class);
-                        washCollects.add(baikeItem);
-                        mWashCollects.add(baikeItem);
-                    }
-                    if(isLoadMore){
-                        isLoadMore=false;
-                        if(data.length()>0){
-                            mWashCollectAdapter.addData(washCollects);
-                            mWashCollectAdapter.loadMoreComplete();
-                        }else{
-                            mWashCollectAdapter.loadMoreEnd(true);
+                    int code=jsonObject.getInt("resultCode");
+                    if(code==0) {
+                        JSONArray data = jsonObject.getJSONArray("data");
+                        List<GoodsCollect>washCollects=new ArrayList<>();
+                        for (int i = 0; i < data.length(); i++) {
+                            JSONObject item = data.getJSONObject(i);
+                            GoodsCollect baikeItem = new Gson().fromJson(item.toString(), GoodsCollect.class);
+                            washCollects.add(baikeItem);
+                            mWashCollects.add(baikeItem);
                         }
+                        if(isLoadMore){
+                            isLoadMore=false;
+                            mWashCollectAdapter.addData(washCollects);
+                            if(data.length()>0){
+                                mWashCollectAdapter.loadMoreComplete();
+                            }else{
+                                mWashCollectAdapter.loadMoreEnd(true);
+                            }
 
+                        }else{
+                            mWashCollectAdapter.setNewData(mWashCollects);
+
+                        }
                     }else{
-                        mWashCollectAdapter.setNewData(mWashCollects);
+                        mWashCollectAdapter.loadMoreEnd(true);
                     }
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();

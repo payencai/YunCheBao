@@ -34,6 +34,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.payencai.library.util.ToastUtil;
 import com.payencai.library.view.CircleImageView;
 import com.rongcloud.activity.CreateGroupActivity;
 import com.rongcloud.activity.GroupQrcodeActivity;
@@ -54,8 +55,11 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.model.GroupUserInfo;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 
 public class GroupDetailActivity extends AppCompatActivity {
     //收缩时显示的行数
@@ -91,8 +95,13 @@ public class GroupDetailActivity extends AppCompatActivity {
     RelativeLayout rl_top;
     @BindView(R.id.back)
     ImageView back;
+    @BindView(R.id.iv_msg)
+    ImageView iv_msg;
+    @BindView(R.id.tv_clear)
+            TextView tv_clear;
     String id;
     String name;
+    Conversation.ConversationNotificationStatus conversationNotificationStatus1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +110,30 @@ public class GroupDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initView();
         getDetail();
+        getStatus();
+    }
+    private void getStatus(){
+        RongIM.getInstance().getConversationNotificationStatus(Conversation.ConversationType.GROUP, id, new RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>() {
+            @Override
+            public void onSuccess(Conversation.ConversationNotificationStatus conversationNotificationStatus) {
+                final int value = conversationNotificationStatus.getValue();
+
+                if (value == 1) {
+                    iv_msg.setImageResource(R.mipmap.white_switch);
+                    conversationNotificationStatus1 = conversationNotificationStatus.setValue(0);
+
+                } else {
+                    iv_msg.setImageResource(R.mipmap.blue_switch);
+                    conversationNotificationStatus1 = conversationNotificationStatus.setValue(1);
+                }
+
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                ToastUtil.showToast(GroupDetailActivity.this, errorCode.getMessage() + "");
+            }
+        });
     }
     private void initWindow(View view) {
         PopupWindow popupWindow = new PopupWindow(this);
@@ -213,6 +246,40 @@ public class GroupDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        iv_msg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                RongIM.getInstance().setConversationNotificationStatus(Conversation.ConversationType.GROUP, id, conversationNotificationStatus1, new RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>() {
+                    @Override
+                    public void onSuccess(Conversation.ConversationNotificationStatus conversationNotificationStatus) {
+                        getStatus();
+                    }
+
+                    @Override
+                    public void onError(RongIMClient.ErrorCode errorCode) {
+
+                    }
+                });
+            }
+
+        });
+        tv_clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RongIM.getInstance().clearMessages(Conversation.ConversationType.GROUP,id , new RongIMClient.ResultCallback<Boolean>() {
+                    @Override
+                    public void onSuccess(Boolean aBoolean) {
+                        ToastUtil.showToast(GroupDetailActivity.this,aBoolean+"清除成功");
+                    }
+
+                    @Override
+                    public void onError(RongIMClient.ErrorCode errorCode) {
+
+                    }
+                });
             }
         });
         rl_top.setOnClickListener(new View.OnClickListener() {

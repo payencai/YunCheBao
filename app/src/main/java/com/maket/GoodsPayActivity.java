@@ -14,11 +14,15 @@ import android.widget.TextView;
 
 import com.alipay.PayResult;
 import com.alipay.sdk.app.PayTask;
+import com.application.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.wxapi.WechatRes;
+import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
+import com.tencent.mm.opensdk.modelpay.PayReq;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,12 +50,18 @@ public class GoodsPayActivity extends AppCompatActivity {
     ImageView iv_member;
     @BindView(R.id.tv_pay)
     TextView tv_pay;
+    @BindView(R.id.tv_shop)
+    TextView tv_shop;
+    @BindView(R.id.tv_catagory)
+    TextView tv_catagory;
     @BindView(R.id.price1)
     TextView price1;
     @BindView(R.id.price2)
     TextView price2;
     String money;
     String flag;
+    String shop;
+    String goods;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,10 +69,48 @@ public class GoodsPayActivity extends AppCompatActivity {
         orderId=getIntent().getStringExtra("orderid");
         money=getIntent().getStringExtra("money");
         flag=getIntent().getStringExtra("flag");
+        shop=getIntent().getStringExtra("shop");
+        goods=getIntent().getStringExtra("goods");
         ButterKnife.bind(this);
         initView();
     }
+    private void payByWechat(String data) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("orderId", data);
+        HttpProxy.obtain().post(PlatformContans.WechatPay.washRepairPay, MyApplication.token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        JSONObject data = jsonObject.getJSONObject("data");
+                        WechatRes wechatRes = new Gson().fromJson(data.toString(), WechatRes.class);
+                        startWechatPay(wechatRes);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    private void startWechatPay(WechatRes payReponse) {
+        PayReq req = new PayReq(); //调起微信APP的对象
+        req.appId = payReponse.getAppid();
+        req.partnerId = payReponse.getPartnerid();
+        req.prepayId = payReponse.getPrepayid();
+        req.nonceStr = payReponse.getNoncestr();
+        req.timeStamp = payReponse.getTimestamp();
+        req.packageValue = payReponse.getPackageX(); //Sign=WXPay
+        req.sign = payReponse.getSign();
+        MyApplication.mWxApi.sendReq(req); //发送调起微信的请求
+    }
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @SuppressWarnings("unused")
@@ -114,6 +162,8 @@ public class GoodsPayActivity extends AppCompatActivity {
         payThread.start();
     }
     private void initView(){
+        tv_shop.setText(shop);
+        tv_catagory.setText(goods);
         price1.setText("￥"+money);
         price2.setText("￥"+money);
         tv_pay.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +174,7 @@ public class GoodsPayActivity extends AppCompatActivity {
                         getMemberCardOrder(orderId);
                         break;
                     case 2:
+                        payByWechat(orderId);
                         break;
                     case 3:
 
@@ -205,7 +256,7 @@ public class GoodsPayActivity extends AppCompatActivity {
 
         Map<String,Object> params=new HashMap<>();
         params.put("orderId",orderId);
-        HttpProxy.obtain().post(PlatformContans.Pay.memberCardPay, params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.MemberCard.memberCardPay, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("rsult",result);
@@ -213,7 +264,7 @@ public class GoodsPayActivity extends AppCompatActivity {
                     JSONObject jsonObject=new JSONObject(result);
                     int code=jsonObject.getInt("resultCode");
                     if(code==0){
-                        String sign=jsonObject.getString("data");
+                        String data=jsonObject.getString("data");
 
                     }
                 } catch (JSONException e) {
@@ -229,4 +280,5 @@ public class GoodsPayActivity extends AppCompatActivity {
         });
 
     }
+
 }

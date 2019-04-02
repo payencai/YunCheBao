@@ -83,16 +83,46 @@ public class NewCarDetailActivity extends AppCompatActivity {
     ShopItemAdapter mShopItemAdapter;
     NewCar mNewCar;
     NewCarParams mNewCarParams;
-
+    String id;
+    Merchant merchant;
+    int isCollect = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_car_detail);
         mNewCar = (NewCar) getIntent().getExtras().getSerializable("data");
+        id=getIntent().getExtras().getString("id");
         ButterKnife.bind(this);
         initView();
-        getMerchat();
-        getParams();
+
+    }
+    private void getDetail(){
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        HttpProxy.obtain().get(PlatformContans.NewCar.getNewCarMerchantMessageById, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("params", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    mNewCar=new Gson().fromJson(data.toString(),NewCar.class);
+                    isCollect();
+                    initData();
+                    initBanner();
+                    getShop();
+                    getMerchat();
+                    getParams();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
     public void callPhone(String phoneNum) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
@@ -154,7 +184,6 @@ public class NewCarDetailActivity extends AppCompatActivity {
         banner.start();
     }
 
-    Merchant merchant;
 
     private void getMerchat() {
         Map<String, Object> params = new HashMap<>();
@@ -221,6 +250,26 @@ public class NewCarDetailActivity extends AppCompatActivity {
         });
     }
 
+    private void initData( ){
+        tv_oldprice.setText("厂家指导价" + mNewCar.getAdvicePrice());
+        tv_newprice.setText("￥" + mNewCar.getNakedCarPrice());
+        String name = mNewCar.getFirstName();
+        if (!TextUtils.isEmpty(mNewCar.getSecondName()) && !"null".equals(mNewCar.getSecondName())) {
+            name = name + mNewCar.getSecondName();
+        }
+        if (!TextUtils.isEmpty(mNewCar.getThirdName()) && !"null".equals(mNewCar.getThirdName())) {
+            name = name + mNewCar.getThirdName();
+        }
+        tv_color.setText(mNewCar.getColor());
+        tv_name.setText(name);
+        if (!TextUtils.isEmpty(mNewCar.getCarCategoryDetail().getBanner1()) && !"null".equals(mNewCar.getCarCategoryDetail().getBanner1()))
+            images.add(mNewCar.getCarCategoryDetail().getBanner1());
+        if (!TextUtils.isEmpty(mNewCar.getCarCategoryDetail().getBanner2()) && !"null".equals(mNewCar.getCarCategoryDetail().getBanner2()))
+            images.add(mNewCar.getCarCategoryDetail().getBanner2());
+        if (!TextUtils.isEmpty(mNewCar.getCarCategoryDetail().getBanner3()) && !"null".equals(mNewCar.getCarCategoryDetail().getBanner3()))
+            images.add(mNewCar.getCarCategoryDetail().getBanner3());
+    }
+
     private void initView() {
         tv_param.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -268,31 +317,21 @@ public class NewCarDetailActivity extends AppCompatActivity {
                 collect();
             }
         });
-        tv_oldprice.setText("厂家指导价" + mNewCar.getAdvicePrice());
-        tv_newprice.setText("￥" + mNewCar.getNakedCarPrice());
-        String name = mNewCar.getFirstName();
-        if (!TextUtils.isEmpty(mNewCar.getSecondName()) && !"null".equals(mNewCar.getSecondName())) {
-            name = name + mNewCar.getSecondName();
-        }
-        if (!TextUtils.isEmpty(mNewCar.getThirdName()) && !"null".equals(mNewCar.getThirdName())) {
-            name = name + mNewCar.getThirdName();
-        }
-        tv_color.setText(mNewCar.getColor());
-        tv_name.setText(name);
-        if (!TextUtils.isEmpty(mNewCar.getCarCategoryDetail().getBanner1()) && !"null".equals(mNewCar.getCarCategoryDetail().getBanner1()))
-            images.add(mNewCar.getCarCategoryDetail().getBanner1());
-        if (!TextUtils.isEmpty(mNewCar.getCarCategoryDetail().getBanner2()) && !"null".equals(mNewCar.getCarCategoryDetail().getBanner2()))
-            images.add(mNewCar.getCarCategoryDetail().getBanner2());
-        if (!TextUtils.isEmpty(mNewCar.getCarCategoryDetail().getBanner3()) && !"null".equals(mNewCar.getCarCategoryDetail().getBanner3()))
-            images.add(mNewCar.getCarCategoryDetail().getBanner3());
-        initBanner();
         mShopItemAdapter = new ShopItemAdapter(this, mShops);
         mListView.setAdapter(mShopItemAdapter);
-        isCollect();
-        mShops.clear();
-        getShop();
+        if(mNewCar!=null){
+            isCollect();
+            initData();
+            initBanner();
+            getShop();
+            getMerchat();
+            getParams();
+        }else{
+            getDetail();
+        }
+
     }
-    int isCollect = -1;
+
 
     public void isCollect() {
         Map<String, Object> params = new HashMap<>();

@@ -38,6 +38,7 @@ import android.widget.Toast;
 
 import com.amap.api.maps.model.LatLng;
 import com.application.MyApplication;
+import com.caryibao.NewCar;
 import com.costans.PlatformContans;
 import com.entity.Banner;
 import com.entity.GoodsListBean;
@@ -114,17 +115,85 @@ public class WashCarDetailActivity extends FragmentActivity {
 
     };
 
+    public CarShop getCarShop() {
+        return mCarShop;
+    }
+
+    public void setCarShop(CarShop carShop) {
+        mCarShop = carShop;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.washcar_shop_detail);
         ButterKnife.bind(this);
-        mCarShop= (CarShop) getIntent().getExtras().getSerializable("id");
+        mCarShop= (CarShop) getIntent().getExtras().getSerializable("data");
+        id=getIntent().getStringExtra("id");
         type=getIntent().getExtras().getInt("flag");
+        slidingTabLayout = (SlidingTabLayout) findViewById(R.id.slidinglayout);
+        viewPager = (ViewPager) findViewById(R.id.vp);
         initView();
-        initViewPager();
+
     }
 
+    private void initData(){
+        List<String> result = Arrays.asList(mCarShop.getBanner().split(","));
+        for (int i = 0; i < result.size(); i++) {
+            String url = result.get(i);
+            Map<String, String> image_uri = new HashMap<String, String>();
+            image_uri.put("imageUrls", url);
+            imageList.add(image_uri);
+        }
+        bgImg.setImageUrls(imageList);
+        //bgImg.setImageURI(Uri.parse(mCarShop.getBanner()));
+        shopname.setText(mCarShop.getShopName());
+        score.setText(mCarShop.getScore()+"");
+        dis.setText(MathUtil.getDoubleTwo(mCarShop.getDistance())+"km");
+        tv_grade.setText(mCarShop.getGrade()+"");
+        address.setText(mCarShop.getAddress());
+        collectIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(MyApplication.isLogin){
+                    if(isCollect==0)
+                        collect();
+                    else
+                        deleteCollect();
+                }else{
+                    startActivity(new Intent(WashCarDetailActivity.this, RegisterActivity.class));
+                }
+            }
+        });
+        getIsCollect();
+        initViewPager();
+    }
+    private void getDetail(){
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("longitude", MyApplication.getaMapLocation().getLongitude());
+        params.put("latitude", MyApplication.getaMapLocation().getLatitude());
+        HttpProxy.obtain().get(PlatformContans.CarWashRepairShop.getWashRepairShopById, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("params", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    mCarShop=new Gson().fromJson(data.toString(),CarShop.class);
+                    initData();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     private void google(double mLatitude, double mLongitude) {
         if (isAvilible(this, "com.google.android.apps.maps")) {
             Uri gmmIntentUri = Uri.parse("google.navigation:q="
@@ -263,36 +332,11 @@ public class WashCarDetailActivity extends FragmentActivity {
 
     private void initView() {
 
-        slidingTabLayout = (SlidingTabLayout) findViewById(R.id.slidinglayout);
-        viewPager = (ViewPager) findViewById(R.id.vp);
-        List<String> result = Arrays.asList(mCarShop.getBanner().split(","));
-        for (int i = 0; i < result.size(); i++) {
-            String url = result.get(i);
-            Map<String, String> image_uri = new HashMap<String, String>();
-            image_uri.put("imageUrls", url);
-            imageList.add(image_uri);
+        if(mCarShop==null){
+            getDetail();
+        }else{
+            initData();
         }
-        bgImg.setImageUrls(imageList);
-        //bgImg.setImageURI(Uri.parse(mCarShop.getBanner()));
-        shopname.setText(mCarShop.getShopName());
-        score.setText(mCarShop.getScore()+"");
-        dis.setText(MathUtil.getDoubleTwo(mCarShop.getDistance())+"km");
-        tv_grade.setText(mCarShop.getGrade()+"");
-        address.setText(mCarShop.getAddress());
-        collectIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(MyApplication.isLogin){
-                    if(isCollect==0)
-                        collect();
-                    else
-                        deleteCollect();
-                }else{
-                    startActivity(new Intent(WashCarDetailActivity.this, RegisterActivity.class));
-                }
-            }
-        });
-        getIsCollect();
     }
     private void collect(){
         String token="";

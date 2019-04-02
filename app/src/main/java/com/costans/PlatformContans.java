@@ -210,6 +210,7 @@ public class PlatformContans {
         public static final String getRoadRescueServeListForApp=root+ "/roadRescue/getRoadRescueServeListForApp";
     }
     public static class CarWashRepairShop{
+        public static final String getWashRepairShopById=root+ "/carWashRepairShop/getWashRepairShopById";
         public static final String getCarWashRepairShopListByApp=root+ "/carWashRepairShop/getCarWashRepairShopListByApp";
         public static final String getWashRepairServeResultByShopId=root+ "/carWashRepairShop/getWashRepairServeListByShopId";
         public static final String addWashRepairOrder=root+ "/carWashRepairShop/addWashRepairOrder";
@@ -224,10 +225,11 @@ public class PlatformContans {
         public static final String getRentCarCarList=root+ "/rentcar/getRentCarCarList";
     }
     public static class OldCar{
+
         public static final String addOldCarUserCar=root+ "/oldcar/addOldCarUserCar";
         public static final String getOldCarMerchantCarByApp=root+ "/oldcar/getOldCarMerchantCarByApp";
         public static final String getOldCarMerchantCarByUser=root+ "/oldcar/getOldCarMerchantCarByUser";
-         public static final String getOldCarMerchantCarById=root+ "/oldcar/getOldCarMerchantCarById";
+        public static final String getOldCarMerchantCarById=root+ "/oldcar/getOldCarMerchantCarById";
     }
     public static class CarOrder{
         public static final String addCarOrder=root+ "/carOrder/addCarOrder";
@@ -279,6 +281,7 @@ public class PlatformContans {
         public static final String getNewCarListByApp=root+ "/newcar/getNewCarListByApp";
         public static final String getNewCarMerchantMessage=root+ "/newcar/getNewCarMerchantMessage";
         public static final String getDetailParams=root+ "/newcar/getCarCategoryDetailParamById";
+        public static final String getNewCarMerchantMessageById=root+"/newcar/getNewCarMerchantMessageById";
     }
     public static  class CarCategory{
         public static final String getFirstCategory=root+ "/carcategory/getFirstCategory";

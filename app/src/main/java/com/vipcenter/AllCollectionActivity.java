@@ -49,11 +49,8 @@ public class AllCollectionActivity extends NoHttpFragmentBaseActivity  {
         ButterKnife.bind(this);
         initView();
     }
-
     private void initView() {
-
         initFragmentList();
-
     }
 
     private void initFragmentList() {

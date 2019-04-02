@@ -166,6 +166,7 @@ public class AnotherBabyFragment extends Fragment {
                 .setBackgroundDimEnable(true)
                 //变暗的透明度(0-1)，0为完全透明
                 .setDimValue(0.4f)
+
                 //变暗的背景颜色
                 .setDimColor(Color.BLACK)
                 .apply();

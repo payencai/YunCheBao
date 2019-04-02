@@ -36,7 +36,9 @@ import com.nohttp.tools.HttpJsonClient;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
+import com.vipcenter.WashOrderDetailActivity;
 import com.xihubao.OrderPayActivity;
+import com.xihubao.WashCarDetailActivity;
 import com.xihubao.WashPayActivity;
 import com.xihubao.adapter.BigramHeaderAdapter;
 import com.xihubao.adapter.PersonAdapter;
@@ -107,13 +109,15 @@ public class GoodsFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 money = mServeListBeans.get(position).getPrice() + "";
-                takeOrder(mServeListBeans.get(position).getId());
+                takeOrder(mServeListBeans.get(position).getId(), mServeListBeans.get(position).getFirstName());
             }
         });
         getData();
     }
 
-    private void takeOrder(String id) {
+    private void takeOrder(String id,String goods) {
+        WashCarDetailActivity activity= (WashCarDetailActivity) getActivity();
+        String shopname=activity.getCarShop().getShopName();
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
         HttpProxy.obtain().post(PlatformContans.CarWashRepairShop.addWashRepairOrder, MyApplication.token, params, new ICallBack() {
@@ -129,6 +133,8 @@ public class GoodsFragment extends BaseFragment {
                         intent.putExtra("orderid", orderid);
                         intent.putExtra("money", money);
                         intent.putExtra("flag", "1");
+                        intent.putExtra("shop", shopname);
+                        intent.putExtra("goods", goods);
                         startActivity(intent);
                     }
                 } catch (JSONException e) {

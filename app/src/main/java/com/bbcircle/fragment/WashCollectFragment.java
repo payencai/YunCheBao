@@ -1,6 +1,7 @@
 package com.bbcircle.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,7 +31,11 @@ import com.nohttp.sample.BaseFragment;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.listview.PersonalListView;
+import com.vipcenter.RegisterActivity;
 import com.vipcenter.adapter.ArticleListAdapter;
+import com.xihubao.RepairListActivity;
+import com.xihubao.WashCarDetailActivity;
+import com.xihubao.WashCarListActivity;
 import com.xihubao.adapter.WashCarListAdapter;
 
 import org.json.JSONArray;
@@ -79,6 +84,19 @@ public class WashCollectFragment extends BaseFragment {
         mWashCollectAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                WashCollect washCollect= (WashCollect) adapter.getItem(position);
+                Bundle bundle = new Bundle();
+                if(washCollect.getType()==1){
+                    bundle.putString("id",washCollect.getShopId());
+                    bundle.putInt("flag",1);
+                    ActivityAnimationUtils.commonTransition(getActivity(), WashCarDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
+                }else{
+                    bundle.putString("id",washCollect.getShopId());
+                    bundle.putInt("flag", 2);
+                    ActivityAnimationUtils.commonTransition(getActivity(), WashCarDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
+
+                }
+
 
             }
         });

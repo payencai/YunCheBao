@@ -1,6 +1,7 @@
 package com.vipcenter.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,6 +37,7 @@ import com.nohttp.sample.BaseFragment;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.view.ListViewForScrollView;
+import com.vipcenter.ShopMainListActivity;
 import com.vipcenter.adapter.GoodCollectAdapter;
 import com.vipcenter.adapter.NewCarCollectAdapter;
 import com.vipcenter.adapter.OldcarCollectAdapter;
@@ -90,6 +92,12 @@ public class OldCarFragment extends BaseFragment {
         mWashCollectAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                OldCarCollect oldCarCollect= (OldCarCollect) adapter.getItem(position);
+                Intent intent=new Intent(getContext(),OldCarDetailActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("id",oldCarCollect.getOldCarMerchantCarId());
+                intent.putExtras(bundle);
+                startActivity(intent);
 
             }
         });
