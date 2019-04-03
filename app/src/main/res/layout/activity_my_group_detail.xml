@@ -64,14 +64,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <ImageView
+                    <com.payencai.library.view.CircleImageView
 
                         android:scaleType="fitXY"
                         android:id="@+id/iv_icon"
                         android:layout_marginLeft="15dp"
                         android:src="@mipmap/login_img_icon"
                         android:layout_centerVertical="true"
-                        android:layout_width="30dp"
+                        android:layout_width="40dp"
                         android:layout_height="40dp" />
                     <TextView
                         android:id="@+id/chatname"
@@ -84,7 +84,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <RelativeLayout
-
+                        android:id="@+id/rl_group"
                         android:layout_marginRight="10dp"
                         android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
@@ -134,6 +134,7 @@
                             android:layout_height="wrap_content" />
                     </RelativeLayout>
                     <RelativeLayout
+                        android:id="@+id/rl_code"
                         android:layout_width="match_parent"
                         android:layout_height="40dp">
                         <TextView
@@ -270,6 +271,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <ImageView
+                            android:id="@+id/iv_msg"
                             android:scaleType="fitXY"
                             android:layout_marginRight="15dp"
                             android:layout_alignParentRight="true"
@@ -307,7 +309,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
-
+                            android:id="@+id/tv_clear"
                             android:layout_marginRight="15dp"
                             android:layout_alignParentRight="true"
                             android:textSize="@dimen/text_size_16"

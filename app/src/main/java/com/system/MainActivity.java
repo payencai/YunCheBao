@@ -38,9 +38,13 @@ import com.nohttp.sample.NoHttpFragmentBaseActivity;
 import com.payencai.library.util.ToastUtil;
 import com.rongcloud.activity.StrangerDelActivity;
 import com.rongcloud.activity.contact.FriendDetailActivity;
+import com.rongcloud.activity.contact.GroupApplyActivity;
+import com.rongcloud.activity.contact.GroupDetailActivity;
+import com.rongcloud.activity.contact.MyGroupDetailActivity;
 import com.rongcloud.activity.stranger.SaomaActivity;
 import com.rongcloud.model.MyFriend;
 import com.rongcloud.model.MyGroup;
+import com.rongcloud.sidebar.ContactModel;
 import com.system.fragment.AnotherBabyFragment;
 import com.system.fragment.BBCircleFragment;
 import com.system.fragment.CheyiFragment;
@@ -103,7 +107,6 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
     private TextView tv_tab5;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,7 +143,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                     if (code == 0) {
                         //Toast.makeText(MainActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
                         UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
-                        MyApplication.token=userInfo.getToken();
+                        MyApplication.token = userInfo.getToken();
                         MyApplication.setUserInfo(userInfo);
                         MyApplication.setIsLogin(true);
                         initview();
@@ -527,21 +530,78 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         });
     }
 
+    boolean isIn = false;
+
+    private void getGroupData(String id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("crowdId", id);
+        final com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
+        HttpProxy.obtain().get(PlatformContans.Chat.getCrowdDetailsByCrowdId, params, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("data", result);
+                try {
+                    JSONObject Json = new JSONObject(result);
+                    JSONObject data = Json.getJSONObject("data");
+                    String name = data.getString("crowdName");
+                    String image = data.getString("image");
+                    JSONArray indexList = data.getJSONArray("indexList");
+                    String groupOwnerId = data.getString("crowdUserId");
+                    for (int i = 0; i < indexList.length(); i++) {
+                        JSONObject item = indexList.getJSONObject(i);
+                        ContactModel contactModel = new ContactModel(item.getString("nickName"));
+                        if (contactModel.getUserId().equals(MyApplication.getUserInfo().getId())) {
+                            isIn = true;
+                            break;
+                        }
+                    }
+
+                    if (groupOwnerId.equals(MyApplication.getUserInfo().getId())) {
+                        Intent intent = new Intent(MainActivity.this, MyGroupDetailActivity.class);
+                        intent.putExtra("id", id);
+                        startActivity(intent);
+                    } else {
+                        if (isIn) {
+                            Intent intent = new Intent(MainActivity.this, GroupDetailActivity.class);
+                            intent.putExtra("id", id);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(MainActivity.this, GroupApplyActivity.class);
+                            com.rongcloud.model.Group group = new com.rongcloud.model.Group();
+                            group.setCrowdName(name);
+                            group.setHxCrowdId(id);
+                            group.setImage(image);
+                            intent.putExtra("group", group);
+                            startActivity(intent);
+                        }
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //ToastUtil.showToast(this,"解析成功");
-        if(requestCode==1){
+        if (requestCode == 1) {
             Toast.makeText(this, "GPS模块已开启", Toast.LENGTH_SHORT).show();
             fragment1.startLocate();
         }
-        if(resultCode==200&&data!=null){
-            String result=data.getExtras().getString(CodeUtils.RESULT_STRING);
-            if(!TextUtils.isEmpty(result)){
-                if(result.contains("云车宝群组:")) {
-
-                }
-                else if(result.contains("云车宝好友:")){
+        if (resultCode == 200 && data != null) {
+            String result = data.getExtras().getString(CodeUtils.RESULT_STRING);
+            if (!TextUtils.isEmpty(result)) {
+                if (result.contains("云车宝群组:")) {
+                    getGroupData(result.substring(6));
+                } else if (result.contains("云车宝好友:")) {
                     getPrivateDetail(result.substring(6));
                 }
             }
@@ -549,25 +609,26 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         }
 
     }
-    private void getPrivateDetail(String id){
-        Map<String,Object> params=new HashMap<>();
-        params.put("userId",id);
+
+    private void getPrivateDetail(String id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", id);
         HttpProxy.obtain().get(PlatformContans.User.getUserResultById, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("detail",result);
+                Log.e("detail", result);
                 try {
-                    JSONObject jsonObject=new JSONObject(result);
-                    JSONObject data=jsonObject.getJSONObject("data");
-                    UserMsg userMsg=new Gson().fromJson(data.toString(),UserMsg.class);
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    UserMsg userMsg = new Gson().fromJson(data.toString(), UserMsg.class);
                     Intent intent;
-                    if("1".equals(userMsg.getIsFriend())){
-                        intent=new Intent(MainActivity.this, FriendDetailActivity.class);
-                        intent.putExtra("id",id);
+                    if ("1".equals(userMsg.getIsFriend())) {
+                        intent = new Intent(MainActivity.this, FriendDetailActivity.class);
+                        intent.putExtra("id", id);
                         startActivity(intent);
-                    }else{
-                        intent=new Intent(MainActivity.this, StrangerDelActivity.class);
-                        intent.putExtra("id",id);
+                    } else {
+                        intent = new Intent(MainActivity.this, StrangerDelActivity.class);
+                        intent.putExtra("id", id);
                         startActivity(intent);
                     }
                 } catch (JSONException e) {
