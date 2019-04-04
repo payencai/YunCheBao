@@ -114,7 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="10dp">
+                    android:padding="5dp">
 
                     <LinearLayout
                         android:id="@+id/menuLay1"
@@ -198,7 +198,26 @@
                             android:text="驾校汇"
                             android:textColor="@color/gray_99" />
                     </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/menuLayDrive"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="50dp"
+                            android:src="@mipmap/ic_drive" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="代驾"
+                            android:textColor="@color/gray_99" />
+                    </LinearLayout>
                     <LinearLayout
                         android:id="@+id/menuLay5"
                         android:layout_width="0dp"

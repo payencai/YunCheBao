@@ -50,6 +50,7 @@ import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
 import com.rongcloud.activity.ChatActivity;
 import com.rongcloud.adapter.ListDataSave;
+import com.system.DriveServiceActivity;
 import com.system.NoticeActivity;
 import com.system.SearchActivity;
 import com.system.WebCarActivity;
@@ -727,10 +728,12 @@ public class HomeFragment extends BaseFragment {
         getHomeImage(3);
     }
 
-
-    @OnClick({R.id.messenger_icon,R.id.rl_notice,R.id.search_lay, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.menuLay4, R.id.menuLay7, R.id.menuLay5, R.id.menuLay6, R.id.menuLay8, R.id.menuLay9, R.id.menuLay10, R.id.user_center_icon})
+    @OnClick({R.id.messenger_icon,R.id.menuLayDrive,R.id.rl_notice,R.id.search_lay, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.menuLay4, R.id.menuLay7, R.id.menuLay5, R.id.menuLay6, R.id.menuLay8, R.id.menuLay9, R.id.menuLay10, R.id.user_center_icon})
     public void OnClick(View v) {
         switch (v.getId()) {
+            case R.id.menuLayDrive:
+                startActivity(new Intent(getContext(), DriveServiceActivity.class));
+                break;
             case R.id.rl_notice:
                 if (MyApplication.isLogin) {
                     startActivity(new Intent(getContext(), NoticeActivity.class));

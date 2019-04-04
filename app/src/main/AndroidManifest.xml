@@ -479,7 +479,8 @@
         <activity android:name="com.vipcenter.OrderCommentsActivity" />
         <activity android:name="com.vipcenter.ManaAddressActivity" />
         <activity android:name="com.vipcenter.MyCarListActivity" />
-        <activity android:name="com.rongcloud.activity.GroupQrcodeActivity"></activity>
+        <activity android:name="com.rongcloud.activity.GroupQrcodeActivity" />
+        <activity android:name="com.system.DriveServiceActivity"></activity>
     </application>
 
 </manifest>
