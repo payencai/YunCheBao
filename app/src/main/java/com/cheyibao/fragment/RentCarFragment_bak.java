@@ -67,7 +67,7 @@ public class RentCarFragment_bak extends BaseFragment implements OnHeaderClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.rent_home_layout, container, false);
+        rootView = inflater.inflate(R.layout.rent_home_layout_bak, container, false);
         ButterKnife.bind(this, rootView);
         String adcode = MyApplication.getaMapLocation().getAdCode();
         if (!TextUtils.isEmpty(adcode))

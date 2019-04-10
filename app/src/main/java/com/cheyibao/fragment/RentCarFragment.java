@@ -1,49 +1,41 @@
 package com.cheyibao.fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CheckedTextView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.MyApplication;
-import com.cheyibao.RentShopDetailActivity;
-import com.cheyibao.adapter.AreaItemAdapter;
-import com.cheyibao.adapter.RentCarItemAdapter;
-import com.cheyibao.model.Area;
-import com.cheyibao.model.CoachItem;
 import com.cheyibao.model.RentCar;
 import com.costans.PlatformContans;
 import com.entity.Banner;
-import com.entity.GoodsListBean;
-import com.entity.PhoneShopEntity;
 import com.eowise.recyclerview.stickyheaders.OnHeaderClickListener;
-import com.eowise.recyclerview.stickyheaders.StickyHeadersBuilder;
-import com.eowise.recyclerview.stickyheaders.StickyHeadersItemDecoration;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
-import com.nohttp.tools.HttpJsonClient;
-import com.cheyibao.adapter.RentPersonAdapter;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
-import com.tool.JsonUtil;
+import com.payencai.library.util.ToastUtil;
+import com.system.X5WebviewActivity;
+import com.system.model.AddressBean;
 import com.tool.slideshowview.SlideShowView;
-import com.xihubao.OrderPayActivity;
-import com.xihubao.adapter.BigramHeaderAdapter;
-import com.xihubao.adapter.RecycleGoodsCategoryListAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,6 +48,8 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 
 /**
@@ -63,97 +57,123 @@ import butterknife.ButterKnife;
  */
 
 public class RentCarFragment extends BaseFragment implements OnHeaderClickListener {
-    @BindView(R.id.lv_left)
-    ListView lv_left;
-    @BindView(R.id.lv_right)
-    ListView lv_right;
-    @BindView(R.id.tv_tag)
-    TextView tv_tag;
-    AreaItemAdapter mAreaItemAdapter;
-    RentCarItemAdapter mRentCarItemAdapter;
-    String cityCode;
-    String json;
-    List<Area> mAreas = new ArrayList<>();
-    List<RentCar> mRentCars = new ArrayList<>();
-    //轮播图片
-    private List<Map<String, String>> imageList = new ArrayList<>();
+    @BindView(R.id.rent_type_parent_view)
+    RadioGroup rentTypeParentView;
+    @BindView(R.id.self_driving_radio_button)
+    RadioButton selfDrivingRadioButton;
+    @BindView(R.id.long_rent_radio_button)
+    RadioButton longRentRadioButton;
+    @BindView(R.id.send_car_address_text_view)
+    TextView sendCarAddressTextView;
+    @BindView(R.id.is_send_the_car_to_home_checked_view)
+    CheckBox isSendTheCarToHomeCheckedView;
+    @BindView(R.id.return_the_car_address_text_view)
+    TextView returnTheCarAddressTextView;
+    @BindView(R.id.is_go_home_to_take_the_car_checked_view)
+    CheckBox isGoHomeToTakeTheCarCheckedView;
+    @BindView(R.id.rent_the_car_start_time_text_view)
+    TextView rentTheCarStartTimeTextView;
+    @BindView(R.id.rent_the_car_time_text_view)
+    TextView rentTheCarTimeTextView;
+    @BindView(R.id.rent_the_car_end_time_text_view)
+    TextView rentTheCarEndTimeTextView;
+    @BindView(R.id.pick_the_car_view)
+    CardView pickTheCarView;
+    @BindView(R.id.self_driver_order_click_view)
+    TextView selfDriverOrderClickView;
+    @BindView(R.id.high_end_self_driving_click_view)
+    TextView highEndSelfDrivingClickView;
+    @BindView(R.id.store_query_click_view)
+    TextView storeQueryClickView;
+    @BindView(R.id.car_type_query_click)
+    TextView carTypeQueryClick;
+    @BindView(R.id.self_driving_parent_view)
+    LinearLayout selfDrivingParentView;
+    @BindView(R.id.long_rent_btn)
+    CardView longRentBtn;
+    @BindView(R.id.recommended_vehicle_type_list_view)
+    ListView recommendedVehicleTypeListView;
+    @BindView(R.id.long_rent_parentView)
+    LinearLayout longRentParentView;
     @BindView(R.id.slideshowView)
     SlideShowView slideShowView;
+
+
+    //轮播图片
+    private List<Map<String, String>> imageList = new ArrayList<>();
+
+    private Unbinder unbinder;
+
+    private AddressBean addressBean;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.rent_home_layout, container, false);
-        ButterKnife.bind(this, rootView);
-        String adcode = MyApplication.getaMapLocation().getAdCode();
-        if (!TextUtils.isEmpty(adcode))
-            cityCode = MyApplication.getaMapLocation().getAdCode().substring(0, 4) + "00";
-//        else{
-//            cityCode="440100";
-//        }
+        unbinder = ButterKnife.bind(this, rootView);
         getBaner();
-        mAreas.clear();
-
-        getJsonData();
         initView();
-        mRentCars.clear();
-        getShop(1, "");
         return rootView;
     }
-    int page=1;
-    private void getShop(int type, String area) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("type", type);
-        params.put("page",page);
-        if (!TextUtils.isEmpty(area))
-            params.put("region", area);
-        params.put("longitude", MyApplication.getaMapLocation().getLongitude() + "");
-        params.put("latitude", MyApplication.getaMapLocation().getLatitude() + "");
-        HttpProxy.obtain().get(PlatformContans.CarRent.getRentCar, params, "", new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Log.e("getdata", result);
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    for (int i = 0; i < data.length(); i++) {
-                        JSONObject item = data.getJSONObject(i);
-                        RentCar baikeItem = new Gson().fromJson(item.toString(), RentCar.class);
-                        mRentCars.add(baikeItem);
-                    }
-                    mRentCarItemAdapter.notifyDataSetChanged();
-                    //updateData();
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+    private void initView(){
+        selfDrivingRadioButton.setTextColor(colors());
+        longRentRadioButton.setTextColor(colors());
+        selfDrivingRadioButton.setChecked(true);
+        selfDrivingRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+        longRentRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
 
-            @Override
-            public void onFailure(String error) {
-
+        rentTypeParentView.setOnCheckedChangeListener((radioGroup, i) -> {
+            switch (i){
+                case R.id.self_driving_radio_button:
+                    longRentParentView.setVisibility(View.GONE);
+                    selfDrivingParentView.setVisibility(View.VISIBLE);
+                    selfDrivingRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+                    longRentRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+                    break;
+                case R.id.long_rent_radio_button:
+                    longRentParentView.setVisibility(View.VISIBLE);
+                    selfDrivingParentView.setVisibility(View.GONE);
+                    selfDrivingRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+                    longRentRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+                    break;
             }
         });
+
+        isGoHomeToTakeTheCarCheckedView.setButtonDrawable(drawables());
+        isSendTheCarToHomeCheckedView.setButtonDrawable(drawables());
+
     }
 
-    private void getJsonData() {
-        Area area1 = new Area();
-        area1.setName("附近门店");
-        mAreas.add(area1);
-        json = JsonUtil.getJson(getContext(), "area.json");
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            JSONArray areas = jsonObject.getJSONArray(cityCode);
-            Log.e("areas", areas.length() + "");
-            for (int i = 0; i < areas.length(); i++) {
-                JSONObject item = areas.getJSONObject(i);
-                Area area = new Gson().fromJson(item.toString(), Area.class);
-                mAreas.add(area);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    private ColorStateList colors(){
+        int[][] status = new int[2][];
+        status[0] = new int[]{android.R.attr.state_checked};
+        status[1] = new int[]{};
+        int[] colors = new int[]{getColorByResource(R.color.black_33),getColorByResource(R.color.gray_99)};
+        return new ColorStateList(status,colors);
+    }
 
+    private StateListDrawable drawables(){
+        StateListDrawable stateListDrawable = new StateListDrawable();
+        stateListDrawable.addState(new int[]{android.R.attr.state_checked},getDrawableByResource(R.mipmap.carrental_btn_checkthe_selected));
+        stateListDrawable.addState(new int[]{},getDrawableByResource(R.mipmap.carrental_btn_checkthe_normal));
+        return stateListDrawable;
+    }
+
+    private Drawable getDrawableByResource(int resource){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return getResources().getDrawable(resource,null);
+        }else {
+            return getResources().getDrawable(resource);
+        }
+    }
+
+    private int getColorByResource(int resource){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return getResources().getColor(resource,null);
+        }else {
+            return getResources().getColor(resource);
+        }
     }
 
     private void getBaner() {
@@ -196,40 +216,6 @@ public class RentCarFragment extends BaseFragment implements OnHeaderClickListen
 
     }
 
-    private void initView() {
-        mAreaItemAdapter = new AreaItemAdapter(getContext(), mAreas);
-        mRentCarItemAdapter = new RentCarItemAdapter(getContext(), mRentCars);
-        lv_left.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                tv_tag.setText(mAreas.get(position).getName());
-                mAreaItemAdapter.setSelectedPosition(position);
-                mAreaItemAdapter.notifyDataSetChanged();
-                Area area=mAreas.get(position);
-                mRentCars.clear();
-                if(position==0){
-                    getShop(1,"");
-                }else{
-                    getShop(2,area.getName());
-                }
-
-            }
-        });
-        lv_right.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(getContext(), RentShopDetailActivity.class);
-                RentCar rentCar=mRentCars.get(position);
-                intent.putExtra("data",rentCar);
-                startActivity(intent);
-            }
-        });
-        lv_left.setAdapter(mAreaItemAdapter);
-        lv_right.setAdapter(mRentCarItemAdapter);
-
-    }
-
 
     @Override
     public void onHeaderClick(View header, long headerId) {
@@ -238,4 +224,75 @@ public class RentCarFragment extends BaseFragment implements OnHeaderClickListen
     }
 
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    /**
+     * 选择取车地点
+     */
+    @OnClick(R.id.send_car_address_text_view)
+    public void onSendCarAddressTextViewClicked() {
+        if (isSendTheCarToHomeCheckedView.isChecked()){
+            startActivityForResult(new Intent(getContext(),X5WebviewActivity.class),1);
+        }else {
+            ToastUtil.showToast(getActivity(),"选择门店地址");
+        }
+    }
+
+    /**
+     * 选择还车地址
+     */
+    @OnClick(R.id.return_the_car_address_text_view)
+    public void onReturnTheCarAddressTextViewClicked() {
+        if (isGoHomeToTakeTheCarCheckedView.isChecked()){
+            ToastUtil.showToast(getActivity(),"选择地图地址");
+        }else {
+            ToastUtil.showToast(getActivity(),"选择门店地址");
+        }
+    }
+
+    @OnClick(R.id.rent_the_car_start_time_text_view)
+    public void onRentTheCarStartTimeTextViewClicked() {
+    }
+
+    @OnClick(R.id.rent_the_car_end_time_text_view)
+    public void onRentTheCarEndTimeTextViewClicked() {
+    }
+
+    @OnClick(R.id.pick_the_car_view)
+    public void onPickTheCarViewClicked() {
+    }
+
+    @OnClick(R.id.self_driver_order_click_view)
+    public void onSelfDriverOrderClickViewClicked() {
+    }
+
+    @OnClick(R.id.high_end_self_driving_click_view)
+    public void onHighEndSelfDrivingClickViewClicked() {
+    }
+
+    @OnClick(R.id.store_query_click_view)
+    public void onStoreQueryClickViewClicked() {
+    }
+
+    @OnClick(R.id.car_type_query_click)
+    public void onCarTypeQueryClickClicked() {
+    }
+
+    @OnClick(R.id.long_rent_btn)
+    public void onLongRentBtnClicked() {
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==1 && data!=null){
+            addressBean= (AddressBean) data.getSerializableExtra("address");
+            String address=String.format("%s    %s",addressBean.getCityname(),addressBean.getPoiaddress()) ;
+            sendCarAddressTextView.setText(address);
+        }
+    }
 }
