@@ -150,4 +150,6 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-21'//没有使用特殊Header，可以不加这行
     //popupwindow 背景变暗
     compile 'com.github.zyyoona7:EasyPopup:1.1.2'
+    compile 'com.github.w446108264:StickHeaderLayout:1.0.3'
+    compile 'com.sys.blackcat.stickheaderlayout:library:1.3.4'
 }
