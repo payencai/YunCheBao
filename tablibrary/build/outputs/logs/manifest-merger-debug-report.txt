@@ -1,19 +1,19 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\Project\YunCheBao\tablibrary\src\main\AndroidManifest.xml:2:1-6:12
-INJECTED from D:\Project\YunCheBao\tablibrary\src\main\AndroidManifest.xml:2:1-6:12
-INJECTED from D:\Project\YunCheBao\tablibrary\src\main\AndroidManifest.xml:2:1-6:12
+ADDED from D:\work\YunCheBao\tablibrary\src\main\AndroidManifest.xml:2:1-6:12
+INJECTED from D:\work\YunCheBao\tablibrary\src\main\AndroidManifest.xml:2:1-6:12
+INJECTED from D:\work\YunCheBao\tablibrary\src\main\AndroidManifest.xml:2:1-6:12
 	package
-		ADDED from D:\Project\YunCheBao\tablibrary\src\main\AndroidManifest.xml:4:5-52
-		INJECTED from D:\Project\YunCheBao\tablibrary\src\main\AndroidManifest.xml
-		INJECTED from D:\Project\YunCheBao\tablibrary\src\main\AndroidManifest.xml
+		ADDED from D:\work\YunCheBao\tablibrary\src\main\AndroidManifest.xml:4:5-52
+		INJECTED from D:\work\YunCheBao\tablibrary\src\main\AndroidManifest.xml
+		INJECTED from D:\work\YunCheBao\tablibrary\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from D:\Project\YunCheBao\tablibrary\src\main\AndroidManifest.xml:3:5-63
+		ADDED from D:\work\YunCheBao\tablibrary\src\main\AndroidManifest.xml:3:5-63
 uses-sdk
-INJECTED from D:\Project\YunCheBao\tablibrary\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from D:\Project\YunCheBao\tablibrary\src\main\AndroidManifest.xml
-INJECTED from D:\Project\YunCheBao\tablibrary\src\main\AndroidManifest.xml
+INJECTED from D:\work\YunCheBao\tablibrary\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\work\YunCheBao\tablibrary\src\main\AndroidManifest.xml
+INJECTED from D:\work\YunCheBao\tablibrary\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from D:\Project\YunCheBao\tablibrary\src\main\AndroidManifest.xml
-		ADDED from D:\Project\YunCheBao\tablibrary\src\main\AndroidManifest.xml
-		INJECTED from D:\Project\YunCheBao\tablibrary\src\main\AndroidManifest.xml
+		INJECTED from D:\work\YunCheBao\tablibrary\src\main\AndroidManifest.xml
+		ADDED from D:\work\YunCheBao\tablibrary\src\main\AndroidManifest.xml
+		INJECTED from D:\work\YunCheBao\tablibrary\src\main\AndroidManifest.xml
