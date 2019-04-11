@@ -11,9 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.baiiu.filter.interfaces.OnFilterDoneListener;
-import com.cheyibao.adapter.PriceGridAdapter;
-import com.entity.FilterUrl;
+
 import com.example.yunchebao.R;
 import com.warkiz.widget.IndicatorSeekBar;
 
@@ -21,7 +19,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * auther: baiiu
@@ -38,7 +35,7 @@ public class PriceGridView extends LinearLayout implements View.OnClickListener 
     TextView priceText;
 
     private List<String> mTopGridData;
-    private OnFilterDoneListener mOnFilterDoneListener;
+
 
 
     public PriceGridView(Context context) {
@@ -107,8 +104,8 @@ public class PriceGridView extends LinearLayout implements View.OnClickListener 
                 return 1;
             }
         });
-        recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setAdapter(new PriceGridAdapter(getContext(), mTopGridData, this));
+
+
 
         return this;
     }
@@ -133,20 +130,7 @@ public class PriceGridView extends LinearLayout implements View.OnClickListener 
     }
 
 
-    public PriceGridView setOnFilterDoneListener(OnFilterDoneListener listener) {
-        mOnFilterDoneListener = listener;
-        return this;
-    }
 
-    @OnClick(R.id.bt_confirm)
-    public void clickDone() {
-
-        FilterUrl.instance().doubleGridTop = mTopSelectedTextView == null ? "" : (String) mTopSelectedTextView.getTag();
-
-        if (mOnFilterDoneListener != null) {
-            mOnFilterDoneListener.onFilterDone(3, "", "");
-        }
-    }
 
 
 }

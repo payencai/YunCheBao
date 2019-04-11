@@ -26,7 +26,7 @@ import com.application.MyApplication;
 import com.cheyibao.model.RentCar;
 import com.costans.PlatformContans;
 import com.entity.Banner;
-import com.eowise.recyclerview.stickyheaders.OnHeaderClickListener;
+
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
@@ -56,7 +56,7 @@ import butterknife.Unbinder;
  * Created by sdhcjhss on 2017/12/9.
  */
 
-public class RentCarFragment extends BaseFragment implements OnHeaderClickListener {
+public class RentCarFragment extends BaseFragment   {
     @BindView(R.id.rent_type_parent_view)
     RadioGroup rentTypeParentView;
     @BindView(R.id.self_driving_radio_button)
@@ -217,11 +217,7 @@ public class RentCarFragment extends BaseFragment implements OnHeaderClickListen
     }
 
 
-    @Override
-    public void onHeaderClick(View header, long headerId) {
-        TextView text = (TextView) header.findViewById(R.id.tvGoodsItemTitle);
-        Toast.makeText(getActivity(), "Click on " + text.getText(), Toast.LENGTH_SHORT).show();
-    }
+
 
 
     @Override

@@ -14,7 +14,7 @@ import com.cheyibao.model.ShopComment;
 import com.costans.PlatformContans;
 import com.entity.PhoneCommentEntity;
 import com.entity.PhoneShopEntity;
-import com.eowise.recyclerview.stickyheaders.StickyHeadersItemDecoration;
+
 import com.example.yunchebao.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;

@@ -21,12 +21,7 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.stickheaderlayout.PlaceHoderHeaderLayout;
-import com.stickheaderlayout.StickHeaderViewPagerManager;
-import com.sys.blackcat.stickheaderlayout.IpmlScrollChangListener;
-import com.sys.blackcat.stickheaderlayout.StickHeaderLayout;
-import com.tool.NoScrollViewPager;
-import com.vipcenter.fragment.OrderListFragment;
+
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -48,12 +43,12 @@ public class DriveServiceActivity extends AppCompatActivity {
     private List<Map<String, String>> imageList = new ArrayList<>();
     @BindView(R.id.slidingTabLayout)
     SlidingTabLayout scrollIndicatorView;
-    @BindView(R.id.v_scroll)
+    @BindView(R.id.viewPager)
     ViewPager viewPager;
-    @BindView(R.id.shl_root)
-    StickHeaderLayout mStickHeaderLayout;
     ArrayList<Fragment> mFragments;
     String []mTitles={"距离最近","评分最好"};
+    List<Banner> mBanners = new ArrayList<>();
+    List<String> images = new ArrayList<>();
     @BindView(R.id.banner)
     com.youth.banner.Banner banner;
     @Override
@@ -74,8 +69,7 @@ public class DriveServiceActivity extends AppCompatActivity {
         scrollIndicatorView.setViewPager(viewPager,mTitles,this,mFragments);
         getBaner();
     }
-    List<Banner> mBanners = new ArrayList<>();
-    List<String> images = new ArrayList<>();
+
     private void getBaner() {
         imageList.clear();
         Map<String, Object> params = new HashMap<>();

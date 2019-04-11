@@ -1,6 +1,5 @@
 package com.xihubao;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,22 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.application.MyApplication;
 
-import com.baiiu.filter.DropDownMenu;
-import com.baiiu.filter.interfaces.OnFilterDoneListener;
+
 import com.costans.PlatformContans;
-import com.entity.FilterUrl;
-import com.entity.PhoneShopEntity;
+
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
 import com.maket.model.LoadMoreListView;
 import com.nohttp.NoHttp;
 import com.nohttp.RequestMethod;
@@ -32,13 +26,11 @@ import com.nohttp.rest.Request;
 import com.nohttp.rest.Response;
 import com.nohttp.sample.HttpListener;
 import com.nohttp.sample.NoHttpBaseActivity;
-import com.nohttp.tools.HttpJsonClient;
 import com.rongcloud.model.CarShop;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.vipcenter.RegisterActivity;
-import com.xihubao.adapter.DropMenuAdapter;
 import com.xihubao.adapter.WashCarListAdapter;
 
 import org.json.JSONArray;
