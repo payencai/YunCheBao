@@ -591,6 +591,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
         //ToastUtil.showToast(this,"解析成功");
         if (requestCode == 1) {
             Toast.makeText(this, "GPS模块已开启", Toast.LENGTH_SHORT).show();

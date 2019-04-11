@@ -8,6 +8,13 @@ android {
             storeFile file('D:/lt/sign/yichankey.jks')
             storePassword 'yichan123'
         }
+
+        debug{
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('debug.keystore')
+            storePassword 'android'
+        }
     }
     compileSdkVersion 25
     buildToolsVersion '25.0.0'
@@ -27,6 +34,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
     dexOptions {
@@ -150,4 +161,7 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-21'//没有使用特殊Header，可以不加这行
     //popupwindow 背景变暗
     compile 'com.github.zyyoona7:EasyPopup:1.1.2'
+
+    //recycler view adapter  by morui add
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 }
