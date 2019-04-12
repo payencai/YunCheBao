@@ -13,12 +13,8 @@
             <option value="$PROJECT_DIR$/IMKit" />
             <option value="$PROJECT_DIR$/IMLib" />
             <option value="$PROJECT_DIR$/PullToRefresh" />
-            <option value="$PROJECT_DIR$/WaveSideBar" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/filter-lib" />
             <option value="$PROJECT_DIR$/library" />
-            <option value="$PROJECT_DIR$/reclib-emoticons" />
-            <option value="$PROJECT_DIR$/tablibrary" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

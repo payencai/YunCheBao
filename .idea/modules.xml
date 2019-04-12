@@ -7,13 +7,9 @@
       <module fileurl="file://$PROJECT_DIR$/IMKit/IMKit.iml" filepath="$PROJECT_DIR$/IMKit/IMKit.iml" />
       <module fileurl="file://$PROJECT_DIR$/IMLib/IMLib.iml" filepath="$PROJECT_DIR$/IMLib/IMLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/PullToRefresh/PullToRefresh.iml" filepath="$PROJECT_DIR$/PullToRefresh/PullToRefresh.iml" />
-      <module fileurl="file://$PROJECT_DIR$/WaveSideBar/WaveSideBar.iml" filepath="$PROJECT_DIR$/WaveSideBar/WaveSideBar.iml" />
-      <module fileurl="file://$PROJECT_DIR$/YunCheBao.iml" filepath="$PROJECT_DIR$/YunCheBao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/YunCheBao.iml" filepath="$PROJECT_DIR$/.idea/YunCheBao.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/filter-lib/filter-lib.iml" filepath="$PROJECT_DIR$/filter-lib/filter-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/reclib-emoticons/reclib-emoticons.iml" filepath="$PROJECT_DIR$/reclib-emoticons/reclib-emoticons.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tablibrary/tablibrary.iml" filepath="$PROJECT_DIR$/tablibrary/tablibrary.iml" />
     </modules>
   </component>
 </project>
