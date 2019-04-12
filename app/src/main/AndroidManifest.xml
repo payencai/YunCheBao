@@ -481,7 +481,10 @@
         <activity android:name="com.vipcenter.MyCarListActivity" />
         <activity android:name="com.rongcloud.activity.GroupQrcodeActivity" />
         <activity android:name="com.system.DriveServiceActivity" />
-        <activity android:name="com.cheyibao.ShopListActivity"></activity>
+        <activity android:name="com.cheyibao.ShopListActivity" />
+        <activity android:name="com.cheyibao.CarModelsListActivity" />
+        <activity android:name="com.cheyibao.ShopListNoAreaActivity" />
+        <activity android:name="com.cheyibao.ShopDetailActivity"></activity>
     </application>
 
 </manifest>

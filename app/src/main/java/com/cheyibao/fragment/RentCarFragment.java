@@ -18,14 +18,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.cheyibao.CarModelsListActivity;
+import com.cheyibao.ShopDetailActivity;
 import com.cheyibao.ShopListActivity;
+import com.cheyibao.ShopListNoAreaActivity;
 import com.cheyibao.model.RentShop;
+import com.cheyibao.util.Const;
 import com.common.DateUtils;
 import com.costans.PlatformContans;
 import com.entity.Banner;
@@ -67,7 +72,6 @@ public class RentCarFragment extends BaseFragment {
     private static final int REQUEST_CODE_ADDRESS_FOR_MAP_SEND = 1;
     private static final int REQUEST_CODE_ADDRESS_FOR_MAP_TAKE = 2;
     private static final int REQUEST_CODE_ADDRESS_FOR_STORE_SEND = 3;
-    private static final int REQUEST_CODE_ADDRESS_FOR_STORE_TAKE = 4;
 
 
     @BindView(R.id.rent_type_parent_view)
@@ -82,8 +86,6 @@ public class RentCarFragment extends BaseFragment {
     CheckBox isSendTheCarToHomeCheckedView;
     @BindView(R.id.return_the_car_address_text_view)
     TextView returnTheCarAddressTextView;
-    @BindView(R.id.is_go_home_to_take_the_car_checked_view)
-    CheckBox isGoHomeToTakeTheCarCheckedView;
     @BindView(R.id.rent_the_car_start_time_text_view)
     TextView rentTheCarStartTimeTextView;
     @BindView(R.id.rent_the_car_time_text_view)
@@ -122,6 +124,7 @@ public class RentCarFragment extends BaseFragment {
     private Unbinder unbinder;
 
     private AddressBean addressBean;
+    private AddressBean addressBean2;
 
     private RentShop rentShop;
 
@@ -166,7 +169,6 @@ public class RentCarFragment extends BaseFragment {
             }
         });
 
-        isGoHomeToTakeTheCarCheckedView.setButtonDrawable(drawables());
         isSendTheCarToHomeCheckedView.setButtonDrawable(drawables());
 
         startTime = System.currentTimeMillis();
@@ -276,12 +278,12 @@ public class RentCarFragment extends BaseFragment {
      */
     @OnClick(R.id.return_the_car_address_text_view)
     public void onReturnTheCarAddressTextViewClicked() {
-        if (isGoHomeToTakeTheCarCheckedView.isChecked()) {
+        if (isSendTheCarToHomeCheckedView.isChecked()) {
             Intent intent = new Intent(getContext(), X5WebviewActivity.class);
             startActivityForResult(intent, REQUEST_CODE_ADDRESS_FOR_MAP_TAKE);
-        } else {
+        }else {
             Intent intent = new Intent(getContext(), ShopListActivity.class);
-            startActivityForResult(intent, REQUEST_CODE_ADDRESS_FOR_STORE_TAKE);
+            startActivityForResult(intent, REQUEST_CODE_ADDRESS_FOR_STORE_SEND);
         }
     }
 
@@ -347,6 +349,30 @@ public class RentCarFragment extends BaseFragment {
 
     @OnClick(R.id.pick_the_car_view)
     public void onPickTheCarViewClicked() {
+        if (Const.rentCarInfo==null){
+            Const.rentCarInfo = new HashMap<>();
+            Const.rentCarInfo.put("area1",addressBean);
+            Const.rentCarInfo.put("area2",addressBean2);
+            Const.rentCarInfo.put("shop",rentShop);
+            Const.rentCarInfo.put("start_time",startTime);
+            Const.rentCarInfo.put("end_time",endTime);
+            Const.rentCarInfo.put("duration",duration);
+        }
+        if(isSendTheCarToHomeCheckedView.isChecked()){
+            if (addressBean==null){
+                ToastUtil.showToast(getContext(),"请选择取车地址！");
+                return;
+            }
+            Intent intent = new Intent(getContext(),ShopListNoAreaActivity.class);
+            startActivity(intent);
+        }else {
+            if (rentShop==null){
+                ToastUtil.showToast(getContext(),"请选择取车还车店铺！");
+                return;
+            }
+            Intent intent = new Intent(getContext(),ShopDetailActivity.class);
+            startActivity(intent);
+        }
     }
 
     @OnClick(R.id.self_driver_order_click_view)
@@ -382,9 +408,9 @@ public class RentCarFragment extends BaseFragment {
                 break;
             case REQUEST_CODE_ADDRESS_FOR_MAP_TAKE:
                 if (data != null) {
-                    addressBean = (AddressBean) data.getSerializableExtra("address");
-                    returnTheCarCityTextView.setText(addressBean.getCityname());
-                    returnTheCarAddressTextView.setText(addressBean.getPoiaddress());
+                    addressBean2 = (AddressBean) data.getSerializableExtra("address");
+                    returnTheCarCityTextView.setText(addressBean2.getCityname());
+                    returnTheCarAddressTextView.setText(addressBean2.getPoiaddress());
                 }
                 break;
             case REQUEST_CODE_ADDRESS_FOR_STORE_SEND:
@@ -393,13 +419,6 @@ public class RentCarFragment extends BaseFragment {
                     if (rentShop != null) {
                         sendCarCityTextView.setText(rentShop.getCity());
                         sendCarAddressTextView.setText(rentShop.getAddress());
-                    }
-                }
-                break;
-            case REQUEST_CODE_ADDRESS_FOR_STORE_TAKE:
-                if (data != null) {
-                    rentShop = data.getParcelableExtra("rent_shop");
-                    if (rentShop != null) {
                         returnTheCarCityTextView.setText(rentShop.getCity());
                         returnTheCarAddressTextView.setText(rentShop.getAddress());
                     }
