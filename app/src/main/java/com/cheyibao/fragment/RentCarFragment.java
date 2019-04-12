@@ -7,14 +7,12 @@ import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CheckedTextView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -22,17 +20,15 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.application.MyApplication;
-import com.cheyibao.model.RentCar;
+import com.cheyibao.StopListActivity;
 import com.costans.PlatformContans;
 import com.entity.Banner;
-import com.eowise.recyclerview.stickyheaders.OnHeaderClickListener;
+
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
-import com.payencai.library.util.ToastUtil;
 import com.system.X5WebviewActivity;
 import com.system.model.AddressBean;
 import com.tool.slideshowview.SlideShowView;
@@ -56,7 +52,14 @@ import butterknife.Unbinder;
  * Created by sdhcjhss on 2017/12/9.
  */
 
-public class RentCarFragment extends BaseFragment implements OnHeaderClickListener {
+public class RentCarFragment extends BaseFragment   {
+
+    private static final int REQUEST_CODE_ADDRESS_FOR_MAP_SEND = 1;
+    private static final int REQUEST_CODE_ADDRESS_FOR_MAP_TAKE = 2;
+    private static final int REQUEST_CODE_ADDRESS_FOR_STORE_SEND = 3;
+    private static final int REQUEST_CODE_ADDRESS_FOR_STORE_TAKE = 4;
+
+
     @BindView(R.id.rent_type_parent_view)
     RadioGroup rentTypeParentView;
     @BindView(R.id.self_driving_radio_button)
@@ -120,7 +123,8 @@ public class RentCarFragment extends BaseFragment implements OnHeaderClickListen
         selfDrivingRadioButton.setTextColor(colors());
         longRentRadioButton.setTextColor(colors());
         selfDrivingRadioButton.setChecked(true);
-        selfDrivingRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+
+        selfDrivingRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP,17);
         longRentRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
 
         rentTypeParentView.setOnCheckedChangeListener((radioGroup, i) -> {
@@ -128,14 +132,14 @@ public class RentCarFragment extends BaseFragment implements OnHeaderClickListen
                 case R.id.self_driving_radio_button:
                     longRentParentView.setVisibility(View.GONE);
                     selfDrivingParentView.setVisibility(View.VISIBLE);
-                    selfDrivingRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+                    selfDrivingRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP,17);
                     longRentRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
                     break;
                 case R.id.long_rent_radio_button:
                     longRentParentView.setVisibility(View.VISIBLE);
                     selfDrivingParentView.setVisibility(View.GONE);
                     selfDrivingRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
-                    longRentRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+                    longRentRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP,17);
                     break;
             }
         });
@@ -149,7 +153,7 @@ public class RentCarFragment extends BaseFragment implements OnHeaderClickListen
         int[][] status = new int[2][];
         status[0] = new int[]{android.R.attr.state_checked};
         status[1] = new int[]{};
-        int[] colors = new int[]{getColorByResource(R.color.black_33),getColorByResource(R.color.gray_99)};
+        int[] colors = new int[]{getColorByResource(R.color.black_33),getColorByResource(R.color.black_5D)};
         return new ColorStateList(status,colors);
     }
 
@@ -217,11 +221,7 @@ public class RentCarFragment extends BaseFragment implements OnHeaderClickListen
     }
 
 
-    @Override
-    public void onHeaderClick(View header, long headerId) {
-        TextView text = (TextView) header.findViewById(R.id.tvGoodsItemTitle);
-        Toast.makeText(getActivity(), "Click on " + text.getText(), Toast.LENGTH_SHORT).show();
-    }
+
 
 
     @Override
@@ -236,9 +236,11 @@ public class RentCarFragment extends BaseFragment implements OnHeaderClickListen
     @OnClick(R.id.send_car_address_text_view)
     public void onSendCarAddressTextViewClicked() {
         if (isSendTheCarToHomeCheckedView.isChecked()){
-            startActivityForResult(new Intent(getContext(),X5WebviewActivity.class),1);
+            Intent intent = new Intent(getContext(),X5WebviewActivity.class);
+            startActivityForResult(intent,REQUEST_CODE_ADDRESS_FOR_MAP_SEND);
         }else {
-            ToastUtil.showToast(getActivity(),"选择门店地址");
+           Intent intent = new Intent(getContext(),StopListActivity.class);
+           startActivityForResult(intent, REQUEST_CODE_ADDRESS_FOR_STORE_SEND);
         }
     }
 
@@ -248,9 +250,11 @@ public class RentCarFragment extends BaseFragment implements OnHeaderClickListen
     @OnClick(R.id.return_the_car_address_text_view)
     public void onReturnTheCarAddressTextViewClicked() {
         if (isGoHomeToTakeTheCarCheckedView.isChecked()){
-            ToastUtil.showToast(getActivity(),"选择地图地址");
+            Intent intent = new Intent(getContext(),X5WebviewActivity.class);
+            startActivityForResult(intent,REQUEST_CODE_ADDRESS_FOR_MAP_TAKE);
         }else {
-            ToastUtil.showToast(getActivity(),"选择门店地址");
+            Intent intent = new Intent(getContext(),StopListActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_ADDRESS_FOR_STORE_TAKE);
         }
     }
 
@@ -289,10 +293,25 @@ public class RentCarFragment extends BaseFragment implements OnHeaderClickListen
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==1 && data!=null){
-            addressBean= (AddressBean) data.getSerializableExtra("address");
-            String address=String.format("%s    %s",addressBean.getCityname(),addressBean.getPoiaddress()) ;
-            sendCarAddressTextView.setText(address);
+        switch (requestCode){
+            case REQUEST_CODE_ADDRESS_FOR_MAP_SEND:
+                if (data!=null){
+                    addressBean= (AddressBean) data.getSerializableExtra("address");
+                    String address=String.format("%s    %s",addressBean.getCityname(),addressBean.getPoiaddress()) ;
+                    sendCarAddressTextView.setText(address);
+                }
+                break;
+            case REQUEST_CODE_ADDRESS_FOR_MAP_TAKE:
+                if (data!=null){
+                    addressBean= (AddressBean) data.getSerializableExtra("address");
+                    String address=String.format("%s    %s",addressBean.getCityname(),addressBean.getPoiaddress()) ;
+                    returnTheCarAddressTextView.setText(address);
+                }
+                break;
+            case REQUEST_CODE_ADDRESS_FOR_STORE_SEND:
+                break;
+            case REQUEST_CODE_ADDRESS_FOR_STORE_TAKE:
+                break;
         }
     }
 }

@@ -480,7 +480,8 @@
         <activity android:name="com.vipcenter.ManaAddressActivity" />
         <activity android:name="com.vipcenter.MyCarListActivity" />
         <activity android:name="com.rongcloud.activity.GroupQrcodeActivity" />
-        <activity android:name="com.system.DriveServiceActivity"></activity>
+        <activity android:name="com.system.DriveServiceActivity" />
+        <activity android:name="com.cheyibao.StopListActivity"></activity>
     </application>
 
 </manifest>

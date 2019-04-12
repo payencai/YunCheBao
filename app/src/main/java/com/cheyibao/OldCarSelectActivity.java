@@ -10,11 +10,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import com.baiiu.filter.adapter.SimpleTextAdapter;
-import com.baiiu.filter.interfaces.OnFilterItemClickListener;
-import com.baiiu.filter.typeview.SingleGridView;
-import com.baiiu.filter.util.UIUtil;
-import com.baiiu.filter.view.FilterCheckedTextView;
+
 import com.cheyibao.adapter.CarCommomAdapter;
 import com.cheyibao.adapter.CarTypeAdapter;
 import com.cheyibao.adapter.ColorAdapter;

@@ -37,6 +37,7 @@ public class NoticeActivity extends AppCompatActivity {
     }
 
     private void initView() {
+
         vp_notice.clearDisappearingChildren();
         fragments=new ArrayList<>();
         mCoinNoticeFragment=new CoinNoticeFragment();

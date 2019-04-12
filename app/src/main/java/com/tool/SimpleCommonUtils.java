@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.bbcircle.filter.FileUtils;
 import com.example.yunchebao.R;
 
-import com.testemticon.DefXhsEmoticons;
+
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
