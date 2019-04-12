@@ -176,18 +176,6 @@
                             android:hint="@string/please_select_return_car_address"
                             android:textColor="@color/black_33"
                             android:textSize="17sp"/>
-                        <CheckBox
-                            android:id="@+id/is_go_home_to_take_the_car_checked_view"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/door_to_take_car"
-                            android:textColor="@color/black_33"
-                            android:textSize="12sp"
-                            android:button="@mipmap/carrental_btn_checkthe_normal"
-                            android:paddingLeft="5dp"
-                            android:paddingStart="5dp"
-                            android:paddingEnd="0dp"
-                            android:paddingRight="0dp"/>
                     </LinearLayout>
 
                     <View

@@ -33,7 +33,7 @@
     <string name="long_rent">长租</string>
     <string name="get">取</string>
     <string name="take_car_address">取车地点</string>
-    <string name="car_to_home">送车上门</string>
+    <string name="car_to_home">送车取车</string>
     <string name="return_car_address">还车地点</string>
     <string name="door_to_take_car">上门取车</string>
     <string name="pick_the_car_immediately">立即选车</string>
@@ -45,4 +45,6 @@
     <string name="car_type_query">车型查询</string>
     <string name="please_select_take_car_address">请选择取车地址</string>
     <string name="please_select_return_car_address">请选择还车地址</string>
+    <string name="brand">品牌</string>
+    <string name="price">价格</string>
 </resources>

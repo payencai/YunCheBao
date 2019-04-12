@@ -47,7 +47,7 @@ public class RentShop implements Parcelable {
     private int orderNum;
     private String province;
     private String saleTelephone;
-    private double score;
+    private int score;
     private String shopNo;
 
     public String getAddress() {
@@ -202,11 +202,11 @@ public class RentShop implements Parcelable {
         this.saleTelephone = saleTelephone;
     }
 
-    public double getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(double score) {
+    public void setScore(int score) {
         this.score = score;
     }
 
@@ -271,7 +271,7 @@ public class RentShop implements Parcelable {
         this.orderNum = in.readInt();
         this.province = in.readString();
         this.saleTelephone = in.readString();
-        this.score = in.readDouble();
+        this.score = in.readInt();
         this.shopNo = in.readString();
     }
 
