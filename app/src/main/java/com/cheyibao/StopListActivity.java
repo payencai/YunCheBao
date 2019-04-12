@@ -156,24 +156,12 @@ public class StopListActivity extends AppCompatActivity {
             @Override
             public void OnSuccess(String result) {
                 Log.e("getdata", result);
-                result = "{\"resultCode\":0,\"message\":null,\"data\":[{\"id\":\"752edc96-d8e0-437d-ac00-ad15816e6c85\",\"shopNo\":\"2683449481\",\"name\":\"小安租车店\",\"province\":\"云南省\",\"city\":\"昆明市\",\"area\":\"西山区\",\"address\":\"润城第二大道18层\",\"createTime\":\"2019-04-11 00:00:00\",\"saleTelephone\":\"12345678910\",\"logo\":\"https://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019041018363446\",\"grade\":1,\"longitude\":\"102.706562\",\"latitude\":\"24.996527\",\"geoHash\":\"wk3n1nkx\",\"distance\":0.03177768045101879,\"score\":0.0,\"number\":0,\"orderNum\":0,\"banner\":\"http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541078,http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541098,http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541048,http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541070,http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541036,http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541182,http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541129,http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541143,http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541155,http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541188\",\"isOnlineServe\":1,\"agencyId\":\"6a6a7292-1936-486f-a27b-6c6de132dbbb\"}]}";
                 try {
                     BaseModel<List<RentShop>> baseModel = new Gson().fromJson(result,new TypeToken<BaseModel<List<RentShop>>>() {}.getType());
                     if (baseModel!=null){
                         List<RentShop> rentShopList = baseModel.getData();
                         rentShopAdapter.setNewData(rentShopList);
                     }
-
-//                    JSONObject jsonObject = new JSONObject(result);
-//                    JSONArray data = jsonObject.getJSONArray("data");
-//                    List<RentCar> rentCarList = new ArrayList<>();
-//                    for (int i = 0; i < data.length(); i++) {
-//                        JSONObject item = data.getJSONObject(i);
-//                        RentCar baikeItem = new Gson().fromJson(item.toString(), RentCar.class);
-//                        rentCarList.add(baikeItem);
-//                    }
-//                    rentShopAdapter.setNewData(rentShopList);
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
