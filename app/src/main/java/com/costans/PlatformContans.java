@@ -297,6 +297,9 @@ public class PlatformContans {
         public static final String getUserComment=root+ "/evaluation/getMerchantEvaluationByUser";
         public static final String getDrivingSchoolPhoto=root+"/drivingschool/getDrivingSchoolPhoto";
     }
+    public static class SubstituteDriving{
+        public static final String getSubstituteDrivingShopListByApp=root+"/substituteDriving/getSubstituteDrivingShopListByApp";
+    }
     public static  class Appointment{
 
         public static final String addNewCarAppointment=root+ "/appointment/addNewCarAppointment";

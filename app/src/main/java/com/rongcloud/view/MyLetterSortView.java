@@ -97,7 +97,7 @@ public class MyLetterSortView  extends View {
 
             default:
                 //设置右侧字母列表[A,B,C,D,E....]的背景颜色
-                setBackgroundResource(R.color.black_p50);
+                setBackgroundResource(R.color.gray_29);
                 if (oldChoose != c) {
                     if (c >= 0 && c < b.length) {
                         if (listener != null) {

@@ -20,7 +20,7 @@ import com.cheyibao.model.Area;
 import com.cheyibao.model.RentCar;
 import com.costans.PlatformContans;
 import com.entity.Banner;
-import com.eowise.recyclerview.stickyheaders.OnHeaderClickListener;
+
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
@@ -46,7 +46,7 @@ import butterknife.ButterKnife;
  * Created by sdhcjhss on 2017/12/9.
  */
 
-public class RentCarFragment_bak extends BaseFragment implements OnHeaderClickListener {
+public class RentCarFragment_bak extends BaseFragment   {
     @BindView(R.id.lv_left)
     ListView lv_left;
     @BindView(R.id.lv_right)
@@ -212,14 +212,9 @@ public class RentCarFragment_bak extends BaseFragment implements OnHeaderClickLi
         lv_left.setAdapter(mAreaItemAdapter);
         lv_right.setAdapter(mRentCarItemAdapter);
 
-    }
 
 
-    @Override
-    public void onHeaderClick(View header, long headerId) {
-        TextView text = (TextView) header.findViewById(R.id.tvGoodsItemTitle);
-        Toast.makeText(getActivity(), "Click on " + text.getText(), Toast.LENGTH_SHORT).show();
-    }
+}
 
 
 }

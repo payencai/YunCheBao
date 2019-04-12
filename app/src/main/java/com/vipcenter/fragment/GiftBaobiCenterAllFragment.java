@@ -11,9 +11,7 @@ import android.widget.TextView;
 
 import com.application.MyApplication;
 import com.costans.PlatformContans;
-import com.entity.PhoneCommentEntity;
-import com.entity.PhoneShopEntity;
-import com.eowise.recyclerview.stickyheaders.StickyHeadersItemDecoration;
+
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;

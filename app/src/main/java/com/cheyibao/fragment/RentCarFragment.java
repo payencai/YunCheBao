@@ -23,7 +23,7 @@ import android.widget.Toast;
 import com.cheyibao.StopListActivity;
 import com.costans.PlatformContans;
 import com.entity.Banner;
-import com.eowise.recyclerview.stickyheaders.OnHeaderClickListener;
+
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
@@ -52,7 +52,7 @@ import butterknife.Unbinder;
  * Created by sdhcjhss on 2017/12/9.
  */
 
-public class RentCarFragment extends BaseFragment implements OnHeaderClickListener {
+public class RentCarFragment extends BaseFragment   {
 
     private static final int REQUEST_CODE_ADDRESS_FOR_MAP_SEND = 1;
     private static final int REQUEST_CODE_ADDRESS_FOR_MAP_TAKE = 2;
@@ -221,11 +221,7 @@ public class RentCarFragment extends BaseFragment implements OnHeaderClickListen
     }
 
 
-    @Override
-    public void onHeaderClick(View header, long headerId) {
-        TextView text = (TextView) header.findViewById(R.id.tvGoodsItemTitle);
-        Toast.makeText(getActivity(), "Click on " + text.getText(), Toast.LENGTH_SHORT).show();
-    }
+
 
 
     @Override

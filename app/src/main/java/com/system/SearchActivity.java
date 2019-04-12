@@ -19,6 +19,7 @@ public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.et_word)
     EditText et_word;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
