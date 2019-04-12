@@ -41,6 +41,8 @@ public class ArcView extends View {
         this(context, attrs, 0);
     }
 
+
+
     public ArcView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
