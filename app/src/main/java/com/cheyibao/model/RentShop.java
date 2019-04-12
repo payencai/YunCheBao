@@ -1,6 +1,9 @@
 package com.cheyibao.model;
 
-public class RentShop  {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class RentShop implements Parcelable {
     /**
      * address : string
      * agencyId : string
@@ -214,4 +217,73 @@ public class RentShop  {
     public void setShopNo(String shopNo) {
         this.shopNo = shopNo;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.address);
+        dest.writeString(this.agencyId);
+        dest.writeString(this.area);
+        dest.writeString(this.banner);
+        dest.writeString(this.city);
+        dest.writeString(this.createTime);
+        dest.writeDouble(this.distance);
+        dest.writeString(this.geoHash);
+        dest.writeDouble(this.grade);
+        dest.writeString(this.id);
+        dest.writeInt(this.isOnlineServe);
+        dest.writeString(this.latitude);
+        dest.writeString(this.logo);
+        dest.writeString(this.longitude);
+        dest.writeString(this.name);
+        dest.writeInt(this.number);
+        dest.writeInt(this.orderNum);
+        dest.writeString(this.province);
+        dest.writeString(this.saleTelephone);
+        dest.writeDouble(this.score);
+        dest.writeString(this.shopNo);
+    }
+
+    public RentShop() {
+    }
+
+    protected RentShop(Parcel in) {
+        this.address = in.readString();
+        this.agencyId = in.readString();
+        this.area = in.readString();
+        this.banner = in.readString();
+        this.city = in.readString();
+        this.createTime = in.readString();
+        this.distance = in.readDouble();
+        this.geoHash = in.readString();
+        this.grade = in.readDouble();
+        this.id = in.readString();
+        this.isOnlineServe = in.readInt();
+        this.latitude = in.readString();
+        this.logo = in.readString();
+        this.longitude = in.readString();
+        this.name = in.readString();
+        this.number = in.readInt();
+        this.orderNum = in.readInt();
+        this.province = in.readString();
+        this.saleTelephone = in.readString();
+        this.score = in.readDouble();
+        this.shopNo = in.readString();
+    }
+
+    public static final Parcelable.Creator<RentShop> CREATOR = new Parcelable.Creator<RentShop>() {
+        @Override
+        public RentShop createFromParcel(Parcel source) {
+            return new RentShop(source);
+        }
+
+        @Override
+        public RentShop[] newArray(int size) {
+            return new RentShop[size];
+        }
+    };
 }

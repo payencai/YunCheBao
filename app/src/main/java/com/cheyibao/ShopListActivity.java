@@ -1,5 +1,6 @@
 package com.cheyibao;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +13,6 @@ import android.widget.TextView;
 
 import com.application.MyApplication;
 import com.cheyibao.adapter.AreaAdapter;
-import com.cheyibao.adapter.RentCarAdapter;
 import com.cheyibao.adapter.RentShopAdapter;
 import com.cheyibao.model.Area;
 import com.cheyibao.model.RentShop;
@@ -37,8 +37,9 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class StopListActivity extends AppCompatActivity {
+public class ShopListActivity extends AppCompatActivity {
 
     @BindView(R.id.back)
     ImageView back;
@@ -71,6 +72,9 @@ public class StopListActivity extends AppCompatActivity {
 
     private int page = 1;
 
+
+    List<Area> areaList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,13 +85,23 @@ public class StopListActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(adcode)) {
             cityCode = MyApplication.getaMapLocation().getAdCode().substring(0, 4) + "00";
         }
+
+        init();
+
+        getJsonData();
+
+        getShop(1, "");
+        areaNameTextView.setText("附近门店");
+    }
+
+    private void init(){
         areaAdapter = new AreaAdapter(new ArrayList<>());
         areaListView.setLayoutManager(new LinearLayoutManager(this));
         areaAdapter.bindToRecyclerView(areaListView);
         areaAdapter.setOnItemClickListener((adapter, view, position) -> {
             Area area = areaAdapter.getItem(position);
+            areaAdapter.refreshItem(position);
             if (area != null) {
-                areaAdapter.refreshItem(position);
                 if (position == 0) {
                     getShop(1, "");
                     areaNameTextView.setText("附近门店");
@@ -97,21 +111,21 @@ public class StopListActivity extends AppCompatActivity {
                 }
             }
         });
-        getJsonData();
 
         rentShopAdapter = new RentShopAdapter(new ArrayList<>());
         shopListView.setLayoutManager(new LinearLayoutManager(this));
         rentShopAdapter.bindToRecyclerView(shopListView);
         rentShopAdapter.setOnItemClickListener((adapter, view, position) -> {
-
+            RentShop rentShop = rentShopAdapter.getItem(position);
+            Intent intent = new Intent();
+            intent.putExtra("rent_shop",rentShop);
+            setResult(RESULT_OK,intent);
+            finish();
         });
-        getShop(1, "");
-        areaNameTextView.setText("附近门店");
     }
 
 
     private void getJsonData() {
-        List<Area> areaList = new ArrayList<>();
         Area area1 = new Area();
         area1.setName("附近门店");
         area1.setSelecting(true);
@@ -131,19 +145,29 @@ public class StopListActivity extends AppCompatActivity {
             areaAdapter.setNewData(areaList);
         } catch (JSONException e) {
             e.printStackTrace();
+
+            Area area3 = new Area();
+            area3.setName("五华区");
+            areaList.add(area3);
+
+            Area area2 = new Area();
+            area2.setName("西山区");
+            areaList.add(area2);
+
+            Area area4 = new Area();
+            area4.setName("高新区");
+            areaList.add(area4);
+
+            Area area5 = new Area();
+            area5.setName("官渡区");
+            areaList.add(area5);
+
+            areaAdapter.setNewData(areaList);
         }
 
     }
 
     private void getShop(int type, String area) {
-
-        String result = "{\"resultCode\":0,\"message\":null,\"data\":[{\"id\":\"752edc96-d8e0-437d-ac00-ad15816e6c85\",\"shopNo\":\"2683449481\",\"name\":\"小安租车店\",\"province\":\"云南省\",\"city\":\"昆明市\",\"area\":\"西山区\",\"address\":\"润城第二大道18层\",\"createTime\":\"2019-04-11 00:00:00\",\"saleTelephone\":\"12345678910\",\"logo\":\"https://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019041018363446\",\"grade\":1,\"longitude\":\"102.706562\",\"latitude\":\"24.996527\",\"geoHash\":\"wk3n1nkx\",\"distance\":0.03177768045101879,\"score\":0.0,\"number\":0,\"orderNum\":0,\"banner\":\"http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541078,http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541098,http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541048,http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541070,http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541036,http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541182,http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541129,http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541143,http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541155,http://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019032109541188\",\"isOnlineServe\":1,\"agencyId\":\"6a6a7292-1936-486f-a27b-6c6de132dbbb\"}]}";
-        BaseModel<List<RentShop>> baseModel = new Gson().fromJson(result, new TypeToken<BaseModel<List<RentShop>>>() {
-        }.getType());
-        if (baseModel != null) {
-            List<RentShop> rentShopList = baseModel.getData();
-            rentShopAdapter.setNewData(rentShopList);
-        }
 
         Map<String, Object> params = new HashMap<>();
         params.put("type", type);
@@ -156,14 +180,11 @@ public class StopListActivity extends AppCompatActivity {
             @Override
             public void OnSuccess(String result) {
                 Log.e("getdata", result);
-                try {
-                    BaseModel<List<RentShop>> baseModel = new Gson().fromJson(result,new TypeToken<BaseModel<List<RentShop>>>() {}.getType());
-                    if (baseModel!=null){
-                        List<RentShop> rentShopList = baseModel.getData();
-                        rentShopAdapter.setNewData(rentShopList);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                BaseModel<List<RentShop>> baseModel = new Gson().fromJson(result, new TypeToken<BaseModel<List<RentShop>>>() {
+                }.getType());
+                if (baseModel != null) {
+                    List<RentShop> rentShopList = baseModel.getData();
+                    rentShopAdapter.setNewData(rentShopList);
                 }
             }
 
@@ -172,5 +193,10 @@ public class StopListActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @OnClick(R.id.back)
+    public void onViewClicked() {
+        onBackPressed();
     }
 }

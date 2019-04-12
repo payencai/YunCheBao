@@ -84,6 +84,17 @@
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
                         android:paddingRight="15dp">
+
+                        <TextView
+                            android:id="@+id/send_car_city_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"
+                            tools:text="昆明"
+                            android:textColor="@color/black_33"
+                            android:textSize="17sp"/>
+
                         <TextView
                             android:id="@+id/send_car_address_text_view"
                             android:layout_width="0dp"
@@ -91,7 +102,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="昆明      润城第二大道"
+                            tools:text="润城第二大道"
+                            android:hint="@string/please_select_take_car_address"
                             android:textColor="@color/black_33"
                             android:textSize="17sp"/>
                         <CheckBox
@@ -142,6 +154,17 @@
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
                         android:paddingRight="15dp">
+
+                        <TextView
+                            android:id="@+id/return_the_car_city_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"
+                            tools:text="昆明"
+                            android:textColor="@color/black_33"
+                            android:textSize="17sp"/>
+
                         <TextView
                             android:id="@+id/return_the_car_address_text_view"
                             android:layout_width="0dp"
@@ -149,7 +172,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="昆明      润城第二大道"
+                            tools:text="润城第二大道"
+                            android:hint="@string/please_select_return_car_address"
                             android:textColor="@color/black_33"
                             android:textSize="17sp"/>
                         <CheckBox
@@ -190,6 +214,7 @@
                             android:layout_height="wrap_content"
                             android:text="4月10日\n周三2:40"
                             android:textSize="14sp"
+                            android:textColor="#000000"
                             android:gravity="center"/>
                         <TextView
                             android:id="@+id/rent_the_car_time_text_view"
@@ -207,6 +232,7 @@
                             android:layout_height="wrap_content"
                             android:text="4月13日\n周六2:40"
                             android:textSize="14sp"
+                            android:textColor="#000000"
                             android:gravity="center"/>
                     </LinearLayout>
 

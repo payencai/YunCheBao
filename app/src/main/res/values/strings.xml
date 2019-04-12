@@ -43,4 +43,6 @@
     <string name="high_end_self_driving">高端自驾</string>
     <string name="store_query">门店查询</string>
     <string name="car_type_query">车型查询</string>
+    <string name="please_select_take_car_address">请选择取车地址</string>
+    <string name="please_select_return_car_address">请选择还车地址</string>
 </resources>
