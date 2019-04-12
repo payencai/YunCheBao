@@ -32,10 +32,20 @@ public class ReplaceDriveAdapter extends BaseQuickAdapter<ReplaceDrive,BaseViewH
         TextView tv_address=helper.getView(R.id.tv_address);
         SimpleRatingBar simpleRatingBar=helper.getView(R.id.starbar);
         simpleRatingBar.setRating(item.getScore());
-        Glide.with(helper.itemView.getContext()).load(item.getLogo()).into(iv_img);
+        //Glide.with(helper.itemView.getContext()).load(item.getLogo()).into(iv_img);
         tv_name.setText(item.getShopName());
         tv_grade.setText(""+item.getGrade());
         tv_address.setText(item.getAddress());
-        tv_dis.setText("距离"+item.getDistance()+"km");
+        java.text.DecimalFormat df = new java.text.DecimalFormat("#.000");
+        tv_dis.setText("距离"+df.format(item.getDistance())+"km");
+    }
+    public static String doubleTranString(double num)
+    {
+        if(num % 1.0 == 0)
+        {
+            return String.valueOf((long)num);
+        }
+
+        return String.valueOf(num);
     }
 }

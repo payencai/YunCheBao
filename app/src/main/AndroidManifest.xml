@@ -480,8 +480,10 @@
         <activity android:name="com.vipcenter.ManaAddressActivity" />
         <activity android:name="com.vipcenter.MyCarListActivity" />
         <activity android:name="com.rongcloud.activity.GroupQrcodeActivity" />
-        <activity android:name="com.system.DriveServiceActivity" />
-        <activity android:name="com.cheyibao.ShopListActivity"></activity>
+        <activity android:name="com.drive.activity.DriveServiceActivity" />
+        <activity android:name="com.cheyibao.ShopListActivity" />
+        <activity android:name="com.drive.activity.ReplaceDriveDetailActivity" />
+        <activity android:name="com.drive.activity.AddSubstitubeActivity"></activity>
     </application>
 
 </manifest>

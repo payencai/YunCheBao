@@ -1,15 +1,13 @@
-package com.system;
+package com.drive.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +20,7 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 
+import com.system.WebviewActivity;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -40,7 +39,7 @@ import butterknife.ButterKnife;
 public class DriveServiceActivity extends AppCompatActivity {
 
     //轮播图片
-    private List<Map<String, String>> imageList = new ArrayList<>();
+     List<Map<String, String>> imageList = new ArrayList<>();
     @BindView(R.id.slidingTabLayout)
     SlidingTabLayout scrollIndicatorView;
     @BindView(R.id.viewPager)
@@ -51,6 +50,8 @@ public class DriveServiceActivity extends AppCompatActivity {
     List<String> images = new ArrayList<>();
     @BindView(R.id.banner)
     com.youth.banner.Banner banner;
+    @BindView(R.id.iv_play)
+    ImageView iv_play;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +63,8 @@ public class DriveServiceActivity extends AppCompatActivity {
     private void initView() {
 
         mFragments=new ArrayList<>();
-        for (int i = 0; i <2 ; i++) {
-            ReplaceDriveFragment orderListFragment=new ReplaceDriveFragment();
+        for (int i = 1; i <3 ; i++) {
+            ReplaceDriveFragment orderListFragment=ReplaceDriveFragment.newInstance(i);
             mFragments.add(orderListFragment);
         }
         scrollIndicatorView.setViewPager(viewPager,mTitles,this,mFragments);
@@ -122,6 +123,26 @@ public class DriveServiceActivity extends AppCompatActivity {
                 }
                 intent.putExtra("url", url);
                 startActivity(intent);
+            }
+        });
+        banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                 if(position==0){
+                     iv_play.setVisibility(View.VISIBLE);
+                 }else{
+                     iv_play.setVisibility(View.GONE);
+                 }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题

@@ -36,13 +36,26 @@
            app:elevation="0dp"
            android:layout_width="match_parent"
            android:layout_height="wrap_content">
-           <com.youth.banner.Banner
+           <RelativeLayout
                app:layout_scrollFlags="scroll|enterAlways"
-               android:id="@+id/banner"
                android:layout_width="match_parent"
                android:layout_height="220dp">
+               <com.youth.banner.Banner
 
-           </com.youth.banner.Banner>
+                   android:id="@+id/banner"
+                   android:layout_width="match_parent"
+                   android:layout_height="220dp">
+
+               </com.youth.banner.Banner>
+               <ImageView
+                   android:id="@+id/iv_play"
+                   android:visibility="gone"
+                   android:src="@mipmap/ic_new_play"
+                   android:layout_centerInParent="true"
+                   android:layout_width="25dp"
+                   android:layout_height="25dp" />
+           </RelativeLayout>
+
 
            <com.flyco.tablayout.SlidingTabLayout
                android:id="@+id/slidingTabLayout"

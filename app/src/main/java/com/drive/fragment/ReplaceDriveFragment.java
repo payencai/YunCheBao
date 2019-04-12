@@ -1,6 +1,7 @@
 package com.drive.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import com.application.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.model.DrvingSchool;
 import com.costans.PlatformContans;
+import com.drive.activity.ReplaceDriveDetailActivity;
 import com.drive.adapter.ReplaceDriveAdapter;
 import com.drive.model.ReplaceDrive;
 import com.example.yunchebao.R;
@@ -49,7 +51,13 @@ public class ReplaceDriveFragment extends Fragment {
     public ReplaceDriveFragment() {
         // Required empty public constructor
     }
-
+    public static ReplaceDriveFragment newInstance(int sort){
+        ReplaceDriveFragment replaceDriveFragment=new ReplaceDriveFragment();
+        Bundle bundle=new Bundle();
+        bundle.putInt("sort",sort);
+        replaceDriveFragment.setArguments(bundle);
+        return replaceDriveFragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,6 +65,7 @@ public class ReplaceDriveFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_replace_drive, container, false);
         ButterKnife.bind(this, view);
+        sort=getArguments().getInt("sort");
         initView();
         return view;
     }
@@ -75,6 +84,15 @@ public class ReplaceDriveFragment extends Fragment {
                 getData();
             }
         }, rv_drive);
+        mReplaceDriveAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent=new Intent(getContext(), ReplaceDriveDetailActivity.class);
+                ReplaceDrive replaceDrive= (ReplaceDrive) adapter.getItem(position);
+                intent.putExtra("id",replaceDrive.getId());
+                startActivity(intent);
+            }
+        });
        // mReplaceDriveAdapter.disableLoadMoreIfNotFullPage(rv_drive);
         rv_drive.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_drive.setAdapter(mReplaceDriveAdapter);
