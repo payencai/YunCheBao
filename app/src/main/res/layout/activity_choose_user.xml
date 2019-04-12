@@ -86,14 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <!--字母导航栏-->
-        <com.nanchen.wavesidebar.WaveSideBarView
-            android:id="@+id/main_side_bar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dp"
-            app:sidebar_lazy_respond="false"
-            app:sidebar_text_color="@color/colorAccent"/>
+
 
     </FrameLayout>
 
