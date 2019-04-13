@@ -47,4 +47,7 @@
     <string name="please_select_return_car_address">请选择还车地址</string>
     <string name="brand">品牌</string>
     <string name="price">价格</string>
+    <string name="rent_shop_detail">门店详情</string>
+    <string name="dial_the_phone">拨打号码</string>
+    <string name="online_chat">在线聊天</string>
 </resources>

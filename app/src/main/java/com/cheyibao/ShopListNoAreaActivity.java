@@ -1,15 +1,18 @@
 package com.cheyibao;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.application.MyApplication;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.adapter.RentShopAdapter;
 import com.cheyibao.model.Area;
 import com.cheyibao.model.RentShop;
@@ -68,6 +71,11 @@ public class ShopListNoAreaActivity extends AppCompatActivity {
         rentShopAdapter = new RentShopAdapter(new ArrayList<>());
         shopListView.setLayoutManager(new LinearLayoutManager(this));
         rentShopAdapter.bindToRecyclerView(shopListView);
+        rentShopAdapter.setOnItemClickListener((adapter, view, position) -> {
+            Const.rentCarInfo.put("shop",rentShopAdapter.getItem(position));
+            Intent intent = new Intent(ShopListNoAreaActivity.this,ShopDetailActivity.class);
+            startActivity(intent);
+        });
         addressBean = (AddressBean) Const.rentCarInfo.get("area1");
         getShop();
     }
