@@ -183,6 +183,7 @@ public class PlatformContans {
     public static class Commom{
         public static final String findCarWashRepairShopList=root+ "/carWashRepairShop/findCarWashRepairShopList";
         public static final String uploadImg=root + "/image/uploadImage";
+        public static final String uploadImgs=root + "/image/uploadImages";
         public static final String uploadVideo=root + "/image/uploadVideo";
         public static final String searchAll=root+"/common/searchAll";
         public static final String getAppointmentCategoryListByApp=root + "/functionManager/getAppointmentCategoryListByApp";
@@ -329,7 +330,31 @@ public class PlatformContans {
         public static final String getEvaluationByOrderId=root+ "/evaluation/getEvaluationByOrderId";
     }
     public static  class Agency{
-        public static final String getAgencyList =root+ "/agency/getAgencyUserListByApp\n";
+        public static final String getAgencyList =root+ "/agency/getAgencyUserListByApp";
+    }
+
+    public static class CommunicationCircle{
+        /**app分页获取我的好友圈列表*/
+        public static final String getMyCommunicationCircleList =root+ "/communicationcircle/getMyCommunicationCircleList";
+        /**app分页获取他人好友圈列表*/
+        public static final String getCommunicationCircleListByUserId =root+ "/communicationcircle/getCommunicationCircleListByUserId";
+        /**app分页获取所有人的好友圈列表*/
+        public static final String getCommunicationCircleListForApp =root+ "/communicationcircle/getCommunicationCircleListForApp";
+        /**点赞朋友圈*/
+        public static final String clickCommunicationCircleById =root+ "/communicationcircle/clickCommunicationCircleById";
+        /**取消点赞*/
+        public static final String cancelClickById =root+ "/communicationcircle/cancelClickById";
+        /**删除好友圈*/
+        public static final String deleteCommunicationCircleById =root+ "/communicationcircle/deleteCommunicationCircleById";
+        /**发布好友圈*/
+        public static final String addCommunicationCircle =root+ "/communicationcircle/addCommunicationCircle";
+        /**添加好友圈评论*/
+        public static final String addCommunicationCircleCommentById =root+ "/communicationcircle/addCommunicationCircleCommentById";
+        /**回复好友圈评论*/
+        public static final String replyCommunicationCircleComment =root+ "/communicationcircle/replyCommunicationCircleComment";
+        /**删除评论或回复*/
+        public static final String deleteCommunicationCircleComment =root+ "/communicationcircle/deleteCommunicationCircleComment";
+
     }
 
 

@@ -13,7 +13,7 @@ android {
     buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "com.example.yunchebao"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -96,6 +96,10 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.10.0'
     compile 'com.parse:parse-android:1.13.1'
     configurations.all {
+        resolutionStrategy {
+            force 'com.android.support:support-v4:27.1.0'
+        }
+
         resolutionStrategy.eachDependency { DependencyResolveDetails details ->
             def requested = details.requested
             if (requested.group == 'com.android.support') {
@@ -150,4 +154,6 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-21'//没有使用特殊Header，可以不加这行
     //popupwindow 背景变暗
     compile 'com.github.zyyoona7:EasyPopup:1.1.2'
+    //短视频录制
+    compile 'cjt.library.wheel:camera:0.1.9'
 }

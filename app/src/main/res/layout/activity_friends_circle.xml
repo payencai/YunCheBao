@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.newversion.RefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.tool.listview.PersonalListView
+        android:id="@+id/lv_dynamic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/white"
+        android:scrollbars="none"
+        tools:listitem="@layout/item_friends_dynamic" />
+</com.newversion.RefreshLayout>

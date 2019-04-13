@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.application.MyApplication;
 import com.example.yunchebao.R;
 import com.newversion.FriendCircleActivity;
+import com.newversion.FriendsCircleActivity;
 import com.newversion.MyTagsActivity;
 import com.newversion.NewCarFriendActivity;
 import com.newversion.NewContactsActivity;
@@ -81,8 +82,7 @@ public class AnotherBabyFragment extends Fragment {
         view.findViewById(R.id.ll_item3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), FriendCircleActivity.class));
-
+                startActivity(new Intent(getContext(), FriendsCircleActivity.class));
             }
         });
         view.findViewById(R.id.ll_item4).setOnClickListener(new View.OnClickListener() {

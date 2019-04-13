@@ -388,7 +388,7 @@ public class EnteringActivity extends NoHttpBaseActivity {
         params.put("telephone", etLeaderTell.getEditableText().toString());
         params.put("idPositive", imageIdcardFront);
         params.put("idBack", imageIdcardBack);
-        params.put("businessLicense", imageBusinessLicense);
+        params.put("businessImage", imageBusinessLicense);
         params.put("longitude", mAddressBean.getLatlng().getLng() + "");
         params.put("latitude", mAddressBean.getLatlng().getLat() + "");
         params.put("province", mAddressBean.getProvince() + "");

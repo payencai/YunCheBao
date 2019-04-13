@@ -20,6 +20,7 @@
     <color name="white">#ffffff</color>
     <color name="scan_corner_color">#0effc2</color>
     <color name="white_fe">#fefefe</color>
+    <color name="black">#000000</color>
     <color name="black_33">#333333</color>
     <color name="black_23">#232323</color>
     <color name="black_3a">#3a3a3a</color>
@@ -51,12 +52,14 @@
     <color name="gray_29">#292929</color>
     <color name="gray_c7">#c7c7c7</color>
     <color name="gray_9b">#9b9b9b</color>
+    <color name="gray_ef">#EFEFEF</color>
 
 
     <color name="blue_f9">#58c1f9</color>
     <color name="blue_f8">#4a9ef8</color>
     <color name="blue_fb">#2e42fb</color>
     <color name="blue_cb">#5dcacb</color>
+    <color name="blue_79">#79A7dc</color>
     <color name="blue_b5">#507cb5</color>
     <color name="blue_ef8">#5eaef8</color>
     <color name="green_93">#62d093</color>
@@ -96,6 +99,8 @@
     <color name="red_1e">#f1141e</color>
     <color name="red_44">#ff5044</color>
     <color name="red_16">#ee1616</color>
+    <color name="red_F6">#F62424</color>
+    <color name="dot_hong">#9B9B9B</color>
     <color name="red_btn_bg_color">#DD6B55</color>
     <color name="red_btn_bg_pressed_color">#CD5B55</color>
     <color name="error_stroke_color">#F27474</color>

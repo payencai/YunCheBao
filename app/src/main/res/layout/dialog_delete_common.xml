@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#66000000"
+    android:gravity="bottom"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/ll_outside"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </LinearLayout>
+
+    <TextView
+        android:background="@mipmap/ground_glass_bar"
+        android:gravity="center"
+        android:text="删除我的评论"
+        android:textColor="@color/gray_99"
+        android:textSize="12sp"
+        android:layout_width="match_parent"
+        android:layout_height="49dp" />
+
+    <TextView
+        android:layout_marginTop="1dp"
+        android:background="@mipmap/ground_glass_bar"
+        android:id="@+id/tv_delete"
+        android:gravity="center"
+        android:text="删除"
+        android:textColor="@color/red_F6"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="49dp" />
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@color/black_33"
+        android:textSize="17sp"
+        android:background="@mipmap/ground_glass_bar"
+        android:layout_width="match_parent"
+        android:layout_height="49dp" />
+</LinearLayout>

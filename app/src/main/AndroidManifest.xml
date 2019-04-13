@@ -417,6 +417,9 @@
         <activity android:name="com.vipcenter.NewPhoneActivity" />
         <activity android:name="com.vipcenter.MyFocusActivity" />
         <activity android:name="com.newversion.FriendCircleActivity" />
+        <activity android:name="com.newversion.FriendsCircleActivity" />
+        <activity android:name="com.newversion.DynamicPublishActivity" />
+        <activity android:name="com.newversion.RecordVideoActivity" />
         <activity
             android:name="com.newversion.MyTagsActivity"
             android:windowSoftInputMode="stateHidden" />
