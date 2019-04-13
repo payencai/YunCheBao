@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="225dp">
+
+        <ImageView
+            android:id="@+id/friend_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/bg_cirlce" />
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="45dp"
+            android:layout_height="54dp"
+            android:padding="15dp"
+            android:src="@mipmap/back_arrow_black" />
+
+        <ImageView
+            android:id="@+id/iv_publish"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_alignParentRight="true"
+            android:padding="15dp"
+            android:src="@mipmap/camera_publish" />
+
+        <com.payencai.library.view.CircleImageView
+            android:id="@+id/iv_headpic"
+            android:layout_width="57dp"
+            android:layout_height="57dp"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="15dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/notlogin_head" />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="32dp"
+            android:layout_toRightOf="@+id/iv_headpic"
+            android:text="人物昵称"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_today"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="今天"
+        android:textColor="@android:color/black"
+        android:textSize="17sp" />
+
+    <ImageView
+        android:id="@+id/iv_publish_dynamic"
+        android:layout_width="73dp"
+        android:layout_height="73dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="15dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/icon_camera_publish" />
+</LinearLayout>

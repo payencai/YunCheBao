@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="124dp"
+    android:layout_height="46dp">
+
+    <TextView
+        android:gravity="center"
+        android:layout_marginRight="8dp"
+        android:textColor="@color/red_F6"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/icon_bubbles_small"
+        android:text="删除" />
+
+</LinearLayout>

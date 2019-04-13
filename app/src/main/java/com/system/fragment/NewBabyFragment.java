@@ -24,6 +24,7 @@ import com.example.yunchebao.R;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.newversion.FriendCircleActivity;
+import com.newversion.FriendsCircleActivity;
 import com.newversion.MyTagsActivity;
 import com.newversion.NewCarFriendActivity;
 import com.newversion.NewContactsActivity;
@@ -200,7 +201,7 @@ public class NewBabyFragment extends ConversationListFragment {
         ll_circle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), FriendCircleActivity.class));
+                startActivity(new Intent(getContext(), FriendsCircleActivity.class));
             }
         });
         ll_item3.setOnClickListener(new View.OnClickListener() {

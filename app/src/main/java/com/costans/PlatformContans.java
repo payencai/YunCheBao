@@ -10,7 +10,6 @@ public class PlatformContans {
     public static String root = "http://www.yunchebao.com:8899";//测试地址
     public static String rootUrl = "http://192.168.3.5:8899";
     //public static String rootUrl = root + ":8899/" + rootTag;//真实部署地址
-    //http://api.cn.ronghub.com/user/getToken.[format] portraitUri,name,userId.post
     public static Map<String, Object> OBJECT_MAP = new HashMap<String, Object>();// 所有数据静态
     public static boolean isLogin = false;
     public static class User{
@@ -44,7 +43,6 @@ public class PlatformContans {
         public static final String isFocus=root+ "/user/isFocus";
         public static final String getUserResult=root+ "/user/getUserResult";
     }
-
     public static class WiKi{
         public static final String getWikiClassifyByType=root+ "/wikiClassify/getWikiClassifyByType" ;
         public static final String getBabyWikiByclassifyId=root+ "/babyWiki/getBabyWikiByclassifyId";
@@ -149,7 +147,6 @@ public class PlatformContans {
         public static final String deleteCarShowCircle=root + "/babyCircle/deleteCarShowCircle";
         public static final String deleteSelfDrivingCircle=root+ "/babyCircle/deleteSelfDrivingCircle";
     }
-
     public static class Collect{
 
         public static final String getBabyMerchantCollectionList=root + "/babyMerchantCollection/getBabyMerchantCollectionList";
@@ -183,6 +180,7 @@ public class PlatformContans {
     public static class Commom{
         public static final String findCarWashRepairShopList=root+ "/carWashRepairShop/findCarWashRepairShopList";
         public static final String uploadImg=root + "/image/uploadImage";
+        public static final String uploadImgs=root + "/image/uploadImages";
         public static final String uploadVideo=root + "/image/uploadVideo";
         public static final String searchAll=root+"/common/searchAll";
         public static final String getAppointmentCategoryListByApp=root + "/functionManager/getAppointmentCategoryListByApp";
@@ -244,7 +242,6 @@ public class PlatformContans {
         public static final String memberCardPay=root+ "/wechatPay/memberCardPay";
         public static final String washRepairPay=root+ "/wechatPay/washRepairPay";
     }
-
     public static class Pay{
         public static final String babyMerchantOrderPay=root+ "/alipay/babyMerchantOrderPay";
         public static final String memberCardPay=root+ "/alipay/memberCardPay";
@@ -299,7 +296,18 @@ public class PlatformContans {
         public static final String getDrivingSchoolPhoto=root+"/drivingschool/getDrivingSchoolPhoto";
     }
     public static class SubstituteDriving{
+        public static final String getSubstituteDrivingCommentListByShopId=root+"/substituteDriving/getSubstituteDrivingCommentListByShopId";
+        public static final String getSubstituteDrivingShopResultById=root+"/substituteDriving/getSubstituteDrivingShopResultById";
+        public static final String isCollectionByShopId=root+"/substituteDriving/isCollectionByShopId";
+        public static final String addShopCollection=root+"/substituteDriving/addShopCollection";
+        public static final String deleteShopCollection=root+"/substituteDriving/deleteShopCollection";
+        public static final String getSubstituteDrivingOrderListByUser=root+"/substituteDriving/getSubstituteDrivingOrderListByUser";
         public static final String getSubstituteDrivingShopListByApp=root+"/substituteDriving/getSubstituteDrivingShopListByApp";
+        public static final String getSubstituteDrivingCommentListByDriverId=root+"/substituteDriving/getSubstituteDrivingCommentListByDriverId";
+        public static final String getSubstituteDrivingCommentByOrderId=root+"/substituteDriving/getSubstituteDrivingCommentByOrderId";
+        public static final String getSubstituteDriverListForApp=root+"/substituteDriving/getSubstituteDriverListForApp";
+        public static final String getSubstituteDriverList=root+"/substituteDriving/getSubstituteDriverList";
+        public static final String getShopCollectionList=root+"/substituteDriving/getShopCollectionList";
     }
     public static  class Appointment{
 
@@ -316,7 +324,6 @@ public class PlatformContans {
         public static final String addOrderEvaluation=root+ "/evaluation/addOrderEvaluation";
         public static final String getMerchantEvaluationByUser=root+ "/evaluation/getMerchantEvaluationByUser";
     }
-
     public static class LoginContacts {
         public static final String FILENAME = "fckg";
         public static String IS_AUTO_LOGIN = "isAutoLogin";
@@ -327,19 +334,38 @@ public class PlatformContans {
         public static String BOOK_TYPE_ID = "BOOK_TYPE_ID";
 
     }
-
     public static  class Order{
         public static final String getUserOrderList=root+ "/carWashRepairShop/getUserOrderList";
         public static final String getUserCarOrder=root+ "/carOrder/getUserCarOrder";
         public static final String getEvaluationByOrderId=root+ "/evaluation/getEvaluationByOrderId";
     }
     public static  class Agency{
-        public static final String getAgencyList =root+ "/agency/getAgencyUserListByApp\n";
+        public static final String getAgencyList =root+ "/agency/getAgencyUserListByApp";
     }
 
+    public static class CommunicationCircle{
+        /**app分页获取我的好友圈列表*/
+        public static final String getMyCommunicationCircleList =root+ "/communicationcircle/getMyCommunicationCircleList";
+        /**app分页获取他人好友圈列表*/
+        public static final String getCommunicationCircleListByUserId =root+ "/communicationcircle/getCommunicationCircleListByUserId";
+        /**app分页获取所有人的好友圈列表*/
+        public static final String getCommunicationCircleListForApp =root+ "/communicationcircle/getCommunicationCircleListForApp";
+        /**点赞朋友圈*/
+        public static final String clickCommunicationCircleById =root+ "/communicationcircle/clickCommunicationCircleById";
+        /**取消点赞*/
+        public static final String cancelClickById =root+ "/communicationcircle/cancelClickById";
+        /**删除好友圈*/
+        public static final String deleteCommunicationCircleById =root+ "/communicationcircle/deleteCommunicationCircleById";
+        /**发布好友圈*/
+        public static final String addCommunicationCircle =root+ "/communicationcircle/addCommunicationCircle";
+        /**添加好友圈评论*/
+        public static final String addCommunicationCircleCommentById =root+ "/communicationcircle/addCommunicationCircleCommentById";
+        /**回复好友圈评论*/
+        public static final String replyCommunicationCircleComment =root+ "/communicationcircle/replyCommunicationCircleComment";
+        /**删除评论或回复*/
+        public static final String deleteCommunicationCircleComment =root+ "/communicationcircle/deleteCommunicationCircleComment";
 
+    }
     public static String data = "{\"code\":0,\"msg\":\"\\u83b7\\u53d6\\u5546\\u54c1\\u6210\\u529f\",\"data\":[{\"cat\":\"汽车服务\",\"goods\":[{\"id\":\"1001\",\"name\":\"标准洗车-轿车\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"100\",\"sold_num\":\"2\"},{\"id\":\"1003\",\"name\":\"标准洗车-五座轿车\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"}]},{\"cat\":\"汽车美容\",\"goods\":[{\"id\":\"1004\",\"name\":\"全车抛光\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1005\",\"name\":\"内饰清洗\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1006\",\"name\":\"全车打蜡\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"0\"},{\"id\":\"1007\",\"name\":\"空调除臭\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"1\"}]}]}";
-    public static String data2 = "{\"code\":0,\"msg\":\"\\u83b7\\u53d6\\u5546\\u54c1\\u6210\\u529f\",\"data\":[{\"cat\":\"附近门店\",\"goods\":[{\"id\":\"1001\",\"name\":\"爱琴海购物公园送车点\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"100\",\"sold_num\":\"2\"},{\"id\":\"1003\",\"name\":\"荷泰花园酒店送车点\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"}]},{\"cat\":\"机场/火车站\",\"goods\":[{\"id\":\"1004\",\"name\":\"昆明站\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1005\",\"name\":\"长水机场\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1006\",\"name\":\"昆明南站\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"0\"},{\"id\":\"1007\",\"name\":\"昆明北站\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"1\"}]}]}";
-    public static String data3 = "{\"code\":0,\"msg\":\"\\u83b7\\u53d6\\u5546\\u54c1\\u6210\\u529f\",\"data\":[{\"cat\":\"购车常识\",\"goods\":[{\"id\":\"1001\",\"name\":\"金九银十是买车的最好时机吗？\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"100\",\"sold_num\":\"2\"},{\"id\":\"1003\",\"name\":\"买德系车和日系车那个更保值？\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"}]},{\"cat\":\"需求选车\",\"goods\":[{\"id\":\"1004\",\"name\":\"排量大的车比排量小的车更省油？汽车谣言你只多少\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1005\",\"name\":\"买新车还是买二手\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1006\",\"name\":\"买新车还是买二手\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"0\"},{\"id\":\"1007\",\"name\":\"买新车还是买二手\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"1\"}]}]}";
-    public static String data4 = "{\"code\":0,\"msg\":\"\\u83b7\\u53d6\\u5546\\u54c1\\u6210\\u529f\",\"data\":[{\"cat\":\"初次购车\",\"goods\":[{\"id\":\"1001\",\"name\":\"汽车故障灯说明大全？\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"100\",\"sold_num\":\"2\"},{\"id\":\"1003\",\"name\":\"排量大的车比排量小的车更省油？汽车谣言你知多少\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"}]},{\"cat\":\"家庭用车\",\"goods\":[{\"id\":\"1004\",\"name\":\"排量大的车比排量小的车更省油\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1005\",\"name\":\"买新车还是买二手\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1006\",\"name\":\"买新车还是买二手\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"0\"},{\"id\":\"1007\",\"name\":\"买新车还是买二手\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"1\"}]}]}";
+
 }

@@ -417,6 +417,9 @@
         <activity android:name="com.vipcenter.NewPhoneActivity" />
         <activity android:name="com.vipcenter.MyFocusActivity" />
         <activity android:name="com.newversion.FriendCircleActivity" />
+        <activity android:name="com.newversion.FriendsCircleActivity" />
+        <activity android:name="com.newversion.DynamicPublishActivity" />
+        <activity android:name="com.newversion.RecordVideoActivity" />
         <activity
             android:name="com.newversion.MyTagsActivity"
             android:windowSoftInputMode="stateHidden" />
@@ -480,11 +483,15 @@
         <activity android:name="com.vipcenter.ManaAddressActivity" />
         <activity android:name="com.vipcenter.MyCarListActivity" />
         <activity android:name="com.rongcloud.activity.GroupQrcodeActivity" />
-        <activity android:name="com.system.DriveServiceActivity" />
+
+        <activity android:name="com.drive.activity.DriveServiceActivity" />
         <activity android:name="com.cheyibao.ShopListActivity" />
         <activity android:name="com.cheyibao.CarModelsListActivity" />
         <activity android:name="com.cheyibao.ShopListNoAreaActivity" />
         <activity android:name="com.cheyibao.ShopDetailActivity"></activity>
+        <activity android:name="com.drive.activity.ReplaceDriveDetailActivity" />
+        <activity android:name="com.drive.activity.AddSubstitubeActivity"></activity>
+
     </application>
 
 </manifest>
