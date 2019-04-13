@@ -35,13 +35,13 @@
                 android:id="@+id/tv_rate"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:textSize="@dimen/sp_12"
+                android:textSize="9sp"
                 android:textColor="@color/white"
                 android:gravity="center_horizontal"
                 android:background="@mipmap/grades"
                 android:text="1"
                 android:layout_width="15dp"
-                android:layout_height="20dp" />
+                android:layout_height="16dp" />
         </LinearLayout>
         <com.iarcuschin.simpleratingbar.SimpleRatingBar
             android:id="@+id/sr_score"

@@ -249,21 +249,21 @@ public class GroupDetailActivity extends AppCompatActivity {
             }
         });
         iv_msg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                @Override
+                public void onClick(View v) {
 
-                RongIM.getInstance().setConversationNotificationStatus(Conversation.ConversationType.GROUP, id, conversationNotificationStatus1, new RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>() {
-                    @Override
-                    public void onSuccess(Conversation.ConversationNotificationStatus conversationNotificationStatus) {
-                        getStatus();
-                    }
+                    RongIM.getInstance().setConversationNotificationStatus(Conversation.ConversationType.GROUP, id, conversationNotificationStatus1, new RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>() {
+                        @Override
+                        public void onSuccess(Conversation.ConversationNotificationStatus conversationNotificationStatus) {
+                            getStatus();
+                        }
 
-                    @Override
-                    public void onError(RongIMClient.ErrorCode errorCode) {
+                        @Override
+                        public void onError(RongIMClient.ErrorCode errorCode) {
 
-                    }
-                });
-            }
+                        }
+                    });
+                }
 
         });
         tv_clear.setOnClickListener(new View.OnClickListener() {

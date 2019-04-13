@@ -50,8 +50,8 @@ public class ConversationActivity extends AppCompatActivity {
         
         targetId=getIntent().getData().getQueryParameter("targetId");
         title = getIntent().getData().getQueryParameter("title");
-        type=getIntent().getData().getQueryParameter("type");
-        ToastUtil.showToast(ConversationActivity.this,"点击了头像"+type);
+        type=targetId.substring(0,1);
+        //ToastUtil.showToast(ConversationActivity.this,"点击了头像"+type);
         tv_title.setText(title);
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override

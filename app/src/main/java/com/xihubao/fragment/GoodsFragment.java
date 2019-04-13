@@ -1,48 +1,25 @@
 package com.xihubao.fragment;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.application.MyApplication;
 import com.costans.PlatformContans;
-import com.entity.GoodsListBean;
-import com.entity.PhoneShopEntity;
 import com.entity.ServerType;
-import com.eowise.recyclerview.stickyheaders.OnHeaderClickListener;
-import com.eowise.recyclerview.stickyheaders.StickyHeadersBuilder;
-import com.eowise.recyclerview.stickyheaders.StickyHeadersItemDecoration;
+
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.GoodsPayActivity;
 import com.nohttp.sample.BaseFragment;
-import com.nohttp.tools.HttpJsonClient;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
-import com.tool.UIControlUtils;
-import com.vipcenter.WashOrderDetailActivity;
-import com.xihubao.OrderPayActivity;
 import com.xihubao.WashCarDetailActivity;
-import com.xihubao.WashPayActivity;
-import com.xihubao.adapter.BigramHeaderAdapter;
-import com.xihubao.adapter.PersonAdapter;
-import com.xihubao.adapter.RecycleGoodsCategoryListAdapter;
 import com.xihubao.adapter.ServerCatogryAdapter;
 import com.xihubao.adapter.ServerDetailAdapter;
 
@@ -58,7 +35,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import go.error;
 
 
 /**

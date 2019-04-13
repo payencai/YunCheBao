@@ -43,7 +43,7 @@ import butterknife.ButterKnife;
 import io.rong.imkit.RongIM;
 
 public class GroupManageActivity extends AppCompatActivity {
-    Group mGroupUser;
+    String id;
 
     private List<ContactModel> mShowModels;
     private RecyclerView mRecyclerView;
@@ -60,7 +60,7 @@ public class GroupManageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mGroupUser= (Group) getIntent().getSerializableExtra("user");
+        id=  getIntent().getStringExtra("id");
         flag=getIntent().getIntExtra("flag",0);
         setContentView(R.layout.activity_group_manage);
         ButterKnife.bind(this);
@@ -81,7 +81,7 @@ public class GroupManageActivity extends AppCompatActivity {
             }
             Map<String, Object> params = new HashMap<>();
             params.put("userIds", id);
-            params.put("crowdId",mGroupUser.getId());
+            params.put("crowdId",id);
             Log.e("id",id);
             if (userInfo != null)
                 HttpProxy.obtain().post(PlatformContans.Chat.deleteCrowdByUserIds, MyApplication.token, params, new ICallBack() {
@@ -121,7 +121,7 @@ public class GroupManageActivity extends AppCompatActivity {
             }
             Map<String, Object> params = new HashMap<>();
             params.put("userIds", id);
-            params.put("crowdId",mGroupUser.getId());
+            params.put("crowdId",id);
             Log.e("id",id);
             if (userInfo != null)
                 HttpProxy.obtain().post(PlatformContans.Chat.joinCrowdByUserIds, MyApplication.token, params, new ICallBack() {
@@ -156,7 +156,7 @@ public class GroupManageActivity extends AppCompatActivity {
     }
     private void getData(){
         Map<String,Object> params=new HashMap<>();
-        params.put("crowdId",mGroupUser.getId());
+        params.put("crowdId",id);
         final com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
         HttpProxy.obtain().get(PlatformContans.Chat.getCrowdDetailsByCrowdId, params,MyApplication.token, new ICallBack() {
             @Override

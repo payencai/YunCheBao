@@ -15,6 +15,7 @@ public class Area {
     private String city;
     private String name;
     private String id;
+    private boolean isSelecting = false;
 
     public String getCity() {
         return city;
@@ -38,5 +39,13 @@ public class Area {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public boolean isSelecting() {
+        return isSelecting;
+    }
+
+    public void setSelecting(boolean selecting) {
+        isSelecting = selecting;
     }
 }

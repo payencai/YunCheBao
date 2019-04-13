@@ -1,49 +1,52 @@
 package com.cheyibao.fragment;
 
-import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
+import android.support.v7.widget.CardView;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.application.MyApplication;
-import com.cheyibao.RentShopDetailActivity;
-import com.cheyibao.adapter.AreaItemAdapter;
-import com.cheyibao.adapter.RentCarItemAdapter;
-import com.cheyibao.model.Area;
-import com.cheyibao.model.CoachItem;
-import com.cheyibao.model.RentCar;
+import com.cheyibao.CarModelsListActivity;
+import com.cheyibao.ShopDetailActivity;
+import com.cheyibao.ShopListActivity;
+import com.cheyibao.ShopListNoAreaActivity;
+import com.cheyibao.model.RentShop;
+import com.cheyibao.util.Const;
+import com.common.DateUtils;
 import com.costans.PlatformContans;
 import com.entity.Banner;
-import com.entity.GoodsListBean;
-import com.entity.PhoneShopEntity;
-import com.eowise.recyclerview.stickyheaders.OnHeaderClickListener;
-import com.eowise.recyclerview.stickyheaders.StickyHeadersBuilder;
-import com.eowise.recyclerview.stickyheaders.StickyHeadersItemDecoration;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.jzxiang.pickerview.TimePickerDialog;
+import com.jzxiang.pickerview.data.Type;
+import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.nohttp.sample.BaseFragment;
-import com.nohttp.tools.HttpJsonClient;
-import com.cheyibao.adapter.RentPersonAdapter;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
-import com.tool.JsonUtil;
+import com.payencai.library.util.ToastUtil;
+import com.system.X5WebviewActivity;
+import com.system.fragment.HomeFragment;
+import com.system.model.AddressBean;
 import com.tool.slideshowview.SlideShowView;
-import com.xihubao.OrderPayActivity;
-import com.xihubao.adapter.BigramHeaderAdapter;
-import com.xihubao.adapter.RecycleGoodsCategoryListAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,104 +59,157 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 
 /**
  * Created by sdhcjhss on 2017/12/9.
  */
 
-public class RentCarFragment extends BaseFragment implements OnHeaderClickListener {
-    @BindView(R.id.lv_left)
-    ListView lv_left;
-    @BindView(R.id.lv_right)
-    ListView lv_right;
-    @BindView(R.id.tv_tag)
-    TextView tv_tag;
-    AreaItemAdapter mAreaItemAdapter;
-    RentCarItemAdapter mRentCarItemAdapter;
-    String cityCode;
-    String json;
-    List<Area> mAreas = new ArrayList<>();
-    List<RentCar> mRentCars = new ArrayList<>();
-    //轮播图片
-    private List<Map<String, String>> imageList = new ArrayList<>();
+public class RentCarFragment extends BaseFragment {
+
+    private static final int REQUEST_CODE_ADDRESS_FOR_MAP_SEND = 1;
+    private static final int REQUEST_CODE_ADDRESS_FOR_MAP_TAKE = 2;
+    private static final int REQUEST_CODE_ADDRESS_FOR_STORE_SEND = 3;
+
+
+    @BindView(R.id.rent_type_parent_view)
+    RadioGroup rentTypeParentView;
+    @BindView(R.id.self_driving_radio_button)
+    RadioButton selfDrivingRadioButton;
+    @BindView(R.id.long_rent_radio_button)
+    RadioButton longRentRadioButton;
+    @BindView(R.id.send_car_address_text_view)
+    TextView sendCarAddressTextView;
+    @BindView(R.id.is_send_the_car_to_home_checked_view)
+    CheckBox isSendTheCarToHomeCheckedView;
+    @BindView(R.id.return_the_car_address_text_view)
+    TextView returnTheCarAddressTextView;
+    @BindView(R.id.rent_the_car_start_time_text_view)
+    TextView rentTheCarStartTimeTextView;
+    @BindView(R.id.rent_the_car_time_text_view)
+    TextView rentTheCarTimeTextView;
+    @BindView(R.id.rent_the_car_end_time_text_view)
+    TextView rentTheCarEndTimeTextView;
+    @BindView(R.id.pick_the_car_view)
+    CardView pickTheCarView;
+    @BindView(R.id.self_driver_order_click_view)
+    TextView selfDriverOrderClickView;
+    @BindView(R.id.high_end_self_driving_click_view)
+    TextView highEndSelfDrivingClickView;
+    @BindView(R.id.store_query_click_view)
+    TextView storeQueryClickView;
+    @BindView(R.id.car_type_query_click)
+    TextView carTypeQueryClick;
+    @BindView(R.id.self_driving_parent_view)
+    LinearLayout selfDrivingParentView;
+    @BindView(R.id.long_rent_btn)
+    CardView longRentBtn;
+    @BindView(R.id.recommended_vehicle_type_list_view)
+    ListView recommendedVehicleTypeListView;
+    @BindView(R.id.long_rent_parentView)
+    LinearLayout longRentParentView;
     @BindView(R.id.slideshowView)
     SlideShowView slideShowView;
+    @BindView(R.id.send_car_city_text_view)
+    TextView sendCarCityTextView;
+    @BindView(R.id.return_the_car_city_text_view)
+    TextView returnTheCarCityTextView;
+
+
+    //轮播图片
+    private List<Map<String, String>> imageList = new ArrayList<>();
+
+    private Unbinder unbinder;
+
+    private AddressBean addressBean;
+    private AddressBean addressBean2;
+
+    private RentShop rentShop;
+
+    private long startTime;
+    private long endTime;
+    private long duration;//租车时间段
+    private static final long MIN_DURATION = 28*60*60*1000; //最小时间段
+    private static final long DAY = 24*60*60*1000;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.rent_home_layout, container, false);
-        ButterKnife.bind(this, rootView);
-        String adcode = MyApplication.getaMapLocation().getAdCode();
-        if (!TextUtils.isEmpty(adcode))
-            cityCode = MyApplication.getaMapLocation().getAdCode().substring(0, 4) + "00";
-//        else{
-//            cityCode="440100";
-//        }
+        unbinder = ButterKnife.bind(this, rootView);
         getBaner();
-        mAreas.clear();
-
-        getJsonData();
         initView();
-        mRentCars.clear();
-        getShop(1, "");
         return rootView;
     }
-    int page=1;
-    private void getShop(int type, String area) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("type", type);
-        params.put("page",page);
-        if (!TextUtils.isEmpty(area))
-            params.put("region", area);
-        params.put("longitude", MyApplication.getaMapLocation().getLongitude() + "");
-        params.put("latitude", MyApplication.getaMapLocation().getLatitude() + "");
-        HttpProxy.obtain().get(PlatformContans.CarRent.getRentCar, params, "", new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Log.e("getdata", result);
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    for (int i = 0; i < data.length(); i++) {
-                        JSONObject item = data.getJSONObject(i);
-                        RentCar baikeItem = new Gson().fromJson(item.toString(), RentCar.class);
-                        mRentCars.add(baikeItem);
-                    }
-                    mRentCarItemAdapter.notifyDataSetChanged();
-                    //updateData();
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+    private void initView() {
+        selfDrivingRadioButton.setTextColor(colors());
+        longRentRadioButton.setTextColor(colors());
+        selfDrivingRadioButton.setChecked(true);
 
-            @Override
-            public void onFailure(String error) {
+        selfDrivingRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+        longRentRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 
+        rentTypeParentView.setOnCheckedChangeListener((radioGroup, i) -> {
+            switch (i) {
+                case R.id.self_driving_radio_button:
+                    longRentParentView.setVisibility(View.GONE);
+                    selfDrivingParentView.setVisibility(View.VISIBLE);
+                    selfDrivingRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+                    longRentRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                    break;
+                case R.id.long_rent_radio_button:
+                    longRentParentView.setVisibility(View.VISIBLE);
+                    selfDrivingParentView.setVisibility(View.GONE);
+                    selfDrivingRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                    longRentRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+                    break;
             }
         });
+
+        isSendTheCarToHomeCheckedView.setButtonDrawable(drawables());
+
+        startTime = System.currentTimeMillis();
+        endTime = startTime + DAY;
+        duration = DAY;
+        rentTheCarTimeTextView.setText(String.format("%s天",day()));
+        rentTheCarStartTimeTextView.setText(getSpannableString(startTime));
+        rentTheCarEndTimeTextView.setText(getSpannableString(endTime));
+
+
     }
 
-    private void getJsonData() {
-        Area area1 = new Area();
-        area1.setName("附近门店");
-        mAreas.add(area1);
-        json = JsonUtil.getJson(getContext(), "area.json");
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            JSONArray areas = jsonObject.getJSONArray(cityCode);
-            Log.e("areas", areas.length() + "");
-            for (int i = 0; i < areas.length(); i++) {
-                JSONObject item = areas.getJSONObject(i);
-                Area area = new Gson().fromJson(item.toString(), Area.class);
-                mAreas.add(area);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    private ColorStateList colors() {
+        int[][] status = new int[2][];
+        status[0] = new int[]{android.R.attr.state_checked};
+        status[1] = new int[]{};
+        int[] colors = new int[]{getColorByResource(R.color.black_33), getColorByResource(R.color.black_5D)};
+        return new ColorStateList(status, colors);
+    }
 
+    private StateListDrawable drawables() {
+        StateListDrawable stateListDrawable = new StateListDrawable();
+        stateListDrawable.addState(new int[]{android.R.attr.state_checked}, getDrawableByResource(R.mipmap.carrental_btn_checkthe_selected));
+        stateListDrawable.addState(new int[]{}, getDrawableByResource(R.mipmap.carrental_btn_checkthe_normal));
+        return stateListDrawable;
+    }
+
+    private Drawable getDrawableByResource(int resource) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return getResources().getDrawable(resource, null);
+        } else {
+            return getResources().getDrawable(resource);
+        }
+    }
+
+    private int getColorByResource(int resource) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return getResources().getColor(resource, null);
+        } else {
+            return getResources().getColor(resource);
+        }
     }
 
     private void getBaner() {
@@ -196,46 +252,178 @@ public class RentCarFragment extends BaseFragment implements OnHeaderClickListen
 
     }
 
-    private void initView() {
-        mAreaItemAdapter = new AreaItemAdapter(getContext(), mAreas);
-        mRentCarItemAdapter = new RentCarItemAdapter(getContext(), mRentCars);
-        lv_left.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                tv_tag.setText(mAreas.get(position).getName());
-                mAreaItemAdapter.setSelectedPosition(position);
-                mAreaItemAdapter.notifyDataSetChanged();
-                Area area=mAreas.get(position);
-                mRentCars.clear();
-                if(position==0){
-                    getShop(1,"");
-                }else{
-                    getShop(2,area.getName());
-                }
-
-            }
-        });
-        lv_right.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(getContext(), RentShopDetailActivity.class);
-                RentCar rentCar=mRentCars.get(position);
-                intent.putExtra("data",rentCar);
-                startActivity(intent);
-            }
-        });
-        lv_left.setAdapter(mAreaItemAdapter);
-        lv_right.setAdapter(mRentCarItemAdapter);
-
-    }
-
 
     @Override
-    public void onHeaderClick(View header, long headerId) {
-        TextView text = (TextView) header.findViewById(R.id.tvGoodsItemTitle);
-        Toast.makeText(getActivity(), "Click on " + text.getText(), Toast.LENGTH_SHORT).show();
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    /**
+     * 选择取车地点
+     */
+    @OnClick(R.id.send_car_address_text_view)
+    public void onSendCarAddressTextViewClicked() {
+        if (isSendTheCarToHomeCheckedView.isChecked()) {
+            Intent intent = new Intent(getContext(), X5WebviewActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_ADDRESS_FOR_MAP_SEND);
+        } else {
+            Intent intent = new Intent(getContext(), ShopListActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_ADDRESS_FOR_STORE_SEND);
+        }
+    }
+
+    /**
+     * 选择还车地址
+     */
+    @OnClick(R.id.return_the_car_address_text_view)
+    public void onReturnTheCarAddressTextViewClicked() {
+        if (isSendTheCarToHomeCheckedView.isChecked()) {
+            Intent intent = new Intent(getContext(), X5WebviewActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_ADDRESS_FOR_MAP_TAKE);
+        }else {
+            Intent intent = new Intent(getContext(), ShopListActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_ADDRESS_FOR_STORE_SEND);
+        }
     }
 
 
+    private int day(){
+        if (duration<=MIN_DURATION){
+            return 1;
+        }
+        if ((duration-MIN_DURATION)%DAY==0){
+            return (int) ((duration-MIN_DURATION)/DAY)+1;
+        }
+        return (int) (((duration-MIN_DURATION)/DAY) +2);
+    }
+
+    private SpannableString getSpannableString(long millseconds){
+        String time = DateUtils.formatDateTime(millseconds,"M月dd日 EHH:mm");
+
+        SpannableString spannableString = new SpannableString(time.replace(" ","\n\n"));
+        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#999999"));
+        spannableString.setSpan(colorSpan, time.indexOf(" "), spannableString.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        return spannableString;
+    }
+
+    @OnClick(R.id.rent_the_car_start_time_text_view)
+    public void onRentTheCarStartTimeTextViewClicked() {
+        DateUtils.initTimePickerDialog(getContext(),(timePickerView, millseconds) -> {
+            startTime = millseconds;
+            if (endTime>0){
+                duration = endTime - startTime;
+            }
+            if (duration < 0){
+                duration = 0;
+                ToastUtil.showToast(getContext(),"开始时间必须小于结束时间");
+                return;
+            }
+            if (endTime>0){
+                rentTheCarTimeTextView.setText(String.format("%s天",day()));
+            }
+            rentTheCarStartTimeTextView.setText(getSpannableString(millseconds));
+        },"开始时间",startTime<=0?System.currentTimeMillis():startTime).show(getFragmentManager(),"all");
+    }
+
+    @OnClick(R.id.rent_the_car_end_time_text_view)
+    public void onRentTheCarEndTimeTextViewClicked() {
+        DateUtils.initTimePickerDialog(getContext(),(timePickerView, millseconds) -> {
+            endTime = millseconds;
+            if (endTime>0){
+                duration = endTime - startTime;
+            }
+            if (duration<0){
+                duration = 0;
+                ToastUtil.showToast(getContext(),"开始时间必须小于结束时间");
+                return;
+            }
+            if (startTime>0){
+                rentTheCarTimeTextView.setText(String.format("%s天",day()));
+            }
+
+            rentTheCarEndTimeTextView.setText(getSpannableString(millseconds));
+
+        },"结束时间",endTime<=0? System.currentTimeMillis():endTime).show(getFragmentManager(),"all");
+    }
+
+    @OnClick(R.id.pick_the_car_view)
+    public void onPickTheCarViewClicked() {
+        if (Const.rentCarInfo==null){
+            Const.rentCarInfo = new HashMap<>();
+            Const.rentCarInfo.put("area1",addressBean);
+            Const.rentCarInfo.put("area2",addressBean2);
+            Const.rentCarInfo.put("shop",rentShop);
+            Const.rentCarInfo.put("start_time",startTime);
+            Const.rentCarInfo.put("end_time",endTime);
+            Const.rentCarInfo.put("duration",duration);
+        }
+        if(isSendTheCarToHomeCheckedView.isChecked()){
+            if (addressBean==null){
+                ToastUtil.showToast(getContext(),"请选择取车地址！");
+                return;
+            }
+            Intent intent = new Intent(getContext(),ShopListNoAreaActivity.class);
+            startActivity(intent);
+        }else {
+            if (rentShop==null){
+                ToastUtil.showToast(getContext(),"请选择取车还车店铺！");
+                return;
+            }
+            Intent intent = new Intent(getContext(),ShopDetailActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @OnClick(R.id.self_driver_order_click_view)
+    public void onSelfDriverOrderClickViewClicked() {
+    }
+
+    @OnClick(R.id.high_end_self_driving_click_view)
+    public void onHighEndSelfDrivingClickViewClicked() {
+    }
+
+    @OnClick(R.id.store_query_click_view)
+    public void onStoreQueryClickViewClicked() {
+    }
+
+    @OnClick(R.id.car_type_query_click)
+    public void onCarTypeQueryClickClicked() {
+    }
+
+    @OnClick(R.id.long_rent_btn)
+    public void onLongRentBtnClicked() {
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_CODE_ADDRESS_FOR_MAP_SEND:
+                if (data != null) {
+                    addressBean = (AddressBean) data.getSerializableExtra("address");
+                    sendCarCityTextView.setText(addressBean.getCityname());
+                    sendCarAddressTextView.setText(addressBean.getPoiaddress());
+                }
+                break;
+            case REQUEST_CODE_ADDRESS_FOR_MAP_TAKE:
+                if (data != null) {
+                    addressBean2 = (AddressBean) data.getSerializableExtra("address");
+                    returnTheCarCityTextView.setText(addressBean2.getCityname());
+                    returnTheCarAddressTextView.setText(addressBean2.getPoiaddress());
+                }
+                break;
+            case REQUEST_CODE_ADDRESS_FOR_STORE_SEND:
+                if (data != null) {
+                    rentShop = data.getParcelableExtra("rent_shop");
+                    if (rentShop != null) {
+                        sendCarCityTextView.setText(rentShop.getCity());
+                        sendCarAddressTextView.setText(rentShop.getAddress());
+                        returnTheCarCityTextView.setText(rentShop.getCity());
+                        returnTheCarAddressTextView.setText(rentShop.getAddress());
+                    }
+                }
+                break;
+        }
+    }
 }

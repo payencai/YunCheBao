@@ -375,11 +375,18 @@ public class DrivingSchoolActivity extends AppCompatActivity {
         });
 
     }
+    public void callPhone(String phoneNum) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        startActivity(intent);
+    }
 
     @OnClick({R.id.back, R.id.collectBtn, R.id.ll_head,R.id.callBtn})
     public void Onclick(View v) {
         switch (v.getId()) {
             case R.id.callBtn:
+                callPhone(mDrvingSchool.getServiceTelephone());
                 break;
             case R.id.ll_head:
                 Intent intent = new Intent(DrivingSchoolActivity.this, ShopInfoActivity.class);

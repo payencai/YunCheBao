@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_ee"
+    android:orientation="vertical">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/ll_bottom"
+        android:orientation="vertical">
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_barlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentScrim="@android:color/transparent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:background="@color/white"
+                    android:fitsSystemWindows="true"
+                    android:orientation="vertical"
+                    app:layout_collapseMode="parallax"
+                    >
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_shopname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+
+                            android:text="摩根道送车点（西山区）"
+                            android:textColor="@color/black_33"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_grade"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="12sp"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:background="@color/yellow_64"
+                            android:text="1"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:padding="10dp"
+                        android:paddingBottom="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="营业时间：8:00-18:30"
+                            android:textColor="@color/gray_99"
+                            android:textSize="10sp" />
+
+                        <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                            android:id="@+id/sb_score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            app:srb_starSize="10dp" />
+
+                        <TextView
+                            android:id="@+id/tv_score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="5.0分"
+                            android:textColor="@color/black_33"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+                    <View
+                        android:alpha="0.5"
+                        android:background="#e2e2e2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"></View>
+                    <LinearLayout
+
+                        android:padding="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/location_gray_icon" />
+
+                        <TextView
+                            android:id="@+id/tv_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+
+                            android:drawablePadding="10dp"
+                            android:text="西山区滇池路802号（益府圆子小酌餐厅内停车场）"
+                            android:textColor="@color/gray_66"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+                    <View
+                        android:alpha="0.5"
+                        android:background="#e2e2e2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"></View>
+
+                    <RelativeLayout
+                        android:padding="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:id="@+id/iv_phone"
+                            android:layout_centerVertical="true"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/phone_small" />
+
+                        <TextView
+                            android:layout_toRightOf="@id/iv_phone"
+                            android:id="@+id/tv_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_centerVertical="true"
+                            android:drawablePadding="10dp"
+                            android:text="18287125118"
+                            android:textColor="@color/gray_66"
+                            android:textSize="10sp" />
+
+                        <ImageView
+                            android:id="@+id/iv_head"
+                            android:layout_alignParentRight="true"
+                            android:src="@mipmap/shophead"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" />
+                    </RelativeLayout>
+
+
+                    <com.tool.view.HorizontalListView
+                        android:id="@+id/hlv_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_marginBottom="10dp">
+
+                    </com.tool.view.HorizontalListView>
+                </LinearLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true">
+
+                        <ImageView
+                            android:id="@id/back"
+                            android:layout_width="48dp"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+
+                            android:padding="16dp"
+                            android:src="@mipmap/back" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="门店详情"
+                            android:textColor="@color/black_33"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+                </android.support.v7.widget.Toolbar>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+            <com.flyco.tablayout.SlidingTabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@android:color/white"
+                app:tl_indicator_color="@color/yellow_64"
+                app:tl_indicator_corner_radius="30dp"
+                app:tl_indicator_height="3dp"
+                app:tl_indicator_width_equal_title="false"
+                app:tl_tab_padding="25dp"
+                app:tl_indicator_width="30dp"
+                app:tl_tab_space_equal="true"
+                app:tl_textSelectColor="@color/yellow_64"
+                app:tl_textUnselectColor="@android:color/black"
+                app:tl_textsize="14sp" />
+
+        </android.support.design.widget.AppBarLayout>
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_call"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:background="@color/yellow_64"
+            android:gravity="center"
+            android:text="拨打号码"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="请与商家沟通送上门或者上门提取"
+            android:textColor="@color/gray_99"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+</RelativeLayout>

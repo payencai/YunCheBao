@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.drive.activity.AddSubstitubeActivity">
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:padding="15dp"
+            android:src="@mipmap/back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textColor="@color/black_33"
+            android:textSize="18sp"
+            android:text="代驾服务"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+
+            android:layout_above="@id/rl_bottom"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:padding="15dp"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <TextView
+                    android:id="@+id/tv_item1"
+                    android:textColor="@color/black_33"
+                    android:textSize="16sp"
+                    android:text="代驾司机*"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:gravity="right|center_vertical"
+                    android:layout_marginLeft="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/tv_item1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_driver"
+                       android:layout_marginRight="10dp"
+                        android:textColor="@color/black_33"
+                        android:textSize="16sp"
+                        android:text="请选择代驾司机"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_marginLeft="5dp"
+                        android:src="@mipmap/enter"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp" />
+                </LinearLayout>
+            </RelativeLayout>
+            <LinearLayout
+
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+                    <TextView
+
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@color/black_33"
+                        android:textSize="16sp"
+                        android:text="姓名"
+                        android:layout_centerVertical="true"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:id="@+id/et_name"
+                        android:layout_marginRight="20dp"
+                        android:gravity="start"
+                        android:textSize="16sp"
+                        android:textColorHint="#ccc"
+                        android:textColor="@color/black_33"
+                        android:hint="请输入真实姓名"
+                        android:layout_marginLeft="30dp"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="1dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+                    <TextView
+
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@color/black_33"
+                        android:textSize="16sp"
+                        android:text="手机"
+                        android:layout_centerVertical="true"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:id="@+id/et_phone"
+                        android:layout_marginRight="20dp"
+                        android:gravity="start"
+                        android:textSize="16sp"
+                        android:textColorHint="#ccc"
+                        android:textColor="@color/black_33"
+                        android:hint="请输入手机号码"
+                        android:layout_marginLeft="30dp"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <RelativeLayout
+                    android:layout_marginTop="1dp"
+                    android:padding="15dp"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_toLeftOf="@id/iv_enter1"
+                        android:layout_centerVertical="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textColor="@color/gray_99"
+                            android:textSize="16sp"
+                            android:text="所在位置"
+                            android:layout_centerVertical="true"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_here"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:layout_marginLeft="20dp"
+                            android:textColor="@color/black_33"
+                            android:textSize="16sp"
+                            android:text="请选择所在位置"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/iv_enter1"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="5dp"
+                        android:src="@mipmap/enter"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="1dp"
+                    android:padding="15dp"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_toLeftOf="@id/iv_enter2"
+                        android:layout_centerVertical="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textColor="@color/gray_99"
+                            android:textSize="16sp"
+                            android:text="目的地"
+                            android:layout_centerVertical="true"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_dest"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:layout_marginLeft="20dp"
+                            android:textColor="@color/black_33"
+                            android:textSize="16sp"
+                            android:text="请选择目的地"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/iv_enter2"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="5dp"
+                        android:src="@mipmap/enter"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/rl_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:background="@drawable/top_line_bg"
+            android:padding="10dp">
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_add"
+                style="@style/form_submit_btn"
+                android:text="提交需求"
+                app:corner="2dp"
+                app:isShowState="true"
+                app:solid="@color/yellow_65"
+                app:state_drawable_height="14dp"
+                app:state_drawable_mode="left"
+                app:state_drawable_padding_left="50dp"
+                app:state_drawable_width="14dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>
