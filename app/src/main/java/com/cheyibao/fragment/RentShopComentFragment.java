@@ -59,7 +59,7 @@ public class RentShopComentFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_rent_coment, container, false);
         ButterKnife.bind(this, view);
         if (Const.rentCarInfo!=null){
-            rentShop = (RentShop) Const.rentCarInfo.get("shop");
+            rentShop = (RentShop) Const.rentCarInfo.get(Const.RENT_CAR_INFO_SHOP);
         }
         initView();
         return view;

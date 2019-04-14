@@ -76,7 +76,7 @@ public class CarModelsListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         title.setText("车型查询");
         if (Const.rentCarInfo!=null){
-            rentShop = (RentShop) Const.rentCarInfo.get("shop");
+            rentShop = (RentShop) Const.rentCarInfo.get(Const.RENT_CAR_INFO_SHOP);
             if (rentShop!=null){
                 textBtn.setText(rentShop.getCity());
                 textBtn.setVisibility(View.VISIBLE);
@@ -112,18 +112,6 @@ public class CarModelsListActivity extends AppCompatActivity {
                 List<RentCarModel> rentCarModelList;
                 if (baseModel != null) {
                      rentCarModelList = baseModel.getData();
-                     if (rentCarModelList==null || rentCarModelList.size()==0){
-                         rentCarModelList = new ArrayList<>();
-                         for (int i = 0;i<10;i++){
-                             RentCarModel rentCarModel = new RentCarModel();
-                             rentCarModel.setImage("https://yunchebao.oss-cn-shenzhen.aliyuncs.com/image/2019041018363446");
-                             rentCarModel.setSeat(((i+1)%5==0?5:(i+1)%5) +"坐");
-                             rentCarModel.setVariableBox(i%3==0?"自动":"手动");
-                             rentCarModel.setDayPrice((i%3)*7+30);
-                             rentCarModel.setCarTategory("大众"+rentCarModel.getVariableBox()+rentCarModel.getSeat());
-                             rentCarModelList.add(rentCarModel);
-                         }
-                     }
                     rentCarModelAdapter.setNewData(rentCarModelList);
                 }
             }
