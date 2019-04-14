@@ -61,11 +61,11 @@ public class RentCarOrderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRentCarType = (RentCarType) getIntent().getSerializableExtra("data");
-        mRentCar= (RentCar) getIntent().getSerializableExtra("rent");
         setContentView(R.layout.activity_rent_car_order);
-        ButterKnife.bind(this);
-        initView();
+//        mRentCarType = (RentCarType) getIntent().getSerializableExtra("data");
+//        mRentCar= (RentCar) getIntent().getSerializableExtra("rent");
+//        ButterKnife.bind(this);
+//        initView();
     }
 
     private void initView() {

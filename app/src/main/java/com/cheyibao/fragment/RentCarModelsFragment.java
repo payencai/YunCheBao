@@ -1,13 +1,21 @@
 package com.cheyibao.fragment;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.TextView;
+
+import com.cheyibao.RentCarOrderActivity;
 import com.cheyibao.adapter.RentCarModelAdapter;
 import com.cheyibao.model.RentCarModel;
 import com.cheyibao.model.RentCarType;
@@ -25,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,7 +61,7 @@ public class RentCarModelsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_rent_shop, container, false);
         ButterKnife.bind(this, view);
         if (Const.rentCarInfo!=null){
-            rentShop = (RentShop) Const.rentCarInfo.get("shop");
+            rentShop = (RentShop) Const.rentCarInfo.get(Const.RENT_CAR_INFO_SHOP);
         }
         initView();
         return view;
@@ -66,7 +75,8 @@ public class RentCarModelsFragment extends Fragment {
         lv_rentcar.setAdapter(adapter);
         adapter.bindToRecyclerView(lv_rentcar);
         adapter.setOnItemClickListener((adapter, view, position) -> {
-
+            Const.rentCarInfo.put(Const.RENT_CAR_INFO_CAR_MODEL,adapter.getItem(position));
+            showDialog((RentCarModel) Objects.requireNonNull(adapter.getItem(position)));
         });
         adapter.setOnLoadMoreListener(() -> {
             isLoadMore = true;
@@ -75,6 +85,43 @@ public class RentCarModelsFragment extends Fragment {
         }, lv_rentcar);
         getData();
 
+    }
+
+    private void showDialog(RentCarModel rentCarModel) {
+        final Dialog dialog = new Dialog(getContext(), R.style.dialog);
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_rentcar, null);
+        TextView tv_name = dialogView.findViewById(R.id.tv_name);
+        TextView tv_auto =  dialogView.findViewById(R.id.tv_auto);
+        TextView tv_model =  dialogView.findViewById(R.id.tv_model);
+        TextView tv_price =  dialogView.findViewById(R.id.tv_price);
+        TextView tv_submit =  dialogView.findViewById(R.id.tv_submit);
+        //获得dialog的window窗口
+        Window window = dialog.getWindow();
+        //设置dialog在屏幕底部
+        window.setGravity(Gravity.BOTTOM);
+        //设置dialog弹出时的动画效果，从屏幕底部向上弹出
+        window.setWindowAnimations(R.style.mypopwindow_anim_style);
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        //获得window窗口的属性
+        android.view.WindowManager.LayoutParams lp = window.getAttributes();
+        //设置窗口宽度为充满全屏
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        //设置窗口高度为包裹内容
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        //将设置好的属性set回去
+        window.setAttributes(lp);
+        //将自定义布局加载到dialog上
+        dialog.setContentView(dialogView);
+        dialog.show();
+        tv_name.setText(rentCarModel.getBrand());
+        tv_model.setText(rentCarModel.getCarTategory());
+        tv_auto.setText(String.format("%s/%s座",rentCarModel.getVariableBox(),rentCarModel.getSeat()));
+        tv_price.setText(String.format("￥%s",rentCarModel.getDayPrice()));
+        tv_submit.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), RentCarOrderActivity.class);
+            startActivity(intent);
+            dialog.dismiss();
+        });
     }
 
     public void getData() {

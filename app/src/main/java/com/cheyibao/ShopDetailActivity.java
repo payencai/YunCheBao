@@ -1,14 +1,21 @@
 package com.cheyibao;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,10 +26,14 @@ import com.cheyibao.fragment.RentCarModelsFragment;
 import com.cheyibao.fragment.RentShopComentFragment;
 import com.cheyibao.model.RentShop;
 import com.cheyibao.util.Const;
+import com.common.ConfirmDialog;
+import com.common.DialPhoneUtils;
 import com.example.yunchebao.R;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.maket.adapter.GoodsOrderImageAdapter;
+import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.tool.DialogPopup;
 import com.tool.view.HorizontalListView;
 
 import java.lang.reflect.InvocationTargetException;
@@ -33,6 +44,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 
 public class ShopDetailActivity extends AppCompatActivity {
@@ -88,7 +100,7 @@ public class ShopDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_detail);
         ButterKnife.bind(this);
-        rentShop = (RentShop) Const.rentCarInfo.get("shop");
+        rentShop = (RentShop) Const.rentCarInfo.get(Const.RENT_CAR_INFO_SHOP);
         initView();
     }
 
@@ -124,29 +136,24 @@ public class ShopDetailActivity extends AppCompatActivity {
         onBackPressed();
     }
 
+    @SuppressLint("CheckResult")
     @OnClick(R.id.call_view)
     public void onCallViewClicked() {
-        try {
-            // 首先拿到TelephonyManager
-            TelephonyManager telMag = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-            Class<TelephonyManager> c = TelephonyManager.class;
-            // 再去反射TelephonyManager里面的私有方法 getITelephony 得到 ITelephony对象
-            Method mthEndCall = c.getDeclaredMethod("getITelephony", (Class[]) null);
-            //允许访问私有方法
-            mthEndCall.setAccessible(true);
-            final Object obj = mthEndCall.invoke(telMag, (Object[]) null);
-            // 再通过ITelephony对象去反射里面的call方法，并传入包名和需要拨打的电话号码
-            Method mt = obj.getClass().getMethod("call", String.class, String.class);
-            //允许访问私有方法
-            mt.setAccessible(true);
-            mt.invoke(obj, getPackageName() + "", "10086");
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(Manifest.permission.CALL_PHONE).subscribe(aBoolean -> {
+            if (aBoolean){
+                ConfirmDialog confirmDialog = new ConfirmDialog(ShopDetailActivity.this);
+                confirmDialog .setTitle("拨号提示")
+                        .setMessageText("确定拨打电话吗？")
+                        .setCancelable(true)
+                        .setConfirmClickListener(v -> {
+                            DialPhoneUtils.startDialNumber(ShopDetailActivity.this,rentShop.getSaleTelephone());
+                            confirmDialog.dismiss();
+                        })
+                        .setCancelClickListener(v -> confirmDialog.dismiss());
+                confirmDialog.show();
+            }
+        });
     }
 
     @OnClick(R.id.online_chat_view)

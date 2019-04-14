@@ -32,6 +32,7 @@ import com.cheyibao.ShopListNoAreaActivity;
 import com.cheyibao.model.RentShop;
 import com.cheyibao.util.Const;
 import com.common.DateUtils;
+import com.common.ResourceUtils;
 import com.costans.PlatformContans;
 import com.entity.Banner;
 import com.example.yunchebao.R;
@@ -178,6 +179,38 @@ public class RentCarFragment extends BaseFragment {
         rentTheCarStartTimeTextView.setText(getSpannableString(startTime));
         rentTheCarEndTimeTextView.setText(getSpannableString(endTime));
 
+        isSendTheCarToHomeCheckedView.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked){
+                if (addressBean!=null){
+                    sendCarCityTextView.setText(addressBean.getCityname());
+                    sendCarAddressTextView.setText(addressBean.getPoiaddress());
+                }else {
+                    sendCarCityTextView.setText("");
+                    sendCarAddressTextView.setText("");
+                }
+
+                if (addressBean2!=null){
+                    returnTheCarCityTextView.setText(addressBean2.getCityname());
+                    returnTheCarAddressTextView.setText(addressBean2.getPoiaddress());
+                }else {
+                    returnTheCarCityTextView.setText("");
+                    returnTheCarAddressTextView.setText("");
+                }
+            }else {
+                if (rentShop != null) {
+                    sendCarCityTextView.setText(rentShop.getCity());
+                    sendCarAddressTextView.setText(rentShop.getAddress());
+                    returnTheCarCityTextView.setText(rentShop.getCity());
+                    returnTheCarAddressTextView.setText(rentShop.getAddress());
+                }else {
+                    sendCarCityTextView.setText("");
+                    sendCarAddressTextView.setText("");
+                    returnTheCarCityTextView.setText("");
+                    returnTheCarAddressTextView.setText("");
+                }
+            }
+        });
+
 
     }
 
@@ -185,32 +218,18 @@ public class RentCarFragment extends BaseFragment {
         int[][] status = new int[2][];
         status[0] = new int[]{android.R.attr.state_checked};
         status[1] = new int[]{};
-        int[] colors = new int[]{getColorByResource(R.color.black_33), getColorByResource(R.color.black_5D)};
+        int[] colors = new int[]{ResourceUtils.getColorByResource(getContext(),R.color.black_33), ResourceUtils.getColorByResource(getContext(),R.color.black_5D)};
         return new ColorStateList(status, colors);
     }
 
     private StateListDrawable drawables() {
         StateListDrawable stateListDrawable = new StateListDrawable();
-        stateListDrawable.addState(new int[]{android.R.attr.state_checked}, getDrawableByResource(R.mipmap.carrental_btn_checkthe_selected));
-        stateListDrawable.addState(new int[]{}, getDrawableByResource(R.mipmap.carrental_btn_checkthe_normal));
+        stateListDrawable.addState(new int[]{android.R.attr.state_checked}, ResourceUtils.getDrawableByResource(getContext(),R.mipmap.carrental_btn_checkthe_selected));
+        stateListDrawable.addState(new int[]{}, ResourceUtils.getDrawableByResource(getContext(),R.mipmap.carrental_btn_checkthe_normal));
         return stateListDrawable;
     }
 
-    private Drawable getDrawableByResource(int resource) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return getResources().getDrawable(resource, null);
-        } else {
-            return getResources().getDrawable(resource);
-        }
-    }
 
-    private int getColorByResource(int resource) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return getResources().getColor(resource, null);
-        } else {
-            return getResources().getColor(resource);
-        }
-    }
 
     private void getBaner() {
         imageList.clear();
@@ -351,12 +370,12 @@ public class RentCarFragment extends BaseFragment {
     public void onPickTheCarViewClicked() {
         if (Const.rentCarInfo==null){
             Const.rentCarInfo = new HashMap<>();
-            Const.rentCarInfo.put("area1",addressBean);
-            Const.rentCarInfo.put("area2",addressBean2);
-            Const.rentCarInfo.put("shop",rentShop);
-            Const.rentCarInfo.put("start_time",startTime);
-            Const.rentCarInfo.put("end_time",endTime);
-            Const.rentCarInfo.put("duration",duration);
+            Const.rentCarInfo.put(Const.RENT_CAR_INFO_AREA_1,addressBean);
+            Const.rentCarInfo.put(Const.RENT_CAR_INFO_AREA_2,addressBean2);
+            Const.rentCarInfo.put(Const.RENT_CAR_INFO_SHOP,rentShop);
+            Const.rentCarInfo.put(Const.RENT_CAR_INFO_START_TIME,startTime);
+            Const.rentCarInfo.put(Const.RENT_CAR_INFO_END_TIME,endTime);
+            Const.rentCarInfo.put(Const.RENT_CAR_INFO_DURATION,duration);
         }
         if(isSendTheCarToHomeCheckedView.isChecked()){
             if (addressBean==null){
@@ -404,6 +423,11 @@ public class RentCarFragment extends BaseFragment {
                     addressBean = (AddressBean) data.getSerializableExtra("address");
                     sendCarCityTextView.setText(addressBean.getCityname());
                     sendCarAddressTextView.setText(addressBean.getPoiaddress());
+                    if (addressBean2==null){
+                        addressBean2 = addressBean;
+                        returnTheCarCityTextView.setText(addressBean2.getCityname());
+                        returnTheCarAddressTextView.setText(addressBean2.getPoiaddress());
+                    }
                 }
                 break;
             case REQUEST_CODE_ADDRESS_FOR_MAP_TAKE:
@@ -411,6 +435,11 @@ public class RentCarFragment extends BaseFragment {
                     addressBean2 = (AddressBean) data.getSerializableExtra("address");
                     returnTheCarCityTextView.setText(addressBean2.getCityname());
                     returnTheCarAddressTextView.setText(addressBean2.getPoiaddress());
+                    if (addressBean==null){
+                        addressBean = addressBean2;
+                        returnTheCarCityTextView.setText(addressBean2.getCityname());
+                        returnTheCarAddressTextView.setText(addressBean2.getPoiaddress());
+                    }
                 }
                 break;
             case REQUEST_CODE_ADDRESS_FOR_STORE_SEND:

@@ -22,6 +22,7 @@
     <string name="city_hotcity_searchedittext_hint">请输入城市名,首字母或拼音</string>
     <string name="xml_loading_01">加载中</string>
 
+    <string name="confirm1">确定</string>
     <string name="cancel">取消</string>
     <string name="quit_dialog_cancel">取 消</string>
     <string name="assistant_upload_dialog_title">提示</string>
@@ -50,4 +51,15 @@
     <string name="rent_shop_detail">门店详情</string>
     <string name="dial_the_phone">拨打号码</string>
     <string name="online_chat">在线聊天</string>
+    <string name="payment">付款</string>
+    <string name="online_pay">在线支付</string>
+    <string name="fuel_fee_self_payment">燃油费自理</string>
+    <string name="order_confirm">订单确认</string>
+    <string name="total_price">总价格</string>
+    <string name="name">姓名</string>
+    <string name="please_enter_name">请输入姓名</string>
+    <string name="phone">电话</string>
+    <string name="please_enter_phone">请输入电话</string>
+    <string name="identicaty">身份证</string>
+    <string name="the_same_the_name">需与姓名一致</string>
 </resources>
