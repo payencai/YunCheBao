@@ -21,7 +21,7 @@ android {
     defaultConfig {
         applicationId "com.example.yunchebao"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -69,39 +69,57 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.1'
     compile 'com.github.chenBingX:SuperTextView:v1.4'
+
     //compile 'com.google.zxing:core:3.3.0'
     compile files('libs/universal-image-loader-1.9.5.jar')
     compile files('libs/volley.jar')
+
     //compile project(':filter-lib')
+
     //compile project(':IMLib')
     compile project(':IMKit')
+
     //compile project(':CallLib')
     compile 'com.iarcuschin:simpleratingbar:0.1.5'
+
     //左右两个列表
     compile 'com.android.support:recyclerview-v7:28.0.0'
     compile 'com.android.support:design:28.0.0'
+
     //仿联系人列表
     compile 'com.github.qdxxxx:IndexBarLayout:1.0.2'
     compile 'com.github.qdxxxx:StickyHeaderDecoration:1.0.1'
     compile 'io.reactivex:rxjava:1.1.5'
+
     // compile project(path: ':tablibrary')
     compile 'com.google.code.gson:gson:2.6.1'
+
     //时间选择器 仿ios
     compile 'com.jzxiang.pickerview:TimePickerDialog:0.9.2'
+
     //进度条
     compile 'com.github.warkiz.widget:indicatorseekbar:1.2.3'
+
     //数字加减装置
     compile 'com.github.mcxtzhang:AnimShopButton:V1.0.0'
+
     //带删除按钮的EditText
     compile 'com.xw.repo:xedittext:2.0.5@aar'
+
     //左滑按钮控件
     compile 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.2.2'
+
     //标签输入框
     compile 'co.lujun:androidtagview:1.1.1'
+
     //带表情的输入框
+
     //compile 'com.github.w446108264:XhsEmoticonsKeyboard:2.0.4'
+
     // compile project(path: ':reclib-emoticons')
+
     //compile 'com.github.w446108264:AndroidEmoji:1.3'
+
     // compile project(':easeui')
     compile 'com.squareup.okhttp3:okhttp:3.10.0'
     compile 'com.parse:parse-android:1.13.1'
@@ -127,6 +145,7 @@ dependencies {
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     compile files('libs/open_sdk_r6008_lite.jar')
     compile 'org.greenrobot:eventbus:3.1.1'
+
     // compile project(':WaveSideBar')
     compile 'com.amap.api:location:latest.integration'
     compile 'com.amap.api:3dmap:latest.integration'
@@ -146,24 +165,34 @@ dependencies {
     implementation 'cn.bingoogolapple:bga-refreshlayout:1.1.8@aar'
     implementation project(':CallKit')
     implementation 'com.github.dongjunkun:DropDownMenu:1.0.4'
+
     // implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
     compile 'com.github.YancyYe:GalleryPick:1.2.1'
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     implementation 'com.zhihu.android:matisse:0.5.2-beta4'
     implementation 'com.nex3z:flow-layout:1.2.4'
+
     //https://blog.csdn.net/moy1995/article/details/77880075
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
     compile 'com.github.razerdp:BasePopup:2.1.9'
+
     //图片压缩
-    implementation 'top.zibin:Luban:1.1.7'//鲁班
+    implementation 'top.zibin:Luban:1.1.7'
+
+    //鲁班
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     implementation 'com.hyman:flowlayout-lib:1.1.2'
     compile 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.2.1'
+
     //1.1.0 API改动过大，老用户升级需谨慎
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-21'
-    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-21'//没有使用特殊Header，可以不加这行
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-21'
+
+    //没有使用特殊Header，可以不加这行
+
     //popupwindow 背景变暗
     compile 'com.github.zyyoona7:EasyPopup:1.1.2'
+
     //短视频录制
     compile 'cjt.library.wheel:camera:0.1.9'
 
@@ -171,5 +200,8 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     compile 'com.github.w446108264:StickHeaderLayout:1.0.3'
     compile 'com.sys.blackcat.stickheaderlayout:library:1.3.4'
-    compile 'com.github.promeg:tinypinyin:2.0.3' // TinyPinyin核心包，约80KB
+    compile 'com.github.promeg:tinypinyin:2.0.3'
+
+    // TinyPinyin核心包，约80KB
+    implementation files('libs/tbs_sdk_thirdapp_v3.6.0.1310_43612_sharewithdownload_withoutGame_obfs_20180706_163319.jar')
 }
