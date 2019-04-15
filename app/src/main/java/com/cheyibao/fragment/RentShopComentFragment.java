@@ -11,11 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cheyibao.adapter.RentShopCommentAdapter;
-import com.cheyibao.adapter.RvCommentAdapter;
 import com.cheyibao.model.RentShop;
 import com.cheyibao.model.RentShopComment;
 import com.cheyibao.model.ShopComment;
-import com.cheyibao.util.Const;
+import com.cheyibao.util.RentCarUtils;
 import com.common.BaseModel;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
@@ -23,10 +22,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,8 +53,8 @@ public class RentShopComentFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_rent_coment, container, false);
         ButterKnife.bind(this, view);
-        if (Const.rentCarInfo!=null){
-            rentShop = (RentShop) Const.rentCarInfo.get(Const.RENT_CAR_INFO_SHOP);
+        if (RentCarUtils.rentCarInfo!=null){
+            rentShop = (RentShop) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_SHOP);
         }
         initView();
         return view;

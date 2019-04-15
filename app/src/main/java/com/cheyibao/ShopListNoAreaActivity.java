@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.cheyibao.adapter.RentShopAdapter;
 import com.cheyibao.model.RentShop;
-import com.cheyibao.util.Const;
+import com.cheyibao.util.RentCarUtils;
 import com.common.BaseModel;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
@@ -69,11 +69,11 @@ public class ShopListNoAreaActivity extends AppCompatActivity {
         shopListView.setLayoutManager(new LinearLayoutManager(this));
         rentShopAdapter.bindToRecyclerView(shopListView);
         rentShopAdapter.setOnItemClickListener((adapter, view, position) -> {
-            Const.rentCarInfo.put(Const.RENT_CAR_INFO_SHOP, rentShopAdapter.getItem(position));
+            RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_SHOP, rentShopAdapter.getItem(position));
             Intent intent = new Intent(ShopListNoAreaActivity.this, ShopDetailActivity.class);
             startActivity(intent);
         });
-        addressBean = (AddressBean) Const.rentCarInfo.get(Const.RENT_CAR_INFO_AREA_1);
+        addressBean = (AddressBean) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_AREA_1);
         getShop();
     }
 
@@ -82,7 +82,7 @@ public class ShopListNoAreaActivity extends AppCompatActivity {
         params.put("page", page);
         params.put("longitude", addressBean.getLatlng().getLng() + "");
         params.put("latitude", addressBean.getLatlng().getLat() + "");
-        params.put("isOnlineServe", Const.ONLINESERVE);
+        params.put("isOnlineServe", RentCarUtils.ONLINESERVE);
         params.put("city", addressBean.getCityname());
         HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarShop, params, "", new ICallBack() {
             @Override

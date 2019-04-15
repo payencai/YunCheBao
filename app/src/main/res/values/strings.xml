@@ -62,4 +62,20 @@
     <string name="please_enter_phone">请输入电话</string>
     <string name="identicaty">身份证</string>
     <string name="the_same_the_name">需与姓名一致</string>
+    <string name="phone_number">电话号码</string>
+    <string name="emergency_contact_person">紧急联系人</string>
+    <string name="please_enter_emergency_contact_person_name">请输入紧急联系人姓名</string>
+    <string name="contact_person_phone">联系人手机</string>
+    <string name="please_enter_contact_person_phone_number">请输入联系人手机号</string>
+    <string name="rent_car_warm">租车提醒</string>
+    <string name="rent_car_notice">租车须知</string>
+    <string name="take_car_voucher">取车凭证：需携带本人二代身份证+本人驾驶证</string>
+    <string name="foregift_advance_sale">押金预售金</string>
+    <string name="foregift_advance_sale_content">取车时需要收取押金30天，30天后无交通违规记录，返还押金（具体收取方案请与商家沟通）</string>
+    <string name="cancel_ruler">取消规则</string>
+    <string name="cancel_ruler_content">下单之后了在4小时内免费取消，4小时后取消需收取百分之三十的费用，超过取车时间未取车不可退款</string>
+    <string name="mileage_and_oil_fee"><![CDATA[里程&油费]]></string>
+    <string name="mileage_and_oil_fee_content">不限制车辆里程，油费需自理</string>
+    <string name="submit_order">提交订单</string>
+    <string name="per_day_price">日均</string>
 </resources>

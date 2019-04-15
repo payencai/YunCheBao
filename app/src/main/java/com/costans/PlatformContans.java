@@ -224,6 +224,7 @@ public class PlatformContans {
         public static final String getRentCarShop=root+ "/rentCar/getRentCarShop";
         public static final String getRentCarCarListByShopId=root+ "/rentCar/getRentCarCarListByShopId";
         public static final String getRentCarCommentDetailsList=root+ "/rentCar/getRentCarCommentDetailsList";
+        public static final String addRentCarOrder=root+ "/rentCar/addRentCarOrder";
     }
     public static class OldCar{
 
