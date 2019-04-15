@@ -244,7 +244,7 @@ public class UserCenterActivity extends NoHttpBaseActivity {
             case R.id.lay9://帮助反馈
                 ActivityAnimationUtils.commonTransition(UserCenterActivity.this, FeedbackSubmitActivity.class, ActivityConstans.Animation.FADE);
                 break;
-            case R.id.lay11://洗护评论
+            case R.id.lay11://我的服务
                 ActivityAnimationUtils.commonTransition(UserCenterActivity.this, ServiceCarActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.lay12://入驻申请
