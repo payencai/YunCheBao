@@ -1,21 +1,13 @@
 package com.system;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.http.SslError;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.webkit.SslErrorHandler;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.amap.api.maps.model.LatLng;
+
+
 import com.example.yunchebao.R;
 
 
@@ -23,6 +15,10 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.system.model.AddressBean;
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 import com.tool.X5WebView;
 
 import org.json.JSONException;
@@ -33,7 +29,7 @@ import java.net.URLDecoder;
 
 public class X5WebviewActivity extends AppCompatActivity {
 
-    WebView mX5WebView;
+    X5WebView mX5WebView;
    private void getCity(double latitude,double longitude){
        String url="https://restapi.amap.com/v3/geocode/regeo?output=json&location="+longitude+","+latitude+"&key=b3e064ba536662c892cd0c81169b5bfb&extensions=all&batch=false";
        //String url="https://restapi.amap.com/v3/geocode/regeo?output=json&location=113.39679,23.04551&key=b3e064ba536662c892cd0c81169b5bfb&extensions=all&batch=false";
@@ -72,7 +68,7 @@ public class X5WebviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_x5_webview);
 
-        mX5WebView = (WebView) findViewById(R.id.webview);
+        mX5WebView = (X5WebView) findViewById(R.id.webview);
         WebSettings webSetting = mX5WebView.getSettings();
         webSetting.setJavaScriptEnabled(true);
         webSetting.setAllowFileAccess(true);
