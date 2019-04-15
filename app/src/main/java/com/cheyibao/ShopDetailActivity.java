@@ -2,20 +2,13 @@ package com.cheyibao;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.telephony.TelephonyManager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,7 +18,7 @@ import android.widget.TextView;
 import com.cheyibao.fragment.RentCarModelsFragment;
 import com.cheyibao.fragment.RentShopComentFragment;
 import com.cheyibao.model.RentShop;
-import com.cheyibao.util.Const;
+import com.cheyibao.util.RentCarUtils;
 import com.common.ConfirmDialog;
 import com.common.DialPhoneUtils;
 import com.example.yunchebao.R;
@@ -33,18 +26,14 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.maket.adapter.GoodsOrderImageAdapter;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.tool.DialogPopup;
 import com.tool.view.HorizontalListView;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.functions.Consumer;
 
 
 public class ShopDetailActivity extends AppCompatActivity {
@@ -100,7 +89,7 @@ public class ShopDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_detail);
         ButterKnife.bind(this);
-        rentShop = (RentShop) Const.rentCarInfo.get(Const.RENT_CAR_INFO_SHOP);
+        rentShop = (RentShop) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_SHOP);
         initView();
     }
 

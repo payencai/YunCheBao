@@ -1,137 +1,203 @@
 package com.cheyibao;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.application.MyApplication;
 import com.bumptech.glide.Glide;
-import com.cheyibao.model.RentCar;
+import com.cheyibao.model.RentCarModel;
 import com.cheyibao.model.RentCarType;
+import com.cheyibao.model.RentShop;
+import com.cheyibao.util.RentCarUtils;
+import com.cheyibao.view.RentCarAddressView;
+import com.cheyibao.view.RentCarTimeView;
+import com.common.AvoidOnResult;
+import com.common.BaseModel;
+import com.common.DateUtils;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.payencai.library.util.ToastUtil;
+import com.system.model.AddressBean;
+import com.vipcenter.LoginByaccountActivity;
 
-import org.androidannotations.annotations.App;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class RentCarOrderActivity extends AppCompatActivity {
-    RentCarType mRentCarType;
-    RentCar mRentCar;
-    @BindView(R.id.iv_car)
-    ImageView iv_car;
-    @BindView(R.id.tv_name1)
-    TextView tv_name1;
-    @BindView(R.id.tv_name2)
-    TextView tv_name2;
-    @BindView(R.id.tv_param)
-    TextView tv_param;
-    @BindView(R.id.tv_price)
-    TextView tv_price;
-    @BindView(R.id.tv_total)
-    TextView tv_total;
-    @BindView(R.id.et_name)
-    EditText et_name;
-    @BindView(R.id.et_phone)
-    EditText et_phone;
-    @BindView(R.id.et_beizhu)
-    EditText et_beizhu;
-    @BindView(R.id.tv_delete)
-    TextView tv_delete;
-    @BindView(R.id.tv_add)
-    TextView tv_add;
-    @BindView(R.id.tv_count)
-    TextView tv_count;
-    @BindView(R.id.tv_submit)
-    TextView tv_submit;
-    int count = 1;
+    @BindView(R.id.back)
+    ImageView back;
+    @BindView(R.id.rl_top)
+    RelativeLayout rlTop;
+    @BindView(R.id.car_model_banner_view)
+    ImageView carModelBannerView;
+    @BindView(R.id.car_model_name_view)
+    TextView carModelNameView;
+    @BindView(R.id.car_model_car_category_view)
+    TextView carModelCarCategoryView;
+    @BindView(R.id.car_model_is_auto_driver_view)
+    TextView carModelIsAutoDriverView;
+    @BindView(R.id.day_price_view)
+    TextView dayPriceView;
+    @BindView(R.id.total_price_view)
+    TextView totalPriceView;
+    @BindView(R.id.rent_car_person_name_view)
+    EditText rentCarPersonNameView;
+    @BindView(R.id.rent_car_person_phone_view)
+    EditText rentCarPersonPhoneView;
+    @BindView(R.id.rent_car_person_identify_view)
+    EditText rentCarPersonIdentifyView;
+    @BindView(R.id.rent_car_person_contact_person_name_view)
+    EditText rentCarPersonContactPersonNameView;
+    @BindView(R.id.rent_car_person_contact_person_phone_view)
+    EditText rentCarPersonContactPersonPhoneView;
+    @BindView(R.id.submit_order_view)
+    TextView submitOrderView;
+    @BindView(R.id.rent_car_time_View)
+    RentCarTimeView rentCarTimeView;
+    @BindView(R.id.rent_Car_address_view)
+    RentCarAddressView rentCarAddressView;
+
+    private RentCarModel rentCarModel;
+    private long startTime;
+    private long endTime;
+    private long duration;
+
+    private AddressBean takeTheCarAddress;
+    private AddressBean returnTheCarAddress;
+    private RentShop rentShop;
+    private boolean isToHomeService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rent_car_order);
-//        mRentCarType = (RentCarType) getIntent().getSerializableExtra("data");
-//        mRentCar= (RentCar) getIntent().getSerializableExtra("rent");
-//        ButterKnife.bind(this);
-//        initView();
+        ButterKnife.bind(this);
+        if (RentCarUtils.rentCarInfo != null) {
+            rentCarModel = (RentCarModel) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_CAR_MODEL);
+            startTime = (long) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_START_TIME);
+            endTime = (long) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_END_TIME);
+            duration = endTime - startTime;
+            takeTheCarAddress = (AddressBean) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_AREA_1);
+            returnTheCarAddress = (AddressBean) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_AREA_2);
+            rentShop = (RentShop) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_SHOP);
+            isToHomeService = (boolean) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_IS_TO_HOME_SERVICE);
+        }
+        initView();
     }
 
     private void initView() {
-        Glide.with(RentCarOrderActivity.this).load(mRentCarType.getPhoto()).into(iv_car);
-        tv_name1.setText(mRentCarType.getBrand());
-        tv_name2.setText(mRentCarType.getModel());
-        tv_param.setText(mRentCarType.getManualAutomatic() + "/" + mRentCarType.getSeat() + "座");
-        tv_price.setText("￥" + mRentCarType.getDayPrice());
-        tv_total.setText("￥" + mRentCarType.getDayPrice());
-        tv_delete.setOnClickListener(new View.OnClickListener() {
+        Glide.with(this).load(rentCarModel.getImage()).into(carModelBannerView);
+        carModelNameView.setText(rentCarModel.getBrand());
+        carModelCarCategoryView.setText(rentCarModel.getCarTategory());
+        carModelIsAutoDriverView.setText(String.format("%s/%s座", rentCarModel.getVariableBox(), rentCarModel.getSeat().replace("座", "")));
+        dayPriceView.setText(String.format("￥%s", rentCarModel.getDayPrice()));
+        totalPriceView.setText(String.format("￥%s", RentCarUtils.day(duration) * rentCarModel.getDayPrice()));
+        rentCarTimeView.initTime(startTime, endTime);
+        rentCarTimeView.setOnDayChangedListener(new RentCarTimeView.OnDayChangedListener(){
             @Override
-            public void onClick(View v) {
-                if (count > 1) {
-                    count--;
-                    tv_count.setText(count + "天");
-                    double money = count * mRentCarType.getDayPrice();
-                    tv_total.setText("￥" + money);
-                }
+            public void onDayChanger(int day) {
+                super.onDayChanger(day);
+                totalPriceView.setText(String.format("￥%s", day * rentCarModel.getDayPrice()));
             }
         });
-        tv_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                count++;
-                tv_count.setText(count + "天");
-                double money = count * mRentCarType.getDayPrice();
-                tv_total.setText("￥" + money);
-            }
-        });
-        tv_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(MyApplication.isLogin)
-                postOrder();
+        rentCarAddressView.init(takeTheCarAddress,returnTheCarAddress,rentShop,isToHomeService);
 
-            }
-        });
+
     }
-    private void postOrder(){
-        Map<String,Object> params=new HashMap<>();
-        params.put("commodityId",mRentCarType.getId());
-        params.put("shopId",mRentCar.getId());
-        params.put("shopName",mRentCar.getName());
-        params.put("title",mRentCar.getName());
-        params.put("image",mRentCarType.getPhoto());
-        params.put("number",count);
-        params.put("type",3);
-        params.put("remark",et_beizhu.getEditableText().toString());
-        params.put("name",et_name.getEditableText().toString());
-        params.put("telephone",et_phone.getEditableText().toString());
-        params.put("seat",mRentCarType.getSeat()+"");
-        params.put("carCategory",mRentCarType.getModel()+"");
-        HttpProxy.obtain().post(PlatformContans.CarOrder.addCarOrder, MyApplication.token, params, new ICallBack() {
+
+    private void postOrder() {
+        String name = rentCarPersonNameView.getText().toString();
+        if (TextUtils.isEmpty(name)){
+            ToastUtil.showToast(this,"租车人姓名不能为空，请输入！");
+            rentCarPersonNameView.requestFocus();
+            return;
+        }
+
+        String phoneNumber = rentCarPersonPhoneView.getText().toString();
+        if (TextUtils.isEmpty(phoneNumber)){
+            ToastUtil.showToast(this,"租车人联系电话不能为空，请输入！");
+            rentCarPersonPhoneView.requestFocus();
+            return;
+        }
+
+        String callName = rentCarPersonContactPersonNameView.getText().toString();
+        if (TextUtils.isEmpty(callName)){
+            ToastUtil.showToast(this,"紧急联系人姓名不能为空，请输入！");
+            rentCarPersonContactPersonNameView.requestFocus();
+            return;
+        }
+
+        String callTelephone = rentCarPersonContactPersonPhoneView.getText().toString();
+        if (TextUtils.isEmpty(callTelephone)){
+            ToastUtil.showToast(this,"紧急联系人电话不能为空，请输入！");
+            rentCarPersonContactPersonPhoneView.requestFocus();
+            return;
+        }
+
+        String idNumber = rentCarPersonIdentifyView.getText().toString();
+        if (TextUtils.isEmpty(idNumber)){
+            ToastUtil.showToast(this,"租车人身份证不能为空，请输入！");
+            rentCarPersonIdentifyView.requestFocus();
+            return;
+        }
+
+        isToHomeService = rentCarAddressView.isToHomeService();
+        rentShop = rentCarAddressView.getRentShop();
+        takeTheCarAddress = rentCarAddressView.getTakeCarAddress();
+        returnTheCarAddress = rentCarAddressView.getReturnCarAddress();
+        Map<String, Object> params = new HashMap<>();
+        params.put("name",name);
+        params.put("telephone",phoneNumber);
+        params.put("callName",callName);
+        params.put("callTelephone",callTelephone);
+        params.put("idNumber",idNumber);
+        params.put("rentCarId",rentCarModel.getId());
+        params.put("rentDay",rentCarTimeView.getDay());
+        params.put("takeCarLongitude",isToHomeService?takeTheCarAddress.getLatlng().getLng():rentShop.getLongitude());
+        params.put("takeCarLatitude",isToHomeService?takeTheCarAddress.getLatlng().getLat():rentShop.getLatitude());
+        params.put("takeCarAddress",isToHomeService?takeTheCarAddress.getPoiaddress():rentShop.getAddress());
+        params.put("takeCarTime",DateUtils.formatDateTime(rentCarTimeView.getStartTime(),"yyyy-MM-dd HH:mm:ss"));
+        params.put("returnCarLongitude",isToHomeService?returnTheCarAddress.getLatlng().getLng():rentShop.getLongitude());
+        params.put("returnCarLatitude",isToHomeService?returnTheCarAddress.getLatlng().getLat():rentShop.getLatitude());
+        params.put("returnCarAddress",isToHomeService?returnTheCarAddress.getPoiaddress():rentShop.getAddress());
+        params.put("returnCarTime",DateUtils.formatDateTime(rentCarTimeView.getEndTime(),"yyyy-MM-dd HH:mm:ss"));
+        MyApplication.getaMapLocation().setLatitude(isToHomeService?takeTheCarAddress.getLatlng().getLng():Double.parseDouble(rentShop.getLongitude()));
+        MyApplication.getaMapLocation().setLongitude(isToHomeService?takeTheCarAddress.getLatlng().getLng():Double.parseDouble(rentShop.getLongitude()));
+        params.put("longitude",MyApplication.getaMapLocation().getLongitude());
+        params.put("latitude",MyApplication.getaMapLocation().getLatitude());
+
+        HttpProxy.obtain().post(PlatformContans.CarRent.addRentCarOrder, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                try {
-                    JSONObject jsonObject=new JSONObject(result);
-                    String orderId=jsonObject.getString("data");
-                    Intent intent=new Intent(RentCarOrderActivity.this,CarPayActivity.class);
-                    intent.putExtra("money",(mRentCarType.getDayPrice()*count)+"");
-                    intent.putExtra("orderid",orderId);
-                    startActivity(intent);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                BaseModel<String> baseModel = new Gson().fromJson(result, new TypeToken<BaseModel<String>>(){}.getType());
+                if (baseModel!=null){
+                    if (baseModel.getResultCode()==0){
+                        String data = baseModel.getData();
+                        ToastUtil.showToast(RentCarOrderActivity.this,data);
+                        Intent intent = new Intent(RentCarOrderActivity.this, CarPayActivity.class);
+                        intent.putExtra("money", (rentCarModel.getDayPrice() * rentCarTimeView.getDay()) + "");
+                        intent.putExtra("orderid", data);
+                        AvoidOnResult avoidOnResult = new AvoidOnResult(RentCarOrderActivity.this);
+                        avoidOnResult.startForResult(intent, 0, (requestCode, resultCode, data1) -> finish());
+                    }else {
+                        ToastUtil.showToast(RentCarOrderActivity.this,String.format("%s:%s",baseModel.getResultCode(),baseModel.getMessage()));
+                    }
                 }
-
             }
 
             @Override
@@ -139,5 +205,24 @@ public class RentCarOrderActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @OnClick(R.id.back)
+    public void onBackClicked() {
+        onBackPressed();
+    }
+
+    @OnClick(R.id.submit_order_view)
+    public void onSubmitOrderViewClicked() {
+        if (MyApplication.isIsLogin()){
+            postOrder();
+        }else {
+            AvoidOnResult avoidOnResult = new AvoidOnResult(this);
+            avoidOnResult.startForResult(LoginByaccountActivity.class, 1, (requestCode, resultCode, data) -> {
+                if (requestCode==1 && resultCode==5){
+                    postOrder();
+                }
+            });
+        }
     }
 }

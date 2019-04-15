@@ -18,9 +18,8 @@ import android.widget.TextView;
 import com.cheyibao.RentCarOrderActivity;
 import com.cheyibao.adapter.RentCarModelAdapter;
 import com.cheyibao.model.RentCarModel;
-import com.cheyibao.model.RentCarType;
 import com.cheyibao.model.RentShop;
-import com.cheyibao.util.Const;
+import com.cheyibao.util.RentCarUtils;
 import com.common.BaseModel;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
@@ -60,8 +59,8 @@ public class RentCarModelsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_rent_shop, container, false);
         ButterKnife.bind(this, view);
-        if (Const.rentCarInfo!=null){
-            rentShop = (RentShop) Const.rentCarInfo.get(Const.RENT_CAR_INFO_SHOP);
+        if (RentCarUtils.rentCarInfo!=null){
+            rentShop = (RentShop) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_SHOP);
         }
         initView();
         return view;
@@ -75,7 +74,7 @@ public class RentCarModelsFragment extends Fragment {
         lv_rentcar.setAdapter(adapter);
         adapter.bindToRecyclerView(lv_rentcar);
         adapter.setOnItemClickListener((adapter, view, position) -> {
-            Const.rentCarInfo.put(Const.RENT_CAR_INFO_CAR_MODEL,adapter.getItem(position));
+            RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_CAR_MODEL,adapter.getItem(position));
             showDialog((RentCarModel) Objects.requireNonNull(adapter.getItem(position)));
         });
         adapter.setOnLoadMoreListener(() -> {
