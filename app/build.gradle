@@ -204,4 +204,6 @@ dependencies {
     implementation 'org.jetbrains:annotations:15.0' // TinyPinyin核心包，约80KB
     compile 'com.github.promeg:tinypinyin:2.0.3'
 
+    // TinyPinyin核心包，约80KB
+    implementation files('libs/tbs_sdk_thirdapp_v3.6.0.1310_43612_sharewithdownload_withoutGame_obfs_20180706_163319.jar')
 }
