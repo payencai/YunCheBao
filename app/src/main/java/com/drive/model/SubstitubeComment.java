@@ -6,6 +6,14 @@ package com.drive.model;
  */
 public class SubstitubeComment {
 
+    public String getHeadPortrait() {
+        return headPortrait;
+    }
+
+    public void setHeadPortrait(String headPortrait) {
+        this.headPortrait = headPortrait;
+    }
+
     /**
      * answer : string
      * answerTime : 2019-04-12T08:54:20.371Z
@@ -28,6 +36,7 @@ public class SubstitubeComment {
      * userId : string
      */
 
+    private String headPortrait;
     private String answer;
     private String answerTime;
     private String content;

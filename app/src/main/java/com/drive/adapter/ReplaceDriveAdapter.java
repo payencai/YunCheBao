@@ -32,7 +32,7 @@ public class ReplaceDriveAdapter extends BaseQuickAdapter<ReplaceDrive,BaseViewH
         TextView tv_address=helper.getView(R.id.tv_address);
         SimpleRatingBar simpleRatingBar=helper.getView(R.id.starbar);
         simpleRatingBar.setRating(item.getScore());
-        //Glide.with(helper.itemView.getContext()).load(item.getLogo()).into(iv_img);
+        Glide.with(helper.itemView.getContext()).load(item.getLogo()).into(iv_img);
         tv_name.setText(item.getShopName());
         tv_grade.setText(""+item.getGrade());
         tv_address.setText(item.getAddress());
