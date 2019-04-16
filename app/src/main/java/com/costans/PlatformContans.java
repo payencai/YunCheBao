@@ -223,6 +223,8 @@ public class PlatformContans {
         public static final String getRentCarCarList=root+ "/rentcar/getRentCarCarList";
         public static final String getRentCarShop=root+ "/rentCar/getRentCarShop";
         public static final String getRentCarCarListByShopId=root+ "/rentCar/getRentCarCarListByShopId";
+        public static final String getRentCarCommentDetailsList=root+ "/rentCar/getRentCarCommentDetailsList";
+        public static final String addRentCarOrder=root+ "/rentCar/addRentCarOrder";
     }
     public static class OldCar{
 
@@ -248,6 +250,7 @@ public class PlatformContans {
         public static final String carOrderPay=root+ "/alipay/carOrderPay";
         public static final String washRepairShopPay=root+ "/alipay/washRepairShopPay";
         public static final String appointmentPay=root+ "/alipay/appointmentPay";
+        public static final String substituteDrivingPay=root+ "/alipay/substituteDrivingPay";
     }
     public static class Chat{
         public static final String updateFriendsById=root+"/huanxin/updateFriendsById";
@@ -309,6 +312,9 @@ public class PlatformContans {
         public static final String getSubstituteDriverListForApp=root+"/substituteDriving/getSubstituteDriverListForApp";
         public static final String getSubstituteDriverList=root+"/substituteDriving/getSubstituteDriverList";
         public static final String getShopCollectionList=root+"/substituteDriving/getShopCollectionList";
+        public static final String addSubstituteDrivingOrder=root+"/substituteDriving/addSubstituteDrivingOrder";
+        public static final String addSubstituteDrivingComment=root+"/substituteDriving/addSubstituteDrivingComment";
+        public static final String deleteSubstituteDrivingOrderByUser=root+"/substituteDriving/deleteSubstituteDrivingOrderByUser";
     }
     public static  class Appointment{
 

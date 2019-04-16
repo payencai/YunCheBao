@@ -1,5 +1,6 @@
 package com.cheyibao;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,11 +10,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
 import com.cheyibao.adapter.RentShopAdapter;
-import com.cheyibao.model.Area;
 import com.cheyibao.model.RentShop;
-import com.cheyibao.util.Const;
+import com.cheyibao.util.RentCarUtils;
 import com.common.BaseModel;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
@@ -31,6 +30,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ShopListNoAreaActivity extends AppCompatActivity {
 
@@ -68,7 +68,12 @@ public class ShopListNoAreaActivity extends AppCompatActivity {
         rentShopAdapter = new RentShopAdapter(new ArrayList<>());
         shopListView.setLayoutManager(new LinearLayoutManager(this));
         rentShopAdapter.bindToRecyclerView(shopListView);
-        addressBean = (AddressBean) Const.rentCarInfo.get("area1");
+        rentShopAdapter.setOnItemClickListener((adapter, view, position) -> {
+            RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_SHOP, rentShopAdapter.getItem(position));
+            Intent intent = new Intent(ShopListNoAreaActivity.this, ShopDetailActivity.class);
+            startActivity(intent);
+        });
+        addressBean = (AddressBean) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_AREA_1);
         getShop();
     }
 
@@ -77,7 +82,7 @@ public class ShopListNoAreaActivity extends AppCompatActivity {
         params.put("page", page);
         params.put("longitude", addressBean.getLatlng().getLng() + "");
         params.put("latitude", addressBean.getLatlng().getLat() + "");
-        params.put("isOnlineServe", Const.ONLINESERVE);
+        params.put("isOnlineServe", RentCarUtils.ONLINESERVE);
         params.put("city", addressBean.getCityname());
         HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarShop, params, "", new ICallBack() {
             @Override
@@ -96,5 +101,10 @@ public class ShopListNoAreaActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @OnClick(R.id.back)
+    public void onViewClicked() {
+        onBackPressed();
     }
 }

@@ -8,7 +8,8 @@ android {
             storeFile file('D:/lt/sign/yichankey.jks')
             storePassword 'yichan123'
         }
-
+        //B0:BA:85:7D:FA:FB:1A:0C:3C:72:41:4E:42:6D:67:05:B5:21:37:66 --debug
+        //C3:6B:6E:37:5A:D7:5C:7F:70:C2:61:46:28:10:89:D6:68:32:4F:58  --release
         debug {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
@@ -16,18 +17,25 @@ android {
             storePassword 'android'
         }
     }
-    compileSdkVersion 25
+//    sourceSets {
+//        main {
+//            jni.srcDirs = ['jniLibs']
+//            jniLibs.srcDirs = ['libs']
+//        }
+//    }
+
+    compileSdkVersion 28
     buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.example.yunchebao"
         minSdkVersion 19
-        targetSdkVersion 22
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
         ndk {
             //设置支持的so库架构
-            abiFilters "armeabi-v7a"
+            abiFilters "armeabi"
         }
     }
     buildTypes {
@@ -38,6 +46,9 @@ android {
         debug {
             signingConfig signingConfigs.debug
         }
+    }
+    packagingOptions {
+        exclude 'AndroidManifest.xml'
     }
     dexOptions {
         javaMaxHeapSize "4g"
@@ -59,117 +70,85 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support.constraint:constraint-layout:1.1.3'
-    compile 'com.android.support:support-v4:25.4.0'
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.facebook.fresco:fresco:1.5.0'
-    compile project(':PullToRefresh')
-    compile 'com.jakewharton:butterknife:8.2.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.1'
-    compile 'com.github.chenBingX:SuperTextView:v1.4'
-    //compile 'com.google.zxing:core:3.3.0'
-    compile files('libs/universal-image-loader-1.9.5.jar')
-    compile files('libs/volley.jar')
-    //compile project(':filter-lib')
-    //compile project(':IMLib')
-    compile project(':IMKit')
-    //compile project(':CallLib')
-    compile 'com.iarcuschin:simpleratingbar:0.1.5'
-    //左右两个列表
-    compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    //仿联系人列表
-    compile 'com.github.qdxxxx:IndexBarLayout:1.0.2'
-    compile 'com.github.qdxxxx:StickyHeaderDecoration:1.0.1'
-    compile 'io.reactivex:rxjava:1.1.5'
-    // compile project(path: ':tablibrary')
-    compile 'com.google.code.gson:gson:2.6.1'
-    //时间选择器 仿ios
-    compile 'com.jzxiang.pickerview:TimePickerDialog:0.9.2'
-    //进度条
-    compile 'com.github.warkiz.widget:indicatorseekbar:1.2.3'
-    //数字加减装置
-    compile 'com.github.mcxtzhang:AnimShopButton:V1.0.0'
-    //带删除按钮的EditText
-    compile 'com.xw.repo:xedittext:2.0.5@aar'
-    //左滑按钮控件
-    compile 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.2.2'
-    //标签输入框
-    compile 'co.lujun:androidtagview:1.1.1'
-    //带表情的输入框
-    //compile 'com.github.w446108264:XhsEmoticonsKeyboard:2.0.4'
-    // compile project(path: ':reclib-emoticons')
-    //compile 'com.github.w446108264:AndroidEmoji:1.3'
-    // compile project(':easeui')
-    compile 'com.squareup.okhttp3:okhttp:3.10.0'
-    compile 'com.parse:parse-android:1.13.1'
-    configurations.all {
-        resolutionStrategy {
-            force 'com.android.support:support-v4:27.1.0'
-        }
-
-        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-            def requested = details.requested
-            if (requested.group == 'com.android.support') {
-                if (!requested.name.startsWith("multidex")) {
-                    details.useVersion '25.3.1'
-                }
-            }
-        }
-    }
-    compile 'com.wx.wheelview:wheelview:1.3.3'
-    compile 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
-    compile 'com.youth.banner:banner:1.4.10'
-    compile 'com.github.nanchen2251:WaveSideBar:1.0.6'
-    compile 'com.android.support:cardview-v7:25.3.1'
-    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
-    compile files('libs/open_sdk_r6008_lite.jar')
-    compile 'org.greenrobot:eventbus:3.1.1'
-    // compile project(':WaveSideBar')
-    compile 'com.amap.api:location:latest.integration'
-    compile 'com.amap.api:3dmap:latest.integration'
-    compile 'com.wang.avi:library:1.0.1'
-    compile 'cn.yipianfengye.android:zxing-library:2.2'
-    compile(name: 'alipaySdk-15.5.9-20181123210601', ext: 'aar')
-    compile 'org.litepal.android:java:3.0.0'
-    compile 'com.contrarywind:Android-PickerView:4.1.6'
-    implementation project(':library')
-    implementation 'com.shuyu:GSYVideoPlayer:6.0.0-beta'
-    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
-    implementation 'jp.wasabeef:richeditor-android:1.2.2'
-    compile 'com.github.mr5:icarus:0.1.14'
-    compile 'com.github.xinyangcuncun:GodSelfRefreshView:V1.2'
-    compile 'com.zhy:base-rvadapter:3.0.3'
-    compile 'liji.library.dev:citypickerview:3.1.13'
-    implementation 'cn.bingoogolapple:bga-refreshlayout:1.1.8@aar'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //testCompile 'junit:junit:4.12'
     implementation project(':CallKit')
-    implementation 'com.github.dongjunkun:DropDownMenu:1.0.4'
-    // implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
-    compile 'com.github.YancyYe:GalleryPick:1.2.1'
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-    implementation 'com.zhihu.android:matisse:0.5.2-beta4'
-    implementation 'com.nex3z:flow-layout:1.2.4'
-    //https://blog.csdn.net/moy1995/article/details/77880075
-    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
-    compile 'com.github.razerdp:BasePopup:2.1.9'
-    //图片压缩
-    implementation 'top.zibin:Luban:1.1.7'//鲁班
-    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-    implementation 'com.hyman:flowlayout-lib:1.1.2'
-    compile 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.2.1'
-    //1.1.0 API改动过大，老用户升级需谨慎
-    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-21'
-    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-21'//没有使用特殊Header，可以不加这行
-    //popupwindow 背景变暗
-    compile 'com.github.zyyoona7:EasyPopup:1.1.2'
-    //短视频录制
-    compile 'cjt.library.wheel:camera:0.1.9'
-
-    //recycler view adapter  by morui add
+    implementation project(':library')
+    implementation project(':PullToRefresh')
+    implementation project(':IMKit')
+    //jar包
+    implementation(name: 'alipaySdk-15.5.9-20181123210601', ext: 'aar')
+    implementation files('libs/open_sdk_r6008_lite.jar')
+    implementation files('libs/universal-image-loader-1.9.5.jar')
+    implementation files('libs/volley.jar')
+    implementation files('libs/tbs_sdk_thirdapp_v3.6.0.1310_43612_sharewithdownload_withoutGame_obfs_20180706_163319.jar')
+    //support
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    //图片
+    implementation 'com.facebook.fresco:fresco:1.5.0'
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    implementation 'top.zibin:Luban:1.1.7' //图片压缩
+    implementation 'com.zhihu.android:matisse:0.5.2-beta4'//知乎图片选择库
+    implementation 'com.github.YancyYe:GalleryPick:1.2.1'
+    //第三方控件库
+    implementation 'com.github.chenBingX:SuperTextView:v1.4'//超级TextView
+    implementation 'com.iarcuschin:simpleratingbar:0.1.5'//评论star
+    implementation 'com.github.qdxxxx:IndexBarLayout:1.0.2'//侧边字母搜索
+    implementation 'com.github.nanchen2251:WaveSideBar:1.0.6'   //侧边字母搜索
+    implementation 'com.github.warkiz.widget:indicatorseekbar:1.2.3'  //进度条
+    implementation 'com.github.mcxtzhang:AnimShopButton:V1.0.0'//数字加减装置
+    implementation 'com.xw.repo:xedittext:2.0.5@aar'  //带删除按钮的EditText
+    implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'   //左滑按钮控件
+    implementation 'co.lujun:androidtagview:1.1.1' //标签输入框
+    implementation 'com.jzxiang.pickerview:TimePickerDialog:0.9.2' //时间选择器 仿ios
+    implementation 'com.wx.wheelview:wheelview:1.3.3'//滚动view
+    implementation 'com.youth.banner:banner:1.4.10'//轮播
+    implementation 'cn.yipianfengye.android:zxing-library:2.2'//二维码
+    implementation 'com.contrarywind:Android-PickerView:4.1.6'//滚动选择
+    implementation 'liji.library.dev:citypickerview:3.1.13'//城市选择
+    implementation 'com.github.dongjunkun:DropDownMenu:1.0.4'//下拉筛选
+    implementation 'com.hyman:flowlayout-lib:1.1.2'//自适应换行布局
+    implementation 'com.wang.avi:library:1.0.1'//加载动画
+    implementation 'jp.wasabeef:richeditor-android:1.2.2'//富文本控件
+    implementation 'com.github.mr5:icarus:0.1.14'//富文本控件
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'//tablayout
+    implementation 'com.nex3z:flow-layout:1.2.4'//自适应换行布局
+    implementation 'com.github.w446108264:StickHeaderLayout:1.0.3'//头布局滚动
+    implementation 'com.sys.blackcat.stickheaderlayout:library:1.3.4'
+    implementation 'com.github.qdxxxx:StickyHeaderDecoration:1.0.1'
+    //弹窗
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation 'com.github.razerdp:BasePopup:2.1.9'
+    implementation 'com.github.zyyoona7:EasyPopup:1.1.2'
+    //adapter
+    implementation 'com.zhy:base-rvadapter:3.0.3'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
-    compile 'com.github.w446108264:StickHeaderLayout:1.0.3'
-    compile 'com.sys.blackcat.stickheaderlayout:library:1.3.4'
-    compile 'com.github.promeg:tinypinyin:2.0.3' // TinyPinyin核心包，约80KB
+    //刷新
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-21'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-21'
+    implementation 'com.github.xinyangcuncun:GodSelfRefreshView:V1.2'
+    implementation 'cn.bingoogolapple:bga-refreshlayout:1.1.8@aar'
+    //视频
+    implementation 'cjt.library.wheel:camera:0.1.9' //短视频录制
+    implementation 'com.shuyu:GSYVideoPlayer:6.0.0-beta'//视频播放
+    //其他
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+    implementation 'org.jetbrains:annotations:15.0'
+    implementation 'com.google.code.gson:gson:2.6.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.parse:parse-android:1.13.1'
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.amap.api:location:latest.integration'//高德地图
+    implementation 'com.amap.api:3dmap:latest.integration'
+    implementation 'org.litepal.android:java:3.0.0'//数据库
+    implementation 'com.jakewharton:butterknife:8.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.1'
+    implementation 'com.github.promeg:tinypinyin:2.0.3'    // 中文转拼音
+
 }

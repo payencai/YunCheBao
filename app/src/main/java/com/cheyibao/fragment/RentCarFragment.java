@@ -2,49 +2,35 @@ package com.cheyibao.fragment;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.cheyibao.CarModelsListActivity;
 import com.cheyibao.ShopDetailActivity;
-import com.cheyibao.ShopListActivity;
 import com.cheyibao.ShopListNoAreaActivity;
 import com.cheyibao.model.RentShop;
-import com.cheyibao.util.Const;
-import com.common.DateUtils;
+import com.cheyibao.util.RentCarUtils;
+import com.cheyibao.view.RentCarAddressView;
+import com.cheyibao.view.RentCarTimeView;
+import com.common.ResourceUtils;
 import com.costans.PlatformContans;
 import com.entity.Banner;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.jzxiang.pickerview.TimePickerDialog;
-import com.jzxiang.pickerview.data.Type;
-import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.nohttp.sample.BaseFragment;
 import com.payencai.library.util.ToastUtil;
-import com.system.X5WebviewActivity;
-import com.system.fragment.HomeFragment;
 import com.system.model.AddressBean;
 import com.tool.slideshowview.SlideShowView;
 
@@ -80,18 +66,12 @@ public class RentCarFragment extends BaseFragment {
     RadioButton selfDrivingRadioButton;
     @BindView(R.id.long_rent_radio_button)
     RadioButton longRentRadioButton;
-    @BindView(R.id.send_car_address_text_view)
-    TextView sendCarAddressTextView;
-    @BindView(R.id.is_send_the_car_to_home_checked_view)
-    CheckBox isSendTheCarToHomeCheckedView;
-    @BindView(R.id.return_the_car_address_text_view)
-    TextView returnTheCarAddressTextView;
-    @BindView(R.id.rent_the_car_start_time_text_view)
-    TextView rentTheCarStartTimeTextView;
-    @BindView(R.id.rent_the_car_time_text_view)
-    TextView rentTheCarTimeTextView;
-    @BindView(R.id.rent_the_car_end_time_text_view)
-    TextView rentTheCarEndTimeTextView;
+    //    @BindView(R.id.send_car_address_text_view)
+//    TextView sendCarAddressTextView;
+//    @BindView(R.id.is_send_the_car_to_home_checked_view)
+//    CheckBox isSendTheCarToHomeCheckedView;
+//    @BindView(R.id.return_the_car_address_text_view)
+//    TextView returnTheCarAddressTextView;
     @BindView(R.id.pick_the_car_view)
     CardView pickTheCarView;
     @BindView(R.id.self_driver_order_click_view)
@@ -112,27 +92,20 @@ public class RentCarFragment extends BaseFragment {
     LinearLayout longRentParentView;
     @BindView(R.id.slideshowView)
     SlideShowView slideShowView;
-    @BindView(R.id.send_car_city_text_view)
-    TextView sendCarCityTextView;
-    @BindView(R.id.return_the_car_city_text_view)
-    TextView returnTheCarCityTextView;
+    //    @BindView(R.id.send_car_city_text_view)
+//    TextView sendCarCityTextView;
+//    @BindView(R.id.return_the_car_city_text_view)
+//    TextView returnTheCarCityTextView;
+    @BindView(R.id.rent_car_time_View)
+    RentCarTimeView rentCarTimeView;
+    @BindView(R.id.rent_Car_address_view)
+    RentCarAddressView rentCarAddressView;
 
 
     //轮播图片
     private List<Map<String, String>> imageList = new ArrayList<>();
 
     private Unbinder unbinder;
-
-    private AddressBean addressBean;
-    private AddressBean addressBean2;
-
-    private RentShop rentShop;
-
-    private long startTime;
-    private long endTime;
-    private long duration;//租车时间段
-    private static final long MIN_DURATION = 28*60*60*1000; //最小时间段
-    private static final long DAY = 24*60*60*1000;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -169,48 +142,16 @@ public class RentCarFragment extends BaseFragment {
             }
         });
 
-        isSendTheCarToHomeCheckedView.setButtonDrawable(drawables());
-
-        startTime = System.currentTimeMillis();
-        endTime = startTime + DAY;
-        duration = DAY;
-        rentTheCarTimeTextView.setText(String.format("%s天",day()));
-        rentTheCarStartTimeTextView.setText(getSpannableString(startTime));
-        rentTheCarEndTimeTextView.setText(getSpannableString(endTime));
-
-
     }
 
     private ColorStateList colors() {
         int[][] status = new int[2][];
         status[0] = new int[]{android.R.attr.state_checked};
         status[1] = new int[]{};
-        int[] colors = new int[]{getColorByResource(R.color.black_33), getColorByResource(R.color.black_5D)};
+        int[] colors = new int[]{ResourceUtils.getColorByResource(getContext(), R.color.black_33), ResourceUtils.getColorByResource(getContext(), R.color.black_5D)};
         return new ColorStateList(status, colors);
     }
 
-    private StateListDrawable drawables() {
-        StateListDrawable stateListDrawable = new StateListDrawable();
-        stateListDrawable.addState(new int[]{android.R.attr.state_checked}, getDrawableByResource(R.mipmap.carrental_btn_checkthe_selected));
-        stateListDrawable.addState(new int[]{}, getDrawableByResource(R.mipmap.carrental_btn_checkthe_normal));
-        return stateListDrawable;
-    }
-
-    private Drawable getDrawableByResource(int resource) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return getResources().getDrawable(resource, null);
-        } else {
-            return getResources().getDrawable(resource);
-        }
-    }
-
-    private int getColorByResource(int resource) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return getResources().getColor(resource, null);
-        } else {
-            return getResources().getColor(resource);
-        }
-    }
 
     private void getBaner() {
         imageList.clear();
@@ -259,114 +200,26 @@ public class RentCarFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    /**
-     * 选择取车地点
-     */
-    @OnClick(R.id.send_car_address_text_view)
-    public void onSendCarAddressTextViewClicked() {
-        if (isSendTheCarToHomeCheckedView.isChecked()) {
-            Intent intent = new Intent(getContext(), X5WebviewActivity.class);
-            startActivityForResult(intent, REQUEST_CODE_ADDRESS_FOR_MAP_SEND);
-        } else {
-            Intent intent = new Intent(getContext(), ShopListActivity.class);
-            startActivityForResult(intent, REQUEST_CODE_ADDRESS_FOR_STORE_SEND);
-        }
-    }
-
-    /**
-     * 选择还车地址
-     */
-    @OnClick(R.id.return_the_car_address_text_view)
-    public void onReturnTheCarAddressTextViewClicked() {
-        if (isSendTheCarToHomeCheckedView.isChecked()) {
-            Intent intent = new Intent(getContext(), X5WebviewActivity.class);
-            startActivityForResult(intent, REQUEST_CODE_ADDRESS_FOR_MAP_TAKE);
-        }else {
-            Intent intent = new Intent(getContext(), ShopListActivity.class);
-            startActivityForResult(intent, REQUEST_CODE_ADDRESS_FOR_STORE_SEND);
-        }
-    }
-
-
-    private int day(){
-        if (duration<=MIN_DURATION){
-            return 1;
-        }
-        if ((duration-MIN_DURATION)%DAY==0){
-            return (int) ((duration-MIN_DURATION)/DAY)+1;
-        }
-        return (int) (((duration-MIN_DURATION)/DAY) +2);
-    }
-
-    private SpannableString getSpannableString(long millseconds){
-        String time = DateUtils.formatDateTime(millseconds,"M月dd日 EHH:mm");
-
-        SpannableString spannableString = new SpannableString(time.replace(" ","\n\n"));
-        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#999999"));
-        spannableString.setSpan(colorSpan, time.indexOf(" "), spannableString.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        return spannableString;
-    }
-
-    @OnClick(R.id.rent_the_car_start_time_text_view)
-    public void onRentTheCarStartTimeTextViewClicked() {
-        DateUtils.initTimePickerDialog(getContext(),(timePickerView, millseconds) -> {
-            startTime = millseconds;
-            if (endTime>0){
-                duration = endTime - startTime;
-            }
-            if (duration < 0){
-                duration = 0;
-                ToastUtil.showToast(getContext(),"开始时间必须小于结束时间");
-                return;
-            }
-            if (endTime>0){
-                rentTheCarTimeTextView.setText(String.format("%s天",day()));
-            }
-            rentTheCarStartTimeTextView.setText(getSpannableString(millseconds));
-        },"开始时间",startTime<=0?System.currentTimeMillis():startTime).show(getFragmentManager(),"all");
-    }
-
-    @OnClick(R.id.rent_the_car_end_time_text_view)
-    public void onRentTheCarEndTimeTextViewClicked() {
-        DateUtils.initTimePickerDialog(getContext(),(timePickerView, millseconds) -> {
-            endTime = millseconds;
-            if (endTime>0){
-                duration = endTime - startTime;
-            }
-            if (duration<0){
-                duration = 0;
-                ToastUtil.showToast(getContext(),"开始时间必须小于结束时间");
-                return;
-            }
-            if (startTime>0){
-                rentTheCarTimeTextView.setText(String.format("%s天",day()));
-            }
-
-            rentTheCarEndTimeTextView.setText(getSpannableString(millseconds));
-
-        },"结束时间",endTime<=0? System.currentTimeMillis():endTime).show(getFragmentManager(),"all");
-    }
-
     @OnClick(R.id.pick_the_car_view)
     public void onPickTheCarViewClicked() {
-        if (Const.rentCarInfo==null){
-            Const.rentCarInfo = new HashMap<>();
-            Const.rentCarInfo.put("area1",addressBean);
-            Const.rentCarInfo.put("area2",addressBean2);
-            Const.rentCarInfo.put("shop",rentShop);
-            Const.rentCarInfo.put("start_time",startTime);
-            Const.rentCarInfo.put("end_time",endTime);
-            Const.rentCarInfo.put("duration",duration);
+        if (RentCarUtils.rentCarInfo == null) {
+            RentCarUtils.rentCarInfo = new HashMap<>();
         }
-        if(isSendTheCarToHomeCheckedView.isChecked()){
-            if (addressBean==null){
+        RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_AREA_1, rentCarAddressView.getTakeCarAddress());
+        RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_AREA_2, rentCarAddressView.getReturnCarAddress());
+        RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_SHOP, rentCarAddressView.getRentShop());
+        RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_IS_TO_HOME_SERVICE, rentCarAddressView.isToHomeService());
+        RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_START_TIME, rentCarTimeView.getStartTime());
+        RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_END_TIME, rentCarTimeView.getEndTime());
+        if(rentCarAddressView.isToHomeService()){
+            if (rentCarAddressView.getTakeCarAddress()==null){
                 ToastUtil.showToast(getContext(),"请选择取车地址！");
                 return;
             }
             Intent intent = new Intent(getContext(),ShopListNoAreaActivity.class);
             startActivity(intent);
         }else {
-            if (rentShop==null){
+            if (rentCarAddressView.getRentShop()==null){
                 ToastUtil.showToast(getContext(),"请选择取车还车店铺！");
                 return;
             }
@@ -393,37 +246,5 @@ public class RentCarFragment extends BaseFragment {
 
     @OnClick(R.id.long_rent_btn)
     public void onLongRentBtnClicked() {
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case REQUEST_CODE_ADDRESS_FOR_MAP_SEND:
-                if (data != null) {
-                    addressBean = (AddressBean) data.getSerializableExtra("address");
-                    sendCarCityTextView.setText(addressBean.getCityname());
-                    sendCarAddressTextView.setText(addressBean.getPoiaddress());
-                }
-                break;
-            case REQUEST_CODE_ADDRESS_FOR_MAP_TAKE:
-                if (data != null) {
-                    addressBean2 = (AddressBean) data.getSerializableExtra("address");
-                    returnTheCarCityTextView.setText(addressBean2.getCityname());
-                    returnTheCarAddressTextView.setText(addressBean2.getPoiaddress());
-                }
-                break;
-            case REQUEST_CODE_ADDRESS_FOR_STORE_SEND:
-                if (data != null) {
-                    rentShop = data.getParcelableExtra("rent_shop");
-                    if (rentShop != null) {
-                        sendCarCityTextView.setText(rentShop.getCity());
-                        sendCarAddressTextView.setText(rentShop.getAddress());
-                        returnTheCarCityTextView.setText(rentShop.getCity());
-                        returnTheCarAddressTextView.setText(rentShop.getAddress());
-                    }
-                }
-                break;
-        }
     }
 }

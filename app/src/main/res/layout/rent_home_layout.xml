@@ -60,124 +60,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center_vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@mipmap/carrental_icon_take"
-                        android:drawableLeft="@mipmap/carrental_icon_take"
-                        android:text="@string/take_car_address"
-                        android:textSize="12sp"
-                        android:textColor="@color/black_33"
-                        android:drawablePadding="10dp"
-                        android:layout_marginTop="10dp"
-                        android:paddingLeft="15dp"
-                        android:paddingStart="15dp"
-                        android:paddingEnd="15dp"
-                        android:paddingRight="15dp"/>
-
-                    <LinearLayout
+                    <com.cheyibao.view.RentCarAddressView
+                        android:id="@+id/rent_Car_address_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingTop="10dp"
-                        android:paddingLeft="15dp"
-                        android:paddingStart="15dp"
-                        android:paddingEnd="15dp"
-                        android:paddingRight="15dp">
-
-                        <TextView
-                            android:id="@+id/send_car_city_text_view"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginRight="10dp"
-                            tools:text="昆明"
-                            android:textColor="@color/black_33"
-                            android:textSize="17sp"/>
-
-                        <TextView
-                            android:id="@+id/send_car_address_text_view"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginRight="10dp"
-                            tools:text="润城第二大道"
-                            android:hint="@string/please_select_take_car_address"
-                            android:textColor="@color/black_33"
-                            android:textSize="17sp"/>
-                        <CheckBox
-                            android:id="@+id/is_send_the_car_to_home_checked_view"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/car_to_home"
-                            android:button="@mipmap/carrental_btn_checkthe_selected"
-                            android:textSize="12sp"
-                            android:textColor="@color/black_33"
-                            android:paddingLeft="5dp"
-                            android:paddingStart="5dp"
-                            android:paddingEnd="0dp"
-                            android:paddingRight="0dp"/>
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/split_line_color"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:paddingLeft="15dp"
-                        android:paddingStart="15dp"
-                        android:paddingEnd="15dp"
-                        android:paddingRight="15dp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@mipmap/carrental_icon_also"
-                        android:drawableLeft="@mipmap/carrental_icon_also"
-                        android:text="@string/return_car_address"
-                        android:drawablePadding="10dp"
-                        android:paddingLeft="15dp"
-                        android:paddingStart="15dp"
-                        android:paddingEnd="15dp"
-                        android:paddingRight="15dp"
-                        android:textSize="12sp"
-                        android:textColor="@color/black_33"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingTop="10dp"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="15dp"
-                        android:paddingStart="15dp"
-                        android:paddingEnd="15dp"
-                        android:paddingRight="15dp">
-
-                        <TextView
-                            android:id="@+id/return_the_car_city_text_view"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginRight="10dp"
-                            tools:text="昆明"
-                            android:textColor="@color/black_33"
-                            android:textSize="17sp"/>
-
-                        <TextView
-                            android:id="@+id/return_the_car_address_text_view"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginRight="10dp"
-                            tools:text="润城第二大道"
-                            android:hint="@string/please_select_return_car_address"
-                            android:textColor="@color/black_33"
-                            android:textSize="17sp"/>
-                    </LinearLayout>
-
+                        android:layout_marginTop="10dp"/>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
@@ -185,44 +72,10 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp"/>
 
-                    <LinearLayout
+                    <com.cheyibao.view.RentCarTimeView
+                        android:id="@+id/rent_car_time_View"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:paddingLeft="15dp"
-                        android:paddingStart="15dp"
-                        android:paddingEnd="15dp"
-                        android:paddingRight="15dp">
-                        <TextView
-                            android:id="@+id/rent_the_car_start_time_text_view"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="4月10日\n周三2:40"
-                            android:textSize="14sp"
-                            android:textColor="#000000"
-                            android:gravity="center"/>
-                        <TextView
-                            android:id="@+id/rent_the_car_time_text_view"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:text="2"
-                            android:drawableBottom="@mipmap/carrental_icon_thearrow"
-                            android:gravity="center"
-                            android:textSize="14sp"
-                            android:textColor="@color/gray_99"/>
-                        <TextView
-                            android:id="@+id/rent_the_car_end_time_text_view"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="4月13日\n周六2:40"
-                            android:textSize="14sp"
-                            android:textColor="#000000"
-                            android:gravity="center"/>
-                    </LinearLayout>
+                        android:layout_height="wrap_content"/>
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/pick_the_car_view"

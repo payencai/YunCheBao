@@ -2,48 +2,51 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="付款"
+        android:text="@string/payment"
         android:textColor="@color/black_33"
-        android:textSize="16sp" />
+        android:textSize="17sp"
+        android:layout_marginTop="15dp"/>
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
         android:gravity="center"
-        android:text="大众朗逸"
-        android:textColor="@color/yellow_02"
-        android:textSize="14sp" />
+        tools:text="大众朗逸"
+        android:textColor="@color/yellow_65"
+        android:textSize="14sp"
+        android:layout_marginTop="10dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="5dp">
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical">
 
         <TextView
             android:id="@+id/tv_model"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="2017款 1.6l自动风尚版"
-            android:textColor="@color/yellow_02"
+            tools:text="2017款 1.6l自动风尚版"
+            android:textColor="@color/yellow_65"
             android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true">
-
+            android:layout_alignParentEnd="true">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,39 +58,34 @@
                 android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="￥35"
-                android:textColor="@color/yellow_02"
-                android:textSize="14sp" />
+                tools:text="￥35"
+                android:textColor="@color/yellow_65"
+                android:textSize="18sp" />
         </LinearLayout>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="5dp">
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/tv_auto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="自动/5座"
+            tools:text="自动/5座"
             android:textColor="@color/gray_99"
             android:textSize="12sp" />
 
-        <LinearLayout
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="燃油费自理"
-                android:textColor="@color/gray_99"
-                android:textSize="12sp" />
-
-        </LinearLayout>
+            android:text="@string/fuel_fee_self_payment"
+            android:textColor="@color/gray_99"
+            android:textSize="12sp"
+            android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 
     <View
@@ -95,19 +93,20 @@
         android:layout_height="1dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
-        android:background="#e2e2e2"></View>
+        android:layout_marginTop="15dp"
+        android:background="#e2e2e2"/>
 
     <TextView
         android:id="@+id/tv_submit"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/yellow_02"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/yellow_65"
         android:gravity="center"
-        android:text="在线支付"
+        android:text="@string/online_pay"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp_16" />
+        android:textSize="17sp"
+        android:layout_marginTop="15dp"/>
 
 
 </LinearLayout>

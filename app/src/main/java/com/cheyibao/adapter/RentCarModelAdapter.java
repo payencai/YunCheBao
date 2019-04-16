@@ -25,6 +25,7 @@ public class RentCarModelAdapter extends BaseQuickAdapter<RentCarModel,RentCarMo
     @Override
     protected void convert(ViewHolder helper, RentCarModel item) {
         Glide.with(helper.itemView).load(item.getImage()).into(helper.carBannerView);
+        helper.carBrandView.setText(item.getBrand());
         helper.carModelsView.setText(item.getCarTategory());
         helper.seatView.setText(String.format("%s/%s",item.getVariableBox(),item.getSeat()));
         helper.dayPriceView.setText(String.format("￥%s",item.getDayPrice()));
@@ -33,6 +34,8 @@ public class RentCarModelAdapter extends BaseQuickAdapter<RentCarModel,RentCarMo
     static class ViewHolder extends BaseViewHolder {
         @BindView(R.id.car_banner_view)
         ImageView carBannerView;
+        @BindView(R.id.car_brand_view)
+        TextView carBrandView;
         @BindView(R.id.car_models_view)
         TextView carModelsView;
         @BindView(R.id.seat_view)

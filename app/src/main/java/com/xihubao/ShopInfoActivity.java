@@ -47,8 +47,7 @@ public class ShopInfoActivity extends AppCompatActivity {
     TextView tv_nick;
     @BindView(R.id.tv_add)
     TextView tv_add;
-    @BindView(R.id.tv_account)
-    TextView tv_account;
+
     @BindView(R.id.tv_content)
     TextView tv_content;
     @BindView(R.id.back)
@@ -171,7 +170,7 @@ public class ShopInfoActivity extends AppCompatActivity {
             }
             initBanner();
         }
-        tv_account.setText(mShopInfo.getYcbAccount());
+
         tv_nick.setText(mShopInfo.getName());
         tv_content.setText(mShopInfo.getPersonSign());
     }

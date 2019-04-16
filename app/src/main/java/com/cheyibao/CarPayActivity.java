@@ -120,16 +120,19 @@ public class CarPayActivity extends AppCompatActivity {
         tv_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (type){
-                    case 1:
-                        getMemberCardOrder(orderId);
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        getAlipayOrder(orderId);
-                        break;
-                }
+                ToastUtil.showToast(CarPayActivity.this,"支付成功！");
+                finish();
+
+//                switch (type){
+//                    case 1:
+//                        getMemberCardOrder(orderId);
+//                        break;
+//                    case 2:
+//                        break;
+//                    case 3:
+//                        getAlipayOrder(orderId);
+//                        break;
+//                }
             }
         });
         ll_Alipay.setOnClickListener(new View.OnClickListener() {

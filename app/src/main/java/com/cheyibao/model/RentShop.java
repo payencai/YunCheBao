@@ -49,6 +49,10 @@ public class RentShop implements Parcelable {
     private String saleTelephone;
     private int score;
     private String shopNo;
+    private String amStart;
+    private String amStop;
+    private String pmStart;
+    private String pmStop;
 
     public String getAddress() {
         return address;
@@ -218,6 +222,41 @@ public class RentShop implements Parcelable {
         this.shopNo = shopNo;
     }
 
+    public String getAmStart() {
+        return amStart;
+    }
+
+    public void setAmStart(String amStart) {
+        this.amStart = amStart;
+    }
+
+    public String getAmStop() {
+        return amStop;
+    }
+
+    public void setAmStop(String amStop) {
+        this.amStop = amStop;
+    }
+
+    public String getPmStart() {
+        return pmStart;
+    }
+
+    public void setPmStart(String pmStart) {
+        this.pmStart = pmStart;
+    }
+
+    public String getPmStop() {
+        return pmStop;
+    }
+
+    public void setPmStop(String pmStop) {
+        this.pmStop = pmStop;
+    }
+
+    public RentShop() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -244,11 +283,12 @@ public class RentShop implements Parcelable {
         dest.writeInt(this.orderNum);
         dest.writeString(this.province);
         dest.writeString(this.saleTelephone);
-        dest.writeDouble(this.score);
+        dest.writeInt(this.score);
         dest.writeString(this.shopNo);
-    }
-
-    public RentShop() {
+        dest.writeString(this.amStart);
+        dest.writeString(this.amStop);
+        dest.writeString(this.pmStart);
+        dest.writeString(this.pmStop);
     }
 
     protected RentShop(Parcel in) {
@@ -273,9 +313,13 @@ public class RentShop implements Parcelable {
         this.saleTelephone = in.readString();
         this.score = in.readInt();
         this.shopNo = in.readString();
+        this.amStart = in.readString();
+        this.amStop = in.readString();
+        this.pmStart = in.readString();
+        this.pmStop = in.readString();
     }
 
-    public static final Parcelable.Creator<RentShop> CREATOR = new Parcelable.Creator<RentShop>() {
+    public static final Creator<RentShop> CREATOR = new Creator<RentShop>() {
         @Override
         public RentShop createFromParcel(Parcel source) {
             return new RentShop(source);
