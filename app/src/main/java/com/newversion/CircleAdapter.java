@@ -64,6 +64,7 @@ public class CircleAdapter extends BaseAdapter {
         TextView name = (TextView) convertView.findViewById(R.id.tv_name);
         TextView time = (TextView) convertView.findViewById(R.id.tv_time);
         TextView content = (TextView) convertView.findViewById(R.id.tv_dynamic_content);
+        TextView tv_location = (TextView) convertView.findViewById(R.id.tv_location);
 
         GridView gvDynamicPhotos = (GridView) convertView.findViewById(R.id.gv_dynamic_photos);
         ImageView ivVimg = (ImageView) convertView.findViewById(R.id.iv_vimg);
@@ -81,6 +82,9 @@ public class CircleAdapter extends BaseAdapter {
             lv_comment.setAdapter(commonsAdapter);
         }
 
+        if(!TextUtils.isEmpty(circleInfo.getAddress())){
+            tv_location.setText(circleInfo.getAddress());
+        }
 
         likeView.setListener(new LikesView.onItemClickListener() {
             @Override

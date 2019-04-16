@@ -22,6 +22,15 @@ public class NewTag {
     private String name;
     private String userId;
     private List<ListBean> list;
+    private boolean isChecked;//条目是否被选中
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
     public String getCreateTime() {
         return createTime;

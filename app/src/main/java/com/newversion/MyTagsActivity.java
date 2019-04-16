@@ -64,6 +64,7 @@ public class MyTagsActivity extends AppCompatActivity {
             }
         });
     }
+
     public void getData() {
 
         HttpProxy.obtain().get(PlatformContans.Label.getLabelList, MyApplication.token, new ICallBack() {
@@ -94,7 +95,7 @@ public class MyTagsActivity extends AppCompatActivity {
     }
     private void initView() {
         mNewTags=new ArrayList<>();
-        mMyTagAdapter=new MyTagAdapter(R.layout.item_mytag,mNewTags);
+        mMyTagAdapter=new MyTagAdapter(R.layout.item_select_tag,mNewTags,true);
         mMyTagAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

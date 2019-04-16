@@ -105,9 +105,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
                 android:layout_marginBottom="8dp"
-                android:gravity="right"
                 android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:text=""
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textSize="14sp"
+                    android:layout_weight="1"
+                    android:textColor="@color/blue_79"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <ImageView
                     android:id="@+id/iv_prise"

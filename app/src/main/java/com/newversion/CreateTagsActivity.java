@@ -86,7 +86,7 @@ public class CreateTagsActivity extends AppCompatActivity {
     private void addTag(){
         Map<String,Object> params=new HashMap<>();
         params.put("name",et_name.getEditableText().toString());
-        params.put("ids",ids.substring(0,ids.length()-1));
+        params.put("ids",ids);
         HttpProxy.obtain().post(PlatformContans.Label.addLabel, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -110,9 +110,27 @@ public class CreateTagsActivity extends AppCompatActivity {
             mSelect.addAll(modelArrayList);
             mTagUserAdapter.notifyDataSetChanged();
             ids="";
-            for (int i = 0; i <mSelect.size() ; i++) {
-                ids=mSelect.get(i).getUserId()+","+ids;
+
+            ArrayList<String> idList = new ArrayList<>();
+            for (int i = 0; i < mSelect.size(); i++) {
+                idList.add(mSelect.get(i).getUserId());
             }
+
+            ids = listToString(idList);
         }
+    }
+
+    /**List转String逗号分隔*/
+    private String listToString(ArrayList<String> list) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for(String str : list){
+            stringBuilder.append(str);
+            stringBuilder.append(",");
+        }
+        String strs = stringBuilder.toString();
+        strs = strs.substring(0, strs.length() - 1);
+
+        return strs;
     }
 }

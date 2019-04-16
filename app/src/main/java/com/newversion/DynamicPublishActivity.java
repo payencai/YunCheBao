@@ -36,6 +36,8 @@ import com.example.yunchebao.R;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
+import com.system.X5WebviewActivity;
+import com.system.model.AddressBean;
 import com.vipcenter.EnteringActivity;
 
 import org.json.JSONException;
@@ -52,6 +54,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -71,14 +74,22 @@ public class DynamicPublishActivity extends AppCompatActivity {
     GridView gvDynamicPhotos;
     @BindView(R.id.ll_look_permission)
     LinearLayout llLookPermission;
+    @BindView(R.id.ll_user_location)
+    LinearLayout ll_user_location;
     @BindView(R.id.rootView)
     LinearLayout rootView;
     @BindView(R.id.tv_look_permission)
     TextView tvLookPermission;
+    @BindView(R.id.tv_location)
+    TextView tv_location;
     @BindView(R.id.frame_video_player)
     FrameLayout frameVideoPlayer;
     private ArrayList<String> pathList = new ArrayList<>();
     private ArrayList<File> fileList = new ArrayList<>();
+    private int kind = 1;
+    private String looks;
+    private String unLooks;
+    private String users;
 
     private String mediatype;
 
@@ -159,7 +170,7 @@ public class DynamicPublishActivity extends AppCompatActivity {
 
     private String content;
 
-    @OnClick({R.id.tv_cancel_publish, R.id.tv_publish_dynamic, R.id.ll_look_permission})
+    @OnClick({R.id.tv_cancel_publish, R.id.tv_publish_dynamic, R.id.ll_look_permission,R.id.ll_user_location})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_cancel_publish:
@@ -180,8 +191,53 @@ public class DynamicPublishActivity extends AppCompatActivity {
                 publishDynamic();
                 break;
             case R.id.ll_look_permission:
+                startActivityForResult(new Intent(DynamicPublishActivity.this, DynamicLookPermissionActivity.class), 2);
+                break;
+            case R.id.ll_user_location:
+                startActivityForResult(new Intent(DynamicPublishActivity.this, X5WebviewActivity.class), 1);
                 break;
         }
+    }
+
+    private AddressBean mAddressBean;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (data != null) {
+            switch (requestCode) {
+                case 1:
+                    mAddressBean = (AddressBean) data.getSerializableExtra("address");
+                    String address = mAddressBean.getPoiaddress();
+                    Log.e("mAddressBean", mAddressBean.toString());
+                    tv_location.setText(address);
+                    break;
+                case 2:
+                    kind = data.getIntExtra("kind",1);
+                    if(kind == 2){
+                        tvLookPermission.setText("私密");
+
+                    }else if(kind == 3){
+                        looks = data.getStringExtra("ids");
+                        users = data.getStringExtra("users");
+                        tvLookPermission.setText(users);
+
+
+                    }else if(kind == 4){
+                        unLooks = data.getStringExtra("ids");
+                        users = data.getStringExtra("users");
+                        tvLookPermission.setText("除去  "+users);
+
+                    }else {
+                        tvLookPermission.setText("公开");
+                    }
+
+                    break;
+            }
+        }
+
+
     }
 
     private ArrayList<String> imgsUrl = new ArrayList();
@@ -310,9 +366,29 @@ public class DynamicPublishActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(imgs)) {
             params.put("imgs", imgs);
         }
+        if (mAddressBean!=null) {
+            params.put("address", mAddressBean.getPoiaddress());
+            params.put("longitude", mAddressBean.getLatlng().getLng()+"");
+            params.put("latitude", mAddressBean.getLatlng().getLat()+"");
+        }
 
-        params.put("type ", 1);//（1.普通朋友圈，2.转发链接）
-        params.put("kind ", 1);//查看权限（1.公开，2私密，3.部分可见，4.不给谁看）
+        params.put("type", 1);//（1.普通朋友圈，2.转发链接）
+
+        params.put("kind", kind);//查看权限（1.公开，2私密，3.部分可见，4.不给谁看）
+
+        Log.e("kind",kind+"");
+
+        if(kind == 3){
+            if(!TextUtils.isEmpty(looks)){
+                params.put("looks", looks);
+            }
+        }
+
+        if(kind == 4){
+            if(!TextUtils.isEmpty(unLooks)){
+                params.put("unLooks", unLooks);
+            }
+        }
 
         HttpProxy.obtain().post(PlatformContans.CommunicationCircle.addCommunicationCircle, MyApplication.token, params, new ICallBack() {
             @Override
@@ -341,17 +417,17 @@ public class DynamicPublishActivity extends AppCompatActivity {
     }
 
     /**List转String逗号分隔*/
-    private String listToString(ArrayList<String> imgsUrl) {
+    private String listToString(ArrayList<String> list) {
 
         StringBuilder stringBuilder = new StringBuilder();
-        for(String img : imgsUrl){
-            stringBuilder.append(img);
+        for(String str : list){
+            stringBuilder.append(str);
             stringBuilder.append(",");
         }
-        String images = stringBuilder.toString();
-        images = images.substring(0, images.length() - 1);
+        String strs = stringBuilder.toString();
+        strs = strs.substring(0, strs.length() - 1);
 
-        return images;
+        return strs;
     }
 
 }

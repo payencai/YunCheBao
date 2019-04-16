@@ -48,6 +48,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_marginTop="5dp"
         android:id="@+id/rv_tags"
+        tools:listitem="@layout/item_select_tag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

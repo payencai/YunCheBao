@@ -491,11 +491,7 @@
         <activity android:name="com.cheyibao.ShopDetailActivity" />
         <activity android:name="com.drive.activity.ReplaceDriveDetailActivity" />
         <activity android:name="com.drive.activity.AddSubstitubeActivity" />
-        <activity android:name="com.drive.activity.ReplaceOrderActivity" />
-        <activity android:name="com.drive.activity.PayDetailActivity" />
-        <activity android:name="com.drive.activity.AddOrderCommentActivity" />
-        <activity android:name="com.drive.activity.DriverCommentActivity" />
-        <activity android:name="com.drive.activity.DriverMoreActivity"></activity>
+        <activity android:name="com.newversion.DynamicLookPermissionActivity"/>
     </application>
 
 </manifest>
