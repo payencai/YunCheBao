@@ -311,12 +311,10 @@ public class CarOrderFragment extends Fragment {
         int type=-1;
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
-        if(state==0){
-            type=2;
-        }else if(state==3){
-            type=3;
+        if(state==3){
+            params.put("isComment", 0);
         }
-        params.put("state", type);
+        params.put("state", 2);
         HttpProxy.obtain().get(PlatformContans.SubstituteDriving.getSubstituteDrivingOrderListByUser, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
