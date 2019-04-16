@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -51,7 +52,7 @@ public class RentCarAddressView extends LinearLayout {
     private AddressBean takeCarAddress;
     private AddressBean returnCarAddress;
     private RentShop rentShop;
-    private boolean isToHomeService = false;
+    private boolean isEnabled = true;
 
     public RentCarAddressView(Context context) {
         this(context, null);
@@ -63,8 +64,15 @@ public class RentCarAddressView extends LinearLayout {
 
     public RentCarAddressView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.RentCarAddressView);
+        isEnabled = ta.getBoolean(R.styleable.RentCarAddressView_enabled,true);
+        ta.recycle();  //注意回收
         LayoutInflater.from(context).inflate(R.layout.view_rent_car_address_view, this);
         ButterKnife.bind(this);
+
+        isToHomeServiceView.setEnabled(isEnabled);
+        takeCarAddressTextView.setEnabled(isEnabled);
+        returnTheCarAddressTextView.setEnabled(isEnabled);
 
         isToHomeServiceView.setButtonDrawable(drawables());
 

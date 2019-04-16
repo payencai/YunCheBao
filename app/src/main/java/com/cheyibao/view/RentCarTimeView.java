@@ -2,6 +2,7 @@ package com.cheyibao.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,8 @@ public class RentCarTimeView extends LinearLayout {
     @BindView(R.id.end_time_view)
     TextView endTimeView;
 
+    private boolean isEnabled = true;
+
     private long startTime;
     private long endTime;
     private long duration;
@@ -48,12 +51,15 @@ public class RentCarTimeView extends LinearLayout {
 
     public RentCarTimeView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.RentCarTimeView);
+         isEnabled = ta.getBoolean(R.styleable.RentCarTimeView_enabled,true);
+        ta.recycle();  //注意回收
         LayoutInflater.from(context).inflate(R.layout.view_rent_car_time_view,this);
         startTimeView = findViewById(R.id.start_time_view);
         timeDurationView = findViewById(R.id.time_duration_view);
         endTimeView = findViewById(R.id.end_time_view);
-        startTimeView.setClickable(isClickable());
-        endTimeView.setClickable(isClickable());
+        startTimeView.setEnabled(isEnabled);
+        endTimeView.setEnabled(isEnabled);
 
         startTime = System.currentTimeMillis();
         endTime = startTime + RentCarUtils.DAY;
