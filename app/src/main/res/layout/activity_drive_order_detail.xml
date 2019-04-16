@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+>
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/back"
+            android:padding="15dp"
+            android:src="@mipmap/back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_centerInParent="true"
+            android:textSize="16sp"
+            android:textColor="@color/black_33"
+            android:text="详情"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.cheyibao.model.ReboundScrollView
+            android:orientation="vertical"
+            android:layout_above="@id/ll_bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:scaleType="fitXY"
+                        android:id="@+id/iv_car"
+                        android:src="@mipmap/car_icon"
+                        android:layout_width="130dp"
+                        android:layout_height="90dp" />
+                    <LinearLayout
+                        android:layout_marginLeft="10dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_marginRight="20dp"
+                                android:layout_toLeftOf="@+id/tv_carstate"
+                                android:singleLine="true"
+                                android:id="@+id/tv_name"
+                                android:textSize="14sp"
+                                android:textColor="@color/black_33"
+                                android:text="代驾"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/tv_carstate"
+                                android:layout_alignParentRight="true"
+                                android:textSize="12sp"
+                                android:textColor="@color/yellow_02"
+                                android:text="已完成"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:visibility="gone"
+                            android:id="@+id/tv_cartype"
+                            android:layout_marginTop="5dp"
+                            android:textSize="12sp"
+                            android:textColor="@color/black_33"
+                            android:text="2017款 1.6l自动风尚版"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_time"
+
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:textColor="@color/gray_99"
+                                android:textSize="13sp"
+                                android:text="付款时间："
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/tv_time"
+                                android:textColor="@color/black_33"
+                                android:textSize="13sp"
+                                android:text="2017年11月20号"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <RelativeLayout
+                            android:id="@+id/rl_price"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_centerVertical="true"
+                                android:id="@+id/tv_price"
+                                android:textColor="@color/gray_99"
+                                android:textSize="12sp"
+                                android:text="价格  "
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/tv_avgprice"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="5dp"
+                                android:layout_toRightOf="@id/tv_price"
+                                android:textColor="#F3CA65"
+                                android:textSize="14sp"
+                                android:text="￥100"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:padding="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textSize="16sp"
+                        android:textColor="@color/black_33"
+                        android:text="代驾司机"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_coash"
+                        android:layout_alignParentRight="true"
+                        android:textSize="16sp"
+                        android:textColor="@color/black_33"
+                        android:text="安卓租车"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:padding="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textSize="16sp"
+                        android:textColor="@color/black_33"
+                        android:text="商家电话"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_phone"
+                        android:layout_alignParentRight="true"
+                        android:textSize="16sp"
+                        android:textColor="@color/blue_9DD9"
+                        android:text="13202908144"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:padding="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginRight="20dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/black_33"
+                        android:text="出发地址"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+
+                        android:gravity="right"
+                        android:id="@+id/tv_address"
+                        android:layout_alignParentRight="true"
+                        android:textSize="16sp"
+                        android:textColor="@color/blue_9DD9"
+                        android:text="大学城信息枢纽楼"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:padding="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginRight="20dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/black_33"
+                        android:text="目的地址"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:gravity="right"
+                        android:id="@+id/tv_address2"
+                        android:layout_alignParentRight="true"
+                        android:textSize="16sp"
+                        android:textColor="@color/blue_9DD9"
+                        android:text="大学城信息枢纽楼"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.cheyibao.model.ReboundScrollView>
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/ll_bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_state1"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:id="@+id/tv_complain"
+                    android:gravity="center"
+                    android:text="商家投诉"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:background="@color/yellow_02"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/tv_comment"
+                    android:text="评价"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:background="@color/blue_9DD9"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_seecomment"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:background="@color/blue_9DD9"
+                android:gravity="center"
+                android:text="查看评论"
+                android:layout_width="match_parent"
+                android:layout_height="45dp" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -8,6 +8,22 @@ import java.io.Serializable;
  */
 public class CarOrder implements Serializable{
 
+    public String getStartAddress() {
+        return startAddress;
+    }
+
+    public void setStartAddress(String startAddress) {
+        this.startAddress = startAddress;
+    }
+
+    public String getEndAddress() {
+        return endAddress;
+    }
+
+    public void setEndAddress(String endAddress) {
+        this.endAddress = endAddress;
+    }
+
     /**
      * carCategory : string
      * className : string
@@ -31,12 +47,14 @@ public class CarOrder implements Serializable{
      * state : 0
      * telephone : string
      * title : string
+
      * total : 0
      * type : 0
      * userId : string
      */
     private int flag;
-
+    private String startAddress;
+    private String endAddress;
     public int getFlag() {
         return flag;
     }
@@ -59,6 +77,33 @@ public class CarOrder implements Serializable{
     private int isComment;
     private String serveCategory;
     private String serveTitle;
+    private String shopLogo;
+    private String driverName;
+
+    public String getDriverName() {
+        return driverName;
+    }
+
+    public void setDriverName(String driverName) {
+        this.driverName = driverName;
+    }
+
+    public String getShopTelephone() {
+        return shopTelephone;
+    }
+
+    public void setShopTelephone(String shopTelephone) {
+        this.shopTelephone = shopTelephone;
+    }
+
+    private String shopTelephone;
+    public String getShopLogo() {
+        return shopLogo;
+    }
+
+    public void setShopLogo(String shopLogo) {
+        this.shopLogo = shopLogo;
+    }
 
     public int getIsComment() {
         return isComment;

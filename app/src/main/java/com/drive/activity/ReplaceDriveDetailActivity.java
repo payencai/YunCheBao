@@ -87,7 +87,13 @@ public class ReplaceDriveDetailActivity extends AppCompatActivity {
     ReplaceDrive mReplaceDrive;
     String id;
     int page = 1;
-
+    String video1="http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
+    String video2="http://www.w3school.com.cn/example/html5/mov_bbb.mp4";
+    String video3="https://media.w3.org/2010/05/sintel/trailer.mp4";
+     int videoCount=0;
+    String img1="http://gss0.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/fc1f4134970a304ec0ff5ed5d7c8a786c8175cc4.jpg";
+    String img2="https://photo.16pic.com/00/51/84/16pic_5184604_b.jpg";
+    String img3="http://up.bizhitupian.com/pic/9a/92/79/9a9279dd6336a045145ec611ed26418b.jpg";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +102,10 @@ public class ReplaceDriveDetailActivity extends AppCompatActivity {
         id = getIntent().getStringExtra("id");
         initView();
     }
-
+    List<String> images = new ArrayList<>();
+    List<String> vimages = new ArrayList<>();
+    List<String> videos = new ArrayList<>();
+    List<String> banners = new ArrayList<>();
     @OnClick({R.id.ll_head, R.id.collectBtn, R.id.ll_league,R.id.menuBtn,R.id.more2,R.id.callBtn})
     void onClick(View view) {
         switch (view.getId()) {
@@ -243,13 +252,20 @@ public class ReplaceDriveDetailActivity extends AppCompatActivity {
         java.text.DecimalFormat df = new java.text.DecimalFormat("#.000");
         tv_dis.setText(df.format(mReplaceDrive.getDistance()) + "km");
         String banner = mReplaceDrive.getBanner();
-        List<String> images = new ArrayList<>();
-        if (!TextUtils.isEmpty(banner)) {
-            images = Arrays.asList(banner.split(","));
-        } else {
-            images.add("http://gimg.qcdqcdn.com/ResourceFiles/0/0/1/20170330035359346.jpg");
-            images.add("https://img1.auto.ifeng.com/uploadfile/2018/1114/20181114070407749.png");
+        String vimgs=mReplaceDrive.getVimgs();
+        String video=mReplaceDrive.getVideos();
+        if (!TextUtils.isEmpty(vimgs)) {
+            vimages = Arrays.asList(vimgs.split(","));
+            videoCount=vimages.size();
         }
+        if (!TextUtils.isEmpty(video)) {
+            videos = Arrays.asList(video.split(","));
+        }
+        if (!TextUtils.isEmpty(banner)) {
+            banners = Arrays.asList(banner.split(","));
+        }
+        images.addAll(vimages);
+        images.addAll(banners);
         initBanner(images);
         isCollect();
         getDriveMan();
@@ -347,6 +363,10 @@ public class ReplaceDriveDetailActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject data = jsonObject.getJSONObject("data");
                     mReplaceDrive = new Gson().fromJson(data.toString(), ReplaceDrive.class);
+//                    String imgs=img1+","+img2+","+img3;
+//                    String videos=video1+","+video2+","+video3;
+//                    mReplaceDrive.setVideos(videos);
+//                    mReplaceDrive.setVimgs(imgs);
                     initData();
 
                 } catch (JSONException e) {
@@ -373,14 +393,23 @@ public class ReplaceDriveDetailActivity extends AppCompatActivity {
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                //Log.e("url", mBanners.get(position).getPicture() + "-" + mBanners.get(position).getSkipUrl());
-                Intent intent = new Intent(ReplaceDriveDetailActivity.this, WebviewActivity.class);
-                String url = "";
-                if (!url.contains("http") && !url.contains("https")) {
-                    url = "http://" + url;
+                if(videoCount>position){
+                    Intent intent = new Intent(ReplaceDriveDetailActivity.this, SimplePlayerActivity.class);
+                    intent.putExtra("img", images.get(position));
+                    intent.putExtra("video", videos.get(position));
+                    startActivity(intent);
+                }else{
+                    //Log.e("url", mBanners.get(position).getPicture() + "-" + mBanners.get(position).getSkipUrl());
+                    Intent intent = new Intent(ReplaceDriveDetailActivity.this, WebviewActivity.class);
+                    String url = "";
+                    if (!url.contains("http") && !url.contains("https")) {
+                        url = "http://" + url;
+                    }
+                    intent.putExtra("url", url);
+                    startActivity(intent);
                 }
-                intent.putExtra("url", url);
-                startActivity(intent);
+
+
             }
         });
         banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -391,7 +420,7 @@ public class ReplaceDriveDetailActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 0) {
+                if (videoCount>position) {
                     iv_play.setVisibility(View.VISIBLE);
                 } else {
                     iv_play.setVisibility(View.GONE);
@@ -405,7 +434,7 @@ public class ReplaceDriveDetailActivity extends AppCompatActivity {
         });
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
         banner.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位置
-        banner.setDelayTime(2000);//设置轮播时间
+        banner.setDelayTime(3000);//设置轮播时间
         banner.setImages(images);//设置图片源
         banner.start();
     }

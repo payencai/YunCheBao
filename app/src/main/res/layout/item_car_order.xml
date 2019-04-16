@@ -316,7 +316,7 @@
                         android:layout_toRightOf="@id/tv_item"
                         android:textColor="#F3CA65"
                         android:textSize="14sp"
-                        android:text=" 20万"
+                        android:text="20万"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 

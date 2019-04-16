@@ -136,6 +136,7 @@ dependencies {
     //视频
     implementation 'cjt.library.wheel:camera:0.1.9' //短视频录制
     implementation 'com.shuyu:GSYVideoPlayer:6.0.0-beta'//视频播放
+
     //其他
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
     implementation 'org.jetbrains:annotations:15.0'

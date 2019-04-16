@@ -22,6 +22,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.AddRentCommentActivity;
 import com.cheyibao.AddSchoolCommentActivity;
 import com.costans.PlatformContans;
+import com.drive.activity.AddOrderCommentActivity;
+import com.drive.activity.DriveOrderDetailActivity;
+import com.drive.activity.DriverCommentActivity;
+import com.drive.activity.PayDetailActivity;
 import com.drive.model.ReplaceOrder;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
@@ -84,6 +88,14 @@ public class CarOrderFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1||requestCode==2){
+            refresh();
+        }
+    }
+
     private void initView() {
         state = getArguments().getInt("state");
         mCarOrders = new ArrayList<>();
@@ -107,7 +119,7 @@ public class CarOrderFragment extends Fragment {
                     intent = new Intent(getContext(), WashOrderDetailActivity.class);
                     intent.putExtra("data", carOrder);
                     startActivity(intent);
-                } else {
+                } else if(carOrder.getFlag()==2){
                     if (carOrder.getType() == 3) {
                         intent = new Intent(getContext(), RentOrderDetailActivity.class);
                         intent.putExtra("data", carOrder);
@@ -117,6 +129,11 @@ public class CarOrderFragment extends Fragment {
                         intent.putExtra("data", carOrder);
                         startActivity(intent);
                     }
+                }else{
+                        Intent intent2 =new Intent(getContext(),DriveOrderDetailActivity.class);
+                        intent2.putExtra("data",carOrder);
+                        startActivityForResult(intent2,3);
+
                 }
             }
         });
@@ -126,6 +143,18 @@ public class CarOrderFragment extends Fragment {
                 CarOrder carOrder = (CarOrder) adapter.getItem(position);
                 Intent intent;
                 switch (view.getId()){
+                    case R.id.tv_pjia:
+                        if (carOrder.getState() == 3) {
+                            Intent intent2 =new Intent(getContext(),DriverCommentActivity.class);
+                            intent2.putExtra("id",carOrder.getShopId());
+                            startActivityForResult(intent2,1);
+                        } else {
+                            //去评价
+                            Intent intent2 =new Intent(getContext(),AddOrderCommentActivity.class);
+                            intent2.putExtra("id",carOrder.getId());
+                            startActivityForResult(intent2,2);
+                        }
+                        break;
                     case R.id.btn_comment:
                         if(carOrder.getState()==2){
                             showCancelDialog(carOrder);
@@ -214,6 +243,7 @@ public class CarOrderFragment extends Fragment {
         page = 1;
         mCarOrders.clear();
         mWashOrders.clear();
+        mDriversOrders.clear();
         mCarOrderAdapter.setNewData(mCarOrders);
         getWashOrder();
     }
@@ -288,6 +318,7 @@ public class CarOrderFragment extends Fragment {
                     int code = jsonObject.getInt("resultCode");
                     if (code == 0) {
                         JSONArray data = jsonObject.getJSONArray("data");
+
                         for (int i = 0; i < data.length(); i++) {
                             JSONObject item = data.getJSONObject(i);
                             CarOrder carOrder = new Gson().fromJson(item.toString(), CarOrder.class);
@@ -370,13 +401,30 @@ public class CarOrderFragment extends Fragment {
                     int code = jsonObject.getInt("resultCode");
                     if (code == 0) {
                         JSONArray data = jsonObject.getJSONArray("data");
+                        List<CarOrder> carOrders=new ArrayList<>();
                         for (int i = 0; i < data.length(); i++) {
                             JSONObject item = data.getJSONObject(i);
                             CarOrder carOrder = new Gson().fromJson(item.toString(), CarOrder.class);
                             carOrder.setFlag(2);
                             mCarOrders.add(carOrder);
                         }
-                        getDriverOrder();
+                        if(state!=2)
+                            getDriverOrder();
+                        else{
+                            carOrders.addAll(mWashOrders);
+                            carOrders.addAll(mCarOrders);
+                            if (isLoadMore) {
+                                isLoadMore = false;
+                                mCarOrderAdapter.setNewData(carOrders);
+                                if(data.length()==0){
+                                    mCarOrderAdapter.loadMoreEnd(true);
+                                }else{
+                                    mCarOrderAdapter.loadMoreComplete();
+                                }
+                            } else {
+                                mCarOrderAdapter.setNewData(carOrders);
+                            }
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

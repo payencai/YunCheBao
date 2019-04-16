@@ -69,13 +69,7 @@ public class X5WebviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_x5_webview);
 
         mX5WebView = (X5WebView) findViewById(R.id.webview);
-        WebSettings webSetting = mX5WebView.getSettings();
-        webSetting.setJavaScriptEnabled(true);
-        webSetting.setAllowFileAccess(true);
-        webSetting.setAppCacheEnabled(true);
-        webSetting.setDatabaseEnabled(true);
-        webSetting.setDomStorageEnabled(true);
-        webSetting.setGeolocationEnabled(true);
+
         mX5WebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -90,7 +84,7 @@ public class X5WebviewActivity extends AppCompatActivity {
                     }
                     Log.e("address", strUTF8);
                     try {
-                        JSONObject jsonObject=new JSONObject(strUTF8);
+                         JSONObject jsonObject=new JSONObject(strUTF8);
                          addressBean=new Gson().fromJson(jsonObject.toString(),AddressBean.class);
                          getCity(addressBean.getLatlng().getLat(),addressBean.getLatlng().getLng());
 
@@ -114,8 +108,8 @@ public class X5WebviewActivity extends AppCompatActivity {
         mX5WebView.setWebChromeClient(new WebChromeClient() {
 
         });
-        mX5WebView.loadUrl("http://120.79.176.228:8080/gaote-web/map/index.html");
-        //mX5WebView.loadUrl("https://apis.map.qq.com/tools/locpicker?search=1&type=0&backurl=http://3gimg.qq.com/lightmap/components/locationPicker2/back.html&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77&referer=myapp");
+        //mX5WebView.loadUrl("http://120.79.176.228:8080/gaote-web/map/index.html");
+        mX5WebView.loadUrl("https://apis.map.qq.com/tools/locpicker?search=1&type=0&backurl=http://3gimg.qq.com/lightmap/components/locationPicker2/back.html&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77&referer=myapp");
 
     }
 }

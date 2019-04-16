@@ -138,11 +138,7 @@ public class DriveServiceActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                 if(position==0){
-                     iv_play.setVisibility(View.VISIBLE);
-                 }else{
-                     iv_play.setVisibility(View.GONE);
-                 }
+
             }
 
             @Override

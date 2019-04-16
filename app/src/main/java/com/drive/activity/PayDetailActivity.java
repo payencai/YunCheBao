@@ -225,7 +225,7 @@ public class PayDetailActivity extends AppCompatActivity {
                         Log.e("code", resultStatus);
                         ToastUtil.showToast(PayDetailActivity.this,"支付成功");
                         Intent intent =new Intent(PayDetailActivity.this,AddOrderCommentActivity.class);
-                        intent.putExtra("data",mReplaceOrder);
+                        intent.putExtra("id",mReplaceOrder.getId());
                         startActivity(intent);
                         finish();
                     }
