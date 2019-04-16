@@ -16,8 +16,7 @@
             android:id="@+id/app_barlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
@@ -43,14 +42,12 @@
                             android:id="@+id/shop_name_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginStart="15dp"
                             tools:text="摩根道送车点（西山区）"
                             android:textColor="@color/black_33"
                             android:textSize="16sp" />
                         <TextView
                             android:id="@+id/grade_view"
-                            android:layout_marginLeft="10dp"
                             android:layout_marginStart="10dp"
                             android:textSize="14sp"
                             android:gravity="center"
@@ -63,7 +60,6 @@
 
 
                     <LinearLayout
-                        android:padding="10dp"
                         android:paddingBottom="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -71,6 +67,7 @@
 
                         <TextView
                             android:id="@+id/business_hours_view"
+                            android:layout_marginStart="15dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             tools:text="营业时间：8:00-18:30"
@@ -107,13 +104,12 @@
                         android:id="@+id/address_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:padding="10dp"
                         android:drawablePadding="10dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="15dp"
                         tools:text="西山区滇池路802号（益府圆子小酌餐厅内停车场）"
                         android:textColor="@color/gray_66"
                         android:textSize="12sp"
-                        android:drawableLeft="@mipmap/location_gray_icon"
                         android:drawableStart="@mipmap/location_gray_icon"/>
 
                     <View
@@ -123,10 +119,10 @@
                         android:layout_height="1dp"/>
 
                     <RelativeLayout
-                        android:padding="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:layout_margin="15dp">
 
                         <TextView
                             android:id="@+id/phone_view"

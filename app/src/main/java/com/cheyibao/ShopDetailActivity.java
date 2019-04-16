@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -96,7 +97,7 @@ public class ShopDetailActivity extends AppCompatActivity {
     private void initView() {
         shopNameView.setText(rentShop.getName());
         gradeView.setText(String.format("%s", rentShop.getGrade()));
-        businessHoursView.setText(String.format("营业时间:上午%s~%s 下午%s~%s", rentShop.getAmStart(), rentShop.getAmStop(), rentShop.getPmStart(), rentShop.getPmStop()));
+        businessHoursView.setText(String.format("营业时间:%s~%s", TextUtils.isEmpty(rentShop.getAmStart())? rentShop.getPmStart():rentShop.getAmStart(), TextUtils.isEmpty(rentShop.getPmStop())? rentShop.getAmStop():rentShop.getPmStop()));
         sbScore.setRating(rentShop.getScore());
         scoreView.setText(String.format("%s分", rentShop.getScore()));
         addressView.setText(String.format("%s%s%s%s", rentShop.getProvince(), rentShop.getCity(), rentShop.getArea(), rentShop.getAddress()));
