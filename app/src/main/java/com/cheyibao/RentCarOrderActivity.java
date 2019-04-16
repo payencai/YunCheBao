@@ -20,6 +20,7 @@ import com.cheyibao.view.RentCarTimeView;
 import com.common.AvoidOnResult;
 import com.common.BaseModel;
 import com.common.DateUtils;
+import com.common.IdentityCardVerify;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
@@ -27,6 +28,7 @@ import com.google.gson.reflect.TypeToken;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
+import com.system.X5WebviewActivity;
 import com.system.model.AddressBean;
 import com.vipcenter.LoginByaccountActivity;
 
@@ -135,6 +137,14 @@ public class RentCarOrderActivity extends AppCompatActivity {
             return;
         }
 
+        if (phoneNumber.length()<11){
+            if (TextUtils.isEmpty(phoneNumber)){
+                ToastUtil.showToast(this,"请输入11位手机号");
+                rentCarPersonPhoneView.requestFocus();
+                return;
+            }
+        }
+
         String callName = rentCarPersonContactPersonNameView.getText().toString();
         if (TextUtils.isEmpty(callName)){
             ToastUtil.showToast(this,"紧急联系人姓名不能为空，请输入！");
@@ -149,9 +159,27 @@ public class RentCarOrderActivity extends AppCompatActivity {
             return;
         }
 
+        if (callTelephone.length()<11){
+            ToastUtil.showToast(this,"请输入11位手机号！");
+            rentCarPersonContactPersonPhoneView.requestFocus();
+            return;
+        }
+
         String idNumber = rentCarPersonIdentifyView.getText().toString();
         if (TextUtils.isEmpty(idNumber)){
             ToastUtil.showToast(this,"租车人身份证不能为空，请输入！");
+            rentCarPersonIdentifyView.requestFocus();
+            return;
+        }
+
+        if (idNumber.length()<18){
+            ToastUtil.showToast(this,"请输入合法的身份证号码！");
+            rentCarPersonIdentifyView.requestFocus();
+            return;
+        }
+
+        if (!IdentityCardVerify.cardCodeVerify(idNumber)){
+            ToastUtil.showToast(this,"您输入的身份证不符合国家规范，请重新输入！");
             rentCarPersonIdentifyView.requestFocus();
             return;
         }

@@ -152,4 +152,12 @@
         <attr name="circleRadius" format="dimension" />
         <attr name="lineThickness" format="dimension" />
     </declare-styleable>
+    
+    <declare-styleable name="RentCarTimeView">
+        <attr name="enabled" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="RentCarAddressView">
+        <attr name="enabled"/>
+    </declare-styleable>
 </resources>

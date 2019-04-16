@@ -12,6 +12,7 @@
         android:textSize="12sp"
         android:textColor="@color/black_33"
         android:drawablePadding="10dp"
+        android:layout_marginTop="15dp"
         android:paddingLeft="15dp"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
@@ -20,32 +21,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="10dp"
-        android:paddingLeft="15dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:paddingRight="15dp">
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/take_car_city_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
             tools:text="昆明"
             android:textColor="@color/black_33"
-            android:textSize="17sp"/>
+            android:textSize="17sp"
+            android:paddingStart="15dp"
+            android:paddingEnd="0dp"/>
 
         <TextView
             android:id="@+id/take_car_address_text_view"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
             tools:text="润城第二大道"
             android:hint="@string/please_select_take_car_address"
             android:textColor="@color/black_33"
-            android:textSize="17sp"/>
+            android:textSize="17sp"
+            android:padding="15dp"/>
         <CheckBox
             android:id="@+id/is_to_home_service_view"
             android:layout_width="wrap_content"
@@ -61,13 +58,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/split_line_color"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:paddingLeft="15dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:paddingRight="15dp"/>
+        android:background="@color/split_line_color"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -79,24 +70,21 @@
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:paddingRight="15dp"
+        android:layout_marginTop="15dp"
         android:textSize="12sp"
         android:textColor="@color/black_33"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="10dp"
         android:gravity="center_vertical"
-        android:paddingLeft="15dp"
         android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:paddingRight="15dp">
+        android:paddingEnd="0dp">
 
         <TextView
             android:id="@+id/return_the_car_city_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
             tools:text="昆明"
             android:textColor="@color/black_33"
             android:textSize="17sp"/>
@@ -110,6 +98,7 @@
             tools:text="润城第二大道"
             android:hint="@string/please_select_return_car_address"
             android:textColor="@color/black_33"
-            android:textSize="17sp"/>
+            android:textSize="17sp"
+            android:padding="15dp"/>
     </LinearLayout>
 </LinearLayout>

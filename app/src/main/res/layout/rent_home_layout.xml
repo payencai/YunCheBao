@@ -63,14 +63,11 @@
                     <com.cheyibao.view.RentCarAddressView
                         android:id="@+id/rent_Car_address_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"/>
+                        android:layout_height="wrap_content"/>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
-                        android:background="@color/split_line_color"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"/>
+                        android:background="@color/split_line_color"/>
 
                     <com.cheyibao.view.RentCarTimeView
                         android:id="@+id/rent_car_time_View"

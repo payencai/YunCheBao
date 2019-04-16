@@ -152,8 +152,7 @@
                         android:id="@+id/rent_Car_address_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="15dp"/>
+                        app:enabled="false"/>
 
                     <View
                         android:layout_width="match_parent"
@@ -164,7 +163,7 @@
                         android:id="@+id/rent_car_time_View"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:clickable="false"/>
+                        app:enabled="false"/>
 
                     <View
                         android:layout_width="match_parent"
