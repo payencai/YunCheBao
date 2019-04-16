@@ -54,24 +54,12 @@ import butterknife.Unbinder;
  */
 
 public class RentCarFragment extends BaseFragment {
-
-    private static final int REQUEST_CODE_ADDRESS_FOR_MAP_SEND = 1;
-    private static final int REQUEST_CODE_ADDRESS_FOR_MAP_TAKE = 2;
-    private static final int REQUEST_CODE_ADDRESS_FOR_STORE_SEND = 3;
-
-
     @BindView(R.id.rent_type_parent_view)
     RadioGroup rentTypeParentView;
     @BindView(R.id.self_driving_radio_button)
     RadioButton selfDrivingRadioButton;
     @BindView(R.id.long_rent_radio_button)
     RadioButton longRentRadioButton;
-    //    @BindView(R.id.send_car_address_text_view)
-//    TextView sendCarAddressTextView;
-//    @BindView(R.id.is_send_the_car_to_home_checked_view)
-//    CheckBox isSendTheCarToHomeCheckedView;
-//    @BindView(R.id.return_the_car_address_text_view)
-//    TextView returnTheCarAddressTextView;
     @BindView(R.id.pick_the_car_view)
     CardView pickTheCarView;
     @BindView(R.id.self_driver_order_click_view)
@@ -183,14 +171,6 @@ public class RentCarFragment extends BaseFragment {
 
             }
         });
-//        //网络地址获取轮播图
-//        imageList.clear();
-//        for (int i = 0; i < 3; i++) {
-//            Map<String, String> image_uri = new HashMap<String, String>();
-//            image_uri.put("imageUrls", "https://you.autoimg.cn/_autohomecar__zhouyouji/657C2F909017074F9C59CA0B88DA0F0BDDC9.jpg?imageMogr2/format/jpg/thumbnail/790|watermark/2/text/5rG96L2m5LmL5a62/font/5b6u6L2v6ZuF6buR/fontsize/270/fill/I0ZGRkZGRg==");
-//            imageList.add(image_uri);
-//        }
-
     }
 
 
