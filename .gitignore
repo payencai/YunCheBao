@@ -6,4 +6,6 @@
 /.idea
 .idea
 .DS_Store
+.release
+/.release
 /captures
