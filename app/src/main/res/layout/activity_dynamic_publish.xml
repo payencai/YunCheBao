@@ -95,30 +95,64 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:src="@mipmap/user"
+            android:id="@+id/iv_head"
+            android:src="@mipmap/green_head"
             android:layout_width="17dp"
             android:layout_height="19dp" />
 
         <TextView
+            android:id="@+id/tv_who_can_look"
             android:text="谁可以看"
             android:layout_marginLeft="16dp"
-            android:textColor="@color/black"
+            android:textColor="@color/text_green"
             android:textSize="15sp"
-            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:gravity="right"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:id="@+id/tv_look_permission"
             android:layout_marginRight="10dp"
             android:text="公开"
             android:layout_marginLeft="17dp"
-            android:textColor="@color/black"
+            android:textColor="@color/text_green"
             android:textSize="15sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <ImageView
-            android:src="@mipmap/arrow_right"
+            android:src="@mipmap/choose_right"
+            android:layout_width="11dp"
+            android:layout_height="19dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_user_location"
+        android:paddingTop="17dp"
+        android:paddingBottom="17dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/green_location"
+            android:layout_width="17dp"
+            android:layout_height="19dp" />
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:text="位置"
+            android:layout_marginLeft="16dp"
+            android:textColor="@color/text_green"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:src="@mipmap/choose_right"
             android:layout_width="11dp"
             android:layout_height="19dp" />
 

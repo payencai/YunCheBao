@@ -127,4 +127,6 @@
     <color name="brown_4f">#906f4f</color>
     <color name="helftransparent">#80000000</color>
 
+    <color name="text_green">#7ED321</color>
+
 </resources>

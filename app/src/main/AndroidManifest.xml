@@ -483,15 +483,14 @@
         <activity android:name="com.vipcenter.ManaAddressActivity" />
         <activity android:name="com.vipcenter.MyCarListActivity" />
         <activity android:name="com.rongcloud.activity.GroupQrcodeActivity" />
-
         <activity android:name="com.drive.activity.DriveServiceActivity" />
         <activity android:name="com.cheyibao.ShopListActivity" />
         <activity android:name="com.cheyibao.CarModelsListActivity" />
         <activity android:name="com.cheyibao.ShopListNoAreaActivity" />
-        <activity android:name="com.cheyibao.ShopDetailActivity"></activity>
+        <activity android:name="com.cheyibao.ShopDetailActivity" />
         <activity android:name="com.drive.activity.ReplaceDriveDetailActivity" />
-        <activity android:name="com.drive.activity.AddSubstitubeActivity"></activity>
-
+        <activity android:name="com.drive.activity.AddSubstitubeActivity" />
+        <activity android:name="com.newversion.DynamicLookPermissionActivity"/>
     </application>
 
 </manifest>

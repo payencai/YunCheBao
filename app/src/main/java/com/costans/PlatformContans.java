@@ -256,6 +256,7 @@ public class PlatformContans {
         public static final String quitCrowdByCrowdId=root+"/huanxin/quitCrowdByCrowdId";
         public static final String joinCrowdByUserIds=root+"/huanxin/joinCrowdByUserIds";
         public static final String getMyFriendList=root+"/huanxin/getMyFriendList";
+        public static final String getMyFriendListForLabel=root+"/huanxin/getMyFriendListForLabel";
         public static final String updateCrowdApply=root+"/huanxin/updateCrowdApply";
         public static final String updateCrowds=root+  "/huanxin/updateCrowds";
         public static final String updateFriendApply=root+"/huanxin/updateFriendApply";

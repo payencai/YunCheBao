@@ -17,7 +17,7 @@ android {
         }
     }
     compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.example.yunchebao"
         minSdkVersion 19

@@ -82,7 +82,11 @@ public class AnotherBabyFragment extends Fragment {
         view.findViewById(R.id.ll_item3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), FriendsCircleActivity.class));
+                if (MyApplication.isLogin)
+                    startActivity(new Intent(getContext(), FriendsCircleActivity.class));
+                else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
             }
         });
         view.findViewById(R.id.ll_item4).setOnClickListener(new View.OnClickListener() {
