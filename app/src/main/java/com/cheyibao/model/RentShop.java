@@ -36,7 +36,7 @@ public class RentShop implements Parcelable {
     private String createTime;
     private double distance;
     private String geoHash;
-    private double grade;
+    private int grade;
     private String id;
     private int isOnlineServe;
     private String latitude;
@@ -118,11 +118,11 @@ public class RentShop implements Parcelable {
         this.geoHash = geoHash;
     }
 
-    public double getGrade() {
+    public int getGrade() {
         return grade;
     }
 
-    public void setGrade(double grade) {
+    public void setGrade(int grade) {
         this.grade = grade;
     }
 
@@ -272,7 +272,7 @@ public class RentShop implements Parcelable {
         dest.writeString(this.createTime);
         dest.writeDouble(this.distance);
         dest.writeString(this.geoHash);
-        dest.writeDouble(this.grade);
+        dest.writeInt(this.grade);
         dest.writeString(this.id);
         dest.writeInt(this.isOnlineServe);
         dest.writeString(this.latitude);
@@ -300,7 +300,7 @@ public class RentShop implements Parcelable {
         this.createTime = in.readString();
         this.distance = in.readDouble();
         this.geoHash = in.readString();
-        this.grade = in.readDouble();
+        this.grade = in.readInt();
         this.id = in.readString();
         this.isOnlineServe = in.readInt();
         this.latitude = in.readString();
