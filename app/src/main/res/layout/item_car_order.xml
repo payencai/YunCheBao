@@ -244,4 +244,101 @@
                 android:textSize="15sp" />
         </RelativeLayout>
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_type3"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:scaleType="fitXY"
+                android:id="@+id/iv_logo"
+                android:src="@mipmap/car_icon"
+                android:layout_width="130dp"
+                android:layout_height="90dp" />
+            <LinearLayout
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginRight="20dp"
+                        android:layout_toLeftOf="@id/tv_driverstate"
+                        android:id="@+id/tv_name3"
+                        android:textSize="14sp"
+                        android:textColor="@color/black_33"
+                        android:text="代驾店铺"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_driverstate"
+                        android:layout_alignParentRight="true"
+                        android:textSize="12sp"
+                        android:textColor="@color/yellow_02"
+                        android:text="已完成"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_paytime"
+                    android:layout_marginTop="5dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_99"
+                    android:text="付款时间："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RelativeLayout
+
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:id="@+id/tv_item"
+                        android:textColor="@color/gray_99"
+                        android:textSize="12sp"
+                        android:text="价格  "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_driverMoney"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/tv_item"
+                        android:textColor="#F3CA65"
+                        android:textSize="14sp"
+                        android:text=" 20万"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/tv_pjia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:text="评价"
+                android:textColor="@color/black_33"
+                android:textSize="15sp" />
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

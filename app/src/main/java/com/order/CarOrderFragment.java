@@ -22,6 +22,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.AddRentCommentActivity;
 import com.cheyibao.AddSchoolCommentActivity;
 import com.costans.PlatformContans;
+import com.drive.model.ReplaceOrder;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
@@ -65,6 +66,7 @@ public class CarOrderFragment extends Fragment {
     List<CarOrder> mCarOrders;
     CarOrderAdapter mCarOrderAdapter;
     List<CarOrder> mWashOrders ;
+    List<CarOrder> mDriversOrders;
     public static CarOrderFragment newInstance(int state) {
         CarOrderFragment orderFragment = new CarOrderFragment();
         Bundle bundle = new Bundle();
@@ -86,6 +88,7 @@ public class CarOrderFragment extends Fragment {
         state = getArguments().getInt("state");
         mCarOrders = new ArrayList<>();
         mWashOrders=new ArrayList<>();
+        mDriversOrders=new ArrayList<>();
         mCarOrderAdapter = new CarOrderAdapter(R.layout.item_car_order, mCarOrders);
         mCarOrderAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
@@ -304,6 +307,58 @@ public class CarOrderFragment extends Fragment {
             }
         });
     }
+    int type=1;
+    private void getDriverOrder() {
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("page", page);
+        if(state==0){
+            type=3;
+        }else if(state==3){
+            type=2;
+        }
+        params.put("state", type);
+        HttpProxy.obtain().get(PlatformContans.SubstituteDriving.getSubstituteDrivingOrderListByUser, params, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("driver",type+result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    List<CarOrder> carOrders=new ArrayList<>();
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        CarOrder carOrder = new Gson().fromJson(item.toString(), CarOrder.class);
+                        carOrder.setFlag(3);
+                        mDriversOrders.add(carOrder);
+                    }
+                    carOrders.addAll(mWashOrders);
+                    carOrders.addAll(mCarOrders);
+                    carOrders.addAll(mDriversOrders);
+                    if (isLoadMore) {
+                        isLoadMore = false;
+                        mCarOrderAdapter.setNewData(carOrders);
+                        if(data.length()==0){
+                            mCarOrderAdapter.loadMoreEnd(true);
+                        }else{
+                            mCarOrderAdapter.loadMoreComplete();
+                        }
+                    } else {
+                        mCarOrderAdapter.setNewData(carOrders);
+                    }
+                    //updateData();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
 
     private void getCarOrder() {
         Map<String, Object> params = new HashMap<>();
@@ -324,19 +379,24 @@ public class CarOrderFragment extends Fragment {
                             CarOrder carOrder = new Gson().fromJson(item.toString(), CarOrder.class);
                             carOrder.setFlag(2);
                             mCarOrders.add(carOrder);
+
                         }
-                        carOrders.addAll(mWashOrders);
-                        carOrders.addAll(mCarOrders);
-                        if (isLoadMore) {
-                            isLoadMore = false;
-                            mCarOrderAdapter.setNewData(carOrders);
-                            if(data.length()==0){
-                                mCarOrderAdapter.loadMoreEnd(true);
-                            }else{
-                                mCarOrderAdapter.loadMoreComplete();
+                        if(state!=2)
+                          getDriverOrder();
+                        else{
+                            carOrders.addAll(mWashOrders);
+                            carOrders.addAll(mCarOrders);
+                            if (isLoadMore) {
+                                isLoadMore = false;
+                                mCarOrderAdapter.setNewData(carOrders);
+                                if(data.length()==0){
+                                    mCarOrderAdapter.loadMoreEnd(true);
+                                }else{
+                                    mCarOrderAdapter.loadMoreComplete();
+                                }
+                            } else {
+                                mCarOrderAdapter.setNewData(carOrders);
                             }
-                        } else {
-                            mCarOrderAdapter.setNewData(carOrders);
                         }
                     }
                 } catch (JSONException e) {

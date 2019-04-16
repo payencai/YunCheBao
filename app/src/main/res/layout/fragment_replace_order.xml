@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.drive.fragment.ReplaceDriveFragment">
+   >
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srlFooterTranslationViewId="@+id/rv_drive">
+        app:srlFooterTranslationViewId="@+id/rv_order">
         <com.scwang.smartrefresh.layout.header.ClassicsHeader
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -18,10 +18,9 @@
             app:srlAccentColor="@android:color/white">
         </com.scwang.smartrefresh.layout.header.ClassicsHeader>
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_drive"
+            android:id="@+id/rv_order"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </android.support.v7.widget.RecyclerView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
 </FrameLayout>

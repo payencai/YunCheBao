@@ -27,9 +27,11 @@ public class CarOrderAdapter extends BaseQuickAdapter<CarOrder,BaseViewHolder> {
 
         LinearLayout ll_type1=helper.getView(R.id.ll_type1);
         LinearLayout ll_type2=helper.getView(R.id.ll_type2);
+        LinearLayout ll_type3=helper.getView(R.id.ll_type3);
         if(item.getFlag()==1){
             ll_type1.setVisibility(View.VISIBLE);
             ll_type2.setVisibility(View.GONE);
+            ll_type3.setVisibility(View.GONE);
             TextView tv_state=helper.getView(R.id.tv_washstate);
             TextView tv_name1=helper.getView(R.id.tv_name1);
             TextView tv_time1=helper.getView(R.id.tv_time1);
@@ -66,6 +68,7 @@ public class CarOrderAdapter extends BaseQuickAdapter<CarOrder,BaseViewHolder> {
             }
 
         }else if(item.getFlag()==2){
+            ll_type3.setVisibility(View.GONE);
             ll_type2.setVisibility(View.VISIBLE);
             ll_type1.setVisibility(View.GONE);
             TextView tv_state=helper.getView(R.id.tv_carstate);
@@ -116,6 +119,10 @@ public class CarOrderAdapter extends BaseQuickAdapter<CarOrder,BaseViewHolder> {
                 tv_avgprice.setText("￥"+item.getPrice());
                 tv_name.setText("价格 ");
             }
+        }else{
+            ll_type3.setVisibility(View.VISIBLE);
+            ll_type2.setVisibility(View.GONE);
+            ll_type1.setVisibility(View.GONE);
         }
     }
 }

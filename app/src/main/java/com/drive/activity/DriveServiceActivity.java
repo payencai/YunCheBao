@@ -61,7 +61,12 @@ public class DriveServiceActivity extends AppCompatActivity {
     }
 
     private void initView() {
-
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         mFragments=new ArrayList<>();
         for (int i = 1; i <3 ; i++) {
             ReplaceDriveFragment orderListFragment=ReplaceDriveFragment.newInstance(i);

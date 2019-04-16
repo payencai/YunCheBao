@@ -97,9 +97,22 @@ public class ReplaceDriveDetailActivity extends AppCompatActivity {
         initView();
     }
 
-    @OnClick({R.id.ll_head, R.id.collectBtn, R.id.ll_league})
+    @OnClick({R.id.ll_head, R.id.collectBtn, R.id.ll_league,R.id.menuBtn,R.id.more2,R.id.callBtn})
     void onClick(View view) {
         switch (view.getId()) {
+            case R.id.callBtn:
+                callPhone(mReplaceDrive.getSaleTelephone());
+                break;
+            case R.id.more2:
+                Intent intent3 = new Intent(ReplaceDriveDetailActivity.this, DriverCommentActivity.class);
+                intent3.putExtra("id", mReplaceDrive.getId());
+                startActivity(intent3);
+                break;
+            case R.id.menuBtn:
+                Intent intent2 = new Intent(ReplaceDriveDetailActivity.this, ReplaceOrderActivity.class);
+                intent2.putExtra("id", mReplaceDrive.getId());
+                startActivity(intent2);
+                break;
             case R.id.ll_league:
                 showMapDialog(new LatLng(MyApplication.getaMapLocation().getLatitude(), MyApplication.getaMapLocation().getLongitude()));
                 break;
@@ -122,6 +135,17 @@ public class ReplaceDriveDetailActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 拨打电话（跳转到拨号界面，用户手动点击拨打）
+     *
+     * @param phoneNum 电话号码
+     */
+    public void callPhone(String phoneNum) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        startActivity(intent);
+    }
 
     private void initView() {
         mDriveMEN = new ArrayList<>();
@@ -136,7 +160,14 @@ public class ReplaceDriveDetailActivity extends AppCompatActivity {
                 DriveMan driveMan = mDriveMEN.get(position);
                 Intent intent = new Intent(ReplaceDriveDetailActivity.this, AddSubstitubeActivity.class);
                 intent.putExtra("data", driveMan);
+                intent.putExtra("id",mReplaceDrive.getId());
                 startActivity(intent);
+            }
+        });
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
         getDetail();

@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></GridView>
         <LinearLayout
-
+            android:layout_gravity="right"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -97,7 +97,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="被评论教练"
+                android:text="被评论人"
                 android:textColor="@color/gray_99"
                 android:textSize="12sp" />
         </LinearLayout>
