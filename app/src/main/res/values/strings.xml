@@ -78,4 +78,26 @@
     <string name="mileage_and_oil_fee_content">不限制车辆里程，油费需自理</string>
     <string name="submit_order">提交订单</string>
     <string name="per_day_price">日均</string>
+
+
+    <string name="empty_view_hint">暂无数据</string>
+    <string name="error_view_hint">加载失败</string>
+    <string name="no_network_view_hint">网络异常</string>
+    <string name="select_car_model">选择车型</string>
+    <string name="please_select_car_models">请选择车型</string>
+    <string name="select_shop_count">选择上家数量</string>
+    <string name="please_shop_count">选择报价商家数量</string>
+    <string name="contact_info">联系信息</string>
+    <string name="contact_person_1">联系人*</string>
+    <string name="please_enter_contact_person_name">请输入联系人姓名</string>
+    <string name="contact_phone_1">联系电话*</string>
+    <string name="please_enter_contact_phone">请输入联系电话</string>
+    <string name="identify_card_1">身份证*</string>
+    <string name="please_enter_identify_card">请输入身份证号</string>
+    <string name="remark_1">备注*</string>
+    <string name="please_enter_remarks_info">请输入备注信息</string>
+    <string name="application_">申请</string>
+    <string name="emergency_contact_person_1">紧急联系人*</string>
+    <string name="emergency_contact_phone">紧急联系手机*</string>
+    <string name="please_enter_emergency_contact_phone">请输入紧急联系手机号</string>
 </resources>

@@ -2,42 +2,50 @@ package com.cheyibao.fragment;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.cheyibao.LongRentAppliationActivity;
 import com.cheyibao.ShopDetailActivity;
 import com.cheyibao.ShopListNoAreaActivity;
-import com.cheyibao.model.RentShop;
+import com.cheyibao.adapter.RentCarModelAdapter;
+import com.cheyibao.model.RentCarModel;
 import com.cheyibao.util.RentCarUtils;
 import com.cheyibao.view.RentCarAddressView;
 import com.cheyibao.view.RentCarTimeView;
+import com.common.BaseModel;
+import com.common.EndLoadDataType;
+import com.common.HandlerData;
+import com.common.LoadDataType;
+import com.common.MultipleStatusView;
 import com.common.ResourceUtils;
 import com.costans.PlatformContans;
 import com.entity.Banner;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
 import com.payencai.library.util.ToastUtil;
-import com.system.model.AddressBean;
 import com.tool.slideshowview.SlideShowView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,25 +83,25 @@ public class RentCarFragment extends BaseFragment {
     @BindView(R.id.long_rent_btn)
     CardView longRentBtn;
     @BindView(R.id.recommended_vehicle_type_list_view)
-    ListView recommendedVehicleTypeListView;
+    RecyclerView recommendedVehicleTypeListView;
     @BindView(R.id.long_rent_parentView)
     LinearLayout longRentParentView;
     @BindView(R.id.slideshowView)
     SlideShowView slideShowView;
-    //    @BindView(R.id.send_car_city_text_view)
-//    TextView sendCarCityTextView;
-//    @BindView(R.id.return_the_car_city_text_view)
-//    TextView returnTheCarCityTextView;
     @BindView(R.id.rent_car_time_View)
     RentCarTimeView rentCarTimeView;
     @BindView(R.id.rent_Car_address_view)
     RentCarAddressView rentCarAddressView;
+    @BindView(R.id.multiple_status_view)
+    MultipleStatusView multipleStatusView;
 
 
     //轮播图片
     private List<Map<String, String>> imageList = new ArrayList<>();
 
     private Unbinder unbinder;
+
+    private RentCarModelAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -126,11 +134,66 @@ public class RentCarFragment extends BaseFragment {
                     selfDrivingParentView.setVisibility(View.GONE);
                     selfDrivingRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                     longRentRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+                    loadDataType.initData();
                     break;
             }
         });
 
+        recommendedVehicleTypeListView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new RentCarModelAdapter(new ArrayList<>());
+        adapter.bindToRecyclerView(recommendedVehicleTypeListView);
     }
+
+    private LoadDataType loadDataType = new LoadDataType() {
+        @Override
+        public Map<String, Object> initParam() {
+            return null;
+        }
+
+        @Override
+        public void initData() {
+            multipleStatusView.showLoading();
+            HttpProxy.obtain().get(PlatformContans.CarRent.getRecommendLongCarList, "", new ICallBack() {
+                @Override
+                public void OnSuccess(String result) {
+                    Type type = new TypeToken<BaseModel<List<RentCarModel>>>(){}.getType();
+                    HandlerData.handlerData(result, type, new EndLoadDataType<List<RentCarModel>>() {
+                        @Override
+                        public void onFailed() {
+                            multipleStatusView.showError();
+                        }
+
+                        @Override
+                        public void onSuccess(List<RentCarModel> rentCarModels) {
+                            if (rentCarModels!=null && rentCarModels.size()>0){
+                                multipleStatusView.showContent();
+                                adapter.setNewData(rentCarModels);
+                            }else {
+                                multipleStatusView.showEmpty();
+                            }
+                        }
+                    });
+                }
+
+                @Override
+                public void onFailure(String error) {
+                    multipleStatusView.showError();
+                }
+            });
+
+        }
+
+        @Override
+        public void loadMoreData() {
+
+        }
+
+        @Override
+        public void refreshData() {
+
+        }
+    };
+
 
     private ColorStateList colors() {
         int[][] status = new int[2][];
@@ -191,19 +254,19 @@ public class RentCarFragment extends BaseFragment {
         RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_IS_TO_HOME_SERVICE, rentCarAddressView.isToHomeService());
         RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_START_TIME, rentCarTimeView.getStartTime());
         RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_END_TIME, rentCarTimeView.getEndTime());
-        if(rentCarAddressView.isToHomeService()){
-            if (rentCarAddressView.getTakeCarAddress()==null){
-                ToastUtil.showToast(getContext(),"请选择取车地址！");
+        if (rentCarAddressView.isToHomeService()) {
+            if (rentCarAddressView.getTakeCarAddress() == null) {
+                ToastUtil.showToast(getContext(), "请选择取车地址！");
                 return;
             }
-            Intent intent = new Intent(getContext(),ShopListNoAreaActivity.class);
+            Intent intent = new Intent(getContext(), ShopListNoAreaActivity.class);
             startActivity(intent);
-        }else {
-            if (rentCarAddressView.getRentShop()==null){
-                ToastUtil.showToast(getContext(),"请选择取车还车店铺！");
+        } else {
+            if (rentCarAddressView.getRentShop() == null) {
+                ToastUtil.showToast(getContext(), "请选择取车还车店铺！");
                 return;
             }
-            Intent intent = new Intent(getContext(),ShopDetailActivity.class);
+            Intent intent = new Intent(getContext(), ShopDetailActivity.class);
             startActivity(intent);
         }
     }
@@ -226,5 +289,6 @@ public class RentCarFragment extends BaseFragment {
 
     @OnClick(R.id.long_rent_btn)
     public void onLongRentBtnClicked() {
+        startActivity(new Intent(getContext(), LongRentAppliationActivity.class));
     }
 }

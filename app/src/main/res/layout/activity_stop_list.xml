@@ -30,10 +30,29 @@
                 android:padding="15dp"
                 tools:text="附近门店"
                 android:background="@color/gray_f8"/>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/shop_list_view"
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refresh_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content">
+                <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <com.common.MultipleStatusView
+                    android:id="@+id/multiple_status_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:errorView="@layout/error_view"
+                    app:emptyView="@layout/empty_view"
+                    app:loadingView="@layout/loading_view">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/shop_list_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </com.common.MultipleStatusView>
+                <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
         </LinearLayout>
 
     </LinearLayout>

@@ -21,6 +21,10 @@ import com.cheyibao.model.RentCarModel;
 import com.cheyibao.model.RentShop;
 import com.cheyibao.util.RentCarUtils;
 import com.common.BaseModel;
+import com.common.EndLoadDataType;
+import com.common.HandlerData;
+import com.common.LoadDataType;
+import com.common.MultipleStatusView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
@@ -28,6 +32,7 @@ import com.google.gson.reflect.TypeToken;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,18 +41,23 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RentCarModelsFragment extends Fragment {
+public class RentCarModelsFragment extends Fragment implements LoadDataType {
 
+    @BindView(R.id.multiple_status_view)
+    MultipleStatusView multipleStatusView;
     private RentCarModelAdapter adapter;
     @BindView(R.id.id_stickynavlayout_innerscrollview)
     RecyclerView lv_rentcar;
+
+    private Unbinder unbinder;
+
     int page = 1;
     String id;
-    boolean isLoadMore = false;
 
     public RentCarModelsFragment() {
     }
@@ -58,8 +68,8 @@ public class RentCarModelsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_rent_shop, container, false);
-        ButterKnife.bind(this, view);
-        if (RentCarUtils.rentCarInfo!=null){
+        unbinder = ButterKnife.bind(this, view);
+        if (RentCarUtils.rentCarInfo != null) {
             rentShop = (RentShop) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_SHOP);
         }
         initView();
@@ -74,26 +84,21 @@ public class RentCarModelsFragment extends Fragment {
         lv_rentcar.setAdapter(adapter);
         adapter.bindToRecyclerView(lv_rentcar);
         adapter.setOnItemClickListener((adapter, view, position) -> {
-            RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_CAR_MODEL,adapter.getItem(position));
+            RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_CAR_MODEL, adapter.getItem(position));
             showDialog((RentCarModel) Objects.requireNonNull(adapter.getItem(position)));
         });
-        adapter.setOnLoadMoreListener(() -> {
-            isLoadMore = true;
-            page++;
-            getData();
-        }, lv_rentcar);
-        getData();
-
+        adapter.setOnLoadMoreListener(this::loadMoreData, lv_rentcar);
+       initData();
     }
 
     private void showDialog(RentCarModel rentCarModel) {
         final Dialog dialog = new Dialog(getContext(), R.style.dialog);
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_rentcar, null);
         TextView tv_name = dialogView.findViewById(R.id.tv_name);
-        TextView tv_auto =  dialogView.findViewById(R.id.tv_auto);
-        TextView tv_model =  dialogView.findViewById(R.id.tv_model);
-        TextView tv_price =  dialogView.findViewById(R.id.tv_price);
-        TextView tv_submit =  dialogView.findViewById(R.id.tv_submit);
+        TextView tv_auto = dialogView.findViewById(R.id.tv_auto);
+        TextView tv_model = dialogView.findViewById(R.id.tv_model);
+        TextView tv_price = dialogView.findViewById(R.id.tv_price);
+        TextView tv_submit = dialogView.findViewById(R.id.tv_submit);
         //获得dialog的window窗口
         Window window = dialog.getWindow();
         //设置dialog在屏幕底部
@@ -102,7 +107,7 @@ public class RentCarModelsFragment extends Fragment {
         window.setWindowAnimations(R.style.mypopwindow_anim_style);
         window.getDecorView().setPadding(0, 0, 0, 0);
         //获得window窗口的属性
-        android.view.WindowManager.LayoutParams lp = window.getAttributes();
+        WindowManager.LayoutParams lp = window.getAttributes();
         //设置窗口宽度为充满全屏
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         //设置窗口高度为包裹内容
@@ -114,8 +119,8 @@ public class RentCarModelsFragment extends Fragment {
         dialog.show();
         tv_name.setText(rentCarModel.getBrand());
         tv_model.setText(rentCarModel.getCarTategory());
-        tv_auto.setText(String.format("%s/%s座",rentCarModel.getVariableBox(),rentCarModel.getSeat()));
-        tv_price.setText(String.format("￥%s",rentCarModel.getDayPrice()));
+        tv_auto.setText(String.format("%s/%s座", rentCarModel.getVariableBox(), rentCarModel.getSeat()));
+        tv_price.setText(String.format("￥%s", rentCarModel.getDayPrice()));
         tv_submit.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), RentCarOrderActivity.class);
             startActivity(intent);
@@ -123,35 +128,91 @@ public class RentCarModelsFragment extends Fragment {
         });
     }
 
-    public void getData() {
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @Override
+    public Map<String, Object> initParam() {
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
         params.put("shopId", rentShop.getId());
+        return params;
+    }
+
+    @Override
+    public void initData() {
+        page = 1;
+       Map<String,Object> params = initParam();
+       multipleStatusView.showLoading();
         HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarCarListByShopId, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("getRentCarList", result);
-                BaseModel<List<RentCarModel>> baseModel = new Gson().fromJson(result,new TypeToken<BaseModel<List<RentCarModel>>>(){}.getType());
-                if (baseModel!=null){
-                    List<RentCarModel> rentCarModelList = baseModel.getData();
-                    if (rentCarModelList!=null && rentCarModelList.size()>0){
-                        if (page==1){
-                            adapter.setNewData(rentCarModelList);
+                Type type = new TypeToken<BaseModel<List<RentCarModel>>>() {
+                }.getType();
+                HandlerData.handlerData(result, type, new EndLoadDataType<List<RentCarModel>>() {
+                    @Override
+                    public void onFailed() {
+                        multipleStatusView.showError();
+                    }
+
+                    @Override
+                    public void onSuccess(List<RentCarModel> rentCarModels) {
+                        if (rentCarModels!=null && rentCarModels.size()>0){
+                            multipleStatusView.showContent();
+                            adapter.setNewData(rentCarModels);
                         }else {
-                            adapter.addData(rentCarModelList);
+                            multipleStatusView.showEmpty();
                         }
                     }
-                }
-                if (isLoadMore) {
-                    adapter.loadMoreEnd(true);
-                    isLoadMore = false;
-                }
+                });
             }
 
             @Override
             public void onFailure(String error) {
-
+                multipleStatusView.showError();
             }
         });
+    }
+
+    @Override
+    public void loadMoreData() {
+        page++;
+        Map<String,Object> params = initParam();
+        HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarCarListByShopId, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Type type = new TypeToken<BaseModel<List<RentCarModel>>>() {
+                }.getType();
+                HandlerData.handlerData(result, type, new EndLoadDataType<List<RentCarModel>>() {
+                    @Override
+                    public void onFailed() {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<RentCarModel> rentCarModels) {
+                        if (rentCarModels!=null && rentCarModels.size()>0){
+                            multipleStatusView.showContent();
+                            adapter.addData(rentCarModels);
+                            adapter.loadMoreComplete();
+                        }else {
+                            adapter.loadMoreEnd();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(String error) {
+            }
+        });
+    }
+
+    @Override
+    public void refreshData() {
+
     }
 }
