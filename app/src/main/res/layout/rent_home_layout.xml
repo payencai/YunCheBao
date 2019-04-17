@@ -193,10 +193,15 @@
                         android:layout_height="0.5dp"
                         android:background="@color/split_line_color"/>
 
-                    <ListView
-                        android:id="@+id/recommended_vehicle_type_list_view"
+                    <com.common.MultipleStatusView
+                        android:id="@+id/multiple_status_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="match_parent">
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recommended_vehicle_type_list_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </com.common.MultipleStatusView>
                 </LinearLayout>
 
             </FrameLayout>

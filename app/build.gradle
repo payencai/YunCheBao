@@ -115,8 +115,8 @@ dependencies {
     implementation 'com.hyman:flowlayout-lib:1.1.2'//自适应换行布局
     implementation 'com.wang.avi:library:1.0.1'//加载动画
     implementation 'jp.wasabeef:richeditor-android:1.2.2'//富文本控件
-    implementation ('com.github.mr5:icarus:0.1.14'){
-        exclude group:'tbs_sdk_v1.5.1.1057_25436_obfs_20160331_144900'
+    implementation('com.github.mr5:icarus:0.1.14') {
+        exclude group: 'tbs_sdk_v1.5.1.1057_25436_obfs_20160331_144900'
     }
 
     //富文本控件
