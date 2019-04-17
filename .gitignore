@@ -9,3 +9,10 @@
 .release
 /.release
 /captures
+/build
+/CallKit/build
+/CallLib/build
+/IMKit/build
+/IMLib/build
+/library/build
+/PullToRefresh/build
