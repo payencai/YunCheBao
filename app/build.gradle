@@ -29,7 +29,7 @@ android {
     defaultConfig {
         applicationId "com.example.yunchebao"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -115,7 +115,11 @@ dependencies {
     implementation 'com.hyman:flowlayout-lib:1.1.2'//自适应换行布局
     implementation 'com.wang.avi:library:1.0.1'//加载动画
     implementation 'jp.wasabeef:richeditor-android:1.2.2'//富文本控件
-    implementation ('com.github.mr5:icarus:0.1.14'){exclude group: 'com.tencent.smtt'}//富文本控件
+    implementation ('com.github.mr5:icarus:0.1.14'){
+        exclude group:'tbs_sdk_v1.5.1.1057_25436_obfs_20160331_144900'
+    }
+
+    //富文本控件
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'//tablayout
     implementation 'com.nex3z:flow-layout:1.2.4'//自适应换行布局
     implementation 'com.github.w446108264:StickHeaderLayout:1.0.3'//头布局滚动
@@ -136,6 +140,7 @@ dependencies {
     //视频
     implementation 'cjt.library.wheel:camera:0.1.9' //短视频录制
     implementation 'com.shuyu:GSYVideoPlayer:6.0.0-beta'//视频播放
+
     //其他
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
     implementation 'org.jetbrains:annotations:15.0'

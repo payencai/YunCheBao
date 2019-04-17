@@ -2,6 +2,7 @@ package com.system;
 
 import android.content.Intent;
 
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,7 +32,7 @@ public class X5WebviewActivity extends AppCompatActivity {
 
     X5WebView mX5WebView;
    private void getCity(double latitude,double longitude){
-       String url="https://restapi.amap.com/v3/geocode/regeo?output=json&location="+longitude+","+latitude+"&key=b3e064ba536662c892cd0c81169b5bfb&extensions=all&batch=false";
+       String url="https://restapi.amap.com/v3/geocode/regeo?output=json&location="+longitude+","+latitude+"&key=bbe8f89a8956d407bc8dec2b26a18ab9&extensions=all&batch=false";
        //String url="https://restapi.amap.com/v3/geocode/regeo?output=json&location=113.39679,23.04551&key=b3e064ba536662c892cd0c81169b5bfb&extensions=all&batch=false";
        HttpProxy.obtain().get(url, "", new ICallBack() {
            @Override
@@ -69,13 +70,7 @@ public class X5WebviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_x5_webview);
 
         mX5WebView = (X5WebView) findViewById(R.id.webview);
-        WebSettings webSetting = mX5WebView.getSettings();
-        webSetting.setJavaScriptEnabled(true);
-        webSetting.setAllowFileAccess(true);
-        webSetting.setAppCacheEnabled(true);
-        webSetting.setDatabaseEnabled(true);
-        webSetting.setDomStorageEnabled(true);
-        webSetting.setGeolocationEnabled(true);
+
         mX5WebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -90,7 +85,7 @@ public class X5WebviewActivity extends AppCompatActivity {
                     }
                     Log.e("address", strUTF8);
                     try {
-                        JSONObject jsonObject=new JSONObject(strUTF8);
+                         JSONObject jsonObject=new JSONObject(strUTF8);
                          addressBean=new Gson().fromJson(jsonObject.toString(),AddressBean.class);
                          getCity(addressBean.getLatlng().getLat(),addressBean.getLatlng().getLng());
 
@@ -104,6 +99,11 @@ public class X5WebviewActivity extends AppCompatActivity {
                 }
             }
 
+            @Override
+            public void onPageStarted(WebView webView, String s, Bitmap bitmap) {
+                super.onPageStarted(webView, s, bitmap);
+
+            }
 
             @Override
             public void onPageFinished(WebView view, String url) {

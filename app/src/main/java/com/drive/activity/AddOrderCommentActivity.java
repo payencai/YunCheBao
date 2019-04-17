@@ -65,14 +65,14 @@ public class AddOrderCommentActivity extends AppCompatActivity {
     EditText et_comment;
     List<Uri> mSelected;
     List<String> images;
-    ReplaceOrder mReplaceOrder;
+     String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_order_comment);
         ButterKnife.bind(this);
-        mReplaceOrder= (ReplaceOrder) getIntent().getSerializableExtra("data");
+        id= getIntent().getStringExtra("id");
         initView();
     }
     private void addComment(){
@@ -80,7 +80,7 @@ public class AddOrderCommentActivity extends AppCompatActivity {
         String comment=et_comment.getEditableText().toString();
         int shopScore= (int) sb_score.getRating();
         int driverScore= (int) sb_driver.getRating();
-        String orderId=mReplaceOrder.getId();
+        String orderId=id;
         Map<String,Object> params=new HashMap<>();
         params.put("orderId",orderId);
         params.put("content",comment);
