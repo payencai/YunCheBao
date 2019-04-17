@@ -78,4 +78,9 @@
     <string name="mileage_and_oil_fee_content">不限制车辆里程，油费需自理</string>
     <string name="submit_order">提交订单</string>
     <string name="per_day_price">日均</string>
+
+
+    <string name="empty_view_hint">暂无数据</string>
+    <string name="error_view_hint">加载失败</string>
+    <string name="no_network_view_hint">网络异常</string>
 </resources>
