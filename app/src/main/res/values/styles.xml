@@ -136,7 +136,7 @@
     </style>
     <style name="SelectPopupWindow">
         <item name="android:windowEnterAnimation">@anim/p_in</item>
-
+        <item name="android:windowExitAnimation">@anim/p_out</item>
     </style>
     <style name="AnimTopMiddle" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/push_top_in</item>
@@ -266,7 +266,10 @@
         <item name="android:windowEnterAnimation">@anim/anim_enter_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/anim_exit_from_bottom</item>
     </style>
-
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="actionMenuTextColor">#ffffff</item> <!--  菜单字体颜色-->
+        <item name="android:textSize">18sp</item> <!-- 菜单字体大小-->
+    </style>
     <style name="dialog_center" parent="Theme.AppCompat.Dialog.Alert">
         <!-- 去黑边 -->
         <item name="android:windowFrame">@null</item>

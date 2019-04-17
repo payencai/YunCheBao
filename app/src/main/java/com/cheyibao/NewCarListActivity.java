@@ -248,6 +248,11 @@ public class NewCarListActivity extends NoHttpBaseActivity {
             }
 
             @Override
+            public void onSelectedTagDrag(int position, String text) {
+
+            }
+
+            @Override
             public void onTagCrossClick(int position) {
                 String text = tagStrList.get(position);
                 tagStrList.remove(text);
