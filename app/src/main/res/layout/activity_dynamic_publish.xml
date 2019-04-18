@@ -63,8 +63,7 @@
             <com.bbcircle.view.SampleCoverVideo
                 android:id="@+id/sampleCoverVideo"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
-                />
+                android:layout_height="220dp" />
 
             <ImageView
                 android:layout_width="44dp"

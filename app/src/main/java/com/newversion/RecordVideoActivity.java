@@ -32,20 +32,25 @@ public class RecordVideoActivity extends AppCompatActivity {
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);//设置竖屏
         RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA,Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO).subscribe(new Consumer<Boolean>() {
-            @Override
-            public void accept(Boolean aBoolean) throws Exception {
-                if (aBoolean){
-                    //申请的权限全部允许
-                    Toast.makeText(RecordVideoActivity.this, "允许了拍照和录制视频权限!", Toast.LENGTH_SHORT).show();
-                    initView();
-                }else{
-                    //只要有一个权限被拒绝，就会执行
-                    Toast.makeText(RecordVideoActivity.this, "未授权权限，拍照和录制视频功能不能使用", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-            }
-        });
+        rxPermissions.request(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA,
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.WRITE_SETTINGS)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        if (aBoolean) {
+                            //申请的权限全部允许
+                            Toast.makeText(RecordVideoActivity.this, "允许了拍照和录制视频权限!", Toast.LENGTH_SHORT).show();
+                            initView();
+                        } else {
+                            //只要有一个权限被拒绝，就会执行
+                            Toast.makeText(RecordVideoActivity.this, "未授权权限，拍照和录制视频功能不能使用", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    }
+                });
 
     }
 
@@ -62,7 +67,7 @@ public class RecordVideoActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    private  void initView(){
+    private void initView() {
 
         setContentView(R.layout.activity_record_video);
 
@@ -79,7 +84,7 @@ public class RecordVideoActivity extends AppCompatActivity {
 
             @Override
             public void captureSuccess(Bitmap bitmap) {//拍照成功
-                String path = BitmapUtils.saveBitmapToSDCard(bitmap,RecordVideoActivity.this);//拍照保存路径
+                String path = BitmapUtils.saveBitmapToSDCard(bitmap, RecordVideoActivity.this);//拍照保存路径
                 Intent intent = new Intent();
                 //把返回数据存入Intent pic是照片,video是视频
                 intent.putExtra("path", path);
