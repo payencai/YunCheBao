@@ -31,15 +31,45 @@ public class RecordVideoActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置全屏
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);//设置竖屏
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA,Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO).subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) throws Exception {
+                if (aBoolean){
+                    //申请的权限全部允许
+                    Toast.makeText(RecordVideoActivity.this, "允许了拍照和录制视频权限!", Toast.LENGTH_SHORT).show();
+                    initView();
+                }else{
+                    //只要有一个权限被拒绝，就会执行
+                    Toast.makeText(RecordVideoActivity.this, "未授权权限，拍照和录制视频功能不能使用", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }
+        });
 
+    }
 
+    @Override
+    protected void onResume() {
+
+        mJCameraView.onResume();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        mJCameraView.onPause();
+        super.onPause();
+    }
+
+    private  void initView(){
 
         setContentView(R.layout.activity_record_video);
 
         mJCameraView = (JCameraView) findViewById(R.id.cameraView);
-        //mJCameraView.setActivity(this);
-        //设置视频保存路径（如果不设置默认为Environment.getExternalStorageDirectory().getPath()）
-        //mJCameraView.setAutoFocus(false);
+       /* mJCameraView.setActivity(this);
+        设置视频保存路径（如果不设置默认为Environment.getExternalStorageDirectory().getPath()）
+        mJCameraView.setAutoFocus(false);*/
         mJCameraView.setSaveVideoPath(Environment.getExternalStorageDirectory().getPath());
         mJCameraView.setCameraViewListener(new JCameraView.CameraViewListener() {
             @Override
@@ -71,34 +101,4 @@ public class RecordVideoActivity extends AppCompatActivity {
             }
         });
     }
-
-    @Override
-    protected void onResume() {
-        RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA,Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO).subscribe(new Consumer<Boolean>() {
-            @Override
-            public void accept(Boolean aBoolean) throws Exception {
-                if (aBoolean){
-                    //申请的权限全部允许
-                    Toast.makeText(RecordVideoActivity.this, "允许了权限!", Toast.LENGTH_SHORT).show();
-                }else{
-                    //只要有一个权限被拒绝，就会执行
-                    Toast.makeText(RecordVideoActivity.this, "未授权权限，部分功能不能使用", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-
-        mJCameraView.onResume();
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        mJCameraView.onPause();
-        super.onPause();
-    }
-
-
-
 }
