@@ -43,6 +43,7 @@ import com.costans.PlatformContans;
 import com.entity.Banner;
 import com.entity.UrlBean;
 import com.example.yunchebao.R;
+import com.fourshop.activity.NewFourShopActivity;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
@@ -764,7 +765,7 @@ public class HomeFragment extends BaseFragment {
                 ActivityAnimationUtils.commonTransition(getActivity(), WashCarListActivity.class, ActivityConstans.Animation.FADE,bundle2);
                 break;
             case R.id.menuLay3://4S店
-                ActivityAnimationUtils.commonTransition(getActivity(), Shop4SInfoActivity.class, ActivityConstans.Animation.FADE);
+                ActivityAnimationUtils.commonTransition(getActivity(), NewFourShopActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay4://驾校汇
                 startActivity(new Intent(getContext(), NewDrvingActivity.class));

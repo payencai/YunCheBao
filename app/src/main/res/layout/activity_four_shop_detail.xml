@@ -1,50 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.listview.DragScrollLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tl="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <android.support.design.widget.AppBarLayout
+        android:background="#f3f3f3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="false">
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <LinearLayout
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:navigationIcon="@mipmap/back_circle"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <LinearLayout
+                android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="26dp">
+                android:scaleType="centerInside"
+                app:layout_collapseMode="parallax"
+                android:fitsSystemWindows="true"
+                android:orientation="vertical">
 
-                <RelativeLayout
+                <com.youth.banner.Banner
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="250dp">
 
-                    <ImageView
-                        android:elevation="1dp"
-                        android:id="@+id/back"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_margin="15dp"
-                        android:clickable="true"
-                        android:src="@mipmap/back_circle" />
-
-                    <com.tool.slideshowview.SlideShowView
-                        android:id="@+id/bg_img"
-                        android:layout_width="fill_parent"
-                        android:layout_height="250dp"
-                        android:fitsSystemWindows="true"
-                        android:visibility="visible" />
-                </RelativeLayout>
-
-
+                </com.youth.banner.Banner>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -256,27 +247,55 @@
 
                 </LinearLayout>
             </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:titleTextColor="#ffffff"
+                android:gravity="center_vertical"
+                android:background="#00ffffff"
+                app:navigationIcon="@mipmap/back_circle"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+        <LinearLayout
+
+            app:layout_scrollFlags="exitUntilCollapsed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.flyco.tablayout.SlidingTabLayout
+                android:id="@+id/slidingTabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:background="@color/white"
+                app:tl_indicator_color="@color/yellow_02"
+                app:tl_indicator_height="2dp"
+                app:tl_indicator_width="30dp"
+                app:tl_indicator_width_equal_title="false"
+                app:tl_tab_space_equal="true"
+                app:tl_textSelectColor="@color/black_33"
+                app:tl_textUnselectColor="@color/gray"
+                app:tl_textsize="16sp"
+                app:tl_underline_color="@color/yellow_02"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/divide" />
         </LinearLayout>
-    </ScrollView>
 
+    </android.support.design.widget.AppBarLayout>
 
-    <com.flyco.tablayout.SlidingTabLayout
-        app:tl_indicator_height="3dp"
-        app:tl_tab_space_equal="true"
-        app:tl_indicator_width_equal_title="true"
-        app:tl_indicator_color="@color/colorPrimary"
-        app:tl_textSelectColor="@color/colorPrimary"
-        app:tl_textUnselectColor="@color/black_33"
-        android:id="@+id/slidinglayout"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/white"
-       />
     <android.support.v4.view.ViewPager
-        android:id="@+id/vp"
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="3dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-</com.listview.DragScrollLayout>
+</android.support.design.widget.CoordinatorLayout>

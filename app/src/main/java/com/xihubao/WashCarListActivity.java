@@ -64,7 +64,7 @@ public class WashCarListActivity extends NoHttpBaseActivity {
     @BindView(R.id.tv_city)
     TextView tv_city;
     @BindView(R.id.view)
-            View line;
+     View line;
     List<CarShop> list;
     WashCarListAdapter adapter;
     int page = 1;
