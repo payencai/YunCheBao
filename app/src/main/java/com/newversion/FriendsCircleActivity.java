@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -49,7 +48,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * 好友圈
@@ -68,6 +66,7 @@ public class FriendsCircleActivity extends AppCompatActivity {
     private CircleImageView iv_headpic;
     private TextView tv_nickname;
     private TextView tv_today;
+    private TextView tv_has_no_dynamic;
 
     private int page = 1;
 
@@ -115,6 +114,7 @@ public class FriendsCircleActivity extends AppCompatActivity {
         iv_headpic = (CircleImageView) headerView.findViewById(R.id.iv_headpic);
         tv_nickname = (TextView) headerView.findViewById(R.id.tv_nickname);
         tv_today = (TextView) headerView.findViewById(R.id.tv_today);
+        tv_has_no_dynamic = (TextView) headerView.findViewById(R.id.tv_has_no_dynamic);
 
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,6 +153,11 @@ public class FriendsCircleActivity extends AppCompatActivity {
 
             }
         });
+
+        if (circleAdapter == null) {
+            circleAdapter = new CircleAdapter(FriendsCircleActivity.this, circleDataList);
+            lvDynamic.setAdapter(circleAdapter);
+        }
 
 
         if (!TextUtils.isEmpty(userId)) {
@@ -308,10 +313,7 @@ public class FriendsCircleActivity extends AppCompatActivity {
                         if (first) {
                             firstItemId = circleDataList.get(0).getId();
                         }
-                        if (circleAdapter == null) {
-                            circleAdapter = new CircleAdapter(FriendsCircleActivity.this, circleDataList);
-                            lvDynamic.setAdapter(circleAdapter);
-                        }
+
                         circleAdapter.notifyDataSetChanged();
 
                         if (first) {
@@ -320,9 +322,16 @@ public class FriendsCircleActivity extends AppCompatActivity {
                             swipeRefreshLayout.setLoading(false);
                         }
                     } else {
-                        hasNoMoreData = true;
-                        swipeRefreshLayout.setLoading(false);
-                        Toast.makeText(FriendsCircleActivity.this, "没有更多数据了", Toast.LENGTH_LONG).show();
+                        if (first) {
+                            hasNoMoreData = true;
+                            tv_has_no_dynamic.setVisibility(View.VISIBLE);
+                            swipeRefreshLayout.setRefreshing(false);
+                            circleAdapter.notifyDataSetChanged();
+                        } else {
+                            hasNoMoreData = true;
+                            swipeRefreshLayout.setLoading(false);
+                            Toast.makeText(FriendsCircleActivity.this, "没有更多数据了", Toast.LENGTH_LONG).show();
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -468,7 +477,7 @@ public class FriendsCircleActivity extends AppCompatActivity {
                 case 102:
                     Intent cameraIntent = new Intent();
                     ArrayList<String> cameraPathList = new ArrayList<>();
-                    cameraPathList = (ArrayList<String>) Matisse.obtainPathResult(data);
+
                     //pic是照片,video是视频
                     String mediatype = data.getStringExtra("mediatype");
                     cameraIntent.putExtra("mediatype", mediatype);
@@ -487,6 +496,7 @@ public class FriendsCircleActivity extends AppCompatActivity {
                 case 201:
                     page = 1;
                     circleDataList.clear();
+                    tv_has_no_dynamic.setVisibility(View.GONE);
                     getCommunicationCircleList(true);
                     break;
             }
@@ -702,6 +712,7 @@ public class FriendsCircleActivity extends AppCompatActivity {
                         Toast.makeText(FriendsCircleActivity.this, "删除失败", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
+
                     e.printStackTrace();
                 }
             }

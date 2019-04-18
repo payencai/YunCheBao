@@ -18,6 +18,7 @@ import com.nohttp.NoHttp;
 import com.rongcloud.adapter.ListDataSave;
 import com.rongcloud.sidebar.ContactModel;
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.smtt.sdk.QbSdk;
@@ -115,6 +116,7 @@ public class MyApplication extends Application {
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext()))) {
             RongIM.init(this);
         }
+        CrashReport.initCrashReport(getApplicationContext(), "65aa547f35", true); // bugly
         context = getApplicationContext();
         instance = this;
         user = new PhoneUserEntity();
