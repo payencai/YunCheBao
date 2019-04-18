@@ -39,7 +39,7 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RentShopComentFragment extends Fragment implements LoadDataType {
+public class RentShopComentFragment extends Fragment {
 
     @BindView(R.id.multiple_status_view)
     MultipleStatusView multipleStatusView;
@@ -72,89 +72,93 @@ public class RentShopComentFragment extends Fragment implements LoadDataType {
         adapter = new RentShopCommentAdapter(new ArrayList<>());
         listView.setLayoutManager(new LinearLayoutManager(getContext()));
         listView.setAdapter(adapter);
-        adapter.setOnLoadMoreListener(this::loadMoreData,listView);
-        initData();
+        adapter.setOnLoadMoreListener(()->loadDataType.loadMoreData(),listView);
+        loadDataType.initData();
     }
 
-    @Override
-    public Map<String, Object> initParam() {
-        Map<String, Object> params = new HashMap<>();
-        params.put("page", page);
-        params.put("shopId", rentShop.getId());
-        return params;
-    }
+    private LoadDataType loadDataType = new LoadDataType() {
+        @Override
+        public Map<String, Object> initParam() {
+            Map<String, Object> params = new HashMap<>();
+            params.put("page", page);
+            params.put("shopId", rentShop.getId());
+            return params;
+        }
 
-    @Override
-    public void initData() {
-        page = 1;
-        Map<String, Object> params = initParam();
-        multipleStatusView.showLoading();
-        HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarCommentDetailsList, params, new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Type type = new TypeToken<BaseModel<List<RentShopComment>>>() {
-                }.getType();
-                HandlerData.handlerData(result, type, new EndLoadDataType<List<RentShopComment>>() {
-                    @Override
-                    public void onFailed() {
-                        multipleStatusView.showError();
+        @Override
+        public void initData() {
+            page = 1;
+            Map<String, Object> params = initParam();
+            multipleStatusView.showLoading();
+            HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarCommentDetailsList, params, new ICallBack() {
+                @Override
+                public void OnSuccess(String result) {
+                    Type type = new TypeToken<BaseModel<List<RentShopComment>>>() {
+                    }.getType();
+                    HandlerData.handlerData(result, type, new EndLoadDataType<List<RentShopComment>>() {
+                        @Override
+                        public void onFailed() {
+                            multipleStatusView.showError();
 
-                    }
-
-                    @Override
-                    public void onSuccess(List<RentShopComment> rentShopComments) {
-                        if (rentShopComments!=null && rentShopComments.size()>0){
-                            multipleStatusView.showContent();
-                            adapter.setNewData(rentShopComments);
-                        }else {
-                            multipleStatusView.showEmpty();
                         }
-                    }
-                });
-            }
 
-            @Override
-            public void onFailure(String error) {
-                multipleStatusView.showError();
-            }
-        });
-    }
-
-    @Override
-    public void loadMoreData() {
-        page++;
-        Map<String, Object> params = initParam();
-        HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarCommentDetailsList, params, new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Type type = new TypeToken<BaseModel<List<RentShopComment>>>() {
-                }.getType();
-                HandlerData.handlerData(result, type, new EndLoadDataType<List<RentShopComment>>() {
-                    @Override
-                    public void onFailed() {
-                    }
-
-                    @Override
-                    public void onSuccess(List<RentShopComment> rentShopComments) {
-                        if (rentShopComments!=null && rentShopComments.size()>0){
-                            multipleStatusView.showContent();
-                            adapter.addData(rentShopComments);
+                        @Override
+                        public void onSuccess(List<RentShopComment> rentShopComments) {
+                            if (rentShopComments!=null && rentShopComments.size()>0){
+                                multipleStatusView.showContent();
+                                adapter.setNewData(rentShopComments);
+                            }else {
+                                multipleStatusView.showEmpty();
+                            }
                         }
-                    }
-                });
-            }
+                    });
+                }
 
-            @Override
-            public void onFailure(String error) {
+                @Override
+                public void onFailure(String error) {
+                    multipleStatusView.showError();
+                }
+            });
+        }
 
-            }
-        });
-    }
+        @Override
+        public void loadMoreData() {
+            page++;
+            Map<String, Object> params = initParam();
+            HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarCommentDetailsList, params, new ICallBack() {
+                @Override
+                public void OnSuccess(String result) {
+                    Type type = new TypeToken<BaseModel<List<RentShopComment>>>() {
+                    }.getType();
+                    HandlerData.handlerData(result, type, new EndLoadDataType<List<RentShopComment>>() {
+                        @Override
+                        public void onFailed() {
+                        }
 
-    @Override
-    public void refreshData() {
+                        @Override
+                        public void onSuccess(List<RentShopComment> rentShopComments) {
+                            if (rentShopComments!=null && rentShopComments.size()>0){
+                                multipleStatusView.showContent();
+                                adapter.addData(rentShopComments);
+                            }
+                        }
+                    });
+                }
 
-    }
+                @Override
+                public void onFailure(String error) {
+
+                }
+            });
+        }
+
+        @Override
+        public void refreshData() {
+
+        }
+    };
+
+
 
     @Override
     public void onDestroyView() {

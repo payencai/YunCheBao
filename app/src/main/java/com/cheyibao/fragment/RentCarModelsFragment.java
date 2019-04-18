@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.RentCarOrderActivity;
 import com.cheyibao.adapter.RentCarModelAdapter;
 import com.cheyibao.model.RentCarModel;
@@ -46,7 +47,7 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RentCarModelsFragment extends Fragment implements LoadDataType {
+public class RentCarModelsFragment extends Fragment {
 
     @BindView(R.id.multiple_status_view)
     MultipleStatusView multipleStatusView;
@@ -87,8 +88,8 @@ public class RentCarModelsFragment extends Fragment implements LoadDataType {
             RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_CAR_MODEL, adapter.getItem(position));
             showDialog((RentCarModel) Objects.requireNonNull(adapter.getItem(position)));
         });
-        adapter.setOnLoadMoreListener(this::loadMoreData, lv_rentcar);
-       initData();
+        adapter.setOnLoadMoreListener(() -> loadDataType.loadMoreData(),lv_rentcar);
+        loadDataType.initData();
     }
 
     private void showDialog(RentCarModel rentCarModel) {
@@ -134,85 +135,83 @@ public class RentCarModelsFragment extends Fragment implements LoadDataType {
         unbinder.unbind();
     }
 
-    @Override
-    public Map<String, Object> initParam() {
-        Map<String, Object> params = new HashMap<>();
-        params.put("page", page);
-        params.put("shopId", rentShop.getId());
-        return params;
-    }
+    private LoadDataType loadDataType = new LoadDataType() {
+        @Override
+        public Map<String, Object> initParam() {
+            Map<String, Object> params = new HashMap<>();
+            params.put("page", page);
+            params.put("shopId", rentShop.getId());
+            return params;
+        }
 
-    @Override
-    public void initData() {
-        page = 1;
-       Map<String,Object> params = initParam();
-       multipleStatusView.showLoading();
-        HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarCarListByShopId, params, new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Type type = new TypeToken<BaseModel<List<RentCarModel>>>() {
-                }.getType();
-                HandlerData.handlerData(result, type, new EndLoadDataType<List<RentCarModel>>() {
-                    @Override
-                    public void onFailed() {
-                        multipleStatusView.showError();
-                    }
-
-                    @Override
-                    public void onSuccess(List<RentCarModel> rentCarModels) {
-                        if (rentCarModels!=null && rentCarModels.size()>0){
-                            multipleStatusView.showContent();
-                            adapter.setNewData(rentCarModels);
-                        }else {
-                            multipleStatusView.showEmpty();
+        @Override
+        public void initData() {
+            page = 1;
+            Map<String,Object> params = initParam();
+            multipleStatusView.showLoading();
+            HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarCarListByShopId, params, new ICallBack() {
+                @Override
+                public void OnSuccess(String result) {
+                    Type type = new TypeToken<BaseModel<List<RentCarModel>>>() {
+                    }.getType();
+                    HandlerData.handlerData(result, type, new EndLoadDataType<List<RentCarModel>>() {
+                        @Override
+                        public void onFailed() {
+                            multipleStatusView.showError();
                         }
-                    }
-                });
-            }
 
-            @Override
-            public void onFailure(String error) {
-                multipleStatusView.showError();
-            }
-        });
-    }
-
-    @Override
-    public void loadMoreData() {
-        page++;
-        Map<String,Object> params = initParam();
-        HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarCarListByShopId, params, new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Type type = new TypeToken<BaseModel<List<RentCarModel>>>() {
-                }.getType();
-                HandlerData.handlerData(result, type, new EndLoadDataType<List<RentCarModel>>() {
-                    @Override
-                    public void onFailed() {
-
-                    }
-
-                    @Override
-                    public void onSuccess(List<RentCarModel> rentCarModels) {
-                        if (rentCarModels!=null && rentCarModels.size()>0){
-                            multipleStatusView.showContent();
-                            adapter.addData(rentCarModels);
-                            adapter.loadMoreComplete();
-                        }else {
-                            adapter.loadMoreEnd();
+                        @Override
+                        public void onSuccess(List<RentCarModel> rentCarModels) {
+                            if (rentCarModels!=null && rentCarModels.size()>0){
+                                multipleStatusView.showContent();
+                                adapter.setNewData(rentCarModels);
+                            }else {
+                                multipleStatusView.showEmpty();
+                            }
                         }
-                    }
-                });
-            }
+                    });
+                }
 
-            @Override
-            public void onFailure(String error) {
-            }
-        });
-    }
+                @Override
+                public void onFailure(String error) {
+                    multipleStatusView.showError();
+                }
+            });
+        }
 
-    @Override
-    public void refreshData() {
+        @Override
+        public void loadMoreData() {
+            page++;
+            Map<String,Object> params = initParam();
+            HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarCarListByShopId, params, new ICallBack() {
+                @Override
+                public void OnSuccess(String result) {
+                    Type type = new TypeToken<BaseModel<List<RentCarModel>>>() {
+                    }.getType();
+                    HandlerData.handlerData(result, type, new EndLoadDataType<List<RentCarModel>>() {
+                        @Override
+                        public void onFailed() {
 
-    }
+                        }
+
+                        @Override
+                        public void onSuccess(List<RentCarModel> rentCarModels) {
+                            if (rentCarModels!=null && rentCarModels.size()>0){
+                                multipleStatusView.showContent();
+                                adapter.addData(rentCarModels);
+                                adapter.loadMoreComplete();
+                            }else {
+                                adapter.loadMoreEnd();
+                            }
+                        }
+                    });
+                }
+
+                @Override
+                public void onFailure(String error) {
+                }
+            });
+        }
+    };
+
 }
