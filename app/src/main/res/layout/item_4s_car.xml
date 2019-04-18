@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="15dp"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+
+    <ImageView
+        android:id="@+id/iv_img"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/pic2"
+        android:scaleType="fitXY" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:ellipsize="end"
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="上海通上海通用汽车上海通用汽车用汽车-别克昂科威 "
+            android:maxLines="2"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/black_33"
+            android:textSize="14sp"/>
+
+
+        <LinearLayout
+            android:paddingLeft="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray_99"
+
+                android:layout_below="@id/name"
+                android:text="低至"
+                android:textSize="10sp"/>
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/yellow_65"
+                android:layout_toRightOf="@id/text1"
+                android:layout_alignBaseline="@id/text1"
+                android:layout_below="@id/name"
+                android:text="16万"
+
+                android:textSize="18sp"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+
+
+
+
+
+</LinearLayout>

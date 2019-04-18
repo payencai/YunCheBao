@@ -6,16 +6,19 @@ package com.fourshop.bean;
  */
 public class FourShopData {
 
+
     /**
      * address : string
      * amStart : string
      * amStop : string
      * area : string
+     * banner : string
      * brand : string
      * city : string
-     * createTime : 2019-04-17T09:00:17.923Z
-     * distance : 0
+     * createTime : 2019-04-18T08:10:36.026Z
+     * distance : 0.0
      * geoHash : string
+     * grade : 0
      * id : string
      * latitude : string
      * location : {"lat":0,"lon":0}
@@ -25,22 +28,26 @@ public class FourShopData {
      * orderNum : 0
      * pmStart : string
      * pmStop : string
-     * price : 0
+     * price : 0.0
      * province : string
      * saleTelephone : string
-     * score : 0
+     * score : 0.0
      * shopName : string
+     * videos : string
+     * vimgs : string
      */
 
     private String address;
     private String amStart;
     private String amStop;
     private String area;
+    private String banner;
     private String brand;
     private String city;
     private String createTime;
     private double distance;
     private String geoHash;
+    private int grade;
     private String id;
     private String latitude;
     private LocationBean location;
@@ -55,6 +62,8 @@ public class FourShopData {
     private String saleTelephone;
     private float score;
     private String shopName;
+    private String videos;
+    private String vimgs;
 
     public String getAddress() {
         return address;
@@ -86,6 +95,14 @@ public class FourShopData {
 
     public void setArea(String area) {
         this.area = area;
+    }
+
+    public String getBanner() {
+        return banner;
+    }
+
+    public void setBanner(String banner) {
+        this.banner = banner;
     }
 
     public String getBrand() {
@@ -126,6 +143,14 @@ public class FourShopData {
 
     public void setGeoHash(String geoHash) {
         this.geoHash = geoHash;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
     }
 
     public String getId() {
@@ -240,10 +265,26 @@ public class FourShopData {
         this.shopName = shopName;
     }
 
+    public String getVideos() {
+        return videos;
+    }
+
+    public void setVideos(String videos) {
+        this.videos = videos;
+    }
+
+    public String getVimgs() {
+        return vimgs;
+    }
+
+    public void setVimgs(String vimgs) {
+        this.vimgs = vimgs;
+    }
+
     public static class LocationBean {
         /**
-         * lat : 0
-         * lon : 0
+         * lat : 0.0
+         * lon : 0.0
          */
 
         private double lat;

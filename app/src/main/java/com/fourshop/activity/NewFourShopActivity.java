@@ -315,7 +315,9 @@ public class NewFourShopActivity extends AppCompatActivity implements DropdownLi
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                FourShopData fourShopData= (FourShopData) adapter.getItem(position);
                 Intent intent=new Intent(NewFourShopActivity.this,FourShopDetailActivity.class);
+                intent.putExtra("id",fourShopData.getId());
                 startActivity(intent);
             }
         });

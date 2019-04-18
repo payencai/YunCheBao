@@ -66,6 +66,8 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
+        android:maxAspectRatio="2.4"
+        android:resizeableActivity="true"
         android:name="com.application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
@@ -73,7 +75,9 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.fourshop.activity.FourShopDetailActivity"></activity>
+        <activity
+            android:theme="@style/DetailTheme"
+            android:name="com.fourshop.activity.FourShopDetailActivity"></activity>
         <activity android:name="com.fourshop.activity.NewFourShopActivity" /> <!-- imlib config begin -->
         <activity android:name="com.cheyibao.LongRentAppliationActivity"></activity>
         <!-- imlib config begin -->
@@ -504,6 +508,17 @@
             android:theme="@style/VideoTheme"
             android:screenOrientation="portrait"
             android:name="com.drive.activity.SimplePlayerActivity"></activity>
+        <!--适配华为（huawei）刘海屏-->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true"/>
+        <!--适配小米（xiaomi）刘海屏-->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.4" />
     </application>
 
 </manifest>
