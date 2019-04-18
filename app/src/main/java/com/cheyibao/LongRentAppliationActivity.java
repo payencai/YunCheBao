@@ -21,6 +21,7 @@ import com.common.EndLoadDataType;
 import com.common.HandlerData;
 import com.common.IdentityCardVerify;
 import com.common.LoadDataType;
+import com.common.ResourceUtils;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
@@ -30,6 +31,7 @@ import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
 import com.vipcenter.LoginByaccountActivity;
 import com.vipcenter.RegisterActivity;
+import com.xihubao.CarBrandSelectActivity;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -38,6 +40,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.qqtheme.framework.picker.NumberPicker;
 
 public class LongRentAppliationActivity extends AppCompatActivity {
 
@@ -99,10 +102,41 @@ public class LongRentAppliationActivity extends AppCompatActivity {
 
     @OnClick(R.id.select_car_model_view)
     public void onSelectCarModelViewClicked() {
+        AvoidOnResult avoidOnResult = new AvoidOnResult(this);
+        avoidOnResult.startForResult(CarBrandSelectActivity.class, 1, (requestCode, resultCode, data) -> {
+            if (data!=null){
+                String brand = data.getStringExtra("name");
+                String logo = data.getStringExtra("logo");
+                selectCarModelView.setText(brand);
+            }
+        });
     }
 
     @OnClick(R.id.select_shop_count)
     public void onSelectShopCountClicked() {
+        NumberPicker numberPicker = new NumberPicker(this);
+        numberPicker.setRange(1,10);
+        String index = selectShopCount.getText().toString();
+        if (TextUtils.isEmpty(index)){
+            numberPicker.setSelectedItem(1);
+        }else {
+            numberPicker.setSelectedItem(Integer.parseInt(index));
+        }
+        numberPicker.setOnNumberPickListener(new NumberPicker.OnNumberPickListener() {
+            @Override
+            public void onNumberPicked(int index, Number item) {
+                selectShopCount.setText(String.format("%s",item));
+            }
+        });
+        numberPicker.setItemWidth(100);
+        numberPicker.setDividerColor(ResourceUtils.getColorByResource(context,R.color.split_line_color));
+        numberPicker.setTopLineColor(ResourceUtils.getColorByResource(context,R.color.split_line_color));
+        numberPicker.setTextColor(ResourceUtils.getColorByResource(context,R.color.yellow_65),ResourceUtils.getColorByResource(context,R.color.gray_99));
+        numberPicker.setCancelTextColor(ResourceUtils.getColorByResource(context,R.color.yellow_65));
+        numberPicker.setSubmitTextColor(ResourceUtils.getColorByResource(context,R.color.yellow_65));
+        numberPicker.setPressedTextColor(ResourceUtils.getColorByResource(context,R.color.yellow_65));
+        numberPicker.setTextSize(20);
+        numberPicker.show();
     }
 
 

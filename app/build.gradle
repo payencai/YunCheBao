@@ -158,6 +158,11 @@ dependencies {
 
 
     //异常捕获
-    compile 'com.tencent.bugly:crashreport:latest.release'
+    implementation 'com.tencent.bugly:crashreport:2.8.6.0'
+
+    //选择器  https://github.com/gzu-liyujiang/AndroidPicker
+    implementation('com.github.gzu-liyujiang.AndroidPicker:WheelPicker:1.5.6.20181018') {
+        exclude group: 'com.android.support'
+    }
 
 }
