@@ -6,7 +6,7 @@
     <ImageView
         android:id="@+id/iv_dynamic_photo"
         android:src="@mipmap/user_head"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:layout_width="105dp"
         android:layout_height="105dp" />
 

@@ -496,6 +496,7 @@ public class FriendsCircleActivity extends AppCompatActivity {
                 case 201:
                     page = 1;
                     circleDataList.clear();
+                    tv_has_no_dynamic.setVisibility(View.GONE);
                     getCommunicationCircleList(true);
                     break;
             }

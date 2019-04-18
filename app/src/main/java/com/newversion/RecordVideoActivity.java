@@ -1,5 +1,6 @@
 package com.newversion;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -8,9 +9,13 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.cjt2325.cameralibrary.JCameraView;
 import com.example.yunchebao.R;
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import io.reactivex.functions.Consumer;
 
 /**
  * 长按录制视频，点击拍照
@@ -26,6 +31,9 @@ public class RecordVideoActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置全屏
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);//设置竖屏
+
+
+
         setContentView(R.layout.activity_record_video);
 
         mJCameraView = (JCameraView) findViewById(R.id.cameraView);
@@ -66,19 +74,21 @@ public class RecordVideoActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-       /* if (Build.VERSION.SDK_INT < 23) {
-            if (!PermissionUtils.PermissionToolBefore23()){
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("提示")
-                        .setMessage("没有照相机权限,请赋予本权限再开始拍照吧~").setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        finish();
-                    }
-                }).show();
-                return;
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA,Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO).subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) throws Exception {
+                if (aBoolean){
+                    //申请的权限全部允许
+                    Toast.makeText(RecordVideoActivity.this, "允许了权限!", Toast.LENGTH_SHORT).show();
+                }else{
+                    //只要有一个权限被拒绝，就会执行
+                    Toast.makeText(RecordVideoActivity.this, "未授权权限，部分功能不能使用", Toast.LENGTH_SHORT).show();
+                }
             }
-        }*/
+        });
+
+
         mJCameraView.onResume();
         super.onResume();
     }
@@ -89,21 +99,6 @@ public class RecordVideoActivity extends AppCompatActivity {
         super.onPause();
     }
 
- /*   public PermissionUtils.PermissionGrant mPermissionGrant = new PermissionUtils.PermissionGrant() {
-        @Override
-        public void onPermissionGranted(int requestCode) {
-            switch (requestCode) {
-                case PermissionUtils.CODE_CAMERA:
-                    PermissionUtils.requestPermission(RecordVideoActivity.this, PermissionUtils.CODE_RECORD_AUDIO,
-                            mPermissionGrant, false);
-                    break;
-                case PermissionUtils.CODE_RECORD_AUDIO:
-                    BuriedPointManager.getInstance().savePoint(R.integer.share_create_photograph_click);
-                    break;
-                default:
-                    break;
-            }
-        }
-    };*/
+
 
 }
