@@ -477,7 +477,7 @@ public class FriendsCircleActivity extends AppCompatActivity {
                 case 102:
                     Intent cameraIntent = new Intent();
                     ArrayList<String> cameraPathList = new ArrayList<>();
-                    cameraPathList = (ArrayList<String>) Matisse.obtainPathResult(data);
+
                     //pic是照片,video是视频
                     String mediatype = data.getStringExtra("mediatype");
                     cameraIntent.putExtra("mediatype", mediatype);
