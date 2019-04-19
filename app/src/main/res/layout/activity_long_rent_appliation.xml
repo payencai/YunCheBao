@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
-
+    android:orientation="vertical">
     <include layout="@layout/top_title_layout"
         android:id="@+id/topPanel"/>
+
     <android.support.v4.widget.NestedScrollView
+        android:layout_below="@+id/topPanel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -148,6 +149,8 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:textSize="14sp"
+                    android:maxLength="11"
+                    android:inputType="phone"
                     android:textColor="@color/black_33"
                     android:textColorHint="@color/black_33"/>
             </LinearLayout>
@@ -180,7 +183,8 @@
                     android:paddingBottom="10dp"
                     android:textSize="14sp"
                     android:textColor="@color/black_33"
-                    android:textColorHint="@color/black_33"/>
+                    android:textColorHint="@color/black_33"
+                    android:maxLength="18"/>
             </LinearLayout>
 
             <View
@@ -272,6 +276,8 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:textSize="14sp"
+                    android:maxLength="11"
+                    android:inputType="phone"
                     android:textColor="@color/black_33"
                     android:textColorHint="@color/black_33"/>
             </LinearLayout>
@@ -280,16 +286,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/white_f6"/>
-
-            <TextView
-                android:id="@+id/submit_application_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/application_"
-                android:textColor="@color/white"
-                android:background="@color/yellow_65"
-                android:gravity="center"
-                android:padding="15dp"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-</LinearLayout>
+    <TextView
+        android:id="@+id/submit_application_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/application_"
+        android:textColor="@color/white"
+        android:background="@color/yellow_65"
+        android:gravity="center"
+        android:padding="15dp"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

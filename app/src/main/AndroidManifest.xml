@@ -63,6 +63,7 @@
         <activity android:name="com.fourshop.activity.SeeCommentActivity"></activity>
         <activity android:name="com.fourshop.activity.AddFourCommentActivity" />
         <activity android:name="com.fourshop.activity.CarDetailActivity" />
+        <activity android:name="com.cheyibao.CarModelsSelectedActivity"></activity>
         <activity
             android:name="com.fourshop.activity.FourShopDetailActivity"
             android:theme="@style/DetailTheme" />

@@ -31,32 +31,15 @@ public class RecordVideoActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置全屏
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);//设置竖屏
-        RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA,
-                Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.WRITE_SETTINGS)
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean aBoolean) throws Exception {
-                        if (aBoolean) {
-                            //申请的权限全部允许
-                            Toast.makeText(RecordVideoActivity.this, "允许了拍照和录制视频权限!", Toast.LENGTH_SHORT).show();
-                            initView();
-                        } else {
-                            //只要有一个权限被拒绝，就会执行
-                            Toast.makeText(RecordVideoActivity.this, "未授权权限，拍照和录制视频功能不能使用", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                    }
-                });
+
+        setContentView(R.layout.activity_record_video);
+        mJCameraView = (JCameraView) findViewById(R.id.cameraView);
+        initView();
 
     }
 
     @Override
     protected void onResume() {
-
         mJCameraView.onResume();
         super.onResume();
     }
@@ -69,9 +52,6 @@ public class RecordVideoActivity extends AppCompatActivity {
 
     private void initView() {
 
-        setContentView(R.layout.activity_record_video);
-
-        mJCameraView = (JCameraView) findViewById(R.id.cameraView);
        /* mJCameraView.setActivity(this);
         设置视频保存路径（如果不设置默认为Environment.getExternalStorageDirectory().getPath()）
         mJCameraView.setAutoFocus(false);*/

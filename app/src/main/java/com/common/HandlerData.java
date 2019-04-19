@@ -18,10 +18,12 @@ public class HandlerData {
         BaseModel<T> baseModel = new Gson().fromJson(result, typeOfT);
         if (baseModel==null || baseModel.data==null ){
             endLoadDataType.onSuccess(null);
+            endLoadDataType.onSuccessBaseModel(baseModel);
         }else {
             T t = baseModel.getData();
             if (t instanceof List && ((List)t).size()<=0){
                 endLoadDataType.onSuccess(null);
+                endLoadDataType.onSuccessBaseModel(baseModel);
             }else {
                 endLoadDataType.onSuccess(baseModel.getData());
             }

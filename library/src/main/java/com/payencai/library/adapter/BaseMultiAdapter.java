@@ -26,7 +26,7 @@ package com.payencai.library.adapter;
  * 修改备注:
  */
 
-public abstract class BaseMultiAdapter extends BaseAdapter<IMultiItem> {
+public abstract class BaseMultiAdapter extends BaseAdapter<IMultiItem, com.chad.library.adapter.base.BaseViewHolder> {
 
     @Override
     public int getLayoutRes(int index) {

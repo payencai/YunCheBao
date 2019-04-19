@@ -1,5 +1,6 @@
 package com.newversion;
 
+import android.Manifest;
 import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Intent;
@@ -32,6 +33,7 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.view.CircleImageView;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tool.GlideImageEngine;
 import com.tool.listview.PersonalListView;
 import com.zhihu.matisse.Matisse;
@@ -48,6 +50,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
 
 /**
  * 好友圈
@@ -387,7 +390,22 @@ public class FriendsCircleActivity extends AppCompatActivity {
         ll_dynamic_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openCamera();
+                RxPermissions rxPermissions = new RxPermissions(FriendsCircleActivity.this);
+
+                rxPermissions.request(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.WRITE_SETTINGS)
+                    .subscribe(new Consumer<Boolean>() {
+                        @Override
+                        public void accept(Boolean aBoolean) throws Exception {
+                            if (aBoolean) {
+                                openCamera();
+                            }
+                        }
+                    });
+
                 dialog.dismiss();
             }
         });
