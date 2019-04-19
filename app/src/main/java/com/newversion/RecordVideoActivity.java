@@ -32,6 +32,10 @@ public class RecordVideoActivity extends AppCompatActivity {
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);//设置竖屏
         RxPermissions rxPermissions = new RxPermissions(this);
+
+        setContentView(R.layout.activity_record_video);
+        mJCameraView = (JCameraView) findViewById(R.id.cameraView);
+
         rxPermissions.request(
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.CAMERA,
@@ -56,7 +60,6 @@ public class RecordVideoActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-
         mJCameraView.onResume();
         super.onResume();
     }
@@ -69,9 +72,6 @@ public class RecordVideoActivity extends AppCompatActivity {
 
     private void initView() {
 
-        setContentView(R.layout.activity_record_video);
-
-        mJCameraView = (JCameraView) findViewById(R.id.cameraView);
        /* mJCameraView.setActivity(this);
         设置视频保存路径（如果不设置默认为Environment.getExternalStorageDirectory().getPath()）
         mJCameraView.setAutoFocus(false);*/
