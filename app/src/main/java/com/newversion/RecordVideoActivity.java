@@ -48,10 +48,6 @@ public class RecordVideoActivity extends AppCompatActivity {
                             //申请的权限全部允许
                             Toast.makeText(RecordVideoActivity.this, "允许了拍照和录制视频权限!", Toast.LENGTH_SHORT).show();
                             initView();
-                        } else {
-                            //只要有一个权限被拒绝，就会执行
-                            Toast.makeText(RecordVideoActivity.this, "未授权权限，拍照和录制视频功能不能使用", Toast.LENGTH_SHORT).show();
-                            finish();
                         }
                     }
                 });
