@@ -30,7 +30,11 @@ import com.youth.banner.BannerConfig;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +51,10 @@ public class ShopInfoActivity extends AppCompatActivity {
     TextView tv_nick;
     @BindView(R.id.tv_add)
     TextView tv_add;
-
+    @BindView(R.id.tv_home)
+    TextView tv_home;
+    @BindView(R.id.tv_address)
+    TextView tv_address;
     @BindView(R.id.tv_content)
     TextView tv_content;
     @BindView(R.id.back)
@@ -78,7 +85,7 @@ public class ShopInfoActivity extends AppCompatActivity {
         HttpProxy.obtain().get(PlatformContans.MerchAdmin.getMerchInformationByShopId, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("heart",result);
+                Log.e("shopDetail",result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject data = jsonObject.getJSONObject("data");
@@ -171,8 +178,23 @@ public class ShopInfoActivity extends AppCompatActivity {
             initBanner();
         }
 
+        tv_address.setText(mShopInfo.getProvince()+mShopInfo.getCity()+mShopInfo.getArea());
         tv_nick.setText(mShopInfo.getName());
         tv_content.setText(mShopInfo.getPersonSign());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date bithday = null;
+        Date driveday=null;
+        try {
+            bithday = format.parse(mShopInfo.getBirthday()+" 00:00:00");
+            driveday = format.parse(mShopInfo.getDrivingLicenseTime()+" 00:00:00");
+            int age = getAgeByBirth(bithday);
+            int driverage=getAgeByBirth(driveday);
+            tv_home.setText(mShopInfo.getSex()+" "+age+"岁 "+mShopInfo.getConstellation() +" 驾龄"+ driverage+"年");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
     }
     private void initBanner() {
 
@@ -191,4 +213,27 @@ public class ShopInfoActivity extends AppCompatActivity {
         banner.setImages(mImages);//设置图片源
         banner.start();
     }
+    private static int getAgeByBirth(Date birthday) {
+        int age = 0;
+        try {
+            Calendar now = Calendar.getInstance();
+            now.setTime(new Date());// 当前时间
+
+            Calendar birth = Calendar.getInstance();
+            birth.setTime(birthday);
+
+            if (birth.after(now)) {//如果传入的时间，在当前时间的后面，返回0岁
+                age = 0;
+            } else {
+                age = now.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
+                if (now.get(Calendar.DAY_OF_YEAR) > birth.get(Calendar.DAY_OF_YEAR)) {
+                    age += 1;
+                }
+            }
+            return age;
+        } catch (Exception e) {//兼容性更强,异常后返回数据
+            return 0;
+        }
+    }
+
 }

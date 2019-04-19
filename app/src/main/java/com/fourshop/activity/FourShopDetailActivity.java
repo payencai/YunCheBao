@@ -132,7 +132,7 @@ public class FourShopDetailActivity extends AppCompatActivity {
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.ll_map:
-                showMapDialog(new LatLng(mFourShopData.getLocation().getLat(), mFourShopData.getLocation().getLon()));
+                showMapDialog(new LatLng(Double.parseDouble(mFourShopData.getLatitude()), Double.parseDouble(mFourShopData.getLongitude())));
                 break;
             case R.id.rl_collect:
                 if (isCollect == 0) {

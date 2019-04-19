@@ -1,6 +1,7 @@
 package com.fourshop.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.drive.model.ReplaceDrive;
 import com.example.yunchebao.R;
+import com.fourshop.activity.CarDetailActivity;
 import com.fourshop.activity.FourShopDetailActivity;
 import com.fourshop.adapter.FourShopCarAdapter;
 import com.fourshop.bean.FourShopCar;
@@ -45,10 +47,11 @@ public class FourShopCarFragment extends Fragment {
     int page=1;
     boolean isLoadMore=false;
     String id;
+    FourShopDetailActivity mActivity;
     public FourShopCarFragment() {
         // Required empty public constructor
     }
-    FourShopDetailActivity mActivity;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,6 +76,15 @@ public class FourShopCarFragment extends Fragment {
                 getData();
             }
         },rv_order);
+        mFourShopCarAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                FourShopCar fourShopCar= (FourShopCar) adapter.getItem(position);
+                Intent intent=new Intent(getContext(), CarDetailActivity.class);
+                intent.putExtra("id",fourShopCar.getId());
+                startActivity(intent);
+            }
+        });
         rv_order.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_order.setAdapter(mFourShopCarAdapter);
         getData();

@@ -70,6 +70,7 @@ public class PubCommentActivity extends AppCompatActivity {
     SimpleRatingBar sb_score;
     String imgs = "";
     String id;
+    int flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,7 @@ public class PubCommentActivity extends AppCompatActivity {
 
     private void initView() {
         id = getIntent().getStringExtra("id");
+        flag = getIntent().getIntExtra("flag", 0);
         mContext = this;
         mActivity = this;
         initGallery();
@@ -97,7 +99,11 @@ public class PubCommentActivity extends AppCompatActivity {
                     ToastUtil.showToast(PubCommentActivity.this, "请给出评分");
                     return;
                 }
-                comment(content, score);
+                if (flag == 1)
+                    Washcomment(content, score);
+                else {
+                    Fourcomment(content, score);
+                }
             }
         });
 
@@ -125,14 +131,14 @@ public class PubCommentActivity extends AppCompatActivity {
 
     }
 
-    private void comment(String comment, int score) {
+    private void Fourcomment(String comment, int score) {
         Map<String, Object> params = new HashMap<>();
         params.put("orderId", id);
         params.put("content", comment);
         params.put("score", score);
         if (!TextUtils.isEmpty(imgs))
             params.put("imgs", imgs.substring(1));
-        HttpProxy.obtain().post(PlatformContans.CarWashRepairShop.addWashRepairOrderComment,MyApplication.token, params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.FourShop.addFourShopOrderComment, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);
@@ -142,8 +148,41 @@ public class PubCommentActivity extends AppCompatActivity {
                     if (code == 0) {
                         ToastUtil.showToast(PubCommentActivity.this, "发布成功");
                         finish();
-                    }else{
-                        String msg=jsonObject.getString("message");
+                    } else {
+                        String msg = jsonObject.getString("message");
+                        ToastUtil.showToast(PubCommentActivity.this, msg);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    private void Washcomment(String comment, int score) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("orderId", id);
+        params.put("content", comment);
+        params.put("score", score);
+        if (!TextUtils.isEmpty(imgs))
+            params.put("imgs", imgs.substring(1));
+        HttpProxy.obtain().post(PlatformContans.CarWashRepairShop.addWashRepairOrderComment, MyApplication.token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        ToastUtil.showToast(PubCommentActivity.this, "发布成功");
+                        finish();
+                    } else {
+                        String msg = jsonObject.getString("message");
                         ToastUtil.showToast(PubCommentActivity.this, msg);
                     }
                 } catch (JSONException e) {

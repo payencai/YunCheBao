@@ -11,14 +11,9 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-
-    <!-- 两种provider的权限 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!-- 仅网络定位的权限 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-    <!-- 环信 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- 两种provider的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 仅网络定位的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 环信 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission
         android:name="android.permission.ACCESS_MOCK_LOCATION"
@@ -29,31 +24,20 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-    <!-- 环信 end -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- 环信 end -->
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
-    <!-- 用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- 用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!-- 用于获取运营商信息，用于支持提供运营商信息相关的接口 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- 用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <!-- 用于访问网络，网络定位需要上网 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 用于读取手机当前的状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!-- 用于写入缓存数据到扩展存储卡 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 用于申请调用A-GPS模块 -->
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <!-- 用于申请获取蓝牙信息进行室内定位 -->
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" /> <!-- 用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 用于获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 用于访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 用于写入缓存数据到扩展存储卡 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 用于申请调用A-GPS模块 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -64,25 +48,26 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
-        android:maxAspectRatio="2.4"
-        android:resizeableActivity="true"
         android:name="com.application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
+        android:maxAspectRatio="2.4"
         android:networkSecurityConfig="@xml/network_security_config"
+        android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name="com.fourshop.activity.SeeCommentActivity"></activity>
+        <activity android:name="com.fourshop.activity.AddFourCommentActivity" />
+        <activity android:name="com.fourshop.activity.CarDetailActivity" />
         <activity
-            android:theme="@style/DetailTheme"
-            android:name="com.fourshop.activity.FourShopDetailActivity"></activity>
+            android:name="com.fourshop.activity.FourShopDetailActivity"
+            android:theme="@style/DetailTheme" />
         <activity android:name="com.fourshop.activity.NewFourShopActivity" /> <!-- imlib config begin -->
-        <activity android:name="com.cheyibao.LongRentAppliationActivity"></activity>
-        <!-- imlib config begin -->
+        <activity android:name="com.cheyibao.LongRentAppliationActivity" /> <!-- imlib config begin -->
         <activity
             android:name="io.rong.callkit.MultiVideoCallActivity"
             android:exported="true"
@@ -162,8 +147,7 @@
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!-- 洗护宝 -->
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- 洗护宝 -->
         <activity android:name="com.xihubao.WashCarListActivity" />
         <activity android:name="com.xihubao.WashCarDetailActivity" />
         <activity android:name="com.xihubao.RepairListActivity" />
@@ -174,9 +158,7 @@
         <activity android:name="com.xihubao.AssistanceDetailActivity" />
         <activity android:name="com.xihubao.Shop4SInfoActivity" />
         <activity android:name="com.xihubao.Shop4SListActivity" />
-        <activity android:name="com.xihubao.Shop4SOrderActivity" />
-
-        <!-- 车易宝 -->
+        <activity android:name="com.xihubao.Shop4SOrderActivity" /> <!-- 车易宝 -->
         <activity android:name="com.cheyibao.RentShopDetailActivity" />
         <activity android:name="com.cheyibao.DrivingSchoolActivity" />
         <activity android:name="com.cheyibao.SellCarActivity" />
@@ -194,9 +176,7 @@
         <activity android:name="com.cheyibao.OnSaleCarDetailActivity" />
         <activity android:name="com.cheyibao.CompanyDetailActivity" />
         <activity android:name="com.cheyibao.OnSaleCarDetailConfigActivity" />
-        <activity android:name="com.cheyibao.NewCarListActivity" />
-
-        <!-- 宝贝百科 -->
+        <activity android:name="com.cheyibao.NewCarListActivity" /> <!-- 宝贝百科 -->
         <activity android:name="com.baike.MagzineListActivity" />
         <activity android:name="com.baike.MagzineCoverActivity" />
         <activity android:name="com.baike.MagzineDetailActivity" />
@@ -204,9 +184,7 @@
         <activity android:name="com.baike.DecorationDetailActivity" />
         <activity android:name="com.baike.MaintainListActivity" />
         <activity android:name="com.baike.BuyCarListActivity" />
-        <activity android:name="com.baike.BaikeDetailActivity" />
-
-        <!-- 宝贝圈 -->
+        <activity android:name="com.baike.BaikeDetailActivity" /> <!-- 宝贝圈 -->
         <activity android:name="com.bbcircle.PublishAreaSelectActivity" />
         <activity android:name="com.bbcircle.SelfDrivingRepublishActivity" />
         <activity android:name="com.bbcircle.DrivingSelfDetailActivity" />
@@ -217,18 +195,14 @@
         <activity android:name="com.bbcircle.CarShowDetailActivity" />
         <activity android:name="com.bbcircle.CommentsActivity" />
         <activity android:name="com.bbcircle.ReplySettingActivity" />
-        <activity android:name="com.bbcircle.ReplyDescriptionActivity" />
-
-        <!-- 宝贝商城 -->
+        <activity android:name="com.bbcircle.ReplyDescriptionActivity" /> <!-- 宝贝商城 -->
         <activity
             android:name="com.bbcircle.AllKindActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name="com.maket.ShopCartActivity" />
         <activity android:name="com.maket.GoodDetailActivity" />
         <activity android:name="com.maket.MarketSelectListActivity" />
-        <activity android:name="com.maket.MarketSelectActivity" />
-
-        <!-- 个人中心 -->
+        <activity android:name="com.maket.MarketSelectActivity" /> <!-- 个人中心 -->
         <activity android:name="com.vipcenter.UserCenterActivity" />
         <activity android:name="com.vipcenter.MyWalletActivity" />
         <activity android:name="com.vipcenter.ConsumptionListActivity" />
@@ -270,8 +244,7 @@
         <activity android:name="com.vipcenter.ShopMainListActivity" />
         <activity android:name="com.vipcenter.OrderDetailActivity" />
         <activity android:name="com.vipcenter.WashCommentActivity" />
-        <activity android:name="com.vipcenter.WashCommentSubmitActivity" />
-        <!-- 礼品汇 -->
+        <activity android:name="com.vipcenter.WashCommentSubmitActivity" /> <!-- 礼品汇 -->
         <activity android:name="com.vipcenter.GiftMarketHomeActivity" />
         <activity android:name="com.vipcenter.GiftRuleActivity" />
         <activity android:name="com.vipcenter.GiftBaobeiCenterActivity" />
@@ -282,20 +255,15 @@
         <activity android:name="com.vipcenter.GiftGoodDetailActivity" />
         <activity android:name="com.vipcenter.GiftOrderConfirmActivity" />
         <activity android:name="com.vipcenter.GiftPaySuccessActivity" />
-        <activity android:name="com.vipcenter.GiftMyOrderListActivity" />
-        <!-- 入驻申请 -->
+        <activity android:name="com.vipcenter.GiftMyOrderListActivity" /> <!-- 入驻申请 -->
         <!-- <activity android:name="com.vipcenter.EnteringActivity" /> -->
-
-
         <!-- 约单 -->
         <activity
             android:name="com.yuedan.YuedanHomeActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name="com.yuedan.BookMessageActivity" />
         <activity android:name="com.yuedan.BookNeedDetailActivity" />
-        <activity android:name="com.yuedan.BookNeedCancelDetailActivity" />
-
-        <!-- 公用 -->
+        <activity android:name="com.yuedan.BookNeedCancelDetailActivity" /> <!-- 公用 -->
         <activity android:name="com.cityselect.CityListActivity" />
         <activity android:name="com.xihubao.CarBrandSelectActivity" />
 
@@ -303,14 +271,10 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="d81d9607f12197e637c846c33a9bcff3" />
-
-        <!-- 设置环信应用的AppKey -->
+            android:value="d81d9607f12197e637c846c33a9bcff3" /> <!-- 设置环信应用的AppKey -->
         <meta-data
             android:name="EASEMOB_APPKEY"
-            android:value="Your AppKey" />
-        <!-- 声明sdk所需的service SDK核心功能 -->
-
+            android:value="Your AppKey" /> <!-- 声明sdk所需的service SDK核心功能 -->
         <activity android:name="com.vipcenter.LoginByaccountActivity" />
         <activity android:name="com.vipcenter.BindPhoneActivity" />
         <activity android:name="com.vipcenter.SetPasswordActivity" />
@@ -498,23 +462,21 @@
         <activity android:name="com.cheyibao.ShopDetailActivity" />
         <activity android:name="com.drive.activity.ReplaceDriveDetailActivity" />
         <activity android:name="com.drive.activity.AddSubstitubeActivity" />
-        <activity android:name="com.newversion.DynamicLookPermissionActivity"/>
+        <activity android:name="com.newversion.DynamicLookPermissionActivity" />
         <activity android:name="com.drive.activity.ReplaceOrderActivity" />
         <activity android:name="com.drive.activity.PayDetailActivity" />
         <activity android:name="com.drive.activity.AddOrderCommentActivity" />
         <activity android:name="com.drive.activity.DriverCommentActivity" />
         <activity android:name="com.drive.activity.DriverMoreActivity" />
-        <activity android:name="com.drive.activity.DriveOrderDetailActivity"></activity>
+        <activity android:name="com.drive.activity.DriveOrderDetailActivity" />
         <activity
+            android:name="com.drive.activity.SimplePlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/VideoTheme"
             android:screenOrientation="portrait"
-            android:name="com.drive.activity.SimplePlayerActivity"></activity>
-        <!--适配华为（huawei）刘海屏-->
+            android:theme="@style/VideoTheme" /> <!-- 适配华为（huawei）刘海屏 -->
         <meta-data
             android:name="android.notch_support"
-            android:value="true"/>
-        <!--适配小米（xiaomi）刘海屏-->
+            android:value="true" /> <!-- 适配小米（xiaomi）刘海屏 -->
         <meta-data
             android:name="notch.config"
             android:value="portrait|landscape" />

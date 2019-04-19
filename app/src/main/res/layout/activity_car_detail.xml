@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.cheyibao.NewCarDetailActivity">
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/back"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/back"
+            android:layout_width="10dp"
+            android:layout_height="18dp" />
+        <TextView
+            android:textSize="18sp"
+            android:textColor="@color/black_33"
+            android:text="车辆详情"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/rl_top"
+        android:layout_above="@+id/rl_bottom"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="fill_parent"
+                android:layout_height="230dp"
+                />
+            <LinearLayout
+                android:paddingBottom="10dp"
+                android:background="@color/white"
+                android:paddingTop="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:textColor="@color/black_33"
+                    android:layout_marginLeft="15dp"
+                    android:text="昂科威_2017款_20T_两驱技术型"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <RelativeLayout
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_centerVertical="true"
+                        android:id="@+id/rl_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_oldprice"
+                            android:textColor="@color/gray_99"
+                            android:textSize="10sp"
+                            android:text="厂家指导价20.99万"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </RelativeLayout>
+                    <LinearLayout
+                        android:layout_marginLeft="30dp"
+                        android:orientation="horizontal"
+                        android:layout_toRightOf="@+id/rl_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textColor="@color/gray_99"
+                            android:textSize="10sp"
+                            android:text="裸车价"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_newprice"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/yellow_64"
+                            android:textSize="14sp"
+                            android:text="￥18万"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </RelativeLayout>
+                <LinearLayout
+
+                    android:paddingLeft="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="@color/gray_66"
+                        android:textSize="12sp"
+                        android:text="颜色 :"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_color"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="12sp"
+                        android:textColor="@color/gray_99"
+                        android:text="未知"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.tool.listview.PersonalListView
+                android:id="@+id/lv_params"
+                android:layout_marginTop="10dp"
+                android:dividerHeight="0dp"
+                android:divider="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></com.tool.listview.PersonalListView>
+            <TextView
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:background="@color/white"
+                android:id="@+id/tv_param"
+                android:layout_marginBottom="20dp"
+                android:text="查看参数"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

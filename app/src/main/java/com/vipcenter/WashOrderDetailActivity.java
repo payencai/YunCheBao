@@ -19,6 +19,8 @@ import com.application.MyApplication;
 import com.cheyibao.AddSchoolCommentActivity;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.fourshop.activity.AddFourCommentActivity;
+import com.fourshop.activity.SeeCommentActivity;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.order.CarOrder;
@@ -123,6 +125,31 @@ public class WashOrderDetailActivity extends AppCompatActivity {
             }
         });
     }
+    private void fourCancel(String id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        HttpProxy.obtain().post(PlatformContans.FourShop.cancelFourShopOrder, MyApplication.token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        ToastUtil.showToast(WashOrderDetailActivity.this, "取消成功");
+                        finish();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     private void showCancelDialog(String id) {
         Dialog dialog = new Dialog(this, R.style.dialog);
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_cancel_order, null);
@@ -138,7 +165,12 @@ public class WashOrderDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                washCancel(id);
+                if(mCarOrder.getFlag()==1){
+                    washCancel(id);
+                }else{
+                    fourCancel(id);
+                }
+
             }
         });
         dialog.setCanceledOnTouchOutside(false);
@@ -162,14 +194,28 @@ public class WashOrderDetailActivity extends AppCompatActivity {
                 callPhone(mCarOrder.getTelephone());
                 break;
             case R.id.tv_seecomment:
+                if(mCarOrder.getFlag()==4){
+                    Intent intent3 = new Intent(WashOrderDetailActivity.this, SeeCommentActivity.class);
+                    intent3.putExtra("id", mCarOrder.getId());
+                    startActivity(intent3);
+                }
                 break;
             case R.id.tv_cancel:
                 showCancelDialog(mCarOrder.getId());
                 break;
             case R.id.tv_comment:
-                Intent intent = new Intent(WashOrderDetailActivity.this, PubCommentActivity.class);
-                intent.putExtra("id", mCarOrder.getId());
-                startActivity(intent);
+                if(mCarOrder.getFlag()==1){
+                    Intent intent = new Intent(WashOrderDetailActivity.this, PubCommentActivity.class);
+                    intent.putExtra("id", mCarOrder.getId());
+                    intent.putExtra("flag", mCarOrder.getFlag());
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(WashOrderDetailActivity.this, AddFourCommentActivity.class);
+                    intent.putExtra("id", mCarOrder.getId());
+                    startActivity(intent);
+                }
+
+
                 break;
         }
     }

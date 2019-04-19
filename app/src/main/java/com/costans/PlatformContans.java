@@ -150,7 +150,6 @@ public class PlatformContans {
     public static class Collect{
 
         public static final String getBabyMerchantCollectionList=root + "/babyMerchantCollection/getBabyMerchantCollectionList";
-
         public static final String addNewCarCollection=root + "/carCollection/addNewCarCollection";
         public static final String getNewCarCollection=root + "/carCollection/getNewCarCollection";
         public static final String getNewCarCollectionList=root + "/carCollection/getNewCarCollectionList";
@@ -200,6 +199,9 @@ public class PlatformContans {
         public static final String updateCarToIsDefault=root +  "/drivingLicense/updateCarToIsDefault";
     }
     public static class FourShop{
+        public static final String getFourShopOrderCommentByOrderId=root+"/fourShop/getFourShopOrderCommentByOrderId";
+        public static final String getUserOrderList=root+"/fourShop/getUserOrderList";
+        public static final String getFourCarDetailsById=root+"/fourShop/getFourCarDetailsById";
         public static final String isCollectionByShopId=root+"/fourShop/isCollectionByShopId";
         public static final String deleteShopCollection=root+"/fourShop/deleteShopCollection";
         public static final String addShopCollection=root+"/fourShop/addShopCollection";
@@ -207,8 +209,10 @@ public class PlatformContans {
         public static final String getFourServeResultList=root+"/fourShop/getFourServeResultList";
         public static final String getFourShopListByApp=root + "/fourShop/getFourShopListByApp";
         public static final String addFourShopOrder=root +  "/fourShop/addFourShopOrder";
+        public static final String cancelFourShopOrder=root +  "/fourShop/cancelFourShopOrder";
         public static final String getFourCarListForApp=root +  "/fourShop/getFourCarListForApp";
-        public static final String getFourShopOrderCommentList=root+"/fourShop/getFourShopOrderCommentList";
+        public static final String addFourShopOrderComment=root+"/fourShop/addFourShopOrderComment";
+        public static final String getFourShopOrderCommentByShopId=root+"/fourShop/getFourShopOrderCommentByShopId";
     }
     public static class RoadRescue{
         public static final String getRoadRescueShopListByApp=root+ "/roadRescue/getRoadRescueShopListByApp";
@@ -260,6 +264,8 @@ public class PlatformContans {
         public static final String washRepairShopPay=root+ "/alipay/washRepairShopPay";
         public static final String appointmentPay=root+ "/alipay/appointmentPay";
         public static final String substituteDrivingPay=root+ "/alipay/substituteDrivingPay";
+        public static final String fourShopPay=root+ "/alipay/fourShopPay";
+
     }
     public static class Chat{
         public static final String updateFriendsById=root+"/huanxin/updateFriendsById";

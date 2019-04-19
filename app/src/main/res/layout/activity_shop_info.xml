@@ -99,6 +99,7 @@
                             android:layout_width="18dp"
                             android:layout_height="18dp" />
                         <TextView
+                            android:id="@+id/tv_home"
                             android:layout_marginLeft="10dp"
                             android:textSize="14sp"
                             android:textColor="@color/black_33"
@@ -115,6 +116,7 @@
                             android:layout_width="18dp"
                             android:layout_height="18dp" />
                         <TextView
+                            android:id="@+id/tv_address"
                             android:layout_marginLeft="10dp"
                             android:textSize="14sp"
                             android:textColor="@color/black_33"

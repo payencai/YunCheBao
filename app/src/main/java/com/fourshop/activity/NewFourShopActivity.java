@@ -35,6 +35,7 @@ import com.fourshop.view.DropdownButton;
 import com.fourshop.view.DropdownListItemView;
 import com.fourshop.view.DropdownListView;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -92,6 +93,7 @@ public class NewFourShopActivity extends AppCompatActivity implements DropdownLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_four_shop);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
 
@@ -182,6 +184,7 @@ public class NewFourShopActivity extends AppCompatActivity implements DropdownLi
             params.put("area", area);
         params.put("longitude", MyApplication.getaMapLocation().getLongitude());
         params.put("latitude", MyApplication.getaMapLocation().getLatitude());
+        Log.e("params",params.toString());
         HttpProxy.obtain().get(PlatformContans.FourShop.getFourShopListByApp, params, "", new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -272,7 +275,7 @@ public class NewFourShopActivity extends AppCompatActivity implements DropdownLi
         dropdown_mask_out = AnimationUtils.loadAnimation(this, R.anim.dropdown_mask_out);
         reset();
         bindSelectType();
-        chooseTypeData.add(new DropdownItemObject("所在地", 0, "所在地"));
+        chooseTypeData.add(new DropdownItemObject("全部", 0, "全部"));
         bindCity();
         dropdownType.bind(chooseTypeData, chooseType, this, 0);
         mask.setOnClickListener(new View.OnClickListener() {
