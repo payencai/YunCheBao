@@ -35,6 +35,7 @@ import com.vipcenter.LoginByaccountActivity;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -204,10 +205,17 @@ public class RentCarOrderActivity extends AppCompatActivity {
         params.put("returnCarLatitude",isToHomeService?returnTheCarAddress.getLatlng().getLat():rentShop.getLatitude());
         params.put("returnCarAddress",isToHomeService?returnTheCarAddress.getPoiaddress():rentShop.getAddress());
         params.put("returnCarTime",DateUtils.formatDateTime(rentCarTimeView.getEndTime(),"yyyy-MM-dd HH:mm:ss"));
-        MyApplication.getaMapLocation().setLatitude(isToHomeService?takeTheCarAddress.getLatlng().getLng():Double.parseDouble(rentShop.getLongitude()));
-        MyApplication.getaMapLocation().setLongitude(isToHomeService?takeTheCarAddress.getLatlng().getLng():Double.parseDouble(rentShop.getLongitude()));
-        params.put("longitude",MyApplication.getaMapLocation().getLongitude());
-        params.put("latitude",MyApplication.getaMapLocation().getLatitude());
+
+        if (MyApplication.getaMapLocation().getLongitude()==0){
+            params.put("longitude", Objects.requireNonNull(params.get("takeCarLongitude")));
+        }else {
+            params.put("longitude", MyApplication.getaMapLocation().getLongitude());
+        }
+        if (MyApplication.getaMapLocation().getLatitude()==0){
+            params.put("latitude", Objects.requireNonNull(params.get("takeCarLatitude")));
+        }else {
+            params.put("latitude", MyApplication.getaMapLocation().getLatitude());
+        }
 
         HttpProxy.obtain().post(PlatformContans.CarRent.addRentCarOrder, MyApplication.token, params, new ICallBack() {
             @Override

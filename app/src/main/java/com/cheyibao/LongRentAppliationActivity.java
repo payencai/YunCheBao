@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.SparseArray;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.MyApplication;
+import com.cheyibao.model.CarModelsFirstLevel;
+import com.cheyibao.model.SubCarModels;
+import com.cheyibao.util.RentCarUtils;
 import com.cheyibao.view.RentCarAddressView;
 import com.cheyibao.view.RentCarTimeView;
 import com.common.AvoidOnResult;
@@ -36,6 +40,7 @@ import com.xihubao.CarBrandSelectActivity;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -87,12 +92,16 @@ public class LongRentAppliationActivity extends AppCompatActivity {
 
     private Context context;
 
+    private CarModelsFirstLevel carModelsFirstLevel;
+    private SubCarModels.ParamBeanX paramBeanX;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_long_rent_appliation);
         ButterKnife.bind(this);
+        title.setText("长租申请");
     }
 
     @OnClick(R.id.back)
@@ -103,11 +112,28 @@ public class LongRentAppliationActivity extends AppCompatActivity {
     @OnClick(R.id.select_car_model_view)
     public void onSelectCarModelViewClicked() {
         AvoidOnResult avoidOnResult = new AvoidOnResult(this);
-        avoidOnResult.startForResult(CarBrandSelectActivity.class, 1, (requestCode, resultCode, data) -> {
-            if (data!=null){
-                String brand = data.getStringExtra("name");
-                String logo = data.getStringExtra("logo");
-                selectCarModelView.setText(brand);
+        avoidOnResult.startForResult(CarModelsSelectedActivity.class, 1, (requestCode, resultCode, data) -> {
+            SparseArray<Object> sparseArray = RentCarUtils.sparseArray;
+            StringBuilder text = new StringBuilder();
+            if (sparseArray!=null){
+                for (int i = 0;i<sparseArray.size();i++){
+                    Object object = sparseArray.get(i);
+                    if (object instanceof CarModelsFirstLevel){
+                        CarModelsFirstLevel carModelsFirstLevel = (CarModelsFirstLevel) object;
+                        if (i == 0){
+                            this.carModelsFirstLevel = carModelsFirstLevel;
+                        }
+                        if (text.length()<=0){
+                            text.append(carModelsFirstLevel.getName());
+                        }else {
+                            text.append(String.format(" %s",carModelsFirstLevel.getName()));
+                        }
+                    }else if (object instanceof SubCarModels.ParamBeanX){
+                        paramBeanX = (SubCarModels.ParamBeanX) object;
+                    }
+                }
+                RentCarUtils.sparseArray = null;
+                selectCarModelView.setText(text.toString());
             }
         });
     }
@@ -144,11 +170,11 @@ public class LongRentAppliationActivity extends AppCompatActivity {
     @OnClick(R.id.submit_application_tv)
     public void onSubmitApplicationTvClicked() {
         if (MyApplication.isLogin){
-            loadDataType.initData();
+            loadDataType.submitData();
         }else {
             AvoidOnResult avoidOnResult = new AvoidOnResult(this);
             avoidOnResult.startForResult(RegisterActivity.class, 1, (requestCode, resultCode, data) -> {
-                loadDataType.initData();
+                loadDataType.submitData();
             });
         }
     }
@@ -200,30 +226,46 @@ public class LongRentAppliationActivity extends AppCompatActivity {
                 ToastUtil.showToast(context,"请输入合法的身份证号码！");
                 return null;
             }
+
+            String shopNumber = selectShopCount.getText().toString();
+           int shopCount = TextUtils.isDigitsOnly(shopNumber)?Integer.parseInt(shopNumber):0;
+           if (shopCount<1){
+               ToastUtil.showToast(context,"请选择报价商家数量");
+               return null;
+           }
+
             map.put("name",name);
             map.put("telephone",telephone);
             map.put("callName",callName);
             map.put("callTelephone",callTelephone);
             map.put("idNumber",idNumber);
-            map.put("brand","");
-            map.put("carTategory","");
-            map.put("variableBox","");
-            map.put("seat","");
-            map.put("image","");
+            map.put("brand",carModelsFirstLevel==null ? "":carModelsFirstLevel.getName());
+            map.put("carTategory",paramBeanX==null?"":paramBeanX.getCarCategoryId());
+            map.put("variableBox",paramBeanX==null?"":paramBeanX.getVariableBox());
+            map.put("seat",paramBeanX==null?"":paramBeanX.getSeat());
+            map.put("image",carModelsFirstLevel==null ? "" : carModelsFirstLevel.getImage());
             map.put("remark",remarksEt.getText().toString());
             map.put("rentDay",rentCarTimeView.getDay());
-            map.put("isTake",rentCarAddressView.isToHomeService());
+            map.put("isTake",rentCarAddressView.isToHomeService()?1:2);
             map.put("takeCarLongitude",rentCarAddressView.getTakeLongitude());
             map.put("takeCarLatitude",rentCarAddressView.getTakeLatitude());
             map.put("takeCarAddress",rentCarAddressView.getTakeCarDetailAddress());
             map.put("takeCarTime", DateUtils.formatDateTime(rentCarTimeView.getStartTime(),"yyyy-MM-dd HH:mm:ss"));
-            map.put("isReturn", rentCarAddressView.isToHomeService());
+            map.put("isReturn", rentCarAddressView.isToHomeService()?1:2);
             map.put("returnCarLongitude", rentCarAddressView.getReturnLongitude());
             map.put("returnCarLatitude", rentCarAddressView.getReturnLatitude());
             map.put("returnCarTime", DateUtils.formatDateTime(rentCarTimeView.getEndTime(),"yyyy-MM-dd HH:mm:ss"));
-            map.put("longitude", MyApplication.getaMapLocation().getLongitude());
-            map.put("latitude", MyApplication.getaMapLocation().getLatitude());
-            map.put("shopNumber",1);
+            if (MyApplication.getaMapLocation().getLongitude()==0){
+                map.put("longitude", Objects.requireNonNull(map.get("takeCarLongitude")));
+            }else {
+                map.put("longitude", MyApplication.getaMapLocation().getLongitude());
+            }
+            if (MyApplication.getaMapLocation().getLatitude()==0){
+                map.put("latitude", Objects.requireNonNull(map.get("takeCarLatitude")));
+            }else {
+                map.put("latitude", MyApplication.getaMapLocation().getLatitude());
+            }
+            map.put("shopNumber",shopCount);
             return map;
         }
 
@@ -244,6 +286,15 @@ public class LongRentAppliationActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(String s) {
                             ToastUtil.showToast(LongRentAppliationActivity.this,s);
+                            finish();
+                        }
+
+                        @Override
+                        public void onSuccessBaseModel(BaseModel baseModel) {
+                            super.onSuccessBaseModel(baseModel);
+                            if (baseModel!=null){
+                                ToastUtil.showToast(LongRentAppliationActivity.this,baseModel.getMessage());
+                            }
                         }
                     });
                 }

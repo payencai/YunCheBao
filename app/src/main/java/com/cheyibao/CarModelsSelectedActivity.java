@@ -1,14 +1,19 @@
 package com.cheyibao;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cheyibao.adapter.CarModelsFirstAndSubClassAdapter;
 import com.cheyibao.model.CarModelsFirstLevel;
 import com.cheyibao.model.SubCarModels;
+import com.cheyibao.util.RentCarUtils;
 import com.common.BaseModel;
 import com.common.EndLoadDataType;
 import com.common.HandlerData;
@@ -22,9 +27,11 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,13 +63,34 @@ public class CarModelsSelectedActivity extends AppCompatActivity {
     MultipleStatusView multipleStatusView;
 
     private boolean isFirstLevel = true;
+    private String categoryId;
+
+    private CarModelsFirstAndSubClassAdapter adapter;
+    private Stack<List<CarModelsFirstLevel>> stack = new Stack<>();
+    private SparseArray<Object> sparseArray = new SparseArray<>();
+    private int level = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_models_selected);
         ButterKnife.bind(this);
+        RentCarUtils.sparseArray = sparseArray;
         title.setText("选择车型");
+        carModelRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new CarModelsFirstAndSubClassAdapter(new ArrayList<>());
+        adapter.bindToRecyclerView(carModelRecyclerView);
+        loadDataType.initData();
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+            CarModelsFirstLevel carModelsFirstLevel = (CarModelsFirstLevel) adapter.getItem(position);
+            if (carModelsFirstLevel!=null){
+                sparseArray.put(sparseArray.size(),carModelsFirstLevel);
+                level = carModelsFirstLevel.getLevel()+1;
+                isFirstLevel = false;
+                categoryId = carModelsFirstLevel.getId();
+                loadDataType.initData();
+            }
+        });
     }
 
     private LoadDataType loadDataType = new LoadDataType() {
@@ -70,9 +98,9 @@ public class CarModelsSelectedActivity extends AppCompatActivity {
         public Map<String, Object> initParam() {
             Map<String,Object> map = new HashMap<>();
             if (isFirstLevel){
-                map.put("level",1);
+                map.put("level",level);
             }else {
-                map.put("categoryId","");
+                map.put("categoryId",categoryId);
             }
             return map;
         }
@@ -80,7 +108,9 @@ public class CarModelsSelectedActivity extends AppCompatActivity {
         @Override
         public void initData() {
             String url = isFirstLevel? PlatformContans.CarCategory.getFirstCategory:PlatformContans.CarCategory.getSubclass;
-            HttpProxy.obtain().get(url, "", new ICallBack() {
+            Map<String,Object> map = initParam();
+            multipleStatusView.showLoading();
+            HttpProxy.obtain().get(url, map,"",new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
                     Type type = isFirstLevel? new TypeToken<BaseModel<List<CarModelsFirstLevel>>>(){}.getType() : new TypeToken<BaseModel<SubCarModels>>(){}.getType();
@@ -88,23 +118,45 @@ public class CarModelsSelectedActivity extends AppCompatActivity {
                             new EndLoadDataType<List<CarModelsFirstLevel>>() {
                                 @Override
                                 public void onFailed() {
-
+                                    multipleStatusView.showError();
                                 }
 
                                 @Override
                                 public void onSuccess(List<CarModelsFirstLevel> carModelsFirstLevels) {
+                                    if (carModelsFirstLevels==null || carModelsFirstLevels.size()<=0){
+                                        multipleStatusView.showEmpty();
+                                    }else {
+                                        multipleStatusView.showContent();
+                                        adapter.setNewData(carModelsFirstLevels);
+                                        stack.add(carModelsFirstLevels);
+                                    }
 
                                 }
                             } :
-                            new EndLoadDataType<BaseModel<SubCarModels>>() {
+                            new EndLoadDataType<SubCarModels>() {
                                 @Override
                                 public void onFailed() {
-
+                                    multipleStatusView.showError();
                                 }
 
                                 @Override
-                                public void onSuccess(BaseModel<SubCarModels> subCarModelsBaseModel) {
-
+                                public void onSuccess(SubCarModels subCarModelsBaseModel) {
+                                    if (subCarModelsBaseModel!=null){
+                                        if (subCarModelsBaseModel.getParam()!=null && subCarModelsBaseModel.getParam().size()>0){
+                                            sparseArray.put(sparseArray.size(),subCarModelsBaseModel.getParam());
+                                            finish();
+                                            return;
+                                        }else {
+                                            List<CarModelsFirstLevel> carModelsFirstLevelList = subCarModelsBaseModel.getCarCategory();
+                                            if (carModelsFirstLevelList!=null && carModelsFirstLevelList.size()>0){
+                                                multipleStatusView.showContent();
+                                                adapter.setNewData(carModelsFirstLevelList);
+                                                stack.add(carModelsFirstLevelList);
+                                                return;
+                                            }
+                                        }
+                                        multipleStatusView.showEmpty();
+                                    }
                                 }
                             };
                     HandlerData.handlerData(result, type,endLoadDataType);
@@ -112,7 +164,7 @@ public class CarModelsSelectedActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(String error) {
-
+                    multipleStatusView.showError();
                 }
             });
         }
@@ -121,5 +173,23 @@ public class CarModelsSelectedActivity extends AppCompatActivity {
     @OnClick(R.id.back)
     public void onViewClicked() {
         onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        sparseArray.remove(sparseArray.size()-1);
+        if (stack !=null && stack.size()>0){
+            stack.pop();
+            sparseArray.remove(sparseArray.size()-1);
+            if (stack.size()>0){
+                List<CarModelsFirstLevel> current = stack.peek();
+                if (current!=null && current.size()>0){
+                    multipleStatusView.showContent();
+                    adapter.setNewData(current);
+                }
+            }
+        }else {
+            super.onBackPressed();
+        }
     }
 }

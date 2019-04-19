@@ -1,32 +1,57 @@
 package com.cheyibao.adapter;
 
+import android.net.Uri;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.payencai.library.adapter.BaseAdapter;
+import com.cheyibao.model.CarModelsFirstLevel;
+import com.example.yunchebao.R;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
 
-public class CarModelsFirstAndSubClassAdapter<T> extends BaseAdapter<T, CarModelsFirstAndSubClassAdapter.ViewHolder> {
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class CarModelsFirstAndSubClassAdapter extends BaseQuickAdapter<CarModelsFirstLevel, CarModelsFirstAndSubClassAdapter.ViewHolder> {
 
 
-    @Override
-    public int getLayoutRes(int index) {
-        return 0;
+    public CarModelsFirstAndSubClassAdapter(@Nullable List<CarModelsFirstLevel> data) {
+        super(R.layout.item_rec_car, data);
     }
 
     @Override
-    public void convert(com.payencai.library.adapter.BaseViewHolder holder, T data, int index) {
-
-    }
-
-    @Override
-    public void bind(com.payencai.library.adapter.BaseViewHolder holder, int layoutRes) {
-
+    protected void convert(ViewHolder helper, CarModelsFirstLevel item) {
+        helper.itemTv.setText(item.getName());
+        if (!TextUtils.isEmpty(item.getImage())) {
+            Uri uri = Uri.parse(item.getImage());
+            DraweeController controller = Fresco.newDraweeControllerBuilder()
+                    .setUri(uri)
+                    .setAutoPlayAnimations(true)
+                    .build();
+            helper.itemIv.setController(controller);
+        }
     }
 
     static class ViewHolder extends BaseViewHolder {
+        @BindView(R.id.item_iv)
+        SimpleDraweeView itemIv;
+        @BindView(R.id.item_tv)
+        TextView itemTv;
+        @BindView(R.id.item_content)
+        LinearLayout itemContent;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
+            ButterKnife.bind(this, view);
         }
     }
+
 }

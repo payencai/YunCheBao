@@ -1,5 +1,7 @@
 package com.cheyibao.util;
 
+import android.util.SparseArray;
+
 import java.util.HashMap;
 
 public class RentCarUtils {
@@ -29,4 +31,6 @@ public class RentCarUtils {
         }
         return (int) (((duration-MIN_DURATION)/DAY) +2);
     }
+
+    public static SparseArray<Object> sparseArray;
 }
