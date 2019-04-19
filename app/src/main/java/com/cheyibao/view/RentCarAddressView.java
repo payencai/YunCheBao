@@ -189,4 +189,52 @@ public class RentCarAddressView extends LinearLayout {
     public boolean isToHomeService() {
         return isToHomeServiceView.isChecked();
     }
+    public double getTakeLongitude(){
+        if (isToHomeService()){
+            return takeCarAddress.getLatlng().getLng();
+        }else {
+            return Double.parseDouble(rentShop.getLongitude());
+        }
+    }
+
+    public double getTakeLatitude(){
+        if (isToHomeService()){
+            return takeCarAddress.getLatlng().getLat();
+        }else {
+            return Double.parseDouble(rentShop.getLatitude());
+        }
+    }
+
+    public String getTakeCarDetailAddress(){
+        if (isToHomeService()){
+           return takeCarAddress.getPoiaddress();
+        }else {
+            return rentShop.getAddress();
+        }
+    }
+
+    public double getReturnLongitude(){
+        if (isToHomeService()){
+            return returnCarAddress.getLatlng().getLng();
+        }else {
+            return Double.parseDouble(rentShop.getLongitude());
+        }
+    }
+
+    public double getReturnLatitude(){
+        if (isToHomeService()){
+            return returnCarAddress.getLatlng().getLat();
+        }else {
+            return Double.parseDouble(rentShop.getLatitude());
+        }
+    }
+
+    public String getReturnCarDetailAddress(){
+        if (isToHomeService()){
+            return returnCarAddress.getPoiaddress();
+        }else {
+            return rentShop.getAddress();
+        }
+    }
+
 }

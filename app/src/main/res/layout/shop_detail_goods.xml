@@ -5,7 +5,6 @@
     android:orientation="horizontal">
 
     <ListView
-
         android:divider="@color/white"
         android:background="@color/gray_e2"
         android:id="@+id/goods_category_list"

@@ -200,8 +200,15 @@ public class PlatformContans {
         public static final String updateCarToIsDefault=root +  "/drivingLicense/updateCarToIsDefault";
     }
     public static class FourShop{
+        public static final String isCollectionByShopId=root+"/fourShop/isCollectionByShopId";
+        public static final String deleteShopCollection=root+"/fourShop/deleteShopCollection";
+        public static final String addShopCollection=root+"/fourShop/addShopCollection";
+        public static final String getFourShopResultById=root+"/fourShop/getFourShopResultById";
+        public static final String getFourServeResultList=root+"/fourShop/getFourServeResultList";
         public static final String getFourShopListByApp=root + "/fourShop/getFourShopListByApp";
         public static final String addFourShopOrder=root +  "/fourShop/addFourShopOrder";
+        public static final String getFourCarListForApp=root +  "/fourShop/getFourCarListForApp";
+        public static final String getFourShopOrderCommentList=root+"/fourShop/getFourShopOrderCommentList";
     }
     public static class RoadRescue{
         public static final String getRoadRescueShopListByApp=root+ "/roadRescue/getRoadRescueShopListByApp";
@@ -226,6 +233,7 @@ public class PlatformContans {
         public static final String getRentCarCommentDetailsList=root+ "/rentCar/getRentCarCommentDetailsList";
         public static final String addRentCarOrder=root+ "/rentCar/addRentCarOrder";
         public static final String getRecommendLongCarList=root+ "/rentCar/getRecommendLongCarList";
+        public static final String addRentCarApply=root+ "/rentCar/addRentCarApply";
     }
     public static class OldCar{
 

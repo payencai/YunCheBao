@@ -2,9 +2,11 @@ package com.common;
 
 import java.util.Map;
 
-public interface  LoadDataType {
-    Map<String,Object> initParam();
-    void initData();
-     void loadMoreData();
-     void refreshData();
+public abstract class  LoadDataType {
+    public abstract Map<String,Object> initParam();
+    public void initData(){}
+    public void loadMoreData(){}
+    public void refreshData(){}
+
+    public void submitData(){}
 }
