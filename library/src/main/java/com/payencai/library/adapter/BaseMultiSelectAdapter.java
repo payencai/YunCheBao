@@ -33,7 +33,7 @@ import java.util.List;
  * 修改备注:
  */
 
-public abstract class BaseMultiSelectAdapter extends BaseAdapter<IMultiSelectItem>
+public abstract class BaseMultiSelectAdapter extends BaseAdapter<IMultiSelectItem, com.chad.library.adapter.base.BaseViewHolder>
     implements MultiSelect {
 
     private OnItemCheckedChangeListener mOnItemCheckedChangeListener;

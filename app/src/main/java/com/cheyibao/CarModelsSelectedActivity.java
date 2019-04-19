@@ -7,12 +7,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cheyibao.model.CarModelsFirstLevel;
+import com.cheyibao.model.SubCarModels;
+import com.common.BaseModel;
+import com.common.EndLoadDataType;
+import com.common.HandlerData;
 import com.common.LoadDataType;
 import com.common.MultipleStatusView;
 import com.coorchice.library.SuperTextView;
+import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.google.gson.reflect.TypeToken;
+import com.http.HttpProxy;
+import com.http.ICallBack;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -64,6 +75,46 @@ public class CarModelsSelectedActivity extends AppCompatActivity {
                 map.put("categoryId","");
             }
             return map;
+        }
+
+        @Override
+        public void initData() {
+            String url = isFirstLevel? PlatformContans.CarCategory.getFirstCategory:PlatformContans.CarCategory.getSubclass;
+            HttpProxy.obtain().get(url, "", new ICallBack() {
+                @Override
+                public void OnSuccess(String result) {
+                    Type type = isFirstLevel? new TypeToken<BaseModel<List<CarModelsFirstLevel>>>(){}.getType() : new TypeToken<BaseModel<SubCarModels>>(){}.getType();
+                    EndLoadDataType endLoadDataType = isFirstLevel ?
+                            new EndLoadDataType<List<CarModelsFirstLevel>>() {
+                                @Override
+                                public void onFailed() {
+
+                                }
+
+                                @Override
+                                public void onSuccess(List<CarModelsFirstLevel> carModelsFirstLevels) {
+
+                                }
+                            } :
+                            new EndLoadDataType<BaseModel<SubCarModels>>() {
+                                @Override
+                                public void onFailed() {
+
+                                }
+
+                                @Override
+                                public void onSuccess(BaseModel<SubCarModels> subCarModelsBaseModel) {
+
+                                }
+                            };
+                    HandlerData.handlerData(result, type,endLoadDataType);
+                }
+
+                @Override
+                public void onFailure(String error) {
+
+                }
+            });
         }
     };
 

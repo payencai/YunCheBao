@@ -46,7 +46,7 @@ import java.util.List;
  * 修改备注:
  */
 
-public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder>
+public abstract class BaseAdapter<T, V extends com.chad.library.adapter.base.BaseViewHolder> extends RecyclerView.Adapter<BaseViewHolder>
     implements LoadMore {
 
     protected final List<T> mData = new ArrayList<>();
