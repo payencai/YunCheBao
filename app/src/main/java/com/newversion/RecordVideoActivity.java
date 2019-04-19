@@ -31,26 +31,10 @@ public class RecordVideoActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置全屏
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);//设置竖屏
-        RxPermissions rxPermissions = new RxPermissions(this);
 
         setContentView(R.layout.activity_record_video);
         mJCameraView = (JCameraView) findViewById(R.id.cameraView);
-
-        rxPermissions.request(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA,
-                Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.WRITE_SETTINGS)
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean aBoolean) throws Exception {
-                        if (aBoolean) {
-                            //申请的权限全部允许
-                            Toast.makeText(RecordVideoActivity.this, "允许了拍照和录制视频权限!", Toast.LENGTH_SHORT).show();
-                            initView();
-                        }
-                    }
-                });
+        initView();
 
     }
 

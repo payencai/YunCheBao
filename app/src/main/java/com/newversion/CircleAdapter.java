@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.application.MyApplication;
+import com.bbcircle.view.SampleCoverVideo;
 import com.bumptech.glide.Glide;
 import com.example.yunchebao.R;
 import com.payencai.library.view.CircleImageView;
@@ -65,6 +67,9 @@ public class CircleAdapter extends BaseAdapter {
         TextView time = (TextView) convertView.findViewById(R.id.tv_time);
         TextView content = (TextView) convertView.findViewById(R.id.tv_dynamic_content);
         TextView tv_location = (TextView) convertView.findViewById(R.id.tv_location);
+        FrameLayout frame_video_player = (FrameLayout) convertView.findViewById(R.id.frame_video_player);
+        SampleCoverVideo sampleCoverVideo = (SampleCoverVideo) convertView.findViewById(R.id.sampleCoverVideo);
+        ImageView iv_play = (ImageView) convertView.findViewById(R.id.iv_play);
 
         GridView gvDynamicPhotos = (GridView) convertView.findViewById(R.id.gv_dynamic_photos);
         ImageView ivVimg = (ImageView) convertView.findViewById(R.id.iv_vimg);
@@ -107,6 +112,7 @@ public class CircleAdapter extends BaseAdapter {
 
         if (!TextUtils.isEmpty(circleInfo.getImgs()) && circleInfo.getImgs().split(",").length > 0) {
             dynamicType = 0;//图片说说
+            frame_video_player.setVisibility(View.GONE);
             if (circleInfo.getImgs().split(",").length == 1) {//只有一张图片（宽高自适应）
                 gvDynamicPhotos.setVisibility(View.GONE);
                 ivVimg.setVisibility(View.VISIBLE);
@@ -127,20 +133,29 @@ public class CircleAdapter extends BaseAdapter {
         } else if (!TextUtils.isEmpty(circleInfo.getVideo())) {
             dynamicType = 1;//视频说说
             gvDynamicPhotos.setVisibility(View.GONE);
-            ivVimg.setVisibility(View.VISIBLE);
+            frame_video_player.setVisibility(View.VISIBLE);
 
-            WindowManager manager = (WindowManager) mContext
-                    .getSystemService(Context.WINDOW_SERVICE);
-            Display display = manager.getDefaultDisplay();
-            ViewGroup.LayoutParams l = ivVimg.getLayoutParams();
-            l.width = display.getWidth() / 2;
+            String videoPath = circleInfo.getVideo();
+            sampleCoverVideo.setUpLazy(videoPath, true, null, null, "");
+            sampleCoverVideo.getTitleTextView().setVisibility(View.GONE);
+            sampleCoverVideo.getBackButton().setVisibility(View.GONE);
 
-            Glide.with(mContext).load(circleInfo.getVimg()).into(ivVimg);
+            sampleCoverVideo.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iv_play.setVisibility(View.GONE);
+                    sampleCoverVideo.startWindowFullscreen(v.getContext(), false, true);
+                }
+            });
+            sampleCoverVideo.loadCoverImage(videoPath, R.mipmap.pic1);
+
         } else if (circleInfo.getType() == 2) {
             dynamicType = 2;//转发链接
+            frame_video_player.setVisibility(View.GONE);
             gvDynamicPhotos.setVisibility(View.GONE);
             ivVimg.setVisibility(View.GONE);
         } else {
+            frame_video_player.setVisibility(View.GONE);
             dynamicType = 3;//纯文字说说
             gvDynamicPhotos.setVisibility(View.GONE);
             ivVimg.setVisibility(View.GONE);
