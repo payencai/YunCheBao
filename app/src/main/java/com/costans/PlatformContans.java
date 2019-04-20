@@ -41,7 +41,9 @@ public class PlatformContans {
         public static final String deleteUserFocus=root+ "/user/deleteUserFocus";
         public static final String getUserFocusList=root+ "/user/getUserFocusList";
         public static final String isFocus=root+ "/user/isFocus";
+        public static final String searchNearbyUser=root+"/user/searchNearbyUser";
         public static final String getUserResult=root+ "/user/getUserResult";
+        public static final String clearNearbyUser=root+"/user/clearNearbyUser";
     }
     public static class WiKi{
         public static final String getWikiClassifyByType=root+ "/wikiClassify/getWikiClassifyByType" ;

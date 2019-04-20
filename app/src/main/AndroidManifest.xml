@@ -60,10 +60,11 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.fourshop.activity.SeeCommentActivity"></activity>
+        <activity android:name="com.rongcloud.activity.NearbyActivity"></activity>
+        <activity android:name="com.fourshop.activity.SeeCommentActivity" />
         <activity android:name="com.fourshop.activity.AddFourCommentActivity" />
         <activity android:name="com.fourshop.activity.CarDetailActivity" />
-        <activity android:name="com.cheyibao.CarModelsSelectedActivity"></activity>
+        <activity android:name="com.cheyibao.CarModelsSelectedActivity" />
         <activity
             android:name="com.fourshop.activity.FourShopDetailActivity"
             android:theme="@style/DetailTheme" />

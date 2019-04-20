@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 
-    android:background="#4af3f3f3"
+    android:background="#f6f6f6"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:gravity="center_vertical"
         android:background="@color/white"
         android:orientation="horizontal">
@@ -84,10 +84,10 @@
                 android:gravity="center_vertical"
                 android:padding="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="55dp">
+                android:layout_height="wrap_content">
                 <ImageView
-                    android:padding="5dp"
-                    android:scaleType="fitXY"
+
+                    android:scaleType="centerCrop"
                     android:src="@mipmap/ic_contacts"
                     android:layout_width="40dp"
                     android:layout_height="40dp" />
@@ -113,10 +113,10 @@
                 android:gravity="center_vertical"
                 android:padding="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="55dp">
+                android:layout_height="wrap_content">
                 <ImageView
-                    android:padding="5dp"
-                    android:scaleType="fitXY"
+
+                    android:scaleType="centerCrop"
                     android:src="@mipmap/ic_addfriend"
                     android:layout_width="40dp"
                     android:layout_height="40dp" />
@@ -135,10 +135,10 @@
                 android:gravity="center_vertical"
                 android:padding="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="55dp">
+                android:layout_height="wrap_content">
                 <ImageView
-                    android:padding="5dp"
-                    android:scaleType="fitXY"
+
+                   android:scaleType="centerCrop"
                     android:src="@mipmap/ic_friendcircle"
                     android:layout_width="40dp"
                     android:layout_height="40dp" />
@@ -150,13 +150,39 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-
+            <View
+                android:alpha="0.6"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#e2e2e2"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"></View>
+            <LinearLayout
+                android:id="@+id/ll_item9"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_nearby"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
+                <TextView
+                    android:textSize="16sp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black_33"
+                    android:text="附近的人"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/ll_item4"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@color/white"
                 android:gravity="center_vertical"
@@ -165,8 +191,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:padding="5dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:src="@mipmap/ic_group" />
 
                 <TextView
@@ -190,10 +215,10 @@
                 android:gravity="center_vertical"
                 android:padding="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="55dp">
+                android:layout_height="wrap_content">
                 <ImageView
-                    android:padding="5dp"
-                    android:scaleType="fitXY"
+
+                    android:scaleType="centerCrop"
                     android:src="@mipmap/ic_tags"
                     android:layout_width="40dp"
                     android:layout_height="40dp" />
@@ -235,10 +260,10 @@
                 android:gravity="center_vertical"
                 android:padding="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="55dp">
+                android:layout_height="wrap_content">
                 <ImageView
-                    android:padding="5dp"
-                    android:scaleType="fitXY"
+
+                    android:scaleType="centerCrop"
                     android:src="@mipmap/ic_self"
                     android:layout_width="40dp"
                     android:layout_height="40dp" />
@@ -263,10 +288,10 @@
                 android:gravity="center_vertical"
                 android:padding="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="55dp">
+                android:layout_height="wrap_content">
                 <ImageView
-                    android:padding="5dp"
-                    android:scaleType="fitXY"
+
+                    android:scaleType="centerCrop"
                     android:src="@mipmap/ic_car"
                     android:layout_width="40dp"
                     android:layout_height="40dp" />
@@ -279,18 +304,16 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <RelativeLayout
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:layout_marginBottom="3dp"
                 android:layout_marginTop="5dp"
+                android:padding="15dp"
                 android:id="@+id/rl_stranger"
                 android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:padding="5dp"
+
                     android:id="@+id/msg"
-                    android:layout_marginLeft="15dp"
+
                     android:layout_centerVertical="true"
                     android:src="@mipmap/msg"
                     android:layout_width="40dp"

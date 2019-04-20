@@ -25,6 +25,7 @@ import com.newversion.NewSelfDrvingActivity;
 import com.payencai.library.util.ToastUtil;
 import com.rongcloud.activity.AddFriendActivity;
 import com.rongcloud.activity.CreateGroupActivity;
+import com.rongcloud.activity.NearbyActivity;
 import com.rongcloud.activity.stranger.SaomaActivity;
 import com.rongcloud.activity.stranger.StrangerMsgActivity;
 import com.system.View.MenuWindow;
@@ -122,6 +123,12 @@ public class AnotherBabyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), NewCarFriendActivity.class));
+            }
+        });
+        view.findViewById(R.id.ll_item9).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), NearbyActivity.class));
             }
         });
         view.findViewById(R.id.rl_stranger).setOnClickListener(new View.OnClickListener() {

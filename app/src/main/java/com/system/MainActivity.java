@@ -32,6 +32,7 @@ import com.costans.PlatformContans;
 import com.entity.UserMsg;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
@@ -112,6 +113,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         super.onCreate(savedInstanceState);
         //FitStateUI.setImmersionStateMode(this);
         setContentView(R.layout.activity_main);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
 
         //openGPS(this);
         autoLogin();
@@ -121,6 +123,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         String phone = (String) SPUtils.get(MainActivity.this, "phone", "");
         String pwd = (String) SPUtils.get(MainActivity.this, "pwd", "");
         if (!TextUtils.isEmpty(phone)) {
+            initview();
             loginByPwd(phone, pwd);
         } else {
             initview();
@@ -146,7 +149,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                         MyApplication.token = userInfo.getToken();
                         MyApplication.setUserInfo(userInfo);
                         MyApplication.setIsLogin(true);
-                        initview();
+
                         getData();
 
                     } else {
