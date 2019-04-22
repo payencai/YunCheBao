@@ -200,6 +200,9 @@ public class PlatformContans {
         public static final String getApplicationByUserId=root + "/drivingLicense/getApplicationByUserId";
         public static final String updateCarToIsDefault=root +  "/drivingLicense/updateCarToIsDefault";
     }
+    public static class Station{
+        public static final String getGasStationShopListByApp=root+"/gasStation/getGasStationShopListByApp";
+    }
     public static class FourShop{
         public static final String getFourShopOrderCommentByOrderId=root+"/fourShop/getFourShopOrderCommentByOrderId";
         public static final String getUserOrderList=root+"/fourShop/getUserOrderList";
@@ -219,6 +222,7 @@ public class PlatformContans {
     public static class RoadRescue{
         public static final String getRoadRescueShopListByApp=root+ "/roadRescue/getRoadRescueShopListByApp";
         public static final String getRoadRescueServeListForApp=root+ "/roadRescue/getRoadRescueServeListForApp";
+        public static final String addRoadRescueOrder=root+ "/roadRescue/addRoadRescueOrder";
     }
     public static class CarWashRepairShop{
         public static final String getWashRepairShopById=root+ "/carWashRepairShop/getWashRepairShopById";

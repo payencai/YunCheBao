@@ -32,6 +32,7 @@ import com.xihubao.adapter.RoadItemAdapter;
 import com.xihubao.model.Road;
 import com.xihubao.model.RoadItem;
 import com.xihubao.model.RoadService;
+import com.yuedan.PubRoadActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,6 +72,7 @@ public class AssistanceDetailActivity extends NoHttpBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.assistance_detail_layout);
         mPhoneShopEntity= (Road) getIntent().getSerializableExtra("entity");
+        ButterKnife.bind(this);
         initView();
         getService();
     }
@@ -102,8 +104,8 @@ public class AssistanceDetailActivity extends NoHttpBaseActivity {
         });
     }
     private void initView() {
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW,"服务项目");
-        ButterKnife.bind(this);
+
+
         ctx = this;
         if(mPhoneShopEntity!=null){
             address.setText("商家地址 : "+mPhoneShopEntity.getAddress());
@@ -159,9 +161,17 @@ public class AssistanceDetailActivity extends NoHttpBaseActivity {
         }
     }
 
-    @OnClick({R.id.back,R.id.callBtn})
+    @OnClick({R.id.back,R.id.callBtn,R.id.tv_pub,R.id.menuBtn})
     public void OnClick(View v){
         switch (v.getId()){
+            case R.id.menuBtn:
+
+                break;
+            case R.id.tv_pub:
+                Intent intent=new Intent(this, PubRoadActivity.class);
+                intent.putExtra("id",mPhoneShopEntity.getId());
+                startActivity(intent);
+                break;
             case R.id.back:
                 onBackPressed();
                 break;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.fourshop.view.DropdownListItemView
+<com.example.yunchebao.fourshop.view.DropdownListItemView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="48dp"
@@ -14,4 +14,4 @@
     android:textColor="@color/font_black_6"
     android:textSize="15sp">
 
-</com.fourshop.view.DropdownListItemView>
+</com.example.yunchebao.fourshop.view.DropdownListItemView>

@@ -60,15 +60,21 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.rongcloud.activity.NearbyActivity"></activity>
-        <activity android:name="com.fourshop.activity.SeeCommentActivity" />
-        <activity android:name="com.fourshop.activity.AddFourCommentActivity" />
-        <activity android:name="com.fourshop.activity.CarDetailActivity" />
+        <activity android:name=".gasstation.GasStationActivity"></activity>
+        <activity android:name="com.xihubao.NewWashRepairActivity" />
+        <activity android:name="com.road.RoadOrderActivity" />
+        <activity
+            android:name="com.yuedan.PubRoadActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity android:name="com.rongcloud.activity.NearbyActivity" />
+        <activity android:name=".fourshop.activity.SeeCommentActivity" />
+        <activity android:name=".fourshop.activity.AddFourCommentActivity" />
+        <activity android:name=".fourshop.activity.CarDetailActivity" />
         <activity android:name="com.cheyibao.CarModelsSelectedActivity" />
         <activity
-            android:name="com.fourshop.activity.FourShopDetailActivity"
+            android:name=".fourshop.activity.FourShopDetailActivity"
             android:theme="@style/DetailTheme" />
-        <activity android:name="com.fourshop.activity.NewFourShopActivity" /> <!-- imlib config begin -->
+        <activity android:name=".fourshop.activity.NewFourShopActivity" /> <!-- imlib config begin -->
         <activity android:name="com.cheyibao.LongRentAppliationActivity" /> <!-- imlib config begin -->
         <activity
             android:name="io.rong.callkit.MultiVideoCallActivity"

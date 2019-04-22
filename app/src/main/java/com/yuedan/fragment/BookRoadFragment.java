@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -118,8 +119,7 @@ public class BookRoadFragment extends Fragment {
     RelativeLayout rl_range;
     @BindView(R.id.iv_video)
     ImageView iv_video;
-    @BindView(R.id.iv_pic)
-    ImageView iv_pic;
+
     @BindView(R.id.iv_play)
     ImageView iv_play;
     @BindView(R.id.gv_pic)
@@ -353,8 +353,28 @@ public class BookRoadFragment extends Fragment {
     List<String> images;
     private void initView() {
         images=new ArrayList<>();
+        images.add("");
         mImageAdapter=new ImageAdapter(getContext(),images);
         gv_pic.setAdapter(mImageAdapter);
+        gv_pic.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position==0){
+                    images.clear();
+                    mImageAdapter.notifyDataSetChanged();
+                    Matisse.from(getActivity())
+                            .choose(MimeType.ofImage())
+                            .countable(true)
+                            .maxSelectable(4)
+                            .originalEnable(true)
+                            .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                            .thumbnailScale(0.85f)
+                            .captureStrategy(new CaptureStrategy(true, "com.yancy.gallerypickdemo.fileprovider"))
+                            .imageEngine(new GlideImageEngine())
+                            .forResult(188);
+                }
+            }
+        });
         tv_item1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -373,22 +393,7 @@ public class BookRoadFragment extends Fragment {
                 et_detail.setText(tv_item3.getText().toString());
             }
         });
-        iv_pic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                images.clear();
-                mImageAdapter.notifyDataSetChanged();
-                Matisse.from(getActivity())
-                        .choose(MimeType.ofImage())
-                        .countable(true)
-                        .maxSelectable(4)
-                       .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-                        .thumbnailScale(0.85f)
-                        .captureStrategy(new CaptureStrategy(true, "com.yancy.gallerypickdemo.fileprovider"))
-                        .imageEngine(new GlideImageEngine())
-                        .forResult(188);
-            }
-        });
+
         iv_video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

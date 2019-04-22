@@ -16,11 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.application.MyApplication;
-import com.cheyibao.AddSchoolCommentActivity;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
-import com.fourshop.activity.AddFourCommentActivity;
-import com.fourshop.activity.SeeCommentActivity;
+import com.example.yunchebao.fourshop.activity.AddFourCommentActivity;
+import com.example.yunchebao.fourshop.activity.SeeCommentActivity;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.order.CarOrder;

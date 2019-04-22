@@ -43,7 +43,8 @@ import com.costans.PlatformContans;
 import com.entity.Banner;
 import com.entity.UrlBean;
 import com.example.yunchebao.R;
-import com.fourshop.activity.NewFourShopActivity;
+import com.example.yunchebao.fourshop.activity.NewFourShopActivity;
+import com.example.yunchebao.gasstation.GasStationActivity;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
@@ -65,9 +66,9 @@ import com.vipcenter.RegisterActivity;
 import com.vipcenter.UserCenterActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
+import com.xihubao.NewWashRepairActivity;
 import com.xihubao.RoadActivity;
-import com.xihubao.Shop4SInfoActivity;
-import com.xihubao.WashCarListActivity;
+import com.xihubao.RoadAssistanceListActivity;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 import com.yuedan.YuedanHomeActivity;
@@ -729,6 +730,7 @@ public class HomeFragment extends BaseFragment {
 
     @OnClick({R.id.messenger_icon,R.id.menuLayDrive,R.id.rl_notice,R.id.search_lay, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.menuLay4, R.id.menuLay7, R.id.menuLay5, R.id.menuLay6, R.id.menuLay8, R.id.menuLay9, R.id.menuLay10, R.id.user_center_icon})
     public void OnClick(View v) {
+        Intent intent2=new Intent(getContext(), NewWashRepairActivity.class);
         switch (v.getId()) {
             case R.id.menuLayDrive:
                 startActivity(new Intent(getContext(), DriveServiceActivity.class));
@@ -755,14 +757,19 @@ public class HomeFragment extends BaseFragment {
                 //ActivityAnimationUtils.commonTransition(getActivity(), MessageMainActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay1://洗车店
-                Bundle bundle=new Bundle();
-                bundle.putInt("type",1);
-                ActivityAnimationUtils.commonTransition(getActivity(), WashCarListActivity.class, ActivityConstans.Animation.FADE,bundle);
+
+                intent2.putExtra("type",1);
+                startActivity(intent2);
+//                Bundle bundle=new Bundle();
+//                bundle.putInt("type",1);
+//                ActivityAnimationUtils.commonTransition(getActivity(), WashCarListActivity.class, ActivityConstans.Animation.FADE,bundle);
                 break;
             case R.id.menuLay2://修理店
-                Bundle bundle2=new Bundle();
-                bundle2.putInt("type",2);
-                ActivityAnimationUtils.commonTransition(getActivity(), WashCarListActivity.class, ActivityConstans.Animation.FADE,bundle2);
+                intent2.putExtra("type",2);
+                startActivity(intent2);
+//                Bundle bundle2=new Bundle();
+//                bundle2.putInt("type",2);
+//                ActivityAnimationUtils.commonTransition(getActivity(), WashCarListActivity.class, ActivityConstans.Animation.FADE,bundle2);
                 break;
             case R.id.menuLay3://4S店
                 ActivityAnimationUtils.commonTransition(getActivity(), NewFourShopActivity.class, ActivityConstans.Animation.FADE);
@@ -777,7 +784,7 @@ public class HomeFragment extends BaseFragment {
                 //ActivityAnimationUtils.commonTransition(getActivity(), Shop4SInfoActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay6://加油站
-                // ActivityAnimationUtils.commonTransition(getActivity(), RoadAssistanceListActivity.class, ActivityConstans.Animation.FADE);
+                 ActivityAnimationUtils.commonTransition(getActivity(), GasStationActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay7://紧急
                 ActivityAnimationUtils.commonTransition(getActivity(), RoadActivity.class, ActivityConstans.Animation.FADE);

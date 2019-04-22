@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yuedan.PubRoadActivity">
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/back"
+            android:padding="15dp"
+            android:src="@mipmap/back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_centerInParent="true"
+            android:textSize="16sp"
+            android:textColor="@color/black_33"
+            android:text="发布需求"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+             <com.cheyibao.model.ReboundScrollView
+                 android:layout_above="@id/tv_public"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+                 <LinearLayout
+                     android:orientation="vertical"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content">
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:background="@color/white"
+                         android:orientation="horizontal"
+                         android:padding="10dp">
+
+                         <ImageView
+                             android:id="@+id/img"
+                             android:layout_width="70dp"
+                             android:layout_height="70dp"
+                             android:src="@mipmap/pic2"
+                             android:scaleType="fitXY" />
+
+                         <LinearLayout
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:layout_marginLeft="10dp"
+                             android:orientation="vertical">
+
+                             <TextView
+                                 android:id="@+id/shopname"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:text="昆明普利司通轮胎电瓶经营部"
+                                 android:textColor="@color/black_33"
+                                 android:textSize="14sp" />
+
+                             <TextView
+                                 android:id="@+id/phone"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginTop="10dp"
+                                 android:text="商家电话：4008587430"
+                                 android:textColor="@color/gray_99"
+                                 android:textSize="10sp" />
+
+                             <TextView
+                                 android:id="@+id/address"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginTop="10dp"
+                                 android:text="商家地址：昆明西山马街昆明西山区马街"
+                                 android:textColor="@color/gray_99"
+                                 android:textSize="10sp" />
+                         </LinearLayout>
+                     </LinearLayout>
+                     <RelativeLayout
+                         android:id="@+id/rl_cartype"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginTop="2dp"
+                         android:background="@color/white"
+                         android:padding="15dp">
+
+                         <LinearLayout
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:orientation="horizontal">
+
+                             <TextView
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:text="救援车型："
+                                 android:textColor="@color/gray_99"
+                                 android:textSize="14sp" />
+
+                             <TextView
+                                 android:id="@+id/tv_type"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:background="@color/white"
+                                 android:text="你未认证车型请手动选择"
+                                 android:textColor="@color/gray_66"
+                                 android:textSize="14sp" />
+                         </LinearLayout>
+
+                         <ImageView
+                             android:layout_width="5dp"
+                             android:layout_height="9dp"
+                             android:layout_alignParentRight="true"
+                             android:layout_centerVertical="true"
+                             android:src="@mipmap/arrow_right" />
+                     </RelativeLayout>
+                     <RelativeLayout
+                         android:id="@+id/addressLay"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginTop="2dp"
+                         android:background="@color/white"
+                         android:padding="15dp">
+
+                         <LinearLayout
+                             android:layout_marginRight="10dp"
+                             android:layout_toLeftOf="@id/enter3"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:orientation="horizontal">
+
+                             <TextView
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:text="车辆位置："
+                                 android:textColor="@color/gray_99"
+                                 android:textSize="14sp" />
+
+                             <TextView
+                                 android:id="@+id/tv_address"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content"
+                                 android:background="@color/white"
+                                 android:text="请选择地址"
+                                 android:textColor="@color/gray_66"
+                                 android:textSize="14sp" />
+                         </LinearLayout>
+
+                         <ImageView
+                             android:id="@+id/enter3"
+                             android:layout_width="5dp"
+                             android:layout_height="9dp"
+                             android:layout_alignParentRight="true"
+                             android:layout_centerVertical="true"
+                             android:src="@mipmap/arrow_right" />
+                     </RelativeLayout>
+
+                     <RelativeLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginTop="2dp"
+                         android:background="@color/white"
+                         android:padding="15dp">
+
+                         <LinearLayout
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:orientation="horizontal">
+
+                             <TextView
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:text="手机号码："
+                                 android:textColor="@color/gray_99"
+                                 android:textSize="14sp" />
+
+                             <EditText
+                                 android:textColorHint="#ccc"
+                                 android:inputType="number"
+                                 android:id="@+id/et_phone"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="30dp"
+                                 android:background="@color/white"
+                                 android:hint="请输入手机号"
+                                 android:textColor="@color/gray_66"
+                                 android:textSize="14sp" />
+                         </LinearLayout>
+
+
+                     </RelativeLayout>
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginTop="5dp"
+                         android:background="@color/white"
+                         android:orientation="horizontal"
+                         android:padding="15dp">
+
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="车辆颜色："
+                             android:textColor="@color/gray_99"
+                             android:textSize="14sp" />
+
+                         <EditText
+                             android:id="@+id/et_color"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:background="@color/white"
+                             android:textColorHint="#ccc"
+                             android:hint="请填写车辆颜色"
+                             android:textColor="@color/black_33"
+                             android:textSize="14sp" />
+
+                     </LinearLayout>
+                     <RelativeLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="60dp"
+                         android:layout_marginTop="2dp"
+                         android:background="@color/white"
+                         android:padding="15dp">
+
+                         <LinearLayout
+                             android:layout_toLeftOf="@id/iv_enter"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:orientation="horizontal">
+
+                             <TextView
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:text="输入地址："
+                                 android:textColor="@color/gray_99"
+                                 android:textSize="14sp" />
+
+                             <EditText
+                                 android:ellipsize="end"
+                                 android:maxLines="2"
+                                 android:id="@+id/et_addr"
+                                 android:textColorHint="#ccc"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content"
+                                 android:background="@color/white"
+                                 android:hint="请输入详细地址"
+                                 android:textColor="@color/gray_66"
+                                 android:textSize="14sp" />
+                         </LinearLayout>
+
+                         <ImageView
+                             android:visibility="gone"
+                             android:id="@+id/iv_enter"
+                             android:layout_width="5dp"
+                             android:layout_height="9dp"
+                             android:layout_alignParentRight="true"
+                             android:layout_centerVertical="true"
+                             android:src="@mipmap/arrow_right" />
+                     </RelativeLayout>
+                     <LinearLayout
+                         android:layout_marginTop="5dp"
+                         android:background="@color/white"
+                         android:padding="15dp"
+                         android:orientation="vertical"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content">
+                         <TextView
+
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="添加图片"
+                             android:textColor="@color/black_33"
+                             android:textSize="14sp" />
+                         <GridView
+                             android:id="@+id/gv_pic"
+                             android:layout_marginTop="5dp"
+                             android:numColumns="4"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"></GridView>
+
+
+                     </LinearLayout>
+                     <TextView
+                         android:textColor="@color/gray_99"
+                         android:gravity="center_vertical"
+                         android:textSize="12sp"
+                         android:paddingLeft="15dp"
+                         android:text="最多上传四张图片（非必上传）"
+                         android:background="#e5e5e5"
+                         android:layout_width="match_parent"
+                         android:layout_height="30dp" />
+                     <LinearLayout
+                         android:background="@color/white"
+
+                         android:padding="15dp"
+                         android:orientation="vertical"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content">
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="上传视频"
+                             android:textColor="@color/black_33"
+                             android:textSize="14sp" />
+                         <RelativeLayout
+                             android:layout_marginTop="10dp"
+                             android:layout_gravity="center_horizontal"
+                             android:layout_width="125dp"
+                             android:layout_height="90dp">
+                             <ImageView
+                                 android:scaleType="fitXY"
+                                 android:id="@+id/iv_video"
+                                 android:src="@mipmap/camera_default"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="match_parent" />
+                             <ImageView
+                                 android:visibility="gone"
+                                 android:id="@+id/iv_play"
+                                 android:layout_centerInParent="true"
+                                 android:src="@drawable/video_play_normal"
+                                 android:layout_width="20dp"
+                                 android:layout_height="20dp" />
+                         </RelativeLayout>
+                     </LinearLayout>
+                     <TextView
+                         android:textColor="@color/gray_99"
+                         android:gravity="center_vertical"
+                         android:textSize="12sp"
+                         android:paddingLeft="15dp"
+                         android:text="上传一个不超10秒的视频（非必上传）"
+                         android:background="#e5e5e5"
+                         android:layout_width="match_parent"
+                         android:layout_height="30dp" />
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+
+                         android:background="@color/white"
+                         android:orientation="vertical"
+                         android:padding="15dp">
+
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="产生的问题"
+                             android:textColor="@color/gray_99"
+                             android:textSize="14sp" />
+                         <RelativeLayout
+                             android:layout_width="wrap_content"
+                             android:layout_height="120dp">
+                             <EditText
+                                 android:maxLength="200"
+                                 android:layout_marginRight="5dp"
+                                 android:id="@+id/et_detail"
+                                 android:textSize="14sp"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="match_parent"
+                                 android:layout_marginTop="12dp"
+                                 android:background="@drawable/white_5dp_background"
+                                 android:gravity="top|left"
+                                 android:padding="10dp" />
+                             <TextView
+                                 android:textSize="12sp"
+                                 android:textColor="@color/gray_99"
+                                 android:layout_marginBottom="5dp"
+                                 android:layout_marginRight="30dp"
+                                 android:layout_alignParentRight="true"
+                                 android:layout_alignParentBottom="true"
+                                 android:text="0/200"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content" />
+                         </RelativeLayout>
+
+                         <LinearLayout
+                             android:layout_gravity="center_horizontal"
+                             android:layout_marginTop="5dp"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content">
+                             <TextView
+                                 android:id="@+id/tv_item1"
+                                 android:background="@drawable/shape_xuxian"
+                                 android:textColor="@color/black_33"
+                                 android:textSize="14sp"
+                                 android:gravity="center"
+                                 android:text="拖车"
+                                 android:layout_width="70dp"
+                                 android:layout_height="30dp" />
+                             <TextView
+                                 android:id="@+id/tv_item2"
+                                 android:background="@drawable/shape_xuxian"
+                                 android:textColor="@color/black_33"
+                                 android:textSize="14sp"
+                                 android:gravity="center"
+                                 android:text="加油"
+                                 android:layout_marginLeft="10dp"
+                                 android:layout_width="70dp"
+                                 android:layout_height="30dp" />
+                             <TextView
+                                 android:id="@+id/tv_item3"
+                                 android:layout_marginLeft="10dp"
+                                 android:background="@drawable/shape_xuxian"
+                                 android:textColor="@color/black_33"
+                                 android:textSize="14sp"
+                                 android:gravity="center"
+                                 android:text="换胎"
+                                 android:layout_width="70dp"
+                                 android:layout_height="30dp" />
+                         </LinearLayout>
+
+                     </LinearLayout>
+
+
+                 </LinearLayout>
+             </com.cheyibao.model.ReboundScrollView>
+            <TextView
+                android:layout_centerInParent="true"
+                android:id="@+id/tv_public"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"
+                android:background="@color/yellow_64"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="发布需求" />
+
+
+    </RelativeLayout>
+</LinearLayout>

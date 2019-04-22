@@ -18,13 +18,32 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/tv_name"
-            android:textSize="14sp"
-            android:textColor="@color/black_33"
-            android:text="啥啥啥修理店"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_name"
+                android:textSize="14sp"
+                android:textColor="@color/black_33"
+                android:text="啥啥啥修理店"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/add"
+                android:visibility="gone"
+                android:layout_alignParentRight="true"
+                android:text="加好友"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:textColor="@color/gray_66"
+                android:layout_height="25dp"
+                android:layout_width="50dp"
+                fresco:corner="4dp"
+                fresco:solid="@color/white"
+                fresco:stroke_color="@color/gray_e2"
+                fresco:stroke_width="1dp" />
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/tv_time"
             android:layout_marginTop="5dp"

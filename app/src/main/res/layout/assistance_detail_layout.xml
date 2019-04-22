@@ -7,7 +7,46 @@
     android:background="@color/gray_ee"
     android:orientation="vertical">
 
-    <include layout="@layout/top_title_layout"></include>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="服务项目"
+            android:textColor="@color/black_33"
+            android:textSize="16sp" />
+
+
+        <ImageView
+            android:id="@+id/menuBtn"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_alignParentRight="true"
+            android:padding="12dp"
+            android:src="@mipmap/ic_new_menu"
+            />
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/gray_ee"></View>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -80,7 +119,7 @@
         </LinearLayout>
 
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/rl_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,12 +128,29 @@
             android:padding="10dp">
 
             <com.coorchice.library.SuperTextView
+                android:gravity="center"
                 android:id="@+id/callBtn"
-                style="@style/form_submit_btn"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
                 android:text="拨打电话"
                 app:corner="2dp"
                 app:solid="@color/yellow_63" />
-        </RelativeLayout>
+            <com.coorchice.library.SuperTextView
+                android:gravity="center"
+                android:id="@+id/tv_pub"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="发布需求"
+                app:corner="2dp"
+                app:solid="@color/yellow_63" />
+        </LinearLayout>
     </RelativeLayout>
 
 </LinearLayout>

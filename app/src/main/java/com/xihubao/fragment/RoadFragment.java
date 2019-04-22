@@ -102,18 +102,25 @@ public class RoadFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     //jsonObject = jsonObject.getJSONObject("data");
+                    List<Road> roadList=new ArrayList<>();
                     JSONArray data = jsonObject.getJSONArray("data");
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
                         Road road = new Gson().fromJson(item.toString(), Road.class);
                         mRoads.add(road);
+                        roadList.add(road);
                     }
-                    mRoadAdapter.setNewData(mRoads);
+
                     if(isLoadMore){
                         isLoadMore=false;
-                        mRoadAdapter.loadMoreComplete();
+                        mRoadAdapter.addData(roadList);
+                        if(data.length()==0){
+                            mRoadAdapter.loadMoreEnd(true);
+                        }else{
+                            mRoadAdapter.loadMoreComplete();
+                        }
                     }else{
-                        mRoadAdapter.loadMoreEnd(true);
+                        mRoadAdapter.setNewData(mRoads);
                     }
 
                 } catch (JSONException e) {

@@ -25,11 +25,9 @@ import com.costans.PlatformContans;
 import com.drive.activity.AddOrderCommentActivity;
 import com.drive.activity.DriveOrderDetailActivity;
 import com.drive.activity.DriverCommentActivity;
-import com.drive.activity.PayDetailActivity;
-import com.drive.model.ReplaceOrder;
 import com.example.yunchebao.R;
-import com.fourshop.activity.AddFourCommentActivity;
-import com.fourshop.activity.SeeCommentActivity;
+import com.example.yunchebao.fourshop.activity.AddFourCommentActivity;
+import com.example.yunchebao.fourshop.activity.SeeCommentActivity;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
@@ -54,8 +52,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import go.error;
-import io.rong.imageloader.utils.L;
 
 /**
  * A simple {@link Fragment} subclass.
