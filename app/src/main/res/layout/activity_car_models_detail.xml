@@ -105,7 +105,10 @@
                     </RelativeLayout>
                 </android.support.v7.widget.Toolbar>
             </android.support.design.widget.CollapsingToolbarLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/split_line_color"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -125,12 +128,6 @@
                         android:layout_height="wrap_content"
                         android:text="@string/distance"
                         android:gravity="center"/>
-                    <CheckBox
-                        android:id="@+id/is_distance_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:button="@null"/>
                 </LinearLayout>
 
 
@@ -147,35 +144,41 @@
                         android:layout_height="wrap_content"
                         android:text="@string/price"
                         android:gravity="center"/>
-                    <CheckBox
-                        android:id="@+id/is_price_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:button="@null"/>
                 </LinearLayout>
 
-                <CheckBox
-                    android:id="@+id/is_to_home_service_view"
-                    android:layout_width="0dp"
+                <LinearLayout android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/to_home_take_and_send"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:button="@null"
-                    android:checked="true"/>
+                    android:gravity="center">
+                    <CheckBox
+                        android:id="@+id/is_to_home_service_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/to_home_take_and_send"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:button="@null"
+                        android:drawablePadding="5dp"
+                        android:paddingStart="1dp"
+                        android:paddingEnd="1dp"
+                        android:background="@null"
+                        android:checked="true"/>
+                </LinearLayout>
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/split_line_color"/>
         </android.support.design.widget.AppBarLayout>
         <com.common.MultipleStatusView
             android:id="@+id/multiple_status_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
             <com.scwang.smartrefresh.layout.SmartRefreshLayout
                 android:id="@+id/refresh_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/shop_list_view"
                     android:layout_width="match_parent"

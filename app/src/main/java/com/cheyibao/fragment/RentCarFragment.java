@@ -143,6 +143,7 @@ public class RentCarFragment extends BaseFragment {
 
         recommendedVehicleTypeListView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new RentCarModelAdapter(new ArrayList<>());
+        adapter.setDisplayPrice(false);
         adapter.bindToRecyclerView(recommendedVehicleTypeListView);
         adapter.setOnItemClickListener((adapter, view, position) -> {
             RentCarModel carModel = (RentCarModel) adapter.getItem(position);

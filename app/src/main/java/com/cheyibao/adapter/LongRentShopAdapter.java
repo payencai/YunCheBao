@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.cheyibao.model.LongRentShop;
 import com.example.yunchebao.R;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,7 +27,8 @@ public class LongRentShopAdapter extends BaseQuickAdapter<LongRentShop, LongRent
         helper.shopNameView.setText(item.getName());
         helper.dayPriceView.setText(String.format("￥%s",item.getDayPrice()));
         helper.addressView.setText(item.getAddress());
-        helper.distanceView.setText(String.format("%skm",item.getDistance()));
+        DecimalFormat decimalFormat=new DecimalFormat("0.00");
+        helper.distanceView.setText(String.format("%skm",decimalFormat.format(item.getDistance())));
     }
 
     static class ViewHolder extends BaseViewHolder {

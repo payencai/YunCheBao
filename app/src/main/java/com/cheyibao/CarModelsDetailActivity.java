@@ -1,5 +1,8 @@
 package com.cheyibao;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -7,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -16,15 +21,19 @@ import android.widget.TextView;
 
 import com.application.MyApplication;
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.adapter.LongRentShopAdapter;
 import com.cheyibao.model.LongRentShop;
 import com.cheyibao.model.RentCarModel;
+import com.cheyibao.view.CarMealPopupWindow;
+import com.cheyibao.view.MaxDistancePopwindow;
 import com.cheyibao.view.RangerPricePopwindow;
 import com.common.BaseModel;
 import com.common.EndLoadDataType;
 import com.common.HandlerData;
 import com.common.LoadDataType;
 import com.common.MultipleStatusView;
+import com.common.ResourceUtils;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.reflect.TypeToken;
@@ -34,7 +43,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +54,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.qqtheme.framework.picker.NumberPicker;
 
 public class CarModelsDetailActivity extends AppCompatActivity {
 
@@ -60,12 +72,8 @@ public class CarModelsDetailActivity extends AppCompatActivity {
     RelativeLayout rlTop;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.is_distance_view)
-    CheckBox isDistanceView;
     @BindView(R.id.distance_view)
     LinearLayout distanceView;
-    @BindView(R.id.is_price_view)
-    CheckBox isPriceView;
     @BindView(R.id.price_view)
     LinearLayout priceView;
     @BindView(R.id.is_to_home_service_view)
@@ -84,11 +92,16 @@ public class CarModelsDetailActivity extends AppCompatActivity {
 
     private int page = 1;
 
+    private Context context;
+
     private LongRentShopAdapter adapter;
     private RangerPricePopwindow rangerPricePopwindow;
+    private MaxDistancePopwindow distancePopwindow;
+    private CarMealPopupWindow carMealPopupWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_models_detail);
         ButterKnife.bind(this);
@@ -103,7 +116,32 @@ public class CarModelsDetailActivity extends AppCompatActivity {
         seatView.setText(String.format("%s/%s",rentCarModel.getVariableBox(),rentCarModel.getSeat().contains("座")?rentCarModel.getSeat():String.format("%s座",rentCarModel.getSeat())));
 
         isToHomeServiceView.setOnCheckedChangeListener((buttonView, isChecked) -> loadDataType.initData());
+
+        rangerPricePopwindow = new RangerPricePopwindow(multipleStatusView);
+        rangerPricePopwindow.setConfirmListener(v -> {
+            rangerPricePopwindow.dismiss();
+            loadDataType.initData();
+        });
+
+        distancePopwindow = new MaxDistancePopwindow(multipleStatusView);
+        distancePopwindow.setConfirmListener(v -> {
+            distancePopwindow.dismiss();
+            loadDataType.initData();
+        });
+
+        Drawable drawable = drawables();
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        isToHomeServiceView.setCompoundDrawables(drawable, null, null, null);
+
+        carMealPopupWindow = new CarMealPopupWindow(this);
     }
+    private StateListDrawable drawables() {
+        StateListDrawable stateListDrawable = new StateListDrawable();
+        stateListDrawable.addState(new int[]{android.R.attr.state_checked}, ResourceUtils.getDrawableByResource(this, R.mipmap.carrental_btn_checkthe_selected));
+        stateListDrawable.addState(new int[]{}, ResourceUtils.getDrawableByResource(this, R.mipmap.carrental_btn_checkthe_normal));
+        return stateListDrawable;
+    }
+
 
     private void init(){
         rentCarModel = getIntent().getParcelableExtra("car_model");
@@ -113,6 +151,15 @@ public class CarModelsDetailActivity extends AppCompatActivity {
         shopListView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new LongRentShopAdapter(new ArrayList<>());
         adapter.bindToRecyclerView(shopListView);
+
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+            LongRentShop longRentShop = (LongRentShop) adapter.getItem(position);
+            if (longRentShop!=null){
+                carMealPopupWindow = new CarMealPopupWindow(context,longRentShop.getCarId());
+//                carMealPopupWindow.setCarId(longRentShop.getCarId());
+                carMealPopupWindow.showAsDropDown(getWindow().getDecorView(),0,0,Gravity.BOTTOM);
+            }
+        });
 
         loadDataType.initData();
         refreshLayout.setEnableRefresh(false);
@@ -124,15 +171,23 @@ public class CarModelsDetailActivity extends AppCompatActivity {
         public Map<String, Object> initParam() {
             Map<String, Object> map = new HashMap<>();
             map.put("page", page);
-            map.put("brand", rentCarModel.getBrand());
+            map.put("brand",rentCarModel.getBrand());
             map.put("carTategory", rentCarModel.getCarTategory());
             map.put("longitude", longitude);
             map.put("latitude", latitude);
-//            map.put("maxDistance", 0);
-//            map.put("minPrice", 0);
-//            map.put("maxPrice", 0);
+            if (distancePopwindow!=null && distancePopwindow.getMaxDistance()>0){
+                map.put("maxDistance",distancePopwindow.getMaxDistance());
+            }
+            if (rangerPricePopwindow!=null){
+                if (rangerPricePopwindow.getMinPrice()>0){
+                    map.put("minPrice",rangerPricePopwindow.getMinPrice());
+                }
+                if ( rangerPricePopwindow.getMaxPrice()>0){
+                    map.put("maxPrice", rangerPricePopwindow.getMaxPrice());
+                }
+            }
             map.put("isOnlineServe", isToHomeServiceView.isChecked() ? 1 : 2);
-            return null;
+            return map;
         }
 
         @Override
@@ -140,7 +195,7 @@ public class CarModelsDetailActivity extends AppCompatActivity {
             page = 1;
             Map<String, Object> map = initParam();
             multipleStatusView.showLoading();
-            HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarShopByCondition, map, new ICallBack() {
+            HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarShopByCondition, map,new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
                     Type type = new TypeToken<BaseModel<List<LongRentShop>>>() {
@@ -182,7 +237,7 @@ public class CarModelsDetailActivity extends AppCompatActivity {
                     HandlerData.handlerData(result, type, new EndLoadDataType<List<LongRentShop>>() {
                         @Override
                         public void onFailed() {
-
+                            refreshLayout.finishLoadMore(false);
                         }
 
                         @Override
@@ -191,13 +246,14 @@ public class CarModelsDetailActivity extends AppCompatActivity {
                                 multipleStatusView.showContent();
                                 adapter.setNewData(longRentShops);
                             }
+                            refreshLayout.finishLoadMore(true);
                         }
                     });
                 }
 
                 @Override
                 public void onFailure(String error) {
-                    multipleStatusView.showError();
+                    refreshLayout.finishLoadMore(false);
                 }
             });
         }
@@ -205,10 +261,12 @@ public class CarModelsDetailActivity extends AppCompatActivity {
 
     @OnClick(R.id.price_view)
     public void onPriceClicked() {
-        if (rangerPricePopwindow==null){
-            rangerPricePopwindow = new RangerPricePopwindow(this);
-        }
         rangerPricePopwindow.showAsDropDown(priceView);
+    }
+
+    @OnClick(R.id.distance_view)
+    public void onDistanceClicked() {
+        distancePopwindow.showAsDropDown(priceView);
     }
 
     @OnClick(R.id.back)

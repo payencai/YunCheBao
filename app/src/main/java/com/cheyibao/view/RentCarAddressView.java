@@ -163,9 +163,9 @@ public class RentCarAddressView extends LinearLayout {
         }
         if (object instanceof RentShop){
             takeCarCityTextView.setText(rentShop.getCity());
-            takeCarAddressTextView.setText(rentShop.getAddress());
+            takeCarAddressTextView.setText(rentShop.getName());
             returnTheCarCityTextView.setText(rentShop.getCity());
-            returnTheCarAddressTextView.setText(rentShop.getAddress());
+            returnTheCarAddressTextView.setText(rentShop.getName());
         }else {
             takeCarCityTextView.setText(takeCarAddress.getCityname());
             takeCarAddressTextView.setText(takeCarAddress.getPoiaddress());

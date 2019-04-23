@@ -56,11 +56,20 @@ public class HttpProxy implements IHttpProcessor {
     }
 
 
+//    @Override
+//    public void get(String url, Map<String, Object> headParams, ICallBack callBack) {
+////        mIHttpProcessor.get(url, headParams, callBack);
+//        String newUrl = appendParams(url, headParams);
+//        Log.d("lingtao", "get: " + newUrl);
+//        mIHttpProcessor.get(newUrl, headParams, callBack);
+//    }
+
     @Override
     public void get(String url, Map<String, Object> headParams, ICallBack callBack) {
 //        mIHttpProcessor.get(url, headParams, callBack);
         String newUrl = appendParams(url, headParams);
         Log.d("lingtao", "get: " + newUrl);
+        headParams.clear();
         mIHttpProcessor.get(newUrl, headParams, callBack);
     }
 

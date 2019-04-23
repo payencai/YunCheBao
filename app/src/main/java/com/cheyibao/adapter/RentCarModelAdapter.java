@@ -3,6 +3,7 @@ package com.cheyibao.adapter;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -16,19 +17,29 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RentCarModelAdapter extends BaseQuickAdapter<RentCarModel,RentCarModelAdapter.ViewHolder> {
+public class RentCarModelAdapter extends BaseQuickAdapter<RentCarModel, RentCarModelAdapter.ViewHolder> {
+    private boolean isDisplayPrice = true;
 
     public RentCarModelAdapter(@Nullable List<RentCarModel> data) {
         super(R.layout.item_rent_car_model, data);
     }
 
+    public void setDisplayPrice(boolean isDisplayPrice) {
+        this.isDisplayPrice = isDisplayPrice;
+    }
+
     @Override
     protected void convert(ViewHolder helper, RentCarModel item) {
-        Glide.with(helper.itemView).load(item.getImage()).into(helper.carBannerView);
+        Glide.with(helper.carBannerView).load(item.getImage()).into(helper.carBannerView);
         helper.carBrandView.setText(item.getBrand());
         helper.carModelsView.setText(item.getCarTategory());
-        helper.seatView.setText(String.format("%s/%s",item.getVariableBox(),item.getSeat()));
-        helper.dayPriceView.setText(String.format("￥%s",item.getDayPrice()));
+        helper.seatView.setText(String.format("%s/%s", item.getVariableBox(), item.getSeat()));
+        if (isDisplayPrice) {
+            helper.priceParentView.setVisibility(View.VISIBLE);
+        } else {
+            helper.priceParentView.setVisibility(View.GONE);
+        }
+        helper.dayPriceView.setText(String.format("￥%s", item.getDayPrice()));
     }
 
     static class ViewHolder extends BaseViewHolder {
@@ -42,6 +53,8 @@ public class RentCarModelAdapter extends BaseQuickAdapter<RentCarModel,RentCarMo
         TextView seatView;
         @BindView(R.id.day_price_view)
         TextView dayPriceView;
+        @BindView(R.id.price_parent_view)
+        LinearLayout priceParentView;
 
         ViewHolder(View view) {
             super(view);
