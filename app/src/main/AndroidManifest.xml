@@ -71,6 +71,7 @@
         <activity android:name=".fourshop.activity.AddFourCommentActivity" />
         <activity android:name=".fourshop.activity.CarDetailActivity" />
         <activity android:name="com.cheyibao.CarModelsSelectedActivity" />
+        <activity android:name="com.cheyibao.CarModelsDetailActivity"/>
         <activity
             android:name=".fourshop.activity.FourShopDetailActivity"
             android:theme="@style/DetailTheme" />
