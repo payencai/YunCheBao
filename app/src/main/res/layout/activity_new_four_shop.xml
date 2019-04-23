@@ -96,7 +96,7 @@
             android:background="@color/white"
             android:gravity="center">
 
-            <com.fourshop.view.DropdownButton
+            <com.example.yunchebao.fourshop.view.DropdownButton
                 android:id="@+id/chooseType"
                 android:layout_width="0px"
                 android:layout_height="match_parent"
@@ -107,7 +107,7 @@
                 android:layout_height="18dp"
                 android:background="#dddddd" />
 
-            <com.fourshop.view.DropdownButton
+            <com.example.yunchebao.fourshop.view.DropdownButton
                 android:id="@+id/chooseLanguage"
                 android:layout_width="0px"
                 android:layout_height="match_parent"
@@ -157,13 +157,13 @@
             android:layout_marginBottom="200dp"
             android:orientation="vertical">
 
-            <com.fourshop.view.DropdownListView
+            <com.example.yunchebao.fourshop.view.DropdownListView
                 android:id="@+id/dropdownType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
 
-            <com.fourshop.view.DropdownListView
+            <com.example.yunchebao.fourshop.view.DropdownListView
                 android:id="@+id/dropdownLanguage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

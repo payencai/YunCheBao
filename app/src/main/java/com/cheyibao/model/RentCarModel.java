@@ -1,6 +1,9 @@
 package com.cheyibao.model;
 
-public class RentCarModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class RentCarModel implements Parcelable {
     /**
      * agencyId : string
      * brand : string
@@ -124,4 +127,55 @@ public class RentCarModel {
     public void setVariableBox(String variableBox) {
         this.variableBox = variableBox;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.agencyId);
+        dest.writeString(this.brand);
+        dest.writeString(this.carTategory);
+        dest.writeString(this.createTime);
+        dest.writeInt(this.dayPrice);
+        dest.writeString(this.id);
+        dest.writeString(this.image);
+        dest.writeInt(this.number);
+        dest.writeString(this.seat);
+        dest.writeString(this.shopId);
+        dest.writeInt(this.state);
+        dest.writeString(this.variableBox);
+    }
+
+    public RentCarModel() {
+    }
+
+    protected RentCarModel(Parcel in) {
+        this.agencyId = in.readString();
+        this.brand = in.readString();
+        this.carTategory = in.readString();
+        this.createTime = in.readString();
+        this.dayPrice = in.readInt();
+        this.id = in.readString();
+        this.image = in.readString();
+        this.number = in.readInt();
+        this.seat = in.readString();
+        this.shopId = in.readString();
+        this.state = in.readInt();
+        this.variableBox = in.readString();
+    }
+
+    public static final Parcelable.Creator<RentCarModel> CREATOR = new Parcelable.Creator<RentCarModel>() {
+        @Override
+        public RentCarModel createFromParcel(Parcel source) {
+            return new RentCarModel(source);
+        }
+
+        @Override
+        public RentCarModel[] newArray(int size) {
+            return new RentCarModel[size];
+        }
+    };
 }

@@ -105,7 +105,104 @@
                 />
         </RelativeLayout>
     </LinearLayout>
+    <LinearLayout
 
+        android:id="@+id/ll_type4"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_name4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4S店"
+                android:textColor="@color/gray_66"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_fourstate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="已完成"
+                android:textColor="@color/yellow_65"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_time4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="2018-1-19"
+            android:textColor="@color/gray_99"
+            android:textSize="10sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/gray_ee"></View>
+
+        <TextView
+            android:id="@+id/tv_fourtype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="标准洗车-轿车"
+            android:textColor="@color/black_33"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tv_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="整车泡沫冲洗、轮胎冲洗清洁，车内吸尘、内饰简单清洁出尘。"
+            android:textColor="@color/gray_99"
+            android:textSize="10sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/gray_ee"></View>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_price4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="总价：¥55"
+                android:textColor="@color/black_33"
+                android:textSize="14sp" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/btn_comment4"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:paddingBottom="6dp"
+                android:paddingLeft="11dp"
+                android:paddingRight="11dp"
+                android:paddingTop="6dp"
+                android:text="评价"
+                android:textColor="@color/black_33"
+                android:textSize="14sp"
+                app:corner="2dp"
+                />
+        </RelativeLayout>
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/ll_type2"
         android:orientation="vertical"

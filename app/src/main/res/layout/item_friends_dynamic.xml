@@ -101,6 +101,26 @@
                 android:layout_marginBottom="10dp"
                 android:scaleType="fitCenter" />
 
+            <FrameLayout
+                android:id="@+id/frame_video_player"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.bbcircle.view.SampleCoverVideo
+                    android:id="@+id/sampleCoverVideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp" />
+
+                <ImageView
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/play" />
+            </FrameLayout>
+
+
             <!-- 点赞和评论图标 -->
             <LinearLayout
                 android:layout_width="match_parent"

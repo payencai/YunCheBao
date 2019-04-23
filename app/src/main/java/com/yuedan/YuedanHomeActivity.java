@@ -79,11 +79,12 @@ public class YuedanHomeActivity extends NoHttpFragmentBaseActivity {
         mTitleList.add("新车汇");
         mTitleList.add("二手车");
         mTitleList.add("紧急救援");
+        mRoadFragment=new BookRoadFragment();
         mFragments.add(BookWashCarFragment.newInstance(1));
         mFragments.add(BookRepairFragment.newInstance(2));
         mFragments.add(new BookNewCarFragment());
         mFragments.add(new BookOldCarFragment());
-        mFragments.add(new BookRoadFragment());
+        mFragments.add(mRoadFragment);
     }
 
     @OnClick({R.id.back, R.id.rightBtn})

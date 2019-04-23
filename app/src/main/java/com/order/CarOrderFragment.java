@@ -25,9 +25,9 @@ import com.costans.PlatformContans;
 import com.drive.activity.AddOrderCommentActivity;
 import com.drive.activity.DriveOrderDetailActivity;
 import com.drive.activity.DriverCommentActivity;
-import com.drive.activity.PayDetailActivity;
-import com.drive.model.ReplaceOrder;
 import com.example.yunchebao.R;
+import com.example.yunchebao.fourshop.activity.AddFourCommentActivity;
+import com.example.yunchebao.fourshop.activity.SeeCommentActivity;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
@@ -52,8 +52,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import go.error;
-import io.rong.imageloader.utils.L;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,6 +68,7 @@ public class CarOrderFragment extends Fragment {
     List<CarOrder> mCarOrders;
     CarOrderAdapter mCarOrderAdapter;
     List<CarOrder> mWashOrders ;
+    List<CarOrder> mFourOrders ;
     List<CarOrder> mDriversOrders;
     public static CarOrderFragment newInstance(int state) {
         CarOrderFragment orderFragment = new CarOrderFragment();
@@ -100,6 +99,7 @@ public class CarOrderFragment extends Fragment {
         state = getArguments().getInt("state");
         mCarOrders = new ArrayList<>();
         mWashOrders=new ArrayList<>();
+        mFourOrders=new ArrayList<>();
         mDriversOrders=new ArrayList<>();
         mCarOrderAdapter = new CarOrderAdapter(R.layout.item_car_order, mCarOrders);
         mCarOrderAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -129,11 +129,14 @@ public class CarOrderFragment extends Fragment {
                         intent.putExtra("data", carOrder);
                         startActivity(intent);
                     }
-                }else{
+                }else if(carOrder.getFlag()==3){
                         Intent intent2 =new Intent(getContext(),DriveOrderDetailActivity.class);
                         intent2.putExtra("data",carOrder);
                         startActivityForResult(intent2,3);
-
+                }else if(carOrder.getFlag()==4){
+                    intent = new Intent(getContext(), WashOrderDetailActivity.class);
+                    intent.putExtra("data", carOrder);
+                    startActivity(intent);
                 }
             }
         });
@@ -143,6 +146,23 @@ public class CarOrderFragment extends Fragment {
                 CarOrder carOrder = (CarOrder) adapter.getItem(position);
                 Intent intent;
                 switch (view.getId()){
+                    case R.id.btn_comment4:
+                        switch (carOrder.getState()){
+                            case 2:
+                                showCancelDialog(carOrder);
+                                break;
+                            case 3:
+                                Intent intent2 = new Intent(getContext(), AddFourCommentActivity.class);
+                                intent2.putExtra("id", carOrder.getId());
+                                startActivity(intent2);
+                                break;
+                            case 4:
+                                Intent intent3 = new Intent(getContext(), SeeCommentActivity.class);
+                                intent3.putExtra("id", carOrder.getId());
+                                startActivity(intent3);
+                                break;
+                        }
+                        break;
                     case R.id.tv_pjia:
                         if (carOrder.getState() == 3) {
                             Intent intent2 =new Intent(getContext(),DriverCommentActivity.class);
@@ -206,6 +226,173 @@ public class CarOrderFragment extends Fragment {
         getWashOrder();
 
     }
+
+    private void getFourOrder() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("state", state);
+        params.put("page", page);
+        HttpProxy.obtain().get(PlatformContans.FourShop.getUserOrderList, params, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        JSONArray data = jsonObject.getJSONArray("data");
+                        for (int i = 0; i < data.length(); i++) {
+                            JSONObject item = data.getJSONObject(i);
+                            CarOrder carOrder = new Gson().fromJson(item.toString(), CarOrder.class);
+                            carOrder.setFlag(4);
+                            mFourOrders.add(carOrder);
+                        }
+                        getCarOrder();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    private void getWashOrder() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("state", state);
+        params.put("page", page);
+        HttpProxy.obtain().get(PlatformContans.Order.getUserOrderList, params, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        JSONArray data = jsonObject.getJSONArray("data");
+
+                        for (int i = 0; i < data.length(); i++) {
+                            JSONObject item = data.getJSONObject(i);
+                            CarOrder carOrder = new Gson().fromJson(item.toString(), CarOrder.class);
+                            carOrder.setFlag(1);
+                            mWashOrders.add(carOrder);
+                        }
+                        getFourOrder();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    private void getDriverOrder() {
+        int type=-1;
+        Map<String, Object> params = new HashMap<>();
+        params.put("page", page);
+        if(state==3){
+            params.put("isComment", 0);
+        }
+        params.put("state", 2);
+        HttpProxy.obtain().get(PlatformContans.SubstituteDriving.getSubstituteDrivingOrderListByUser, params, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("driver", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    List<CarOrder> carOrders=new ArrayList<>();
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        CarOrder carOrder = new Gson().fromJson(item.toString(), CarOrder.class);
+                        carOrder.setFlag(3);
+                        mDriversOrders.add(carOrder);
+                    }
+                    carOrders.addAll(mWashOrders);
+                    carOrders.addAll(mFourOrders);
+                    carOrders.addAll(mCarOrders);
+                    carOrders.addAll(mDriversOrders);
+                    if (isLoadMore) {
+                        isLoadMore = false;
+                        mCarOrderAdapter.setNewData(carOrders);
+                        if(data.length()==0){
+                            mCarOrderAdapter.loadMoreEnd(true);
+                        }else{
+                            mCarOrderAdapter.loadMoreComplete();
+                        }
+                    } else {
+                        mCarOrderAdapter.setNewData(carOrders);
+                    }
+                    //updateData();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    private void getCarOrder() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("state", state);
+        params.put("page", page);
+        HttpProxy.obtain().get(PlatformContans.Order.getUserCarOrder, params, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        JSONArray data = jsonObject.getJSONArray("data");
+                        List<CarOrder> carOrders=new ArrayList<>();
+                        for (int i = 0; i < data.length(); i++) {
+                            JSONObject item = data.getJSONObject(i);
+                            CarOrder carOrder = new Gson().fromJson(item.toString(), CarOrder.class);
+                            carOrder.setFlag(2);
+                            mCarOrders.add(carOrder);
+                        }
+                        if(state!=2)
+                            getDriverOrder();
+                        else{
+                            carOrders.addAll(mWashOrders);
+                            carOrders.addAll(mFourOrders);
+                            carOrders.addAll(mCarOrders);
+                            if (isLoadMore) {
+                                isLoadMore = false;
+                                mCarOrderAdapter.setNewData(carOrders);
+                                if(data.length()==0){
+                                    mCarOrderAdapter.loadMoreEnd(true);
+                                }else{
+                                    mCarOrderAdapter.loadMoreComplete();
+                                }
+                            } else {
+                                mCarOrderAdapter.setNewData(carOrders);
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     private void showCancelDialog(CarOrder carOrder) {
         Dialog dialog = new Dialog(getContext(), R.style.dialog);
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_cancel_order, null);
@@ -222,9 +409,11 @@ public class CarOrderFragment extends Fragment {
             public void onClick(View v) {
                 dialog.dismiss();
                 if(carOrder.getFlag()==1)
-                   washCancel(carOrder.getId());
-                else{
+                    washCancel(carOrder.getId());
+                else if(carOrder.getFlag()==2){
                     carCancel(carOrder.getId());
+                }else if(carOrder.getFlag()==4){
+                    fourCancel(carOrder.getId());
                 }
             }
         });
@@ -239,10 +428,12 @@ public class CarOrderFragment extends Fragment {
         layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         window.setAttributes(layoutParams);
     }
+
     private void refresh() {
         page = 1;
         mCarOrders.clear();
         mWashOrders.clear();
+        mFourOrders.clear();
         mDriversOrders.clear();
         mCarOrderAdapter.setNewData(mCarOrders);
         getWashOrder();
@@ -304,12 +495,10 @@ public class CarOrderFragment extends Fragment {
             }
         });
     }
-
-    private void getWashOrder() {
+    private void fourCancel(String id) {
         Map<String, Object> params = new HashMap<>();
-        params.put("state", state);
-        params.put("page", page);
-        HttpProxy.obtain().get(PlatformContans.Order.getUserOrderList, params, MyApplication.token, new ICallBack() {
+        params.put("id", id);
+        HttpProxy.obtain().post(PlatformContans.FourShop.cancelFourShopOrder, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);
@@ -317,114 +506,12 @@ public class CarOrderFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(result);
                     int code = jsonObject.getInt("resultCode");
                     if (code == 0) {
-                        JSONArray data = jsonObject.getJSONArray("data");
-
-                        for (int i = 0; i < data.length(); i++) {
-                            JSONObject item = data.getJSONObject(i);
-                            CarOrder carOrder = new Gson().fromJson(item.toString(), CarOrder.class);
-                            carOrder.setFlag(1);
-                            mWashOrders.add(carOrder);
-                        }
-                        getCarOrder();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
-    }
-    private void getDriverOrder() {
-        int type=-1;
-        Map<String, Object> params = new HashMap<>();
-        params.put("page", page);
-        if(state==3){
-            params.put("isComment", 0);
-        }
-        params.put("state", 2);
-        HttpProxy.obtain().get(PlatformContans.SubstituteDriving.getSubstituteDrivingOrderListByUser, params, MyApplication.token, new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Log.e("driver", result);
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    List<CarOrder> carOrders=new ArrayList<>();
-                    for (int i = 0; i < data.length(); i++) {
-                        JSONObject item = data.getJSONObject(i);
-                        CarOrder carOrder = new Gson().fromJson(item.toString(), CarOrder.class);
-                        carOrder.setFlag(3);
-                        mDriversOrders.add(carOrder);
-                    }
-                    carOrders.addAll(mWashOrders);
-                    carOrders.addAll(mCarOrders);
-                    carOrders.addAll(mDriversOrders);
-                    if (isLoadMore) {
-                        isLoadMore = false;
-                        mCarOrderAdapter.setNewData(carOrders);
-                        if(data.length()==0){
-                            mCarOrderAdapter.loadMoreEnd(true);
-                        }else{
-                            mCarOrderAdapter.loadMoreComplete();
-                        }
+                        ToastUtil.showToast(getContext(), "取消成功");
+                        page = 1;
+                        getWashOrder();
                     } else {
-                        mCarOrderAdapter.setNewData(carOrders);
-                    }
-                    //updateData();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
-    }
-
-    private void getCarOrder() {
-        Map<String, Object> params = new HashMap<>();
-        params.put("state", state);
-        params.put("page", page);
-        HttpProxy.obtain().get(PlatformContans.Order.getUserCarOrder, params, MyApplication.token, new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Log.e("result", result);
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    int code = jsonObject.getInt("resultCode");
-                    if (code == 0) {
-                        JSONArray data = jsonObject.getJSONArray("data");
-                        List<CarOrder> carOrders=new ArrayList<>();
-                        for (int i = 0; i < data.length(); i++) {
-                            JSONObject item = data.getJSONObject(i);
-                            CarOrder carOrder = new Gson().fromJson(item.toString(), CarOrder.class);
-                            carOrder.setFlag(2);
-                            mCarOrders.add(carOrder);
-                        }
-                        if(state!=2)
-                            getDriverOrder();
-                        else{
-                            carOrders.addAll(mWashOrders);
-                            carOrders.addAll(mCarOrders);
-                            if (isLoadMore) {
-                                isLoadMore = false;
-                                mCarOrderAdapter.setNewData(carOrders);
-                                if(data.length()==0){
-                                    mCarOrderAdapter.loadMoreEnd(true);
-                                }else{
-                                    mCarOrderAdapter.loadMoreComplete();
-                                }
-                            } else {
-                                mCarOrderAdapter.setNewData(carOrders);
-                            }
-                        }
+                        String msg = jsonObject.getString("message");
+                        ToastUtil.showToast(getContext(), msg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

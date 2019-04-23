@@ -205,6 +205,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></GridView>
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/iv_pic"
                 android:src="@mipmap/camera_default"
                 android:layout_width="70dp"

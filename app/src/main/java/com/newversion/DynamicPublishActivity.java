@@ -68,6 +68,8 @@ public class DynamicPublishActivity extends AppCompatActivity {
 
     @BindView(R.id.et_dynamic_text)
     EditText etDynamicText;
+    @BindView(R.id.iv_play)
+    ImageView iv_play;
     @BindView(R.id.sampleCoverVideo)
     SampleCoverVideo sampleCoverVideo;
     @BindView(R.id.gv_dynamic_photos)
@@ -144,6 +146,7 @@ public class DynamicPublishActivity extends AppCompatActivity {
             sampleCoverVideo.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    iv_play.setVisibility(View.GONE);
                     sampleCoverVideo.startWindowFullscreen(v.getContext(), false, true);
                 }
             });

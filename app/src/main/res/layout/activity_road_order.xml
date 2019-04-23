@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/back"
+            android:padding="15dp"
+            android:src="@mipmap/back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textColor="@color/black_33"
+            android:textSize="16sp"
+            android:layout_centerInParent="true"
+            android:text="我的订单"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <com.flyco.tablayout.SlidingTabLayout
+        android:layout_marginTop="1dp"
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:color/white"
+        app:tl_indicator_color="@color/yellow_02"
+        app:tl_indicator_corner_radius="30dp"
+        app:tl_indicator_height="3dp"
+        app:tl_indicator_width_equal_title="true"
+        app:tl_tab_padding="25dp"
+        app:tl_tab_space_equal="true"
+        app:tl_textSelectColor="@color/yellow_02"
+        app:tl_textUnselectColor="@android:color/black"
+        app:tl_textsize="14sp" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v4.view.ViewPager>
+</LinearLayout>

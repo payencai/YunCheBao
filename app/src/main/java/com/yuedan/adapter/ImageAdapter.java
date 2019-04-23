@@ -45,7 +45,15 @@ public class ImageAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView= LayoutInflater.from(mContext).inflate(R.layout.item_grid_images,null);
         ImageView iv_logo= (ImageView) convertView.findViewById(R.id.iv_logo);
-        Glide.with(mContext).load(images.get(position)).into(iv_logo);
+        ImageView iv_del=convertView.findViewById(R.id.iv_del);
+        if(position==0){
+            iv_del.setVisibility(View.GONE);
+            iv_logo.setImageResource(R.mipmap.camera_default);
+        }else{
+            iv_del.setVisibility(View.VISIBLE);
+            Glide.with(mContext).load(images.get(position)).into(iv_logo);
+        }
+
         return convertView;
     }
 }

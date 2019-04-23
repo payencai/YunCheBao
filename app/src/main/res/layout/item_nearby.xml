@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:padding="10dp"
+    android:gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.payencai.library.view.CircleImageView
+        android:layout_width="35dp"
+        android:id="@+id/iv_head"
+        android:src="@mipmap/notlogin_head"
+        android:layout_height="35dp" />
+    <LinearLayout
+        android:paddingLeft="15dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_name"
+                android:textColor="@color/black_33"
+                android:textSize="17sp"
+                android:text="哈哈哈"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/iv_sex"
+                android:layout_marginLeft="5dp"
+                android:src="@mipmap/ic_man"
+                android:layout_width="16dp"
+                android:layout_height="16dp" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_dis"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp"
+            android:textColor="@color/gray_99"
+            android:text="300km"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

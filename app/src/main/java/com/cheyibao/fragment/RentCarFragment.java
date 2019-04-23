@@ -16,6 +16,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.cheyibao.CarModelsDetailActivity;
 import com.cheyibao.LongRentAppliationActivity;
 import com.cheyibao.ShopDetailActivity;
 import com.cheyibao.ShopListNoAreaActivity;
@@ -142,6 +144,14 @@ public class RentCarFragment extends BaseFragment {
         recommendedVehicleTypeListView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new RentCarModelAdapter(new ArrayList<>());
         adapter.bindToRecyclerView(recommendedVehicleTypeListView);
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+            RentCarModel carModel = (RentCarModel) adapter.getItem(position);
+            Intent intent = new Intent(getContext(), CarModelsDetailActivity.class);
+            if (carModel!=null){
+                intent.putExtra("car_model",carModel);
+            }
+            startActivity(intent);
+        });
     }
 
     private LoadDataType loadDataType = new LoadDataType() {
