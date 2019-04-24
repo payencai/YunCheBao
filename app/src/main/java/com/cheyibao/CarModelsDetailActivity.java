@@ -1,6 +1,7 @@
 package com.cheyibao;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.application.MyApplication;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.adapter.LongRentShopAdapter;
+import com.cheyibao.model.CarMeal;
 import com.cheyibao.model.LongRentShop;
 import com.cheyibao.model.RentCarModel;
 import com.cheyibao.view.CarMealPopupWindow;
@@ -94,6 +96,8 @@ public class CarModelsDetailActivity extends AppCompatActivity {
 
     private Context context;
 
+    private LongRentShop currentLongRentShop;
+
     private LongRentShopAdapter adapter;
     private RangerPricePopwindow rangerPricePopwindow;
     private MaxDistancePopwindow distancePopwindow;
@@ -134,6 +138,18 @@ public class CarModelsDetailActivity extends AppCompatActivity {
         isToHomeServiceView.setCompoundDrawables(drawable, null, null, null);
 
         carMealPopupWindow = new CarMealPopupWindow(this);
+
+        carMealPopupWindow = new CarMealPopupWindow(context);
+
+        carMealPopupWindow.setCarMealOnItemClickListener((adapter, view, position) -> {
+            CarMeal carMeal = (CarMeal) adapter.getItem(position);
+            Intent intent = new Intent(context,BookCarActivity.class);
+            intent.putExtra("car_meal",carMeal);
+            intent.putExtra("rent_car_model",rentCarModel);
+            intent.putExtra("rent_shop",currentLongRentShop);
+            currentLongRentShop.setIsOnlineServe(isToHomeServiceView.isChecked()?1:2);
+            startActivity(intent);
+        });
     }
     private StateListDrawable drawables() {
         StateListDrawable stateListDrawable = new StateListDrawable();
@@ -154,9 +170,9 @@ public class CarModelsDetailActivity extends AppCompatActivity {
 
         adapter.setOnItemClickListener((adapter, view, position) -> {
             LongRentShop longRentShop = (LongRentShop) adapter.getItem(position);
+            currentLongRentShop = longRentShop;
             if (longRentShop!=null){
-                carMealPopupWindow = new CarMealPopupWindow(context,longRentShop.getCarId());
-//                carMealPopupWindow.setCarId(longRentShop.getCarId());
+                carMealPopupWindow.setCarId(longRentShop.getCarId());
                 carMealPopupWindow.showAsDropDown(getWindow().getDecorView(),0,0,Gravity.BOTTOM);
             }
         });

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -34,6 +36,7 @@ import com.payencai.library.mediapicker.utils.ScreenUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.tool.DensityUtil;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -53,6 +56,7 @@ public class CarMealPopupWindow {
     private View view;
     private SmartRefreshLayout refreshLayout ;
     private MultipleStatusView multipleStatusView;
+    private ImageView closePopupWindowIv;
 
     private String carId;
 
@@ -78,6 +82,10 @@ public class CarMealPopupWindow {
         refreshLayout = view.findViewById(R.id.refresh_layout);
         multipleStatusView = view.findViewById(R.id.multiple_status_view);
 
+        closePopupWindowIv = view.findViewById(R.id.close_popup_window_iv);
+
+        closePopupWindowIv.setOnClickListener(v -> popupWindow.dismiss());
+
         adapter = new Adapter(new ArrayList<>());
         adapter.bindToRecyclerView(carMealRecyclerView);
 
@@ -93,6 +101,10 @@ public class CarMealPopupWindow {
         if (!TextUtils.isEmpty(carId)){
             loadDataType.initData();
         }
+    }
+
+    public void setCarMealOnItemClickListener(BaseQuickAdapter.OnItemClickListener listener){
+        adapter.setOnItemClickListener(listener);
     }
 
     public CarMealPopupWindow(Context context) {
@@ -250,6 +262,11 @@ public class CarMealPopupWindow {
             helper.originalPriceView.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             helper.totalPriceView.setText(String.format("￥%s",item.getAllPrice()));
             helper.cutDownView.setText(String.format("省%s",item.getDiscount()));
+
+            GradientDrawable drawable = new GradientDrawable();
+            drawable.setShape(GradientDrawable.OVAL);
+            drawable.setStroke(2,0xFFF5A623);
+            helper.bookingView.setBackground(drawable);
         }
 
         static class ViewHolder extends BaseViewHolder {

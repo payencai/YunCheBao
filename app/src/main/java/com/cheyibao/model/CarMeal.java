@@ -1,6 +1,9 @@
 package com.cheyibao.model;
 
-public class CarMeal {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class CarMeal implements Parcelable {
     /**
      * allPrice : 0
      * createTime : 2019-04-23T09:30:00.080Z
@@ -84,4 +87,47 @@ public class CarMeal {
     public void setRentDay(int rentDay) {
         this.rentDay = rentDay;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.allPrice);
+        dest.writeString(this.createTime);
+        dest.writeInt(this.dayPrice);
+        dest.writeInt(this.discount);
+        dest.writeString(this.id);
+        dest.writeString(this.longCarId);
+        dest.writeInt(this.originalPrice);
+        dest.writeInt(this.rentDay);
+    }
+
+    public CarMeal() {
+    }
+
+    protected CarMeal(Parcel in) {
+        this.allPrice = in.readInt();
+        this.createTime = in.readString();
+        this.dayPrice = in.readInt();
+        this.discount = in.readInt();
+        this.id = in.readString();
+        this.longCarId = in.readString();
+        this.originalPrice = in.readInt();
+        this.rentDay = in.readInt();
+    }
+
+    public static final Parcelable.Creator<CarMeal> CREATOR = new Parcelable.Creator<CarMeal>() {
+        @Override
+        public CarMeal createFromParcel(Parcel source) {
+            return new CarMeal(source);
+        }
+
+        @Override
+        public CarMeal[] newArray(int size) {
+            return new CarMeal[size];
+        }
+    };
 }

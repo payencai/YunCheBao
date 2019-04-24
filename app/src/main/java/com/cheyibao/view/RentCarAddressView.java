@@ -88,6 +88,13 @@ public class RentCarAddressView extends LinearLayout {
 
     }
 
+    public void setIsEnabled(boolean isEnabled){
+        this.isEnabled = isEnabled;
+        isToHomeServiceView.setEnabled(isEnabled);
+        takeCarAddressTextView.setEnabled(isEnabled);
+        returnTheCarAddressTextView.setEnabled(isEnabled);
+    }
+
     private StateListDrawable drawables() {
         StateListDrawable stateListDrawable = new StateListDrawable();
         stateListDrawable.addState(new int[]{android.R.attr.state_checked}, ResourceUtils.getDrawableByResource(getContext(), R.mipmap.carrental_btn_checkthe_selected));
@@ -151,6 +158,14 @@ public class RentCarAddressView extends LinearLayout {
         }else {
             bindViewData(rentShop);
         }
+    }
+
+    public void init(RentShop rentShop){
+        this.rentShop = rentShop;
+        isToHomeServiceView.setChecked(rentShop.getIsOnlineServe()==1);
+        isToHomeServiceView.setEnabled(false);
+        isToHomeServiceView.setVisibility(GONE);
+        bindViewData(rentShop);
     }
 
     private void bindViewData(Object object){
