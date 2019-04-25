@@ -93,6 +93,7 @@ public class LongRentAppliationActivity extends AppCompatActivity {
     private Context context;
 
     private CarModelsFirstLevel carModelsFirstLevel;
+    private CarModelsFirstLevel lastCarModelsFirstLevel;
     private SubCarModels.ParamBeanX paramBeanX;
 
     @Override
@@ -128,6 +129,7 @@ public class LongRentAppliationActivity extends AppCompatActivity {
                         }else {
                             text.append(String.format(" %s",carModelsFirstLevel.getName()));
                         }
+                        lastCarModelsFirstLevel = carModelsFirstLevel;
                     }else if (object instanceof SubCarModels.ParamBeanX){
                         paramBeanX = (SubCarModels.ParamBeanX) object;
                     }
@@ -240,7 +242,7 @@ public class LongRentAppliationActivity extends AppCompatActivity {
             map.put("callTelephone",callTelephone);
             map.put("idNumber",idNumber);
             map.put("brand",carModelsFirstLevel==null ? "":carModelsFirstLevel.getName());
-            map.put("carTategory",paramBeanX==null?"":paramBeanX.getCarCategoryId());
+            map.put("carTategory",lastCarModelsFirstLevel==null?"":lastCarModelsFirstLevel.getName());
             map.put("variableBox",paramBeanX==null?"":paramBeanX.getVariableBox());
             map.put("seat",paramBeanX==null?"":paramBeanX.getSeat());
             map.put("image",carModelsFirstLevel==null ? "" : carModelsFirstLevel.getImage());

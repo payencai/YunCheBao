@@ -16,9 +16,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.application.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.cheyibao.BookCarActivity;
 import com.cheyibao.CarModelsDetailActivity;
 import com.cheyibao.LongRentAppliationActivity;
+import com.cheyibao.SelfDriverOrderActivity;
 import com.cheyibao.ShopDetailActivity;
 import com.cheyibao.ShopListNoAreaActivity;
 import com.cheyibao.adapter.RentCarModelAdapter;
@@ -26,6 +29,7 @@ import com.cheyibao.model.RentCarModel;
 import com.cheyibao.util.RentCarUtils;
 import com.cheyibao.view.RentCarAddressView;
 import com.cheyibao.view.RentCarTimeView;
+import com.common.AvoidOnResult;
 import com.common.BaseModel;
 import com.common.EndLoadDataType;
 import com.common.HandlerData;
@@ -42,6 +46,7 @@ import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
 import com.payencai.library.util.ToastUtil;
 import com.tool.slideshowview.SlideShowView;
+import com.vipcenter.RegisterActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -284,6 +289,14 @@ public class RentCarFragment extends BaseFragment {
 
     @OnClick(R.id.self_driver_order_click_view)
     public void onSelfDriverOrderClickViewClicked() {
+        if (MyApplication.isLogin){
+            startActivity(new Intent(getContext(), SelfDriverOrderActivity.class));
+        }else {
+            AvoidOnResult avoidOnResult = new AvoidOnResult(this);
+            avoidOnResult.startForResult(RegisterActivity.class, 1, (requestCode, resultCode, data) -> {
+                startActivity(new Intent(getContext(), SelfDriverOrderActivity.class));
+            });
+        }
     }
 
     @OnClick(R.id.high_end_self_driving_click_view)
