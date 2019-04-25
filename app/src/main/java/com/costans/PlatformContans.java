@@ -285,7 +285,6 @@ public class PlatformContans {
         public static final String substituteDrivingPay=root+ "/alipay/substituteDrivingPay";
         public static final String fourShopPay=root+ "/alipay/fourShopPay";
         public static final String rentCarOrderPay=root+ "/alipay/rentCarOrderPay";//租车订单支付";
-
     }
     public static class Chat{
         public static final String updateFriendsById=root+"/huanxin/updateFriendsById";
@@ -339,7 +338,9 @@ public class PlatformContans {
         public static final String getFourSHopOrderDetail=root+ "/fourShop/getOrderDetailsByOrderId";
         public static final String getRentCarOrderDetail=root+ "/rentCar/getRentCarOrderDetailsByOrderId";
         public static final String getSchoolOrderDetail=root+ "/carOrder/getOrderDetailsByOrderId";
+        public static final String cancelRentCarOrder=root+"/rentCar/cancelRentCarOrder";
         public static final String getDriverOrderDetail=root+ "/substituteDriving/getOrderDetailsByOrderId";
+        public static final String addRentCarComment=root+"/rentCar/addRentCarComment";
     }
 
     public static class SubstituteDriving{

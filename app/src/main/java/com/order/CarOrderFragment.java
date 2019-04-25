@@ -217,12 +217,14 @@ public class CarOrderFragment extends Fragment {
                     break;
                 case 4://租车
                     if(carOrder.getState()==3){
-
+                         intent = new Intent(getContext(), AddRentCommentActivity.class);
+                        intent.putExtra("item", carOrder);
+                        startActivity(intent);
                         //待评价
                     }else if(carOrder.getState()==4){
                         //已完成
                     }else if (carOrder.getState()==2){
-
+                         showCancelDialog(carOrder);
                         //取消
                     }
                     break;
@@ -299,6 +301,7 @@ public class CarOrderFragment extends Fragment {
                     case 3:
                         break;
                     case 4:
+                        rentCancel(carOrder.getId());
                         break;
                 }
             }
@@ -349,10 +352,10 @@ public class CarOrderFragment extends Fragment {
         });
     }
 
-    private void carCancel(String id) {
+    private void rentCancel(String id) {
         Map<String, Object> params = new HashMap<>();
-        params.put("orderId", id);
-        HttpProxy.obtain().post(PlatformContans.CarOrder.cancelCarOrder, MyApplication.token, params, new ICallBack() {
+        params.put("id", id);
+        HttpProxy.obtain().post(PlatformContans.MyService.cancelRentCarOrder, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);
@@ -361,7 +364,7 @@ public class CarOrderFragment extends Fragment {
                     int code = jsonObject.getInt("resultCode");
                     if (code == 0) {
                         ToastUtil.showToast(getContext(), "取消成功");
-                        page = 1;
+
 
                     } else {
                         String msg = jsonObject.getString("message");

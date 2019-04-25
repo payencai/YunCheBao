@@ -44,7 +44,7 @@ public class RentOrder {
     private String callTelephone;
     private String carTategory;
     private String createTime;
-    private int dayPrice;
+    private double dayPrice;
     private String handleTime;
     private String id;
     private String idNumber;
@@ -69,7 +69,7 @@ public class RentOrder {
     private String takeCarLongitude;
     private String takeCarTime;
     private String telephone;
-    private int total;
+    private double total;
     private String userId;
     private String variableBox;
 
@@ -121,11 +121,11 @@ public class RentOrder {
         this.createTime = createTime;
     }
 
-    public int getDayPrice() {
+    public double getDayPrice() {
         return dayPrice;
     }
 
-    public void setDayPrice(int dayPrice) {
+    public void setDayPrice(double dayPrice) {
         this.dayPrice = dayPrice;
     }
 
@@ -321,11 +321,11 @@ public class RentOrder {
         this.telephone = telephone;
     }
 
-    public int getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
