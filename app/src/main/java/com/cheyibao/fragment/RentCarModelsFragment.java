@@ -51,11 +51,12 @@ public class RentCarModelsFragment extends Fragment {
 
     @BindView(R.id.multiple_status_view)
     MultipleStatusView multipleStatusView;
-    private RentCarModelAdapter adapter;
     @BindView(R.id.id_stickynavlayout_innerscrollview)
     RecyclerView lv_rentcar;
-
     private Unbinder unbinder;
+
+
+    private RentCarModelAdapter adapter;
 
     int page = 1;
     String id;

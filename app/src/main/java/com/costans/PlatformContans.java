@@ -247,6 +247,8 @@ public class PlatformContans {
         public static final String getRentCarShopByCondition=root+ "/rentCar/getRentCarShopByCondition";
         public static final String getCarMealByCarId=root+ "/rentCar/getCarMealByCarId";
         public static final String addRentCarAppointment=root+ "/rentCar/addRentCarAppointment" ; //添加长租约单数据
+        public static final String getUserRentCarOrderList=root+ "/rentCar/getUserRentCarOrderList"; //用户分页获取租车订单列表数据
+        public static final String cancelRentCarOrder=root+ "/rentCar/cancelRentCarOrder" ; //取消租车订单
     }
     public static class OldCar{
 
@@ -274,6 +276,7 @@ public class PlatformContans {
         public static final String appointmentPay=root+ "/alipay/appointmentPay";
         public static final String substituteDrivingPay=root+ "/alipay/substituteDrivingPay";
         public static final String fourShopPay=root+ "/alipay/fourShopPay";
+        public static final String rentCarOrderPay=root+ "/alipay/rentCarOrderPay";//租车订单支付";
 
     }
     public static class Chat{

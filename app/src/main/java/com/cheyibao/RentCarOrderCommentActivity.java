@@ -1,28 +1,26 @@
 package com.cheyibao;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.cheyibao.fragment.RentCarModelsFragment;
-import com.cheyibao.fragment.RentShopComentFragment;
-import com.cheyibao.fragment.SelfDriverOrderFragment;
+import com.common.ResourceUtils;
 import com.coorchice.library.SuperTextView;
 import com.example.yunchebao.R;
-import com.flyco.tablayout.SlidingTabLayout;
-import com.nohttp.sample.BaseFragment;
-
-import java.util.ArrayList;
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SelfDriverOrderActivity extends AppCompatActivity {
+public class RentCarOrderCommentActivity extends AppCompatActivity {
 
     @BindView(R.id.back)
     ImageView back;
@@ -42,26 +40,33 @@ public class SelfDriverOrderActivity extends AppCompatActivity {
     ImageView menuBtn;
     @BindView(R.id.userBtn)
     ImageView userBtn;
-    @BindView(R.id.tab_layout)
-    SlidingTabLayout tabLayout;
-    @BindView(R.id.viewpager)
-    ViewPager viewpager;
+    @BindView(R.id.starbar)
+    SimpleRatingBar starbar;
+    @BindView(R.id.score_view)
+    TextView scoreView;
+    @BindView(R.id.comment_content_view)
+    EditText commentContentView;
+    @BindView(R.id.image_list_view)
+    RecyclerView imageListView;
+
+    private String orderId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_self_driver_order);
+        setContentView(R.layout.activity_rent_car_order_comment);
         ButterKnife.bind(this);
-
-        ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
-        fragmentArrayList.add(SelfDriverOrderFragment.newInstance(-1));
-        fragmentArrayList.add(SelfDriverOrderFragment.newInstance(2));
-        fragmentArrayList.add(SelfDriverOrderFragment.newInstance(3));
-        tabLayout.setViewPager(viewpager, new String[]{"全部","服务中","待评论"}, this, fragmentArrayList);
+        orderId = getIntent().getStringExtra("rent_car_order_id");
+        textBtn.setText("发布");
+        textBtn.setTextColor(ResourceUtils.getColorByResource(this,R.color.yellow_65));
     }
 
     @OnClick(R.id.back)
-    public void onViewClicked() {
+    public void onBackClicked() {
         onBackPressed();
+    }
+
+    @OnClick(R.id.textBtn)
+    public void onShareBtnClicked() {
     }
 }

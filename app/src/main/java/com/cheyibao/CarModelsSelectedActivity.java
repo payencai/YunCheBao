@@ -143,7 +143,7 @@ public class CarModelsSelectedActivity extends AppCompatActivity {
                                 public void onSuccess(SubCarModels subCarModelsBaseModel) {
                                     if (subCarModelsBaseModel!=null){
                                         if (subCarModelsBaseModel.getParam()!=null && subCarModelsBaseModel.getParam().size()>0){
-                                            sparseArray.put(sparseArray.size(),subCarModelsBaseModel.getParam());
+                                            sparseArray.put(sparseArray.size(),subCarModelsBaseModel.getParam().get(0));
                                             finish();
                                             return;
                                         }else {
