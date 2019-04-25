@@ -252,6 +252,9 @@ public class PlatformContans {
         public static final String addRentCarOrder=root+ "/rentCar/addRentCarOrder";
         public static final String getRecommendLongCarList=root+ "/rentCar/getRecommendLongCarList";
         public static final String addRentCarApply=root+ "/rentCar/addRentCarApply";
+        public static final String getRentCarShopByCondition=root+ "/rentCar/getRentCarShopByCondition";
+        public static final String getCarMealByCarId=root+ "/rentCar/getCarMealByCarId";
+        public static final String addRentCarAppointment=root+ "/rentCar/addRentCarAppointment" ; //添加长租约单数据
     }
     public static class OldCar{
 

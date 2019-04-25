@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_barlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentScrim="@android:color/transparent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_collapseMode="parallax"
+                    android:fitsSystemWindows="true"
+                    android:layout_marginTop="50dp"
+                    android:background="@color/white">
+                    <ImageView
+                        android:id="@+id/car_banner_view"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        tools:src="@drawable/ic_addimage"
+                        android:scaleType="centerCrop"
+                        android:padding="10dp"
+                        android:layout_gravity="center"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/car_brand_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="大众朗逸"
+                            android:textColor="@color/black_33"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:id="@+id/car_models_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="2017款 1.6L自动风尚版"
+                            android:textColor="@color/black_33"
+                            android:textSize="16sp"
+                            android:layout_marginTop="10dp"/>
+
+                        <TextView
+                            android:id="@+id/seat_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="手动/2坐"
+                            android:textSize="12sp"
+                            android:textColor="@color/gray_99"
+                            android:layout_marginTop="10dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true">
+
+                        <ImageView
+                            android:id="@id/back"
+                            android:layout_width="48dp"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:padding="16dp"
+                            android:src="@mipmap/back" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="@string/car"
+                            android:textColor="@color/black_33"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+                </android.support.v7.widget.Toolbar>
+            </android.support.design.widget.CollapsingToolbarLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/split_line_color"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:id="@+id/distance_view"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:gravity="center">
+                    <CheckedTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/distance"
+                        android:gravity="center"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/price_view"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:gravity="center">
+                    <CheckedTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price"
+                        android:gravity="center"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+                    <CheckBox
+                        android:id="@+id/is_to_home_service_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/to_home_take_and_send"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:button="@null"
+                        android:drawablePadding="5dp"
+                        android:paddingStart="1dp"
+                        android:paddingEnd="1dp"
+                        android:background="@null"
+                        android:checked="true"/>
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/split_line_color"/>
+        </android.support.design.widget.AppBarLayout>
+        <com.common.MultipleStatusView
+            android:id="@+id/multiple_status_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refresh_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/shop_list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        </com.common.MultipleStatusView>
+    </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

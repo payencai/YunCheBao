@@ -100,4 +100,19 @@
     <string name="emergency_contact_person_1">紧急联系人*</string>
     <string name="emergency_contact_phone">紧急联系手机*</string>
     <string name="please_enter_emergency_contact_phone">请输入紧急联系手机号</string>
+    <string name="car">车辆</string>
+    <string name="distance">距离</string>
+    <string name="to_home_take_and_send">上门取送</string>
+    <string name="price_ranger">价格区间</string>
+    <string name="min_price">最低价</string>
+    <string name="max_price">最高价</string>
+    <string name="max_distance">最大距离</string>
+    <string name="_1km">1KM以内</string>
+    <string name="_2km">2KM以内</string>
+    <string name="_3km">3KM以内</string>
+    <string name="_5km">5KM以内</string>
+    <string name="_7km">7KM以内</string>
+    <string name="_10km">10KM以内</string>
+    <string name="km_">km以内</string>
+    <string name="booking">预定</string>
 </resources>
