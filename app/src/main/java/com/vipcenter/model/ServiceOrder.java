@@ -1,22 +1,19 @@
-package com.order;
-
-import java.io.Serializable;
+package com.vipcenter.model;
 
 /**
- * 作者：凌涛 on 2019/1/28 14:00
+ * 作者：凌涛 on 2019/4/23 16:55
  * 邮箱：771548229@qq..com
  */
-public class CarOrder implements Serializable{
-
+public class ServiceOrder {
 
     /**
-     * createTime : 2019-04-24T07:53:32.603Z
+     * createTime : 2019-04-23T08:44:18.261Z
      * id : string
      * logo : string
      * shopId : string
      * shopName : string
      * state : 0
-     * total : 0.0
+     * total : 0
      * type : 0
      * userId : string
      */

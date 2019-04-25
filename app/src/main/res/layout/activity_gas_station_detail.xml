@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:background="#f3f3f3"
+        android:id="@+id/appbarlayout"
+        android:layout_width="match_parent"
+        android:layout_height="435dp"
+        app:elevation="0dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="385dp"
+            android:layout_marginBottom="1dp"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@android:color/transparent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="385dp"
+                android:scaleType="centerInside"
+                app:layout_collapseMode="pin"
+                app:layout_collapseParallaxMultiplier="0.7"
+                android:fitsSystemWindows="true"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp">
+                    <com.youth.banner.Banner
+                        android:id="@+id/banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp">
+
+                    </com.youth.banner.Banner>
+                    <ImageView
+                        android:id="@+id/iv_play"
+                        android:visibility="gone"
+                        android:src="@mipmap/ic_new_play"
+                        android:layout_centerInParent="true"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp" />
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/tv_shopname"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="兴启晟"
+                                    android:textColor="@color/black_33" />
+
+                                <ImageView
+                                    android:visibility="gone"
+                                    android:id="@+id/icon"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:src="@mipmap/renzhen_icon" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="综合评分"
+                                    android:textColor="@color/gray_99"
+                                    android:textSize="10sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_score"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="4dp"
+                                    android:text="5.0"
+                                    android:textColor="@color/yellow_02"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="16dp"
+                                    android:text="商家级别"
+                                    android:textColor="@color/gray_99"
+                                    android:textSize="10sp" />
+
+                                <TextView
+                                    android:gravity="center"
+                                    android:background="@color/yellow_64"
+                                    android:id="@+id/tv_grade"
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:layout_marginLeft="4dp"
+                                    android:text="1"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/ll_shop"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:src="@mipmap/shophead"
+                                android:layout_width="35dp"
+                                android:layout_height="30dp" />
+                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="店主信息"
+                                android:textColor="@color/gray_99"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_phone"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/yellow_77">
+
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/phone_icon" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_collect"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/yellow_77">
+
+                        <ImageView
+                            android:id="@+id/iv_heart"
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/white_heart_icon" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:src="@mipmap/location_gray_icon"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp" />
+                            <TextView
+                                android:layout_marginLeft="5dp"
+                                android:id="@+id/tv_address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="永平路136号"
+                                android:textColor="@color/gray_99"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="10dp"
+                            android:gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:scaleType="centerCrop"
+                                android:src="@mipmap/time_gray_icon"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp" />
+                            <TextView
+                                android:layout_marginLeft="5dp"
+                                android:id="@+id/tv_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="营业时间：8:00-18:30"
+                                android:textColor="@color/gray_99"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_map"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="导航"
+                            android:textColor="@color/gray_99"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_dis"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4.38km"
+                            android:textColor="@color/yellow_77" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#00ffffff"
+                app:layout_collapseMode="pin">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:padding="12dp"
+                        android:id="@+id/iv_back"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/back_circle"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp" />
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:textColor="#00333333"
+                        android:layout_centerInParent="true"
+                        android:textSize="18sp"
+                        android:text="店铺详情"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        >
+                    </TextView>
+                </RelativeLayout>
+
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+        <LinearLayout
+            android:elevation="@dimen/dimen_0px"
+            app:layout_scrollFlags="exitUntilCollapsed"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="vertical">
+            <com.flyco.tablayout.SlidingTabLayout
+                android:id="@+id/slidingTabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:background="@color/white"
+                app:tl_indicator_color="@color/yellow_02"
+                app:tl_indicator_height="2dp"
+                app:tl_indicator_width="30dp"
+                app:tl_indicator_width_equal_title="false"
+                app:tl_tab_space_equal="true"
+                app:tl_textSelectColor="@color/black_33"
+                app:tl_textUnselectColor="@color/gray"
+                app:tl_textsize="16sp"
+                app:tl_underline_color="@color/yellow_02"
+                />
+
+
+        </LinearLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <com.tool.NoScrollViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+</android.support.design.widget.CoordinatorLayout>

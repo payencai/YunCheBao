@@ -140,7 +140,7 @@ public class AddRentCommentActivity extends AppCompatActivity {
 
     private void shopcomment(String comment, double score) {
         Map<String, Object> params = new HashMap<>();
-        params.put("orderId", mCarOrder.getOrderNo());
+        params.put("orderId", mCarOrder.getId());
         params.put("content", comment);
         params.put("isAnonymous", isAnonymous);
         params.put("score", score);

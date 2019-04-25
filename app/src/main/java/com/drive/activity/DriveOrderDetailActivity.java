@@ -62,14 +62,14 @@ public class DriveOrderDetailActivity extends AppCompatActivity {
 //        params.put("latitude",mCarOrder.getShopId());
 //    }
     private void initView() {
-        tv_address.setText(mCarOrder.getStartAddress());
-        tv_address2.setText(mCarOrder.getEndAddress());
-        tv_name.setText(mCarOrder.getShopName());
-        tv_phone.setText(mCarOrder.getShopTelephone());
-        tv_avgprice.setText("￥"+mCarOrder.getPrice());
-        tv_time.setText(mCarOrder.getCreateTime().substring(0,10));
-        tv_coash.setText(mCarOrder.getDriverName());
-        Glide.with(this).load(mCarOrder.getShopLogo()).into(iv_car);
+//        tv_address.setText(mCarOrder.get());
+//        tv_address2.setText(mCarOrder.getEndAddress());
+//        tv_name.setText(mCarOrder.getShopName());
+//        tv_phone.setText(mCarOrder.getShopTelephone());
+//        tv_avgprice.setText("￥"+mCarOrder.getPrice());
+//        tv_time.setText(mCarOrder.getCreateTime().substring(0,10));
+//        tv_coash.setText(mCarOrder.getDriverName());
+//        Glide.with(this).load(mCarOrder.getShopLogo()).into(iv_car);
         switch (mCarOrder.getState()){
             case 2:
                 tv_carstate.setText("待评价");
@@ -95,7 +95,7 @@ public class DriveOrderDetailActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.tv_complain:
-                callPhone(mCarOrder.getShopTelephone());
+               // callPhone(mCarOrder.getShopTelephone());
                 break;
             case R.id.tv_seecomment:
                 Intent intent =new Intent(DriveOrderDetailActivity.this,DriverCommentActivity.class);

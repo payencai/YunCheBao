@@ -186,14 +186,14 @@ public class ShoolOrderDetailActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        tv_address.setText(mCarOrder.getAddress());
-        tv_name.setText(mCarOrder.getShopName());
-        tv_phone.setText(mCarOrder.getTelephone());
-        tv_avgprice.setText("￥"+mCarOrder.getPrice());
-        tv_class.setText(mCarOrder.getClassName());
-        tv_time.setText(mCarOrder.getCreateTime().substring(0,10));
-        tv_coash.setText(mCarOrder.getCoachName());
-        Glide.with(this).load(mCarOrder.getImage()).into(iv_car);
+//        tv_address.setText(mCarOrder.getAddress());
+//        tv_name.setText(mCarOrder.getShopName());
+//        tv_phone.setText(mCarOrder.getTelephone());
+//        tv_avgprice.setText("￥"+mCarOrder.getPrice());
+//        tv_class.setText(mCarOrder.getClassName());
+//        tv_time.setText(mCarOrder.getCreateTime().substring(0,10));
+//        tv_coash.setText(mCarOrder.getCoachName());
+//        Glide.with(this).load(mCarOrder.getImage()).into(iv_car);
         switch (mCarOrder.getState()){
             case 0:
                 tv_carstate.setText("已取消");

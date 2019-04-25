@@ -25,6 +25,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
+import com.road.RoadOrderActivity;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.xihubao.adapter.AssistanceListAdapter;
@@ -165,7 +166,7 @@ public class AssistanceDetailActivity extends NoHttpBaseActivity {
     public void OnClick(View v){
         switch (v.getId()){
             case R.id.menuBtn:
-
+                startActivity(new Intent(this, RoadOrderActivity.class).putExtra("id",mPhoneShopEntity.getId()));
                 break;
             case R.id.tv_pub:
                 Intent intent=new Intent(this, PubRoadActivity.class);

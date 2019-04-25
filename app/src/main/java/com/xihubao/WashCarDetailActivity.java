@@ -50,6 +50,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.rest.Request;
@@ -128,6 +129,7 @@ public class WashCarDetailActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.washcar_shop_detail);
         ButterKnife.bind(this);
+
         mCarShop= (CarShop) getIntent().getExtras().getSerializable("data");
         id=getIntent().getStringExtra("id");
         type=getIntent().getExtras().getInt("flag");

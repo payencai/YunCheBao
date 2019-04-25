@@ -74,13 +74,13 @@ public class WashOrderDetailActivity extends AppCompatActivity {
 
     private void initView() {
         tv_name.setText(mCarOrder.getShopName());
-        tv_phone.setText(mCarOrder.getTelephone());
-        tv_washtype.setText(mCarOrder.getServeTitle());
-        tv_content.setText(mCarOrder.getServeCategory());
-        tv_address.setText(mCarOrder.getAddress());
-        tv_date.setText(mCarOrder.getCreateTime().substring(0,10));
-        tv_time.setText(mCarOrder.getCreateTime().substring(0,10));
-        tv_price.setText("总价：￥"+mCarOrder.getPrice());
+//        tv_phone.setText(mCarOrder.getTelephone());
+//        tv_washtype.setText(mCarOrder.getServeTitle());
+//        tv_content.setText(mCarOrder.getServeCategory());
+//        tv_address.setText(mCarOrder.getAddress());
+//        tv_date.setText(mCarOrder.getCreateTime().substring(0,10));
+//        tv_time.setText(mCarOrder.getCreateTime().substring(0,10));
+//        tv_price.setText("总价：￥"+mCarOrder.getPrice());
         switch (mCarOrder.getState()){
             case 0:
                 tv_washstate.setText("已取消");
@@ -164,11 +164,11 @@ public class WashOrderDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                if(mCarOrder.getFlag()==1){
-                    washCancel(id);
-                }else{
-                    fourCancel(id);
-                }
+//                if(mCarOrder.getFlag()==1){
+//                    washCancel(id);
+//                }else{
+//                    fourCancel(id);
+//                }
 
             }
         });
@@ -190,29 +190,29 @@ public class WashOrderDetailActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.tv_complain:
-                callPhone(mCarOrder.getTelephone());
+                //callPhone(mCarOrder.getTelephone());
                 break;
             case R.id.tv_seecomment:
-                if(mCarOrder.getFlag()==4){
-                    Intent intent3 = new Intent(WashOrderDetailActivity.this, SeeCommentActivity.class);
-                    intent3.putExtra("id", mCarOrder.getId());
-                    startActivity(intent3);
-                }
+//                if(mCarOrder.getFlag()==4){
+//                    Intent intent3 = new Intent(WashOrderDetailActivity.this, SeeCommentActivity.class);
+//                    intent3.putExtra("id", mCarOrder.getId());
+//                    startActivity(intent3);
+//                }
                 break;
             case R.id.tv_cancel:
                 showCancelDialog(mCarOrder.getId());
                 break;
             case R.id.tv_comment:
-                if(mCarOrder.getFlag()==1){
-                    Intent intent = new Intent(WashOrderDetailActivity.this, PubCommentActivity.class);
-                    intent.putExtra("id", mCarOrder.getId());
-                    intent.putExtra("flag", mCarOrder.getFlag());
-                    startActivity(intent);
-                }else{
-                    Intent intent = new Intent(WashOrderDetailActivity.this, AddFourCommentActivity.class);
-                    intent.putExtra("id", mCarOrder.getId());
-                    startActivity(intent);
-                }
+//                if(mCarOrder.getFlag()==1){
+//                    Intent intent = new Intent(WashOrderDetailActivity.this, PubCommentActivity.class);
+//                    intent.putExtra("id", mCarOrder.getId());
+//                    intent.putExtra("flag", mCarOrder.getFlag());
+//                    startActivity(intent);
+//                }else{
+//                    Intent intent = new Intent(WashOrderDetailActivity.this, AddFourCommentActivity.class);
+//                    intent.putExtra("id", mCarOrder.getId());
+//                    startActivity(intent);
+//                }
 
 
                 break;

@@ -206,7 +206,7 @@ public class AddSchoolCommentActivity extends AppCompatActivity {
         params.put("isAnonymous", isAnonymous2);
         params.put("merchantId", mCarOrder.getShopId());
         params.put("score", score);
-        params.put("coachId", mCarOrder.getCoachId());
+        params.put("coachId", mCarOrder.getId());
         if (!TextUtils.isEmpty(imgs2))
             params.put("photo", imgs2.substring(1));
         String json=new Gson().toJson(params);
@@ -243,7 +243,7 @@ public class AddSchoolCommentActivity extends AppCompatActivity {
 
     private void shopcomment(String comment, double score) {
         Map<String, Object> params = new HashMap<>();
-        params.put("orderId", mCarOrder.getOrderNo());
+        params.put("orderId", mCarOrder.getId());
         params.put("content", comment);
         params.put("isAnonymous", isAnonymous);
         params.put("merchantId", mCarOrder.getShopId());

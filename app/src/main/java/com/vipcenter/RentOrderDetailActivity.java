@@ -192,14 +192,14 @@ public class RentOrderDetailActivity extends AppCompatActivity {
 
 
     private void initView() {
-        tv_carname.setText(mCarOrder.getCarCategory());
-        tv_addr.setText(mCarOrder.getAddress());
-        tv_shop.setText(mCarOrder.getShopName());
-        tv_phone.setText(mCarOrder.getTelephone());
-        tv_avgprice.setText("￥"+mCarOrder.getPrice());
-        tv_auto.setText(mCarOrder.getSeat()+"座");
-        tv_date.setText("x"+mCarOrder.getNumber());
-        Glide.with(this).load(mCarOrder.getImage()).into(iv_car);
+//        tv_carname.setText(mCarOrder.getCarCategory());
+//        tv_addr.setText(mCarOrder.getAddress());
+//        tv_shop.setText(mCarOrder.getShopName());
+//        tv_phone.setText(mCarOrder.getTelephone());
+//        tv_avgprice.setText("￥"+mCarOrder.getPrice());
+//        tv_auto.setText(mCarOrder.getSeat()+"座");
+//        tv_date.setText("x"+mCarOrder.getNumber());
+//        Glide.with(this).load(mCarOrder.getImage()).into(iv_car);
            switch (mCarOrder.getState()){
                case 0:
                    tv_carstate.setText("已取消");

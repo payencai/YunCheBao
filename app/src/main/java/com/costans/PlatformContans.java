@@ -184,6 +184,7 @@ public class PlatformContans {
         public static final String uploadImgs=root + "/image/uploadImages";
         public static final String uploadVideo=root + "/image/uploadVideo";
         public static final String searchAll=root+"/common/searchAll";
+        public static final String getMyOrderList=root+"/common/getMyOrderList";
         public static final String getAppointmentCategoryListByApp=root + "/functionManager/getAppointmentCategoryListByApp";
         public static final String getSkipUrl=root+ "/common/getSkipUrl";
         public static final String getBannerList=root+"/banner/getBannerList";
@@ -201,7 +202,14 @@ public class PlatformContans {
         public static final String updateCarToIsDefault=root +  "/drivingLicense/updateCarToIsDefault";
     }
     public static class Station{
+        public static final String getGasStationCommentListByShopId=root+"/gasStation/getGasStationCommentListByShopId";
         public static final String getGasStationShopListByApp=root+"/gasStation/getGasStationShopListByApp";
+        public static final String getGasStationShopResultById=root+"/gasStation/getGasStationShopResultById";
+        public static final String addGasStationComment=root+"/gasStation/addGasStationComment";
+        public static final String addShopCollection=root+"/gasStation/addShopCollection";
+        public static final String deleteShopCollection=root+"/gasStation/deleteShopCollection";
+        public static final String isCollectionByShopId=root+ "/gasStation/isCollectionByShopId";
+        public static final String getGasStationServeListForApp=root+"/gasStation/getGasStationServeListForApp";//app分页获取某店铺服务列表数据
     }
     public static class FourShop{
         public static final String getFourShopOrderCommentByOrderId=root+"/fourShop/getFourShopOrderCommentByOrderId";
