@@ -328,10 +328,18 @@ public class PlatformContans {
         public static final String getUserComment=root+ "/evaluation/getMerchantEvaluationByUser";
         public static final String getDrivingSchoolPhoto=root+"/drivingschool/getDrivingSchoolPhoto";
     }
+    public static class MyService{
+        public static final String getWashOrderDetail=root+ "/carWashRepairShop/getOrderDetailsByOrderId";
+        public static final String getFourSHopOrderDetail=root+ "/fourShop/getOrderDetailsByOrderId";
+        public static final String getRentCarOrderDetail=root+ "/rentCar/getRentCarOrderDetailsByOrderId";
+        public static final String getSchoolOrderDetail=root+ "/carOrder/getOrderDetailsByOrderId";
+        public static final String getDriverOrderDetail=root+ "/substituteDriving/getOrderDetailsByOrderId";
+    }
+
     public static class SubstituteDriving{
         public static final String getSubstituteDrivingCommentListByShopId=root+"/substituteDriving/getSubstituteDrivingCommentListByShopId";
         public static final String getSubstituteDrivingShopResultById=root+"/substituteDriving/getSubstituteDrivingShopResultById";
-        public static final String isCollectionByShopId=root+"/substituteDriving/isCollectionByShopId";
+        public static final String isCollectionByShopId=root+"/substituteDriving/getSubstituteDrivingCommentByOrderIdsubstituteDriving/isCollectionByShopId";
         public static final String addShopCollection=root+"/substituteDriving/addShopCollection";
         public static final String deleteShopCollection=root+"/substituteDriving/deleteShopCollection";
         public static final String getSubstituteDrivingOrderListByUser=root+"/substituteDriving/getSubstituteDrivingOrderListByUser";

@@ -114,6 +114,13 @@ public class CarOrderFragment extends Fragment {
                 onChildClick(carOrder);
             }
         });
+        mCarOrderAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                CarOrder carOrder= (CarOrder) adapter.getItem(position);
+                itemClick(carOrder);
+            }
+        });
         rv_order.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_order.setAdapter(mCarOrderAdapter);
         refresh.setOnRefreshListener(new OnRefreshListener() {
@@ -124,6 +131,32 @@ public class CarOrderFragment extends Fragment {
         });
         getData();
 
+    }
+    void itemClick( CarOrder carOrder){
+        Intent intent;
+        switch (carOrder.getType()){
+            case 1:
+            case 2:
+                intent = new Intent(getContext(), WashOrderDetailActivity.class);
+                intent.putExtra("data", carOrder);
+                startActivity(intent);
+                break;
+            case 3:
+                intent = new Intent(getContext(), ShoolOrderDetailActivity.class);
+                intent.putExtra("data", carOrder);
+                startActivity(intent);
+                break;
+            case 4:
+                intent = new Intent(getContext(), RentOrderDetailActivity.class);
+                intent.putExtra("data", carOrder);
+                startActivity(intent);
+                break;
+            case 5:
+                intent = new Intent(getContext(), DriveOrderDetailActivity.class);
+                intent.putExtra("data", carOrder);
+                startActivity(intent);
+                break;
+        }
     }
     private void onChildClick(CarOrder carOrder){
         Intent intent;
@@ -162,6 +195,7 @@ public class CarOrderFragment extends Fragment {
 
                         //待评价
                     }else if(carOrder.getState()==4){
+
                         //已完成
                     }else if (carOrder.getState()==2){
                         showCancelDialog(carOrder);
@@ -170,7 +204,9 @@ public class CarOrderFragment extends Fragment {
                     break;
                 case 3://驾校
                     if(carOrder.getState()==3){
-
+                        intent=new Intent(getContext(),AddSchoolCommentActivity.class);
+                        intent.putExtra("item",carOrder);
+                        startActivity(intent);
                         //待评价
                     }else if(carOrder.getState()==4){
                         //已完成

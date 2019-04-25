@@ -148,7 +148,7 @@ public class AddSchoolCommentActivity extends AppCompatActivity {
                     ToastUtil.showToast(AddSchoolCommentActivity.this, "请给出教练评分");
                     return;
                 }
-                coashcomment(content2,score2);
+                //coashcomment(content2,score2);
                 shopcomment(content, score);
             }
         });
@@ -213,7 +213,7 @@ public class AddSchoolCommentActivity extends AppCompatActivity {
         HttpProxy.obtain().post(PlatformContans.Evaluation.addDrivingSchoolCoachEva, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("result", result);
+                Log.e("coashcomment", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     int code = jsonObject.getInt("resultCode");
@@ -255,7 +255,7 @@ public class AddSchoolCommentActivity extends AppCompatActivity {
         HttpProxy.obtain().post(PlatformContans.Evaluation.addEvaluation, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("result", result);
+                Log.e("shopcomment", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     int code = jsonObject.getInt("resultCode");
