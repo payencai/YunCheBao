@@ -60,7 +60,8 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.cheyibao.RentCarOrderCommentActivity"></activity>
+        <activity android:name="com.cheyibao.RentCarOrderDetailActivity"></activity>
+        <activity android:name="com.cheyibao.RentCarOrderCommentActivity" />
         <activity android:name="com.cheyibao.SelfDriverOrderActivity" />
         <activity android:name="com.cheyibao.BookCarActivity" />
         <activity android:name=".gasstation.GasStationActivity" />

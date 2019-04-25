@@ -31,12 +31,6 @@ public class RentOrderAdapter extends BaseQuickAdapter<RentOrder, RentOrderAdapt
         helper.dayPriceView.setText(String.format("￥%s", item.getDayPrice()));
         String text;
         switch (item.getState()){
-            case 0:
-                text = "已取消";
-                break;
-            case 1:
-                text = "未付款";
-                break;
             case 2:
                 text = "服务中";
                 break;

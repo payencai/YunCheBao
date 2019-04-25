@@ -1,6 +1,9 @@
 package com.cheyibao.model;
 
-public class RentOrder {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class RentOrder implements Parcelable {
     /**
      * agencyId : string
      * brand : string
@@ -344,4 +347,99 @@ public class RentOrder {
     public void setVariableBox(String variableBox) {
         this.variableBox = variableBox;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.agencyId);
+        dest.writeString(this.brand);
+        dest.writeString(this.callName);
+        dest.writeString(this.callTelephone);
+        dest.writeString(this.carTategory);
+        dest.writeString(this.createTime);
+        dest.writeInt(this.dayPrice);
+        dest.writeString(this.handleTime);
+        dest.writeString(this.id);
+        dest.writeString(this.idNumber);
+        dest.writeString(this.image);
+        dest.writeInt(this.isComment);
+        dest.writeInt(this.isReturn);
+        dest.writeInt(this.isTake);
+        dest.writeString(this.name);
+        dest.writeInt(this.payMethod);
+        dest.writeString(this.payTime);
+        dest.writeString(this.remark);
+        dest.writeInt(this.rentDay);
+        dest.writeString(this.returnCarAddress);
+        dest.writeString(this.returnCarLatitude);
+        dest.writeString(this.returnCarLongitude);
+        dest.writeString(this.returnCarTime);
+        dest.writeString(this.seat);
+        dest.writeString(this.shopId);
+        dest.writeInt(this.state);
+        dest.writeString(this.takeCarAddress);
+        dest.writeString(this.takeCarLatitude);
+        dest.writeString(this.takeCarLongitude);
+        dest.writeString(this.takeCarTime);
+        dest.writeString(this.telephone);
+        dest.writeInt(this.total);
+        dest.writeString(this.userId);
+        dest.writeString(this.variableBox);
+    }
+
+    public RentOrder() {
+    }
+
+    protected RentOrder(Parcel in) {
+        this.agencyId = in.readString();
+        this.brand = in.readString();
+        this.callName = in.readString();
+        this.callTelephone = in.readString();
+        this.carTategory = in.readString();
+        this.createTime = in.readString();
+        this.dayPrice = in.readInt();
+        this.handleTime = in.readString();
+        this.id = in.readString();
+        this.idNumber = in.readString();
+        this.image = in.readString();
+        this.isComment = in.readInt();
+        this.isReturn = in.readInt();
+        this.isTake = in.readInt();
+        this.name = in.readString();
+        this.payMethod = in.readInt();
+        this.payTime = in.readString();
+        this.remark = in.readString();
+        this.rentDay = in.readInt();
+        this.returnCarAddress = in.readString();
+        this.returnCarLatitude = in.readString();
+        this.returnCarLongitude = in.readString();
+        this.returnCarTime = in.readString();
+        this.seat = in.readString();
+        this.shopId = in.readString();
+        this.state = in.readInt();
+        this.takeCarAddress = in.readString();
+        this.takeCarLatitude = in.readString();
+        this.takeCarLongitude = in.readString();
+        this.takeCarTime = in.readString();
+        this.telephone = in.readString();
+        this.total = in.readInt();
+        this.userId = in.readString();
+        this.variableBox = in.readString();
+    }
+
+    public static final Parcelable.Creator<RentOrder> CREATOR = new Parcelable.Creator<RentOrder>() {
+        @Override
+        public RentOrder createFromParcel(Parcel source) {
+            return new RentOrder(source);
+        }
+
+        @Override
+        public RentOrder[] newArray(int size) {
+            return new RentOrder[size];
+        }
+    };
 }

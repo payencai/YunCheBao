@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.application.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.RentCarOrderCommentActivity;
+import com.cheyibao.RentCarOrderDetailActivity;
 import com.cheyibao.adapter.RentOrderAdapter;
 import com.cheyibao.model.RentOrder;
 import com.common.AvoidOnResult;
@@ -89,6 +90,11 @@ public class SelfDriverOrderFragment extends BaseFragment {
         adapter.bindToRecyclerView(orderListView);
 
         adapter.setOnItemClickListener((adapter, view12, position) -> {
+            RentOrder rentOrder = (RentOrder) adapter.getItem(position);
+            Intent intent = new Intent(getContext(), RentCarOrderDetailActivity.class);
+            intent.putExtra("rent_order",rentOrder);
+            AvoidOnResult avoidOnResult = new AvoidOnResult(getActivity());
+            avoidOnResult.startForResult(intent, 3, (requestCode, resultCode, data) -> loadDataType.refreshData());
 
         });
 
