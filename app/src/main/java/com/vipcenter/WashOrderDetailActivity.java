@@ -20,6 +20,9 @@ import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.fourshop.activity.AddFourCommentActivity;
 import com.example.yunchebao.fourshop.activity.SeeCommentActivity;
+import com.example.yunchebao.myservice.model.FourOrderDetail;
+import com.example.yunchebao.myservice.model.WashOrderDetail;
+import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.order.CarOrder;
@@ -62,7 +65,8 @@ public class WashOrderDetailActivity extends AppCompatActivity {
     TextView tv_seecomment;
     @BindView(R.id.tv_cancel)
     TextView tv_cancel;
-
+    WashOrderDetail mWashOrderDetail;
+    FourOrderDetail mFourOrderDetail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,16 +75,61 @@ public class WashOrderDetailActivity extends AppCompatActivity {
         mCarOrder= (CarOrder) getIntent().getSerializableExtra("data");
         initView();
     }
+    private void getFourShopDetail(){
+        Map<String,Object>params=new HashMap<>();
+        params.put("orderId",mCarOrder.getId());
+        HttpProxy.obtain().get(PlatformContans.MyService.getFourSHopOrderDetail, params, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("getFourSHopOrderDetail",result);
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    JSONObject data=jsonObject.getJSONObject("data");
+                    mFourOrderDetail=new Gson().fromJson(data.toString(),FourOrderDetail.class);
+                    setFourData();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
-    private void initView() {
-        tv_name.setText(mCarOrder.getShopName());
-        tv_phone.setText(mCarOrder.getTelephone());
-        tv_washtype.setText(mCarOrder.getServeTitle());
-        tv_content.setText(mCarOrder.getServeCategory());
-        tv_address.setText(mCarOrder.getAddress());
-        tv_date.setText(mCarOrder.getCreateTime().substring(0,10));
-        tv_time.setText(mCarOrder.getCreateTime().substring(0,10));
-        tv_price.setText("总价：￥"+mCarOrder.getPrice());
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    private void getWashDetail(){
+        Map<String,Object>params=new HashMap<>();
+        params.put("orderId",mCarOrder.getId());
+        HttpProxy.obtain().get(PlatformContans.MyService.getWashOrderDetail, params, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("getWashOrderDetail",result);
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    JSONObject data=jsonObject.getJSONObject("data");
+                    mWashOrderDetail=new Gson().fromJson(data.toString(),WashOrderDetail.class);
+                    setWashData();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    private void setFourData(){
+        tv_name.setText(mFourOrderDetail.getShopName());
+        tv_phone.setText(mFourOrderDetail.getTelephone());
+        tv_washtype.setText(mFourOrderDetail.getServeTitle());
+        tv_content.setText(mFourOrderDetail.getServeCategory());
+        tv_address.setText(mFourOrderDetail.getAddress());
+        tv_date.setText(mFourOrderDetail.getCreateTime().substring(0,10));
+        tv_time.setText(mFourOrderDetail.getCreateTime().substring(0,10));
+        tv_price.setText("总价：￥"+mFourOrderDetail.getPrice());
         switch (mCarOrder.getState()){
             case 0:
                 tv_washstate.setText("已取消");
@@ -98,6 +147,41 @@ public class WashOrderDetailActivity extends AppCompatActivity {
                 tv_seecomment.setVisibility(View.VISIBLE);
                 break;
         }
+    }
+    private void setWashData(){
+        tv_name.setText(mWashOrderDetail.getShopName());
+        tv_phone.setText(mWashOrderDetail.getTelephone());
+        tv_washtype.setText(mWashOrderDetail.getServeTitle());
+        tv_content.setText(mWashOrderDetail.getServeCategory());
+        tv_address.setText(mWashOrderDetail.getAddress());
+        tv_date.setText(mWashOrderDetail.getCreateTime().substring(0,10));
+        tv_time.setText(mWashOrderDetail.getCreateTime().substring(0,10));
+        tv_price.setText("总价：￥"+mWashOrderDetail.getPrice());
+        switch (mCarOrder.getState()){
+            case 0:
+                tv_washstate.setText("已取消");
+                break;
+            case 2:
+                tv_washstate.setText("服务中");
+                tv_cancel.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                tv_washstate.setText("待评价");
+                ll_state1.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                tv_washstate.setText("已完成");
+                tv_seecomment.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+    private void initView() {
+        if(mCarOrder.getType()==2){
+            getWashDetail();
+        }else{
+            getFourShopDetail();
+        }
+
     }
     private void washCancel(String id) {
         Map<String, Object> params = new HashMap<>();
@@ -164,7 +248,7 @@ public class WashOrderDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                if(mCarOrder.getFlag()==1){
+                if(mCarOrder.getType()==2){
                     washCancel(id);
                 }else{
                     fourCancel(id);
@@ -190,23 +274,30 @@ public class WashOrderDetailActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.tv_complain:
-                callPhone(mCarOrder.getTelephone());
+                if(mCarOrder.getType()==2) {
+                    callPhone(mWashOrderDetail.getTelephone());
+                }else{
+                    callPhone(mFourOrderDetail.getTelephone());
+                }
+
                 break;
             case R.id.tv_seecomment:
-                if(mCarOrder.getFlag()==4){
+                if(mCarOrder.getType()==1){
                     Intent intent3 = new Intent(WashOrderDetailActivity.this, SeeCommentActivity.class);
                     intent3.putExtra("id", mCarOrder.getId());
                     startActivity(intent3);
+                }else{
+
                 }
                 break;
             case R.id.tv_cancel:
                 showCancelDialog(mCarOrder.getId());
                 break;
             case R.id.tv_comment:
-                if(mCarOrder.getFlag()==1){
+                if(mCarOrder.getType()==2){
                     Intent intent = new Intent(WashOrderDetailActivity.this, PubCommentActivity.class);
                     intent.putExtra("id", mCarOrder.getId());
-                    intent.putExtra("flag", mCarOrder.getFlag());
+                    intent.putExtra("flag", mCarOrder.getType());
                     startActivity(intent);
                 }else{
                     Intent intent = new Intent(WashOrderDetailActivity.this, AddFourCommentActivity.class);

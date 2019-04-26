@@ -4,16 +4,27 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.application.MyApplication;
 import com.bumptech.glide.Glide;
 import com.cheyibao.AddSchoolCommentActivity;
+import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.myservice.model.DriverOrderDetail;
+import com.example.yunchebao.myservice.model.RentOrderDetail;
+import com.google.gson.Gson;
+import com.http.HttpProxy;
+import com.http.ICallBack;
 import com.order.CarOrder;
 import com.vipcenter.ShoolOrderDetailActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +57,7 @@ public class DriveOrderDetailActivity extends AppCompatActivity {
     @BindView(R.id.tv_seecomment)
     TextView tv_seecomment;
     CarOrder mCarOrder;
-
+    DriverOrderDetail mDriverOrderDetail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,21 +66,39 @@ public class DriveOrderDetailActivity extends AppCompatActivity {
         mCarOrder= (CarOrder) getIntent().getSerializableExtra("data");
         initView();
     }
-//    private void getShop(){
-//        Map<String,Object> params=new HashMap<>();
-//        params.put("id",mCarOrder.getShopId());
-//        params.put("longitude",mCarOrder.get);
-//        params.put("latitude",mCarOrder.getShopId());
-//    }
-    private void initView() {
-        tv_address.setText(mCarOrder.getStartAddress());
-        tv_address2.setText(mCarOrder.getEndAddress());
-        tv_name.setText(mCarOrder.getShopName());
-        tv_phone.setText(mCarOrder.getShopTelephone());
-        tv_avgprice.setText("￥"+mCarOrder.getPrice());
-        tv_time.setText(mCarOrder.getCreateTime().substring(0,10));
-        tv_coash.setText(mCarOrder.getDriverName());
-        Glide.with(this).load(mCarOrder.getShopLogo()).into(iv_car);
+    private void getDetail(){
+        Map<String,Object>params=new HashMap<>();
+        params.put("orderId",mCarOrder.getId());
+        HttpProxy.obtain().get(PlatformContans.MyService.getDriverOrderDetail, params, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("getSchoolOrderDetail",result);
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    JSONObject data=jsonObject.getJSONObject("data");
+                    mDriverOrderDetail=new Gson().fromJson(data.toString(), DriverOrderDetail.class);
+                    setData();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    private void setData() {
+        tv_address.setText(mDriverOrderDetail.getAddress());
+        tv_address2.setText(mDriverOrderDetail.getEndAddress());
+        tv_name.setText(mDriverOrderDetail.getShopName());
+        tv_phone.setText(mDriverOrderDetail.getShopTelephone());
+        tv_avgprice.setText("￥"+mDriverOrderDetail.getPrice());
+        tv_time.setText(mDriverOrderDetail.getCreateTime().substring(0,10));
+        tv_coash.setText(mDriverOrderDetail.getDriverName());
+        Glide.with(this).load(mDriverOrderDetail.getLogo()).into(iv_car);
         switch (mCarOrder.getState()){
             case 2:
                 tv_carstate.setText("待评价");
@@ -80,6 +109,11 @@ public class DriveOrderDetailActivity extends AppCompatActivity {
                 tv_seecomment.setVisibility(View.VISIBLE);
                 break;
         }
+    }
+
+
+    private void initView() {
+        getDetail();
     }
 
     public void callPhone(String phoneNum) {
@@ -95,7 +129,7 @@ public class DriveOrderDetailActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.tv_complain:
-                callPhone(mCarOrder.getShopTelephone());
+                callPhone(mDriverOrderDetail.getShopTelephone());
                 break;
             case R.id.tv_seecomment:
                 Intent intent =new Intent(DriveOrderDetailActivity.this,DriverCommentActivity.class);

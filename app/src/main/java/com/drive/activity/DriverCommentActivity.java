@@ -31,6 +31,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import go.error;
 
 public class DriverCommentActivity extends AppCompatActivity {
     @BindView(R.id.rv_order)
@@ -40,14 +41,12 @@ public class DriverCommentActivity extends AppCompatActivity {
     List<SubstitubeComment> mSubstitubeComments;
     DriverCommentAdapter mDriverCommentAdapter;
     String id;
-    int page=1;
-    boolean isLoadMore=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_comment);
         ButterKnife.bind(this);
-        id=getIntent().getStringExtra("id");
+        id = getIntent().getStringExtra("id");
         initView();
     }
 
@@ -61,57 +60,34 @@ public class DriverCommentActivity extends AppCompatActivity {
         refresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                page=1;
+
                 mSubstitubeComments.clear();
                 mDriverCommentAdapter.setNewData(mSubstitubeComments);
                 getData();
             }
         });
-        mSubstitubeComments=new ArrayList<>();
-        mDriverCommentAdapter=new DriverCommentAdapter(R.layout.item_coash_comment,mSubstitubeComments);
-        mDriverCommentAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                page++;
-                isLoadMore=true;
-                getData();
-            }
-        },rv_comment);
+        mSubstitubeComments = new ArrayList<>();
+        mDriverCommentAdapter = new DriverCommentAdapter(R.layout.item_coash_comment, mSubstitubeComments);
         rv_comment.setLayoutManager(new LinearLayoutManager(this));
         rv_comment.setAdapter(mDriverCommentAdapter);
         getData();
     }
-    private void getData(){
+
+    private void getData() {
         Map<String, Object> params = new HashMap<>();
-        params.put("shopId", id);
-        params.put("page", page);
-        HttpProxy.obtain().get(PlatformContans.SubstituteDriving.getSubstituteDrivingCommentListByShopId, params, new ICallBack() {
+        params.put("orderId", id);
+        //  params.put("page", page);
+        HttpProxy.obtain().get(PlatformContans.SubstituteDriving.getSubstituteDrivingCommentByOrderId, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 refresh.finishRefresh();
                 Log.e("detail", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    List<SubstitubeComment> substitubeComments=new ArrayList<>();
-                    for (int i = 0; i < data.length(); i++) {
-                        JSONObject item = data.getJSONObject(i);
-                        SubstitubeComment driveMan = new Gson().fromJson(item.toString(), SubstitubeComment.class);
-                        mSubstitubeComments.add(driveMan);
-                        substitubeComments.add(driveMan);
-                    }
-                    if(isLoadMore){
-                        isLoadMore=false;
-                        if(data.length()==0){
-                            mDriverCommentAdapter.loadMoreEnd(true);
-                        }else{
-                            mDriverCommentAdapter.addData(substitubeComments);
-                            mDriverCommentAdapter.loadMoreComplete();
-                        }
-                    }else{
-                        mDriverCommentAdapter.setNewData(mSubstitubeComments);
-                    }
-
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    SubstitubeComment driveMan = new Gson().fromJson(data.toString(), SubstitubeComment.class);
+                    mSubstitubeComments.add(driveMan);
+                    mDriverCommentAdapter.setNewData(mSubstitubeComments);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -47,8 +47,8 @@ public class ServiceCarActivity extends AppCompatActivity {
 
     private void initFragmentList() {
         mFragments.add(CarOrderFragment.newInstance(0));
+        mFragments.add(CarOrderFragment.newInstance(1));
         mFragments.add(CarOrderFragment.newInstance(2));
-        mFragments.add(CarOrderFragment.newInstance(3));
         tabGank.setViewPager(vp_gank,mTitles,this,mFragments);
     }
 

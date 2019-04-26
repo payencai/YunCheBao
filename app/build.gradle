@@ -29,7 +29,7 @@ android {
     defaultConfig {
         applicationId "com.example.yunchebao"
         minSdkVersion 19
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         multiDexEnabled true

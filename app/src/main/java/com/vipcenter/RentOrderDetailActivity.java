@@ -23,6 +23,8 @@ import com.cheyibao.AddSchoolCommentActivity;
 import com.cheyibao.model.Merchant;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.myservice.model.RentOrderDetail;
+import com.example.yunchebao.myservice.model.SchoolOrderDetail;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
@@ -70,6 +72,7 @@ public class RentOrderDetailActivity extends AppCompatActivity {
     TextView tv_seecomment;
     @BindView(R.id.tv_cancel)
     TextView tv_cancel;
+    RentOrderDetail mRentOrderDetail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,10 +82,34 @@ public class RentOrderDetailActivity extends AppCompatActivity {
         initView();
     }
 
+
+    private void getDetail(){
+        Map<String,Object>params=new HashMap<>();
+        params.put("orderId",mCarOrder.getId());
+        HttpProxy.obtain().get(PlatformContans.MyService.getRentCarOrderDetail, params, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("getSchoolOrderDetail",result);
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    JSONObject data=jsonObject.getJSONObject("data");
+                    mRentOrderDetail=new Gson().fromJson(data.toString(), RentOrderDetail.class);
+                    setData();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     private void carCancel(String id) {
         Map<String, Object> params = new HashMap<>();
-        params.put("orderId", id);
-        HttpProxy.obtain().post(PlatformContans.CarOrder.cancelCarOrder, MyApplication.token, params, new ICallBack() {
+        params.put("id", id);
+        HttpProxy.obtain().post(PlatformContans.MyService.cancelRentCarOrder, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);
@@ -107,31 +134,8 @@ public class RentOrderDetailActivity extends AppCompatActivity {
             }
         });
     }
-    Merchant merchant;
 
-    private void getMerchat() {
-        Map<String, Object> params = new HashMap<>();
-        params.put("merchantId", mCarOrder.getShopId());
-        HttpProxy.obtain().get(PlatformContans.Shop.getMerchantById, params, new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    JSONObject data = jsonObject.getJSONObject("data");
-                    merchant = new Gson().fromJson(data.toString(), Merchant.class);
-                    tv_phone.setText(merchant.getServiceTelephone());
-                    tv_addr.setText(merchant.getAddress());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
 
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
-    }
 
     private void showCancelDialog(String id) {
         Dialog dialog = new Dialog(this, R.style.dialog);
@@ -169,7 +173,7 @@ public class RentOrderDetailActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.tv_complain:
-                callPhone(merchant.getServiceTelephone());
+                callPhone(mRentOrderDetail.getShopTelephone());
                 break;
             case R.id.tv_seecomment:
                 break;
@@ -190,33 +194,35 @@ public class RentOrderDetailActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    void setData(){
 
+        tv_carname.setText(mRentOrderDetail.getName());
+        tv_addr.setText(mRentOrderDetail.getAddress());
+        tv_shop.setText(mRentOrderDetail.getShopName());
+        tv_phone.setText(mRentOrderDetail.getTelephone());
+        tv_avgprice.setText("￥"+mRentOrderDetail.getTotal());
+        tv_auto.setText(mRentOrderDetail.getSeat()+"座");
+        tv_date.setText("x"+mRentOrderDetail.getRentDay());
+        Glide.with(this).load(mRentOrderDetail.getImage()).into(iv_car);
+        switch (mCarOrder.getState()){
+            case 0:
+                tv_carstate.setText("已取消");
+                break;
+            case 2:
+                tv_carstate.setText("服务中");
+                tv_cancel.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                tv_carstate.setText("待评价");
+                ll_state1.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                tv_carstate.setText("已完成");
+                tv_seecomment.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
     private void initView() {
-        tv_carname.setText(mCarOrder.getCarCategory());
-        tv_addr.setText(mCarOrder.getAddress());
-        tv_shop.setText(mCarOrder.getShopName());
-        tv_phone.setText(mCarOrder.getTelephone());
-        tv_avgprice.setText("￥"+mCarOrder.getPrice());
-        tv_auto.setText(mCarOrder.getSeat()+"座");
-        tv_date.setText("x"+mCarOrder.getNumber());
-        Glide.with(this).load(mCarOrder.getImage()).into(iv_car);
-           switch (mCarOrder.getState()){
-               case 0:
-                   tv_carstate.setText("已取消");
-                   break;
-               case 2:
-                   tv_carstate.setText("服务中");
-                   tv_cancel.setVisibility(View.VISIBLE);
-                   break;
-               case 3:
-                   tv_carstate.setText("待评价");
-                   ll_state1.setVisibility(View.VISIBLE);
-                   break;
-               case 4:
-                   tv_carstate.setText("已完成");
-                   tv_seecomment.setVisibility(View.VISIBLE);
-                   break;
-           }
-           getMerchat();
+        getDetail();
     }
 }

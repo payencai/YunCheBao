@@ -8,190 +8,28 @@ import java.io.Serializable;
  */
 public class CarOrder implements Serializable{
 
-    public String getStartAddress() {
-        return startAddress;
-    }
-
-    public void setStartAddress(String startAddress) {
-        this.startAddress = startAddress;
-    }
-
-    public String getEndAddress() {
-        return endAddress;
-    }
-
-    public void setEndAddress(String endAddress) {
-        this.endAddress = endAddress;
-    }
 
     /**
-     * carCategory : string
-     * className : string
-     * coachId : string
-     * coachName : string
-     * commodityId : string
-     * createTime : 2019-01-28T03:20:43.838Z
-     * handleTime : 2019-01-28T03:20:43.838Z
+     * createTime : 2019-04-24T07:53:32.603Z
      * id : string
-     * image : string
-     * name : string
-     * number : 0
-     * orderNo : string
-     * payMethod : 0
-     * payTime : 2019-01-28T03:20:43.838Z
-     * price : 0
-     * remark : string
-     * seat : string
+     * logo : string
      * shopId : string
      * shopName : string
      * state : 0
-     * telephone : string
-     * title : string
-
-     * total : 0
+     * total : 0.0
      * type : 0
      * userId : string
      */
-    private int flag;
-    private String startAddress;
-    private String endAddress;
-    public int getFlag() {
-        return flag;
-    }
 
-    public void setFlag(int flag) {
-        this.flag = flag;
-    }
-    private String address;
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    private String carCategory;
-    private String className;
-    private int isComment;
-    private String serveCategory;
-    private String serveTitle;
-    private String shopLogo;
-    private String driverName;
-
-    public String getDriverName() {
-        return driverName;
-    }
-
-    public void setDriverName(String driverName) {
-        this.driverName = driverName;
-    }
-
-    public String getShopTelephone() {
-        return shopTelephone;
-    }
-
-    public void setShopTelephone(String shopTelephone) {
-        this.shopTelephone = shopTelephone;
-    }
-
-    private String shopTelephone;
-    public String getShopLogo() {
-        return shopLogo;
-    }
-
-    public void setShopLogo(String shopLogo) {
-        this.shopLogo = shopLogo;
-    }
-
-    public int getIsComment() {
-        return isComment;
-    }
-
-    public void setIsComment(int isComment) {
-        this.isComment = isComment;
-    }
-
-    public String getServeCategory() {
-        return serveCategory;
-    }
-
-    public void setServeCategory(String serveCategory) {
-        this.serveCategory = serveCategory;
-    }
-
-    public String getServeTitle() {
-        return serveTitle;
-    }
-
-    public void setServeTitle(String serveTitle) {
-        this.serveTitle = serveTitle;
-    }
-
-    private String coachId;
-    private String coachName;
-    private String commodityId;
     private String createTime;
-    private String handleTime;
     private String id;
-    private String image;
-    private String name;
-    private int number;
-    private String orderNo;
-    private int payMethod;
-    private String payTime;
-    private double price;
-    private String remark;
-    private String seat;
+    private String logo;
     private String shopId;
     private String shopName;
     private int state;
-    private String telephone;
-    private String title;
     private double total;
     private int type;
     private String userId;
-
-    public String getCarCategory() {
-        return carCategory;
-    }
-
-    public void setCarCategory(String carCategory) {
-        this.carCategory = carCategory;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
-    public String getCoachId() {
-        return coachId;
-    }
-
-    public void setCoachId(String coachId) {
-        this.coachId = coachId;
-    }
-
-    public String getCoachName() {
-        return coachName;
-    }
-
-    public void setCoachName(String coachName) {
-        this.coachName = coachName;
-    }
-
-    public String getCommodityId() {
-        return commodityId;
-    }
-
-    public void setCommodityId(String commodityId) {
-        this.commodityId = commodityId;
-    }
 
     public String getCreateTime() {
         return createTime;
@@ -199,14 +37,6 @@ public class CarOrder implements Serializable{
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
-    }
-
-    public String getHandleTime() {
-        return handleTime;
-    }
-
-    public void setHandleTime(String handleTime) {
-        this.handleTime = handleTime;
     }
 
     public String getId() {
@@ -217,76 +47,12 @@ public class CarOrder implements Serializable{
         this.id = id;
     }
 
-    public String getImage() {
-        return image;
+    public String getLogo() {
+        return logo;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public String getOrderNo() {
-        return orderNo;
-    }
-
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
-    }
-
-    public int getPayMethod() {
-        return payMethod;
-    }
-
-    public void setPayMethod(int payMethod) {
-        this.payMethod = payMethod;
-    }
-
-    public String getPayTime() {
-        return payTime;
-    }
-
-    public void setPayTime(String payTime) {
-        this.payTime = payTime;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public String getSeat() {
-        return seat;
-    }
-
-    public void setSeat(String seat) {
-        this.seat = seat;
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 
     public String getShopId() {
@@ -311,22 +77,6 @@ public class CarOrder implements Serializable{
 
     public void setState(int state) {
         this.state = state;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public double getTotal() {

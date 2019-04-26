@@ -23,7 +23,7 @@ public class RentCarModel implements Parcelable {
     private String brand;
     private String carTategory;
     private String createTime;
-    private int dayPrice;
+    private double dayPrice;
     private String id;
     private String image;
     private int number;
@@ -64,11 +64,11 @@ public class RentCarModel implements Parcelable {
         this.createTime = createTime;
     }
 
-    public int getDayPrice() {
+    public double getDayPrice() {
         return dayPrice;
     }
 
-    public void setDayPrice(int dayPrice) {
+    public void setDayPrice(double dayPrice) {
         this.dayPrice = dayPrice;
     }
 
@@ -139,7 +139,7 @@ public class RentCarModel implements Parcelable {
         dest.writeString(this.brand);
         dest.writeString(this.carTategory);
         dest.writeString(this.createTime);
-        dest.writeInt(this.dayPrice);
+        dest.writeDouble(this.dayPrice);
         dest.writeString(this.id);
         dest.writeString(this.image);
         dest.writeInt(this.number);

@@ -306,8 +306,8 @@ public class GasStationActivity extends AppCompatActivity implements DropdownLis
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                FourShopData fourShopData= (FourShopData) adapter.getItem(position);
-                Intent intent=new Intent(GasStationActivity.this, FourShopDetailActivity.class);
+                GasStation fourShopData= (GasStation) adapter.getItem(position);
+                Intent intent=new Intent(GasStationActivity.this, GasStationDetailActivity.class);
                 intent.putExtra("id",fourShopData.getId());
                 startActivity(intent);
             }

@@ -65,6 +65,10 @@
         <activity android:name="com.cheyibao.SelfDriverOrderActivity" />
         <activity android:name="com.cheyibao.BookCarActivity" />
         <activity android:name=".gasstation.GasStationActivity" />
+        <activity android:name=".gasstation.AddStationCommentActivity"></activity>
+        <activity
+            android:name=".gasstation.GasStationDetailActivity"
+            android:theme="@style/DetailTheme" />
         <activity android:name="com.xihubao.NewWashRepairActivity" />
         <activity android:name="com.road.RoadOrderActivity" />
         <activity

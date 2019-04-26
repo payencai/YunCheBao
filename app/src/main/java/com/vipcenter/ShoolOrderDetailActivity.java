@@ -22,6 +22,8 @@ import com.cheyibao.AddSchoolCommentActivity;
 import com.cheyibao.model.Merchant;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.myservice.model.FourOrderDetail;
+import com.example.yunchebao.myservice.model.SchoolOrderDetail;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
@@ -67,6 +69,7 @@ public class ShoolOrderDetailActivity extends AppCompatActivity {
     TextView tv_seecomment;
     @BindView(R.id.tv_cancel)
     TextView tv_cancel;
+    SchoolOrderDetail mSchoolOrderDetail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,7 +142,7 @@ public class ShoolOrderDetailActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.tv_complain:
-                callPhone(merchant.getServiceTelephone());
+                callPhone(mSchoolOrderDetail.getShopTelephone());
                 break;
             case R.id.tv_seecomment:
                 break;
@@ -159,20 +162,19 @@ public class ShoolOrderDetailActivity extends AppCompatActivity {
         intent.setData(data);
         startActivity(intent);
     }
-    Merchant merchant;
 
-    private void getMerchat() {
-        Map<String, Object> params = new HashMap<>();
-        params.put("merchantId", mCarOrder.getShopId());
-        HttpProxy.obtain().get(PlatformContans.Shop.getMerchantById, params, new ICallBack() {
+    private void getDetail(){
+        Map<String,Object>params=new HashMap<>();
+        params.put("orderId",mCarOrder.getId());
+        HttpProxy.obtain().get(PlatformContans.MyService.getSchoolOrderDetail, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+                Log.e("getSchoolOrderDetail",result);
                 try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    JSONObject data = jsonObject.getJSONObject("data");
-                    merchant = new Gson().fromJson(data.toString(), Merchant.class);
-                    tv_phone.setText(merchant.getServiceTelephone());
-                    tv_address.setText(merchant.getAddress());
+                    JSONObject jsonObject=new JSONObject(result);
+                    JSONObject data=jsonObject.getJSONObject("data");
+                    mSchoolOrderDetail=new Gson().fromJson(data.toString(), SchoolOrderDetail.class);
+                    setFourData();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -185,15 +187,20 @@ public class ShoolOrderDetailActivity extends AppCompatActivity {
         });
     }
 
+    private void setFourData() {
+        tv_phone.setText(mSchoolOrderDetail.getShopTelephone());
+        tv_address.setText(mSchoolOrderDetail.getAddress());
+        tv_name.setText(mSchoolOrderDetail.getShopName());
+        tv_avgprice.setText("￥"+mSchoolOrderDetail.getPrice());
+        tv_class.setText(mSchoolOrderDetail.getClassName());
+        tv_time.setText(mSchoolOrderDetail.getCreateTime().substring(0,10));
+        tv_coash.setText(mSchoolOrderDetail.getCoachName());
+        Glide.with(this).load(mSchoolOrderDetail.getImage()).into(iv_car);
+    }
+
     private void initView() {
-        tv_address.setText(mCarOrder.getAddress());
-        tv_name.setText(mCarOrder.getShopName());
-        tv_phone.setText(mCarOrder.getTelephone());
-        tv_avgprice.setText("￥"+mCarOrder.getPrice());
-        tv_class.setText(mCarOrder.getClassName());
-        tv_time.setText(mCarOrder.getCreateTime().substring(0,10));
-        tv_coash.setText(mCarOrder.getCoachName());
-        Glide.with(this).load(mCarOrder.getImage()).into(iv_car);
+//        tv_address.setText(mCarOrder.getAddress());
+
         switch (mCarOrder.getState()){
             case 0:
                 tv_carstate.setText("已取消");
@@ -211,7 +218,7 @@ public class ShoolOrderDetailActivity extends AppCompatActivity {
                 tv_seecomment.setVisibility(View.VISIBLE);
                 break;
         }
-        getMerchat();
+        getDetail();
     }
 
 }

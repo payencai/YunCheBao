@@ -140,14 +140,15 @@ public class AddRentCommentActivity extends AppCompatActivity {
 
     private void shopcomment(String comment, double score) {
         Map<String, Object> params = new HashMap<>();
-        params.put("orderId", mCarOrder.getOrderNo());
+        params.put("orderId", mCarOrder.getId());
         params.put("content", comment);
-        params.put("isAnonymous", isAnonymous);
+        //params.put("isAnonymous", isAnonymous);
         params.put("score", score);
         if (!TextUtils.isEmpty(imgs))
             params.put("imgs", imgs.substring(1));
         String json=new Gson().toJson(params);
-        HttpProxy.obtain().post(PlatformContans.Evaluation.addOrderEvaluation, MyApplication.token, json, new ICallBack() {
+        Log.e("result",json);
+        HttpProxy.obtain().post(PlatformContans.MyService.addRentCarComment, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);

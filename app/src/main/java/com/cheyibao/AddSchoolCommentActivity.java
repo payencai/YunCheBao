@@ -148,7 +148,7 @@ public class AddSchoolCommentActivity extends AppCompatActivity {
                     ToastUtil.showToast(AddSchoolCommentActivity.this, "请给出教练评分");
                     return;
                 }
-                coashcomment(content2,score2);
+                //coashcomment(content2,score2);
                 shopcomment(content, score);
             }
         });
@@ -206,14 +206,14 @@ public class AddSchoolCommentActivity extends AppCompatActivity {
         params.put("isAnonymous", isAnonymous2);
         params.put("merchantId", mCarOrder.getShopId());
         params.put("score", score);
-        params.put("coachId", mCarOrder.getCoachId());
+        params.put("coachId", mCarOrder.getId());
         if (!TextUtils.isEmpty(imgs2))
             params.put("photo", imgs2.substring(1));
         String json=new Gson().toJson(params);
         HttpProxy.obtain().post(PlatformContans.Evaluation.addDrivingSchoolCoachEva, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("result", result);
+                Log.e("coashcomment", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     int code = jsonObject.getInt("resultCode");
@@ -243,7 +243,7 @@ public class AddSchoolCommentActivity extends AppCompatActivity {
 
     private void shopcomment(String comment, double score) {
         Map<String, Object> params = new HashMap<>();
-        params.put("orderId", mCarOrder.getOrderNo());
+        params.put("orderId", mCarOrder.getId());
         params.put("content", comment);
         params.put("isAnonymous", isAnonymous);
         params.put("merchantId", mCarOrder.getShopId());
@@ -255,7 +255,7 @@ public class AddSchoolCommentActivity extends AppCompatActivity {
         HttpProxy.obtain().post(PlatformContans.Evaluation.addEvaluation, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("result", result);
+                Log.e("shopcomment", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     int code = jsonObject.getInt("resultCode");
