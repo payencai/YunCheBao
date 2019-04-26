@@ -133,6 +133,7 @@ public class RentShopComentFragment extends Fragment {
                     HandlerData.handlerData(result, type, new EndLoadDataType<List<RentShopComment>>() {
                         @Override
                         public void onFailed() {
+                            adapter.loadMoreComplete();
                         }
 
                         @Override
@@ -140,6 +141,9 @@ public class RentShopComentFragment extends Fragment {
                             if (rentShopComments!=null && rentShopComments.size()>0){
                                 multipleStatusView.showContent();
                                 adapter.addData(rentShopComments);
+                                adapter.loadMoreComplete();
+                            }else {
+                                adapter.loadMoreEnd();
                             }
                         }
                     });
@@ -147,15 +151,11 @@ public class RentShopComentFragment extends Fragment {
 
                 @Override
                 public void onFailure(String error) {
-
+                    adapter.loadMoreComplete();
                 }
             });
         }
 
-        @Override
-        public void refreshData() {
-
-        }
     };
 
 

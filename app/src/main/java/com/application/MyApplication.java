@@ -1,16 +1,22 @@
 package com.application;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.multidex.MultiDex;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.amap.api.location.AMapLocation;
 
+import com.costans.PlatformContans;
 import com.entity.PhoneUserEntity;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.google.gson.Gson;
 import com.http.HttpProxy;
+import com.http.ICallBack;
 import com.http.processor.OkHttpProcessor;
 
 import com.nohttp.Logger;
@@ -18,6 +24,7 @@ import com.nohttp.NoHttp;
 import com.rongcloud.adapter.ListDataSave;
 import com.rongcloud.sidebar.ContactModel;
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
+import com.system.MainActivity;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -28,10 +35,15 @@ import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.vipcenter.model.UserInfo;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.litepal.LitePal;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import io.rong.callkit.util.SPUtils;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.UserData;
 
@@ -133,8 +145,91 @@ public class MyApplication extends Application {
 
         HttpProxy.init(new OkHttpProcessor());
         ZXingLibrary.initDisplayOpinion(this);
+
+        registerActivityLifecycleCallbacks(lifecycleCallbacks);
     }
 
+    private ActivityLifecycleCallbacks lifecycleCallbacks = new ActivityLifecycleCallbacks() {
+        @Override
+        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            if (!isLogin){
+                autoLogin();
+            }
+        }
+
+        @Override
+        public void onActivityStarted(Activity activity) {
+
+        }
+
+        @Override
+        public void onActivityResumed(Activity activity) {
+            if (!isLogin){
+                autoLogin();
+            }
+        }
+
+        @Override
+        public void onActivityPaused(Activity activity) {
+
+        }
+
+        @Override
+        public void onActivityStopped(Activity activity) {
+
+        }
+
+        @Override
+        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+        }
+
+        @Override
+        public void onActivityDestroyed(Activity activity) {
+
+        }
+    };
+
+
+    private void autoLogin() {
+        String phone = (String) SPUtils.get(getContext(), "phone", "");
+        String pwd = (String) SPUtils.get(getContext(), "pwd", "");
+        if (!TextUtils.isEmpty(phone)) {
+            loginByPwd(phone, pwd);
+        }
+    }
+
+    private void loginByPwd(String account, String pwd) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("username", account);
+        params.put("password", pwd);
+        HttpProxy.obtain().post(PlatformContans.User.loginByPwd, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("loginByPwd", result);
+                try {
+                    //Toast.makeText(RegisterActivity.this,"",Toast.LENGTH_LONG).show();
+                    JSONObject object = new JSONObject(result);
+                    JSONObject data = object.getJSONObject("data");
+                    int code = object.getInt("resultCode");
+                    if (code == 0) {
+                        //Toast.makeText(MainActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
+                        UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
+                        MyApplication.token = userInfo.getToken();
+                        MyApplication.setUserInfo(userInfo);
+                        MyApplication.setIsLogin(true);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
 
 
 

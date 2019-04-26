@@ -20,6 +20,7 @@ import com.application.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.BookCarActivity;
 import com.cheyibao.CarModelsDetailActivity;
+import com.cheyibao.HighCarCategoryActivity;
 import com.cheyibao.LongRentAppliationActivity;
 import com.cheyibao.SelfDriverOrderActivity;
 import com.cheyibao.ShopDetailActivity;
@@ -301,6 +302,7 @@ public class RentCarFragment extends BaseFragment {
 
     @OnClick(R.id.high_end_self_driving_click_view)
     public void onHighEndSelfDrivingClickViewClicked() {
+        startActivity(new Intent(getContext(), HighCarCategoryActivity.class));
     }
 
     @OnClick(R.id.store_query_click_view)

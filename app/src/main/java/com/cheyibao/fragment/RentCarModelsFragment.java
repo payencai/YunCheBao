@@ -192,7 +192,7 @@ public class RentCarModelsFragment extends Fragment {
                     HandlerData.handlerData(result, type, new EndLoadDataType<List<RentCarModel>>() {
                         @Override
                         public void onFailed() {
-
+                            adapter.loadMoreComplete();
                         }
 
                         @Override
@@ -210,6 +210,7 @@ public class RentCarModelsFragment extends Fragment {
 
                 @Override
                 public void onFailure(String error) {
+                    adapter.loadMoreComplete();
                 }
             });
         }

@@ -66,6 +66,9 @@
         <activity android:name=".myservice.AddWashCommentActivity" />
         <activity android:name=".myservice.SeeSchoolCommentActivity" />
         <activity android:name="com.cheyibao.RentCarOrderCommentActivity" />
+        <activity android:name="com.cheyibao.HighCarModelsActivity"></activity>
+        <activity android:name="com.cheyibao.HighCarCategoryActivity" />
+        <activity android:name="com.cheyibao.RentCarOrderDetailActivity" />
         <activity android:name="com.cheyibao.SelfDriverOrderActivity" />
         <activity android:name="com.cheyibao.BookCarActivity" />
         <activity android:name=".gasstation.GasStationActivity" />

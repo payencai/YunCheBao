@@ -52,7 +52,7 @@ public class SelfDriverOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_self_driver_order);
         ButterKnife.bind(this);
-
+        title.setText("自驾订单");
         ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
         fragmentArrayList.add(SelfDriverOrderFragment.newInstance(-1));
         fragmentArrayList.add(SelfDriverOrderFragment.newInstance(2));

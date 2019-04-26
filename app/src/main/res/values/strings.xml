@@ -115,4 +115,10 @@
     <string name="_10km">10KM以内</string>
     <string name="km_">km以内</string>
     <string name="booking">预定</string>
+    <string name="shop_name">商家名称</string>
+    <string name="shop_phone">商家电话</string>
+    <string name="shop_address">商家地址</string>
+    <string name="cancel_order">取消订单</string>
+    <string name="comment">评价</string>
+    <string name="shop_complaint">商家投诉</string>
 </resources>

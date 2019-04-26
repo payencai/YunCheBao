@@ -150,8 +150,9 @@ public class BookCarActivity extends AppCompatActivity {
         Glide.with(this).load(rentCarModel.getImage()).into(carBannerView);
         carBrandView.setText(rentCarModel.getBrand());
         carModelsView.setText(rentCarModel.getCarTategory());
-        seatView.setText(String.format("%s/%s",rentCarModel.getVariableBox(),rentCarModel.getSeat().contains("座")?rentCarModel.getSeat():String.format("%s座",rentCarModel.getSeat())));
-
+        if (!TextUtils.isEmpty(rentCarModel.getSeat())){
+            seatView.setText(String.format("%s/%s",rentCarModel.getVariableBox(),rentCarModel.getSeat().contains("座")?rentCarModel.getSeat():String.format("%s座",rentCarModel.getSeat())));
+        }
     }
 
     @OnClick(R.id.back)
