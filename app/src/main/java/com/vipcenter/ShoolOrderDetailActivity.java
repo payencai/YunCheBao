@@ -22,6 +22,7 @@ import com.cheyibao.AddSchoolCommentActivity;
 import com.cheyibao.model.Merchant;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.myservice.SeeSchoolCommentActivity;
 import com.example.yunchebao.myservice.model.FourOrderDetail;
 import com.example.yunchebao.myservice.model.SchoolOrderDetail;
 import com.google.gson.Gson;
@@ -137,6 +138,7 @@ public class ShoolOrderDetailActivity extends AppCompatActivity {
     }
     @OnClick({R.id.back,R.id.tv_complain,R.id.tv_seecomment,R.id.tv_cancel,R.id.tv_comment})
     void onClick(View view){
+        Intent intent;
         switch (view.getId()){
             case R.id.back:
                 finish();
@@ -145,12 +147,15 @@ public class ShoolOrderDetailActivity extends AppCompatActivity {
                 callPhone(mSchoolOrderDetail.getShopTelephone());
                 break;
             case R.id.tv_seecomment:
+                intent = new Intent(ShoolOrderDetailActivity.this, SeeSchoolCommentActivity.class);
+                intent.putExtra("id", mCarOrder.getId());
+                startActivity(intent);
                 break;
             case R.id.tv_cancel:
                 showCancelDialog(mCarOrder.getId());
                 break;
             case R.id.tv_comment:
-                Intent intent = new Intent(ShoolOrderDetailActivity.this, AddSchoolCommentActivity.class);
+                intent = new Intent(ShoolOrderDetailActivity.this, AddSchoolCommentActivity.class);
                 intent.putExtra("item", mCarOrder);
                 startActivity(intent);
                 break;

@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.application.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.fourshop.bean.FourShopData;
+import com.example.yunchebao.myservice.model.SchoolOrderDetail;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
@@ -89,6 +91,7 @@ public class AddSchoolCommentActivity extends AppCompatActivity {
     CarOrder mCarOrder;
     int isAnonymous=1;
     int isAnonymous2=1;
+    SchoolOrderDetail mSchoolOrderDetail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +99,29 @@ public class AddSchoolCommentActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initView();
     }
+    private void getDetail() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("orderId", mCarOrder.getId());
+        HttpProxy.obtain().get(PlatformContans.MyService.getSchoolOrderDetail, params,MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("data", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    mSchoolOrderDetail = new Gson().fromJson(data.toString(), SchoolOrderDetail.class);
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     private void initView() {
         mCarOrder = (CarOrder) getIntent().getSerializableExtra("item");
 
@@ -148,7 +173,7 @@ public class AddSchoolCommentActivity extends AppCompatActivity {
                     ToastUtil.showToast(AddSchoolCommentActivity.this, "请给出教练评分");
                     return;
                 }
-                //coashcomment(content2,score2);
+                coashcomment(content2,score2);
                 shopcomment(content, score);
             }
         });
@@ -196,6 +221,7 @@ public class AddSchoolCommentActivity extends AppCompatActivity {
                 GalleryPick.getInstance().setGalleryConfig(galleryConfig).open(AddSchoolCommentActivity.this);
             }
         });
+        getDetail();
 
     }
     int  count=0;
@@ -206,7 +232,7 @@ public class AddSchoolCommentActivity extends AppCompatActivity {
         params.put("isAnonymous", isAnonymous2);
         params.put("merchantId", mCarOrder.getShopId());
         params.put("score", score);
-        params.put("coachId", mCarOrder.getId());
+        params.put("coachId", mSchoolOrderDetail.getCoachId());
         if (!TextUtils.isEmpty(imgs2))
             params.put("photo", imgs2.substring(1));
         String json=new Gson().toJson(params);
@@ -246,13 +272,11 @@ public class AddSchoolCommentActivity extends AppCompatActivity {
         params.put("orderId", mCarOrder.getId());
         params.put("content", comment);
         params.put("isAnonymous", isAnonymous);
-        params.put("merchantId", mCarOrder.getShopId());
         params.put("score", score);
-        params.put("type", 4);
         if (!TextUtils.isEmpty(imgs))
-            params.put("photo", imgs.substring(1));
+            params.put("imgs", imgs.substring(1));
         String json=new Gson().toJson(params);
-        HttpProxy.obtain().post(PlatformContans.Evaluation.addEvaluation, MyApplication.token, json, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Evaluation.addOrderEvaluation, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("shopcomment", result);

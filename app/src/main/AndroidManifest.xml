@@ -60,11 +60,16 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.cheyibao.RentCarOrderCommentActivity"></activity>
+        <activity android:name=".friendcircle.NewFriendCircleActivity"></activity>
+        <activity android:name=".myservice.SeeRentCommentActivity" />
+        <activity android:name=".myservice.SeeWashCommentActivity" />
+        <activity android:name=".myservice.AddWashCommentActivity" />
+        <activity android:name=".myservice.SeeSchoolCommentActivity" />
+        <activity android:name="com.cheyibao.RentCarOrderCommentActivity" />
         <activity android:name="com.cheyibao.SelfDriverOrderActivity" />
         <activity android:name="com.cheyibao.BookCarActivity" />
         <activity android:name=".gasstation.GasStationActivity" />
-        <activity android:name=".gasstation.AddStationCommentActivity"></activity>
+        <activity android:name=".gasstation.AddStationCommentActivity" />
         <activity
             android:name=".gasstation.GasStationDetailActivity"
             android:theme="@style/DetailTheme" />

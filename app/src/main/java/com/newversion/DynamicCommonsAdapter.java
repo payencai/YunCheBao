@@ -22,7 +22,7 @@ import com.example.yunchebao.R;
 import java.util.ArrayList;
 import java.util.List;
 
-class DynamicCommonsAdapter extends BaseAdapter {
+public  class DynamicCommonsAdapter extends BaseAdapter {
     private Context mContext;
     private List<CircleData.CommentListBean> commentList = new ArrayList<>();
     private FriendsCircleActivity friendsCircleActivity;

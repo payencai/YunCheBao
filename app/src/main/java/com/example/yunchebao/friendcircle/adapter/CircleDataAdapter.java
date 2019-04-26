@@ -1,14 +1,13 @@
-package com.newversion;
+package com.example.yunchebao.friendcircle.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -17,15 +16,28 @@ import android.widget.TextView;
 import com.application.MyApplication;
 import com.bbcircle.view.SampleCoverVideo;
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.yunchebao.R;
+import com.newversion.CircleData;
+
+
+import com.newversion.DynamicCommonsAdapter;
+import com.newversion.DynamicPicGridAdapter;
+import com.newversion.FriendsCircleActivity;
+import com.newversion.InputTextMsgDialog;
+import com.newversion.LikesView;
 import com.payencai.library.view.CircleImageView;
 import com.tool.listview.PersonalListView;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class CircleAdapter extends BaseAdapter {
-    private Context mContext;
+/**
+ * 作者：凌涛 on 2019/4/26 17:30
+ * 邮箱：771548229@qq..com
+ */
+public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHolder> {
     private FriendsCircleActivity friendsCircleActivity;
     private List<CircleData> circleData;
     private DynamicCommonsAdapter commonsAdapter;
@@ -34,61 +46,39 @@ public class CircleAdapter extends BaseAdapter {
      */
     private int dynamicType = 0;
     private InputTextMsgDialog inputTextMsgDialog;
-    public CircleAdapter(Context mContext, List<CircleData> circleData) {
-        this.friendsCircleActivity = (FriendsCircleActivity) mContext;
-        this.mContext = mContext;
-        this.circleData = circleData;
-
+    public CircleDataAdapter(int layoutResId, @Nullable List<CircleData> data) {
+        super(layoutResId, data);
     }
 
     @Override
-    public int getCount() {
-        return circleData.size();
-    }
+    protected void convert(BaseViewHolder helper, CircleData item) {
+        CircleImageView head = (CircleImageView) helper.getView(R.id.iv_head);
+        TextView name = (TextView) helper.getView(R.id.tv_name);
+        TextView time = (TextView) helper.getView(R.id.tv_time);
+        TextView content = (TextView) helper.getView(R.id.tv_dynamic_content);
+        TextView tv_location = (TextView) helper.getView(R.id.tv_location);
+        FrameLayout frame_video_player = (FrameLayout) helper.getView(R.id.frame_video_player);
+        SampleCoverVideo sampleCoverVideo = (SampleCoverVideo) helper.getView(R.id.sampleCoverVideo);
+        ImageView iv_play = (ImageView) helper.getView(R.id.iv_play);
 
-    @Override
-    public Object getItem(int position) {
-        return circleData.get(position);
-    }
+        GridView gvDynamicPhotos = (GridView) helper.getView(R.id.gv_dynamic_photos);
+        ImageView ivVimg = (ImageView) helper.getView(R.id.iv_vimg);
+        ImageView iv_delete = (ImageView) helper.getView(R.id.iv_delete);
+        ImageView iv_replay = (ImageView) helper.getView(R.id.iv_replay);
+        LikesView likeView = (LikesView) helper.getView(R.id.likeView);
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+        PersonalListView lv_comment = (PersonalListView) helper.getView(R.id.lv_comment);
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = LayoutInflater.from(mContext).inflate(R.layout.item_friends_dynamic, null);
-
-        CircleData circleInfo = circleData.get(position);
-
-        CircleImageView head = (CircleImageView) convertView.findViewById(R.id.iv_head);
-        TextView name = (TextView) convertView.findViewById(R.id.tv_name);
-        TextView time = (TextView) convertView.findViewById(R.id.tv_time);
-        TextView content = (TextView) convertView.findViewById(R.id.tv_dynamic_content);
-        TextView tv_location = (TextView) convertView.findViewById(R.id.tv_location);
-        FrameLayout frame_video_player = (FrameLayout) convertView.findViewById(R.id.frame_video_player);
-        SampleCoverVideo sampleCoverVideo = (SampleCoverVideo) convertView.findViewById(R.id.sampleCoverVideo);
-        ImageView iv_play = (ImageView) convertView.findViewById(R.id.iv_play);
-
-        GridView gvDynamicPhotos = (GridView) convertView.findViewById(R.id.gv_dynamic_photos);
-        ImageView ivVimg = (ImageView) convertView.findViewById(R.id.iv_vimg);
-        ImageView iv_delete = (ImageView) convertView.findViewById(R.id.iv_delete);
-        ImageView iv_replay = (ImageView) convertView.findViewById(R.id.iv_replay);
-        LikesView likeView = (LikesView) convertView.findViewById(R.id.likeView);
-
-        PersonalListView lv_comment = (PersonalListView) convertView.findViewById(R.id.lv_comment);
-
-        if (circleInfo.getCommentList() == null || circleInfo.getCommentList().size() == 0) {
+        if (item.getCommentList() == null || item.getCommentList().size() == 0) {
             lv_comment.setVisibility(View.GONE);
         } else {
             lv_comment.setVisibility(View.VISIBLE);
-            commonsAdapter = new DynamicCommonsAdapter(mContext, circleInfo.getCommentList());
+            commonsAdapter = new DynamicCommonsAdapter(mContext, item.getCommentList());
             lv_comment.setAdapter(commonsAdapter);
         }
 
-        if(!TextUtils.isEmpty(circleInfo.getAddress())){
-            tv_location.setText(circleInfo.getAddress());
+        if(!TextUtils.isEmpty(item.getAddress())){
+            tv_location.setText(item.getAddress());
         }
 
         likeView.setListener(new LikesView.onItemClickListener() {
@@ -102,18 +92,18 @@ public class CircleAdapter extends BaseAdapter {
             }
         });
 
-        if (circleInfo.getClickList() == null || circleInfo.getClickList().size() == 0) {
+        if (item.getClickList() == null || item.getClickList().size() == 0) {
             likeView.setVisibility(View.GONE);
         } else {
             likeView.setVisibility(View.VISIBLE);
-            likeView.setList(circleInfo.getClickList());
+            likeView.setList(item.getClickList());
             likeView.notifyDataSetChanged();
         }
 
-        if (!TextUtils.isEmpty(circleInfo.getImgs()) && circleInfo.getImgs().split(",").length > 0) {
+        if (!TextUtils.isEmpty(item.getImgs()) && item.getImgs().split(",").length > 0) {
             dynamicType = 0;//图片说说
             frame_video_player.setVisibility(View.GONE);
-            if (circleInfo.getImgs().split(",").length == 1) {//只有一张图片（宽高自适应）
+            if (item.getImgs().split(",").length == 1) {//只有一张图片（宽高自适应）
                 gvDynamicPhotos.setVisibility(View.GONE);
                 ivVimg.setVisibility(View.VISIBLE);
 
@@ -123,19 +113,19 @@ public class CircleAdapter extends BaseAdapter {
                 ViewGroup.LayoutParams l = ivVimg.getLayoutParams();
                 l.width = display.getWidth() / 2;
 
-                Glide.with(mContext).load(circleInfo.getImgs().split(",")[0]).into(ivVimg);
+                Glide.with(mContext).load(item.getImgs().split(",")[0]).into(ivVimg);
             } else {//2张及以上图片，用九宫格展示
                 gvDynamicPhotos.setVisibility(View.VISIBLE);
                 ivVimg.setVisibility(View.GONE);
-                List<String> dynamicPicList = Arrays.asList(circleInfo.getImgs().split(","));
+                List<String> dynamicPicList = Arrays.asList(item.getImgs().split(","));
                 gvDynamicPhotos.setAdapter(new DynamicPicGridAdapter(mContext, dynamicPicList));
             }
-        } else if (!TextUtils.isEmpty(circleInfo.getVideo())) {
+        } else if (!TextUtils.isEmpty(item.getVideo())) {
             dynamicType = 1;//视频说说
             gvDynamicPhotos.setVisibility(View.GONE);
             frame_video_player.setVisibility(View.VISIBLE);
 
-            String videoPath = circleInfo.getVideo();
+            String videoPath = item.getVideo();
             sampleCoverVideo.setUpLazy(videoPath, true, null, null, "");
             sampleCoverVideo.getTitleTextView().setVisibility(View.GONE);
             sampleCoverVideo.getBackButton().setVisibility(View.GONE);
@@ -149,7 +139,7 @@ public class CircleAdapter extends BaseAdapter {
             });
             sampleCoverVideo.loadCoverImage(videoPath, R.mipmap.pic1);
 
-        } else if (circleInfo.getType() == 2) {
+        } else if (item.getType() == 2) {
             dynamicType = 2;//转发链接
             frame_video_player.setVisibility(View.GONE);
             gvDynamicPhotos.setVisibility(View.GONE);
@@ -161,21 +151,21 @@ public class CircleAdapter extends BaseAdapter {
             ivVimg.setVisibility(View.GONE);
         }
 
-        ImageView ivPrise = (ImageView) convertView.findViewById(R.id.iv_prise);
+        ImageView ivPrise = (ImageView) helper.getView(R.id.iv_prise);
 
-        Glide.with(mContext).load(circleInfo.getHeadPortrait()).into(head);
-        name.setText(circleInfo.getName());
-        time.setText(circleInfo.getCreateTime());
+        Glide.with(mContext).load(item.getHeadPortrait()).into(head);
+        name.setText(item.getName());
+        time.setText(item.getCreateTime());
 
-        if (TextUtils.isEmpty(circleInfo.getContent())) {
+        if (TextUtils.isEmpty(item.getContent())) {
             content.setVisibility(View.GONE);
         } else {
             content.setVisibility(View.VISIBLE);
-            content.setText(circleInfo.getContent());
+            content.setText(item.getContent());
         }
 
 
-        if (circleInfo.getIsClick().equals("1")) {
+        if (item.getIsClick().equals("1")) {
             ivPrise.setImageResource(R.mipmap.icon_praise_selected);
         } else {
             ivPrise.setImageResource(R.mipmap.icon_praise_normal);
@@ -186,20 +176,20 @@ public class CircleAdapter extends BaseAdapter {
             public void onClick(View view) {
                 boolean didPraise;
 
-                if (circleInfo.getIsClick().equals("1")) {
+                if (item.getIsClick().equals("1")) {
                     didPraise = false;
-                    circleInfo.setIsClick("0");
+                    item.setIsClick("0");
                     ivPrise.setImageResource(R.mipmap.icon_praise_normal);
 
-                    for (int i = 0; i < circleInfo.getClickList().size(); i++) {
-                        if (circleInfo.getClickList().get(i).getUserId().equals(MyApplication.getUserInfo().getId())) {
-                            circleInfo.getClickList().remove(i);
+                    for (int i = 0; i < item.getClickList().size(); i++) {
+                        if (item.getClickList().get(i).getUserId().equals(MyApplication.getUserInfo().getId())) {
+                            item.getClickList().remove(i);
                         }
                     }
 
                 } else {
                     didPraise = true;
-                    circleInfo.setIsClick("1");
+                    item.setIsClick("1");
                     ivPrise.setImageResource(R.mipmap.icon_praise_selected);
 
                     CircleData.ClickListBean clickListBean = new CircleData.ClickListBean();
@@ -207,13 +197,13 @@ public class CircleAdapter extends BaseAdapter {
                     clickListBean.setName(MyApplication.getUserInfo().getName());
                     clickListBean.setUserId(MyApplication.getUserInfo().getId());
 
-                    if (!circleInfo.getClickList().contains(clickListBean)) {
-                        circleInfo.getClickList().add(clickListBean);
+                    if (!item.getClickList().contains(clickListBean)) {
+                        item.getClickList().add(clickListBean);
                     }
                 }
-                likeView.setList(circleInfo.getClickList());
+                likeView.setList(item.getClickList());
 
-                if (circleInfo.getClickList() == null || circleInfo.getClickList().size() == 0) {
+                if (item.getClickList() == null || item.getClickList().size() == 0) {
                     likeView.setVisibility(View.GONE);
                 } else {
                     likeView.setVisibility(View.VISIBLE);
@@ -221,14 +211,14 @@ public class CircleAdapter extends BaseAdapter {
                 }
 
                 notifyDataSetChanged();
-                friendsCircleActivity.performPraise(didPraise, circleInfo.getId());
+                friendsCircleActivity.performPraise(didPraise, item.getId());
             }
         });
 
         head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userId = circleInfo.getUserId();
+                String userId = item.getUserId();
                 // 跳转到他人朋友圈
                 Intent intent = new Intent(mContext, FriendsCircleActivity.class);
                 intent.putExtra("userId", userId);
@@ -236,13 +226,13 @@ public class CircleAdapter extends BaseAdapter {
             }
         });
 
-        if (TextUtils.equals(circleInfo.getUserId(), MyApplication.getUserInfo().getId())) {
+        if (TextUtils.equals(item.getUserId(), MyApplication.getUserInfo().getId())) {
             //我自己的朋友圈
             iv_delete.setVisibility(View.VISIBLE);
             iv_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    friendsCircleActivity.showDeleteCirclePoppupWindow(iv_delete, circleInfo.getId());
+                    friendsCircleActivity.showDeleteCirclePoppupWindow(iv_delete, item.getId());
                 }
             });
         } else {
@@ -253,15 +243,10 @@ public class CircleAdapter extends BaseAdapter {
         iv_replay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addReplay(circleInfo);
+                addReplay(item);
             }
         });
-
-        return convertView;
     }
-
-
-
     /**
      * 弹窗输入回复内容
      *

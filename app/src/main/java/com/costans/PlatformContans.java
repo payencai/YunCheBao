@@ -334,6 +334,7 @@ public class PlatformContans {
         public static final String getDrivingSchoolPhoto=root+"/drivingschool/getDrivingSchoolPhoto";
     }
     public static class MyService{
+        public static final String cancelSchoolCarOrder=root+"/carOrder/cancelCarOrder";
         public static final String getWashOrderDetail=root+ "/carWashRepairShop/getOrderDetailsByOrderId";
         public static final String getFourSHopOrderDetail=root+ "/fourShop/getOrderDetailsByOrderId";
         public static final String getRentCarOrderDetail=root+ "/rentCar/getRentCarOrderDetailsByOrderId";
@@ -341,6 +342,8 @@ public class PlatformContans {
         public static final String cancelRentCarOrder=root+"/rentCar/cancelRentCarOrder";
         public static final String getDriverOrderDetail=root+ "/substituteDriving/getOrderDetailsByOrderId";
         public static final String addRentCarComment=root+"/rentCar/addRentCarComment";
+        public static final String getSchoolCommentDetail=root+"/drivingschool/getCommentByOrderId";
+        public static final String getRentCarCommentByOrderId=root+"/rentCar/getRentCarCommentByOrderId";
     }
 
     public static class SubstituteDriving{

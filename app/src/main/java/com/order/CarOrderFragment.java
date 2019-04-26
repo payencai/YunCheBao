@@ -29,6 +29,10 @@ import com.example.yunchebao.R;
 import com.example.yunchebao.fourshop.activity.AddFourCommentActivity;
 import com.example.yunchebao.fourshop.activity.SeeCommentActivity;
 import com.example.yunchebao.fourshop.bean.FourShopCar;
+import com.example.yunchebao.myservice.AddWashCommentActivity;
+import com.example.yunchebao.myservice.SeeRentCommentActivity;
+import com.example.yunchebao.myservice.SeeSchoolCommentActivity;
+import com.example.yunchebao.myservice.SeeWashCommentActivity;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
@@ -192,10 +196,14 @@ public class CarOrderFragment extends Fragment {
                     break;
                 case 2://洗修店
                     if(carOrder.getState()==3){
-
+                        intent=new Intent(getContext(), AddWashCommentActivity.class);
+                        intent.putExtra("id",carOrder.getId());
+                        startActivity(intent);
                         //待评价
                     }else if(carOrder.getState()==4){
-
+                        intent=new Intent(getContext(), SeeWashCommentActivity.class);
+                        intent.putExtra("id",carOrder.getId());
+                        startActivity(intent);
                         //已完成
                     }else if (carOrder.getState()==2){
                         showCancelDialog(carOrder);
@@ -209,20 +217,26 @@ public class CarOrderFragment extends Fragment {
                         startActivity(intent);
                         //待评价
                     }else if(carOrder.getState()==4){
+                        intent=new Intent(getContext(), SeeSchoolCommentActivity.class);
+                        intent.putExtra("id",carOrder.getId());
+                        startActivity(intent);
                         //已完成
                     }else if (carOrder.getState()==2){
-
+                        showCancelDialog(carOrder);
                         //取消
                     }
                     break;
                 case 4://租车
                     if(carOrder.getState()==3){
-                         intent = new Intent(getContext(), AddRentCommentActivity.class);
-                        intent.putExtra("item", carOrder);
+                        intent = new Intent(getContext(), AddRentCommentActivity.class);
+                        intent.putExtra("id", carOrder.getId());
                         startActivity(intent);
                         //待评价
                     }else if(carOrder.getState()==4){
                         //已完成
+                        intent = new Intent(getContext(), SeeRentCommentActivity.class);
+                        intent.putExtra("id", carOrder.getId());
+                        startActivity(intent);
                     }else if (carOrder.getState()==2){
                          showCancelDialog(carOrder);
                         //取消
@@ -299,10 +313,12 @@ public class CarOrderFragment extends Fragment {
                         washCancel(carOrder.getId());
                         break;
                     case 3:
+                        schoolCancel(carOrder.getId());
                         break;
                     case 4:
                         rentCancel(carOrder.getId());
                         break;
+
                 }
             }
         });
@@ -324,7 +340,32 @@ public class CarOrderFragment extends Fragment {
         mCarOrderAdapter.setNewData(mCarOrders);
         getData();
     }
+    private void schoolCancel(String id){
+        Map<String, Object> params = new HashMap<>();
+        params.put("orderId", id);
+        HttpProxy.obtain().post(PlatformContans.MyService.cancelSchoolCarOrder, MyApplication.token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        ToastUtil.showToast(getContext(), "取消成功");
+                        page = 1;
 
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     private void washCancel(String id){
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);

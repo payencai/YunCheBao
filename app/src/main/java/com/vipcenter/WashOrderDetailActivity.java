@@ -20,6 +20,8 @@ import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.fourshop.activity.AddFourCommentActivity;
 import com.example.yunchebao.fourshop.activity.SeeCommentActivity;
+import com.example.yunchebao.myservice.AddWashCommentActivity;
+import com.example.yunchebao.myservice.SeeWashCommentActivity;
 import com.example.yunchebao.myservice.model.FourOrderDetail;
 import com.example.yunchebao.myservice.model.WashOrderDetail;
 import com.google.gson.Gson;
@@ -269,6 +271,7 @@ public class WashOrderDetailActivity extends AppCompatActivity {
     }
     @OnClick({R.id.back,R.id.tv_complain,R.id.tv_seecomment,R.id.tv_cancel,R.id.tv_comment})
     void onClick(View view){
+        Intent intent;
         switch (view.getId()){
             case R.id.back:
                 finish();
@@ -282,12 +285,14 @@ public class WashOrderDetailActivity extends AppCompatActivity {
 
                 break;
             case R.id.tv_seecomment:
-                if(mCarOrder.getType()==1){
-                    Intent intent3 = new Intent(WashOrderDetailActivity.this, SeeCommentActivity.class);
-                    intent3.putExtra("id", mCarOrder.getId());
-                    startActivity(intent3);
+                if(mCarOrder.getType()==2){
+                    intent = new Intent(WashOrderDetailActivity.this, SeeWashCommentActivity.class);
+                    intent.putExtra("id", mCarOrder.getId());
+                    startActivity(intent);
                 }else{
-
+                    intent = new Intent(WashOrderDetailActivity.this, SeeCommentActivity.class);
+                    intent.putExtra("id", mCarOrder.getId());
+                    startActivity(intent);
                 }
                 break;
             case R.id.tv_cancel:
@@ -295,12 +300,11 @@ public class WashOrderDetailActivity extends AppCompatActivity {
                 break;
             case R.id.tv_comment:
                 if(mCarOrder.getType()==2){
-                    Intent intent = new Intent(WashOrderDetailActivity.this, PubCommentActivity.class);
+                    intent = new Intent(WashOrderDetailActivity.this, AddWashCommentActivity.class);
                     intent.putExtra("id", mCarOrder.getId());
-                    intent.putExtra("flag", mCarOrder.getType());
                     startActivity(intent);
                 }else{
-                    Intent intent = new Intent(WashOrderDetailActivity.this, AddFourCommentActivity.class);
+                    intent = new Intent(WashOrderDetailActivity.this, AddFourCommentActivity.class);
                     intent.putExtra("id", mCarOrder.getId());
                     startActivity(intent);
                 }

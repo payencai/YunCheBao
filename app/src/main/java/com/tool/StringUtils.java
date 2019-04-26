@@ -1,6 +1,8 @@
 package com.tool;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * 作者：凌涛 on 2019/4/15 15:24
@@ -19,6 +21,17 @@ public class StringUtils {
             }
         }
         return sb.toString();
+    }
+    public static ArrayList<String> StringToArrayList(String str, String separator) {
+        ArrayList<String> arr = new ArrayList<String>();
+        if ((str == null) || (separator == null)) {
+            return arr;
+        }
+        StringTokenizer st = new StringTokenizer(str, separator);
+        while (st.hasMoreTokens()) {
+            arr.add(st.nextToken());
+        }
+        return arr;
     }
 
 }

@@ -1,7 +1,5 @@
-package com.cheyibao;
+package com.example.yunchebao.myservice;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
@@ -11,31 +9,19 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.application.MyApplication;
 import com.comment.EvaluationChoiceImageView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.fourshop.activity.AddFourCommentActivity;
-import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
-import com.order.CarOrder;
 import com.payencai.library.util.ToastUtil;
 import com.tool.FileUtil;
 import com.tool.GlideImageEngine;
-import com.tool.GlideImageLoader;
 import com.tool.StringUtils;
-import com.vipcenter.PubCommentActivity;
-import com.vipcenter.adapter.PhotoAdapter;
-import com.yancy.gallerypick.config.GalleryConfig;
-import com.yancy.gallerypick.config.GalleryPick;
-import com.yancy.gallerypick.inter.IHandlerCallBack;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 
@@ -52,7 +38,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import go.error;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -65,9 +50,7 @@ import top.zibin.luban.CompressionPredicate;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
-public class AddRentCommentActivity extends AppCompatActivity {
-
-
+public class AddWashCommentActivity extends AppCompatActivity {
 
     @BindView(R.id.addimgs)
     EvaluationChoiceImageView mEvaluationChoiceImageView;
@@ -84,7 +67,7 @@ public class AddRentCommentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_rent_comment);
+        setContentView(R.layout.activity_add_wash_comment);
         ButterKnife.bind(this);
         id= getIntent().getStringExtra("id");
         initView();
@@ -99,11 +82,11 @@ public class AddRentCommentActivity extends AppCompatActivity {
         params.put("content",comment);
         params.put("score",shopScore);
         params.put("imgs",imgs);
-        HttpProxy.obtain().post(PlatformContans.MyService.addRentCarComment, MyApplication.token, params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.CarWashRepairShop.addWashRepairOrderComment, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result",result);
-                ToastUtil.showToast(AddRentCommentActivity.this,"评价成功");
+                ToastUtil.showToast(AddWashCommentActivity.this,"评价成功");
                 finish();
             }
 
@@ -198,7 +181,7 @@ public class AddRentCommentActivity extends AppCompatActivity {
         mEvaluationChoiceImageView.setOnClickAddImageListener(new EvaluationChoiceImageView.OnClickAddImageListener() {
             @Override
             public void onClickAddImage() {
-                Matisse.from(AddRentCommentActivity.this)
+                Matisse.from(AddWashCommentActivity.this)
                         .choose(MimeType.ofImage())
                         .countable(true)
                         .maxSelectable(1)
