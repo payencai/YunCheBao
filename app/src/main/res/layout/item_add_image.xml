@@ -4,10 +4,10 @@
     android:layout_height="110dp"
     android:gravity="center">
     <ImageView
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:id="@+id/iv_comment"
         android:src="@mipmap/add_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"/>
 </LinearLayout>

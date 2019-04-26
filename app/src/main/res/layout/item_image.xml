@@ -8,6 +8,6 @@
         android:scaleType="centerCrop"
         android:id="@+id/iv_comment"
         android:src="@mipmap/car_icon"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="100dp"/>
 </LinearLayout>

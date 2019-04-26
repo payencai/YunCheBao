@@ -348,6 +348,9 @@ public class RentOrder implements Parcelable {
         this.variableBox = variableBox;
     }
 
+    public RentOrder() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -361,7 +364,7 @@ public class RentOrder implements Parcelable {
         dest.writeString(this.callTelephone);
         dest.writeString(this.carTategory);
         dest.writeString(this.createTime);
-        dest.writeInt(this.dayPrice);
+        dest.writeDouble(this.dayPrice);
         dest.writeString(this.handleTime);
         dest.writeString(this.id);
         dest.writeString(this.idNumber);
@@ -386,12 +389,9 @@ public class RentOrder implements Parcelable {
         dest.writeString(this.takeCarLongitude);
         dest.writeString(this.takeCarTime);
         dest.writeString(this.telephone);
-        dest.writeInt(this.total);
+        dest.writeDouble(this.total);
         dest.writeString(this.userId);
         dest.writeString(this.variableBox);
-    }
-
-    public RentOrder() {
     }
 
     protected RentOrder(Parcel in) {
@@ -401,7 +401,7 @@ public class RentOrder implements Parcelable {
         this.callTelephone = in.readString();
         this.carTategory = in.readString();
         this.createTime = in.readString();
-        this.dayPrice = in.readInt();
+        this.dayPrice = in.readDouble();
         this.handleTime = in.readString();
         this.id = in.readString();
         this.idNumber = in.readString();
@@ -426,12 +426,12 @@ public class RentOrder implements Parcelable {
         this.takeCarLongitude = in.readString();
         this.takeCarTime = in.readString();
         this.telephone = in.readString();
-        this.total = in.readInt();
+        this.total = in.readDouble();
         this.userId = in.readString();
         this.variableBox = in.readString();
     }
 
-    public static final Parcelable.Creator<RentOrder> CREATOR = new Parcelable.Creator<RentOrder>() {
+    public static final Creator<RentOrder> CREATOR = new Creator<RentOrder>() {
         @Override
         public RentOrder createFromParcel(Parcel source) {
             return new RentOrder(source);
