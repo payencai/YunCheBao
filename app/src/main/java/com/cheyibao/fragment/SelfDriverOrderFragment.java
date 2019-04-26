@@ -237,6 +237,7 @@ public class SelfDriverOrderFragment extends BaseFragment {
                             }else {
                                 refreshLayout.finishLoadMore(true);
                                 adapter.addData(rentOrderList);
+                                multipleStatusView.showContent();
                             }
                         }
                     });
@@ -266,6 +267,7 @@ public class SelfDriverOrderFragment extends BaseFragment {
                         public void onSuccess(List<RentOrder> rentOrderList) {
                             refreshLayout.finishRefresh(true);
                             adapter.setNewData(rentOrderList);
+                            multipleStatusView.showContent();
                         }
                     });
                 }

@@ -258,6 +258,7 @@ public class PlatformContans {
         public static final String getUserRentCarOrderList=root+ "/rentCar/getUserRentCarOrderList"; //用户分页获取租车订单列表数据
         public static final String cancelRentCarOrder=root+ "/rentCar/cancelRentCarOrder" ; //取消租车订单
         public static final String getRentCarShopById=root+ "/rentCar/getRentCarShopById" ; //app根据店铺id获取租车店铺数据
+        public static final String addRentCarComment=root+ "/rentCar/addRentCarComment";//用户添加租车订单评论
     }
     public static class OldCar{
 

@@ -1,27 +1,24 @@
 package com.cheyibao.adapter;
 
 import android.net.Uri;
+import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.example.yunchebao.R;
+import com.payencai.library.mediapicker.utils.ScreenUtils;
 import com.tool.FileUtil;
-import com.zhihu.matisse.Matisse;
 
 import java.io.File;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
-public class ImageAdapter extends BaseMultiItemQuickAdapter<ImageAdapter.Self, ImageAdapter.ViewHolder> {
+public class ImageAdapter extends BaseMultiItemQuickAdapter<ImageAdapter.Self, BaseViewHolder> {
 
     public ImageAdapter(List<Self> imageList) {
         super(imageList);
@@ -30,27 +27,22 @@ public class ImageAdapter extends BaseMultiItemQuickAdapter<ImageAdapter.Self, I
     }
 
     @Override
-    protected void convert(ViewHolder helper, Self item) {
-        if (!TextUtils.isEmpty(item.url)){
+    protected void convert(BaseViewHolder helper, Self item) {
+        int width = ScreenUtils.getScreenWidth(mContext);
+        int space = ScreenUtils.dp2px(mContext, 60);
+        int height = (width - space) / 4;
+        helper.itemView.setLayoutParams(new GridLayoutManager.LayoutParams(height, height));
+        helper.addOnClickListener(R.id.delete_photo_view);
+        if (!TextUtils.isEmpty(item.url)) {
             Glide.with(mContext).load(item.getUrl()).into((ImageView) helper.getView(R.id.iv_comment));
-        }else if (item.getUri()!=null){
+        } else if (item.getUri() != null) {
             File fileByUri = FileUtil.getFileByUri(item.uri, mContext);
             Glide.with(mContext).load(fileByUri).into((ImageView) helper.getView(R.id.iv_comment));
         }
     }
 
 
-    static class ViewHolder extends BaseViewHolder {
-        @BindView(R.id.iv_comment)
-        ImageView ivComment;
-
-        ViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-        }
-    }
-
-    public static class Self implements MultiItemEntity{
+    public static class Self implements MultiItemEntity {
         public Uri getUri() {
             return uri;
         }
@@ -62,16 +54,16 @@ public class ImageAdapter extends BaseMultiItemQuickAdapter<ImageAdapter.Self, I
         public static final int ADD_CLICK = 1; //
         public static final int DISPLAY_IMAGE = 2; //
 
-        public Self(){
+        public Self() {
             this.itemType = ADD_CLICK;
         }
 
-        public Self(String url){
+        public Self(String url) {
             this.url = url;
             this.itemType = DISPLAY_IMAGE;
         }
 
-        public Self(Uri uri){
+        public Self(Uri uri) {
             this.uri = uri;
             this.itemType = DISPLAY_IMAGE;
         }
@@ -98,4 +90,6 @@ public class ImageAdapter extends BaseMultiItemQuickAdapter<ImageAdapter.Self, I
             this.itemType = itemType;
         }
     }
+
+
 }

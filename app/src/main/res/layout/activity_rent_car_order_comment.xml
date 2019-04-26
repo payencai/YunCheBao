@@ -32,13 +32,16 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
                 <com.iarcuschin.simpleratingbar.SimpleRatingBar
                     android:id="@+id/starbar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    app:srb_maxStarSize="20dp" />
+                    app:srb_stepSize="1"
+                    app:srb_maxStarSize="25dp"
+                    app:srb_starSize="25dp"/>
 
                 <TextView
                     android:id="@+id/score_view"
@@ -73,6 +76,9 @@
             android:id="@+id/image_list_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"/>
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"/>
     </LinearLayout>
 </LinearLayout>

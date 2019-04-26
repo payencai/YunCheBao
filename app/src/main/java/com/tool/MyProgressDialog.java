@@ -55,10 +55,14 @@ public class MyProgressDialog {
     }
 
     public static void show(Context context, String msg){
-        if (dialog == null ){
-            dialog = createLoadingDialog(context,msg);
-            dialog.show();
-        }
+//        if (dialog == null ){
+//            dialog = createLoadingDialog(context,msg);
+//            dialog.show();
+//        }
+
+        dialog = createLoadingDialog(context,msg);
+        dialog.show();
+
     }
     public static void dismiss(){
         if(dialog!=null){
