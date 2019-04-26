@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
@@ -117,7 +118,9 @@ public class CarModelsDetailActivity extends AppCompatActivity {
         Glide.with(this).load(rentCarModel.getImage()).into(carBannerView);
         carBrandView.setText(rentCarModel.getBrand());
         carModelsView.setText(rentCarModel.getCarTategory());
-        seatView.setText(String.format("%s/%s",rentCarModel.getVariableBox(),rentCarModel.getSeat().contains("座")?rentCarModel.getSeat():String.format("%s座",rentCarModel.getSeat())));
+        if (!TextUtils.isEmpty(rentCarModel.getSeat())){
+            seatView.setText(String.format("%s/%s",rentCarModel.getVariableBox(),rentCarModel.getSeat().contains("座")?rentCarModel.getSeat():String.format("%s座",rentCarModel.getSeat())));
+        }
 
         isToHomeServiceView.setOnCheckedChangeListener((buttonView, isChecked) -> loadDataType.initData());
 
