@@ -118,8 +118,8 @@ public class RentShopFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), RentCarOrderActivity.class);
-                intent.putExtra("data", rentCarType);
-                intent.putExtra("rent", mRentCar);
+//                intent.putExtra("data", rentCarType);
+//                intent.putExtra("rent", mRentCar);
                 startActivity(intent);
                 dialog.dismiss();
             }

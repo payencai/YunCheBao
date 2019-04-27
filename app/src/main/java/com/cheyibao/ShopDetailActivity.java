@@ -117,10 +117,6 @@ public class ShopDetailActivity extends AppCompatActivity {
         tabLayout.setViewPager(viewpager, titles, this, mFragments);
     }
 
-    @OnClick(R.id.head_view)
-    public void onHeadViewClicked() {
-    }
-
     @OnClick(R.id.back)
     public void onBackClicked() {
         onBackPressed();

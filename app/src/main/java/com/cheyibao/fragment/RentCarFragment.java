@@ -265,6 +265,7 @@ public class RentCarFragment extends BaseFragment {
         if (RentCarUtils.rentCarInfo == null) {
             RentCarUtils.rentCarInfo = new HashMap<>();
         }
+        RentCarUtils.rentCarInfo.clear();
         RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_AREA_1, rentCarAddressView.getTakeCarAddress());
         RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_AREA_2, rentCarAddressView.getReturnCarAddress());
         RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_SHOP, rentCarAddressView.getRentShop());

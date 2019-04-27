@@ -130,7 +130,8 @@ public class RentCarOrderActivity extends AppCompatActivity {
         Glide.with(this).load(rentCarModel.getImage()).into(carModelBannerView);
         carModelNameView.setText(rentCarModel.getBrand());
         carModelCarCategoryView.setText(rentCarModel.getCarTategory());
-        carModelIsAutoDriverView.setText(String.format("%s/%s座", rentCarModel.getVariableBox(), rentCarModel.getSeat().replace("座", "")));
+        String seat = TextUtils.isEmpty(rentCarModel.getSeat())?"":rentCarModel.getSeat().replace("座", "");
+        carModelIsAutoDriverView.setText(String.format("%s/%s座", rentCarModel.getVariableBox(), seat));
         dayPriceView.setText(String.format("￥%s", rentCarModel.getDayPrice()));
         totalPriceView.setText(String.format("￥%s", RentCarUtils.day(duration) * rentCarModel.getDayPrice()));
         rentCarTimeView.initTime(startTime, endTime);
@@ -142,8 +143,6 @@ public class RentCarOrderActivity extends AppCompatActivity {
             }
         });
         rentCarAddressView.init(takeTheCarAddress,returnTheCarAddress,rentShop,isToHomeService);
-
-
     }
 
     private void postOrder() {

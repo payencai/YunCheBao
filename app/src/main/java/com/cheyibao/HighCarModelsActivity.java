@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.adapter.RentCarModelAdapter;
 import com.cheyibao.model.HighCarCategory;
+import com.cheyibao.model.RentCar;
 import com.cheyibao.model.RentCarModel;
 import com.common.BaseModel;
 import com.common.EndLoadDataType;
@@ -105,11 +106,9 @@ public class HighCarModelsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new RentCarModelAdapter(new ArrayList<>());
         adapter.bindToRecyclerView(recyclerView);
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
-            }
+        adapter.setOnItemClickListener((a, view, position) -> {
+            RentCarModel rentCarModel = adapter.getItem(position);
+            HighCarModelsDetailActivity.startActivity(rentCarModel,context);
         });
 
         loadDataType.initData();

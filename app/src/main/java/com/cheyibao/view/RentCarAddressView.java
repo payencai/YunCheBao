@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cheyibao.ShopListActivity;
+import com.cheyibao.model.RentCarModel;
 import com.cheyibao.model.RentShop;
 import com.common.AvoidOnResult;
 import com.common.ResourceUtils;
@@ -37,6 +38,8 @@ public class RentCarAddressView extends LinearLayout {
     private static final int REQUEST_CODE_ADDRESS_FOR_MAP_SEND = 1;
     private static final int REQUEST_CODE_ADDRESS_FOR_MAP_TAKE = 2;
     private static final int REQUEST_CODE_ADDRESS_FOR_STORE_SEND = 3;
+    private static final int TYPE_NONE = 1;
+    private static final int TYPE_BY_CAR = 2;
 
     @BindView(R.id.take_car_city_text_view)
     TextView takeCarCityTextView;
@@ -52,7 +55,9 @@ public class RentCarAddressView extends LinearLayout {
     private AddressBean takeCarAddress;
     private AddressBean returnCarAddress;
     private RentShop rentShop;
-    private boolean isEnabled = true;
+    private boolean isEnabled;
+    private int type = TYPE_NONE;
+    private RentCarModel rentCarModel;
 
     public RentCarAddressView(Context context) {
         this(context, null);
@@ -116,7 +121,11 @@ public class RentCarAddressView extends LinearLayout {
                 }
             });
         }else {
-            avoidOnResult.startForResult(ShopListActivity.class, REQUEST_CODE_ADDRESS_FOR_STORE_SEND, (requestCode, resultCode, data) -> {
+            Intent intent = new Intent(getContext(),ShopListActivity.class);
+            if (type == TYPE_BY_CAR){
+                intent.putExtra("rent_car_model",rentCarModel);
+            }
+            avoidOnResult.startForResult(intent, REQUEST_CODE_ADDRESS_FOR_STORE_SEND, (requestCode, resultCode, data) -> {
                 if (data!=null) {
                     rentShop = data.getParcelableExtra("rent_shop");
                     bindViewData(rentShop);
@@ -139,7 +148,11 @@ public class RentCarAddressView extends LinearLayout {
                 }
             });
         }else {
-            avoidOnResult.startForResult(ShopListActivity.class, REQUEST_CODE_ADDRESS_FOR_STORE_SEND, (requestCode, resultCode, data) -> {
+            Intent intent = new Intent(getContext(),ShopListActivity.class);
+            if (type == TYPE_BY_CAR){
+                intent.putExtra("rent_car_model",rentCarModel);
+            }
+            avoidOnResult.startForResult(intent, REQUEST_CODE_ADDRESS_FOR_STORE_SEND, (requestCode, resultCode, data) -> {
                 if (data!=null) {
                     rentShop = data.getParcelableExtra("rent_shop");
                     bindViewData(rentShop);
@@ -166,6 +179,20 @@ public class RentCarAddressView extends LinearLayout {
         isToHomeServiceView.setEnabled(false);
         isToHomeServiceView.setVisibility(GONE);
         bindViewData(rentShop);
+    }
+
+    public void init(RentCarModel rentCarModel,boolean isToHomeEnable, boolean isToHomeService){
+        this.rentCarModel = rentCarModel;
+        if (this.rentCarModel!=null){
+            type = TYPE_BY_CAR;
+        }
+        isToHomeServiceView.setChecked(isToHomeService);
+        isToHomeServiceView.setEnabled(false);
+        if (isToHomeEnable){
+            isToHomeServiceView.setVisibility(VISIBLE);
+        }else {
+            isToHomeServiceView.setVisibility(GONE);
+        }
     }
 
     private void bindViewData(Object object){

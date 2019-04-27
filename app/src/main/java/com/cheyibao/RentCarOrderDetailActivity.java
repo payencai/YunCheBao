@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -111,7 +112,8 @@ public class RentCarOrderDetailActivity extends AppCompatActivity {
         Glide.with(carBannerView).load(rentOrder.getImage()).into(carBannerView);
         carBrandView.setText(rentOrder.getBrand());
         carModelsView.setText(rentOrder.getCarTategory());
-        seatView.setText(String.format("%s/%s", rentOrder.getVariableBox(), rentOrder.getSeat()));
+        String seat = TextUtils.isEmpty(rentOrder.getSeat())?"":rentOrder.getSeat().replace("座", "");
+        seatView.setText(String.format("%s/%s座", rentOrder.getVariableBox(), seat));
         dayPriceView.setText(String.format("￥%s", rentOrder.getDayPrice()));
         String text;
         switch (rentOrder.getState()){

@@ -247,6 +247,7 @@ public class PlatformContans {
         public static final String getRentCar=root+ "/rentcar/getRentCar";
         public static final String getRentCarCarList=root+ "/rentcar/getRentCarCarList";
         public static final String getRentCarShop=root+ "/rentCar/getRentCarShop";
+        public static final String getRentCarShopByCar=root+ "/rentCar/getRentCarShopByCar";//根据车辆信息获取租车店铺
         public static final String getRentCarCarListByShopId=root+ "/rentCar/getRentCarCarListByShopId";
         public static final String getRentCarCommentDetailsList=root+ "/rentCar/getRentCarCommentDetailsList";
         public static final String addRentCarOrder=root+ "/rentCar/addRentCarOrder";

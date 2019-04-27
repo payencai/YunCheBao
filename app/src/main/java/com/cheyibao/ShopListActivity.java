@@ -16,6 +16,7 @@ import com.application.MyApplication;
 import com.cheyibao.adapter.AreaAdapter;
 import com.cheyibao.adapter.RentShopAdapter;
 import com.cheyibao.model.Area;
+import com.cheyibao.model.RentCarModel;
 import com.cheyibao.model.RentShop;
 import com.common.BaseModel;
 import com.common.EndLoadDataType;
@@ -89,6 +90,8 @@ public class ShopListActivity extends AppCompatActivity {
     private int type = 1;
     private String area = "";
 
+    private RentCarModel rentCarModel;
+
 
     List<Area> areaList = new ArrayList<>();
 
@@ -98,13 +101,19 @@ public class ShopListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stop_list);
         ButterKnife.bind(this);
         title.setText("选择门店");
+        rentCarModel = getIntent().getParcelableExtra("rent_car_model");
         String adcode = MyApplication.getaMapLocation().getAdCode();
         if (!TextUtils.isEmpty(adcode)) {
             cityCode = MyApplication.getaMapLocation().getAdCode().substring(0, 4) + "00";
         }
         init();
         getJsonData();
-        loadDataType.initData();
+        if (rentCarModel==null){
+            loadDataType.initData();
+        }else {
+            LoadRentCarShopByCar.initData();
+        }
+
         areaNameTextView.setText("附近门店");
     }
 
@@ -125,7 +134,11 @@ public class ShopListActivity extends AppCompatActivity {
                     this.area = area.getName();
                     areaNameTextView.setText(area.getName());
                 }
-                loadDataType.initData();
+                if (rentCarModel==null){
+                    loadDataType.initData();
+                }else {
+                    LoadRentCarShopByCar.initData();
+                }
             }
         });
 
@@ -139,8 +152,20 @@ public class ShopListActivity extends AppCompatActivity {
             setResult(RESULT_OK, intent);
             finish();
         });
-        refreshLayout.setOnLoadMoreListener(refreshLayout -> loadDataType.loadMoreData());
-        refreshLayout.setOnRefreshListener(refreshLayout -> loadDataType.refreshData());
+        refreshLayout.setOnLoadMoreListener(refreshLayout -> {
+            if (rentCarModel==null){
+                loadDataType.loadMoreData();
+            }else {
+                LoadRentCarShopByCar.loadMoreData();
+            }
+        });
+        refreshLayout.setOnRefreshListener(refreshLayout -> {
+            if (rentCarModel==null){
+                loadDataType.refreshData();
+            }else {
+                LoadRentCarShopByCar.refreshData();
+            }
+        });
     }
 
 
@@ -164,23 +189,6 @@ public class ShopListActivity extends AppCompatActivity {
             areaAdapter.setNewData(areaList);
         } catch (JSONException e) {
             e.printStackTrace();
-
-            Area area3 = new Area();
-            area3.setName("五华区");
-            areaList.add(area3);
-
-            Area area2 = new Area();
-            area2.setName("西山区");
-            areaList.add(area2);
-
-            Area area4 = new Area();
-            area4.setName("高新区");
-            areaList.add(area4);
-
-            Area area5 = new Area();
-            area5.setName("官渡区");
-            areaList.add(area5);
-
             areaAdapter.setNewData(areaList);
         }
 
@@ -199,9 +207,13 @@ public class ShopListActivity extends AppCompatActivity {
             params.put("type", type);
             params.put("page", page);
 
-            params.put("longitude", MyApplication.getaMapLocation().getLongitude() + "");
-            params.put("latitude", MyApplication.getaMapLocation().getLatitude() + "");
-            params.put("area", area + "");
+            double longitude = MyApplication.getaMapLocation().getLongitude()==0?102.4584665:MyApplication.getaMapLocation().getLongitude();
+            double latitude = MyApplication.getaMapLocation().getLatitude()==0?24.52845:MyApplication.getaMapLocation().getLatitude();
+            params.put("longitude", longitude);
+            params.put("latitude", latitude);
+            if (!TextUtils.isEmpty(area)){
+                params.put("area", area);
+            }
             return params;
         }
 
@@ -304,4 +316,123 @@ public class ShopListActivity extends AppCompatActivity {
             });
         }
     };
+
+
+    private LoadDataType LoadRentCarShopByCar = new LoadDataType() {
+        @Override
+        public Map<String, Object> initParam() {
+            Map<String, Object> params = new HashMap<>();
+            params.put("page", page);
+            if (rentCarModel!=null){
+                params.put("brand", rentCarModel.getBrand());
+                params.put("carTategory", rentCarModel.getCarTategory());
+            }
+            double longitude = MyApplication.getaMapLocation().getLongitude()==0?102.4584665:MyApplication.getaMapLocation().getLongitude();
+            double latitude = MyApplication.getaMapLocation().getLatitude()==0?24.52845:MyApplication.getaMapLocation().getLatitude();
+            params.put("longitude", longitude);
+            params.put("latitude", latitude);
+            if (!TextUtils.isEmpty(area)){
+                params.put("area", area);
+            }
+            return params;
+        }
+
+        @Override
+        public void initData() {
+            page=1;
+            multipleStatusView.showLoading();
+            HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarShopByCar, initParam(), "", new ICallBack() {
+                @Override
+                public void OnSuccess(String result) {
+                    Type type = new TypeToken<BaseModel<List<RentShop>>>() {}.getType();
+                    HandlerData.handlerData(result, type, new EndLoadDataType<List<RentShop>>() {
+                        @Override
+                        public void onFailed() {
+                            multipleStatusView.showError();
+                        }
+
+                        @Override
+                        public void onSuccess(List<RentShop> rentShopList) {
+                            if (rentShopList!=null && rentShopList.size()>0){
+                                rentShopAdapter.setNewData(rentShopList);
+                                multipleStatusView.showContent();
+                            }else {
+                                multipleStatusView.showEmpty();
+                            }
+                        }
+                    });
+                }
+
+                @Override
+                public void onFailure(String error) {
+                    multipleStatusView.showError();
+                }
+            });
+        }
+
+        @Override
+        public void loadMoreData() {
+            page++;
+            HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarShopByCar, initParam(), "", new ICallBack() {
+                @Override
+                public void OnSuccess(String result) {
+                    Type type = new TypeToken<BaseModel<List<RentShop>>>() {}.getType();
+                    HandlerData.handlerData(result, type, new EndLoadDataType<List<RentShop>>() {
+                        @Override
+                        public void onFailed() {
+                            refreshLayout.finishLoadMore(false);
+                        }
+
+                        @Override
+                        public void onSuccess(List<RentShop> rentShopList) {
+                            refreshLayout.finishLoadMore(true);
+                            if (rentShopList!=null && rentShopList.size()>0){
+                                rentShopAdapter.addData(rentShopList);
+                            }
+                        }
+                    });
+                }
+
+                @Override
+                public void onFailure(String error) {
+                    refreshLayout.finishLoadMore(false);
+                }
+            });
+        }
+
+        @Override
+        public void refreshData() {
+            page = 1;
+            HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarShopByCar, initParam(), "", new ICallBack() {
+                @Override
+                public void OnSuccess(String result) {
+                    Type type = new TypeToken<BaseModel<List<RentShop>>>() {}.getType();
+                    HandlerData.handlerData(result, type, new EndLoadDataType<List<RentShop>>() {
+                        @Override
+                        public void onFailed() {
+                            multipleStatusView.showError();
+                            refreshLayout.finishRefresh(false);
+                        }
+
+                        @Override
+                        public void onSuccess(List<RentShop> rentShopList) {
+                            if (rentShopList == null || rentShopList.size()<=0){
+                                multipleStatusView.showEmpty();
+                            }else {
+                                multipleStatusView.showContent();
+                                rentShopAdapter.setNewData(rentShopList);
+                            }
+                            refreshLayout.finishRefresh(true);
+                        }
+                    });
+                }
+
+                @Override
+                public void onFailure(String error) {
+                    refreshLayout.finishRefresh(false);
+                }
+            });
+        }
+    };
+
 }
