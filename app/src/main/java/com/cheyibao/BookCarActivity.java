@@ -123,6 +123,7 @@ public class BookCarActivity extends AppCompatActivity {
     }
 
     private void bindView(){
+        rentCarAddressView.setIsEnabled(false);
         rentCarAddressView.init(longRentShop);
         rentCarAddressView.setIsEnabled(longRentShop.getIsOnlineServe()==1);
         String text;

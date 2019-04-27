@@ -230,7 +230,7 @@ public class LongRentAppliationActivity extends AppCompatActivity {
             }
 
             String shopNumber = selectShopCount.getText().toString();
-           int shopCount = TextUtils.isDigitsOnly(shopNumber)?Integer.parseInt(shopNumber):0;
+           int shopCount = TextUtils.isEmpty(shopNumber)?0:(TextUtils.isDigitsOnly(shopNumber)?Integer.parseInt(shopNumber):0);
            if (shopCount<1){
                ToastUtil.showToast(context,"请选择报价商家数量");
                return null;

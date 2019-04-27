@@ -17,6 +17,9 @@ public class RentCarUtils {
     public static final String RENT_CAR_INFO_END_TIME = "end_time";
     public static final String RENT_CAR_INFO_CAR_MODEL = "car_model";
     public static final String RENT_CAR_INFO_IS_TO_HOME_SERVICE = "is_to_home_service";
+    public static final String IS_EDIT_ORDER_ADDRESS = "is_edit_order_address";
+    public static final String IS_EDIT_ORDER_TIME = "is_edit_order_time";
+    public static final String IS_EDIT_ORDER_ONLY_ADDRESS = "is_edit_order_only_address";
 
     public static HashMap<String,Object> rentCarInfo;
     public static final int ONLINESERVE = 1;

@@ -22,6 +22,8 @@ import com.cheyibao.BookCarActivity;
 import com.cheyibao.CarModelsDetailActivity;
 import com.cheyibao.HighCarCategoryActivity;
 import com.cheyibao.LongRentAppliationActivity;
+import com.cheyibao.RentCarByCarModelActivity;
+import com.cheyibao.RentCarByShopListActivity;
 import com.cheyibao.SelfDriverOrderActivity;
 import com.cheyibao.ShopDetailActivity;
 import com.cheyibao.ShopListNoAreaActivity;
@@ -308,10 +310,12 @@ public class RentCarFragment extends BaseFragment {
 
     @OnClick(R.id.store_query_click_view)
     public void onStoreQueryClickViewClicked() {
+        startActivity(new Intent(getContext(), RentCarByShopListActivity.class));
     }
 
     @OnClick(R.id.car_type_query_click)
     public void onCarTypeQueryClickClicked() {
+        startActivity(new Intent(getContext(), RentCarByCarModelActivity.class));
     }
 
     @OnClick(R.id.long_rent_btn)

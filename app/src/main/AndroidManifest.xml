@@ -60,7 +60,9 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.cheyibao.HighCarModelsDetailActivity"></activity>
+        <activity android:name="com.cheyibao.BrandSelectedActivity"></activity>
+        <activity android:name="com.cheyibao.RentCarByCarModelActivity" />
+        <activity android:name="com.cheyibao.HighCarModelsDetailActivity" />
         <activity android:name=".friendcircle.NewFriendCircleActivity" />
         <activity android:name=".myservice.SeeRentCommentActivity" />
         <activity android:name=".myservice.SeeWashCommentActivity" />
@@ -72,6 +74,7 @@
         <activity android:name="com.cheyibao.RentCarOrderDetailActivity" />
         <activity android:name="com.cheyibao.SelfDriverOrderActivity" />
         <activity android:name="com.cheyibao.BookCarActivity" />
+        <activity android:name="com.cheyibao.RentCarByShopListActivity" />
         <activity android:name=".gasstation.GasStationActivity" />
         <activity android:name=".gasstation.AddStationCommentActivity" />
         <activity

@@ -109,7 +109,15 @@ public class RentCarTimeView extends LinearLayout {
         },"结束时间",endTime<=0? System.currentTimeMillis():endTime).show(Objects.requireNonNull(fragmentActivity).getSupportFragmentManager(),"all"));
     }
 
-    public void initTime(long startTime,long endTime){
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        isEnabled = enabled;
+        startTimeView.setEnabled(isEnabled);
+        endTimeView.setEnabled(isEnabled);
+    }
+
+    public void initTime(long startTime, long endTime){
         this.startTime = startTime;
         this.endTime = endTime;
         duration = endTime - startTime;

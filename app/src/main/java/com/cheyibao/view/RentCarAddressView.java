@@ -19,9 +19,11 @@ import android.widget.TextView;
 import com.cheyibao.ShopListActivity;
 import com.cheyibao.model.RentCarModel;
 import com.cheyibao.model.RentShop;
+import com.cheyibao.util.RentCarUtils;
 import com.common.AvoidOnResult;
 import com.common.ResourceUtils;
 import com.example.yunchebao.R;
+import com.payencai.library.util.ToastUtil;
 import com.system.X5WebviewActivity;
 import com.system.model.AddressBean;
 
@@ -96,6 +98,11 @@ public class RentCarAddressView extends LinearLayout {
     public void setIsEnabled(boolean isEnabled){
         this.isEnabled = isEnabled;
         isToHomeServiceView.setEnabled(isEnabled);
+        if (!isEnabled){
+            isToHomeServiceView.setVisibility(GONE);
+        }else {
+            isToHomeServiceView.setVisibility(VISIBLE);
+        }
         takeCarAddressTextView.setEnabled(isEnabled);
         returnTheCarAddressTextView.setEnabled(isEnabled);
     }
@@ -121,16 +128,24 @@ public class RentCarAddressView extends LinearLayout {
                 }
             });
         }else {
-            Intent intent = new Intent(getContext(),ShopListActivity.class);
-            if (type == TYPE_BY_CAR){
-                intent.putExtra("rent_car_model",rentCarModel);
+            Boolean isOnlyAddress;
+            if (RentCarUtils.rentCarInfo==null){
+                isOnlyAddress = null;
+            }else {
+                isOnlyAddress = RentCarUtils.rentCarInfo.get(RentCarUtils.IS_EDIT_ORDER_ONLY_ADDRESS)==null?null: (Boolean) RentCarUtils.rentCarInfo.get(RentCarUtils.IS_EDIT_ORDER_ONLY_ADDRESS);
             }
-            avoidOnResult.startForResult(intent, REQUEST_CODE_ADDRESS_FOR_STORE_SEND, (requestCode, resultCode, data) -> {
-                if (data!=null) {
-                    rentShop = data.getParcelableExtra("rent_shop");
-                    bindViewData(rentShop);
+            if (isOnlyAddress==null || !isOnlyAddress){
+                Intent intent = new Intent(getContext(),ShopListActivity.class);
+                if (type == TYPE_BY_CAR){
+                    intent.putExtra("rent_car_model",rentCarModel);
                 }
-            });
+                avoidOnResult.startForResult(intent, REQUEST_CODE_ADDRESS_FOR_STORE_SEND, (requestCode, resultCode, data) -> {
+                    if (data!=null) {
+                        rentShop = data.getParcelableExtra("rent_shop");
+                        bindViewData(rentShop);
+                    }
+                });
+            }
         }
     }
 
@@ -148,36 +163,57 @@ public class RentCarAddressView extends LinearLayout {
                 }
             });
         }else {
-            Intent intent = new Intent(getContext(),ShopListActivity.class);
-            if (type == TYPE_BY_CAR){
-                intent.putExtra("rent_car_model",rentCarModel);
+            Boolean isOnlyAddress;
+            if (RentCarUtils.rentCarInfo==null){
+                isOnlyAddress = null;
+            }else {
+                isOnlyAddress = RentCarUtils.rentCarInfo.get(RentCarUtils.IS_EDIT_ORDER_ONLY_ADDRESS)==null?null: (Boolean) RentCarUtils.rentCarInfo.get(RentCarUtils.IS_EDIT_ORDER_ONLY_ADDRESS);
             }
-            avoidOnResult.startForResult(intent, REQUEST_CODE_ADDRESS_FOR_STORE_SEND, (requestCode, resultCode, data) -> {
-                if (data!=null) {
-                    rentShop = data.getParcelableExtra("rent_shop");
-                    bindViewData(rentShop);
+            if (isOnlyAddress==null || !isOnlyAddress){
+                Intent intent = new Intent(getContext(),ShopListActivity.class);
+                if (type == TYPE_BY_CAR){
+                    intent.putExtra("rent_car_model",rentCarModel);
                 }
-            });
+                avoidOnResult.startForResult(intent, REQUEST_CODE_ADDRESS_FOR_STORE_SEND, (requestCode, resultCode, data) -> {
+                    if (data!=null) {
+                        rentShop = data.getParcelableExtra("rent_shop");
+                        bindViewData(rentShop);
+                    }
+                });
+            }
         }
     }
 
-    public void init(AddressBean takeCarAddress,AddressBean returnCarAddress,RentShop rentShop,boolean isToHomeService){
+    public void init(AddressBean takeCarAddress,AddressBean returnCarAddress,RentShop rentShop,Boolean isToHomeService){
         this.takeCarAddress = takeCarAddress;
         this.returnCarAddress = returnCarAddress;
         this.rentShop = rentShop;
-        isToHomeServiceView.setChecked(isToHomeService);
-        if (isToHomeService){
-            bindViewData(takeCarAddress);
-        }else {
+        if (isToHomeService==null){
+            isToHomeServiceView.setVisibility(GONE);
+            isToHomeServiceView.setChecked(false);
             bindViewData(rentShop);
+        }else {
+            if (isEnabled){
+                isToHomeServiceView.setVisibility(VISIBLE);
+            }else {
+                isToHomeServiceView.setVisibility(GONE);
+            }
+            isToHomeServiceView.setChecked(isToHomeService);
+            if (isToHomeService){
+                bindViewData(takeCarAddress);
+            }else {
+                bindViewData(rentShop);
+            }
         }
+
     }
 
     public void init(RentShop rentShop){
         this.rentShop = rentShop;
-        isToHomeServiceView.setChecked(rentShop.getIsOnlineServe()==1);
-        isToHomeServiceView.setEnabled(false);
-        isToHomeServiceView.setVisibility(GONE);
+        if (!isEnabled){
+            isToHomeServiceView.setChecked(rentShop.getIsOnlineServe()==1);
+        }
+//        setIsEnabled(false);
         bindViewData(rentShop);
     }
 
@@ -208,11 +244,13 @@ public class RentCarAddressView extends LinearLayout {
             takeCarAddressTextView.setText(rentShop.getName());
             returnTheCarCityTextView.setText(rentShop.getCity());
             returnTheCarAddressTextView.setText(rentShop.getName());
+            isToHomeServiceView.setChecked(false);
         }else {
             takeCarCityTextView.setText(takeCarAddress.getCityname());
             takeCarAddressTextView.setText(takeCarAddress.getPoiaddress());
             returnTheCarCityTextView.setText(returnCarAddress.getCityname());
             returnTheCarAddressTextView.setText(returnCarAddress.getPoiaddress());
+            isToHomeServiceView.setChecked(true);
         }
     }
 
@@ -228,20 +266,34 @@ public class RentCarAddressView extends LinearLayout {
         return rentShop;
     }
 
+    public void setIsToHomeServiceView(boolean isToHomeService) {
+        this.isToHomeServiceView.setChecked(isToHomeService);
+    }
+
     public boolean isToHomeService() {
         return isToHomeServiceView.isChecked();
     }
     public double getTakeLongitude(){
         if (isToHomeService()){
-            return takeCarAddress.getLatlng().getLng();
+            if (takeCarAddress==null){
+                ToastUtil.showToast(getContext(),"请选择取车地址");
+                return 0;
+            }else {
+                return takeCarAddress.getLatlng().getLng();
+            }
         }else {
             return Double.parseDouble(rentShop.getLongitude());
         }
     }
 
     public double getTakeLatitude(){
-        if (isToHomeService()){
-            return takeCarAddress.getLatlng().getLat();
+        if (isToHomeService()) {
+            if (takeCarAddress == null) {
+                ToastUtil.showToast(getContext(), "请选择取车地址");
+                return 0;
+            } else{
+                return takeCarAddress.getLatlng().getLat();
+            }
         }else {
             return Double.parseDouble(rentShop.getLatitude());
         }
@@ -249,7 +301,13 @@ public class RentCarAddressView extends LinearLayout {
 
     public String getTakeCarDetailAddress(){
         if (isToHomeService()){
-           return takeCarAddress.getPoiaddress();
+            if (takeCarAddress == null) {
+                ToastUtil.showToast(getContext(), "请选择取车地址");
+                return "";
+            }else {
+                return takeCarAddress.getPoiaddress();
+            }
+
         }else {
             return rentShop.getAddress();
         }
@@ -257,7 +315,13 @@ public class RentCarAddressView extends LinearLayout {
 
     public double getReturnLongitude(){
         if (isToHomeService()){
-            return returnCarAddress.getLatlng().getLng();
+            if (returnCarAddress == null) {
+                ToastUtil.showToast(getContext(), "请选择还车地址");
+                return 0;
+            }else {
+                return returnCarAddress.getLatlng().getLng();
+            }
+
         }else {
             return Double.parseDouble(rentShop.getLongitude());
         }
@@ -265,7 +329,13 @@ public class RentCarAddressView extends LinearLayout {
 
     public double getReturnLatitude(){
         if (isToHomeService()){
-            return returnCarAddress.getLatlng().getLat();
+            if (returnCarAddress == null) {
+                ToastUtil.showToast(getContext(), "请选择还车地址");
+                return 0;
+            }else {
+                return returnCarAddress.getLatlng().getLat();
+            }
+
         }else {
             return Double.parseDouble(rentShop.getLatitude());
         }
@@ -273,7 +343,13 @@ public class RentCarAddressView extends LinearLayout {
 
     public String getReturnCarDetailAddress(){
         if (isToHomeService()){
-            return returnCarAddress.getPoiaddress();
+            if (returnCarAddress == null) {
+                ToastUtil.showToast(getContext(), "请选择还车地址");
+                return "";
+            }else {
+                return returnCarAddress.getPoiaddress();
+            }
+
         }else {
             return rentShop.getAddress();
         }
