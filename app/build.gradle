@@ -1,6 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "Yunchebao-debug_V${defaultConfig.versionName}.apk"
+        }
+    }
     signingConfigs {
         config {
             keyAlias 'yichankey'
@@ -29,7 +34,7 @@ android {
     defaultConfig {
         applicationId "com.example.yunchebao"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
