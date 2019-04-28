@@ -63,7 +63,6 @@
         <activity android:name="com.cheyibao.BrandSelectedActivity"></activity>
         <activity android:name="com.cheyibao.RentCarByCarModelActivity" />
         <activity android:name="com.cheyibao.HighCarModelsDetailActivity" />
-        <activity android:name=".friendcircle.NewFriendCircleActivity" />
         <activity
             android:theme="@style/FriendTheme"
             android:name=".friendcircle.NewFriendCircleActivity"></activity>
