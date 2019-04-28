@@ -128,6 +128,9 @@ public class RentCarModel implements Parcelable {
         this.variableBox = variableBox;
     }
 
+    public RentCarModel() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -149,15 +152,12 @@ public class RentCarModel implements Parcelable {
         dest.writeString(this.variableBox);
     }
 
-    public RentCarModel() {
-    }
-
     protected RentCarModel(Parcel in) {
         this.agencyId = in.readString();
         this.brand = in.readString();
         this.carTategory = in.readString();
         this.createTime = in.readString();
-        this.dayPrice = in.readInt();
+        this.dayPrice = in.readDouble();
         this.id = in.readString();
         this.image = in.readString();
         this.number = in.readInt();
@@ -167,7 +167,7 @@ public class RentCarModel implements Parcelable {
         this.variableBox = in.readString();
     }
 
-    public static final Parcelable.Creator<RentCarModel> CREATOR = new Parcelable.Creator<RentCarModel>() {
+    public static final Creator<RentCarModel> CREATOR = new Creator<RentCarModel>() {
         @Override
         public RentCarModel createFromParcel(Parcel source) {
             return new RentCarModel(source);

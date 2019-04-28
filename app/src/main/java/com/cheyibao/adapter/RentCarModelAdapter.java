@@ -1,6 +1,7 @@
 package com.cheyibao.adapter;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,7 +34,8 @@ public class RentCarModelAdapter extends BaseQuickAdapter<RentCarModel, RentCarM
         Glide.with(helper.carBannerView).load(item.getImage()).into(helper.carBannerView);
         helper.carBrandView.setText(item.getBrand());
         helper.carModelsView.setText(item.getCarTategory());
-        helper.seatView.setText(String.format("%s/%s", item.getVariableBox(), item.getSeat()));
+        String seat = TextUtils.isEmpty(item.getSeat())?"":item.getSeat().replace("座", "");
+        helper.seatView.setText(String.format("%s/%s座", item.getVariableBox(), seat));
         if (isDisplayPrice) {
             helper.priceParentView.setVisibility(View.VISIBLE);
         } else {

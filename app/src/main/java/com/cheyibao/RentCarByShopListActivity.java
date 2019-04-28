@@ -2,7 +2,6 @@ package com.cheyibao;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +17,7 @@ import com.cheyibao.adapter.RentShopAdapter;
 import com.cheyibao.model.Area;
 import com.cheyibao.model.RentCarModel;
 import com.cheyibao.model.RentShop;
+import com.cheyibao.util.RentCarUtils;
 import com.common.BaseModel;
 import com.common.EndLoadDataType;
 import com.common.HandlerData;
@@ -31,10 +31,6 @@ import com.google.gson.reflect.TypeToken;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.tool.JsonUtil;
 
 import org.json.JSONArray;
@@ -51,7 +47,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShopListActivity extends AppCompatActivity {
+public class RentCarByShopListActivity extends AppCompatActivity {
 
     @BindView(R.id.back)
     ImageView back;
@@ -90,7 +86,6 @@ public class ShopListActivity extends AppCompatActivity {
     private int type = 1;
     private String area = "";
 
-    private RentCarModel rentCarModel;
 
 
     List<Area> areaList = new ArrayList<>();
@@ -101,19 +96,13 @@ public class ShopListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stop_list);
         ButterKnife.bind(this);
         title.setText("选择门店");
-        rentCarModel = getIntent().getParcelableExtra("rent_car_model");
         String adcode = MyApplication.getaMapLocation().getAdCode();
         if (!TextUtils.isEmpty(adcode)) {
             cityCode = MyApplication.getaMapLocation().getAdCode().substring(0, 4) + "00";
         }
         init();
         getJsonData();
-        if (rentCarModel==null){
-            loadDataType.initData();
-        }else {
-            LoadRentCarShopByCar.initData();
-        }
-
+        loadDataType.initData();
         areaNameTextView.setText("附近门店");
     }
 
@@ -134,11 +123,7 @@ public class ShopListActivity extends AppCompatActivity {
                     this.area = area.getName();
                     areaNameTextView.setText(area.getName());
                 }
-                if (rentCarModel==null){
-                    loadDataType.initData();
-                }else {
-                    LoadRentCarShopByCar.initData();
-                }
+                loadDataType.initData();
             }
         });
 
@@ -146,26 +131,18 @@ public class ShopListActivity extends AppCompatActivity {
         shopListView.setLayoutManager(new LinearLayoutManager(this));
         rentShopAdapter.bindToRecyclerView(shopListView);
         rentShopAdapter.setOnItemClickListener((adapter, view, position) -> {
-            RentShop rentShop = rentShopAdapter.getItem(position);
-            Intent intent = new Intent();
-            intent.putExtra("rent_shop", rentShop);
-            setResult(RESULT_OK, intent);
-            finish();
-        });
-        refreshLayout.setOnLoadMoreListener(refreshLayout -> {
-            if (rentCarModel==null){
-                loadDataType.loadMoreData();
-            }else {
-                LoadRentCarShopByCar.loadMoreData();
+            if (RentCarUtils.rentCarInfo==null){
+                RentCarUtils.rentCarInfo = new HashMap<>();
             }
+            RentCarUtils.rentCarInfo.clear();
+            RentCarUtils.rentCarInfo.put(RentCarUtils.RENT_CAR_INFO_SHOP, rentShopAdapter.getItem(position));
+            RentCarUtils.rentCarInfo.put(RentCarUtils.IS_EDIT_ORDER_TIME, true);
+
+            Intent intent = new Intent(RentCarByShopListActivity.this, ShopDetailActivity.class);
+            startActivity(intent);
         });
-        refreshLayout.setOnRefreshListener(refreshLayout -> {
-            if (rentCarModel==null){
-                loadDataType.refreshData();
-            }else {
-                LoadRentCarShopByCar.refreshData();
-            }
-        });
+        refreshLayout.setOnLoadMoreListener(refreshLayout -> loadDataType.loadMoreData());
+        refreshLayout.setOnRefreshListener(refreshLayout -> loadDataType.refreshData());
     }
 
 
@@ -286,124 +263,6 @@ public class ShopListActivity extends AppCompatActivity {
             page = 1;
             Map<String, Object> params = initParam();
             HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarShop, params, "", new ICallBack() {
-                @Override
-                public void OnSuccess(String result) {
-                    Type type = new TypeToken<BaseModel<List<RentShop>>>() {}.getType();
-                    HandlerData.handlerData(result, type, new EndLoadDataType<List<RentShop>>() {
-                        @Override
-                        public void onFailed() {
-                            multipleStatusView.showError();
-                            refreshLayout.finishRefresh(false);
-                        }
-
-                        @Override
-                        public void onSuccess(List<RentShop> rentShopList) {
-                            if (rentShopList == null || rentShopList.size()<=0){
-                                multipleStatusView.showEmpty();
-                            }else {
-                                multipleStatusView.showContent();
-                                rentShopAdapter.setNewData(rentShopList);
-                            }
-                            refreshLayout.finishRefresh(true);
-                        }
-                    });
-                }
-
-                @Override
-                public void onFailure(String error) {
-                    refreshLayout.finishRefresh(false);
-                }
-            });
-        }
-    };
-
-
-    private LoadDataType LoadRentCarShopByCar = new LoadDataType() {
-        @Override
-        public Map<String, Object> initParam() {
-            Map<String, Object> params = new HashMap<>();
-            params.put("page", page);
-            if (rentCarModel!=null){
-                params.put("brand", rentCarModel.getBrand());
-                params.put("carTategory", rentCarModel.getCarTategory());
-            }
-            double longitude = MyApplication.getaMapLocation().getLongitude()==0?102.4584665:MyApplication.getaMapLocation().getLongitude();
-            double latitude = MyApplication.getaMapLocation().getLatitude()==0?24.52845:MyApplication.getaMapLocation().getLatitude();
-            params.put("longitude", longitude);
-            params.put("latitude", latitude);
-            if (!TextUtils.isEmpty(area)){
-                params.put("area", area);
-            }
-            return params;
-        }
-
-        @Override
-        public void initData() {
-            page=1;
-            multipleStatusView.showLoading();
-            HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarShopByCar, initParam(), "", new ICallBack() {
-                @Override
-                public void OnSuccess(String result) {
-                    Type type = new TypeToken<BaseModel<List<RentShop>>>() {}.getType();
-                    HandlerData.handlerData(result, type, new EndLoadDataType<List<RentShop>>() {
-                        @Override
-                        public void onFailed() {
-                            multipleStatusView.showError();
-                        }
-
-                        @Override
-                        public void onSuccess(List<RentShop> rentShopList) {
-                            if (rentShopList!=null && rentShopList.size()>0){
-                                rentShopAdapter.setNewData(rentShopList);
-                                multipleStatusView.showContent();
-                            }else {
-                                multipleStatusView.showEmpty();
-                            }
-                        }
-                    });
-                }
-
-                @Override
-                public void onFailure(String error) {
-                    multipleStatusView.showError();
-                }
-            });
-        }
-
-        @Override
-        public void loadMoreData() {
-            page++;
-            HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarShopByCar, initParam(), "", new ICallBack() {
-                @Override
-                public void OnSuccess(String result) {
-                    Type type = new TypeToken<BaseModel<List<RentShop>>>() {}.getType();
-                    HandlerData.handlerData(result, type, new EndLoadDataType<List<RentShop>>() {
-                        @Override
-                        public void onFailed() {
-                            refreshLayout.finishLoadMore(false);
-                        }
-
-                        @Override
-                        public void onSuccess(List<RentShop> rentShopList) {
-                            refreshLayout.finishLoadMore(true);
-                            if (rentShopList!=null && rentShopList.size()>0){
-                                rentShopAdapter.addData(rentShopList);
-                            }
-                        }
-                    });
-                }
-
-                @Override
-                public void onFailure(String error) {
-                    refreshLayout.finishLoadMore(false);
-                }
-            });
-        }
-
-        @Override
-        public void refreshData() {
-            page = 1;
-            HttpProxy.obtain().get(PlatformContans.CarRent.getRentCarShopByCar, initParam(), "", new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
                     Type type = new TypeToken<BaseModel<List<RentShop>>>() {}.getType();

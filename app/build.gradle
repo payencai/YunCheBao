@@ -167,5 +167,5 @@ dependencies {
     implementation('com.github.gzu-liyujiang.AndroidPicker:WheelPicker:1.5.6.20181018') {
         exclude group: 'com.android.support'
     }
-    compile "me.henrytao:smooth-app-bar-layout:25.3.1.0"
+    implementation "me.henrytao:smooth-app-bar-layout:25.3.1.0"
 }

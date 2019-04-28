@@ -106,7 +106,9 @@ public class RentCarOrderActivity extends AppCompatActivity {
     private AddressBean takeTheCarAddress;
     private AddressBean returnTheCarAddress;
     private RentShop rentShop;
-    private boolean isToHomeService;
+    private Boolean isToHomeService;
+    private boolean isEditTime;
+    private boolean isEditAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,13 +117,15 @@ public class RentCarOrderActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         if (RentCarUtils.rentCarInfo != null) {
             rentCarModel = (RentCarModel) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_CAR_MODEL);
-            startTime = (long) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_START_TIME);
-            endTime = (long) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_END_TIME);
+            startTime = RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_START_TIME)==null?0: (long) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_START_TIME);
+            endTime = RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_END_TIME)==null?0:(long) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_END_TIME);
             duration = endTime - startTime;
             takeTheCarAddress = (AddressBean) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_AREA_1);
             returnTheCarAddress = (AddressBean) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_AREA_2);
             rentShop = (RentShop) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_SHOP);
-            isToHomeService = (boolean) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_IS_TO_HOME_SERVICE);
+            isToHomeService = RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_IS_TO_HOME_SERVICE)==null?null: (Boolean) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_IS_TO_HOME_SERVICE);
+            isEditTime = RentCarUtils.rentCarInfo.get(RentCarUtils.IS_EDIT_ORDER_TIME) != null && (boolean) RentCarUtils.rentCarInfo.get(RentCarUtils.IS_EDIT_ORDER_TIME);
+            isEditAddress = RentCarUtils.rentCarInfo.get(RentCarUtils.IS_EDIT_ORDER_ADDRESS) != null && (boolean) RentCarUtils.rentCarInfo.get(RentCarUtils.IS_EDIT_ORDER_ADDRESS);
         }
         initView();
     }
@@ -130,10 +134,13 @@ public class RentCarOrderActivity extends AppCompatActivity {
         Glide.with(this).load(rentCarModel.getImage()).into(carModelBannerView);
         carModelNameView.setText(rentCarModel.getBrand());
         carModelCarCategoryView.setText(rentCarModel.getCarTategory());
-        carModelIsAutoDriverView.setText(String.format("%s/%s座", rentCarModel.getVariableBox(), rentCarModel.getSeat().replace("座", "")));
+        String seat = TextUtils.isEmpty(rentCarModel.getSeat())?"":rentCarModel.getSeat().replace("座", "");
+        carModelIsAutoDriverView.setText(String.format("%s/%s座", rentCarModel.getVariableBox(), seat));
         dayPriceView.setText(String.format("￥%s", rentCarModel.getDayPrice()));
         totalPriceView.setText(String.format("￥%s", RentCarUtils.day(duration) * rentCarModel.getDayPrice()));
-        rentCarTimeView.initTime(startTime, endTime);
+        if (startTime>0 && endTime>0){
+            rentCarTimeView.initTime(startTime, endTime);
+        }
         rentCarTimeView.setOnDayChangedListener(new RentCarTimeView.OnDayChangedListener(){
             @Override
             public void onDayChanger(int day) {
@@ -141,9 +148,13 @@ public class RentCarOrderActivity extends AppCompatActivity {
                 totalPriceView.setText(String.format("￥%s", day * rentCarModel.getDayPrice()));
             }
         });
-        rentCarAddressView.init(takeTheCarAddress,returnTheCarAddress,rentShop,isToHomeService);
-
-
+        rentCarTimeView.setEnabled(isEditTime);
+        rentCarAddressView.setIsEnabled(isEditAddress);
+        if (isEditAddress){
+            rentCarAddressView.init(rentShop);
+        }else {
+            rentCarAddressView.init(takeTheCarAddress,returnTheCarAddress,rentShop,isToHomeService);
+        }
     }
 
     private void postOrder() {
