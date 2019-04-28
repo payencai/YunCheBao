@@ -60,7 +60,9 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".friendcircle.NewFriendCircleActivity"></activity>
+        <activity
+            android:theme="@style/FriendTheme"
+            android:name=".friendcircle.NewFriendCircleActivity"></activity>
         <activity android:name=".myservice.SeeRentCommentActivity" />
         <activity android:name=".myservice.SeeWashCommentActivity" />
         <activity android:name=".myservice.AddWashCommentActivity" />

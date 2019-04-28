@@ -23,8 +23,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
+                    android:id="@+id/bg_img"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="250dp"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/test"
                      />
@@ -51,28 +52,30 @@
 
 
             <android.support.v7.widget.Toolbar
+                android:layout_marginTop="25dp"
                 android:id="@+id/AppFragment_Toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="76dp"
+                android:layout_height="50dp"
                 android:background="@color/transparent"
                 app:layout_collapseMode="pin"><!--设置固定在顶部-->
                 <RelativeLayout
-                     android:paddingTop="15dp"
+
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize">
+                    android:layout_height="wrap_content">
                     <ImageView
-                        android:paddingBottom="15dp"
+                        android:padding="7dp"
                         android:id="@+id/iv_back"
                         android:layout_width="45dp"
                         android:layout_height="50dp"
-                        android:src="@mipmap/back_arrow_black" />
+                        android:src="@mipmap/back_circle" />
 
                     <ImageView
+                        android:padding="15dp"
                         android:id="@+id/iv_publish"
                         android:layout_width="54dp"
                         android:layout_height="54dp"
                         android:layout_alignParentRight="true"
-                        android:paddingBottom="15dp"
+
                         android:src="@mipmap/camera_publish" />
                 </RelativeLayout>
 

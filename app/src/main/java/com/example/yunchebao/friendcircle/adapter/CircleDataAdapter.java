@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.yunchebao.R;
+import com.example.yunchebao.friendcircle.NewFriendCircleActivity;
 import com.newversion.CircleData;
 
 
@@ -38,8 +39,8 @@ import java.util.List;
  * 邮箱：771548229@qq..com
  */
 public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHolder> {
-    private FriendsCircleActivity friendsCircleActivity;
-    private List<CircleData> circleData;
+    private NewFriendCircleActivity friendsCircleActivity;
+
     private DynamicCommonsAdapter commonsAdapter;
     /**
      * 动态类型  0 图片说说  1 小视频说说 2 转发链接  3 纯文字说说
@@ -49,9 +50,14 @@ public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHold
     public CircleDataAdapter(int layoutResId, @Nullable List<CircleData> data) {
         super(layoutResId, data);
     }
+    public CircleDataAdapter(Context context,int layoutResId, @Nullable List<CircleData> data) {
+        this(layoutResId, data);
+        friendsCircleActivity= (NewFriendCircleActivity) context;
+    }
 
     @Override
     protected void convert(BaseViewHolder helper, CircleData item) {
+        helper.setIsRecyclable(false);
         CircleImageView head = (CircleImageView) helper.getView(R.id.iv_head);
         TextView name = (TextView) helper.getView(R.id.tv_name);
         TextView time = (TextView) helper.getView(R.id.tv_time);
@@ -62,13 +68,16 @@ public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHold
         ImageView iv_play = (ImageView) helper.getView(R.id.iv_play);
 
         GridView gvDynamicPhotos = (GridView) helper.getView(R.id.gv_dynamic_photos);
+        gvDynamicPhotos.setFocusableInTouchMode(false);
+        gvDynamicPhotos.setFocusable(false);
         ImageView ivVimg = (ImageView) helper.getView(R.id.iv_vimg);
         ImageView iv_delete = (ImageView) helper.getView(R.id.iv_delete);
         ImageView iv_replay = (ImageView) helper.getView(R.id.iv_replay);
         LikesView likeView = (LikesView) helper.getView(R.id.likeView);
 
         PersonalListView lv_comment = (PersonalListView) helper.getView(R.id.lv_comment);
-
+        lv_comment.setFocusableInTouchMode(false);
+        lv_comment.setFocusable(false);
         if (item.getCommentList() == null || item.getCommentList().size() == 0) {
             lv_comment.setVisibility(View.GONE);
         } else {
@@ -86,7 +95,7 @@ public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHold
             public void onItemClick(CircleData.ClickListBean bean) {
                 String userId = bean.getUserId();
                 // 跳转到他人朋友圈
-                Intent intent = new Intent(mContext, FriendsCircleActivity.class);
+                Intent intent = new Intent(mContext, NewFriendCircleActivity.class);
                 intent.putExtra("userId", userId);
                 mContext.startActivity(intent);
             }
@@ -209,7 +218,6 @@ public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHold
                     likeView.setVisibility(View.VISIBLE);
                     likeView.notifyDataSetChanged();
                 }
-
                 notifyDataSetChanged();
                 friendsCircleActivity.performPraise(didPraise, item.getId());
             }
@@ -220,7 +228,7 @@ public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHold
             public void onClick(View view) {
                 String userId = item.getUserId();
                 // 跳转到他人朋友圈
-                Intent intent = new Intent(mContext, FriendsCircleActivity.class);
+                Intent intent = new Intent(mContext, NewFriendCircleActivity.class);
                 intent.putExtra("userId", userId);
                 mContext.startActivity(intent);
             }

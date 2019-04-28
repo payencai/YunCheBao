@@ -14,6 +14,12 @@
         <item name="colorPrimaryDark">@color/transparent</item>
         <item name="colorAccent">@color/transparent</item>
     </style>
+    <style name="FriendTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/blue_9DD9</item>
+        <item name="colorPrimaryDark">@color/blue_9DD9</item>
+        <item name="colorAccent">@color/blue_9DD9</item>
+    </style>
     <style name="VideoTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowFullscreen">true</item>
     </style>

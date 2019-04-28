@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.application.MyApplication;
 import com.example.yunchebao.R;
+import com.example.yunchebao.friendcircle.NewFriendCircleActivity;
 import com.newversion.FriendCircleActivity;
 import com.newversion.FriendsCircleActivity;
 import com.newversion.MyTagsActivity;
@@ -84,7 +85,7 @@ public class AnotherBabyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (MyApplication.isLogin)
-                    startActivity(new Intent(getContext(), FriendsCircleActivity.class));
+                    startActivity(new Intent(getContext(), NewFriendCircleActivity.class));
                 else {
                     startActivity(new Intent(getContext(), RegisterActivity.class));
                 }

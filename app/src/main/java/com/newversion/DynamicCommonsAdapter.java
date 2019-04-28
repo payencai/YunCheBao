@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.application.MyApplication;
 import com.example.yunchebao.R;
+import com.example.yunchebao.friendcircle.NewFriendCircleActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +26,10 @@ import java.util.List;
 public  class DynamicCommonsAdapter extends BaseAdapter {
     private Context mContext;
     private List<CircleData.CommentListBean> commentList = new ArrayList<>();
-    private FriendsCircleActivity friendsCircleActivity;
+    private NewFriendCircleActivity friendsCircleActivity;
 
     public DynamicCommonsAdapter(Context mContext, List<CircleData.CommentListBean> commentList) {
-        this.friendsCircleActivity = (FriendsCircleActivity) mContext;
+        this.friendsCircleActivity = (NewFriendCircleActivity) mContext;
         this.mContext = mContext;
         this.commentList = commentList;
     }
