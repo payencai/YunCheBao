@@ -60,7 +60,8 @@
     <color name="font_black_6">#ff666666</color>
     <item name="green" type="color">#FF3BBD79</item>
     <color name="font_gray">#999999</color>
-
+     <color name="pay">#2c2a26</color>
+    <color name="yell">#F8C853</color>
     <color name="blue_f9">#58c1f9</color>
     <color name="blue_f8">#4a9ef8</color>
     <color name="blue_fb">#2e42fb</color>

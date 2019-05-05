@@ -608,7 +608,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="邀请人员*"
+                        android:text="城市运营商*"
                         android:textColor="@color/gray_29"
                         android:textSize="14sp" />
 
@@ -618,7 +618,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
-                        android:text="请选择邀请人员"
+                        android:text="请选择城市运营商"
                         android:textColor="@color/gray_9b"
                         android:textSize="14sp" />
 
@@ -629,7 +629,25 @@
                         android:src="@mipmap/arrow_right" />
 
                 </LinearLayout>
+                <LinearLayout
 
+                    android:padding="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp"
+                        android:text="进度咨询电话："
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_phone"
+                        android:textColor="@color/blue_9DD9"
+                        android:textSize="14sp"
+                        android:text="0871-68106401"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
                 <com.coorchice.library.SuperTextView
                     android:id="@+id/tv_submit"
                     android:layout_width="match_parent"

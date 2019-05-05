@@ -58,6 +58,7 @@ public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHold
     @Override
     protected void convert(BaseViewHolder helper, CircleData item) {
         helper.setIsRecyclable(false);
+        helper.addOnClickListener(R.id.iv_head);
         CircleImageView head = (CircleImageView) helper.getView(R.id.iv_head);
         TextView name = (TextView) helper.getView(R.id.tv_name);
         TextView time = (TextView) helper.getView(R.id.tv_time);
@@ -223,16 +224,16 @@ public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHold
             }
         });
 
-        head.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String userId = item.getUserId();
-                // 跳转到他人朋友圈
-                Intent intent = new Intent(mContext, NewFriendCircleActivity.class);
-                intent.putExtra("userId", userId);
-                mContext.startActivity(intent);
-            }
-        });
+//        head.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String userId = item.getUserId();
+//                // 跳转到他人朋友圈
+//                Intent intent = new Intent(mContext, NewFriendCircleActivity.class);
+//                intent.putExtra("userId", userId);
+//                mContext.startActivity(intent);
+//            }
+//        });
 
         if (TextUtils.equals(item.getUserId(), MyApplication.getUserInfo().getId())) {
             //我自己的朋友圈

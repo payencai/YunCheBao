@@ -1,24 +1,18 @@
 package com.newversion;
 
 import android.app.ActionBar;
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -30,15 +24,15 @@ import android.widget.Toast;
 
 import com.application.MyApplication;
 import com.bbcircle.view.SampleCoverVideo;
-import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
+import com.payencai.library.util.VideoUtil;
+import com.example.yunchebao.road.PubRoadActivity;
 import com.system.X5WebviewActivity;
 import com.system.model.AddressBean;
-import com.vipcenter.EnteringActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,13 +42,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.StringJoiner;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -90,9 +82,11 @@ public class DynamicPublishActivity extends AppCompatActivity {
     private ArrayList<File> fileList = new ArrayList<>();
     private int kind = 1;
     private String looks;
+    private String video;
+    private String vimg;
     private String unLooks;
     private String users;
-
+    String videoPath;
     private String mediatype;
 
     private Handler popupHandler = new Handler(){
@@ -138,7 +132,7 @@ public class DynamicPublishActivity extends AppCompatActivity {
         } else if (mediatype.equals("video")) {
             gvDynamicPhotos.setVisibility(View.GONE);
             frameVideoPlayer.setVisibility(View.VISIBLE);
-            String videoPath = getIntent().getStringExtra("videoPath");
+            videoPath = getIntent().getStringExtra("videoPath");
             sampleCoverVideo.setUpLazy(videoPath, true, null, null, "");
             sampleCoverVideo.getTitleTextView().setVisibility(View.GONE);
             sampleCoverVideo.getBackButton().setVisibility(View.GONE);
@@ -151,6 +145,7 @@ public class DynamicPublishActivity extends AppCompatActivity {
                 }
             });
             sampleCoverVideo.loadCoverImage(videoPath, R.mipmap.pic1);
+            initVideo();
             //etDynamicText.setText(videoPath);
         }
 
@@ -312,50 +307,6 @@ public class DynamicPublishActivity extends AppCompatActivity {
 
     private String imgs;
 
-    /**
-     * 上传图片
-     */
-    public void upImages(String url, ArrayList<File> files) {
-        OkHttpClient mOkHttpClent = new OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(300, TimeUnit.SECONDS)
-                .writeTimeout(300, TimeUnit.SECONDS)
-                .build();
-
-        MultipartBody.Builder builder = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM);
-
-        for (int i = 0; i < files.size(); i++) {
-            builder.addFormDataPart("images", files.get(i).getPath(),
-                    RequestBody.create(MediaType.parse("image/png"), files.get(i)));
-        }
-
-        RequestBody requestBody = builder.build();
-        Request request = new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build();
-        Call call = mOkHttpClent.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e("upload", "onResponse: " + e.getMessage());
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String string = response.body().string();
-                Log.e("upload", "onResponse: " + string);
-                try {
-                    JSONObject object = new JSONObject(string);
-                    imgs = object.getString("data");
-                    popupWindow.dismiss();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 
     /**
      * 发布动态
@@ -368,6 +319,12 @@ public class DynamicPublishActivity extends AppCompatActivity {
 
         if (!TextUtils.isEmpty(imgs)) {
             params.put("imgs", imgs);
+        }
+        if (!TextUtils.isEmpty(video)) {
+            params.put("video", video);
+        }
+        if (!TextUtils.isEmpty(vimg)) {
+            params.put("vimg", vimg);
         }
         if (mAddressBean!=null) {
             params.put("address", mAddressBean.getPoiaddress());
@@ -432,5 +389,87 @@ public class DynamicPublishActivity extends AppCompatActivity {
 
         return strs;
     }
+    public void upLoadVideo(String url, File file) {
+        OkHttpClient mOkHttpClent = new OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(300, TimeUnit.SECONDS)
+                .writeTimeout(300, TimeUnit.SECONDS)
+                .build();
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("file", "file",
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file));
+        RequestBody requestBody = builder.build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+        Call call = mOkHttpClent.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("video", "onResponse: " + e.getMessage());
+            }
 
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String string = response.body().string();
+                Log.e("video", "onResponse: " + string);
+                try {
+                    JSONObject object = new JSONObject(string);
+                    int resultCode = object.getInt("resultCode");
+                    final String data = object.getString("data");
+                    video = data;
+
+                    ///
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+   private void initVideo(){
+       Bitmap bitmap = VideoUtil.voidToFirstBitmap(videoPath);
+       String thumb=VideoUtil.bitmapToStringPath(this,bitmap);
+       upThumbImage(PlatformContans.Commom.uploadImg,new File(thumb));
+       File filevideo = new File(videoPath);
+       upLoadVideo(PlatformContans.Commom.uploadVideo, filevideo);
+   }
+    public void upThumbImage(String url, File file) {
+        OkHttpClient mOkHttpClent = new OkHttpClient();
+
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("image", "image",
+                        RequestBody.create(MediaType.parse("image/png"), file));
+        RequestBody requestBody = builder.build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+        Call call = mOkHttpClent.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("vimg", "onResponse: " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String string = response.body().string();
+                Log.e("vimg", "onResponse: " + string);
+                try {
+                    JSONObject object = new JSONObject(string);
+                    int resultCode = object.getInt("resultCode");
+                    final String data = object.getString("data");
+                    vimg=data;
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
 }

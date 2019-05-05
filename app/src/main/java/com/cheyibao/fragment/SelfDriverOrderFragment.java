@@ -24,12 +24,14 @@ import com.common.LoadDataType;
 import com.common.MultipleStatusView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.myservice.SeeRentCommentActivity;
 import com.google.gson.reflect.TypeToken;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
 import com.payencai.library.util.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.vipcenter.RentOrderDetailActivity;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -91,8 +93,8 @@ public class SelfDriverOrderFragment extends BaseFragment {
 
         adapter.setOnItemClickListener((adapter, view12, position) -> {
             RentOrder rentOrder = (RentOrder) adapter.getItem(position);
-            Intent intent = new Intent(getContext(), RentCarOrderDetailActivity.class);
-            intent.putExtra("rent_order",rentOrder);
+            Intent intent = new Intent(getContext(), RentOrderDetailActivity.class);
+            intent.putExtra("id",rentOrder.getId());
             AvoidOnResult avoidOnResult = new AvoidOnResult(getActivity());
             avoidOnResult.startForResult(intent, 3, (requestCode, resultCode, data) -> loadDataType.refreshData());
 
@@ -101,15 +103,22 @@ public class SelfDriverOrderFragment extends BaseFragment {
         adapter.setOnItemChildClickListener((adapter, view1, position) -> {
             RentOrder rentOrder = (RentOrder) adapter.getItem(position);
             switch (view1.getId()){
-                case R.id.comment_click:
-                    AvoidOnResult avoidOnResult = new AvoidOnResult(getActivity());
-                    Intent intent = new Intent(getContext(), RentCarOrderCommentActivity.class);
-                    intent.putExtra("rent_car_order_id",rentOrder==null?"":rentOrder.getId());
-                    avoidOnResult.startForResult(intent, 2, (requestCode, resultCode, data) -> loadDataType.refreshData());
+                case R.id.tv_job:
+                    if(rentOrder.getState()==2){
+                        cancelOrder(rentOrder);
+                    }else if(rentOrder.getState()==3){
+                        AvoidOnResult avoidOnResult = new AvoidOnResult(getActivity());
+                        Intent intent = new Intent(getContext(), RentCarOrderCommentActivity.class);
+                        intent.putExtra("rent_car_order_id",rentOrder==null?"":rentOrder.getId());
+                        avoidOnResult.startForResult(intent, 2, (requestCode, resultCode, data) -> loadDataType.refreshData());
+                    }else if(rentOrder.getState()==4){
+                        AvoidOnResult avoidOnResult = new AvoidOnResult(getActivity());
+                        Intent intent = new Intent(getContext(), SeeRentCommentActivity.class);
+                        intent.putExtra("id",rentOrder.getId());
+                        avoidOnResult.startForResult(intent, 1, (requestCode, resultCode, data) -> loadDataType.refreshData());
+                    }
                     break;
-                case R.id.cancel_order_click:
-                    cancelOrder(rentOrder);
-                    break;
+
             }
         });
         loadDataType.initData();

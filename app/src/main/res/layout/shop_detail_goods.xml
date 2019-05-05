@@ -1,21 +1,64 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="4"
-    android:orientation="horizontal">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
 
-    <ListView
-        android:divider="@color/white"
-        android:background="@color/gray_e2"
-        android:id="@+id/goods_category_list"
-        android:layout_width="80dp"
-        android:dividerHeight="0dp"
-        android:layout_height="match_parent"/>
+    >
 
-    <ListView
-        android:background="@color/white"
-        android:id="@+id/goods_recycleView"
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:background="#eee"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="30dp">
+        <TextView
+            android:textSize="14sp"
+            android:textColor="@color/black_33"
+
+            android:gravity="center"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_type"
+            android:textSize="14sp"
+            android:textColor="@color/gray_99"
+            android:paddingLeft="15dp"
+            android:gravity="center_vertical"
+            android:text=""
+            android:layout_weight="5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.tool.MyListView
+                android:background="@color/gray_ee"
+                android:id="@+id/lv_left"
+                android:divider="@color/white"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+            </com.tool.MyListView>
+            <com.tool.MyListView
+                android:background="@color/white"
+                android:id="@+id/lv_right"
+                android:dividerHeight="1dp"
+                android:divider="@color/gray_ee"
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+            </com.tool.MyListView>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

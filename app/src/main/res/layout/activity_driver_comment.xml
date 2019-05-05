@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.drive.activity.DriverCommentActivity">
+    tools:context=".drive.activity.DriverCommentActivity">
     <RelativeLayout
         android:background="@color/white"
         android:layout_width="match_parent"

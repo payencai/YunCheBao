@@ -58,7 +58,7 @@ public class ServerCatogryAdapter extends BaseAdapter{
         if(pos==position){
             view.setBackgroundColor(mContext.getResources().getColor(R.color.white));
         }else{
-            view.setBackgroundColor(mContext.getResources().getColor(R.color.gray_e2));
+            view.setBackgroundColor(mContext.getResources().getColor(R.color.gray_ee));
         }
         return view;
     }

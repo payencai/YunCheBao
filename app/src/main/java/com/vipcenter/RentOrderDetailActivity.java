@@ -43,7 +43,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class RentOrderDetailActivity extends AppCompatActivity {
-    CarOrder mCarOrder;
+    String id;
     @BindView(R.id.iv_car)
     ImageView iv_car;
     @BindView(R.id.tv_carname)
@@ -78,7 +78,7 @@ public class RentOrderDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rent_order_detail);
-        mCarOrder= (CarOrder) getIntent().getSerializableExtra("data");
+        id=getIntent().getStringExtra("id");
         ButterKnife.bind(this);
         initView();
     }
@@ -86,7 +86,7 @@ public class RentOrderDetailActivity extends AppCompatActivity {
 
     private void getDetail(){
         Map<String,Object>params=new HashMap<>();
-        params.put("orderId",mCarOrder.getId());
+        params.put("orderId",id);
         HttpProxy.obtain().get(PlatformContans.MyService.getRentCarOrderDetail, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -179,15 +179,15 @@ public class RentOrderDetailActivity extends AppCompatActivity {
                 break;
             case R.id.tv_seecomment:
                  intent = new Intent(RentOrderDetailActivity.this, SeeRentCommentActivity.class);
-                intent.putExtra("id", mCarOrder.getId());
+                intent.putExtra("id",id);
                 startActivity(intent);
                 break;
             case R.id.tv_cancel:
-                showCancelDialog(mCarOrder.getId());
+                showCancelDialog(id);
                 break;
             case R.id.tv_comment:
                  intent = new Intent(RentOrderDetailActivity.this, AddRentCommentActivity.class);
-                intent.putExtra("item", mCarOrder);
+                intent.putExtra("id", id);
                 startActivity(intent);
                 break;
         }
@@ -209,7 +209,7 @@ public class RentOrderDetailActivity extends AppCompatActivity {
         tv_auto.setText(mRentOrderDetail.getSeat()+"座");
         tv_date.setText("x"+mRentOrderDetail.getRentDay());
         Glide.with(this).load(mRentOrderDetail.getImage()).into(iv_car);
-        switch (mCarOrder.getState()){
+        switch (mRentOrderDetail.getState()){
             case 0:
                 tv_carstate.setText("已取消");
                 break;

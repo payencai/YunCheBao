@@ -73,8 +73,6 @@ import io.rong.imkit.RongIM;
 
 public class OrderListFragment extends BaseFragment implements OnClickListener {
 
-    int type = 1;
-    private static final int SDK_PAY_FLAG = 1;
     NewOrderAdapter mNewOrderAdapter;
     private List<PhoneOrderEntity> mPhoneOrderEntityList;
     private boolean isLoadMore = false;
@@ -407,25 +405,7 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
         MyApplication.mWxApi.sendReq(req); //发送调起微信的请求
     }
 
-    private void startAlipay(String orderId) {
-        final Runnable payRunnable = new Runnable() {
 
-            @Override
-            public void run() {
-                PayTask alipay = new PayTask(getActivity());
-                Map<String, String> result = alipay.payV2(orderId, true);
-                Log.i("msp", result.toString());
-                Message msg = new Message();
-                msg.what = SDK_PAY_FLAG;
-                msg.obj = result;
-                mHandler.sendMessage(msg);
-            }
-        };
-
-        // 必须异步调用
-        Thread payThread = new Thread(payRunnable);
-        payThread.start();
-    }
 
     private void payByAlipay(String data) {
         Map<String, Object> params = new HashMap<>();
@@ -452,7 +432,8 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
             }
         });
     }
-
+    int type = 1;
+    private static final int SDK_PAY_FLAG = 1;
     private void showPayDialog(String data) {
 
         Dialog dialog = new Dialog(getContext(), R.style.dialog);
@@ -498,7 +479,25 @@ public class OrderListFragment extends BaseFragment implements OnClickListener {
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT; //使用这种方式更改了dialog的框宽
         window.setAttributes(params);
     }
+    private void startAlipay(String orderId) {
+        final Runnable payRunnable = new Runnable() {
 
+            @Override
+            public void run() {
+                PayTask alipay = new PayTask(getActivity());
+                Map<String, String> result = alipay.payV2(orderId, true);
+                Log.i("msp", result.toString());
+                Message msg = new Message();
+                msg.what = SDK_PAY_FLAG;
+                msg.obj = result;
+                mHandler.sendMessage(msg);
+            }
+        };
+
+        // 必须异步调用
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
+    }
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @SuppressWarnings("unused")

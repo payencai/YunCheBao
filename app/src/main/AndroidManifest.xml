@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.yunchebao">
-
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -60,12 +64,22 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.cheyibao.BrandSelectedActivity"></activity>
+        <activity
+            android:theme="@style/DetailTheme"
+            android:name=".washrepair.NewWashrepairDetailActivity"></activity>
+        <activity android:name=".applyenter.AgencyDetailActivity" />
+        <activity android:name=".applyenter.SelectServiceProviderActivity" />
+        <activity android:name=".road.SeeRoadCommentActivity" />
+        <activity android:name=".road.AddRoadCommentActivity" />
+        <activity android:name=".road.MyRoadOrderActivity" />
+        <activity android:name=".road.NewRoadDetailActivity" />
+        <activity android:name=".road.NewRoadhelpActivity" />
+        <activity android:name="com.cheyibao.BrandSelectedActivity" />
         <activity android:name="com.cheyibao.RentCarByCarModelActivity" />
         <activity android:name="com.cheyibao.HighCarModelsDetailActivity" />
         <activity
-            android:theme="@style/FriendTheme"
-            android:name=".friendcircle.NewFriendCircleActivity"></activity>
+            android:name=".friendcircle.NewFriendCircleActivity"
+            android:theme="@style/FriendTheme" />
         <activity android:name=".myservice.SeeRentCommentActivity" />
         <activity android:name=".myservice.SeeWashCommentActivity" />
         <activity android:name=".myservice.AddWashCommentActivity" />
@@ -82,10 +96,10 @@
         <activity
             android:name=".gasstation.GasStationDetailActivity"
             android:theme="@style/DetailTheme" />
-        <activity android:name="com.xihubao.NewWashRepairActivity" />
-        <activity android:name="com.road.RoadOrderActivity" />
+        <activity android:name=".washrepair.NewWashRepairActivity" />
+        <activity android:name=".road.RoadOrderActivity" />
         <activity
-            android:name="com.yuedan.PubRoadActivity"
+            android:name=".road.PubRoadActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity android:name="com.rongcloud.activity.NearbyActivity" />
         <activity android:name=".fourshop.activity.SeeCommentActivity" />
@@ -485,22 +499,22 @@
         <activity android:name="com.vipcenter.ManaAddressActivity" />
         <activity android:name="com.vipcenter.MyCarListActivity" />
         <activity android:name="com.rongcloud.activity.GroupQrcodeActivity" />
-        <activity android:name="com.drive.activity.DriveServiceActivity" />
+        <activity android:name=".drive.activity.DriveServiceActivity" />
         <activity android:name="com.cheyibao.ShopListActivity" />
         <activity android:name="com.cheyibao.CarModelsListActivity" />
         <activity android:name="com.cheyibao.ShopListNoAreaActivity" />
         <activity android:name="com.cheyibao.ShopDetailActivity" />
-        <activity android:name="com.drive.activity.ReplaceDriveDetailActivity" />
-        <activity android:name="com.drive.activity.AddSubstitubeActivity" />
+        <activity android:name=".drive.activity.ReplaceDriveDetailActivity" />
+        <activity android:name=".drive.activity.AddSubstitubeActivity" />
         <activity android:name="com.newversion.DynamicLookPermissionActivity" />
-        <activity android:name="com.drive.activity.ReplaceOrderActivity" />
-        <activity android:name="com.drive.activity.PayDetailActivity" />
-        <activity android:name="com.drive.activity.AddOrderCommentActivity" />
-        <activity android:name="com.drive.activity.DriverCommentActivity" />
-        <activity android:name="com.drive.activity.DriverMoreActivity" />
-        <activity android:name="com.drive.activity.DriveOrderDetailActivity" />
+        <activity android:name=".drive.activity.ReplaceOrderActivity" />
+        <activity android:name=".drive.activity.PayDetailActivity" />
+        <activity android:name=".drive.activity.AddOrderCommentActivity" />
+        <activity android:name=".drive.activity.DriverCommentActivity" />
+        <activity android:name=".drive.activity.DriverMoreActivity" />
+        <activity android:name=".drive.activity.DriveOrderDetailActivity" />
         <activity
-            android:name="com.drive.activity.SimplePlayerActivity"
+            android:name=".drive.activity.SimplePlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/VideoTheme" /> <!-- 适配华为（huawei）刘海屏 -->

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,6 +32,7 @@ import com.costans.PlatformContans;
 import com.entity.UserMsg;
 import com.example.yunchebao.R;
 import com.example.yunchebao.friendcircle.adapter.CircleDataAdapter;
+import com.example.yunchebao.friendcircle.listener.AppBarStateChangeListener;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
@@ -68,6 +70,10 @@ public class NewFriendCircleActivity extends AppCompatActivity {
     TextView tv_nickname;
     @BindView(R.id.iv_headpic)
     ImageView iv_headpic;
+    @BindView(R.id.tv_name)
+    TextView tv_name;
+    @BindView(R.id.appbar)
+    AppBarLayout mAppBarLayout;
     @BindView(R.id.bg_img)
     ImageView friend_background;
     CircleDataAdapter mCircleDataAdapter;
@@ -98,15 +104,18 @@ public class NewFriendCircleActivity extends AppCompatActivity {
                 showPublishTypeDialog();
                 break;
             case R.id.iv_headpic:
-                if (MyApplication.isLogin) {
+
                     // 跳转到自己或者别人的朋友圈
                     if (TextUtils.isEmpty(userId)) {
-                        userId = MyApplication.getUserInfo().getId();
+                        Intent intent = new Intent(NewFriendCircleActivity.this, NewFriendCircleActivity.class);
+                        intent.putExtra("userId", MyApplication.getUserInfo().getId());
+                        NewFriendCircleActivity.this.startActivity(intent);
+                    }else{
+                        if(userId.equals(MyApplication.getUserInfo().getId())){
+                            return;
                     }
-                    Intent intent = new Intent(NewFriendCircleActivity.this, NewFriendCircleActivity.class);
-                    intent.putExtra("userId", userId);
-                    NewFriendCircleActivity.this.startActivity(intent);
-                }
+                    }
+
                 break;
         }
     }
@@ -149,23 +158,9 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         ll_dynamic_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RxPermissions rxPermissions = new RxPermissions(NewFriendCircleActivity.this);
-
-                rxPermissions.request(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.RECORD_AUDIO,
-                        Manifest.permission.WRITE_SETTINGS)
-                        .subscribe(new Consumer<Boolean>() {
-                            @Override
-                            public void accept(Boolean aBoolean) throws Exception {
-                                if (aBoolean) {
-                                    openCamera();
-                                }
-                            }
-                        });
-
+                openCamera();
                 dialog.dismiss();
+
             }
         });
 
@@ -310,6 +305,23 @@ public class NewFriendCircleActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        mAppBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
+            @Override
+            public void onStateChanged(AppBarLayout appBarLayout, State state) {
+                if( state == State.EXPANDED ) {
+                    tv_name.setVisibility(View.GONE);
+                    //展开状态
+                }else if(state == State.COLLAPSED){
+                    //折叠状态
+                    tv_name.setVisibility(View.VISIBLE);
+                }else {
+                    //中间状态
+
+
+                }
+            }
+        });
+
         mCircleData = new ArrayList<>();
         mCircleDataAdapter = new CircleDataAdapter(this, R.layout.item_friends_dynamic, mCircleData);
         mCircleDataAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -319,6 +331,21 @@ public class NewFriendCircleActivity extends AppCompatActivity {
                 getData(false);
             }
         }, rv_circle);
+        mCircleDataAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                CircleData circleData= (CircleData) adapter.getItem(position);
+                switch (view.getId()){
+                    case R.id.iv_head:
+                         if(TextUtils.isEmpty(userId)||!circleData.getUserId().equals(userId)){
+                             Intent intent = new Intent(NewFriendCircleActivity.this, NewFriendCircleActivity.class);
+                             intent.putExtra("userId", circleData.getUserId());
+                             startActivity(intent);
+                         }
+                         break;
+                }
+            }
+        });
         //rv_circle.setFocusableInTouchMode(false);
         rv_circle.setLayoutManager(new LinearLayoutManager(this));
         rv_circle.setAdapter(mCircleDataAdapter);

@@ -17,79 +17,36 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RentOrderAdapter extends BaseQuickAdapter<RentOrder, RentOrderAdapter.ViewHolder> {
+public class RentOrderAdapter extends BaseQuickAdapter<RentOrder, BaseViewHolder> {
 
     public RentOrderAdapter(List<RentOrder> rentOrderList) {
-        super(R.layout.item_rent_order, rentOrderList);
+        super(R.layout.item_service_order, rentOrderList);
     }
 
     @Override
-    protected void convert(ViewHolder helper, RentOrder item) {
-        Glide.with(helper.carBannerView).load(item.getImage()).into(helper.carBannerView);
-        helper.carBrandView.setText(item.getBrand());
-        helper.carModelsView.setText(item.getCarTategory());
-        String seat = TextUtils.isEmpty(item.getSeat())?"":item.getSeat().replace("座", "");
-        helper.seatView.setText(String.format("%s/%s座", item.getVariableBox(), seat));
-        helper.dayPriceView.setText(String.format("￥%s", item.getDayPrice()));
-        String text;
-        switch (item.getState()){
-            case 2:
-                text = "服务中";
-                break;
-            case 3:
-                text = "待评论";
-                break;
-            case 4:
-                text = ".已完成";
-                break;
-                default:
-                    text = "未知状态";
+    protected void convert(BaseViewHolder helper, RentOrder item) {
+        helper.addOnClickListener(R.id.tv_job);
+        ImageView iv_logo = helper.getView(R.id.iv_logo);
+        TextView tv_name = helper.getView(R.id.tv_name);
+        TextView tv_status = helper.getView(R.id.tv_status);
+        TextView tv_total = helper.getView(R.id.tv_total);
+        TextView tv_date = helper.getView(R.id.tv_date);
+        TextView tv_job = helper.getView(R.id.tv_job);
+        tv_name.setText(item.getName());
+        tv_total.setText("价格：" + item.getTotal());
+        tv_date.setText(item.getCreateTime().substring(0, 10));
+        Glide.with(helper.itemView.getContext()).load(item.getImage()).into(iv_logo);
+        if (item.getState() == 3) {
+            tv_status.setText("待评价");
+            tv_job.setText("评价");
+        } else if (item.getState() == 4) {
+            tv_status.setText("已完成");
+            tv_job.setText("查看评价");
+        } else if (item.getState() == 2) {
+            tv_status.setText("服务中");
+            tv_job.setText("取消");
         }
-        helper.statusView.setText(text);
-        helper.addOnClickListener(R.id.cancel_order_click).addOnClickListener(R.id.comment_click);
-        if (item.getState() == 2){
-            helper.cancelOrderClick.setVisibility(View.VISIBLE);
-            helper.commentClick.setVisibility(View.GONE);
-        }else if (item.getState()==3){
-            helper.cancelOrderClick.setVisibility(View.GONE);
-            helper.commentClick.setVisibility(View.VISIBLE);
-        }else {
-            helper.cancelOrderClick.setVisibility(View.GONE);
-            helper.commentClick.setVisibility(View.GONE);
-            ((View)helper.commentClick.getParent()).setVisibility(View.GONE);
-        }
-        helper.x3.setText(String.format("x%s",item.getRentDay()));
+
     }
 
-    static class ViewHolder extends BaseViewHolder {
-        @BindView(R.id.car_banner_view)
-        ImageView carBannerView;
-        @BindView(R.id.car_brand_view)
-        TextView carBrandView;
-        @BindView(R.id.status_view)
-        TextView statusView;
-        @BindView(R.id.car_models_view)
-        TextView carModelsView;
-        @BindView(R.id.seat_view)
-        TextView seatView;
-        @BindView(R.id.label)
-        TextView label;
-        @BindView(R.id.day_price_view)
-        TextView dayPriceView;
-        @BindView(R.id.x3)
-        TextView x3;
-        @BindView(R.id.price_parent_view)
-        RelativeLayout priceParentView;
-        @BindView(R.id.comment_click)
-        TextView commentClick;
-        @BindView(R.id.cancel_order_click)
-        TextView cancelOrderClick;
-        @BindView(R.id.divider)
-        View divider;
-
-        ViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-        }
-    }
 }

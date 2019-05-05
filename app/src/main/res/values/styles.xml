@@ -16,9 +16,9 @@
     </style>
     <style name="FriendTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/blue_9DD9</item>
-        <item name="colorPrimaryDark">@color/blue_9DD9</item>
-        <item name="colorAccent">@color/blue_9DD9</item>
+        <item name="colorPrimary">@color/gray_99</item>
+        <item name="colorPrimaryDark">@color/gray_99</item>
+        <item name="colorAccent">@color/gray_99</item>
     </style>
     <style name="VideoTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowFullscreen">true</item>

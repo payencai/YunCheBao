@@ -7,7 +7,7 @@
     tools:context="com.xihubao.WashPayActivity">
     <RelativeLayout
         android:id="@+id/top"
-        android:background="#47443E"
+        android:background="#2c2a26"
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <ImageView
@@ -32,17 +32,55 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.youth.banner.Banner
-            android:id="@+id/banner"
-            android:layout_width="fill_parent"
-            android:layout_height="150dp"
-            android:visibility="visible" />
+        <RelativeLayout
+            android:background="#2c2a26"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="220dp">
+            <RelativeLayout
+                android:elevation="1dp"
+                android:layout_above="@+id/arcview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tv_total"
+                    android:textSize="25sp"
+                    android:textColor="#CFBB8B"
+                    android:text="暂无该服务"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <ImageView
+                android:layout_marginRight="25dp"
+                android:layout_marginLeft="25dp"
+                android:scaleType="fitXY"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:src="@mipmap/ic_card"
+                android:layout_width="match_parent"
+                android:layout_height="150dp" />
+
+            <ImageView
+                android:id="@+id/arcview"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="0dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_huxing">
+
+            </ImageView>
+        </RelativeLayout>
         <LinearLayout
             android:paddingBottom="10dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
+                android:clickable="false"
+                android:enabled="false"
                 android:id="@+id/ll_payMember"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
@@ -50,14 +88,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:clickable="false"
+                    android:enabled="false"
                     android:id="@+id/iv_member"
                     android:src="@drawable/btn_unselected"
                     android:layout_width="20dp"
                     android:layout_height="20dp" />
                 <TextView
-                    android:textColor="@color/white"
+                    android:enabled="false"
+                    android:textColor="@color/gray_99"
                     android:layout_marginLeft="10dp"
-                    android:text="会员卡支付"
+                    android:text="会员卡支付（会员卡功能暂停使用）"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>

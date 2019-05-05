@@ -129,7 +129,7 @@ public class WashCarDetailActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.washcar_shop_detail);
         ButterKnife.bind(this);
-
+        ImmersionBar.with(this).fitsSystemWindows(true).statusBarColor(R.color.transparent).init();
         mCarShop= (CarShop) getIntent().getExtras().getSerializable("data");
         id=getIntent().getStringExtra("id");
         type=getIntent().getExtras().getInt("flag");
@@ -348,7 +348,7 @@ public class WashCarDetailActivity extends FragmentActivity {
         Map<String,Object> params=new HashMap<>();
         params.put("shopId",mCarShop.getId());
         params.put("type",1);
-        HttpProxy.obtain().post(PlatformContans.Collect.addCarCollection, token,params , new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.Collect.addWashCollection, token,params , new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("heart",result);

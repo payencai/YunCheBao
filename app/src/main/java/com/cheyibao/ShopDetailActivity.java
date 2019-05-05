@@ -2,6 +2,12 @@ package com.cheyibao;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -10,12 +16,19 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.amap.api.maps.model.LatLng;
 import com.cheyibao.fragment.RentCarModelsFragment;
 import com.cheyibao.fragment.RentShopComentFragment;
 import com.cheyibao.model.RentShop;
@@ -23,18 +36,22 @@ import com.cheyibao.util.RentCarUtils;
 import com.common.ConfirmDialog;
 import com.common.DialPhoneUtils;
 import com.example.yunchebao.R;
+import com.example.yunchebao.fourshop.activity.FourShopDetailActivity;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.maket.adapter.GoodsOrderImageAdapter;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tool.view.HorizontalListView;
+import com.xihubao.ShopInfoActivity;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.rong.imkit.RongIM;
 
 
 public class ShopDetailActivity extends AppCompatActivity {
@@ -117,11 +134,162 @@ public class ShopDetailActivity extends AppCompatActivity {
         tabLayout.setViewPager(viewpager, titles, this, mFragments);
     }
 
-    @OnClick(R.id.back)
-    public void onBackClicked() {
-        onBackPressed();
+    @OnClick({R.id.back,R.id.online_chat_view,R.id.head_view,R.id.address_view})
+     void onClicked(View view) {
+        switch (view.getId()){
+            case R.id.address_view:
+                showMapDialog(new LatLng(Double.parseDouble(rentShop.getLatitude()), Double.parseDouble(rentShop.getLongitude())));
+                break;
+            case R.id.head_view:
+                Intent intent = new Intent(ShopDetailActivity.this, ShopInfoActivity.class);
+                intent.putExtra("id", rentShop.getId());
+                startActivity(intent);
+                break;
+            case R.id.online_chat_view:
+                RongIM.getInstance().startPrivateChat(ShopDetailActivity.this, rentShop.getId(), rentShop.getName());
+                break;
+            case R.id.back:
+                finish();
+                break;
+        }
+
     }
 
+    private void google(double mLatitude, double mLongitude) {
+        if (isAvilible(this, "com.google.android.apps.maps")) {
+            Uri gmmIntentUri = Uri.parse("google.navigation:q="
+                    + mLatitude + "," + mLongitude
+                    + ", + Sydney +Australia");
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW,
+                    gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            startActivity(mapIntent);
+        } else {
+            Toast.makeText(this, "您尚未安装谷歌地图", Toast.LENGTH_LONG)
+                    .show();
+            Uri uri = Uri
+                    .parse("market://details?id=com.google.android.apps.maps");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        }
+    }
+
+    private void showMapDialog(final LatLng latLng) {
+        final Dialog dialog = new Dialog(this, R.style.dialog);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_map, null);
+        //获得dialog的window窗口
+        Window window = dialog.getWindow();
+        //设置dialog在屏幕底部
+        window.setGravity(Gravity.BOTTOM);
+        //设置dialog弹出时的动画效果，从屏幕底部向上弹出
+        window.setWindowAnimations(R.style.mypopwindow_anim_style);
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        //获得window窗口的属性
+        android.view.WindowManager.LayoutParams lp = window.getAttributes();
+        //设置窗口宽度为充满全屏
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        //设置窗口高度为包裹内容
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        //将设置好的属性set回去
+        window.setAttributes(lp);
+        //将自定义布局加载到dialog上
+        dialog.setContentView(dialogView);
+        dialog.findViewById(R.id.tv_baidu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                baidu(latLng.latitude, latLng.longitude);
+            }
+        });
+        dialog.findViewById(R.id.tv_google).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                google(latLng.latitude, latLng.longitude);
+
+            }
+        });
+        dialog.findViewById(R.id.tv_gaode).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                gaode(latLng.latitude, latLng.longitude);
+
+            }
+        });
+        dialog.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+
+            }
+        });
+        dialog.show();
+    }
+
+    private void baidu(double mLatitude, double mLongitude) {
+        LatLng poit = new LatLng(mLatitude, mLongitude);
+        if (isAvilible(this, "com.baidu.BaiduMap")) {// 传入指定应用包名
+
+            try {
+                Intent intent = Intent.getIntent("intent://map/direction?destination=latlng:"
+                        + poit.latitude + ","
+                        + poit.longitude + "|name:" + // 终点
+                        "&mode=driving&" + // 导航路线方式
+                        "region=" + //
+                        "&src=广州番禺#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end");
+                startActivity(intent); // 启动调用
+            } catch (URISyntaxException e) {
+                Log.e("intent", e.getMessage());
+            }
+        } else {// 未安装
+            Toast.makeText(this, "您尚未安装百度地图", Toast.LENGTH_LONG)
+                    .show();
+            Uri uri = Uri
+                    .parse("market://details?id=com.baidu.BaiduMap");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        }
+    }
+
+    public static boolean isAvilible(Context context, String packageName) {
+        // 获取packagemanager
+        final PackageManager packageManager = context.getPackageManager();
+        // 获取所有已安装程序的包信息
+        List<PackageInfo> packageInfos = packageManager.getInstalledPackages(0);
+        // 用于存储所有已安装程序的包名
+        List<String> packageNames = new ArrayList<String>();
+        // 从pinfo中将包名字逐一取出，压入pName list中
+        if (packageInfos != null) {
+            for (int i = 0; i < packageInfos.size(); i++) {
+                String packName = packageInfos.get(i).packageName;
+                packageNames.add(packName);
+            }
+        }
+        // 判断packageNames中是否有目标程序的包名，有TRUE，没有FALSE
+        return packageNames.contains(packageName);
+    }
+
+    private void gaode(double mLatitude, double mLongitude) {
+        if (isAvilible(this, "com.autonavi.minimap")) {
+            try {
+                Intent intent = Intent.getIntent("androidamap://navi?sourceApplication=新疆和田&poiname=" + "广州" + "&lat="
+                        + mLatitude
+                        + "&lon="
+                        + mLongitude + "&dev=0");
+                startActivity(intent);
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(this, "您尚未安装高德地图", Toast.LENGTH_LONG)
+                    .show();
+            Uri uri = Uri
+                    .parse("market://details?id=com.autonavi.minimap");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        }
+    }
     @SuppressLint("CheckResult")
     @OnClick(R.id.call_view)
     public void onCallViewClicked() {

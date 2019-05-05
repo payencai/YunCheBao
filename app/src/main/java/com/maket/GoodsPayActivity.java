@@ -1,6 +1,7 @@
 package com.maket;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.wxapi.WechatRes;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
@@ -66,6 +68,7 @@ public class GoodsPayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_pay);
+        ImmersionBar.with(this).statusBarColor(R.color.pay).fitsSystemWindows(true).init();
         orderId=getIntent().getStringExtra("orderid");
         money=getIntent().getStringExtra("money");
         flag=getIntent().getStringExtra("flag");
@@ -206,10 +209,10 @@ public class GoodsPayActivity extends AppCompatActivity {
         ll_payMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                iv_member.setImageResource(R.drawable.btn_selected);
-                iv_wechat.setImageResource(R.drawable.btn_unselected);
-                iv_alipay.setImageResource(R.drawable.btn_unselected);
-                type=1;
+//                iv_member.setImageResource(R.drawable.btn_selected);
+//                iv_wechat.setImageResource(R.drawable.btn_unselected);
+//                iv_alipay.setImageResource(R.drawable.btn_unselected);
+//                type=1;
             }
         });
     }

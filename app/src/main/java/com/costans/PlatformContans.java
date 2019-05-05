@@ -160,7 +160,7 @@ public class PlatformContans {
         public static final String getOldCarCollection=root + "/carCollection/getOldCarCollection";
         public static final String getOldCarCollectionList=root + "/carCollection/getOldCarCollectionList";
 
-        public static final String addCarCollection=root + "/washCollection/addWashCollection";
+        public static final String addWashCollection=root + "/washCollection/addWashCollection";
         public static final String isCollectionByShopId=root + "/washCollection/isCollectionByShopId";
         public static final String getWashCollectionList=root + "/washCollection/getWashCollectionList";
         public static final String deleteWashCollection=root + "/washCollection/deleteWashCollection";
@@ -228,9 +228,18 @@ public class PlatformContans {
         public static final String getFourShopOrderCommentByShopId=root+"/fourShop/getFourShopOrderCommentByShopId";
     }
     public static class RoadRescue{
+        public static final String getRoadRescueOrderCommentByOrderId=root+"/roadRescue/getRoadRescueOrderCommentByOrderId";
+        public static final String isCollectionByShopId=root+"/roadRescue/isCollectionByShopId";
+        public static final String deleteShopCollection=root+"/roadRescue/deleteShopCollection";
+        public static final String addShopCollection=root+"/roadRescue/addShopCollection";
+        public static final String addRoadRescueOrderComment=root+"/roadRescue/addRoadRescueOrderComment";
+        public static final String deleteMyRoadRescueOrderById=root+"/roadRescue/deleteMyRoadRescueOrderById";
+        public static final String getMyRoadRescueOrderList=root+"/roadRescue/getMyRoadRescueOrderList";
         public static final String getRoadRescueShopListByApp=root+ "/roadRescue/getRoadRescueShopListByApp";
         public static final String getRoadRescueServeListForApp=root+ "/roadRescue/getRoadRescueServeListForApp";
         public static final String addRoadRescueOrder=root+ "/roadRescue/addRoadRescueOrder";
+        public static final String getRoadRescueOrderCommentByShopId=root+ "/roadRescue/getRoadRescueOrderCommentByShopId";
+        public static final String getRoadRescueShopResultById=root+"/roadRescue/getRoadRescueShopResultById";
     }
     public static class CarWashRepairShop{
         public static final String getWashRepairShopById=root+ "/carWashRepairShop/getWashRepairShopById";
@@ -291,6 +300,7 @@ public class PlatformContans {
         public static final String substituteDrivingPay=root+ "/alipay/substituteDrivingPay";
         public static final String fourShopPay=root+ "/alipay/fourShopPay";
         public static final String rentCarOrderPay=root+ "/alipay/rentCarOrderPay";//租车订单支付";
+        public static final String roadRescueShopPay=root+"/alipay/roadRescueShopPay";
     }
     public static class Chat{
         public static final String updateFriendsById=root+"/huanxin/updateFriendsById";
@@ -355,7 +365,7 @@ public class PlatformContans {
     public static class SubstituteDriving{
         public static final String getSubstituteDrivingCommentListByShopId=root+"/substituteDriving/getSubstituteDrivingCommentListByShopId";
         public static final String getSubstituteDrivingShopResultById=root+"/substituteDriving/getSubstituteDrivingShopResultById";
-        public static final String isCollectionByShopId=root+"/substituteDriving/getSubstituteDrivingCommentByOrderIdsubstituteDriving/isCollectionByShopId";
+        public static final String isCollectionByShopId=root+"/substituteDriving/isCollectionByShopId";
         public static final String addShopCollection=root+"/substituteDriving/addShopCollection";
         public static final String deleteShopCollection=root+"/substituteDriving/deleteShopCollection";
         public static final String getSubstituteDrivingOrderListByUser=root+"/substituteDriving/getSubstituteDrivingOrderListByUser";

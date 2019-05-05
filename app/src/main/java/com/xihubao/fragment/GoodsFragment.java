@@ -19,7 +19,8 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.GoodsPayActivity;
 import com.nohttp.sample.BaseFragment;
-import com.xihubao.WashCarDetailActivity;
+import com.tool.MyListView;
+
 import com.xihubao.adapter.ServerCatogryAdapter;
 import com.xihubao.adapter.ServerDetailAdapter;
 
@@ -42,10 +43,10 @@ import butterknife.ButterKnife;
  */
 public class GoodsFragment extends BaseFragment {
 
-    @BindView(R.id.goods_category_list)
-    ListView lv_category;
-    @BindView(R.id.goods_recycleView)
-    ListView goods_recycleView;
+    @BindView(R.id.lv_left)
+    MyListView lv_category;
+    @BindView(R.id.lv_right)
+    MyListView goods_recycleView;
     ServerDetailAdapter mServerDetailAdapter;
     ServerCatogryAdapter mServerCatogryAdapter;
     String id;
@@ -61,7 +62,7 @@ public class GoodsFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.shop_detail_goods, container, false);
         ButterKnife.bind(this, view);
-        id = this.getArguments().getString("id");
+        id = getArguments().getString("id");
         type = getArguments().getInt("type");
         initView(view);
         return view;
@@ -92,8 +93,7 @@ public class GoodsFragment extends BaseFragment {
     }
 
     private void takeOrder(String id,String goods) {
-        WashCarDetailActivity activity= (WashCarDetailActivity) getActivity();
-        String shopname=activity.getCarShop().getShopName();
+
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
         HttpProxy.obtain().post(PlatformContans.CarWashRepairShop.addWashRepairOrder, MyApplication.token, params, new ICallBack() {
@@ -109,7 +109,7 @@ public class GoodsFragment extends BaseFragment {
                         intent.putExtra("orderid", orderid);
                         intent.putExtra("money", money);
                         intent.putExtra("flag", "1");
-                        intent.putExtra("shop", shopname);
+                        intent.putExtra("shop", goods);
                         intent.putExtra("goods", goods);
                         startActivity(intent);
                     }

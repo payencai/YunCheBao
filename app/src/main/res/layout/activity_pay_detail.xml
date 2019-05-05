@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#f9f9f9"
-    tools:context="com.drive.activity.PayDetailActivity">
+    tools:context=".drive.activity.PayDetailActivity">
     <RelativeLayout
 
         android:layout_width="match_parent"

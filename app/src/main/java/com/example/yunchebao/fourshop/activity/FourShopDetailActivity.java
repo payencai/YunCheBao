@@ -29,7 +29,7 @@ import com.amap.api.maps.model.LatLng;
 import com.application.MyApplication;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
-import com.drive.activity.SimplePlayerActivity;
+import com.example.yunchebao.drive.activity.SimplePlayerActivity;
 import com.example.yunchebao.R;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.example.yunchebao.fourshop.bean.FourShopData;

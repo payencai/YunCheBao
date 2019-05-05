@@ -21,6 +21,7 @@ import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.ShopCartActivity;
@@ -62,6 +63,7 @@ public class UserCenterActivity extends NoHttpBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_center_layout);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).statusBarColor(R.color.yell).fitsSystemWindows(true).init();
          //headIcon.setImageURI(Uri.parse(MyApplication.getUserInfo().getHeadPortrait()));
         getUserInfo();
         getFocus();

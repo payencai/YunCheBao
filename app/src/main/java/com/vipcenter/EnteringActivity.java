@@ -23,6 +23,8 @@ import com.bumptech.glide.Glide;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.applyenter.Agency;
+import com.example.yunchebao.applyenter.SelectServiceProviderActivity;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
@@ -102,7 +104,7 @@ public class EnteringActivity extends NoHttpBaseActivity {
     SuperTextView tvSubmit;
     @BindView(R.id.ll_add)
     LinearLayout llAdd;
-
+    Agency mAgency;
     private List<AgencyInfo> agencyInfoList;
 
     @Override
@@ -115,6 +117,12 @@ public class EnteringActivity extends NoHttpBaseActivity {
 
     private void initView() {
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "入驻申请");
+    }
+    public void callPhone(String phoneNum) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        startActivity(intent);
     }
 
     /**
@@ -182,6 +190,11 @@ public class EnteringActivity extends NoHttpBaseActivity {
                         Toast.makeText(this, "找不到照片", Toast.LENGTH_SHORT).show();
                     }
 
+                    break;
+                case 5:
+                    mAgency= (Agency) data.getSerializableExtra("data");
+                    tvInviter.setText(mAgency.getName());
+                    agencyId=mAgency.getId();
                     break;
             }
         }
@@ -259,9 +272,12 @@ public class EnteringActivity extends NoHttpBaseActivity {
     private int flagChoosePhoto = 0;
     private String imageIdcardFront, imageIdcardBack, imageBusinessLicense;
 
-    @OnClick({R.id.back, R.id.ll_shop_type, R.id.ll_shop_address, R.id.ll_brand, R.id.iv_idcard_front, R.id.iv_idcard_back, R.id.iv_business_license, R.id.ll_inviter, R.id.tv_submit})
+    @OnClick({R.id.tv_phone,R.id.back, R.id.ll_shop_type, R.id.ll_shop_address, R.id.ll_brand, R.id.iv_idcard_front, R.id.iv_idcard_back, R.id.iv_business_license, R.id.ll_inviter, R.id.tv_submit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tv_phone:
+                callPhone("0871-68106401");
+                break;
             case R.id.back:
                 onBackPressed();
                 break;
@@ -294,7 +310,8 @@ public class EnteringActivity extends NoHttpBaseActivity {
                 startCategery();
                 break;
             case R.id.ll_inviter:
-                showAgencyList();
+                startActivityForResult(new Intent(EnteringActivity.this, SelectServiceProviderActivity.class),5);
+                //showAgencyList();
                 break;
             case R.id.tv_submit:
                 checkMsg();

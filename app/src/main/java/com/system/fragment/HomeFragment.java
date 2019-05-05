@@ -49,9 +49,10 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
+import com.example.yunchebao.road.NewRoadhelpActivity;
 import com.rongcloud.activity.ChatActivity;
 import com.rongcloud.adapter.ListDataSave;
-import com.drive.activity.DriveServiceActivity;
+import com.example.yunchebao.drive.activity.DriveServiceActivity;
 import com.system.NoticeActivity;
 import com.system.SearchActivity;
 import com.system.WebCarActivity;
@@ -66,9 +67,7 @@ import com.vipcenter.RegisterActivity;
 import com.vipcenter.UserCenterActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
-import com.xihubao.NewWashRepairActivity;
-import com.xihubao.RoadActivity;
-import com.xihubao.RoadAssistanceListActivity;
+import com.example.yunchebao.washrepair.NewWashRepairActivity;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 import com.yuedan.YuedanHomeActivity;
@@ -787,7 +786,7 @@ public class HomeFragment extends BaseFragment {
                  ActivityAnimationUtils.commonTransition(getActivity(), GasStationActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay7://紧急
-                ActivityAnimationUtils.commonTransition(getActivity(), RoadActivity.class, ActivityConstans.Animation.FADE);
+                ActivityAnimationUtils.commonTransition(getActivity(), NewRoadhelpActivity.class, ActivityConstans.Animation.FADE);
                 //ActivityAnimationUtils.commonTransition(getActivity(), RoadAssistanceListActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay8://违章

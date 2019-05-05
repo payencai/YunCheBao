@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:paddingLeft="15dp">
+
+    <com.payencai.library.view.CircleImageView
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:src="@mipmap/ic_default_head"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/select"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我是女的"
+                android:textColor="@color/black_33"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/tv_dis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="300米"
+                android:textColor="@color/gray_99"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/select"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="选择ta"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            fresco:corner="4dp"
+            fresco:solid="@color/yellow_65" />
+    </RelativeLayout>
+</LinearLayout>

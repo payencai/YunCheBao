@@ -22,13 +22,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.AddRentCommentActivity;
 import com.cheyibao.AddSchoolCommentActivity;
 import com.costans.PlatformContans;
-import com.drive.activity.AddOrderCommentActivity;
-import com.drive.activity.DriveOrderDetailActivity;
-import com.drive.activity.DriverCommentActivity;
+import com.example.yunchebao.drive.activity.AddOrderCommentActivity;
+import com.example.yunchebao.drive.activity.DriveOrderDetailActivity;
+import com.example.yunchebao.drive.activity.DriverCommentActivity;
 import com.example.yunchebao.R;
 import com.example.yunchebao.fourshop.activity.AddFourCommentActivity;
 import com.example.yunchebao.fourshop.activity.SeeCommentActivity;
-import com.example.yunchebao.fourshop.bean.FourShopCar;
 import com.example.yunchebao.myservice.AddWashCommentActivity;
 import com.example.yunchebao.myservice.SeeRentCommentActivity;
 import com.example.yunchebao.myservice.SeeSchoolCommentActivity;
@@ -40,8 +39,6 @@ import com.payencai.library.util.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.vipcenter.OrderCommentsActivity;
-import com.vipcenter.PubCommentActivity;
 import com.vipcenter.RentOrderDetailActivity;
 import com.vipcenter.ShoolOrderDetailActivity;
 import com.vipcenter.WashOrderDetailActivity;
@@ -57,7 +54,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import go.error;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -152,7 +148,7 @@ public class CarOrderFragment extends Fragment {
                 break;
             case 4:
                 intent = new Intent(getContext(), RentOrderDetailActivity.class);
-                intent.putExtra("data", carOrder);
+                intent.putExtra("id", carOrder.getId());
                 startActivity(intent);
                 break;
             case 5:

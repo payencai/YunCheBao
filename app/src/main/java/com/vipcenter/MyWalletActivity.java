@@ -31,6 +31,7 @@ import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.wxapi.WechatRes;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
@@ -74,6 +75,7 @@ public class MyWalletActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_wallet_layout);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).statusBarColor(R.color.pay).fitsSystemWindows(true).init();
         initView();
     }
 
@@ -424,7 +426,7 @@ public class MyWalletActivity extends AppCompatActivity {
                 ActivityAnimationUtils.commonTransition(MyWalletActivity.this, SetPayPasswordActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.toDeposit:
-                getMemberCard();
+                //getMemberCard();
                 //ActivityAnimationUtils.commonTransition(MyWalletActivity.this,AccountDepositActivity.class, ActivityConstans.Animation.FADE);
                 break;
         }

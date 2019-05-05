@@ -7,7 +7,7 @@
     android:background="@color/white">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/AppFragment_AppBarLayout"
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -67,9 +67,21 @@
                         android:id="@+id/iv_back"
                         android:layout_width="45dp"
                         android:layout_height="50dp"
-                        android:src="@mipmap/back_circle" />
+                        android:src="@mipmap/back_white" />
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/tv_name"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:layout_centerVertical="true"
+                        android:text="好友圈"
+                        android:layout_toRightOf="@id/iv_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
                     <ImageView
+                        android:layout_marginRight="15dp"
                         android:padding="15dp"
                         android:id="@+id/iv_publish"
                         android:layout_width="54dp"

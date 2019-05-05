@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.yuedan.PubRoadActivity">
+    tools:context=".road.PubRoadActivity">
     <RelativeLayout
         android:background="@color/white"
         android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                          android:padding="10dp">
 
                          <ImageView
-                             android:id="@+id/img"
+                             android:id="@+id/iv_logo"
                              android:layout_width="70dp"
                              android:layout_height="70dp"
                              android:src="@mipmap/pic2"
@@ -56,7 +56,7 @@
                              android:orientation="vertical">
 
                              <TextView
-                                 android:id="@+id/shopname"
+                                 android:id="@+id/tv_shopname"
                                  android:layout_width="wrap_content"
                                  android:layout_height="wrap_content"
                                  android:text="昆明普利司通轮胎电瓶经营部"
@@ -64,7 +64,7 @@
                                  android:textSize="14sp" />
 
                              <TextView
-                                 android:id="@+id/phone"
+                                 android:id="@+id/tv_phone"
                                  android:layout_width="wrap_content"
                                  android:layout_height="wrap_content"
                                  android:layout_marginTop="10dp"
@@ -73,7 +73,7 @@
                                  android:textSize="10sp" />
 
                              <TextView
-                                 android:id="@+id/address"
+                                 android:id="@+id/tv_addr"
                                  android:layout_width="wrap_content"
                                  android:layout_height="wrap_content"
                                  android:layout_marginTop="10dp"

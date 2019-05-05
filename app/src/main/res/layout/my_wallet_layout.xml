@@ -120,8 +120,18 @@
             android:layout_centerVertical="true"
             android:drawableLeft="@mipmap/recharge"
             android:drawablePadding="12dp"/>
-        
+         <TextView
+             android:textSize="@dimen/sp_14"
+             android:textColor="@color/black_33"
+             android:layout_centerVertical="true"
+             android:layout_marginRight="5dp"
+             android:layout_toLeftOf="@id/enter"
+
+             android:text="该服务暂停使用"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
         <ImageView
+            android:id="@+id/enter"
             android:layout_width="6dp"
             android:layout_height="11dp"
             android:layout_alignParentRight="true"
