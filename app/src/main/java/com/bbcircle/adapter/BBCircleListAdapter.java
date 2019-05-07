@@ -50,6 +50,12 @@ public class BBCircleListAdapter extends BaseQuickAdapter<SelfDrive, BaseViewHol
         TextView tv_title = (TextView) helper.getView(R.id.name2);
         ImageView iv_video = (ImageView) helper.getView(R.id.iv_video);
         name2.setText(carShow.getCommentNum() + "回帖");
+        TextView tv_num = (TextView) helper.getView(R.id.tv_num);
+        TextView tv_time = (TextView) helper.getView(R.id.tv_time);
+        tv_num.setText("已报名："+carShow.getEnterNum()+"人");
+        tv_num.setVisibility(View.VISIBLE);
+        tv_time.setVisibility(View.VISIBLE);
+        tv_time.setText("时间："+carShow.getStartTime().substring(5)+"至"+carShow.getEndTime().substring(5));
         name1.setText(carShow.getName());
         tv_title.setText(carShow.getTitle());
         //iv_video.setVisibility(View.VISIBLE);

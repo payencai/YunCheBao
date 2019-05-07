@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".account.AccountManageActivity">
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/back"
+            android:src="@mipmap/back"
+            android:padding="17dp"
+            android:layout_centerVertical="true"
+            android:layout_width="50dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textColor="@color/black_33"
+            android:textSize="18sp"
+            android:text="切换当前账号"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+    <ScrollView
+        android:background="#efefef"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.tool.view.ListViewForScrollView
+                android:background="@color/white"
+                android:id="@+id/lv_account"
+                android:divider="@color/white"
+                android:layout_above="@id/ll_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.tool.view.ListViewForScrollView>
+            <RelativeLayout
+
+                android:orientation="vertical"
+                android:id="@+id/ll_bottom"
+                android:layout_marginTop="50dp"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:textColor="@color/gray_66"
+                    android:textSize="16sp"
+                    android:text="换个账号登录"
+                    android:layout_marginLeft="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:src="@mipmap/enter"
+                    android:layout_marginRight="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

@@ -146,7 +146,7 @@
                     android:textSize="16sp"
                     android:layout_marginLeft="15dp"
                     android:textColor="@color/black_33"
-                    android:text="好友圈"
+                    android:text="宝友圈"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>

@@ -104,7 +104,7 @@ public class FourShopDetailActivity extends AppCompatActivity {
     @BindView(R.id.banner)
     Banner banner;
     ImmersionBar mImmersionBar;
-    String[] titles = {"服务", "车辆","评论"};
+    String[] titles = {"车辆","服务","评论"};
     String id;
     FourShopData mFourShopData;
     ArrayList<Fragment> mFragments = new ArrayList<>();
@@ -284,8 +284,8 @@ public class FourShopDetailActivity extends AppCompatActivity {
         DetailServiceFragment detailServiceFragment = new DetailServiceFragment();
         FourShopCarFragment fourShopCarFragment = new FourShopCarFragment();
         FourShopCommentFragment fourShopCommentFragment=new FourShopCommentFragment();
-        mFragments.add(detailServiceFragment);
         mFragments.add(fourShopCarFragment);
+        mFragments.add(detailServiceFragment);
         mFragments.add(fourShopCommentFragment);
         mSlidingTabLayout.setViewPager(mViewPager, titles, this, mFragments);
     }

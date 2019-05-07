@@ -129,7 +129,12 @@ public class AnotherBabyFragment extends Fragment {
         view.findViewById(R.id.ll_item9).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), NearbyActivity.class));
+                if (MyApplication.isLogin)
+                    startActivity(new Intent(getContext(), NearbyActivity.class));
+                else {
+                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class),11);
+                }
+
             }
         });
         view.findViewById(R.id.rl_stranger).setOnClickListener(new View.OnClickListener() {
@@ -165,7 +170,7 @@ public class AnotherBabyFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //ToastUtil.showToast(getContext(),"解析成功");
-        Toast.makeText(getContext(), "---"+resultCode, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "---"+resultCode, Toast.LENGTH_SHORT).show();
 
     }
 

@@ -38,22 +38,50 @@
                 android:layout_height="30dp" />
         </RelativeLayout>
 
-
-        <TextView
+        <LinearLayout
+            android:id="@+id/ll_right"
             android:layout_toRightOf="@+id/rl_img"
-            android:id="@+id/name2"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:ellipsize="end"
-            android:lineSpacingExtra="6dp"
-            android:maxLines="2"
-            android:text="【苏州奥迪车友会】车友见面会，集结。"
-            android:textColor="@color/black_33"
-            android:textSize="17sp" />
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:id="@+id/name2"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:ellipsize="end"
+                android:lineSpacingExtra="6dp"
+                android:maxLines="2"
+                android:text="【苏州奥迪车友会】车友见面会，集结。"
+                android:textColor="@color/black_33"
+                android:textSize="16sp" />
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_num"
+                android:textColor="@color/gray_99"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="12sp"
+                android:text="已报名：3人"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_time"
+                android:textColor="@color/gray_99"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="12sp"
+                android:text="时间：11-30 16:41 至 12-01 15：41"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
 
         <LinearLayout
+            android:layout_marginTop="15dp"
             android:layout_below="@+id/rl_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

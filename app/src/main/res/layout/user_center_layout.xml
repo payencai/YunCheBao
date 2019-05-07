@@ -710,7 +710,18 @@
                         android:src="@mipmap/arrow_right" />
                 </RelativeLayout>
             </LinearLayout>
-
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_change"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="切换当前账号"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:corner="2dp"
+                app:solid="@color/yellow_65" />
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_exit"
                 android:layout_width="match_parent"

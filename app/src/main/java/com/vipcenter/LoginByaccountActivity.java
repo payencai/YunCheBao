@@ -28,6 +28,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
+import com.tool.AccountUtil;
 import com.vipcenter.model.UserInfo;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -294,6 +295,7 @@ public class LoginByaccountActivity extends AppCompatActivity {
         HttpProxy.obtain().post(PlatformContans.User.loginByPwd, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+
                 Log.e("loginByPwd", result);
                 try {
                     //Toast.makeText(RegisterActivity.this,"",Toast.LENGTH_LONG).show();
@@ -303,6 +305,13 @@ public class LoginByaccountActivity extends AppCompatActivity {
                     if(code==0){
                         JSONObject data=object.getJSONObject("data");
                         UserInfo userInfo =new Gson().fromJson(data.toString(),UserInfo.class);
+                        Map<String,Object> params=new HashMap<>();
+                        params.put("account",account);
+                        params.put("pwd",pwd);
+                        params.put("photo",userInfo.getHeadPortrait());
+                        params.put("isCurrent",false);
+                        String json=new Gson().toJson(params);
+                        AccountUtil.addToAccountList(json,MyApplication.getContext());
                         MyApplication.setUserInfo(userInfo);
                         MyApplication.token=userInfo.getToken();
                         MyApplication.setIsLogin(true);

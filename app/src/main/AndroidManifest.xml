@@ -64,9 +64,10 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".account.AccountManageActivity"></activity>
         <activity
-            android:theme="@style/DetailTheme"
-            android:name=".washrepair.NewWashrepairDetailActivity"></activity>
+            android:name=".washrepair.NewWashrepairDetailActivity"
+            android:theme="@style/DetailTheme" />
         <activity android:name=".applyenter.AgencyDetailActivity" />
         <activity android:name=".applyenter.SelectServiceProviderActivity" />
         <activity android:name=".road.SeeRoadCommentActivity" />

@@ -151,6 +151,45 @@
                 android:textSize="10sp" />
         </LinearLayout>
         <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="@color/white"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="商家范围："
+                    android:textColor="@color/black_33"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:inputType="number"
+                    android:id="@+id/et_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:hint="请填写范围"
+                    android:textColor="@color/gray_66"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:textSize="12sp"
+                android:text="KM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             android:id="@+id/rl_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -186,45 +225,7 @@
                 android:layout_centerVertical="true"
                 android:src="@mipmap/arrow_right" />
         </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:background="@color/white"
-            android:padding="15dp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="通知范围："
-                    android:textColor="@color/black_33"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:inputType="number"
-                    android:id="@+id/et_note"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:hint="请填写通知范围"
-                    android:textColor="@color/gray_66"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <TextView
-                android:textSize="12sp"
-                android:text="KM"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                />
-        </RelativeLayout>
         <com.coorchice.library.SuperTextView
             android:id="@+id/tv_pub"
             android:layout_width="match_parent"

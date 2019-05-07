@@ -82,7 +82,48 @@
                 android:layout_centerVertical="true"
                 android:src="@mipmap/arrow_right" />
         </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="2dp"
+            android:background="@color/white"
+            android:padding="15dp">
 
+            <LinearLayout
+                android:layout_toLeftOf="@id/iv_enter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="输入地址："
+                    android:textColor="@color/gray_99"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:id="@+id/et_addr"
+                    android:textColorHint="#ccc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:hint="请输入详细地址"
+                    android:textColor="@color/gray_66"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/iv_enter"
+                android:layout_width="5dp"
+                android:layout_height="9dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/arrow_right" />
+        </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -142,48 +183,7 @@
                 android:textSize="14sp" />
 
         </LinearLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="2dp"
-            android:background="@color/white"
-            android:padding="15dp">
 
-            <LinearLayout
-                android:layout_toLeftOf="@id/iv_enter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="输入地址："
-                    android:textColor="@color/gray_99"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:id="@+id/et_addr"
-                    android:textColorHint="#ccc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:hint="请输入详细地址"
-                    android:textColor="@color/gray_66"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <ImageView
-                android:visibility="gone"
-                android:id="@+id/iv_enter"
-                android:layout_width="5dp"
-                android:layout_height="9dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/arrow_right" />
-        </RelativeLayout>
         <LinearLayout
             android:layout_marginTop="5dp"
             android:background="@color/white"
@@ -329,6 +329,46 @@
 
         </LinearLayout>
         <RelativeLayout
+            android:id="@+id/rl_range"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="@color/white"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="商家范围："
+                    android:textColor="@color/black_33"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:inputType="number"
+                    android:id="@+id/et_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:hint="请填写范围"
+                    android:textColor="@color/gray_66"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:textSize="12sp"
+                android:text="KM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             android:id="@+id/rl_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -364,46 +404,7 @@
                 android:layout_centerVertical="true"
                 android:src="@mipmap/arrow_right" />
         </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/rl_range"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:background="@color/white"
-            android:padding="15dp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="通知范围："
-                    android:textColor="@color/black_33"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:inputType="number"
-                    android:id="@+id/et_note"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:hint="请填写通知范围"
-                    android:textColor="@color/gray_66"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <TextView
-                android:textSize="12sp"
-                android:text="KM"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                />
-        </RelativeLayout>
         <TextView
             android:layout_marginTop="20dp"
             android:id="@+id/tv_public"

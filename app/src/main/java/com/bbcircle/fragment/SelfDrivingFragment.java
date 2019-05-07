@@ -194,11 +194,15 @@ public class SelfDrivingFragment extends BaseFragment {
                 });
                 SimpleDraweeView img2 = (SimpleDraweeView) holder.getView(R.id.img2);
                 TextView name1 = (TextView) holder.getView(R.id.bottom1);
+                TextView tv_num = (TextView) holder.getView(R.id.tv_num);
+                TextView tv_time = (TextView) holder.getView(R.id.tv_time);
                 TextView name2 = (TextView) holder.getView(R.id.bottom2);
                 TextView tv_title = (TextView) holder.getView(R.id.name2);
                 //ImageView iv_video = (ImageView) holder.getView(R.id.iv_video);
                 name2.setText(carShow.getCommentNum() + "回帖");
                 name1.setText(carShow.getName());
+                tv_num.setText("已报名："+carShow.getEnterNum()+"人");
+                tv_time.setText("时间："+carShow.getStartTime().substring(0,10)+"至"+carShow.getEndTime().substring(0,10));
                 tv_title.setText(carShow.getTitle());
                 //iv_video.setVisibility(View.GONE);
                 if (!TextUtils.isEmpty(carShow.getImage()))

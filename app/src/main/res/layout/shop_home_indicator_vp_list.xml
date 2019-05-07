@@ -36,31 +36,46 @@
             android:layout_toLeftOf="@id/customerServiceBtn"
             android:layout_toRightOf="@id/shopIcon"
             android:paddingLeft="10dp">
-
             <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/shopName"
+                android:layout_height="wrap_content">
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="糖心车轮"
-                    android:textColor="@color/black_33"
-                    android:textSize="14sp" />
+                    android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/tv_grade"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="5dp"
-                    android:background="@color/yellow_64"
+                    <TextView
+                        android:id="@+id/shopName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="糖心车轮"
+                        android:textColor="@color/black_33"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_grade"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@color/yellow_64"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+                </LinearLayout> 
+                <com.coorchice.library.SuperTextView
+                    android:textSize="10dp"
+                    app:corner="3dp"
+                    android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="1"
                     android:textColor="@color/white"
-                    android:textSize="10sp" />
+                    android:text="加好友"
+                    android:background="@color/yellow_02"
+                    android:layout_width="45dp"
+                    android:layout_height="18dp" />
             </LinearLayout>
+            
 
             <LinearLayout
                 android:id="@+id/ll_head"
@@ -148,9 +163,87 @@
         </LinearLayout>
     </RelativeLayout>
 
+    <LinearLayout
 
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@mipmap/location_gray_icon"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp" />
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="永平路136号"
+                    android:textColor="@color/gray_99"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/time_gray_icon"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp" />
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="营业时间：8:00-18:30"
+                    android:textColor="@color/gray_99"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_map"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="导航"
+                android:textColor="@color/gray_99"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_dis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4.38km"
+                android:textColor="@color/yellow_77" />
+        </LinearLayout>
+
+    </LinearLayout>
     <com.flyco.tablayout.SlidingTabLayout
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="5dp"
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"

@@ -652,13 +652,22 @@ public class GoodDetailFragment extends BaseFragment {
                 attenAddressToast();
                 break;
             case R.id.toCustomServiceBtn:
-                RongIM.getInstance().startPrivateChat(getContext(),mGoodDetail.getBabyMerchantId(),mGoodDetail.getBabyMerchantName());
+                if(MyApplication.isLogin){
+                    RongIM.getInstance().startPrivateChat(getContext(),mGoodDetail.getBabyMerchantId(),mGoodDetail.getBabyMerchantName());
+                }else{
+                    startActivity(new Intent(getContext(),RegisterActivity.class));
+                }
+
                 break;
             case R.id.toShopDetailBtn:
+                if(MyApplication.isLogin){
+                    Bundle bundle2=new Bundle();
+                    bundle2.putString("id",mGoodDetail.getBabyMerchantId());
+                    ActivityAnimationUtils.commonTransition(getActivity(), ShopMainListActivity.class, ActivityConstans.Animation.FADE,bundle2);
+                }else{
+                    startActivity(new Intent(getContext(),RegisterActivity.class));
+                }
 
-                Bundle bundle2=new Bundle();
-                bundle2.putString("id",mGoodDetail.getBabyMerchantId());
-                ActivityAnimationUtils.commonTransition(getActivity(), ShopMainListActivity.class, ActivityConstans.Animation.FADE,bundle2);
                 break;
             case R.id.submitBtn:
                 if (MyApplication.isLogin) {
@@ -675,6 +684,9 @@ public class GoodDetailFragment extends BaseFragment {
             case R.id.ll_carshop:
                 if (MyApplication.isLogin)
                     addToShopCar();
+                else{
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
                 break;
         }
     }

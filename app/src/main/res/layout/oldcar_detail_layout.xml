@@ -38,7 +38,7 @@
                      android:background="@color/white"
                      android:orientation="vertical"
                      android:paddingBottom="16dp"
-                     android:paddingLeft="10dp"
+                     android:paddingLeft="15dp"
                      android:paddingRight="24dp"
                      android:paddingTop="16dp">
 
@@ -146,7 +146,7 @@
 
 
                  <LinearLayout
-                     android:visibility="gone"
+                    android:visibility="gone"
                      android:id="@+id/ll_shop"
                      android:layout_marginTop="10dp"
                      android:layout_width="match_parent"
@@ -155,9 +155,12 @@
                      android:padding="10dp"
                      android:orientation="vertical">
                      <RelativeLayout
+                         android:paddingRight="15dp"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content">
                          <LinearLayout
+                             android:layout_marginLeft="10dp"
+                             android:layout_centerVertical="true"
                              android:layout_marginRight="20dp"
                              android:layout_toLeftOf="@id/ll_head"
                              android:orientation="vertical"
@@ -186,28 +189,10 @@
                                      android:layout_height="20dp"
                                      android:text="1" />
                              </LinearLayout>
-                             <LinearLayout
-                                 android:gravity="center_vertical"
-                                 android:layout_marginTop="5dp"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:orientation="horizontal">
-                                 <ImageView
-                                     android:src="@mipmap/location_gray_icon"
-                                     android:layout_width="12dp"
-                                     android:layout_height="15dp" />
-                                 <TextView
-                                     android:id="@+id/tv_address"
-                                     android:textColor="@color/gray_99"
-                                     android:layout_marginLeft="10dp"
-                                     android:textSize="12sp"
-                                     android:layout_width="wrap_content"
-                                     android:layout_height="wrap_content"
-                                     android:text="昆明市滇池路542号（滇池路与日新路交叉口）" />
 
-                             </LinearLayout>
                          </LinearLayout>
                          <LinearLayout
+
                              android:gravity="center_horizontal"
                              android:id="@+id/ll_head"
                              android:layout_alignParentRight="true"
@@ -227,7 +212,85 @@
                                  android:layout_height="wrap_content" />
                          </LinearLayout>
                      </RelativeLayout>
+                     <LinearLayout
 
+                         android:layout_marginTop="5dp"
+                         android:layout_width="match_parent"
+                         android:layout_height="65dp"
+                         android:background="@color/white"
+                         android:orientation="horizontal">
+
+                         <LinearLayout
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content"
+                             android:layout_weight="9"
+                             android:orientation="vertical"
+                             android:padding="10dp">
+                             <LinearLayout
+                                 android:gravity="center_vertical"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content">
+                                 <ImageView
+                                     android:src="@mipmap/location_gray_icon"
+                                     android:layout_width="10dp"
+                                     android:layout_height="10dp" />
+                                 <TextView
+                                     android:layout_marginLeft="5dp"
+                                     android:id="@+id/tv_address"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:text="永平路136号"
+                                     android:textColor="@color/gray_99"
+                                     android:textSize="12sp" />
+                             </LinearLayout>
+                             <LinearLayout
+                                 android:layout_marginTop="10dp"
+                                 android:gravity="center_vertical"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content">
+                                 <ImageView
+                                     android:scaleType="centerCrop"
+                                     android:src="@mipmap/time_gray_icon"
+                                     android:layout_width="10dp"
+                                     android:layout_height="10dp" />
+                                 <TextView
+                                     android:layout_marginLeft="5dp"
+                                     android:id="@+id/tv_time"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:text="营业时间：8:00-18:30"
+                                     android:textColor="@color/gray_99"
+                                     android:textSize="12sp" />
+                             </LinearLayout>
+
+
+                         </LinearLayout>
+
+                         <LinearLayout
+                             android:id="@+id/ll_map"
+                             android:layout_width="0dp"
+                             android:layout_height="match_parent"
+                             android:layout_weight="2"
+                             android:background="@color/white"
+                             android:gravity="center"
+                             android:orientation="vertical">
+
+                             <TextView
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:text="导航"
+                                 android:textColor="@color/gray_99"
+                                 android:textSize="14sp" />
+
+                             <TextView
+                                 android:id="@+id/tv_distance"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:text="4.38km"
+                                 android:textColor="@color/yellow_77" />
+                         </LinearLayout>
+
+                     </LinearLayout>
                      <LinearLayout
                          android:layout_marginTop="15dp"
                          android:background="@color/white"
@@ -236,7 +299,7 @@
                          android:layout_height="40dp">
                          <TextView
                              android:id="@+id/tv_sale"
-                             android:textSize="10sp"
+                             android:textSize="14sp"
                              android:gravity="center"
                              android:layout_weight="1"
                              android:textColor="@color/black_33"

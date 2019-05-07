@@ -73,7 +73,7 @@ public class NewWashRepairActivity extends AppCompatActivity implements Dropdown
     String area;
     int orderByClause = 1;
     int page = 1;
-    int type=1;
+    int type = 1;
 
     boolean isLoadMore = false;
     @BindView(R.id.mask)
@@ -87,17 +87,23 @@ public class NewWashRepairActivity extends AppCompatActivity implements Dropdown
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_wash_repair);
         ButterKnife.bind(this);
-        type=getIntent().getIntExtra("type",0);
+        type = getIntent().getIntExtra("type", 0);
         ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
 
     private void initView() {
-        if(type==1){
+        if (type == 1) {
             title.setText("洗车店");
-        }else{
+        } else {
             title.setText("修车店");
         }
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         initDropDownMenu();
         initAdapter();
         getData();
@@ -184,7 +190,7 @@ public class NewWashRepairActivity extends AppCompatActivity implements Dropdown
             params.put("area", area);
         params.put("longitude", MyApplication.getaMapLocation().getLongitude());
         params.put("latitude", MyApplication.getaMapLocation().getLatitude());
-        Log.e("params",params.toString());
+        Log.e("params", params.toString());
         HttpProxy.obtain().get(PlatformContans.CarWashRepairShop.getCarWashRepairShopListByApp, params, "", new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -265,7 +271,7 @@ public class NewWashRepairActivity extends AppCompatActivity implements Dropdown
         chooseLanguageData.add(new DropdownItemObject("距离最近", 0, "距离最近"));
         chooseLanguageData.add(new DropdownItemObject("评分优先", 1, "评分优先"));
         chooseLanguageData.add(new DropdownItemObject("等级优先", 2, "等级优先"));
-        chooseLanguageData.add(new DropdownItemObject("订单优先", 3, "订单优先"));
+        chooseLanguageData.add(new DropdownItemObject("销量优先", 3, "销量优先"));
         dropdownLanguage.bind(chooseLanguageData, chooseLanguage, this, 0);
     }
 
@@ -318,15 +324,12 @@ public class NewWashRepairActivity extends AppCompatActivity implements Dropdown
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                CarShop carShop= (CarShop) adapter.getItem(position);
-                Intent intent=new Intent(NewWashRepairActivity.this,NewWashrepairDetailActivity.class);
+                CarShop carShop = (CarShop) adapter.getItem(position);
+                Intent intent = new Intent(NewWashRepairActivity.this, NewWashrepairDetailActivity.class);
                 intent.putExtra("id", carShop.getId());
-                intent.putExtra("type",type);
-                if (MyApplication.isLogin)
-                    startActivity(intent);
-                else {
-                    startActivity(new Intent(NewWashRepairActivity.this, RegisterActivity.class));
-                }
+                intent.putExtra("type", type);
+                startActivity(intent);
+
             }
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

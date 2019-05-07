@@ -75,7 +75,7 @@
                         android:textSize="18sp"
                         android:textColor="@color/white"
                         android:layout_centerVertical="true"
-                        android:text="好友圈"
+                        android:text="宝友圈"
                         android:layout_toRightOf="@id/iv_back"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />

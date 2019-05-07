@@ -48,6 +48,16 @@ public class SelfDrive implements Serializable{
     private String endTime;
     private String headPortrait;
     private int id;
+    private int enterNum;
+
+    public int getEnterNum() {
+        return enterNum;
+    }
+
+    public void setEnterNum(int enterNum) {
+        this.enterNum = enterNum;
+    }
+
     private String image;
     private String name;
     private int readNum;
