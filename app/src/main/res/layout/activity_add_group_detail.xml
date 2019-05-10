@@ -44,7 +44,7 @@
                 android:layout_marginLeft="15dp"
                 android:src="@mipmap/login_img_icon"
                 android:layout_centerVertical="true"
-                android:layout_width="30dp"
+                android:layout_width="40dp"
                 android:layout_height="40dp" />
             <TextView
                 android:id="@+id/chatname"

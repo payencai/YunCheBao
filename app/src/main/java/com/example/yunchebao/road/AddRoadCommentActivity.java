@@ -237,11 +237,14 @@ public class AddRoadCommentActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick({R.id.tv_submit})
+    @OnClick({R.id.tv_submit,R.id.back})
     void Onclick(View view) {
         switch (view.getId()) {
             case R.id.tv_submit:
                 addComment();
+                break;
+            case R.id.back:
+                finish();
                 break;
         }
     }

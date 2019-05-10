@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
@@ -45,7 +46,15 @@ import java.util.Map;
 
 import io.rong.callkit.util.SPUtils;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Message;
+import io.rong.imlib.model.MessageContent;
 import io.rong.imlib.model.UserData;
+import io.rong.message.FileMessage;
+import io.rong.message.ImageMessage;
+import io.rong.message.RichContentMessage;
+import io.rong.message.TextMessage;
+import io.rong.message.VoiceMessage;
 
 
 import static android.provider.UserDictionary.Words.APP_ID;
@@ -127,6 +136,94 @@ public class MyApplication extends Application {
         super.onCreate();
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext()))) {
             RongIM.init(this);
+            RongIM.getInstance().setSendMessageListener(new RongIM.OnSendMessageListener() {
+                @Override
+                public Message onSend(Message message) {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("userId", MyApplication.getUserInfo().getId());
+                    params.put("nickName", MyApplication.getUserInfo().getName());
+                    params.put("avatar", MyApplication.getUserInfo().getHeadPortrait());
+                    String extra = new Gson().toJson(params);
+                    MessageContent messageContent = message.getContent();
+
+                    if (messageContent instanceof TextMessage) {//文本消息
+                        TextMessage textMessage = (TextMessage) messageContent;
+                        textMessage.setExtra(extra);
+                        message.setContent(textMessage);
+                        Log.d(TAG, "onSent-TextMessage:" + textMessage.getContent());
+                    } else if (messageContent instanceof ImageMessage) {//图片消息
+                        ImageMessage imageMessage = (ImageMessage) messageContent;
+                        imageMessage.setExtra(extra);
+                        message.setContent(imageMessage);
+                        Log.d(TAG, "onSent-ImageMessage:" + imageMessage.getRemoteUri());
+                    } else if (messageContent instanceof VoiceMessage) {//语音消息
+                        VoiceMessage voiceMessage = (VoiceMessage) messageContent;
+                        voiceMessage.setExtra(extra);
+                        message.setContent(voiceMessage);
+                        Log.d(TAG, "onSent-voiceMessage:" + voiceMessage.getUri().toString());
+                    } else if (messageContent instanceof RichContentMessage) {//图文消息
+                        RichContentMessage richContentMessage = (RichContentMessage) messageContent;
+                        richContentMessage.setExtra(extra);
+                        message.setContent(richContentMessage);
+                        Log.d(TAG, "onSent-RichContentMessage:" + richContentMessage.getContent());
+                    } else {
+
+                    }
+                    return message;
+                }
+
+                @Override
+                public boolean onSent(Message message, RongIM.SentMessageErrorCode sentMessageErrorCode) {
+                    return false;
+                }
+            });
+            RongIM.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
+                @Override
+                public boolean onReceived(Message message, int i) {
+                    String extra = "";
+                    MessageContent messageContent = message.getContent();
+                    if (messageContent instanceof TextMessage) {//文本消息
+                        TextMessage textMessage = (TextMessage) messageContent;
+                        extra = textMessage.getExtra();
+                        Log.d(TAG, "onSent-TextMessage:" + textMessage.getContent());
+                    } else if (messageContent instanceof ImageMessage) {//图片消息
+                        ImageMessage imageMessage = (ImageMessage) messageContent;
+                        extra = imageMessage.getExtra();
+                        Log.d(TAG, "onSent-ImageMessage:" + imageMessage.getRemoteUri());
+                    } else if (messageContent instanceof VoiceMessage) {//语音消息
+                        VoiceMessage voiceMessage = (VoiceMessage) messageContent;
+                        extra = voiceMessage.getExtra();
+                        Log.d(TAG, "onSent-voiceMessage:" + voiceMessage.getUri().toString());
+                    } else if (messageContent instanceof RichContentMessage) {//图文消息
+                        RichContentMessage richContentMessage = (RichContentMessage) messageContent;
+                        extra = richContentMessage.getExtra();
+                        Log.d(TAG, "onSent-RichContentMessage:" + richContentMessage.getContent());
+                    } else {
+
+                    }
+                    if (!TextUtils.isEmpty(extra)) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(extra);
+                            String userid = jsonObject.getString("userId");
+                            String username = jsonObject.getString("nickName");
+                            String avatar = jsonObject.getString("avatar");
+                            avatar = avatar.replaceAll("\\\\", "");
+                            String finalAvatar = avatar;
+                            Log.e("extra", extra);
+                            RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+                                @Override
+                                public io.rong.imlib.model.UserInfo getUserInfo(String s) {
+                                    io.rong.imlib.model.UserInfo userInfo = new io.rong.imlib.model.UserInfo(userid, username, Uri.parse(finalAvatar));
+                                    return userInfo;
+                                }
+                            }, true);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    return true;
+                }
+            });
         }
         CrashReport.initCrashReport(getApplicationContext(), "65aa547f35", true); // bugly
         context = getApplicationContext();

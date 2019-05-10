@@ -1,4 +1,4 @@
-package com.yuedan.model;
+package com.example.yunchebao.yuedan.model;
 
 /**
  * 作者：凌涛 on 2019/2/26 11:13

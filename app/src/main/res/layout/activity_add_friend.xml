@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#efefef"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.rongcloud.activity.AddFriendActivity">
@@ -25,26 +26,226 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/rl_search"
-        android:background="@color/white"
+    <LinearLayout
         android:layout_marginTop="5dp"
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
-        <ImageView
-            android:layout_marginRight="5dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:layout_toLeftOf="@+id/tv_search"
-            android:src="@mipmap/search_icon"
-            android:layout_width="15dp"
-            android:layout_height="20dp" />
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/rl_search"
+            android:background="@drawable/grey_shape"
+            android:layout_margin="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_marginRight="5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+
+                    android:src="@mipmap/search_icon"
+                    android:layout_width="15dp"
+                    android:layout_height="20dp" />
+                <TextView
+                    android:textSize="12sp"
+
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/gray_99"
+                    android:text="搜索用户账号"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+    <View
+        android:background="#f3f3f3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
+
+    </View>
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
         <TextView
-            android:id="@+id/tv_search"
-            android:layout_centerInParent="true"
-            android:textColor="@color/gray_99"
-            android:text="搜索用户账号"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
+            android:textColor="@color/white"
+            android:id="@+id/tv_nosex"
+            android:background="@drawable/shape_bg_button_unpress"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:text="不限"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_man"
+            android:textColor="@color/black_33"
+            android:background="@drawable/shape_bg_button_unpress"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:text="男"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <View
+            android:background="#f3f3f3"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"></View>
+        <TextView
+            android:id="@+id/tv_women"
+
+            android:textColor="@color/black_33"
+            android:background="@drawable/shape_bg_button_unpress"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:text="女"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+     <LinearLayout
+         android:layout_marginTop="5dp"
+         android:orientation="vertical"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent">
+         <RelativeLayout
+             android:id="@+id/rl_age"
+             android:background="@color/white"
+             android:layout_width="match_parent"
+             android:layout_height="55dp">
+             <TextView
+                 android:layout_marginLeft="15dp"
+                 android:layout_centerVertical="true"
+                 android:textSize="16sp"
+                 android:textColor="@color/black_33"
+                 android:text="年龄"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content" />
+             <LinearLayout
+                 android:gravity="center_vertical"
+                 android:layout_marginRight="10dp"
+                 android:layout_alignParentRight="true"
+                 android:layout_centerVertical="true"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content">
+                 <TextView
+                     android:id="@+id/tv_age"
+                     android:layout_marginRight="10dp"
+                     android:layout_marginLeft="15dp"
+                     android:layout_centerVertical="true"
+                     android:textSize="16sp"
+                     android:textColor="@color/black_33"
+                     android:text="不限"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content" />
+                 <ImageView
+
+                     android:src="@mipmap/enter"
+                     android:layout_width="10dp"
+                     android:layout_height="10dp" />
+             </LinearLayout>
+         </RelativeLayout>
+         <View
+             android:background="#f3f3f3"
+             android:layout_width="match_parent"
+             android:layout_height="1dp"></View>
+         <RelativeLayout
+             android:id="@+id/rl_city"
+             android:background="@color/white"
+             android:layout_width="match_parent"
+             android:layout_height="55dp">
+             <TextView
+                 android:layout_marginLeft="15dp"
+                 android:layout_centerVertical="true"
+                 android:textSize="16sp"
+                 android:textColor="@color/black_33"
+                 android:text="所在地"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content" />
+             <LinearLayout
+                 android:gravity="center_vertical"
+                 android:layout_marginRight="10dp"
+                 android:layout_alignParentRight="true"
+                 android:layout_centerVertical="true"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content">
+                 <TextView
+                     android:id="@+id/tv_city"
+                     android:layout_marginRight="10dp"
+                     android:layout_marginLeft="15dp"
+                     android:layout_centerVertical="true"
+                     android:textSize="16sp"
+                     android:textColor="@color/black_33"
+                     android:text="不限"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content" />
+                 <ImageView
+
+                     android:src="@mipmap/enter"
+                     android:layout_width="10dp"
+                     android:layout_height="10dp" />
+             </LinearLayout>
+         </RelativeLayout>
+         <View
+             android:background="#f3f3f3"
+             android:layout_width="match_parent"
+             android:layout_height="1dp"></View>
+         <RelativeLayout
+             android:id="@+id/rl_car"
+             android:background="@color/white"
+             android:layout_width="match_parent"
+             android:layout_height="55dp">
+             <TextView
+                 android:layout_marginLeft="15dp"
+                 android:layout_centerVertical="true"
+                 android:textSize="16sp"
+                 android:textColor="@color/black_33"
+                 android:text="车辆"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content" />
+             <LinearLayout
+                 android:gravity="center_vertical"
+                 android:layout_marginRight="10dp"
+                 android:layout_alignParentRight="true"
+                 android:layout_centerVertical="true"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content">
+                 <TextView
+                     android:id="@+id/tv_car"
+                     android:layout_marginRight="10dp"
+                     android:layout_marginLeft="15dp"
+                     android:layout_centerVertical="true"
+                     android:textSize="16sp"
+                     android:textColor="@color/black_33"
+                     android:text="不限"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content" />
+                 <ImageView
+
+                     android:src="@mipmap/enter"
+                     android:layout_width="10dp"
+                     android:layout_height="10dp" />
+             </LinearLayout>
+         </RelativeLayout>
+         <View
+             android:background="#f3f3f3"
+             android:layout_width="match_parent"
+             android:layout_height="1dp"></View>
+
+         <TextView
+             android:id="@+id/tv_search"
+             android:layout_margin="20dp"
+             android:background="#F3CA65"
+             android:gravity="center"
+             android:text="搜索"
+             android:textColor="@color/white"
+             android:textSize="16sp"
+             android:layout_width="match_parent"
+             android:layout_height="40dp" />
+     </LinearLayout>
 </LinearLayout>

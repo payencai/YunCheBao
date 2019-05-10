@@ -70,7 +70,7 @@ import com.tool.ActivityConstans;
 import com.example.yunchebao.washrepair.NewWashRepairActivity;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
-import com.yuedan.YuedanHomeActivity;
+import com.example.yunchebao.yuedan.YuedanHomeActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

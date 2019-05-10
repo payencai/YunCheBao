@@ -7,11 +7,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.MyApplication;
@@ -37,14 +40,29 @@ import com.zyyoona7.popup.EasyPopup;
 import com.zyyoona7.popup.XGravity;
 import com.zyyoona7.popup.YGravity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.rong.imkit.RongIM;
+import io.rong.imkit.manager.IUnReadMessageObserver;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.imlib.model.MessageContent;
+import io.rong.message.ImageMessage;
+import io.rong.message.RichContentMessage;
+import io.rong.message.TextMessage;
+import io.rong.message.VoiceMessage;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AnotherBabyFragment extends Fragment {
 
-
+    @BindView(R.id.tv_unread)
+    TextView tv_unread;
     public AnotherBabyFragment() {
         // Required empty public constructor
     }
@@ -113,7 +131,6 @@ public class AnotherBabyFragment extends Fragment {
                 }
             }
         });
-
         view.findViewById(R.id.ll_item7).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,7 +180,36 @@ public class AnotherBabyFragment extends Fragment {
                 initWindow(v);
             }
         });
+        RongIM.getInstance().addUnReadMessageCountChangedObserver(new IUnReadMessageObserver() {
+            @Override
+            public void onCountChanged(int i) {
+
+                tv_unread.setText(i+"");
+                if(i>0)
+                    tv_unread.setVisibility(View.VISIBLE);
+                else{
+                    tv_unread.setVisibility(View.GONE);
+                }
+            }
+        }, Conversation.ConversationType.PRIVATE);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        RongIM.getInstance().addUnReadMessageCountChangedObserver(new IUnReadMessageObserver() {
+            @Override
+            public void onCountChanged(int i) {
+                tv_unread.setText(i+"");
+                if(i>0)
+                    tv_unread.setVisibility(View.VISIBLE);
+                else{
+                    tv_unread.setVisibility(View.GONE);
+                }
+            }
+        }, Conversation.ConversationType.PRIVATE);
+
     }
 
     @Override

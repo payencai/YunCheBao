@@ -7,7 +7,7 @@
     android:background="@color/gray_ee"
     android:orientation="vertical">
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -258,17 +258,13 @@
                     android:text="添加图片"
                     android:textColor="@color/black_33"
                     android:textSize="14sp" />
-                <GridView
+                <com.tool.view.GridViewForScrollView
                     android:id="@+id/gv_pic"
                     android:layout_marginTop="5dp"
                     android:numColumns="4"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></GridView>
-                <ImageView
-                    android:id="@+id/iv_pic"
-                    android:src="@mipmap/camera_default"
-                    android:layout_width="70dp"
-                    android:layout_height="60dp" />
+                    android:layout_height="wrap_content"></com.tool.view.GridViewForScrollView>
+
                 <TextView
                     android:layout_marginTop="5dp"
                     android:layout_width="wrap_content"
@@ -530,7 +526,7 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <RelativeLayout
         android:layout_width="match_parent"

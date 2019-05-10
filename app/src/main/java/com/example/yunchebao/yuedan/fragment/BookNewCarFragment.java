@@ -1,4 +1,4 @@
-package com.yuedan.fragment;
+package com.example.yunchebao.yuedan.fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -16,7 +16,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.application.MyApplication;
 import com.coorchice.library.SuperTextView;
@@ -28,6 +27,9 @@ import com.nohttp.sample.BaseFragment;
 import com.payencai.library.util.ToastUtil;
 import com.tool.WheelView;
 import com.xihubao.CarBrandSelectActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -180,13 +182,25 @@ public class BookNewCarFragment extends BaseFragment {
         params.put("detail",detail);
         params.put("longitude", MyApplication.getaMapLocation().getLongitude());
         params.put("latitude",MyApplication.getaMapLocation().getLatitude());
-        params.put("shopNumber",num);
+        params.put("shopNumber",tv_num.getText().toString());
         params.put("range",Integer.parseInt(et_note.getEditableText().toString()));
         Log.e("parmas",params.toString());
         HttpProxy.obtain().post(PlatformContans.Appointment.addNewCarAppointment, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Toast.makeText(getContext(),"发布成功",Toast.LENGTH_LONG).show();
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    int code=jsonObject.getInt("resultCode");
+                    String msg=jsonObject.getString("message");
+                    if(code==0){
+                        ToastUtil.showToast(getContext(),"发布成功！");
+                    }else{
+                        ToastUtil.showToast(getContext(),msg);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                Toast.makeText(getContext(),"发布成功",Toast.LENGTH_LONG).show();
                 Log.e("result",result);
             }
 

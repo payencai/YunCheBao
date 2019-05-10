@@ -1,12 +1,10 @@
-package com.yuedan.fragment;
+package com.example.yunchebao.yuedan.fragment;
 
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,9 +26,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.MyApplication;
-import com.bbcircle.CarsShowRepublishActivity;
-import com.bbcircle.SelfDrivingRepublishActivity;
-import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.http.HttpProxy;
@@ -44,30 +39,22 @@ import com.system.model.AddressBean;
 import com.tool.FileUtil;
 import com.tool.GlideImageEngine;
 import com.tool.WheelView;
-import com.vipcenter.OrderCommentSubmitActivity;
 import com.vipcenter.RegisterActivity;
 import com.xihubao.CarBrandSelectActivity;
-import com.yuedan.adapter.ImageAdapter;
+import com.example.yunchebao.yuedan.adapter.ImageAdapter;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
-import com.zhihu.matisse.internal.entity.IncapableCause;
-import com.zhihu.matisse.internal.entity.Item;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

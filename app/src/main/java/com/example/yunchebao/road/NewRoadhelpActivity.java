@@ -84,7 +84,12 @@ public class NewRoadhelpActivity extends AppCompatActivity implements DropdownLi
     }
 
     private void initView() {
-
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         initDropDownMenu();
         initAdapter();
         getData();

@@ -133,7 +133,21 @@
                         android:textSize="10dp" />
 
                 </FrameLayout>
+                <TextView
 
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/tv_unread"
+                    android:textSize="10sp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/shape_unread"
+                    android:layout_centerVertical="true"
+
+                    android:layout_width="16dp"
+                    android:layout_height="16dp" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="0dp"

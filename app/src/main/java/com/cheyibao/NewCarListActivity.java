@@ -2,6 +2,9 @@ package com.cheyibao;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +16,9 @@ import android.widget.TextView;
 import com.application.MyApplication;
 import com.baike.adapter.CarListAdapter;
 import com.caryibao.NewCar;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.adapter.CarCommomAdapter;
+import com.cheyibao.adapter.NewcarListAdapter;
 import com.cheyibao.model.NewCarMenu;
 import com.cheyibao.view.PriceSelectWindow;
 import com.cheyibao.view.TypeSelectWindow;
@@ -24,6 +29,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.view.GridViewForScrollView;
@@ -49,19 +57,22 @@ import co.lujun.androidtagview.TagView;
  */
 
 public class NewCarListActivity extends NoHttpBaseActivity {
-    private List<NewCar> list;
-    private CarListAdapter adapter;
+    private List<NewCar> mNewCars;
+    NewcarListAdapter mAdapter;
     NewCarMenu mNewCarMenu;
-    @BindView(R.id.listview)
-    PullToRefreshListView refreshListView;
-    ListView listView;
+    @BindView(R.id.rv_car)
+    RecyclerView rv_car;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout  mRefreshLayout;
     int page = 1;
+    boolean isLoadMore=false;
     @BindView(R.id.rule_line_tv)
     TextView topLineTv;
     @BindView(R.id.cityName)
     TextView cityName;
     List<String> tagStrList;
-    private TagContainerLayout mTagContainerLayout;
+    @BindView(R.id.tagcontainerLayout)
+    TagContainerLayout mTagContainerLayout;
     @BindView(R.id.menu1)
     TextView menuText1;
     @BindView(R.id.ll_select)
@@ -95,6 +106,7 @@ public class NewCarListActivity extends NoHttpBaseActivity {
             mNewCarMenu = (NewCarMenu) bundle.getSerializable("menu");
             mCarBrand = (CarBrand) bundle.getSerializable("brand");
         }
+        ButterKnife.bind(this);
         initView();
     }
 
@@ -141,17 +153,30 @@ public class NewCarListActivity extends NoHttpBaseActivity {
         HttpProxy.obtain().get(PlatformContans.NewCar.getNewCarMerchantMessage, params, "", new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+                mRefreshLayout.finishRefresh();
                 Log.e("getnewcar", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     jsonObject = jsonObject.getJSONObject("data");
                     JSONArray data = jsonObject.getJSONArray("beanList");
+                    List<NewCar>  newCars=new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
-                        NewCar baikeItem = new Gson().fromJson(item.toString(), NewCar.class);
-                        list.add(baikeItem);
+                        NewCar newCar = new Gson().fromJson(item.toString(), NewCar.class);
+                        mNewCars.add(newCar);
+                        newCars.add(newCar);
                     }
-                    adapter.notifyDataSetChanged();
+                    if(isLoadMore){
+                        isLoadMore=false;
+                        if(data.length()==0){
+                            mAdapter.loadMoreEnd(true);
+                        }else{
+                            mAdapter.addData(newCars);
+                            mAdapter.loadMoreComplete();
+                        }
+                    }else{
+                        mAdapter.setNewData(mNewCars);
+                    }
 
 
                 } catch (JSONException e) {
@@ -227,13 +252,6 @@ public class NewCarListActivity extends NoHttpBaseActivity {
         if (!TextUtils.isEmpty(money)) {
             tagStrList.add(money);
         }
-    }
-
-    private void initView() {
-        ButterKnife.bind(this);
-
-        initTag();
-        mTagContainerLayout = (TagContainerLayout) findViewById(R.id.tagcontainerLayout);
         mTagContainerLayout.setTags(tagStrList);
         mTagContainerLayout.setOnTagClickListener(new TagView.OnTagClickListener() {
 
@@ -289,29 +307,51 @@ public class NewCarListActivity extends NoHttpBaseActivity {
                 if (text.equals(models)) {
                     models = "";
                 }
-                page = 1;
-                list.clear();
-                getData();
+                refreshAllData();
 
             }
         });
+    }
+    private void refreshAllData(){
+        page=1;
+        mNewCars.clear();
+        mAdapter.setNewData(mNewCars);
+        getData();
+    }
 
-        listView = refreshListView.getRefreshableView();
-        listView.setDivider(getResources().getDrawable(R.color.gray_cc));
-        listView.setDividerHeight(1);
-        list = new ArrayList<>();
-        adapter = new CarListAdapter(this, list);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    private void initRecycleview(){
+        mNewCars = new ArrayList<>();
+        mAdapter = new NewcarListAdapter(mNewCars);
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                position--;
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                NewCar newCar= (NewCar) adapter.getItem(position);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("data", list.get(position));
+                bundle.putSerializable("data", newCar);
                 ActivityAnimationUtils.commonTransition(NewCarListActivity.this, NewCarDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
             }
         });
+        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                page++;
+                isLoadMore=true;
+                getData();
+            }
+        },rv_car);
+        rv_car.setLayoutManager(new LinearLayoutManager(this));
+        rv_car.setAdapter(mAdapter);
+    }
+    private void initView() {
         cityName.setText(MyApplication.getaMapLocation().getCity());
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                refreshAllData();
+            }
+        });
+        initTag();
+        initRecycleview();
         getData();
     }
 
@@ -349,9 +389,7 @@ public class NewCarListActivity extends NoHttpBaseActivity {
                     tagStrList.add("价格最低");
                 }
                 mTagContainerLayout.setTags(tagStrList);
-                page = 1;
-                list.clear();
-                getData();
+                refreshAllData();
 
 
             }
@@ -378,9 +416,7 @@ public class NewCarListActivity extends NoHttpBaseActivity {
                     tagStrList.add("价格最高");
                 }
                 mTagContainerLayout.setTags(tagStrList);
-                page = 1;
-                list.clear();
-                getData();
+                refreshAllData();
             }
         });
         tv_carage.setOnClickListener(new View.OnClickListener() {
@@ -405,9 +441,7 @@ public class NewCarListActivity extends NoHttpBaseActivity {
                     tagStrList.add("车龄最短");
                 }
                 mTagContainerLayout.setTags(tagStrList);
-                page = 1;
-                list.clear();
-                getData();
+                refreshAllData();
             }
         });
         tv_dis.setOnClickListener(new View.OnClickListener() {
@@ -432,9 +466,7 @@ public class NewCarListActivity extends NoHttpBaseActivity {
                     tagStrList.add("里程最少");
                 }
                 mTagContainerLayout.setTags(tagStrList);
-                page = 1;
-                list.clear();
-                getData();
+                refreshAllData();
             }
         });
     }
@@ -455,9 +487,7 @@ public class NewCarListActivity extends NoHttpBaseActivity {
                 tagStrList.add(brand);
             }
             mTagContainerLayout.setTags(tagStrList);
-            page = 1;
-            list.clear();
-            getData();
+            refreshAllData();
         }
         if (requestCode == 2 && data != null) {
             tagStrList.clear();
@@ -501,9 +531,7 @@ public class NewCarListActivity extends NoHttpBaseActivity {
                 tagStrList.add(brand);
             }
             mTagContainerLayout.setTags(tagStrList);
-            page = 1;
-            list.clear();
-            getData();
+            refreshAllData();
         }
     }
 
@@ -600,9 +628,7 @@ public class NewCarListActivity extends NoHttpBaseActivity {
 
                     }
                 }
-                page = 1;
-                list.clear();
-                getData();
+                refreshAllData();
             }
         });
         GridViewForScrollView gridViewForScrollView = (GridViewForScrollView) view.findViewById(R.id.sg_price);
@@ -627,7 +653,6 @@ public class NewCarListActivity extends NoHttpBaseActivity {
                 break;
 
             case R.id.menu1:
-
                 showTypeWindow();
                 break;
             case R.id.menu2:
@@ -646,7 +671,6 @@ public class NewCarListActivity extends NoHttpBaseActivity {
                 firstId = "";
                 startprice = "";
                 startprice = "";
-                page = 1;
                 brand = "";
                 displacement = "";
                 fuel = "";
@@ -655,8 +679,7 @@ public class NewCarListActivity extends NoHttpBaseActivity {
                 seat = "";
                 country = "";
                 models = "";
-                list.clear();
-                getData();
+                refreshAllData();
 
                 break;
         }

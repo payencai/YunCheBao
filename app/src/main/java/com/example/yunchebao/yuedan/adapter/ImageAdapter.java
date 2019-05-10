@@ -1,4 +1,4 @@
-package com.yuedan.adapter;
+package com.example.yunchebao.yuedan.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.amap.api.maps.model.LatLng;
 import com.bumptech.glide.Glide;
 import com.example.yunchebao.R;
 
@@ -45,12 +44,10 @@ public class ImageAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView= LayoutInflater.from(mContext).inflate(R.layout.item_grid_images,null);
         ImageView iv_logo= (ImageView) convertView.findViewById(R.id.iv_logo);
-        ImageView iv_del=convertView.findViewById(R.id.iv_del);
         if(position==0){
-            iv_del.setVisibility(View.GONE);
             iv_logo.setImageResource(R.mipmap.camera_default);
         }else{
-            iv_del.setVisibility(View.VISIBLE);
+
             Glide.with(mContext).load(images.get(position)).into(iv_logo);
         }
 

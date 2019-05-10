@@ -37,6 +37,7 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
 import com.payencai.library.util.ToastUtil;
+import com.rongcloud.activity.AddGroupDetailActivity;
 import com.rongcloud.activity.StrangerDelActivity;
 import com.rongcloud.activity.contact.FriendDetailActivity;
 import com.rongcloud.activity.contact.GroupApplyActivity;
@@ -70,10 +71,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.rong.callkit.util.SPUtils;
 import io.rong.imkit.RongIM;
+import io.rong.imkit.manager.IUnReadMessageObserver;
 import io.rong.imkit.model.GroupUserInfo;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Group;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.MessageContent;
@@ -107,14 +112,15 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
     private TextView tv_tab4;
     private TextView tv_tab5;
 
-
+    @BindView(R.id.tv_unread)
+    TextView tv_unread;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //FitStateUI.setImmersionStateMode(this);
         setContentView(R.layout.activity_main);
         ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
-
+        ButterKnife.bind(this);
         //openGPS(this);
         autoLogin();
     }
@@ -180,6 +186,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
     }
 
     private void initview() {
+
         tab1 = findViewById(R.id.main_fl_1);
         tab2 = findViewById(R.id.main_fl_2);
         tab3 = findViewById(R.id.main_fl_3);
@@ -217,6 +224,18 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         hideAllFragment();
         showFragment(0);
         initListener();
+        RongIM.getInstance().addUnReadMessageCountChangedObserver(new IUnReadMessageObserver() {
+            @Override
+            public void onCountChanged(int i) {
+
+                tv_unread.setText(i+"");
+                if(i>0)
+                    tv_unread.setVisibility(View.VISIBLE);
+                else{
+                    tv_unread.setVisibility(View.GONE);
+                }
+            }
+        }, Conversation.ConversationType.PRIVATE);
     }
 
     private void initListener() {
@@ -429,12 +448,6 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                                                 }
                                             }, true
                 );
-//                RongIM.setGroupUserInfoProvider(new RongIM.GroupUserInfoProvider() {
-//                    @Override
-//                    public GroupUserInfo getGroupUserInfo(String s, String s1) {
-//                        return null;
-//                    }
-//                }, true);
                 RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
                     @Override
                     public io.rong.imlib.model.UserInfo getUserInfo(String s) {
@@ -454,68 +467,8 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                     }
                 }, true);
 
-                RongIM.getInstance().setSendMessageListener(new RongIM.OnSendMessageListener() {
-                    @Override
-                    public Message onSend(Message message) {
-                        Map<String, Object> params = new HashMap<>();
-                        params.put("userId", message.getSenderUserId());
-                        params.put("nickName", MyApplication.getUserInfo().getName());
-                        params.put("avatar", MyApplication.getUserInfo().getHeadPortrait());
-                        String extra = new Gson().toJson(params);
-                        message.setExtra(extra);
-                        return message;
-                    }
 
-                    @Override
-                    public boolean onSent(Message message, RongIM.SentMessageErrorCode sentMessageErrorCode) {
-                        return false;
-                    }
-                });
-                RongIM.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
-                    @Override
-                    public boolean onReceived(Message message, int i) {
 
-                        TextMessage textMessage = (TextMessage) message.getContent();
-//                        FileMessage fileMessage= (FileMessage) message.getContent();
-//                        VoiceMessage voiceMessage= (VoiceMessage) message.getContent();
-//                        ImageMessage imageMessage= (ImageMessage) message.getContent();
-                        String extra = "";
-                        if (textMessage != null) {
-                            extra = textMessage.getExtra();
-                        }
-//                        if(fileMessage!=null){
-//                            extra=fileMessage.getExtra();
-//                        }
-//                        if(imageMessage!=null){
-//                            extra=imageMessage.getExtra();
-//                        }
-//                        if(voiceMessage!=null){
-//                            extra=voiceMessage.getExtra();
-//                        }
-                        if (!TextUtils.isEmpty(extra)) {
-                            try {
-
-                                JSONObject jsonObject = new JSONObject(extra);
-                                String userid = jsonObject.getString("userId");
-                                String username = jsonObject.getString("nickName");
-                                String avatar = jsonObject.getString("avatar");
-                                avatar = avatar.replaceAll("\\\\", "");
-                                String finalAvatar = avatar;
-                                Log.e("extra", extra);
-                                RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
-                                    @Override
-                                    public io.rong.imlib.model.UserInfo getUserInfo(String s) {
-                                        io.rong.imlib.model.UserInfo userInfo = new io.rong.imlib.model.UserInfo(userid, username, Uri.parse(finalAvatar));
-                                        return userInfo;
-                                    }
-                                }, true);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        return true;
-                    }
-                });
 
 
                 //startActivity(new Intent(Re, ChatActivity.class));
@@ -534,7 +487,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
     }
 
     boolean isIn = false;
-
+    //获取群组成员90039d05-4b5e-4381-92a0-8346c6233afc
     private void getGroupData(String id) {
         Map<String, Object> params = new HashMap<>();
         params.put("crowdId", id);
@@ -542,7 +495,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         HttpProxy.obtain().get(PlatformContans.Chat.getCrowdDetailsByCrowdId, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("data", result);
+                Log.e("crowdId", result);
                 try {
                     JSONObject Json = new JSONObject(result);
                     JSONObject data = Json.getJSONObject("data");
@@ -552,8 +505,8 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                     String groupOwnerId = data.getString("crowdUserId");
                     for (int i = 0; i < indexList.length(); i++) {
                         JSONObject item = indexList.getJSONObject(i);
-                        ContactModel contactModel = new ContactModel(item.getString("nickName"));
-                        if (contactModel.getUserId().equals(MyApplication.getUserInfo().getId())) {
+                        ContactModel contactModel = new Gson().fromJson(item.toString(),ContactModel.class);
+                        if (MyApplication.getUserInfo().getId().equals(contactModel.getUserId())) {
                             isIn = true;
                             break;
                         }
@@ -569,7 +522,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                             intent.putExtra("id", id);
                             startActivity(intent);
                         } else {
-                            Intent intent = new Intent(MainActivity.this, GroupApplyActivity.class);
+                            Intent intent = new Intent(MainActivity.this, AddGroupDetailActivity.class);
                             com.rongcloud.model.Group group = new com.rongcloud.model.Group();
                             group.setCrowdName(name);
                             group.setHxCrowdId(id);

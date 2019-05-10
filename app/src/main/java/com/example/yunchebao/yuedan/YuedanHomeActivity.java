@@ -1,43 +1,28 @@
-package com.yuedan;
+package com.example.yunchebao.yuedan;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
 import android.view.View;
 
-import com.cheyibao.fragment.NewCarFragment;
-import com.cheyibao.fragment.OldCarFragment;
-import com.cheyibao.fragment.RentCarFragment;
-import com.cheyibao.fragment.StudyCarFragment;
-import com.costans.PlatformContans;
 import com.example.yunchebao.R;
-import com.nohttp.sample.NoHttpBaseActivity;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
-import com.tool.FileUtil;
 import com.tool.adapter.MyFragmentPagerAdapter;
-import com.yuedan.fragment.BookNewCarFragment;
-import com.yuedan.fragment.BookOldCarFragment;
-import com.yuedan.fragment.BookRepairFragment;
-import com.yuedan.fragment.BookRoadFragment;
-import com.yuedan.fragment.BookWashCarFragment;
-import com.zhihu.matisse.Matisse;
+import com.example.yunchebao.yuedan.fragment.BookNewCarFragment;
+import com.example.yunchebao.yuedan.fragment.BookOldCarFragment;
+import com.example.yunchebao.yuedan.fragment.BookRepairFragment;
+import com.example.yunchebao.yuedan.fragment.BookRoadFragment;
+import com.example.yunchebao.yuedan.fragment.BookWashCarFragment;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import top.zibin.luban.CompressionPredicate;
-import top.zibin.luban.Luban;
-import top.zibin.luban.OnCompressListener;
 
 /**
  * Created by sdhcjhss on 2018/1/22.
@@ -80,8 +65,9 @@ public class YuedanHomeActivity extends NoHttpFragmentBaseActivity {
         mTitleList.add("二手车");
         mTitleList.add("紧急救援");
         mRoadFragment=new BookRoadFragment();
+        mBookRepairFragment=BookRepairFragment.newInstance(2);
         mFragments.add(BookWashCarFragment.newInstance(1));
-        mFragments.add(BookRepairFragment.newInstance(2));
+        mFragments.add(mBookRepairFragment);
         mFragments.add(new BookNewCarFragment());
         mFragments.add(new BookOldCarFragment());
         mFragments.add(mRoadFragment);

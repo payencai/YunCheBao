@@ -34,7 +34,7 @@ import com.tool.FileUtil;
 import com.tool.GlideImageEngine;
 import com.tool.StringUtils;
 import com.xihubao.CarBrandSelectActivity;
-import com.yuedan.adapter.ImageAdapter;
+import com.example.yunchebao.yuedan.adapter.ImageAdapter;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
@@ -143,9 +143,12 @@ public class PubRoadActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick({R.id.rl_cartype, R.id.addressLay, R.id.iv_video,R.id.tv_public})
+    @OnClick({R.id.rl_cartype, R.id.addressLay, R.id.iv_video,R.id.tv_public,R.id.back})
     void OnClick(View view) {
         switch (view.getId()) {
+            case R.id.back:
+                finish();
+                break;
             case R.id.tv_public:
                 addService();
                 break;

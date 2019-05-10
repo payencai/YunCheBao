@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yuedan.fragment.BookRoadFragment">
+    tools:context=".yuedan.fragment.BookRoadFragment">
 
     <LinearLayout
         android:orientation="vertical"

@@ -116,7 +116,7 @@ dependencies {
     implementation 'com.youth.banner:banner:1.4.10'//轮播
     implementation 'cn.yipianfengye.android:zxing-library:2.2'//二维码
     implementation 'com.contrarywind:Android-PickerView:4.1.6'//滚动选择
-    implementation 'liji.library.dev:citypickerview:3.1.13'//城市选择
+    implementation 'liji.library.dev:citypickerview:4.2.1'//城市选择器
     implementation 'com.github.dongjunkun:DropDownMenu:1.0.4'//下拉筛选
     implementation 'com.hyman:flowlayout-lib:1.1.2'//自适应换行布局
     implementation 'com.wang.avi:library:1.0.1'//加载动画

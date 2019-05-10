@@ -1,4 +1,4 @@
-package com.yuedan.fragment;
+package com.example.yunchebao.yuedan.fragment;
 
 
 import android.app.Dialog;
@@ -24,17 +24,14 @@ import android.widget.TextView;
 import com.application.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
-import com.entity.PhoneOrderEntity;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.GoodsOrderDetailActivity;
 import com.maket.GoodsPayActivity;
 import com.payencai.library.util.ToastUtil;
-import com.tool.WheelView;
-import com.yuedan.adapter.YuedanAdapter;
-import com.yuedan.model.YueOrder;
+import com.example.yunchebao.yuedan.adapter.YuedanAdapter;
+import com.example.yunchebao.yuedan.model.YueOrder;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -6,29 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
-import com.application.MyApplication;
-import com.baike.BuyCarListActivity;
-import com.baike.DecorationListActivity;
-import com.baike.MagzineCoverActivity;
-import com.baike.MagzineListActivity;
-import com.baike.MaintainListActivity;
-import com.baike.adapter.ClassifyWikiAdapter;
 import com.baike.fragment.BaikeItemFragment;
 import com.baike.model.ClassifyWiki;
-import com.bbcircle.adapter.VPAndTLAdapter;
 import com.bbcircle.fragment.CarShowFragment;
 import com.bbcircle.fragment.DriverFragment;
 import com.bbcircle.fragment.RacePublishFragment;
@@ -37,34 +24,15 @@ import com.bumptech.glide.Glide;
 
 import com.costans.PlatformContans;
 import com.entity.Banner;
-import com.entity.PhoneMagEntity;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.nohttp.rest.Request;
-import com.nohttp.rest.Response;
 import com.nohttp.sample.BaseFragment;
-import com.nohttp.sample.HttpListener;
-import com.nohttp.tools.HttpJsonClient;
-import com.rongcloud.activity.ChatActivity;
 import com.system.WebviewActivity;
 import com.tool.adapter.MyFragmentPagerAdapter;
-import com.tool.listview.PersonalScrollView;
-import com.tool.listview.PersonalViewPager;
-import com.vipcenter.RegisterActivity;
-import com.vipcenter.UserCenterActivity;
-import com.baike.adapter.MagzineListAdapter;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
-import com.tool.slideshowview.SlideShowView;
-import com.tool.view.ListViewForScrollView;
-import com.vipcenter.model.UserInfo;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
-import com.yuedan.WashCarType;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,7 +45,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
 /**

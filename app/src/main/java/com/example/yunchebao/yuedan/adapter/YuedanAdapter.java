@@ -1,4 +1,4 @@
-package com.yuedan.adapter;
+package com.example.yunchebao.yuedan.adapter;
 
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.yunchebao.R;
-import com.yuedan.model.YueOrder;
+import com.example.yunchebao.yuedan.model.YueOrder;
 
 import java.util.List;
 

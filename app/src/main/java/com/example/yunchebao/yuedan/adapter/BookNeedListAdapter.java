@@ -1,4 +1,4 @@
-package com.yuedan.adapter;
+package com.example.yunchebao.yuedan.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

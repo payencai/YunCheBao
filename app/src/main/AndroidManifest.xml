@@ -304,11 +304,9 @@
         <!-- <activity android:name="com.vipcenter.EnteringActivity" /> -->
         <!-- 约单 -->
         <activity
-            android:name="com.yuedan.YuedanHomeActivity"
+            android:name=".yuedan.YuedanHomeActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name="com.yuedan.BookMessageActivity" />
-        <activity android:name="com.yuedan.BookNeedDetailActivity" />
-        <activity android:name="com.yuedan.BookNeedCancelDetailActivity" /> <!-- 公用 -->
+        <!-- 公用 -->
         <activity android:name="com.cityselect.CityListActivity" />
         <activity android:name="com.xihubao.CarBrandSelectActivity" />
 
@@ -476,8 +474,7 @@
         <activity android:name="com.vipcenter.SetPayPasswordActivity" />
         <activity android:name="com.vipcenter.SetPayNextActivity" />
         <activity android:name="com.system.X5WebviewActivity" />
-        <activity android:name="com.yuedan.MyYuedanActivity" />
-        <activity android:name="com.yuedan.YuedanPayActivity" />
+        <activity android:name=".yuedan.MyYuedanActivity" />
         <activity android:name="com.vipcenter.MyQrcodeActivity" />
         <activity android:name="com.system.WebCarActivity" />
         <activity android:name="com.xihubao.ShopInfoActivity" />

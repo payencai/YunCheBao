@@ -332,6 +332,12 @@ public class NewRoadDetailActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         setStatusBar();
         getDetail();
 
