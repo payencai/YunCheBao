@@ -33,15 +33,10 @@
 
     </LinearLayout>
 
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/listview"
+    <ListView
+        android:id="@+id/lv_history"
+        android:divider="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:fadingEdge="none"
-        android:scrollbars="none"
-        app:ptrAnimationStyle="custom"></com.handmark.pulltorefresh.library.PullToRefreshListView>
-
+        android:layout_height="match_parent"></ListView>
 
 </LinearLayout>

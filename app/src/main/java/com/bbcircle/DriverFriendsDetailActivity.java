@@ -97,18 +97,26 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
     RecyclerView rv_comment;
     @BindView(R.id.et_comment)
     EditText et_comment;
+    @BindView(R.id.tv_focus)
+    TextView tv_focus;
     @BindView(R.id.tv_pub)
     TextView tv_pub;
     CircleCommentAdapter mCircleCommentAdapter;
     List<CircleComment> mCircleComments = new ArrayList<>();
     int page = 1;
     String commentId;
-    int id;
+    String id;
+    String focus;
     CarFriendDetail mSeldDrvingDetail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driver_friends_detail_layout);
+        ButterKnife.bind(this);
+        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "详情");
+        ctx = this;
+        //网络地址获取轮播图
+        id = getIntent().getStringExtra("id");
         initView();
 
     }
@@ -188,6 +196,7 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
             } else {
                 //iv_heart.setImageResource(R.mipmap.white_heart_icon);
             }
+            isfocus(mSeldDrvingDetail.getUserId());
             Glide.with(this).load(mSeldDrvingDetail.getHeadPortrait()).into(tv_head);
         }
         getComment();
@@ -201,7 +210,7 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
             @Override
             public void OnSuccess(String result) {
                 try {
-                    //Log.e("detail", MyApplication.getUserInfo().getToken());
+                    Log.e("detail", result);
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject data = jsonObject.getJSONObject("data");
                     mSeldDrvingDetail = new Gson().fromJson(data.toString(), CarFriendDetail.class);
@@ -217,7 +226,68 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
             }
         });
     }
+    private void focus(String userId){
+        Map<String,Object> params=new HashMap<>();
+        params.put("otherId",userId);
+        params.put("type","1");
+        HttpProxy.obtain().post(PlatformContans.User.addUserFocus,MyApplication.token, params,  new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("focus",result);
+                ToastUtil.showToast(DriverFriendsDetailActivity.this,"关注成功");
+                tv_focus.setText("取消关注");
+                focus="1";
+            }
 
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    private void isfocus(String userId){
+        Map<String,Object> params=new HashMap<>();
+        params.put("otherId",userId);
+        HttpProxy.obtain().get(PlatformContans.User.isFocus, params,  MyApplication.token,new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result",result);
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    focus=jsonObject.getString("data");
+                    if("1".equals(focus)){
+                        tv_focus.setText("取消关注");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    private void delfocus(String userId){
+        Map<String,Object> params=new HashMap<>();
+        params.put("otherId",userId);
+        HttpProxy.obtain().post(PlatformContans.User.deleteUserFocus,MyApplication.token, params,  new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("focus",result);
+                focus="0";
+                tv_focus.setText("+ 关注");
+                ToastUtil.showToast(DriverFriendsDetailActivity.this,"已取消");
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     private void collect() {
         Map<String, Object> params = new HashMap<>();
         params.put("circleId", mSeldDrvingDetail.getId());
@@ -247,11 +317,7 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
     }
 
     private void initView() {
-        ButterKnife.bind(this);
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "详情");
-        ctx = this;
-        //网络地址获取轮播图
-        id = getIntent().getExtras().getInt("id");
+
         iv_heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -378,9 +444,16 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
 
 
 
-    @OnClick({R.id.back,R.id.tv_pub})
+    @OnClick({R.id.back,R.id.tv_pub,R.id.tv_focus})
     public void OnClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_focus:
+                if("1".equals(focus)){
+                    delfocus(mSeldDrvingDetail.getUserId());
+                }else{
+                    focus(mSeldDrvingDetail.getUserId());
+                }
+                break;
             case R.id.back:
                 onBackPressed();
                 break;

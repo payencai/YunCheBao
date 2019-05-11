@@ -70,6 +70,12 @@ public class BaikeTagActivity extends AppCompatActivity {
 
             }
         });
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         getType(type);
     }
     ClassifyWiki mClassifyWiki;

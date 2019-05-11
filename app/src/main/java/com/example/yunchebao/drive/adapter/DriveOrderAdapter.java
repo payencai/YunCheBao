@@ -36,6 +36,6 @@ public class DriveOrderAdapter extends BaseQuickAdapter<ReplaceOrder,BaseViewHol
         TextView tv_time=helper.getView(R.id.tv_time);
         tv_name.setText(item.getShopName());
         tv_time.setText("发布时间: "+item.getCreateTime());
-        Glide.with(helper.itemView.getContext()).load(item.getShopLogo()).into(iv_logo);
+        Glide.with(helper.itemView.getContext()).load(item.getLogo()).into(iv_logo);
     }
 }

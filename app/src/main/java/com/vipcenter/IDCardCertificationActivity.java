@@ -161,9 +161,19 @@ public class IDCardCertificationActivity extends NoHttpBaseActivity {
         HttpProxy.obtain().post(PlatformContans.User.addIdentityVerification, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("result", result);
-                ToastUtil.showToast(IDCardCertificationActivity.this,"认证成功");
-                finish();
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    int code=jsonObject.getInt("resultCode");
+                    String msg=jsonObject.getString("message");
+                    if(code==0){
+                        ToastUtil.showToast(IDCardCertificationActivity.this,"认证成功");
+                        finish();
+                    }else{
+                        ToastUtil.showToast(IDCardCertificationActivity.this,msg);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 // ActivityAnimationUtils.commonTransition(SelfDrivingRepublishActivity.this, ReplyDescriptionActivity.class, ActivityConstans.Animation.FADE);
             }
 

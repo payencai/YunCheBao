@@ -51,6 +51,8 @@ public class AddressAddActivity extends NoHttpBaseActivity {
     EditText detailEdit;
     @BindView(R.id.de_box)
     CheckBox de_box;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
     String mProvince;
     String mCity;
     String mArea;
@@ -60,6 +62,7 @@ public class AddressAddActivity extends NoHttpBaseActivity {
     private PhoneAddressEntity entity = null;
     int flag = 1;
     String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +105,7 @@ public class AddressAddActivity extends NoHttpBaseActivity {
 
         if (mPersonAddress != null) {
             flag = 2;
-            id=mPersonAddress.getId();
+            id = mPersonAddress.getId();
             addrText.setText(mPersonAddress.getProvince() + mPersonAddress.getCity() + mPersonAddress.getDistrict());
             detailEdit.setText(mPersonAddress.getAddress());
             nameEdit.setText(mPersonAddress.getNickname());
@@ -112,9 +115,12 @@ public class AddressAddActivity extends NoHttpBaseActivity {
             } else {
                 de_box.setChecked(false);
             }
-            mProvince=mPersonAddress.getProvince();
-            mCity=mPersonAddress.getCity();
-            mArea=mPersonAddress.getDistrict();
+            mProvince = mPersonAddress.getProvince();
+            mCity = mPersonAddress.getCity();
+            mArea = mPersonAddress.getDistrict();
+        }
+        if (flag ==2){
+            tv_title.setText("修改地址");
         }
 
     }
@@ -124,7 +130,7 @@ public class AddressAddActivity extends NoHttpBaseActivity {
         if (de_box.isChecked()) {
             isDefult = 1;
         } else {
-            isDefult =0;
+            isDefult = 0;
         }
         Map<String, Object> params = new HashMap<>();
         params.put("address", detailEdit.getEditableText().toString());
@@ -220,7 +226,7 @@ public class AddressAddActivity extends NoHttpBaseActivity {
         params.put("province", mProvince);
         params.put("telephone", mobileEdit.getEditableText().toString());
         String json = new Gson().toJson(params);
-        Log.e("json",json);
+        Log.e("json", json);
         HttpProxy.obtain().post(PlatformContans.AddressManage.updateUserAddress, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {

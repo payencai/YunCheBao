@@ -1,4 +1,4 @@
-package com.system.fragment;
+package com.system.search;
 
 
 import android.os.Bundle;
@@ -11,20 +11,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.application.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.cheyibao.NewCarDetailActivity;
-import com.cheyibao.OldCarDetailActivity;
-import com.cheyibao.model.NewCar;
-import com.cheyibao.model.OldCar;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.system.adapter.SearchNewAdapter;
-import com.system.adapter.SearchOldAdapter;
+import com.rongcloud.model.CarShop;
+import com.system.adapter.WashRepairAdapter;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
+import com.xihubao.WashCarDetailActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,20 +39,17 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchOldFragment extends Fragment {
+public class SearchWashFragment extends Fragment {
 
     int page=1;
     boolean isLoadMore=false;
-    SearchOldAdapter mRoadAdapter;
-    List<OldCar> mRoads;
+    WashRepairAdapter mRoadAdapter;
+    List<CarShop> mRoads;
     @BindView(R.id.rv_road)
     RecyclerView rv_road;
-    public SearchOldFragment() {
-        // Required empty public constructor
-    }
     String word;
-    public static SearchOldFragment newInstance(String value) {
-        SearchOldFragment fragment=new SearchOldFragment();
+    public static SearchWashFragment newInstance(String value) {
+        SearchWashFragment fragment=new SearchWashFragment();
         Bundle bundle=new Bundle();
         bundle.putString("word",value);
         fragment.setArguments(bundle);
@@ -71,7 +66,8 @@ public class SearchOldFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view=inflater.inflate(R.layout.fragment_search_new, container, false);
+
+        View view=inflater.inflate(R.layout.fragment_search_wash, container, false);
         ButterKnife.bind(this,view);
         word=getArguments().getString("word");
         initView();
@@ -80,7 +76,7 @@ public class SearchOldFragment extends Fragment {
 
     private void initView() {
         mRoads=new ArrayList<>();
-        mRoadAdapter=new SearchOldAdapter(R.layout.item_search_old,mRoads);
+        mRoadAdapter=new WashRepairAdapter(R.layout.item_search_wash,mRoads);
         mRoadAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -93,10 +89,14 @@ public class SearchOldFragment extends Fragment {
         mRoadAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Bundle bundle=new Bundle();
-                OldCar newCar=(OldCar)adapter.getItem(position);
-                bundle.putSerializable("data",newCar);
-                ActivityAnimationUtils.commonTransition(getActivity(), OldCarDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
+                Bundle bundle = new Bundle();
+                CarShop carShow= (CarShop) adapter.getItem(position);
+                Log.e("pos", position + "");
+                bundle.putSerializable("id",carShow );
+                bundle.putString("type", "洗车店");
+                bundle.putInt("flag", 1);
+                if (MyApplication.isLogin)
+                    ActivityAnimationUtils.commonTransition(getActivity(), WashCarDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
             }
         });
         rv_road.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
@@ -109,8 +109,8 @@ public class SearchOldFragment extends Fragment {
     private void getData(){
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
-        params.put("keyword", "车");
-        params.put("searchType", 5);
+        params.put("keyword", word);
+        params.put("searchType", 2);
         Log.e("road",params.toString());
         HttpProxy.obtain().get(PlatformContans.Commom.searchAll, params,"", new ICallBack() {
             @Override
@@ -120,17 +120,17 @@ public class SearchOldFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(result);
                     jsonObject = jsonObject.getJSONObject("data");
                     JSONArray data = jsonObject.getJSONArray("list");
-                    List<OldCar> oldCars=new ArrayList<>();
+                    List<CarShop> carShops=new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
-                        OldCar road = new Gson().fromJson(item.toString(), OldCar.class);
+                        CarShop road = new Gson().fromJson(item.toString(), CarShop.class);
                         mRoads.add(road);
-                        oldCars.add(road);
+                        carShops.add(road);
                     }
 
                     if(isLoadMore){
                         isLoadMore=false;
-                        mRoadAdapter.addData(oldCars);
+                        mRoadAdapter.addData(carShops);
                         mRoadAdapter.loadMoreComplete();
                     }else{
                         mRoadAdapter.setNewData(mRoads);
@@ -148,4 +148,5 @@ public class SearchOldFragment extends Fragment {
             }
         });
     }
+
 }

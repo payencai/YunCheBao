@@ -46,14 +46,7 @@ public class DrivingSelfReplaySuccessActivity extends NoHttpBaseActivity {
         ctx = this;
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "发布成功");
         list = new ArrayList<>();
-        //adapter = new BBCircleListAdapter(ctx, list, 1);
-       // listView.setAdapter(adapter);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                ActivityAnimationUtils.commonTransition(DrivingSelfReplaySuccessActivity.this, DrivingSelfDetailActivity.class, ActivityConstans.Animation.FADE);
-//            }
-//        });
+
     }
 
 

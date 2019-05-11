@@ -72,6 +72,12 @@ public class AddFriendActivity extends AppCompatActivity {
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_search:
+                if("不限".equals(minAge)){
+                    minAge="";
+                }
+                if("不限".equals(maxAge)){
+                    maxAge="";
+                }
                 Intent intent=new Intent(AddFriendActivity.this, SearchResultActivity.class);
                 intent.putExtra("type","0");
                 intent.putExtra("sex",sex);
@@ -81,6 +87,7 @@ public class AddFriendActivity extends AppCompatActivity {
                 intent.putExtra("province",province);
                 intent.putExtra("city",city);
                 intent.putExtra("area",area);
+                intent.putExtra("content","");
                 startActivity(intent);
                 break;
             case R.id.rl_search:

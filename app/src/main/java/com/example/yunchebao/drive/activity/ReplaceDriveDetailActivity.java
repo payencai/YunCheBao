@@ -112,7 +112,7 @@ public class ReplaceDriveDetailActivity extends AppCompatActivity {
                 callPhone(mReplaceDrive.getSaleTelephone());
                 break;
             case R.id.more2:
-                Intent intent3 = new Intent(ReplaceDriveDetailActivity.this, DriverCommentActivity.class);
+                Intent intent3 = new Intent(ReplaceDriveDetailActivity.this, CommentMoreActivity.class);
                 intent3.putExtra("id", mReplaceDrive.getId());
                 startActivity(intent3);
                 break;

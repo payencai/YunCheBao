@@ -330,6 +330,7 @@
                 android:id="@+id/rl_phone"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_alignParentStart="true"
                 android:background="@drawable/top_line_bg"
                 android:padding="10dp">
 

@@ -1,5 +1,6 @@
 package com.vipcenter;
 
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.payencai.library.util.ToastUtil;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 
@@ -37,13 +39,38 @@ public class NewPhoneActivity extends AppCompatActivity {
     SuperTextView tv_confirm;
     @BindView(R.id.sendcode)
     SuperTextView sendcode;
+    TimeCount mTimeCount;
+    int count=60;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_phone);
         initView();
     }
+    class TimeCount extends CountDownTimer {
 
+        public TimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            sendcode.setEnabled(false);
+            sendcode.setTextColor(getResources().getColor(R.color.gray_99));
+            count--;
+            //倒计时的过程中回调该函数
+            sendcode.setText(count + "s");
+        }
+
+        @Override
+        public void onFinish() {
+            count=60;
+            sendcode.setText("重新获取");
+            sendcode.setEnabled(true);
+            sendcode.setTextColor(getResources().getColor(R.color.yellow_02));
+            //倒计时结束时回调该函数
+        }
+    }
     private void initView() {
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "手机认证");
         ButterKnife.bind(this);
@@ -56,6 +83,7 @@ public class NewPhoneActivity extends AppCompatActivity {
                     Toast.makeText(NewPhoneActivity.this, "请输入手机号", Toast.LENGTH_LONG).show();
                     return;
                 }
+                mTimeCount.start();
                 getCodeByType(phone);
             }
         });
@@ -75,6 +103,7 @@ public class NewPhoneActivity extends AppCompatActivity {
                 BindPhone();
             }
         });
+        mTimeCount = new TimeCount(60000, 1000);
     }
 
     @OnClick({R.id.back})
@@ -95,9 +124,13 @@ public class NewPhoneActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject=new JSONObject(result);
                     int code=jsonObject.getInt("resultCode");
+                    String msg=jsonObject.getString("message");
                     if(code==0){
                         Toast.makeText(NewPhoneActivity.this, "绑定成功", Toast.LENGTH_LONG).show();
                         finish();
+                    }
+                    else{
+                        ToastUtil.showToast(NewPhoneActivity.this,msg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -1,7 +1,6 @@
 package com.maket.fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -12,9 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.caryibao.NewCar;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.cheyibao.NewCarDetailActivity;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
@@ -23,8 +20,6 @@ import com.http.ICallBack;
 import com.maket.GoodDetailActivity;
 import com.maket.adapter.GoodsTypeAdapter;
 import com.maket.model.GoodList;
-import com.system.adapter.SearchNewAdapter;
-import com.system.fragment.SearchNewFragment;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.vipcenter.ShopMainListActivity;
@@ -40,7 +35,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.http.POST;
 
 /**
  * A simple {@link Fragment} subclass.

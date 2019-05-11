@@ -139,9 +139,6 @@ public class HomeFragment extends BaseFragment {
     List<HomeImage> mHomeImages;
     HomeListAdapter mHomeListAdapter;
 
-
-
-
     List<Banner> mBanners = new ArrayList<>();
 
     private void google(double mLatitude, double mLongitude) {
@@ -357,8 +354,6 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
-
-
     /**
      * 默认的定位参数
      *
@@ -381,9 +376,6 @@ public class HomeFragment extends BaseFragment {
         mOption.setLocationCacheEnable(true); //可选，设置是否使用缓存定位，默认为true
         return mOption;
     }
-
-
-
 
 
     @Override
@@ -572,7 +564,6 @@ public class HomeFragment extends BaseFragment {
             }
         });
     }
-
     private void getHomeImage(int superId) {
         Map<String, Object> params = new HashMap<>();
         params.put("superId", superId);
@@ -603,8 +594,6 @@ public class HomeFragment extends BaseFragment {
             }
         });
     }
-
-
     private void getImageUrl() {
         HttpProxy.obtain().get(PlatformContans.Commom.getSkipUrl, "", new ICallBack() {
             @Override
@@ -633,7 +622,6 @@ public class HomeFragment extends BaseFragment {
             }
         });
     }
-
     private void getBaner() {
         Map<String, Object> params = new HashMap<>();
         params.put("type", 1);
@@ -666,15 +654,15 @@ public class HomeFragment extends BaseFragment {
 
 
     }
-
     private void init() {
         ctx = getActivity();
-
         getBaner();
-
         ll_item1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ll_item1.setSelected(true);
+                ll_item2.setSelected(false);
+                ll_item3.setSelected(false);
                 mHomeImages.clear();
                 getHomeImage(3);
             }
@@ -690,6 +678,9 @@ public class HomeFragment extends BaseFragment {
         ll_item2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ll_item1.setSelected(false);
+                ll_item2.setSelected(true);
+                ll_item3.setSelected(false);
                 mHomeImages.clear();
                 getHomeImage(4);
             }
@@ -697,6 +688,9 @@ public class HomeFragment extends BaseFragment {
         ll_item3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ll_item1.setSelected(false);
+                ll_item2.setSelected(false);
+                ll_item3.setSelected(true);
                 mHomeImages.clear();
                 getHomeImage(5);
             }
@@ -725,6 +719,9 @@ public class HomeFragment extends BaseFragment {
         getChatNotice();
         getCoinNotice();
         getHomeImage(3);
+        ll_item1.setSelected(true);
+        ll_item2.setSelected(false);
+        ll_item3.setSelected(false);
     }
 
     @OnClick({R.id.messenger_icon,R.id.menuLayDrive,R.id.rl_notice,R.id.search_lay, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.menuLay4, R.id.menuLay7, R.id.menuLay5, R.id.menuLay6, R.id.menuLay8, R.id.menuLay9, R.id.menuLay10, R.id.user_center_icon})
@@ -749,38 +746,26 @@ public class HomeFragment extends BaseFragment {
             case R.id.messenger_icon:
                 if (MyApplication.isLogin) {
                     startActivity(new Intent(getContext(), ChatActivity.class));
-                    //connect(MyApplication.getUserInfo().getHxPassword());
                 } else {
                     startActivity(new Intent(getContext(), RegisterActivity.class));
                 }
-                //ActivityAnimationUtils.commonTransition(getActivity(), MessageMainActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay1://洗车店
-
                 intent2.putExtra("type",1);
                 startActivity(intent2);
-//                Bundle bundle=new Bundle();
-//                bundle.putInt("type",1);
-//                ActivityAnimationUtils.commonTransition(getActivity(), WashCarListActivity.class, ActivityConstans.Animation.FADE,bundle);
                 break;
             case R.id.menuLay2://修理店
                 intent2.putExtra("type",2);
                 startActivity(intent2);
-//                Bundle bundle2=new Bundle();
-//                bundle2.putInt("type",2);
-//                ActivityAnimationUtils.commonTransition(getActivity(), WashCarListActivity.class, ActivityConstans.Animation.FADE,bundle2);
                 break;
             case R.id.menuLay3://4S店
                 ActivityAnimationUtils.commonTransition(getActivity(), NewFourShopActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay4://驾校汇
                 startActivity(new Intent(getContext(), NewDrvingActivity.class));
-                //ActivityAnimationUtils.commonTransition(getActivity(), Shop4SInfoActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay5:///约单
                 ActivityAnimationUtils.commonTransition(getActivity(), YuedanHomeActivity.class, ActivityConstans.Animation.FADE);
-
-                //ActivityAnimationUtils.commonTransition(getActivity(), Shop4SInfoActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay6://加油站
                  ActivityAnimationUtils.commonTransition(getActivity(), GasStationActivity.class, ActivityConstans.Animation.FADE);

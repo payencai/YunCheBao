@@ -183,8 +183,8 @@
 
                         <ImageView
                             android:id="@+id/collectIcon"
-                            android:layout_width="14dp"
-                            android:layout_height="12dp"
+                            android:layout_width="18dp"
+                            android:layout_height="20dp"
                             android:src="@mipmap/collect_gray_hole" />
 
                         <TextView
@@ -193,7 +193,7 @@
                             android:layout_marginTop="4dp"
                             android:text="收藏"
                             android:textColor="@color/gray_66"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </RelativeLayout>
 

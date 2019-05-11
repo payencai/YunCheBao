@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.rongcloud.activity.SearchResultActivity">
+    >
     <RelativeLayout
+
         android:id="@+id/head"
         android:background="@color/white"
         android:layout_width="match_parent"
@@ -19,6 +20,8 @@
             android:layout_width="18dp"
             android:layout_height="20dp" />
         <EditText
+
+            android:imeOptions="actionSearch"
             android:id="@+id/et_search"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -26,10 +29,11 @@
             android:layout_toRightOf="@+id/iv_search"
             android:layout_centerVertical="true"
             android:textSize="14sp"
+            android:singleLine="true"
             android:background="@color/white"
             android:hint="请输入您要搜索的"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="30dp" />
         <TextView
             android:id="@+id/tv_cancel"
             android:textSize="14sp"
@@ -45,10 +49,24 @@
         android:background="#e2e2e2"
         android:layout_width="match_parent"
         android:layout_height="1dp"></View>
-    <ListView
-        android:id="@+id/lv_result"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
+        android:layout_height="match_parent">
+        <ListView
+            android:visibility="gone"
+            android:id="@+id/lv_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+        <android.support.v7.widget.RecyclerView
+            android:visibility="gone"
+            android:id="@+id/rv_friend"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </FrameLayout>
+
+
 
 </LinearLayout>

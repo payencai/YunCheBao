@@ -53,6 +53,7 @@ public class PlatformContans {
         public static final String getMerchantById=root+ "/merchant/getMerchantById" ;
     }
     public static class MerchAdmin{
+
         public static final String getMerchInformationByShopId=root+ "/merchAdmin/getMerchInformationByShopId" ;
     }
     public static class MemberCard{
@@ -303,6 +304,7 @@ public class PlatformContans {
         public static final String roadRescueShopPay=root+"/alipay/roadRescueShopPay";
     }
     public static class Chat{
+        public static final String addFriendByShopId=root+"/huanxin/addFriendByShopId";
         public static final String updateFriendsById=root+"/huanxin/updateFriendsById";
         public static final String searchFriendByKeyWord=root+"/huanxin/searchFriendByKeyWord";
         public static final String searchCrowdsByKeyWord=root+ "/huanxin/searchCrowdsByKeyWord";

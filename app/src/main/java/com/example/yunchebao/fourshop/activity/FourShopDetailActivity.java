@@ -118,9 +118,12 @@ public class FourShopDetailActivity extends AppCompatActivity {
         initView();
     }
 
-    @OnClick({R.id.ll_shop, R.id.rl_phone, R.id.rl_collect, R.id.ll_map})
+    @OnClick({R.id.ll_shop, R.id.rl_phone, R.id.rl_collect, R.id.ll_map,R.id.iv_back})
     void OnClick(View view) {
         switch (view.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
             case R.id.ll_map:
                 showMapDialog(new LatLng(Double.parseDouble(mFourShopData.getLatitude()), Double.parseDouble(mFourShopData.getLongitude())));
                 break;

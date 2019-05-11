@@ -28,6 +28,7 @@ import com.example.yunchebao.R;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
+import com.payencai.library.util.ToastUtil;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.vipcenter.RegisterActivity;
@@ -286,10 +287,15 @@ public class DriverFriendsRepublishActivity extends NoHttpBaseActivity {
                 if (MyApplication.isLogin)
                 {
                     if (TextUtils.isEmpty(et_title.getText().toString())) {
+                        ToastUtil.showToast(this,"标题不能为空");
                         return;
                     }
-
                     if (TextUtils.isEmpty(et_name.getText().toString())) {
+                        ToastUtil.showToast(this,"名字不能为空");
+                        return;
+                    }
+                    if (TextUtils.isEmpty(image)) {
+                        ToastUtil.showToast(this,"图片不能为空");
                         return;
                     }
                     postMsg();

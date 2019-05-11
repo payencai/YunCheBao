@@ -10,16 +10,15 @@ import android.widget.EditText;
 
 import com.example.yunchebao.R;
 import com.flyco.tablayout.SlidingTabLayout;
-import com.system.fragment.SearchBaikeFragment;
-import com.system.fragment.SearchCircleFragment;
-import com.system.fragment.SearchGoodsFragment;
-import com.system.fragment.SearchNewFragment;
-import com.system.fragment.SearchOldFragment;
-import com.system.fragment.SearchRentFragment;
-import com.system.fragment.SearchRoadFragment;
-import com.system.fragment.SearchSchoolFragment;
-import com.system.fragment.SearchWashFragment;
-import com.xihubao.fragment.RoadFragment;
+import com.system.search.SearchBaikeFragment;
+import com.system.search.SearchCircleFragment;
+import com.system.search.SearchGoodsFragment;
+import com.system.search.SearchNewFragment;
+import com.system.search.SearchOldFragment;
+import com.system.search.SearchRentFragment;
+import com.system.search.SearchRoadFragment;
+import com.system.search.SearchSchoolFragment;
+import com.system.search.SearchWashFragment;
 
 import java.util.ArrayList;
 
@@ -57,9 +56,12 @@ public class SearchFinishActivity extends AppCompatActivity {
         initView();
     }
 
-    @OnClick({R.id.tv_search})
+    @OnClick({R.id.tv_search,R.id.back})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.back:
+                finish();
+                break;
             case R.id.tv_search:
                 String word=et_word.getEditableText().toString();
                 if(!TextUtils.isEmpty(word))

@@ -293,6 +293,7 @@ public class NewWashrepairDetailActivity extends AppCompatActivity {
         WashrepairCommentFragment washrepairCommentFragment=WashrepairCommentFragment.newInstance(id);
         mFragments.add(washServiceFragment);
         mFragments.add(washrepairCommentFragment);
+        titles[1]="评论("+mWashRepairDetail.getNumber()+")";
         mSlidingTabLayout.setViewPager(mViewPager, titles, this, mFragments);
     }
 

@@ -23,6 +23,7 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.payencai.library.util.ToastUtil;
 import com.system.model.ShopInfo;
 import com.vipcenter.model.UserInfo;
 import com.youth.banner.BannerConfig;
@@ -59,12 +60,13 @@ public class ShopInfoActivity extends AppCompatActivity {
     TextView tv_content;
     @BindView(R.id.back)
     ImageView back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_info);
         ButterKnife.bind(this);
-        id=getIntent().getStringExtra("id");
+        id = getIntent().getStringExtra("id");
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,17 +81,18 @@ public class ShopInfoActivity extends AppCompatActivity {
         });
         getData();
     }
-    private void getData(){
-        Map<String,Object> params=new HashMap<>();
-        params.put("shopId",id);
+
+    private void getData() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("shopId", id);
         HttpProxy.obtain().get(PlatformContans.MerchAdmin.getMerchInformationByShopId, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("shopDetail",result);
+                Log.e("shopDetail", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject data = jsonObject.getJSONObject("data");
-                    mShopInfo=new Gson().fromJson(data.toString(),ShopInfo.class);
+                    mShopInfo = new Gson().fromJson(data.toString(), ShopInfo.class);
                     setData();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -102,6 +105,7 @@ public class ShopInfoActivity extends AppCompatActivity {
             }
         });
     }
+
     private void showApplyDialog() {
         final Dialog dialog = new Dialog(this);
         View view = LayoutInflater.from(this).inflate(R.layout.dialog, null);
@@ -135,67 +139,72 @@ public class ShopInfoActivity extends AppCompatActivity {
 
     private void apply(String reason, final Dialog dialog) {
         Map<String, Object> params = new HashMap<>();
-        params.put("friendId", mShopInfo.getId());
-        params.put("applyReason", reason);
-        UserInfo userInfo = MyApplication.getUserInfo();
-        if (userInfo != null)
-            HttpProxy.obtain().post(PlatformContans.Chat.addFriendApply, MyApplication.token, params, new ICallBack() {
-                @Override
-                public void OnSuccess(String result) {
-                    Log.e("friend", result);
-                    dialog.dismiss();
-                    try {
-                        JSONObject jsonObject = new JSONObject(result);
-                        int code = jsonObject.getInt("resultCode");
-                        if (code == 0) {
-                            dialog.dismiss();
-                            Toast.makeText(ShopInfoActivity.this, "已提交申请", Toast.LENGTH_SHORT).show();
-                        }
+        params.put("shopId", mShopInfo.getId());
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+        HttpProxy.obtain().post(PlatformContans.Chat.addFriendByShopId, MyApplication.token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("friend", result);
+                dialog.dismiss();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    String msg = jsonObject.getString("message");
+                    if (code == 0) {
+                        dialog.dismiss();
+                        Toast.makeText(ShopInfoActivity.this, "已添加对方为好友！", Toast.LENGTH_SHORT).show();
+                    } else {
+                        ToastUtil.showToast(ShopInfoActivity.this, msg);
                     }
-                }
 
-                @Override
-                public void onFailure(String error) {
-
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            });
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
-    List<String> mImages=new ArrayList<>();
-    private void setData(){
-        String images=mShopInfo.getImgs();
-        if(!TextUtils.isEmpty(images)){
-            if(images.contains(",")){
-                String [] imgs=images.split(",");
-                for (int i = 0; i <imgs.length ; i++) {
+
+    List<String> mImages = new ArrayList<>();
+
+    private void setData() {
+        String images = mShopInfo.getImgs();
+        if (!TextUtils.isEmpty(images)) {
+            if (images.contains(",")) {
+                String[] imgs = images.split(",");
+                for (int i = 0; i < imgs.length; i++) {
                     mImages.add(imgs[i]);
                 }
-            }else{
+            } else {
                 mImages.add(images);
             }
             initBanner();
         }
-
-        tv_address.setText(mShopInfo.getProvince()+mShopInfo.getCity()+mShopInfo.getArea());
+        String address = mShopInfo.getProvince() + mShopInfo.getCity() + mShopInfo.getArea();
+        tv_home.setText(address.replace("null", ""));
         tv_nick.setText(mShopInfo.getName());
         tv_content.setText(mShopInfo.getPersonSign());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date bithday = null;
-        Date driveday=null;
+        Date driveday = null;
         try {
-            bithday = format.parse(mShopInfo.getBirthday()+" 00:00:00");
-            driveday = format.parse(mShopInfo.getDrivingLicenseTime()+" 00:00:00");
+            bithday = format.parse(mShopInfo.getBirthday() + " 00:00:00");
+            driveday = format.parse(mShopInfo.getDrivingLicenseTime() + " 00:00:00");
             int age = getAgeByBirth(bithday);
-            int driverage=getAgeByBirth(driveday);
-            tv_home.setText(mShopInfo.getSex()+" "+age+"岁 "+mShopInfo.getConstellation() +" 驾龄"+ driverage+"年");
+            int driverage = getAgeByBirth(driveday);
+            String value = mShopInfo.getSex() + " " + age + "岁 " + mShopInfo.getConstellation() + " 驾龄" + driverage + "年";
+            tv_address.setText(value.replace("null", ""));
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
 
     }
+
     private void initBanner() {
 
         banner.setImageLoader(new com.youth.banner.loader.ImageLoader() {
@@ -213,6 +222,7 @@ public class ShopInfoActivity extends AppCompatActivity {
         banner.setImages(mImages);//设置图片源
         banner.start();
     }
+
     private static int getAgeByBirth(Date birthday) {
         int age = 0;
         try {

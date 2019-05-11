@@ -1,4 +1,4 @@
-package com.system.fragment;
+package com.system.search;
 
 
 import android.content.Intent;
@@ -12,23 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.caryibao.NewCar;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.cheyibao.NewCarDetailActivity;
-import com.cheyibao.NewCarListActivity;
-import com.cheyibao.OldCarDetailActivity;
-
-
+import com.cheyibao.RentShopDetailActivity;
+import com.cheyibao.model.RentCar;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.system.adapter.SearchNewAdapter;
-import com.system.adapter.WashRepairAdapter;
-import com.system.model.WashRepair;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
+import com.system.adapter.SearchRentAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,18 +37,21 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchNewFragment extends Fragment {
+public class SearchRentFragment extends Fragment {
 
     int page=1;
     boolean isLoadMore=false;
-    SearchNewAdapter mRoadAdapter;
-    List<NewCar> mRoads;
+    SearchRentAdapter mRoadAdapter;
+    List<RentCar> mRoads;
     @BindView(R.id.rv_road)
     RecyclerView rv_road;
+    public SearchRentFragment() {
+        // Required empty public constructor
+    }
 
     String word;
-    public static SearchNewFragment newInstance(String value) {
-        SearchNewFragment fragment=new SearchNewFragment();
+    public static SearchRentFragment newInstance(String value) {
+        SearchRentFragment fragment=new SearchRentFragment();
         Bundle bundle=new Bundle();
         bundle.putString("word",value);
         fragment.setArguments(bundle);
@@ -68,7 +63,6 @@ public class SearchNewFragment extends Fragment {
         mRoads.clear();
         getData();
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,7 +76,7 @@ public class SearchNewFragment extends Fragment {
 
     private void initView() {
         mRoads=new ArrayList<>();
-        mRoadAdapter=new SearchNewAdapter(R.layout.item_search_new,mRoads);
+        mRoadAdapter=new SearchRentAdapter(R.layout.item_rentcar,mRoads);
         mRoadAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -95,14 +89,10 @@ public class SearchNewFragment extends Fragment {
         mRoadAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Bundle bundle=new Bundle();
-                NewCar newCar=(NewCar)adapter.getItem(position);
-                bundle.putSerializable("data",newCar);
-                Intent intent=new Intent(getContext(), NewCarDetailActivity.class);
-                intent.putExtras(bundle);
+                RentCar rentCar= (RentCar) adapter.getItem(position);
+                Intent intent=new Intent(getContext(), RentShopDetailActivity.class);
+                intent.putExtra("data",rentCar);
                 startActivity(intent);
-
-               // ActivityAnimationUtils.commonTransition(getActivity(), NewCarDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
             }
         });
         rv_road.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
@@ -116,7 +106,7 @@ public class SearchNewFragment extends Fragment {
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
         params.put("keyword", "车");
-        params.put("searchType", 4);
+        params.put("searchType", 6);
         Log.e("road",params.toString());
         HttpProxy.obtain().get(PlatformContans.Commom.searchAll, params,"", new ICallBack() {
             @Override
@@ -126,17 +116,17 @@ public class SearchNewFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(result);
                     jsonObject = jsonObject.getJSONObject("data");
                     JSONArray data = jsonObject.getJSONArray("list");
-                    List<NewCar> newCars=new ArrayList<>();
+                    List<RentCar> rentCars=new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
-                        NewCar road = new Gson().fromJson(item.toString(), NewCar.class);
+                        RentCar road = new Gson().fromJson(item.toString(), RentCar.class);
                         mRoads.add(road);
-                        newCars.add(road);
+                        rentCars.add(road);
                     }
 
                     if(isLoadMore){
                         isLoadMore=false;
-                        mRoadAdapter.addData(newCars);
+                        mRoadAdapter.addData(rentCars);
                         mRoadAdapter.loadMoreComplete();
                     }else{
                         mRoadAdapter.setNewData(mRoads);

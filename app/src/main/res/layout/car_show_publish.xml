@@ -104,7 +104,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="20dp"
                 android:layout_toLeftOf="@id/cameraIcon"
-                android:layout_toRightOf="@id/title1"
                 android:background="@color/white"
                 android:hint="请输入标题"
                 android:padding="4dp"

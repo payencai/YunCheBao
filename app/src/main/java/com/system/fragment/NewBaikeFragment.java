@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.application.MyApplication;
@@ -37,6 +39,7 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.rongcloud.activity.ChatActivity;
+import com.system.SearchActivity;
 import com.system.WebviewActivity;
 import com.system.adapter.BaikeTypeAdapter;
 import com.tool.ActivityAnimationUtils;
@@ -69,7 +72,10 @@ import butterknife.OnClick;
 public class NewBaikeFragment extends Fragment {
 
 
-
+    @BindView(R.id.user_center_icon)
+    ImageView leftIcon;
+    @BindView(R.id.search_lay)
+    RelativeLayout search_lay;
     @BindView(R.id.rv_baike)
     RecyclerView rv_baike;
     private int type=1;
@@ -119,7 +125,22 @@ public class NewBaikeFragment extends Fragment {
                 // loadData();
             }
         });
-
+        leftIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(MyApplication.isLogin){
+                    startActivity(new Intent(getContext(),UserCenterActivity.class));
+                }else{
+                    startActivity(new Intent(getContext(),RegisterActivity.class));
+                }
+            }
+        });
+        search_lay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SearchActivity.class));
+            }
+        });
         getType(type);
         return rootView;
     }
@@ -161,9 +182,22 @@ public class NewBaikeFragment extends Fragment {
         header=LayoutInflater.from(getContext()).inflate(R.layout.header_baike,null);
         TextView tv_type= (TextView) header.findViewById(R.id.tv_type);
         ImageView iv_add= (ImageView) header.findViewById(R.id.iv_add);
+        LinearLayout menuLay1=header.findViewById(R.id.menuLay1);
+        LinearLayout menuLay2=header.findViewById(R.id.menuLay2);
+        LinearLayout menuLay3=header.findViewById(R.id.menuLay3);
+        LinearLayout menuLay4=header.findViewById(R.id.menuLay4);
+        menuLay1.setSelected(true);
+        menuLay2.setSelected(false);
+        menuLay3.setSelected(false);
+        menuLay4.setSelected(false);
+
         header.findViewById(R.id.menuLay1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                menuLay1.setSelected(true);
+                menuLay2.setSelected(false);
+                menuLay3.setSelected(false);
+                menuLay4.setSelected(false);
                 tv_type.setText("装饰百科");
                 type=1;
                 page=1;
@@ -185,6 +219,10 @@ public class NewBaikeFragment extends Fragment {
         header.findViewById(R.id.menuLay2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                menuLay1.setSelected(false);
+                menuLay2.setSelected(true);
+                menuLay3.setSelected(false);
+                menuLay4.setSelected(false);
                 tv_type.setText("养护百科");
                 type=2;
                 page=1;
@@ -198,6 +236,10 @@ public class NewBaikeFragment extends Fragment {
         header.findViewById(R.id.menuLay3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                menuLay1.setSelected(false);
+                menuLay2.setSelected(false);
+                menuLay3.setSelected(true);
+                menuLay4.setSelected(false);
                 tv_type.setText("购车指南");
                 type=3;
                 page=1;
@@ -210,6 +252,10 @@ public class NewBaikeFragment extends Fragment {
         header.findViewById(R.id.menuLay4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                menuLay1.setSelected(false);
+                menuLay2.setSelected(false);
+                menuLay3.setSelected(false);
+                menuLay4.setSelected(true);
                 tv_type.setText("交通百科");
                 type=4;
                 page=1;
@@ -231,7 +277,7 @@ public class NewBaikeFragment extends Fragment {
                  pos=position;
                  mBaikeTypeAdapter.setPos(position);
                  mBaikeTypeAdapter.notifyDataSetChanged();
-                 getData(mClassifyWikis1.get(position).getId());
+                 refresh(mClassifyWikis1.get(position).getId());
             }
         });
         getBaner();
@@ -287,25 +333,19 @@ public class NewBaikeFragment extends Fragment {
                         JSONObject item = data.getJSONObject(i);
                         BaikeItem baikeItem = new Gson().fromJson(item.toString(), BaikeItem.class);
                         baikeItems.add(baikeItem);
+                        mBaikeItems.add(baikeItem);
                     }
-                    if (data.length() == 0) {
-                        if(isLoadMore){
+                    if(isLoadMore){
+                        isLoadMore=false;
+                        mBaikeItemAdapter.addData(baikeItems);
+                        if(baikeItems.size()==0){
                             mBaikeItemAdapter.loadMoreEnd(true);
-                            isLoadMore = false;
                         }else{
-
-                        }
-                    } else {
-                        if (isLoadMore) {
-                            isLoadMore = false;
-                            mBaikeItemAdapter.addData(baikeItems);
-                            mBaikeItemAdapter.loadMoreComplete();
-                        } else {
-                            mBaikeItemAdapter.setNewData(baikeItems);
                             mBaikeItemAdapter.loadMoreComplete();
                         }
+                    }else{
+                        mBaikeItemAdapter.setNewData(mBaikeItems);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -334,9 +374,7 @@ public class NewBaikeFragment extends Fragment {
                     }
                     mBaikeTypeAdapter.notifyDataSetChanged();
                     if(mClassifyWikis1.size()>0){
-                         getData(mClassifyWikis1.get(0).getId());
-                    }else{
-                        mBaikeItemAdapter.setNewData(mBaikeItems);
+                         refresh(mClassifyWikis1.get(0).getId());
                     }
 
 
@@ -351,7 +389,12 @@ public class NewBaikeFragment extends Fragment {
             }
         });
     }
-
+    private void refresh(String id){
+        page=1;
+        mBaikeItems.clear();
+        mBaikeItemAdapter.setNewData(mBaikeItems);
+        getData(id);
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -360,7 +403,7 @@ public class NewBaikeFragment extends Fragment {
             pos=data.getExtras().getInt("pos",0);
             mBaikeTypeAdapter.setPos(pos);
             mBaikeTypeAdapter.notifyDataSetChanged();
-            getData(mClassifyWikis1.get(pos).getId());
+            refresh(mClassifyWikis1.get(pos).getId());
         }
     }
 }

@@ -213,6 +213,10 @@ public class AddOrderCommentActivity extends AppCompatActivity {
     void Onclick(View view){
         switch (view.getId()){
             case R.id.tv_submit:
+                if(TextUtils.isEmpty(et_comment.getEditableText().toString())){
+                    ToastUtil.showToast(this,"评论内容不能为空");
+                    return;
+                }
                 addComment();
                 break;
         }

@@ -39,6 +39,15 @@ public class ReplaceOrder implements Serializable{
      * totalDistance : 0.0
      * userId : string
      */
+    private String logo;
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
 
     private String agencyId;
     private String createTime;

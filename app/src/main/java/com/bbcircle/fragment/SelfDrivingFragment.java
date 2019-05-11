@@ -160,11 +160,10 @@ public class SelfDrivingFragment extends BaseFragment {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", list.get(position).getId());
-                bundle.putInt("type", 1);
+               Intent intent=new Intent(getContext(),DrivingSelfDetailActivity.class);
+               intent.putExtra("id",list.get(position).getId()+"");
                 if (MyApplication.isLogin) {
-                    ActivityAnimationUtils.commonTransition(getActivity(), DrivingSelfDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
+                    startActivity(intent);
                 } else {
                     startActivity(new Intent(getContext(), RegisterActivity.class));
                 }

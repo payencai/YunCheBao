@@ -206,6 +206,12 @@ public class GoodsPayActivity extends AppCompatActivity {
                 type=2;
             }
         });
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         ll_payMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

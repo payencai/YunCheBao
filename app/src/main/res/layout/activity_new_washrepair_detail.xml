@@ -95,7 +95,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="8dp"
                                 android:orientation="horizontal">
 
                                 <TextView
@@ -126,9 +126,11 @@
                                     android:gravity="center"
                                     android:background="@color/yellow_64"
                                     android:id="@+id/tv_grade"
-                                    android:layout_width="15dp"
-                                    android:layout_height="15dp"
-                                    android:layout_marginLeft="4dp"
+                                    android:paddingLeft="5dp"
+                                    android:paddingRight="5dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
                                     android:text="1"
                                     android:textColor="@color/white"
                                     android:textSize="12sp" />

@@ -501,7 +501,7 @@ public class UserInfoActivity extends NoHttpBaseActivity {
                 }
                 break;
             case R.id.back:
-                onBackPressed();
+                finish();
                 break;
             case R.id.addressLay:
                 ActivityAnimationUtils.commonTransition(UserInfoActivity.this, ManaAddressActivity.class, ActivityConstans.Animation.FADE);

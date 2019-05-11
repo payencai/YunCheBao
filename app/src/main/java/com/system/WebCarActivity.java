@@ -53,6 +53,12 @@ public class WebCarActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         getHomeImage();
     }
     private void getHomeImage() {

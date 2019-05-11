@@ -11,7 +11,7 @@ public class MathUtil {
      * DecimalFormat转换最简便
      */
     public static  String getDoubleTwo(double data) {
-        DecimalFormat df = new DecimalFormat("0.000");
+        DecimalFormat df = new DecimalFormat("0.00");
         return df.format(data);
     }
     public static  String getOne(double data) {

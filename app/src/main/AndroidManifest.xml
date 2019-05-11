@@ -64,7 +64,8 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".account.AccountManageActivity"></activity>
+        <activity android:name=".drive.activity.CommentMoreActivity"></activity>
+        <activity android:name=".account.AccountManageActivity" />
         <activity
             android:name=".washrepair.NewWashrepairDetailActivity"
             android:theme="@style/DetailTheme" />
@@ -305,8 +306,7 @@
         <!-- 约单 -->
         <activity
             android:name=".yuedan.YuedanHomeActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <!-- 公用 -->
+            android:windowSoftInputMode="adjustPan|stateHidden" /> <!-- 公用 -->
         <activity android:name="com.cityselect.CityListActivity" />
         <activity android:name="com.xihubao.CarBrandSelectActivity" />
 
@@ -359,7 +359,9 @@
         <activity android:name="com.rongcloud.activity.AddFriendActivity" />
         <activity android:name="com.rongcloud.activity.AddGroupActivity" />
         <activity android:name="com.rongcloud.activity.SearchAddActivity" />
-        <activity android:name="com.rongcloud.activity.SearchResultActivity" />
+        <activity
+            android:name="com.rongcloud.activity.SearchResultActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name="com.rongcloud.activity.AddGroupDetailActivity" />
         <activity android:name="com.rongcloud.activity.StrangerDelActivity" />
         <activity android:name="com.rongcloud.activity.CreateGroupActivity" />

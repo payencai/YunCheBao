@@ -18,18 +18,18 @@ import butterknife.OnClick;
 public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.et_word)
     EditText et_word;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
-
     }
-    @OnClick({R.id.tv_search})
+    @OnClick({R.id.tv_search,R.id.back})
     public void onClick(View view){
         switch (view.getId()){
+            case R.id.back:
+                finish();
+                break;
             case R.id.tv_search:
                 String value=et_word.getEditableText().toString();
                 if(TextUtils.isEmpty(value)){

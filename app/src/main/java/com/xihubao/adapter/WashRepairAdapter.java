@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.yunchebao.R;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.rongcloud.model.CarShop;
+import com.tool.MathUtil;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class WashRepairAdapter extends BaseQuickAdapter<CarShop, BaseViewHolder>
         tv_name.setText(item.getShopName());
         tv_price.setText("￥"+item.getPrice());
         tv_addr.setText(item.getAddress());
-        tv_dis.setText(item.getDistance()+"km");
+        tv_dis.setText(MathUtil.getDoubleTwo(item.getDistance())+"km");
         sb_score.setRating((float) item.getScore());
         tv_num.setText("评价"+item.getScore()+"|"+"订单"+item.getNumber());
         Glide.with(helper.itemView.getContext()).load(item.getLogo()).into(iv_logo);

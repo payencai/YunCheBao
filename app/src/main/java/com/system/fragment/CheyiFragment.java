@@ -24,6 +24,7 @@ import com.cheyibao.fragment.RentCarFragment;
 import com.cheyibao.fragment.StudyCarFragment;
 import com.example.yunchebao.R;
 import com.nohttp.sample.BaseFragment;
+import com.system.SearchActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.NoScrollViewPager;
@@ -66,6 +67,12 @@ public class CheyiFragment extends BaseFragment {
                     startActivity(new Intent(getContext(),RegisterActivity.class));
                 }
 
+            }
+        });
+        rootView.findViewById(R.id.search_lay).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SearchActivity.class));
             }
         });
         initLocation();

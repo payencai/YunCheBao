@@ -132,6 +132,7 @@ public class UserCenterActivity extends NoHttpBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        getUserInfo();
 //        if(MyApplication.isLogin){
 //            Glide.with(UserCenterActivity.this).load(MyApplication.getUserInfo().getHeadPortrait())
 //                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(40)))

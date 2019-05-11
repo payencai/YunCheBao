@@ -1,6 +1,7 @@
-package com.system.fragment;
+package com.system.search;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -11,22 +12,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bbcircle.data.CarFriend;
+import com.application.MyApplication;
+import com.baike.model.BaikeItem;
+import com.bbcircle.adapter.BKItemAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.cheyibao.model.NewCar;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.GoodDetailActivity;
-import com.maket.MarketSelectListActivity;
-import com.maket.model.GoodList;
-import com.system.adapter.SearchGoodsAdapter;
-import com.system.adapter.SearchNewAdapter;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
-import com.xihubao.model.Road;
+import com.system.WebviewActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,20 +38,20 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchGoodsFragment extends Fragment {
+public class SearchBaikeFragment extends Fragment {
 
     int page=1;
     boolean isLoadMore=false;
-    SearchGoodsAdapter mRoadAdapter;
-    List<GoodList> mRoads;
+    BKItemAdapter mRoadAdapter;
+    List<BaikeItem> mRoads;
     @BindView(R.id.rv_road)
     RecyclerView rv_road;
-    public SearchGoodsFragment() {
+    public SearchBaikeFragment() {
         // Required empty public constructor
     }
     String word;
-    public static SearchGoodsFragment newInstance(String value) {
-        SearchGoodsFragment fragment=new SearchGoodsFragment();
+    public static SearchBaikeFragment newInstance(String value) {
+        SearchBaikeFragment fragment=new SearchBaikeFragment();
         Bundle bundle=new Bundle();
         bundle.putString("word",value);
         fragment.setArguments(bundle);
@@ -68,6 +63,7 @@ public class SearchGoodsFragment extends Fragment {
         mRoads.clear();
         getData();
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,7 +78,7 @@ public class SearchGoodsFragment extends Fragment {
 
     private void initView() {
         mRoads=new ArrayList<>();
-        mRoadAdapter=new SearchGoodsAdapter(R.layout.item_know_you,mRoads);
+        mRoadAdapter=new BKItemAdapter(R.layout.item_baike,mRoads);
         mRoadAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -95,10 +91,14 @@ public class SearchGoodsFragment extends Fragment {
         mRoadAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                GoodList road= (GoodList) adapter.getItem(position);
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("data",road);
-                ActivityAnimationUtils.commonTransition(getActivity(), GoodDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
+                BaikeItem baikeItem= (BaikeItem) adapter.getItem(position);
+                Intent intent = new Intent(getContext(), WebviewActivity.class);
+                String token="";
+                if(MyApplication.isLogin){
+                    token=MyApplication.token;
+                }
+                intent.putExtra("url", "http://www.yunchebao.com:8080/h5baby/?id="+baikeItem.getId()+"&token="+token);
+                startActivity(intent);
             }
         });
         rv_road.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
@@ -112,7 +112,7 @@ public class SearchGoodsFragment extends Fragment {
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
         params.put("keyword", "车");
-        params.put("searchType", 10);
+        params.put("searchType", 8);
         Log.e("road",params.toString());
         HttpProxy.obtain().get(PlatformContans.Commom.searchAll, params,"", new ICallBack() {
             @Override
@@ -122,17 +122,16 @@ public class SearchGoodsFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(result);
                     jsonObject = jsonObject.getJSONObject("data");
                     JSONArray data = jsonObject.getJSONArray("list");
-                    List<GoodList> goodLists=new ArrayList<>();
+                    List<BaikeItem> baikeItems=new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
-                        GoodList road = new Gson().fromJson(item.toString(), GoodList.class);
+                        BaikeItem road = new Gson().fromJson(item.toString(), BaikeItem.class);
                         mRoads.add(road);
-                        goodLists.add(road);
+                        baikeItems.add(road);
                     }
-
                     if(isLoadMore){
                         isLoadMore=false;
-                        mRoadAdapter.addData(goodLists);
+                        mRoadAdapter.addData(baikeItems);
                         mRoadAdapter.loadMoreComplete();
                     }else{
                         mRoadAdapter.setNewData(mRoads);

@@ -1,4 +1,4 @@
-package com.system.fragment;
+package com.system.search;
 
 
 import android.content.Intent;
@@ -13,10 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.application.MyApplication;
-import com.baike.model.BaikeItem;
 import com.bbcircle.DriverFriendsDetailActivity;
 import com.bbcircle.DrivingSelfDetailActivity;
-import com.bbcircle.adapter.BKItemAdapter;
 import com.bbcircle.adapter.CarFriendAdapter;
 import com.bbcircle.data.CarFriend;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -29,7 +27,6 @@ import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.vipcenter.RegisterActivity;
 import com.xihubao.AssistanceDetailActivity;
-import com.xihubao.model.Road;
 
 import org.json.JSONArray;
 import org.json.JSONException;

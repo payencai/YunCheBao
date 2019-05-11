@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.newversion.MyTagsActivity;
+import com.payencai.library.util.ToastUtil;
 import com.payencai.library.view.CircleImageView;
 import com.rongcloud.model.Friend;
 import com.vipcenter.model.UserInfo;
@@ -186,9 +187,12 @@ public class StrangerDelActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(result);
                         int code = jsonObject.getInt("resultCode");
+                        String msg=jsonObject.getString("message");
                         if (code == 0) {
                             dialog.dismiss();
                             Toast.makeText(StrangerDelActivity.this, "已提交申请", Toast.LENGTH_SHORT).show();
+                        }else{
+                            ToastUtil.showToast(StrangerDelActivity.this,msg);
                         }
 
                     } catch (JSONException e) {

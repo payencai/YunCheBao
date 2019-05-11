@@ -102,7 +102,7 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
     RecyclerView rv_comment;
     @BindView(R.id.et_comment)
     EditText et_comment;
-    int id;
+    String id;
     int type = 0;
     int page = 1;
     String focus;
@@ -238,13 +238,14 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driving_self_detail_layout);
+        ButterKnife.bind(this);
+        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "自驾游");
+        id = getIntent().getStringExtra("id");
         initView();
     }
 
     private void initView() {
-        ButterKnife.bind(this);
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "自驾游");
-        id = getIntent().getExtras().getInt("id");
+
         //网络地址获取轮播图
         imageList.clear();
         ll_heart.setOnClickListener(new View.OnClickListener() {
@@ -309,11 +310,18 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
             @Override
             public void OnSuccess(String result) {
                 try {
-                   // Log.e("detai", MyApplication.getUserInfo().getToken());
+                    Log.e("detail", result);
                     JSONObject jsonObject = new JSONObject(result);
-                    JSONObject data = jsonObject.getJSONObject("data");
-                    mSeldDrvingDetail = new Gson().fromJson(data.toString(), SeldDrvingDetail.class);
-                    setUi();
+                    int code=jsonObject.getInt("resultCode");
+                    if(code==0){
+                        JSONObject data = jsonObject.getJSONObject("data");
+                        mSeldDrvingDetail = new Gson().fromJson(data.toString(), SeldDrvingDetail.class);
+                        setUi();
+                    }else{
+                        ToastUtil.showToast(DrivingSelfDetailActivity.this,"数据已不存在");
+                        finish();
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -430,9 +438,10 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
     private void isfocus(String userId){
         Map<String,Object> params=new HashMap<>();
         params.put("otherId",userId);
-        HttpProxy.obtain().get(PlatformContans.User.deleteUserFocus, params,  MyApplication.token,new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.User.isFocus, params,  MyApplication.token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+                Log.e("result",result);
                 try {
                     JSONObject jsonObject=new JSONObject(result);
                     focus=jsonObject.getString("data");

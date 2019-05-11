@@ -273,13 +273,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <ImageView
-                        android:padding="12dp"
                         android:id="@+id/iv_back"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/back_circle"
                         android:layout_width="50dp"
-                        android:layout_height="50dp" />
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:padding="12dp"
+                        android:src="@mipmap/back_circle" />
                     <TextView
                         android:id="@+id/tv_title"
                         android:textColor="#00333333"

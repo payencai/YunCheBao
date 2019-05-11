@@ -100,6 +100,12 @@ public class DrivingOrderActivity extends AppCompatActivity implements View.OnCl
             tv_selectedCoash.setText("已选教练: "+mCoachItem.getCoachName());
             tv_coash.setText(mCoachItem.getCoachName());
         }
+        findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -124,6 +130,7 @@ public class DrivingOrderActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
+
             case R.id.rl_class:
                 intent = new Intent(this, ClassSelelctActivity.class);
                 intent.putExtra("id", id);
@@ -136,6 +143,14 @@ public class DrivingOrderActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.tv_submit:
                 if(MyApplication.isLogin){
+                    if(TextUtils.isEmpty(et_name.getEditableText().toString())){
+                        ToastUtil.showToast(this,"请输入姓名");
+                        return;
+                    }
+                    if(TextUtils.isEmpty(et_phone.getEditableText().toString())){
+                        ToastUtil.showToast(this,"请输入手机号");
+                        return;
+                    }
                     if(mClassItem!=null&&mCoachItem!=null)
                     postOrder();
                 }

@@ -19,6 +19,7 @@
             android:src="@mipmap/back" />
 
         <TextView
+            android:id="@+id/tv_title"
             android:textSize="16sp"
             android:textColor="@color/black_33"
             android:layout_width="wrap_content"

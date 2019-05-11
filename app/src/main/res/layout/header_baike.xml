@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-
+        android:background="#fefefe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -32,6 +32,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:background="@drawable/bg_baike"
                     android:id="@+id/menuLay1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -57,6 +58,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:background="@drawable/bg_baike"
                     android:id="@+id/menuLay2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -82,6 +84,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:background="@drawable/bg_baike"
                     android:id="@+id/menuLay3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -106,6 +109,7 @@
                         android:textSize="14sp" />
                 </LinearLayout>
                 <LinearLayout
+                    android:background="@drawable/bg_baike"
                     android:id="@+id/menuLay4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

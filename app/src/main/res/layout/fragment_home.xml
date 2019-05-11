@@ -571,6 +571,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
@@ -578,6 +579,8 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+
+                        android:background="@drawable/bg_baike"
                         android:id="@+id/ll_item1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -602,6 +605,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:background="@drawable/bg_baike"
                         android:id="@+id/ll_item2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -626,6 +630,8 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/bg_baike"
                         android:id="@+id/ll_item3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

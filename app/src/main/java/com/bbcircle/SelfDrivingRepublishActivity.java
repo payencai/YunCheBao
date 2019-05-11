@@ -374,7 +374,7 @@ public class SelfDrivingRepublishActivity extends NoHttpFragmentBaseActivity imp
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);
-                ToastUtil.showToast(SelfDrivingRepublishActivity.this,"发布成功");
+                ActivityAnimationUtils.commonTransition(SelfDrivingRepublishActivity.this, DrivingSelfReplaySuccessActivity.class, ActivityConstans.Animation.FADE);
                 finish();
                 // ActivityAnimationUtils.commonTransition(SelfDrivingRepublishActivity.this, ReplyDescriptionActivity.class, ActivityConstans.Animation.FADE);
             }
@@ -402,15 +402,21 @@ public class SelfDrivingRepublishActivity extends NoHttpFragmentBaseActivity imp
             case R.id.text1:
                 if (MyApplication.isLogin) {
                     if (TextUtils.isEmpty(et_title.getText().toString())) {
+                        ToastUtil.showToast(this,"标题不能为空");
                         return;
                     }
                     if (TextUtils.isEmpty(time1Text.getText().toString())) {
+                        ToastUtil.showToast(this,"时间不能为空");
                         return;
                     }
                     if (TextUtils.isEmpty(time2Text.getText().toString())) {
+                        ToastUtil.showToast(this,"时间不能为空");
                         return;
                     }
-
+                    if (TextUtils.isEmpty(image)) {
+                        ToastUtil.showToast(this,"封面图片不能为空");
+                        return;
+                    }
                     postMsg();
                 } else {
                     startActivity(new Intent(this, RegisterActivity.class));

@@ -92,6 +92,12 @@ public class NearbyActivity extends AppCompatActivity {
         });
         rv_nearby.setLayoutManager(new LinearLayoutManager(this));
         rv_nearby.setAdapter(mNearByAdapter);
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         getData();
     }
     private void getData(){
@@ -140,9 +146,11 @@ public class NearbyActivity extends AppCompatActivity {
             }
         });
     }
-    @OnClick({R.id.rl_more})
+    @OnClick({R.id.rl_more,R.id.back})
     void OnClick(View view){
         switch (view.getId()){
+            case R.id.back:
+                break;
             case R.id.rl_more:
                 showNearbyDialog();
                 break;

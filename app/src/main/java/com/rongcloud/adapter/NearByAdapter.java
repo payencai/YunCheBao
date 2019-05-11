@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.yunchebao.R;
 import com.payencai.library.view.CircleImageView;
 import com.rongcloud.model.Nearby;
+import com.tool.MathUtil;
 
 import java.util.List;
 
@@ -25,20 +26,29 @@ public class NearByAdapter extends BaseQuickAdapter<Nearby, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Nearby item) {
-        CircleImageView iv_head=helper.getView(R.id.iv_head);
-        ImageView iv_sex=helper.getView(R.id.iv_sex);
-        TextView tv_name=helper.getView(R.id.tv_name);
-        TextView tv_dis=helper.getView(R.id.tv_dis);
+        CircleImageView iv_head = helper.getView(R.id.iv_head);
+        ImageView iv_sex = helper.getView(R.id.iv_sex);
+        TextView tv_name = helper.getView(R.id.tv_name);
+        TextView tv_dis = helper.getView(R.id.tv_dis);
         Glide.with(helper.itemView.getContext()).load(item.getHeadPortrait()).into(iv_head);
         tv_name.setText(item.getName());
-        tv_dis.setText(item.getDistance()+"km");
-        if("男".equals(item.getSex())){
+        if (item.getDistance() < 1) {
+            tv_dis.setText(MathUtil.getDoubleTwo(item.getDistance() * 1000) + "m");
+        } else {
+            tv_dis.setText(MathUtil.getDoubleTwo(item.getDistance()) + "km");
+        }
+
+        if ("男".
+
+                equals(item.getSex())) {
             iv_sex.setImageResource(R.mipmap.ic_man);
             iv_sex.setVisibility(View.VISIBLE);
-        }else if("女".equals(item.getSex())){
+        } else if ("女".
+
+                equals(item.getSex())) {
             iv_sex.setImageResource(R.mipmap.ic_women);
             iv_sex.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             iv_sex.setVisibility(View.GONE);
         }
     }

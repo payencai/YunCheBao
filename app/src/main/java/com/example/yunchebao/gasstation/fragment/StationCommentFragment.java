@@ -2,6 +2,7 @@ package com.example.yunchebao.gasstation.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,9 @@ import com.example.yunchebao.gasstation.model.StationComment;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +47,8 @@ public class StationCommentFragment extends Fragment {
 
     @BindView(R.id.rv_order)
     RecyclerView rv_order;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout refresh;
     StationCommentAdapter mFourShopCommentAdapter;
     List<StationComment> mFourShopComments;
     int page=1;
@@ -78,6 +84,15 @@ public class StationCommentFragment extends Fragment {
                 getData();
             }
         },rv_order);
+        refresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page=1;
+                mFourShopComments.clear();
+                mFourShopCommentAdapter.setNewData(mFourShopComments);
+                getData();
+            }
+        });
         rv_order.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_order.setAdapter(mFourShopCommentAdapter);
         getData();
@@ -90,6 +105,7 @@ public class StationCommentFragment extends Fragment {
         HttpProxy.obtain().get(PlatformContans.Station.getGasStationCommentListByShopId, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+                refresh.finishRefresh();
                 Log.e("getDrivingSchool", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);

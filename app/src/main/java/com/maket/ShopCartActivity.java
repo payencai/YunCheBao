@@ -21,6 +21,7 @@ import com.http.ICallBack;
 import com.maket.adapter.ShopCartAdapter;
 import com.maket.model.GoodsSelect;
 import com.nohttp.sample.NoHttpBaseActivity;
+import com.payencai.library.util.ToastUtil;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 
@@ -174,6 +175,8 @@ public class ShopCartActivity extends NoHttpBaseActivity {
         tvShopCartSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 mselectGoods.clear();
                 mGoodsSelects.clear();
                 for (int i = 0; i < mAllOrderList.size(); i++) {
@@ -203,6 +206,10 @@ public class ShopCartActivity extends NoHttpBaseActivity {
                     goodsSelect.setShopId(shopid);
                     goodsSelect.setShopName(shopIdName.get(shopid));
                     mGoodsSelects.add(goodsSelect);
+                }
+                if(mGoodsSelects.size()==0){
+                    ToastUtil.showToast(ShopCartActivity.this,"暂无商品");
+                    return;
                 }
                 Bundle bundle=new Bundle();
                 Log.e("omclick","oclick");

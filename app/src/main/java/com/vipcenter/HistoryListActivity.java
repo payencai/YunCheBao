@@ -47,27 +47,25 @@ import butterknife.OnClick;
  */
 
 public class HistoryListActivity extends NoHttpBaseActivity {
-    @BindView(R.id.listview)
-    PullToRefreshListView refreshListView;
+    @BindView(R.id.lv_history)
     ListView listView;
     private HistoryListAdapter adapter;
     private List<History> list;
-    private Context ctx;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history_list_layout);
+        ButterKnife.bind(this);
+        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW,"浏览历史");
+        findViewById(R.id.topPanel).setVisibility(View.VISIBLE);
         initView();
         getHistory();
     }
     private void getHistory(){
-        String token="";
-        if(MyApplication.isLogin){
-            token=MyApplication.token;
-        }
 
-        HttpProxy.obtain().get(PlatformContans.BabyCircle.getHistoryList, token, new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.BabyCircle.getHistoryList, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("history", result);
@@ -77,7 +75,8 @@ public class HistoryListActivity extends NoHttpBaseActivity {
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
                         History baikeItem = new Gson().fromJson(item.toString(), History.class);
-                        list.add(baikeItem);
+                        if(baikeItem.getType()<=2)
+                           list.add(baikeItem);
                     }
                     adapter.notifyDataSetChanged();
                     //updateData();
@@ -95,35 +94,25 @@ public class HistoryListActivity extends NoHttpBaseActivity {
         });
     }
     private void initView() {
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW,"浏览历史");
-        ButterKnife.bind(this);
-        findViewById(R.id.topPanel).setVisibility(View.VISIBLE);
-        ctx = this;
-        listView = refreshListView.getRefreshableView();
+
         listView.setDivider(getResources().getDrawable(R.color.gray_ee));
         listView.setDividerHeight(1);
         list = new ArrayList<>();
-        adapter = new HistoryListAdapter(ctx,list);
+        adapter = new HistoryListAdapter(this,list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                position--;
                 History mypublish = list.get(position);
                 Intent intent;
                 switch (mypublish.getType()) {
-                    case 1:
+                    case 1://自驾游
                         intent=new Intent(HistoryListActivity.this, DrivingSelfDetailActivity.class);
                         intent.putExtra("id",mypublish.getId());
                         startActivity(intent);
                         break;
-                    case 2:
+                    case 2://车友会
                         intent=new Intent(HistoryListActivity.this, DriverFriendsDetailActivity.class);
-                        intent.putExtra("id",mypublish.getId());
-                        startActivity(intent);
-                        break;
-                    case 3:
-                        intent=new Intent(HistoryListActivity.this, CarShowDetailActivity.class);
                         intent.putExtra("id",mypublish.getId());
                         startActivity(intent);
                         break;

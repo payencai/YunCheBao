@@ -26,7 +26,7 @@ public class FourShopCarAdapter extends BaseQuickAdapter<FourShopCar, BaseViewHo
         ImageView iv_img=helper.getView(R.id.iv_img);
         TextView tv_name=helper.getView(R.id.tv_name);
         TextView tv_price=helper.getView(R.id.tv_price);
-        tv_price.setText((item.getAdvicePrice()/10000)+"万");
+        tv_price.setText((item.getNakedCarPrice()/10000)+"万");
         tv_name.setText(item.getFirstName()+item.getSecondName()+item.getThirdName());
         Glide.with(helper.itemView.getContext()).load(item.getCarCategoryDetail().getBanner1()).into(iv_img);
 

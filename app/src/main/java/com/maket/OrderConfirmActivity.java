@@ -101,6 +101,12 @@ public class OrderConfirmActivity extends NoHttpBaseActivity {
     double money;
 
     private void initView() {
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         getAddress();
         for (int i = 0; i < mGoodsSelects.size(); i++) {
             int count = 0;

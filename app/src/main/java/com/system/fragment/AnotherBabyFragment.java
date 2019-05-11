@@ -32,6 +32,7 @@ import com.rongcloud.activity.CreateGroupActivity;
 import com.rongcloud.activity.NearbyActivity;
 import com.rongcloud.activity.stranger.SaomaActivity;
 import com.rongcloud.activity.stranger.StrangerMsgActivity;
+import com.system.SearchActivity;
 import com.system.View.MenuWindow;
 import com.vipcenter.MyQrcodeActivity;
 import com.vipcenter.RegisterActivity;
@@ -87,6 +88,13 @@ public class AnotherBabyFragment extends Fragment {
                 }
             }
         });
+        view.findViewById(R.id.search_lay).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SearchActivity.class));
+            }
+        });
+
         view.findViewById(R.id.ll_item2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
