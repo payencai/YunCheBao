@@ -3,6 +3,7 @@ package com.vipcenter;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -59,6 +60,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class MycarActivity extends AppCompatActivity {
     @BindView(R.id.tv_number)
@@ -107,7 +110,30 @@ public class MycarActivity extends AppCompatActivity {
                 case 201:
                 case 202:
                     List<String> pathList = Matisse.obtainPathResult(data);
-                    upImage(PlatformContans.Commom.uploadImg,new File(pathList.get(0)));
+                    Luban.with(this)
+                            .load(pathList.get(0))                                   // 传人要压缩的图片列表
+                            .ignoreBy(100)                                  // 忽略不压缩图片的大小
+                            .setTargetDir(Environment.getExternalStorageDirectory()+"/imgs")                        // 设置压缩后文件存储位置
+                            .setCompressListener(new OnCompressListener() { //设置回调
+                                @Override
+                                public void onStart() {
+                                    // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                                }
+
+                                @Override
+                                public void onSuccess(File file) {
+                                    upImage(PlatformContans.Commom.uploadImg,file);
+                                    // TODO 压缩成功后调用，返回压缩后的图片文件
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    // TODO 当压缩过程出现问题时调用
+                                }
+                            }).launch();    //启动压缩
+
+
+
                     break;
 
             }

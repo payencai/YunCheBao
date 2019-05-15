@@ -170,15 +170,16 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
                             android:id="@+id/iv_id1"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="100dp"
                             android:src="@mipmap/idcard2" />
 
                         <ImageView
+                            android:scaleType="centerCrop"
                             android:layout_marginRight="20dp"
-                            android:scaleType="fitXY"
+
                             android:id="@+id/iv_id2"
                             android:layout_marginLeft="20dp"
                             android:layout_width="0dp"

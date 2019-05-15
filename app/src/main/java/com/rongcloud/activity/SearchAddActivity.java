@@ -25,6 +25,8 @@ public class SearchAddActivity extends AppCompatActivity {
     TextView friend;
     @BindView(R.id.group)
     TextView group;
+    @BindView(R.id.tv_cancel)
+    TextView tv_cancel;
     @BindView(R.id.rl_friend)
     RelativeLayout rl_friend;
     @BindView(R.id.rl_group)
@@ -77,6 +79,12 @@ public class SearchAddActivity extends AppCompatActivity {
                      friend.setText(content);
                      group.setText(content);
                  }
+            }
+        });
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
