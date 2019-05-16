@@ -2,24 +2,34 @@ package com.xihubao;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.entity.PhoneShopEntity;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.GoodDetailActivity;
+import com.maket.RentGoodsActivity;
+import com.maket.adapter.GoodsTypeAdapter;
 import com.maket.adapter.KnowYouAdapter;
 import com.maket.model.GoodList;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.payencai.library.util.ToastUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
@@ -43,68 +53,56 @@ import butterknife.OnClick;
  */
 
 public class NewGoodsListActivity extends NoHttpBaseActivity {
-    @BindView(R.id.listview)
-    PullToRefreshListView refreshListView;
-    ListView listView;
-    private KnowYouAdapter adapter;
-    private List<GoodList> list;
-    private Context ctx;
+    @BindView(R.id.rv_goods)
+    RecyclerView rv_goods;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout mRefreshLayout;
+    GoodsTypeAdapter mGoodsTypeAdapter;
+    List<GoodList> mGoodLists;
     int page=1;
+
+    boolean isLoadMore= false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.listview_newonly);
+        setContentView(R.layout.activity_more_good);
+        ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
 
     private void initView() {
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "热卖商品");
-        ButterKnife.bind(this);
-        ctx = this;
-        findViewById(R.id.topPanel).setVisibility(View.VISIBLE);
 
-        refreshListView.setMode(PullToRefreshBase.Mode.BOTH);
-        listView = refreshListView.getRefreshableView();
-        listView.setDivider(getResources().getDrawable(R.color.gray_cc));
-        listView.setDividerHeight(1);
-        list = new ArrayList<>();
-        adapter = new KnowYouAdapter(ctx, list);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mGoodLists=new ArrayList<>();
+        mGoodsTypeAdapter=new GoodsTypeAdapter(R.layout.item_know_you,mGoodLists);
+        mGoodsTypeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                position--;
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                GoodList goodList= (GoodList) adapter.getItem(position);
                 Bundle bundle=new Bundle();
-                bundle.putSerializable("data",list.get(position));
+                bundle.putSerializable("data",goodList);
                 ActivityAnimationUtils.commonTransition(NewGoodsListActivity.this, GoodDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
-                //ActivityAnimationUtils.commonTransition(NewGoodsListActivity.this, GoodDetailActivity.class, ActivityConstans.Animation.FADE);
             }
         });
-        refreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+        mGoodsTypeAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
-            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                ToastUtil.showToast(NewGoodsListActivity.this,"刷新");
-                refreshView.onRefreshComplete();
+            public void onLoadMoreRequested() {
+                page++;
+                isLoadMore=true;
+                getHotGoods();
             }
         });
-        refreshListView.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onLastItemVisible() {
-                ToastUtil.showToast(NewGoodsListActivity.this,"加载更多");
-
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page=1;
+                mGoodLists.clear();
+                mGoodsTypeAdapter.setNewData(mGoodLists);
+                getHotGoods();
             }
         });
-//        refreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-//            @Override
-//            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-//
-//            }
-//
-//            @Override
-//            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//
-//            }
-//        });
+        rv_goods.setLayoutManager(new LinearLayoutManager(this));
+        rv_goods.setAdapter(mGoodsTypeAdapter);
         getHotGoods();
     }
 
@@ -114,17 +112,23 @@ public class NewGoodsListActivity extends NoHttpBaseActivity {
         HttpProxy.obtain().get(PlatformContans.GoodMenu.getHotCommodity, params,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("getGoodMenu",result);
-                Log.e("getdata", result);
+                mRefreshLayout.finishRefresh();
+                Log.e("getCommodityByDistince", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray data = jsonObject.getJSONArray("data");
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
-                        GoodList baikeItem = new Gson().fromJson(item.toString(), GoodList.class);
-                        list.add(baikeItem);
+                        GoodList goodList = new Gson().fromJson(item.toString(), GoodList.class);
+                        mGoodLists.add(goodList);
                     }
-                    adapter.notifyDataSetChanged();
+                    mGoodsTypeAdapter.setNewData(mGoodLists);
+                    if(isLoadMore){
+                        isLoadMore=false;
+                        mGoodsTypeAdapter.loadMoreComplete();
+                    }else{
+                        mGoodsTypeAdapter.loadMoreEnd(true);
+                    }
                     //updateData();
 
                 } catch (JSONException e) {

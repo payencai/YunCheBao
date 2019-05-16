@@ -1,18 +1,13 @@
 package com.xihubao.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.entity.PhoneShopEntity;
 import com.example.yunchebao.R;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.rongcloud.model.CarShop;
-import com.xihubao.model.RoadItem;
 import com.xihubao.model.RoadService;
 
 import java.util.List;

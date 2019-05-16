@@ -1,9 +1,6 @@
 package com.newversion;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.StateListDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,13 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.application.MyApplication;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.rongcloud.sidebar.ContactModel;
+import com.example.yunchebao.rongcloud.sidebar.ContactModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +26,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

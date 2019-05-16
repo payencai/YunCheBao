@@ -16,7 +16,6 @@ import com.maket.GoodDetailActivity;
 import com.maket.adapter.GoodsCommentAdapter;
 import com.maket.model.GoodsComment;
 import com.nohttp.sample.BaseFragment;
-import com.rongcloud.view.LoadMoreListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;

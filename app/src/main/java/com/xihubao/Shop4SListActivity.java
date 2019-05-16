@@ -1,34 +1,24 @@
 package com.xihubao;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.entity.PhoneCommBaseType;
 import com.example.yunchebao.R;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
-import com.rongcloud.adapter.WeekDateHorizontalAdatper;
-import com.rongcloud.model.WeekDate;
+import com.example.yunchebao.rongcloud.adapter.WeekDateHorizontalAdatper;
+import com.example.yunchebao.rongcloud.model.WeekDate;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.CalendarViewActivity;
 import com.tool.UIControlUtils;
-import com.tool.viewpager.IndicatorViewPager;
-import com.tool.viewpager.OnTransitionTextListener;
-import com.tool.viewpager.ScrollIndicatorView;
 import com.xihubao.fragment.Shop4SListFragment;
 
 import java.text.ParseException;
@@ -37,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;

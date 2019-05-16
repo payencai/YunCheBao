@@ -10,8 +10,6 @@ import android.widget.TextView;
 import com.baike.model.BaikeItem;
 import com.bumptech.glide.Glide;
 import com.example.yunchebao.R;
-import com.rongcloud.adapter.ApplyGroupAdapter;
-import com.rongcloud.model.ApplyGroup;
 
 import java.util.List;
 

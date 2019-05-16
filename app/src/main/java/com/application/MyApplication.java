@@ -22,15 +22,12 @@ import com.http.processor.OkHttpProcessor;
 
 import com.nohttp.Logger;
 import com.nohttp.NoHttp;
-import com.rongcloud.adapter.ListDataSave;
-import com.rongcloud.sidebar.ContactModel;
+import com.example.yunchebao.rongcloud.adapter.ListDataSave;
+import com.example.yunchebao.rongcloud.sidebar.ContactModel;
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
-import com.system.MainActivity;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.tencent.smtt.sdk.QbSdk;
-import com.tencent.tauth.Tencent;
 import com.tool.ExceptionHandler;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.vipcenter.model.UserInfo;
@@ -49,16 +46,10 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.MessageContent;
-import io.rong.imlib.model.UserData;
-import io.rong.message.FileMessage;
 import io.rong.message.ImageMessage;
 import io.rong.message.RichContentMessage;
 import io.rong.message.TextMessage;
 import io.rong.message.VoiceMessage;
-
-
-import static android.provider.UserDictionary.Words.APP_ID;
-import static io.rong.imkit.utils.SystemUtils.getCurProcessName;
 
 
 /**

@@ -6,11 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bbcircle.fragment.SelfDrivingFragment;
 import com.example.yunchebao.R;
-import com.rongcloud.activity.contact.FriendListFragment;
-import com.rongcloud.activity.contact.GroupListFragment;
-import com.rongcloud.activity.contact.NewFriendFragment;
+import com.example.yunchebao.rongcloud.activity.contact.FriendListFragment;
+import com.example.yunchebao.rongcloud.activity.contact.GroupListFragment;
+import com.example.yunchebao.rongcloud.activity.contact.NewFriendFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

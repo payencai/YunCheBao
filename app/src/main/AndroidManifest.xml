@@ -103,7 +103,7 @@
         <activity
             android:name=".road.PubRoadActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-        <activity android:name="com.rongcloud.activity.NearbyActivity" />
+        <activity android:name=".rongcloud.activity.NearbyActivity" />
         <activity android:name=".fourshop.activity.SeeCommentActivity" />
         <activity android:name=".fourshop.activity.AddFourCommentActivity" />
         <activity android:name=".fourshop.activity.CarDetailActivity" />
@@ -342,7 +342,7 @@
         </provider>
 
         <activity
-            android:name="com.rongcloud.activity.ChatActivity"
+            android:name=".rongcloud.activity.ChatActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -356,23 +356,23 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-        <activity android:name="com.rongcloud.activity.AddFriendActivity" />
-        <activity android:name="com.rongcloud.activity.AddGroupActivity" />
-        <activity android:name="com.rongcloud.activity.SearchAddActivity" />
+        <activity android:name=".rongcloud.activity.AddFriendActivity" />
+        <activity android:name=".rongcloud.activity.AddGroupActivity" />
+        <activity android:name=".rongcloud.activity.SearchAddActivity" />
         <activity
-            android:name="com.rongcloud.activity.SearchResultActivity"
+            android:name=".rongcloud.activity.SearchResultActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name="com.rongcloud.activity.AddGroupDetailActivity" />
-        <activity android:name="com.rongcloud.activity.StrangerDelActivity" />
-        <activity android:name="com.rongcloud.activity.CreateGroupActivity" />
+        <activity android:name=".rongcloud.activity.AddGroupDetailActivity" />
+        <activity android:name=".rongcloud.activity.StrangerDelActivity" />
+        <activity android:name=".rongcloud.activity.CreateGroupActivity" />
         <activity
-            android:name="com.rongcloud.activity.contact.MyContactActivity"
+            android:name=".rongcloud.activity.contact.MyContactActivity"
             android:label="@string/title_activity_my_contact"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name="com.rongcloud.activity.stranger.StrangerMsgActivity" />
+        <activity android:name=".rongcloud.activity.stranger.StrangerMsgActivity" />
         <activity
-            android:name="com.rongcloud.activity.contact.ConversationActivity"
+            android:name=".rongcloud.activity.contact.ConversationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -386,18 +386,18 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-        <activity android:name="com.rongcloud.activity.contact.FriendDetailActivity" />
-        <activity android:name="com.rongcloud.activity.contact.ApplyDetailActivity" />
-        <activity android:name="com.rongcloud.activity.stranger.SaomaActivity" />
+        <activity android:name=".rongcloud.activity.contact.FriendDetailActivity" />
+        <activity android:name=".rongcloud.activity.contact.ApplyDetailActivity" />
+        <activity android:name=".rongcloud.activity.stranger.SaomaActivity" />
         <activity android:name="com.tool.CalendarViewActivity" />
         <activity android:name="com.system.WebviewActivity" />
         <activity android:name="com.xihubao.MapShopActivity" />
         <activity android:name="com.vipcenter.RegisteredBindActivity" />
         <activity android:name="com.vipcenter.UnregisterBindActivity" />
-        <activity android:name="com.rongcloud.activity.contact.GroupApplyActivity" />
-        <activity android:name="com.rongcloud.activity.contact.GroupDetailActivity" />
-        <activity android:name="com.rongcloud.activity.contact.MyGroupDetailActivity" />
-        <activity android:name="com.rongcloud.activity.contact.GroupManageActivity" />
+        <activity android:name=".rongcloud.activity.contact.GroupApplyActivity" />
+        <activity android:name=".rongcloud.activity.contact.GroupDetailActivity" />
+        <activity android:name=".rongcloud.activity.contact.MyGroupDetailActivity" />
+        <activity android:name=".rongcloud.activity.contact.GroupManageActivity" />
         <activity android:name="com.cheyibao.NewCarDetailActivity" />
         <activity android:name="com.cheyibao.NewCarShopActivity" />
         <activity android:name="com.xihubao.WashPayActivity" />
@@ -498,7 +498,7 @@
         <activity android:name="com.vipcenter.OrderCommentsActivity" />
         <activity android:name="com.vipcenter.ManaAddressActivity" />
         <activity android:name="com.vipcenter.MyCarListActivity" />
-        <activity android:name="com.rongcloud.activity.GroupQrcodeActivity" />
+        <activity android:name=".rongcloud.activity.GroupQrcodeActivity" />
         <activity android:name=".drive.activity.DriveServiceActivity" />
         <activity android:name="com.cheyibao.ShopListActivity" />
         <activity android:name="com.cheyibao.CarModelsListActivity" />

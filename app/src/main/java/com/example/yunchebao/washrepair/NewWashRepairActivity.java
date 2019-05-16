@@ -25,15 +25,11 @@ import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.rongcloud.model.CarShop;
+import com.example.yunchebao.rongcloud.model.CarShop;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
 import com.tool.JsonUtil;
-import com.vipcenter.RegisterActivity;
-import com.xihubao.WashCarDetailActivity;
 import com.xihubao.adapter.WashRepairAdapter;
 
 import org.json.JSONArray;

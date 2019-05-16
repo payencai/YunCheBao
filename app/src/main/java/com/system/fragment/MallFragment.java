@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import com.application.MyApplication;
 import com.bbcircle.AllKindActivity;
@@ -22,14 +21,11 @@ import com.costans.PlatformContans;
 import com.entity.Banner;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.GoodDetailActivity;
 import com.maket.MarketSelectListActivity;
 import com.maket.RentGoodsActivity;
-import com.maket.RentestGoodsActivity;
 import com.maket.ShopCartActivity;
 import com.maket.adapter.GridMenuAdapter;
 import com.maket.adapter.RentGoodsAdapter;
@@ -37,7 +33,8 @@ import com.maket.model.GoodList;
 import com.maket.model.GoodMenu;
 import com.maket.model.RentGoods;
 import com.nohttp.sample.BaseFragment;
-import com.rongcloud.activity.ChatActivity;
+import com.example.yunchebao.rongcloud.activity.ChatActivity;
+import com.system.SearchActivity;
 import com.system.WebviewActivity;
 import com.system.adapter.GoodsListAdapter;
 import com.tool.ActivityAnimationUtils;
@@ -87,8 +84,8 @@ public class MallFragment extends BaseFragment {
     GridMenuAdapter mGridMenuAdapter;
 
     private List<GoodList> hotList;
-    List<RentGoods> mRentGoods=new ArrayList<>();
-    List<GoodMenu> mGoodMenus=new ArrayList<>();
+    List<RentGoods> mRentGoods = new ArrayList<>();
+    List<GoodMenu> mGoodMenus = new ArrayList<>();
     List<Banner> mBanners = new ArrayList<>();
     List<String> images = new ArrayList<>();
 
@@ -105,13 +102,14 @@ public class MallFragment extends BaseFragment {
         getRently();
         return rootView;
     }
-    private void getHotGoods(){
-        Map<String,Object> params=new HashMap<>();
-        params.put("page",1);
-        HttpProxy.obtain().get(PlatformContans.GoodMenu.getHotCommodity, params,new ICallBack() {
+
+    private void getHotGoods() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("page", 1);
+        HttpProxy.obtain().get(PlatformContans.GoodMenu.getHotCommodity, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("getGoodMenu",result);
+                Log.e("getGoodMenu", result);
                 Log.e("getdata", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -135,13 +133,14 @@ public class MallFragment extends BaseFragment {
             }
         });
     }
-    private void getRently(){
-        Map<String,Object> params=new HashMap<>();
-        params.put("type",2);
-        HttpProxy.obtain().get(PlatformContans.GoodMenu.getGoodMenu, params,new ICallBack() {
+
+    private void getRently() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("type", 2);
+        HttpProxy.obtain().get(PlatformContans.GoodMenu.getGoodMenu, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("getGoodMenu",result);
+                Log.e("getGoodMenu", result);
                 Log.e("getdata", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -165,22 +164,23 @@ public class MallFragment extends BaseFragment {
             }
         });
     }
-    int page=1;
+
+    int page = 1;
 
 
     @Override
     public void onResume() {
         super.onResume();
-        page=1;
+        page = 1;
 
-       /// getKnowYou();
+        /// getKnowYou();
     }
 
-    private void getMenu(){
+    private void getMenu() {
         HttpProxy.obtain().get(PlatformContans.GoodMenu.getGoodMenu, "", new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("getGoodMenu",result);
+                Log.e("getGoodMenu", result);
                 Log.e("getdata", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -205,6 +205,7 @@ public class MallFragment extends BaseFragment {
             }
         });
     }
+
     private void init() {
         ctx = getActivity();
 
@@ -213,8 +214,8 @@ public class MallFragment extends BaseFragment {
 //            middleList.add(new PhoneGoodEntity());
 //        }
         mHotAdapter = new GoodsListAdapter(ctx, hotList);
-        mRentlyAdapter=new RentGoodsAdapter(ctx,mRentGoods);
-        mGridMenuAdapter=new GridMenuAdapter(ctx,mGoodMenus);
+        mRentlyAdapter = new RentGoodsAdapter(ctx, mRentGoods);
+        mGridMenuAdapter = new GridMenuAdapter(ctx, mGoodMenus);
         middleGrid.setAdapter(mHotAdapter);
         gv_rentest.setAdapter(mRentlyAdapter);
         menuGrid.setAdapter(mGridMenuAdapter);
@@ -222,17 +223,17 @@ public class MallFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("data",hotList.get(position));
-                ActivityAnimationUtils.commonTransition(getActivity(), GoodDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("data", hotList.get(position));
+                ActivityAnimationUtils.commonTransition(getActivity(), GoodDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
             }
         });
         gv_rentest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(getContext(), RentGoodsActivity.class);
-                intent.putExtra("id",mRentGoods.get(position).getSecondId());
-                 startActivity(intent);
+                Intent intent = new Intent(getContext(), RentGoodsActivity.class);
+                intent.putExtra("id", mRentGoods.get(position).getSecondId());
+                startActivity(intent);
 //                Bundle bundle=new Bundle();
 //                bundle.putSerializable("data",mRentGoods.get(position));
 //                ActivityAnimationUtils.commonTransition(getActivity(), GoodDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
@@ -241,49 +242,53 @@ public class MallFragment extends BaseFragment {
         menuGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(mGoodMenus.get(position).getId()!=0){
-                    Bundle bundle =new Bundle();
-                    bundle.putString("id",mGoodMenus.get(position).getSecondId());
-                    ActivityAnimationUtils.commonTransition(getActivity(), MarketSelectListActivity.class, ActivityConstans.Animation.FADE,bundle);
-                }else{
+                if (mGoodMenus.get(position).getId() != 0) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id", mGoodMenus.get(position).getSecondId());
+                    ActivityAnimationUtils.commonTransition(getActivity(), MarketSelectListActivity.class, ActivityConstans.Animation.FADE, bundle);
+                } else {
                     ActivityAnimationUtils.commonTransition(getActivity(), AllKindActivity.class, ActivityConstans.Animation.FADE);
                 }
             }
         });
 
 
-
-
-    }
-    private void getData(){
-
     }
 
+    private void getData() {
 
-    @OnClick({R.id.messenger_icon, R.id.user_center_icon, R.id.shop_cart_icon,R.id.middleMore,R.id.search_lay})
+    }
+
+
+    @OnClick({R.id.messenger_icon, R.id.user_center_icon, R.id.shop_cart_icon, R.id.middleMore, R.id.search_lay})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.search_lay:
+                if (MyApplication.isLogin)
+                    ActivityAnimationUtils.commonTransition(getActivity(), SearchActivity.class, ActivityConstans.Animation.FADE);
+                else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
                 break;
             case R.id.user_center_icon:
-                if(MyApplication.isLogin)
-                   ActivityAnimationUtils.commonTransition(getActivity(), UserCenterActivity.class, ActivityConstans.Animation.FADE);
-                else{
-                    startActivity(new Intent(getContext(),RegisterActivity.class));
+                if (MyApplication.isLogin)
+                    ActivityAnimationUtils.commonTransition(getActivity(), UserCenterActivity.class, ActivityConstans.Animation.FADE);
+                else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
                 }
                 break;
             case R.id.shop_cart_icon:
-                if(MyApplication.isIsLogin())
-                   ActivityAnimationUtils.commonTransition(getActivity(), ShopCartActivity.class, ActivityConstans.Animation.FADE);
-                else{
-                    startActivity(new Intent(getContext(),RegisterActivity.class));
+                if (MyApplication.isIsLogin())
+                    ActivityAnimationUtils.commonTransition(getActivity(), ShopCartActivity.class, ActivityConstans.Animation.FADE);
+                else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
                 }
                 break;
             case R.id.messenger_icon:
-                if(MyApplication.isIsLogin())
+                if (MyApplication.isIsLogin())
                     ActivityAnimationUtils.commonTransition(getActivity(), ChatActivity.class, ActivityConstans.Animation.FADE);
-                else{
-                    startActivity(new Intent(getContext(),RegisterActivity.class));
+                else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
                 }
                 //ActivityAnimationUtils.commonTransition(getActivity(), MessageMainActivity.class, ActivityConstans.Animation.FADE);
                 break;
@@ -293,6 +298,7 @@ public class MallFragment extends BaseFragment {
                 break;
         }
     }
+
     private void initBanner() {
         banner.setImageLoader(new com.youth.banner.loader.ImageLoader() {
             @Override

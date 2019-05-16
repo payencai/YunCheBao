@@ -5,8 +5,8 @@
     <version value="2" ></version>
 
     <list>
-        <mapping class="com.rongcloud.model.MyGroup" />
-        <mapping class="com.rongcloud.model.MyFriend" />
+        <mapping class="com.example.yunchebao.rongcloud.model.MyGroup" />
+        <mapping class="com.example.yunchebao.rongcloud.model.MyFriend" />
     </list>
 
 </litepal>

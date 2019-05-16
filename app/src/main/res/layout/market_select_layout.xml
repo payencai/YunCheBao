@@ -64,10 +64,6 @@
             </LinearLayout>
 
 
-            <com.baiiu.filter.typeview.SingleGridView
-                android:id="@+id/singleGrid1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></com.baiiu.filter.typeview.SingleGridView>
 
 
         </LinearLayout>

@@ -1,29 +1,20 @@
 package com.xihubao.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.net.Uri;
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.entity.PhoneShopEntity;
 import com.example.yunchebao.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
-import com.rongcloud.model.CarShop;
+import com.example.yunchebao.rongcloud.model.CarShop;
 import com.tool.MathUtil;
 
-import java.net.URI;
 import java.util.List;
 
 /**

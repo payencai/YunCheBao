@@ -17,7 +17,7 @@ import com.example.yunchebao.R;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
-import com.rongcloud.sidebar.ContactModel;
+import com.example.yunchebao.rongcloud.sidebar.ContactModel;
 import com.tool.listview.PersonalListView;
 
 import java.util.ArrayList;
@@ -26,7 +26,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.http.PATCH;
 
 public class CreateTagsActivity extends AppCompatActivity {
     @BindView(R.id.lv_user)

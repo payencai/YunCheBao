@@ -8,11 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <ImageView
-            android:layout_marginLeft="10dp"
+            android:id="@+id/back"
+            android:padding="15dp"
             android:layout_centerVertical="true"
             android:src="@mipmap/back"
-            android:layout_width="15dp"
-            android:layout_height="18dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
         <EditText
             android:textSize="14sp"
             android:drawableLeft="@mipmap/search__small_icon"

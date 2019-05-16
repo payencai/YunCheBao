@@ -18,7 +18,7 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.rongcloud.model.CarShop;
+import com.example.yunchebao.rongcloud.model.CarShop;
 import com.system.adapter.WashRepairAdapter;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;

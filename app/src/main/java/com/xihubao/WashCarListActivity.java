@@ -27,7 +27,7 @@ import com.nohttp.rest.Request;
 import com.nohttp.rest.Response;
 import com.nohttp.sample.HttpListener;
 import com.nohttp.sample.NoHttpBaseActivity;
-import com.rongcloud.model.CarShop;
+import com.example.yunchebao.rongcloud.model.CarShop;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.JsonUtil;

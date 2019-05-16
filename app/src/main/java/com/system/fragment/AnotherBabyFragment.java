@@ -3,37 +3,27 @@ package com.system.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.application.MyApplication;
 import com.example.yunchebao.R;
 import com.example.yunchebao.friendcircle.NewFriendCircleActivity;
-import com.newversion.FriendCircleActivity;
-import com.newversion.FriendsCircleActivity;
 import com.newversion.MyTagsActivity;
 import com.newversion.NewCarFriendActivity;
 import com.newversion.NewContactsActivity;
 import com.newversion.NewSelfDrvingActivity;
-import com.payencai.library.util.ToastUtil;
-import com.rongcloud.activity.AddFriendActivity;
-import com.rongcloud.activity.CreateGroupActivity;
-import com.rongcloud.activity.NearbyActivity;
-import com.rongcloud.activity.stranger.SaomaActivity;
-import com.rongcloud.activity.stranger.StrangerMsgActivity;
+import com.example.yunchebao.rongcloud.activity.AddFriendActivity;
+import com.example.yunchebao.rongcloud.activity.CreateGroupActivity;
+import com.example.yunchebao.rongcloud.activity.NearbyActivity;
+import com.example.yunchebao.rongcloud.activity.stranger.SaomaActivity;
+import com.example.yunchebao.rongcloud.activity.stranger.StrangerMsgActivity;
 import com.system.SearchActivity;
-import com.system.View.MenuWindow;
 import com.vipcenter.MyQrcodeActivity;
 import com.vipcenter.RegisterActivity;
 import com.vipcenter.UserCenterActivity;
@@ -41,21 +31,11 @@ import com.zyyoona7.popup.EasyPopup;
 import com.zyyoona7.popup.XGravity;
 import com.zyyoona7.popup.YGravity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.manager.IUnReadMessageObserver;
-import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
-import io.rong.imlib.model.Message;
-import io.rong.imlib.model.MessageContent;
-import io.rong.message.ImageMessage;
-import io.rong.message.RichContentMessage;
-import io.rong.message.TextMessage;
-import io.rong.message.VoiceMessage;
 
 /**
  * A simple {@link Fragment} subclass.

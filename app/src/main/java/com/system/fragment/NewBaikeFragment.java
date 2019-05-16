@@ -4,9 +4,7 @@ package com.system.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,15 +19,9 @@ import android.widget.TextView;
 
 import com.application.MyApplication;
 import com.baike.BaikeTagActivity;
-import com.baike.fragment.BaikeItemFragment;
 import com.baike.model.BaikeItem;
 import com.baike.model.ClassifyWiki;
-import com.bbcircle.PublishAreaSelectActivity;
 import com.bbcircle.adapter.BKItemAdapter;
-import com.bbcircle.fragment.CarShowFragment;
-import com.bbcircle.fragment.DriverFragment;
-import com.bbcircle.fragment.RacePublishFragment;
-import com.bbcircle.fragment.SelfDrivingFragment;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
@@ -38,16 +30,10 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.rongcloud.activity.ChatActivity;
 import com.system.SearchActivity;
 import com.system.WebviewActivity;
 import com.system.adapter.BaikeTypeAdapter;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
-import com.tool.adapter.MyFragmentPagerAdapter;
 import com.tool.view.HorizontalListView;
-import com.vipcenter.AllCollectionActivity;
-import com.vipcenter.HistoryListActivity;
 import com.vipcenter.RegisterActivity;
 import com.vipcenter.UserCenterActivity;
 import com.youth.banner.BannerConfig;
@@ -64,7 +50,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.

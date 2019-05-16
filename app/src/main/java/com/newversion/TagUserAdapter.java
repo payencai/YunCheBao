@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.yunchebao.R;
 import com.payencai.library.view.CircleImageView;
-import com.rongcloud.sidebar.ContactModel;
+import com.example.yunchebao.rongcloud.sidebar.ContactModel;
 
 import java.util.List;
 

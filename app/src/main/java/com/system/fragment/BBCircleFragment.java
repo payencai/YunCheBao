@@ -11,13 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 
 import com.application.MyApplication;
 import com.bbcircle.PublishAreaSelectActivity;
 import com.bbcircle.fragment.CarShowFragment;
 import com.bbcircle.fragment.DriverFragment;
-import com.bbcircle.fragment.HotArticleFragment;
 import com.bbcircle.fragment.RacePublishFragment;
 import com.bbcircle.fragment.SelfDrivingFragment;
 import com.bumptech.glide.Glide;
@@ -25,24 +23,16 @@ import com.bumptech.glide.Glide;
 
 import com.costans.PlatformContans;
 import com.entity.Banner;
-import com.example.godseflrefresh.GodSeflRefreshView;
-import com.example.godseflrefresh.interfaces.OnHeaderRefreshListener;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
-import com.rongcloud.activity.ChatActivity;
+import com.example.yunchebao.rongcloud.activity.ChatActivity;
 import com.system.WebviewActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.adapter.MyFragmentPagerAdapter;
-import com.tool.listview.PersonalScrollView;
-import com.tool.listview.PersonalViewPager;
-import com.tool.slideshowview.SlideShowView;
-import com.tool.view.SimpleViewPagerIndicator;
 import com.vipcenter.AllCollectionActivity;
 import com.vipcenter.HistoryListActivity;
 import com.vipcenter.RegisterActivity;
@@ -62,9 +52,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.bingoogolapple.refreshlayout.BGAMoocStyleRefreshViewHolder;
-import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
-import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
 
 /**
  * Created by sdhcjhss on 2017/12/20.

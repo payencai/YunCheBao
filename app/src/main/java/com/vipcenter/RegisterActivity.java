@@ -29,15 +29,14 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.rongcloud.model.MyFriend;
-import com.rongcloud.model.MyGroup;
+import com.example.yunchebao.rongcloud.model.MyFriend;
+import com.example.yunchebao.rongcloud.model.MyGroup;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 import com.vipcenter.model.UserInfo;
-import com.example.yunchebao.wxapi.WXEntryActivity;
 import com.xw.repo.XEditText;
 
 import org.greenrobot.eventbus.EventBus;
@@ -56,7 +55,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import go.error;
 import io.rong.callkit.util.SPUtils;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.model.GroupUserInfo;

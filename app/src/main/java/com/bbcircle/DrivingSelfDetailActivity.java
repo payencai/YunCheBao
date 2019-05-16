@@ -39,13 +39,11 @@ import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.payencai.library.util.ToastUtil;
 import com.payencai.library.view.CircleImageView;
-import com.rongcloud.activity.contact.FriendDetailActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.tool.slideshowview.SlideShowView;
 import com.vipcenter.RegisterActivity;
-import com.xihubao.WashCarDetailActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

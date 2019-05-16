@@ -1,5 +1,6 @@
 package com.maket;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,10 +14,14 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.adapter.GoodsTypeAdapter;
 import com.maket.model.GoodList;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 
@@ -35,6 +40,8 @@ import butterknife.ButterKnife;
 public class RentGoodsActivity extends AppCompatActivity {
    @BindView(R.id.rv_goods)
     RecyclerView rv_goods;
+   @BindView(R.id.refresh)
+    SmartRefreshLayout mRefreshLayout;
     GoodsTypeAdapter mGoodsTypeAdapter;
     List<GoodList> mGoodLists;
     int page=1;
@@ -46,10 +53,17 @@ public class RentGoodsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rent_goods);
         ButterKnife.bind(this);
         id=getIntent().getStringExtra("id");
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
 
     private void initView() {
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         mGoodLists=new ArrayList<>();
         mGoodsTypeAdapter=new GoodsTypeAdapter(R.layout.item_know_you,mGoodLists);
         mGoodsTypeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -68,6 +82,15 @@ public class RentGoodsActivity extends AppCompatActivity {
                 getRentestGoods();
             }
         });
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page=1;
+                mGoodLists.clear();
+                mGoodsTypeAdapter.setNewData(mGoodLists);
+                getRentestGoods();
+            }
+        });
         rv_goods.setLayoutManager(new LinearLayoutManager(this));
         rv_goods.setAdapter(mGoodsTypeAdapter);
         getRentestGoods();
@@ -81,7 +104,7 @@ public class RentGoodsActivity extends AppCompatActivity {
         HttpProxy.obtain().get(PlatformContans.GoodInfo.getCommodityByDistince, params,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-
+                mRefreshLayout.finishRefresh();
                 Log.e("getCommodityByDistince", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);

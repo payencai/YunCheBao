@@ -6,6 +6,7 @@ import com.bbcircle.fragment.KindFragment;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.MarketSelectListActivity;
@@ -54,14 +55,16 @@ public class AllKindActivity extends NoHttpFragmentBaseActivity
     ListView listView;
     @BindView(R.id.pl_goods)
     GridView pl_goods;
-    List<GoodsType> mFirstGoodsTypes=new ArrayList<>();
-    List<GoodsType> mSecondGoodsTypes=new ArrayList<>();
+    List<GoodsType> mFirstGoodsTypes = new ArrayList<>();
+    List<GoodsType> mSecondGoodsTypes = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         setContentView(R.layout.all_kind_layout);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
 
     }
@@ -70,7 +73,7 @@ public class AllKindActivity extends NoHttpFragmentBaseActivity
      * 初始化view
      */
     private void initView() {
-        mGridTypeAdapter=new GridTypeAdapter(this,mSecondGoodsTypes);
+        mGridTypeAdapter = new GridTypeAdapter(this, mSecondGoodsTypes);
         listView = (ListView) findViewById(R.id.listview);
         adapter = new KindAdapter(this, mFirstGoodsTypes);
         listView.setAdapter(adapter);
@@ -78,9 +81,9 @@ public class AllKindActivity extends NoHttpFragmentBaseActivity
         pl_goods.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle bundle =new Bundle();
-                bundle.putString("id",mSecondGoodsTypes.get(position).getId());
-                ActivityAnimationUtils.commonTransition(AllKindActivity.this, MarketSelectListActivity.class, ActivityConstans.Animation.FADE,bundle);
+                Bundle bundle = new Bundle();
+                bundle.putString("id", mSecondGoodsTypes.get(position).getId());
+                ActivityAnimationUtils.commonTransition(AllKindActivity.this, MarketSelectListActivity.class, ActivityConstans.Animation.FADE, bundle);
             }
         });
         listView.setOnItemClickListener(this);
@@ -128,15 +131,15 @@ public class AllKindActivity extends NoHttpFragmentBaseActivity
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray data = jsonObject.getJSONArray("data");
-                        for (int i = 0; i < data.length(); i++) {
-                            JSONObject item = data.getJSONObject(i);
-                            GoodsType baikeItem = new Gson().fromJson(item.toString(), GoodsType.class);
-                            mFirstGoodsTypes.add(baikeItem);
-                        }
-                        if(data.length()>0){
-                            getSecData(mFirstGoodsTypes.get(0).getId());
-                        }
-                        adapter.notifyDataSetChanged();
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        GoodsType baikeItem = new Gson().fromJson(item.toString(), GoodsType.class);
+                        mFirstGoodsTypes.add(baikeItem);
+                    }
+                    if (data.length() > 0) {
+                        getSecData(mFirstGoodsTypes.get(0).getId());
+                    }
+                    adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -159,12 +162,12 @@ public class AllKindActivity extends NoHttpFragmentBaseActivity
 
     }
 
-//    @OnClick({R.id.back})
-//    public void OnClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.back:
-//                onBackPressed();
-//                break;
-//        }
-//    }
+    @OnClick({R.id.back})
+    public void OnClick(View v) {
+        switch (v.getId()) {
+            case R.id.back:
+                onBackPressed();
+                break;
+        }
+    }
 }

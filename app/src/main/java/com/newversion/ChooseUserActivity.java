@@ -16,15 +16,14 @@ import com.example.yunchebao.R;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
-import com.rongcloud.sidebar.ContactModel;
-import com.rongcloud.sidebar.ContactsAdapter;
+import com.example.yunchebao.rongcloud.sidebar.ContactModel;
+import com.example.yunchebao.rongcloud.sidebar.ContactsAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -9,10 +9,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.yunchebao.R;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
-import com.rongcloud.model.CarShop;
-import com.system.model.WashRepair;
+import com.example.yunchebao.rongcloud.model.CarShop;
 import com.tool.MathUtil;
-import com.xihubao.model.Road;
 
 import java.util.List;
 

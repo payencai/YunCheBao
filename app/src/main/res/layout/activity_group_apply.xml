@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.rongcloud.activity.contact.GroupApplyActivity">
+    tools:context=".rongcloud.activity.contact.GroupApplyActivity">
     <RelativeLayout
         android:background="@color/white"
         android:layout_width="match_parent"

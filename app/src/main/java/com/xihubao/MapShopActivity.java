@@ -23,12 +23,11 @@ import com.application.MyApplication;
 
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
-import com.entity.PhoneArticleEntity;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.rongcloud.model.CarShop;
+import com.example.yunchebao.rongcloud.model.CarShop;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.vipcenter.RegisterActivity;

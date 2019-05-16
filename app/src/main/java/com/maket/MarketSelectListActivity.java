@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -14,19 +17,26 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bbcircle.data.ClassItem;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.maket.adapter.GoodsTypeAdapter;
 import com.maket.model.GoodList;
 import com.nohttp.sample.NoHttpBaseActivity;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.vipcenter.adapter.GoodCollectListAdapter;
 import com.xihubao.CarBrandSelectActivity;
+import com.xihubao.NewGoodsListActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,13 +57,8 @@ import butterknife.OnClick;
  */
 
 public class MarketSelectListActivity extends NoHttpBaseActivity {
-    @BindView(R.id.listview)
-    PullToRefreshListView refreshListView;
-    ListView listView;
-
-    private Context ctx;
-    private List<GoodList> list;
-    private GoodCollectListAdapter adapter;
+    @BindView(R.id.rv_goods)
+    RecyclerView rv_goods;
     @BindView(R.id.rankPrice)
     TextView rankPriceBtn;
     @BindView(R.id.rankSale)
@@ -65,44 +70,64 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
     String id;
     boolean isPriceUp = false, isSaleUp = false;
     private int type = 0;//选中的是哪个排序方式
-
+    String orderByClause;
+    String sort;
+    String minPrice;
+    String maxPrice;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout mRefreshLayout;
+    GoodsTypeAdapter mGoodsTypeAdapter;
+    List<GoodList> mGoodLists;
+    boolean isLoadMore= false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         id=getIntent().getExtras().getString("id");
         setContentView(R.layout.market_list_layout);
+        ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
+        res = getResources();
         initView();
-//        requestMethod(0,"");
+
     }
 
 
     private void initView() {
-
-        ctx = this;
-        ButterKnife.bind(this);
-        res = getResources();
-        listView = refreshListView.getRefreshableView();
-        listView.setDivider(getResources().getDrawable(R.color.gray_cc));
-        listView.setDividerHeight(1);
-        list = new ArrayList<>();
-        adapter = new GoodCollectListAdapter(ctx, list);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mGoodLists=new ArrayList<>();
+        mGoodsTypeAdapter=new GoodsTypeAdapter(R.layout.item_know_you,mGoodLists);
+        mGoodsTypeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                position--;
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                GoodList goodList= (GoodList) adapter.getItem(position);
                 Bundle bundle=new Bundle();
-                bundle.putSerializable("data",list.get(position));
+                bundle.putSerializable("data",goodList);
                 ActivityAnimationUtils.commonTransition(MarketSelectListActivity.this, GoodDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
             }
         });
+        mGoodsTypeAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                page++;
+                isLoadMore=true;
+                getData(id);
+            }
+        });
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page=1;
+                mGoodLists.clear();
+                mGoodsTypeAdapter.setNewData(mGoodLists);
+                getData(id);
+            }
+        });
+        rv_goods.setLayoutManager(new LinearLayoutManager(this));
+        rv_goods.setAdapter(mGoodsTypeAdapter);
+
         getData(id);
 
     }
-    String orderByClause;
-    String sort;
-    String minPrice;
-    String maxPrice;
+
     private void getData(String id){
         Map<String,Object> params=new HashMap<>();
         params.put("page",page);
@@ -123,16 +148,23 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
         HttpProxy.obtain().get(PlatformContans.GoodMenu.getGoodList, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("getGoodList", result);
+                mRefreshLayout.finishRefresh();
+                Log.e("getCommodityByDistince", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray data = jsonObject.getJSONArray("data");
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
-                        GoodList baikeItem = new Gson().fromJson(item.toString(), GoodList.class);
-                        list.add(baikeItem);
+                        GoodList goodList = new Gson().fromJson(item.toString(), GoodList.class);
+                        mGoodLists.add(goodList);
                     }
-                    adapter.notifyDataSetChanged();
+                    mGoodsTypeAdapter.setNewData(mGoodLists);
+                    if(isLoadMore){
+                        isLoadMore=false;
+                        mGoodsTypeAdapter.loadMoreComplete();
+                    }else{
+                        mGoodsTypeAdapter.loadMoreEnd(true);
+                    }
                     //updateData();
 
                 } catch (JSONException e) {
@@ -154,7 +186,7 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
             minPrice=data.getStringExtra("min");
             maxPrice=data.getStringExtra("max");
             page=1;
-            list.clear();
+            mGoodLists.clear();
             getData(id);
         }
     }
@@ -184,11 +216,12 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
                     Drawable myImage = res.getDrawable(R.mipmap.yellow_arrow_small);
                     rankPriceBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, myImage, null);
                 }
-                rankDefaultBtn.setTextColor(ContextCompat.getColor(ctx, R.color.black_33));
-                rankSaleBtn.setTextColor(ContextCompat.getColor(ctx, R.color.black_33));
-                rankPriceBtn.setTextColor(ContextCompat.getColor(ctx, R.color.yellow_65));
+                rankDefaultBtn.setTextColor(ContextCompat.getColor(this, R.color.black_33));
+                rankSaleBtn.setTextColor(ContextCompat.getColor(this, R.color.black_33));
+                rankPriceBtn.setTextColor(ContextCompat.getColor(this, R.color.yellow_65));
                 page=1;
-                list.clear();
+                mGoodLists.clear();
+                mGoodsTypeAdapter.setNewData(mGoodLists);
                 getData(id);
                 break;
             case R.id.rankSale:
@@ -197,7 +230,7 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
                     isPriceUp = isPriceUp ? false : true;
                 }
                 type = 1;
-                rankSaleBtn.setTextColor(ContextCompat.getColor(ctx, R.color.yellow_65));
+                rankSaleBtn.setTextColor(ContextCompat.getColor(this, R.color.yellow_65));
                 isSaleUp = isSaleUp ? false : true;
                 if (isSaleUp) {
                     sort="asc";
@@ -208,10 +241,11 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
                     Drawable myImage = res.getDrawable(R.mipmap.yellow_arrow_small);
                     rankSaleBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, myImage, null);
                 }
-                rankPriceBtn.setTextColor(ContextCompat.getColor(ctx, R.color.black_33));
-                rankDefaultBtn.setTextColor(ContextCompat.getColor(ctx, R.color.black_33));
+                rankPriceBtn.setTextColor(ContextCompat.getColor(this, R.color.black_33));
+                rankDefaultBtn.setTextColor(ContextCompat.getColor(this, R.color.black_33));
                 page=1;
-                list.clear();
+                mGoodLists.clear();
+                mGoodsTypeAdapter.setNewData(mGoodLists);
                 getData(id);
                 break;
             case R.id.rankDefault:
@@ -220,11 +254,12 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
                 maxPrice="";
                 minPrice="";
                 orderByClause="";
-                rankSaleBtn.setTextColor(ContextCompat.getColor(ctx, R.color.black_33));
-                rankPriceBtn.setTextColor(ContextCompat.getColor(ctx, R.color.black_33));
-                rankDefaultBtn.setTextColor(ContextCompat.getColor(ctx, R.color.yellow_65));
+                rankSaleBtn.setTextColor(ContextCompat.getColor(this, R.color.black_33));
+                rankPriceBtn.setTextColor(ContextCompat.getColor(this, R.color.black_33));
+                rankDefaultBtn.setTextColor(ContextCompat.getColor(this, R.color.yellow_65));
                 page=1;
-                list.clear();
+                mGoodLists.clear();
+                mGoodsTypeAdapter.setNewData(mGoodLists);
                 getData(id);
                 break;
             case R.id.pleaseLay:

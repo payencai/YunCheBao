@@ -1,21 +1,11 @@
 package com.system;
 
-import android.Manifest;
-import android.app.Activity;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.location.LocationManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -23,10 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
 import com.application.MyApplication;
 import com.costans.PlatformContans;
 import com.entity.UserMsg;
@@ -36,29 +22,20 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
-import com.payencai.library.util.ToastUtil;
-import com.rongcloud.activity.AddGroupDetailActivity;
-import com.rongcloud.activity.StrangerDelActivity;
-import com.rongcloud.activity.contact.FriendDetailActivity;
-import com.rongcloud.activity.contact.GroupApplyActivity;
-import com.rongcloud.activity.contact.GroupDetailActivity;
-import com.rongcloud.activity.contact.MyGroupDetailActivity;
-import com.rongcloud.activity.stranger.SaomaActivity;
-import com.rongcloud.model.MyFriend;
-import com.rongcloud.model.MyGroup;
-import com.rongcloud.sidebar.ContactModel;
+import com.example.yunchebao.rongcloud.activity.AddGroupDetailActivity;
+import com.example.yunchebao.rongcloud.activity.StrangerDelActivity;
+import com.example.yunchebao.rongcloud.activity.contact.FriendDetailActivity;
+import com.example.yunchebao.rongcloud.activity.contact.GroupDetailActivity;
+import com.example.yunchebao.rongcloud.activity.contact.MyGroupDetailActivity;
+import com.example.yunchebao.rongcloud.model.MyFriend;
+import com.example.yunchebao.rongcloud.model.MyGroup;
+import com.example.yunchebao.rongcloud.sidebar.ContactModel;
 import com.system.fragment.AnotherBabyFragment;
-import com.system.fragment.BBCircleFragment;
 import com.system.fragment.CheyiFragment;
 import com.system.fragment.HomeFragment;
-import com.system.fragment.BaikeFragment;
 import com.system.fragment.MallFragment;
-import com.system.fragment.NewBabyFragment;
 import com.system.fragment.NewBaikeFragment;
-import com.tool.FitStateUI;
-import com.tool.ImageUtil;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
-import com.vipcenter.LoginByaccountActivity;
 import com.vipcenter.model.UserInfo;
 
 import org.json.JSONArray;
@@ -76,16 +53,9 @@ import butterknife.ButterKnife;
 import io.rong.callkit.util.SPUtils;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.manager.IUnReadMessageObserver;
-import io.rong.imkit.model.GroupUserInfo;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Group;
-import io.rong.imlib.model.Message;
-import io.rong.imlib.model.MessageContent;
-import io.rong.message.FileMessage;
-import io.rong.message.ImageMessage;
-import io.rong.message.TextMessage;
-import io.rong.message.VoiceMessage;
 
 public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnClickListener {
 
@@ -523,7 +493,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                             startActivity(intent);
                         } else {
                             Intent intent = new Intent(MainActivity.this, AddGroupDetailActivity.class);
-                            com.rongcloud.model.Group group = new com.rongcloud.model.Group();
+                            com.example.yunchebao.rongcloud.model.Group group = new com.example.yunchebao.rongcloud.model.Group();
                             group.setCrowdName(name);
                             group.setHxCrowdId(id);
                             group.setImage(image);

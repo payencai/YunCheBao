@@ -1,12 +1,7 @@
 package com.cheyibao.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,43 +9,24 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
-
-import com.application.MyApplication;
 
 import com.baike.adapter.CarListAdapter;
 import com.caryibao.NewCar;
-import com.cheyibao.CarSecondBrandActivity;
-import com.cheyibao.NewCarActivity;
 import com.cheyibao.NewCarDetailActivity;
 import com.cheyibao.NewCarListActivity;
-import com.cheyibao.adapter.NewCarAdapter;
 import com.cheyibao.adapter.NewCarMenuAdapter;
-import com.cheyibao.model.NewCarMenu;
 import com.costans.PlatformContans;
 import com.entity.Banner;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.model.GoodMenu;
-import com.maket.model.LoadMoreListView;
-import com.nanchen.wavesidebar.WaveSideBarView;
 import com.nohttp.sample.BaseFragment;
-import com.rongcloud.sidebar.PinnedHeaderDecoration;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
-import com.tool.indexbar.CarBean;
-import com.tool.indexbar.RecCarAdapter;
-import com.tool.indexbar.Utils;
 import com.tool.listview.PersonalListView;
 import com.tool.slideshowview.SlideShowView;
 import com.tool.view.GridViewForScrollView;
-import com.tool.view.ListViewForScrollView;
-import com.vipcenter.RegisterActivity;
-import com.xihubao.CarBrandSelectActivity;
 import com.xihubao.model.CarBrand;
 
 import org.json.JSONArray;
@@ -65,9 +41,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import qdx.indexbarlayout.IndexBar;
-import qdx.indexbarlayout.IndexLayout;
-import qdx.stickyheaderdecoration.NormalDecoration;
 
 /**
  * Created by sdhcjhss on 2017/12/9.

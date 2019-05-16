@@ -7,27 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.ScrollView;
 
-import com.baike.MagzineCoverActivity;
-import com.baike.adapter.MagzineListAdapter;
-import com.entity.PhoneShopEntity;
 import com.example.yunchebao.R;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.nohttp.sample.BaseFragment;
-import com.rongcloud.model.CarShop;
+import com.example.yunchebao.rongcloud.model.CarShop;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
-import com.tool.view.ListViewForScrollView;
 import com.xihubao.WashCarDetailActivity;
 import com.xihubao.adapter.WashCarListAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
