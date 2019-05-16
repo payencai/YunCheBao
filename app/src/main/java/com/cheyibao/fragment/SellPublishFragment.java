@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
@@ -31,6 +32,7 @@ import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.nohttp.sample.BaseFragment;
+import com.payencai.library.util.ToastUtil;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.CommonDateTools;
@@ -260,6 +262,22 @@ public class SellPublishFragment extends BaseFragment implements OnDateSetListen
                 break;
             case R.id.submitBtn:
                 Bundle bundle = new Bundle();
+                if (TextUtils.isEmpty(image)) {
+                    ToastUtil.showToast(getContext(), "图片不能为空");
+                    return;
+                }
+                if (cityText.getText().toString().equals("请选择地点")) {
+                    ToastUtil.showToast(getContext(), "地点不能为空");
+                    return;
+                }
+                if (TextUtils.isEmpty(et_dis.getEditableText().toString())) {
+                    ToastUtil.showToast(getContext(), "请输入里程");
+                    return;
+                }
+                if (TextUtils.isEmpty(et_price.getEditableText().toString())) {
+                    ToastUtil.showToast(getContext(), "请输入价格");
+                    return;
+                }
                 bundle.putString("id", id);
                 bundle.putString("id1", id1);
                 bundle.putString("id2", id2);

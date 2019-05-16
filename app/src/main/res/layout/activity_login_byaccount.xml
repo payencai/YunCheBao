@@ -95,7 +95,7 @@
         android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true"
         android:layout_above="@id/bottom"
-        android:text="手机号登录"
+        android:text="账号登录"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <LinearLayout
