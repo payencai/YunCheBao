@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import com.tencent.smtt.export.external.interfaces.IX5WebSettings;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebSettings.LayoutAlgorithm;
 import com.tencent.smtt.sdk.WebView;
@@ -41,9 +42,9 @@ public class X5WebView extends WebView {
 		webSetting.setBuiltInZoomControls(true);
 		webSetting.setUseWideViewPort(true);
 		webSetting.setSupportMultipleWindows(true);
-		// webSetting.setLoadWithOverviewMode(true);
+		 webSetting.setLoadWithOverviewMode(true);
 		webSetting.setAppCacheEnabled(true);
-		// webSetting.setDatabaseEnabled(true);
+		 webSetting.setDatabaseEnabled(true);
 		webSetting.setDomStorageEnabled(true);
 		webSetting.setGeolocationEnabled(true);
 		webSetting.setAppCacheMaxSize(Long.MAX_VALUE);

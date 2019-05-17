@@ -175,7 +175,15 @@ public class NewBaikeFragment extends Fragment {
         menuLay2.setSelected(false);
         menuLay3.setSelected(false);
         menuLay4.setSelected(false);
-
+        iv_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), BaikeTagActivity.class);
+                intent.putExtra("type",type);
+                intent.putExtra("pos",pos);
+                startActivityForResult(intent,1);
+            }
+        });
         header.findViewById(R.id.menuLay1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,15 +198,6 @@ public class NewBaikeFragment extends Fragment {
                 mBaikeTypeAdapter.notifyDataSetChanged();
                 mClassifyWikis1.clear();
                 getType(type);
-            }
-        });
-        iv_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                 Intent intent=new Intent(getContext(), BaikeTagActivity.class);
-                 intent.putExtra("type",type);
-                 intent.putExtra("pos",pos);
-                 startActivityForResult(intent,1);
             }
         });
         header.findViewById(R.id.menuLay2).setOnClickListener(new View.OnClickListener() {

@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.system.fragment.TestFragment">
+    <TextView
+        android:id="@+id/tv_update"
+        android:textSize="@dimen/text_size_18"
+        android:padding="15dp"
+        android:gravity="center"
+        android:text="更新tab和viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/tab_order"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:color/white"
+        app:tl_indicator_color="@color/yellow_02"
+        app:tl_indicator_corner_radius="30dp"
+        app:tl_indicator_height="3dp"
+        app:tl_indicator_width="30dp"
+        app:tl_indicator_width_equal_title="false"
+        app:tl_tab_space_equal="false"
+        app:tl_textSelectColor="@color/yellow_02"
+        app:tl_textUnselectColor="@android:color/black"
+        app:tl_textsize="14sp" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_marginTop="1dp"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

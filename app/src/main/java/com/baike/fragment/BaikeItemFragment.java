@@ -102,8 +102,13 @@ public class BaikeItemFragment extends Fragment {
         mBaikeItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                BaikeItem baikeItem= (BaikeItem) adapter.getItem(position);
                 Intent intent = new Intent(getContext(), WebviewActivity.class);
-                intent.putExtra("url", mBaikeItems.get(position).getContent());
+                String token="";
+                if(MyApplication.isLogin){
+                    token=MyApplication.token;
+                }
+                intent.putExtra("url", "http://www.yunchebao.com:8080/h5baby/?id="+baikeItem.getId()+"&token="+token);
                 startActivity(intent);
             }
         });
@@ -117,17 +122,7 @@ public class BaikeItemFragment extends Fragment {
         });
         rv_content.setAdapter(mBaikeItemAdapter);
 
-        //mBaikeItemAdapter = new BKItemAdapter(getContext(),mBaikeItems,type);
-//        rv_content.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent intent=new Intent(getContext(), WebviewActivity.class);
-//                intent.putExtra("url",mBaikeItems.get(position).getContent());
-//                startActivity(intent);
-//            }
-//        });
-//        rv_content.setFocusable(false);
-//        rv_content.setAdapter(mBaikeItemAdapter);
+
         page=1;
         getData();
     }

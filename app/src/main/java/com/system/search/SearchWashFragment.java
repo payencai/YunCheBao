@@ -1,6 +1,7 @@
 package com.system.search;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -15,6 +16,8 @@ import com.application.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.washrepair.NewWashRepairActivity;
+import com.example.yunchebao.washrepair.NewWashrepairDetailActivity;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
@@ -89,14 +92,12 @@ public class SearchWashFragment extends Fragment {
         mRoadAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Bundle bundle = new Bundle();
-                CarShop carShow= (CarShop) adapter.getItem(position);
-                Log.e("pos", position + "");
-                bundle.putSerializable("id",carShow );
-                bundle.putString("type", "洗车店");
-                bundle.putInt("flag", 1);
-                if (MyApplication.isLogin)
-                    ActivityAnimationUtils.commonTransition(getActivity(), WashCarDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
+
+                CarShop carShop= (CarShop) adapter.getItem(position);
+                Intent intent = new Intent(getContext(), NewWashrepairDetailActivity.class);
+                intent.putExtra("id", carShop.getId());
+                intent.putExtra("type", carShop.getType());
+                startActivity(intent);
             }
         });
         rv_road.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));

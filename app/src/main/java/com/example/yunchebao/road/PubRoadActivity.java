@@ -33,6 +33,7 @@ import com.system.model.AddressBean;
 import com.tool.FileUtil;
 import com.tool.GlideImageEngine;
 import com.tool.StringUtils;
+import com.tool.view.GridViewForScrollView;
 import com.xihubao.CarBrandSelectActivity;
 import com.example.yunchebao.yuedan.adapter.ImageAdapter;
 import com.zhihu.matisse.Matisse;
@@ -66,7 +67,7 @@ import top.zibin.luban.OnCompressListener;
 
 public class PubRoadActivity extends AppCompatActivity {
     @BindView(R.id.gv_pic)
-    GridView gv_pic;
+    GridViewForScrollView gv_pic;
     @BindView(R.id.iv_logo)
     ImageView iv_logo;
     @BindView(R.id.tv_shopname)

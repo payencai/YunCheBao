@@ -31,6 +31,7 @@ import com.example.yunchebao.rongcloud.model.MyFriend;
 import com.example.yunchebao.rongcloud.model.MyGroup;
 import com.example.yunchebao.rongcloud.sidebar.ContactModel;
 import com.system.fragment.AnotherBabyFragment;
+import com.system.fragment.BaikeFragment;
 import com.system.fragment.CheyiFragment;
 import com.system.fragment.HomeFragment;
 import com.system.fragment.MallFragment;
@@ -63,7 +64,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
     HomeFragment fragment1;
     CheyiFragment fragment2;
     AnotherBabyFragment fragment3;
-    NewBaikeFragment fragment4;
+    BaikeFragment fragment4;
     MallFragment fragment5;
 
     boolean isFrist = true;
@@ -178,7 +179,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         fragment1 = new HomeFragment();
         fragment2 = new CheyiFragment();
         fragment3 = new AnotherBabyFragment();
-        fragment4 = new NewBaikeFragment();
+        fragment4 = new BaikeFragment();
         fragment5 = new MallFragment();
         fragments = new ArrayList<>();
         fragments.add(fragment1);

@@ -11,14 +11,17 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.fourshop.activity.AddFourCommentActivity;
 import com.tool.FileUtil;
 import com.tool.GlideImageEngine;
+import com.tool.SoftKeyBoardListener;
 import com.tool.util.AbImageUtil;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -32,6 +35,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import jp.wasabeef.richeditor.RichEditor;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -51,16 +56,18 @@ public class PublishInputActivity extends AppCompatActivity {
     private TextView mPreview;
     String content;
     TextView submit;
-
+    @BindView(R.id.scollview)
+    HorizontalScrollView scollview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         content = getIntent().getStringExtra("html");
         setContentView(R.layout.activity_publish_input);
+        ButterKnife.bind(this);
         mEditor = (RichEditor) findViewById(R.id.editor);
         mEditor.setEditorHeight(200);
         mEditor.setEditorFontSize(14);
-
+        scollview.setVisibility(View.GONE);
         mEditor.setEditorFontColor(getResources().getColor(R.color.gray_66));
         //mEditor.setEditorBackgroundColor(Color.BLUE);
         //mEditor.setBackgroundColor(Color.BLUE);
@@ -289,6 +296,20 @@ public class PublishInputActivity extends AppCompatActivity {
                 mEditor.insertTodo();
             }
         });
+        SoftKeyBoardListener.setListener(PublishInputActivity.this, new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
+            @Override
+            public void keyBoardShow(int height) {
+                scollview.setVisibility(View.VISIBLE);
+                //Toast.makeText(PublishInputActivity.this, "键盘显示 高度" + height, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void keyBoardHide(int height) {
+                scollview.setVisibility(View.GONE);
+                //Toast.makeText(PublishInputActivity.this, "键盘隐藏 高度" + height, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void openPhoto() {

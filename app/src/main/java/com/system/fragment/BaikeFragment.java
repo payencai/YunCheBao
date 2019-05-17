@@ -13,7 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.application.MyApplication;
+import com.baike.BaikeTagActivity;
 import com.baike.fragment.BaikeItemFragment;
 import com.baike.model.ClassifyWiki;
 import com.bbcircle.fragment.CarShowFragment;
@@ -23,14 +27,21 @@ import com.bbcircle.fragment.SelfDrivingFragment;
 import com.bumptech.glide.Glide;
 
 import com.costans.PlatformContans;
+
 import com.entity.Banner;
 import com.example.yunchebao.R;
+import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
+import com.system.SearchActivity;
 import com.system.WebviewActivity;
+import com.system.adapter.FragmentDreamAdapter;
 import com.tool.adapter.MyFragmentPagerAdapter;
+
+import com.vipcenter.RegisterActivity;
+import com.vipcenter.UserCenterActivity;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -52,111 +63,174 @@ import butterknife.ButterKnife;
  * 宝贝百科
  */
 public class BaikeFragment extends BaseFragment {
-
-
-    private ArrayList<String> tabNames = new ArrayList<>(4);
-    private ArrayList<Fragment> mFragments = new ArrayList<>(4);
-    TabLayout mTablayout;
-    ViewPager vp_content;
-
-    @BindView(R.id.slideshowView)
-    com.youth.banner.Banner banner;
     @BindView(R.id.menuLay1)
     LinearLayout menuLay1;
     @BindView(R.id.menuLay2)
     LinearLayout menuLay2;
     @BindView(R.id.menuLay3)
     LinearLayout menuLay3;
-
+    @BindView(R.id.menuLay4)
+    LinearLayout menuLay4;
+    @BindView(R.id.tv_type)
+    TextView tv_type;
+    @BindView(R.id.user_center_icon)
+    ImageView iv_center;
+    @BindView(R.id.search_lay)
+    RelativeLayout search_lay;
+    private List<String> mTitles;
+    private List<Fragment> mFragments;
+    @BindView(R.id.slidingTabLayout)
+    SlidingTabLayout stl_baike;
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
+    @BindView(R.id.banner)
+    com.youth.banner.Banner banner;
+    @BindView(R.id.iv_add)
+    ImageView iv_add;
     int type = 1;
-
-    MyFragmentPagerAdapter mClassifyWikiAdapter;
-    List<ClassifyWiki> mClassifyWikis1 ;
+    int pos=0;
+    List<ClassifyWiki> mClassifyWikis1;
+    FragmentDreamAdapter mFragmentDreamAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_mag, container, false);
+        rootView = inflater.inflate(R.layout.fragment_baike, container, false);
         ButterKnife.bind(this, rootView);
-        vp_content = (ViewPager) rootView.findViewById(R.id.id_stickynavlayout_viewpager);
-        mTablayout = (TabLayout) rootView.findViewById(R.id.id_stickynavlayout_indicator);
         getBaner();
         init();
         return rootView;
     }
 
     private void init() {
+        mTitles = new ArrayList<>();
+        mFragments = new ArrayList<>();
+        mClassifyWikis1 = new ArrayList<>();
+        menuLay1.setSelected(true);
+        menuLay2.setSelected(false);
+        menuLay3.setSelected(false);
+        menuLay4.setSelected(false);
+        iv_center.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MyApplication.isLogin) {
+                    startActivity(new Intent(getContext(), UserCenterActivity.class));
+                } else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
+            }
+        });
+        iv_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), BaikeTagActivity.class);
+                intent.putExtra("type",type);
+                intent.putExtra("pos",pos);
+                startActivityForResult(intent,1);
+            }
+        });
+        search_lay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MyApplication.isLogin) {
+                    startActivity(new Intent(getContext(), SearchActivity.class));
+                } else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
+            }
+        });
+        menuLay1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menuLay1.setSelected(true);
+                menuLay2.setSelected(false);
+                menuLay3.setSelected(false);
+                menuLay4.setSelected(false);
+                tv_type.setText("装饰百科");
+                type = 1;
+                mClassifyWikis1.clear();
+                mTitles.clear();
+                mFragments.clear();
+                getUpdateData();
+            }
+        });
+        menuLay2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menuLay1.setSelected(false);
+                menuLay2.setSelected(true);
+                menuLay3.setSelected(false);
+                menuLay4.setSelected(false);
+                tv_type.setText("养护百科");
+                type = 2;
+                mFragments.clear();
+                mTitles.clear();
+                mClassifyWikis1.clear();
+                getUpdateData();
+            }
+        });
+        menuLay3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menuLay1.setSelected(false);
+                menuLay2.setSelected(false);
+                menuLay3.setSelected(true);
+                menuLay4.setSelected(false);
+                tv_type.setText("购车指南");
+                type = 3;
+                mFragments.clear();
+                mTitles.clear();
+                mClassifyWikis1.clear();
+                getUpdateData();
+            }
+        });
+        menuLay4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menuLay1.setSelected(false);
+                menuLay2.setSelected(false);
+                menuLay3.setSelected(false);
+                menuLay4.setSelected(true);
+                tv_type.setText("交通百科");
+                type = 4;
+                mFragments.clear();
+                mTitles.clear();
+                mClassifyWikis1.clear();
+                getUpdateData();
 
-
-//        menuLay1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                type = 1;
-//                mClassifyWikis1.clear();
-//
-//                tabNames.clear();
-//                mFragments.clear();
-//                getData(type);
-//            }
-//        });
-//        menuLay2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                type = 2;
-//                mClassifyWikis1.clear();
-//                tabNames.clear();
-//                mFragments.clear();
-//                getData(type);
-//            }
-//        });
-//        menuLay3.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                type = 3;
-//                mClassifyWikis1.clear();
-//                tabNames.clear();
-//                mFragments.clear();
-//                getData(type);
-//            }
-//        });
-//        tabNames=new ArrayList<>();
-//        mFragments=new ArrayList<>();
-        tabNames.add("自驾游");
-        tabNames.add("车友会");
-        tabNames.add("汽车秀");
-        tabNames.add("赛事发布");
-        // mFragments.add(new HotArticleFragment());
-        mFragments.add(new SelfDrivingFragment());
-        mFragments.add(new DriverFragment());
-        mFragments.add(new CarShowFragment());
-        mFragments.add(new RacePublishFragment());
-        mClassifyWikis1=new ArrayList<>();
-
-        mClassifyWikiAdapter = new MyFragmentPagerAdapter(getActivity().getSupportFragmentManager(), mFragments,tabNames);
-        vp_content.setAdapter(mClassifyWikiAdapter);
-        vp_content.setOffscreenPageLimit(1);
-        //vpGank.setCurrentItem(0);
-        vp_content.setBackgroundColor(getResources().getColor(R.color.white));
-        mTablayout.setupWithViewPager(vp_content);
-       // getData(type);
+            }
+        });
+        getFirstData();
 
     }
 
-    private void updateData() {
-
+    private void initViewPager() {
+        mFragments.clear();
         for (int i = 0; i < mClassifyWikis1.size(); i++) {
-            tabNames.add(mClassifyWikis1.get(i).getName());
             mFragments.add(BaikeItemFragment.newInstance(type, mClassifyWikis1.get(i).getId()));
         }
-        Log.e("size",mFragments.size()+"");
+        mFragmentDreamAdapter = new FragmentDreamAdapter(getContext(), getChildFragmentManager(), mFragments, mTitles);
+        viewPager.setAdapter(mFragmentDreamAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
 
-        mClassifyWikiAdapter = new MyFragmentPagerAdapter(getActivity().getSupportFragmentManager(), mFragments,tabNames);
-        vp_content.setAdapter(mClassifyWikiAdapter);
-        mTablayout.setupWithViewPager(vp_content);
+            }
 
+            @Override
+            public void onPageSelected(int i) {
+                  pos=i;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+        stl_baike.setViewPager(viewPager);
     }
 
-    private void getData(final int type) {
+    private void getFirstData() {
 
         // UserInfo userInfo = MyApplication.getUserInfo();
         Map<String, Object> params = new HashMap<>();
@@ -172,8 +246,9 @@ public class BaikeFragment extends BaseFragment {
                         JSONObject item = data.getJSONObject(i);
                         ClassifyWiki classifyWiki = new Gson().fromJson(item.toString(), ClassifyWiki.class);
                         mClassifyWikis1.add(classifyWiki);
+                        mTitles.add(classifyWiki.getName());
                     }
-                    updateData();
+                    initViewPager();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -186,6 +261,53 @@ public class BaikeFragment extends BaseFragment {
             }
         });
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==1&&data!=null){
+            pos=data.getExtras().getInt("pos",0);
+            viewPager.setCurrentItem(pos);
+
+        }
+    }
+    private void getUpdateData() {
+
+        // UserInfo userInfo = MyApplication.getUserInfo();
+        Map<String, Object> params = new HashMap<>();
+        params.put("type", type);
+        HttpProxy.obtain().get(PlatformContans.WiKi.getWikiClassifyByType, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("getWikiClassifyByType", type + "-------" + result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    List<String> tittles = new ArrayList<>();
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        ClassifyWiki classifyWiki = new Gson().fromJson(item.toString(), ClassifyWiki.class);
+                        mClassifyWikis1.add(classifyWiki);
+                        tittles.add(classifyWiki.getName());
+                        mFragments.add(BaikeItemFragment.newInstance(type, mClassifyWikis1.get(i).getId()));
+                    }
+                    mFragmentDreamAdapter.setNewTitleFragment(mFragments, tittles);
+                    stl_baike.notifyDataSetChanged();
+                    if (mFragments.size() > 0) {
+                        viewPager.setCurrentItem(0);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
 
     List<String> images = new ArrayList<>();
 

@@ -47,7 +47,7 @@ public class RentShop implements Parcelable {
     private int orderNum;
     private String province;
     private String saleTelephone;
-    private int score;
+    private double score;
     private String shopNo;
     private String amStart;
     private String amStop;
@@ -206,11 +206,11 @@ public class RentShop implements Parcelable {
         this.saleTelephone = saleTelephone;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 
@@ -283,7 +283,7 @@ public class RentShop implements Parcelable {
         dest.writeInt(this.orderNum);
         dest.writeString(this.province);
         dest.writeString(this.saleTelephone);
-        dest.writeInt(this.score);
+        dest.writeDouble(this.score);
         dest.writeString(this.shopNo);
         dest.writeString(this.amStart);
         dest.writeString(this.amStop);

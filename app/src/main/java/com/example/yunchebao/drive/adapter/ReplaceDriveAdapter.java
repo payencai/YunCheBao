@@ -36,7 +36,7 @@ public class ReplaceDriveAdapter extends BaseQuickAdapter<ReplaceDrive,BaseViewH
         tv_name.setText(item.getShopName());
         tv_grade.setText(""+item.getGrade());
         tv_address.setText(item.getAddress());
-        java.text.DecimalFormat df = new java.text.DecimalFormat("#.000");
+        java.text.DecimalFormat df = new java.text.DecimalFormat("#.00");
         tv_dis.setText("距离"+df.format(item.getDistance())+"km");
     }
     public static String doubleTranString(double num)

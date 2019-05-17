@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.application.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.rongcloud.activity.contact.FriendDetailActivity;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
@@ -42,6 +44,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import go.error;
 
 public class NearbyActivity extends AppCompatActivity {
     int page = 1;
@@ -54,7 +57,8 @@ public class NearbyActivity extends AppCompatActivity {
     ImageView iv_logo;
     NearByAdapter mNearByAdapter;
     List<Nearby> mNearbies;
-    String sex="不限";
+    String sex = "不限";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,29 +69,27 @@ public class NearbyActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mNearbies=new ArrayList<>();
-        mNearByAdapter=new NearByAdapter(R.layout.item_nearby,mNearbies);
+        mNearbies = new ArrayList<>();
+        mNearByAdapter = new NearByAdapter(R.layout.item_nearby, mNearbies);
         mNearByAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
                 page++;
-                isLoadMore=true;
+                isLoadMore = true;
                 getData();
             }
-        },rv_nearby);
+        }, rv_nearby);
         mNearByAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Nearby nearby= (Nearby) adapter.getItem(position);
-                Intent intent=new Intent(NearbyActivity.this,StrangerDelActivity.class);
-                intent.putExtra("id",nearby.getId());
-                startActivity(intent);
+                Nearby nearby = (Nearby) adapter.getItem(position);
+                getIsFriend(nearby.getId());
             }
         });
         refersh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-               refersh();
+                refersh();
             }
         });
         rv_nearby.setLayoutManager(new LinearLayoutManager(this));
@@ -100,13 +102,53 @@ public class NearbyActivity extends AppCompatActivity {
         });
         getData();
     }
-    private void getData(){
+
+    private void getIsFriend(String userId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", userId);
+        HttpProxy.obtain().get(PlatformContans.User.getUserResultById, params, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        String isFriend = data.getString("isFriend");
+                        if(TextUtils.equals("1",isFriend)){
+                            Intent intent = new Intent(NearbyActivity.this, FriendDetailActivity.class);
+                            intent.putExtra("id", userId);
+                            startActivity(intent);
+                        }else{
+                            Intent intent = new Intent(NearbyActivity.this, StrangerDelActivity.class);
+                            intent.putExtra("id", userId);
+                            startActivity(intent);
+                        }
+                        Log.e("getFourShopListByApp", isFriend);
+                    } else {
+
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    private void getData() {
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
         params.put("sex", sex);
-        params.put("longitude", MyApplication.getaMapLocation().getLongitude()+"");
-        params.put("latitude", MyApplication.getaMapLocation().getLatitude()+"");
-        Log.e("params",params.toString());
+        params.put("longitude", MyApplication.getaMapLocation().getLongitude() + "");
+        params.put("latitude", MyApplication.getaMapLocation().getLatitude() + "");
+        Log.e("params", params.toString());
         HttpProxy.obtain().get(PlatformContans.User.searchNearbyUser, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -146,9 +188,10 @@ public class NearbyActivity extends AppCompatActivity {
             }
         });
     }
-    @OnClick({R.id.rl_more,R.id.back})
-    void OnClick(View view){
-        switch (view.getId()){
+
+    @OnClick({R.id.rl_more, R.id.back})
+    void OnClick(View view) {
+        switch (view.getId()) {
             case R.id.back:
                 break;
             case R.id.rl_more:
@@ -156,7 +199,8 @@ public class NearbyActivity extends AppCompatActivity {
                 break;
         }
     }
-    private void clearLocation(){
+
+    private void clearLocation() {
         HttpProxy.obtain().post(PlatformContans.User.clearNearbyUser, null, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -169,20 +213,21 @@ public class NearbyActivity extends AppCompatActivity {
             }
         });
     }
+
     private void showNearbyDialog() {
         final Dialog dialog = new Dialog(this, R.style.dialog);
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_nearby_man, null);
-        TextView tv_item1=dialogView.findViewById(R.id.tv_item1);
-        TextView tv_item2=dialogView.findViewById(R.id.tv_item2);
-        TextView tv_item3=dialogView.findViewById(R.id.tv_item3);
-        TextView tv_item4=dialogView.findViewById(R.id.tv_item4);
-        TextView tv_item5=dialogView.findViewById(R.id.tv_item5);
+        TextView tv_item1 = dialogView.findViewById(R.id.tv_item1);
+        TextView tv_item2 = dialogView.findViewById(R.id.tv_item2);
+        TextView tv_item3 = dialogView.findViewById(R.id.tv_item3);
+        TextView tv_item4 = dialogView.findViewById(R.id.tv_item4);
+        TextView tv_item5 = dialogView.findViewById(R.id.tv_item5);
         tv_item1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iv_logo.setImageResource(R.mipmap.ic_man);
                 iv_logo.setVisibility(View.VISIBLE);
-                sex="男";
+                sex = "男";
                 dialog.dismiss();
                 refersh();
             }
@@ -192,7 +237,7 @@ public class NearbyActivity extends AppCompatActivity {
             public void onClick(View v) {
                 iv_logo.setImageResource(R.mipmap.ic_women);
                 iv_logo.setVisibility(View.VISIBLE);
-                sex="女";
+                sex = "女";
                 dialog.dismiss();
                 refersh();
             }
@@ -201,7 +246,7 @@ public class NearbyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 iv_logo.setVisibility(View.GONE);
-                sex="不限";
+                sex = "不限";
                 dialog.dismiss();
                 refersh();
             }
@@ -241,7 +286,7 @@ public class NearbyActivity extends AppCompatActivity {
     }
 
     private void refersh() {
-        page=1;
+        page = 1;
         mNearbies.clear();
         mNearByAdapter.setNewData(mNearbies);
         getData();

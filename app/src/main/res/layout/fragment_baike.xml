@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent"
+    >
+    <include layout="@layout/top_search_layout"></include>
+
+    <android.support.design.widget.CoordinatorLayout
+
+        android:id="@+id/shl_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <android.support.design.widget.AppBarLayout
+            app:elevation="0dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                app:layout_scrollFlags="scroll|enterAlways"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.youth.banner.Banner
+
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp">
+
+                </com.youth.banner.Banner>
+                <android.support.v7.widget.CardView
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    app:cardCornerRadius="1dp"
+                    app:cardElevation="1dp" >
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:background="@drawable/bg_baike"
+                            android:id="@+id/menuLay1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@mipmap/baike_menu_1" />
+
+                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:text="装饰百科"
+                                android:textColor="@color/gray_99"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:background="@drawable/bg_baike"
+                            android:id="@+id/menuLay2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@mipmap/baike_menu_2" />
+
+                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:text="养护百科"
+                                android:textColor="@color/gray_99"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:background="@drawable/bg_baike"
+                            android:id="@+id/menuLay3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@mipmap/baike_menu_3" />
+
+                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:text="购车指南"
+                                android:textColor="@color/gray_99"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:background="@drawable/bg_baike"
+                            android:id="@+id/menuLay4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@mipmap/ic_jiaotong" />
+
+                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:text="交通百科"
+                                android:textColor="@color/gray_99"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/black_33"
+                    android:textSize="24dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="装饰百科"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" ></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.flyco.tablayout.SlidingTabLayout
+                    android:id="@+id/slidingTabLayout"
+                    android:layout_width="0dp"
+                    android:layout_weight="7"
+                    android:layout_height="45dp"
+                    android:layout_gravity="bottom"
+                    android:background="@color/white"
+                    app:tl_indicator_color="@color/yellow_02"
+                    app:tl_indicator_height="2dp"
+                    app:tl_indicator_width="30dp"
+                    app:tl_indicator_width_equal_title="false"
+                    app:tl_tab_space_equal="false"
+                    app:tl_textSelectColor="@color/black_33"
+                    app:tl_textUnselectColor="@color/gray"
+                    app:tl_textsize="16sp"
+                    app:tl_underline_color="@color/yellow_02"
+                    />
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/iv_add"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/add"
+                    android:padding="15dp"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    </android.support.design.widget.CoordinatorLayout>>
+
+</LinearLayout>

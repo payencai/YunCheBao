@@ -115,7 +115,7 @@ public class ShopDetailActivity extends AppCompatActivity {
         shopNameView.setText(rentShop.getName());
         gradeView.setText(String.format("%s", rentShop.getGrade()));
         businessHoursView.setText(String.format("营业时间:%s~%s", TextUtils.isEmpty(rentShop.getAmStart())? rentShop.getPmStart():rentShop.getAmStart(), TextUtils.isEmpty(rentShop.getPmStop())? rentShop.getAmStop():rentShop.getPmStop()));
-        sbScore.setRating(rentShop.getScore());
+        sbScore.setRating((float) rentShop.getScore());
         scoreView.setText(String.format("%s分", rentShop.getScore()));
         addressView.setText(String.format("%s%s%s%s", rentShop.getProvince(), rentShop.getCity(), rentShop.getArea(), rentShop.getAddress()));
         phoneView.setText(rentShop.getSaleTelephone());

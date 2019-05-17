@@ -33,7 +33,8 @@ public class WashRepairAdapter extends BaseQuickAdapter<CarShop, BaseViewHolder>
         TextView tv_addr=helper.getView(R.id.tv_addr);
         TextView tv_dis=helper.getView(R.id.tv_dis);
         tv_name.setText(item.getShopName());
-        tv_price.setText("￥"+item.getPrice());
+        int money= (int) item.getPrice();
+        tv_price.setText("￥"+money);
         tv_addr.setText(item.getAddress());
         tv_dis.setText(MathUtil.getDoubleTwo(item.getDistance())+"km");
         sb_score.setRating((float) item.getScore());

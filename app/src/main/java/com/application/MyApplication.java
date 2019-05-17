@@ -216,7 +216,7 @@ public class MyApplication extends Application {
                 }
             });
         }
-        CrashReport.initCrashReport(getApplicationContext(), "65aa547f35", true); // bugly
+        CrashReport.initCrashReport(getApplicationContext(), "8acda1d42d", true); // bugly
         context = getApplicationContext();
         instance = this;
         user = new PhoneUserEntity();

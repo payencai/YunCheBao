@@ -180,6 +180,7 @@
                                  android:textSize="14sp" />
 
                              <EditText
+                                 android:maxLength="11"
                                  android:textColorHint="#ccc"
                                  android:inputType="number"
                                  android:id="@+id/et_phone"
@@ -275,12 +276,12 @@
                              android:text="添加图片"
                              android:textColor="@color/black_33"
                              android:textSize="14sp" />
-                         <GridView
+                         <com.tool.view.GridViewForScrollView
                              android:id="@+id/gv_pic"
                              android:layout_marginTop="5dp"
                              android:numColumns="4"
                              android:layout_width="match_parent"
-                             android:layout_height="wrap_content"></GridView>
+                             android:layout_height="wrap_content"></com.tool.view.GridViewForScrollView>
 
 
                      </LinearLayout>

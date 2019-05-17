@@ -48,6 +48,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -139,6 +140,27 @@ public class SelfDrivingRepublishActivity extends NoHttpFragmentBaseActivity imp
             super.onPageFinished(view, url);
 
         }
+    }
+    public static int compare_date(String DATE1, String DATE2) {
+
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        try {
+            Date dt1 = df.parse(DATE1);
+            Date dt2 = df.parse(DATE2);
+            if (dt1.getTime() > dt2.getTime()) {
+                System.out.println("dt1 在dt2前");
+                return 1;
+            } else if (dt1.getTime() < dt2.getTime()) {
+                System.out.println("dt1在dt2后");
+                return -1;
+            } else {
+                return 0;
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return 0;
     }
     private void initWebView(){
         WebSettings settings = mWebView.getSettings();
@@ -362,12 +384,18 @@ public class SelfDrivingRepublishActivity extends NoHttpFragmentBaseActivity imp
     }
 
     private void postMsg() {
+        String start=time1Text.getText().toString() + ":00";
+        String end= time2Text.getText().toString() + ":00";
+        if(compare_date(start,end)>=0){
+            ToastUtil.showToast(this,"开始时间不能大于结束时间！");
+            return;
+        }
         Map<String, Object> params = new HashMap<>();
         params.put("title", et_title.getEditableText().toString());
         params.put("image", image);
         params.put("content", content);
-        params.put("startTime", time1Text.getText().toString() + ":00");
-        params.put("endTime", time2Text.getText().toString() + ":00");
+        params.put("startTime", start);
+        params.put("endTime",end);
         params.put("address", MyApplication.getaMapLocation().getAddress());
         Log.e("result", params.toString());
         HttpProxy.obtain().post(PlatformContans.BabyCircle.addSelfDrivingCircle, MyApplication.token, params, new ICallBack() {
