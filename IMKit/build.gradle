@@ -31,10 +31,14 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'src/main/libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'src/main/libs')
     compile 'com.android.support:support-v4:26.0.0'
     compile 'com.android.support:exifinterface:26.0.0'
-    compile project (':IMLib')
+    compile project(':IMLib')
+    implementation files('src/main/libs/Amap_2DMap_V5.2.0_20170627.jar')
+    implementation files('src/main/libs/AMap_Channel_Location_V1.4.0_20160708.jar')
+    implementation files('src/main/libs/AMap_Search_V6.5.0_20180930.jar')
+
 }
 
 repositories {

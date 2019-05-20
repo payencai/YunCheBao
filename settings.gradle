@@ -1,2 +1,2 @@
-include ':app', ':PullToRefresh', ":IMLib",':IMKit',':library',':CallKit',':CallLib'
+include ':app', ':PullToRefresh', ":IMLib", ':IMKit', ':library', ':CallKit', ':CallLib', ':Sight'
 
