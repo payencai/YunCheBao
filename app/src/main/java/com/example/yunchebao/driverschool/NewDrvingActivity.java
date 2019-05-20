@@ -1,16 +1,10 @@
-package com.bbcircle;
+package com.example.yunchebao.driverschool;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.bbcircle.fragment.DriverFragment;
-import com.cheyibao.fragment.StudyCarFragment;
 import com.example.yunchebao.R;
-import com.newversion.NewCarFriendActivity;
-
-import butterknife.BindView;
 
 public class NewDrvingActivity extends AppCompatActivity {
     StudyCarFragment mStudyCarFragment;

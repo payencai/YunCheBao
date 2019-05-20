@@ -1,27 +1,20 @@
 package com.vipcenter;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.bbcircle.fragment.WashCollectFragment;
-import com.cheyibao.fragment.RentCarFragment;
-import com.cheyibao.fragment.StudyCarFragment;
 import com.cheyibao.fragment.StudyListFragment;
 import com.example.yunchebao.R;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
-import com.tool.ActivityConstans;
-import com.tool.UIControlUtils;
-import com.tool.adapter.MyFragmentPagerAdapter;
 import com.vipcenter.fragment.ArticleFragment;
 import com.vipcenter.fragment.GoodsCollectFragment;
 import com.vipcenter.fragment.NewCarFragment;
 import com.vipcenter.fragment.OldCarFragment;
 import com.vipcenter.fragment.ShopCollectListFragment;
-import com.vipcenter.fragment.WashFragment;
 
 import java.util.ArrayList;
 

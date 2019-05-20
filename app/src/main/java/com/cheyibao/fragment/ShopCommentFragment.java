@@ -10,11 +10,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.application.MyApplication;
-import com.cheyibao.DrivingSchoolActivity;
-import com.cheyibao.adapter.CoashCommentAdapter;
+import com.example.yunchebao.driverschool.DrivingSchoolActivity;
 import com.cheyibao.adapter.ShopCommentAdapter;
-import com.cheyibao.list.SpreadListView;
-import com.cheyibao.model.CoashComment;
 import com.cheyibao.model.ShopComment;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
@@ -22,7 +19,6 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.model.LoadMoreListView;
-import com.tool.listview.PersonalListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;

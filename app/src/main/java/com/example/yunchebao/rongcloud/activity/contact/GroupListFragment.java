@@ -74,7 +74,7 @@ public class GroupListFragment extends Fragment {
                 }else{
                      intent=new Intent(getContext(),GroupDetailActivity.class);
                 }
-                intent.putExtra("id",mGroups.get(position).getId()+"");
+                intent.putExtra("id",mGroups.get(position).getHxCrowdId()+"");
                 startActivity(intent);
             }
         });

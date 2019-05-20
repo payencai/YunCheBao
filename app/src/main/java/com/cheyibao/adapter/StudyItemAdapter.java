@@ -52,7 +52,7 @@ public class StudyItemAdapter extends BaseAdapter {
         TextView name = (TextView) convertView.findViewById(R.id.name);
         TextView tv_grade = (TextView) convertView.findViewById(R.id.tv_grade);
         TextView dis = (TextView) convertView.findViewById(R.id.dis);
-        TextView score = (TextView) convertView.findViewById(R.id.score);
+        TextView tv_score = (TextView) convertView.findViewById(R.id.score);
         TextView address = (TextView) convertView.findViewById(R.id.address);
         SimpleRatingBar simpleRatingBar = (SimpleRatingBar) convertView.findViewById(R.id.starbar);
         simpleRatingBar.setRating((float) drvingSchool.getScore());
@@ -61,7 +61,8 @@ public class StudyItemAdapter extends BaseAdapter {
         DecimalFormat df = new DecimalFormat("0.00");
         tv_grade.setText(drvingSchool.getGrade()+"");
         dis.setText("距离" + df.format(drvingSchool.getDistance()) + "km");
-        score.setText(drvingSchool.getScore() + "");
+        int score=(int)drvingSchool.getScore();
+        tv_score.setText(score+"");
         address.setText(drvingSchool.getAddress());
         if (!TextUtils.isEmpty(drvingSchool.getLogo()))
             draweeView.setImageURI(Uri.parse(drvingSchool.getLogo()));

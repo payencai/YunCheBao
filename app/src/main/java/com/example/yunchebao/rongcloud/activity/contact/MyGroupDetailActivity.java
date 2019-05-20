@@ -118,6 +118,8 @@ public class MyGroupDetailActivity extends AppCompatActivity {
     ImageView iv_msg;
     String groupId;
     String name;
+    int crowId;
+    int indexId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,24 +130,7 @@ public class MyGroupDetailActivity extends AppCompatActivity {
         getDetail();
     }
     String cloudId;
-    private void updateCrowNick(String name){
-        Map<String,Object> params=new HashMap<>();
-        params.put("id",groupId);
-        params.put("crowdName",name);
-        HttpProxy.obtain().post(PlatformContans.Chat.updateCrowds, MyApplication.token, params, new ICallBack() {
-            @Override
-            public void OnSuccess(String result) {
-                Log.e("result",result);
-                ToastUtil.showToast(MyGroupDetailActivity.this,"修改成功");
 
-            }
-
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
-    }
     File tempFile;
     Uri photoOutputUri;
     Uri photoUri;
@@ -269,7 +254,7 @@ public class MyGroupDetailActivity extends AppCompatActivity {
     private void updateHead() {
         Map<String, Object> params = new HashMap<>();
         params.put("image", image);
-        params.put("id", groupId);
+        params.put("id", crowId);
         HttpProxy.obtain().post(PlatformContans.Chat.updateCrowds, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -337,7 +322,7 @@ public class MyGroupDetailActivity extends AppCompatActivity {
     }
     private void updateMyNick(String name){
         Map<String,Object> params=new HashMap<>();
-        params.put("id",groupId);
+        params.put("id",indexId);
         params.put("nickName",name);
         HttpProxy.obtain().post(PlatformContans.Chat.updateMyCrowdData, MyApplication.token, params, new ICallBack() {
             @Override
@@ -445,9 +430,9 @@ public class MyGroupDetailActivity extends AppCompatActivity {
     }
     private void getDetail(){
         Map<String,Object> params=new HashMap<>();
-        params.put("crowdId",groupId);
-        final com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
-        HttpProxy.obtain().get(PlatformContans.Chat.getCrowdDetailsByCrowdId, params,MyApplication.token, new ICallBack() {
+        params.put("hxCrowdId",groupId);
+
+        HttpProxy.obtain().get(PlatformContans.Chat.getCrowdDetailsByHxCrowdId, params,MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("data",result);
@@ -455,11 +440,13 @@ public class MyGroupDetailActivity extends AppCompatActivity {
                     JSONObject Json=new JSONObject(result);
                     JSONObject data=Json.getJSONObject("data");
                     name=data.getString("crowdName");
+                    crowId=data.getInt("id");
                     cloudId=data.getString("hxCrowdId");
                     JSONArray indexList = data.getJSONArray("indexList");
                     JSONObject object=data.getJSONObject("indexUser");
                     GroupUser groupUser = new Gson().fromJson(object.toString(), GroupUser.class);
                     chatname.setText(name);
+                    indexId=groupUser.getId();
                     crow.setText(data.getString("id"));
                     Glide.with(MyGroupDetailActivity.this).load(data.getString("image")).into(iv_icon);
                     nickname.setText(groupUser.getNickName());
@@ -482,6 +469,7 @@ public class MyGroupDetailActivity extends AppCompatActivity {
                     mAllGroupUser.add(delete);
                     mAdapter.notifyDataSetChanged();
                     setGridViewHeightBasedOnChildren(mGridView);
+                    getStatus();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -497,7 +485,7 @@ public class MyGroupDetailActivity extends AppCompatActivity {
         if (true) {
             final com.vipcenter.model.UserInfo userInfo = MyApplication.getUserInfo();
             Map<String, Object> params = new HashMap<>();
-            params.put("crowdId",groupId);
+            params.put("crowdId",crowId);
             if (userInfo != null)
                 HttpProxy.obtain().post(PlatformContans.Chat.dismissCrowdByCrowdId, MyApplication.token, params, new ICallBack() {
                     @Override
@@ -524,6 +512,24 @@ public class MyGroupDetailActivity extends AppCompatActivity {
                     }
                 });
         }
+    }
+    private void updateCrowNick(String name){
+        Map<String,Object> params=new HashMap<>();
+        params.put("id",crowId);
+        params.put("crowdName",name);
+        HttpProxy.obtain().post(PlatformContans.Chat.updateCrowds, MyApplication.token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result",result);
+                ToastUtil.showToast(MyGroupDetailActivity.this,"修改成功");
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
     private void initWindow(View view) {
         PopupWindow popupWindow = new PopupWindow(this);
@@ -555,7 +561,7 @@ public class MyGroupDetailActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Conversation.ConversationNotificationStatus conversationNotificationStatus) {
                 final int value = conversationNotificationStatus.getValue();
-
+                //ToastUtil.showToast(MyGroupDetailActivity.this,value+"");
                 if (value == 1) {
                     iv_msg.setImageResource(R.mipmap.white_switch);
                     conversationNotificationStatus1 = conversationNotificationStatus.setValue(0);
@@ -569,7 +575,7 @@ public class MyGroupDetailActivity extends AppCompatActivity {
 
             @Override
             public void onError(RongIMClient.ErrorCode errorCode) {
-                ToastUtil.showToast(MyGroupDetailActivity.this, errorCode.getMessage() + "");
+                //ToastUtil.showToast(MyGroupDetailActivity.this, errorCode.getMessage() + "");
             }
         });
     }
@@ -596,7 +602,7 @@ public class MyGroupDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MyGroupDetailActivity.this, GroupQrcodeActivity.class);
-                intent.putExtra("id",groupId);
+                intent.putExtra("id",crowId+"");
                 startActivity(intent);
             }
         });
@@ -645,11 +651,11 @@ public class MyGroupDetailActivity extends AppCompatActivity {
                      Intent intent=new Intent(MyGroupDetailActivity.this,GroupManageActivity.class);
                      //intent.putExtra("user",mGroup);
                      intent.putExtra("flag",groupUser.getFlag());
-                     intent.putExtra("id",groupId);
+                     intent.putExtra("id",crowId+"");
                      startActivity(intent);
                  }else if(groupUser.getFlag()==2){
                      Intent intent=new Intent(MyGroupDetailActivity.this,GroupManageActivity.class);
-                     intent.putExtra("id",groupId);
+                     intent.putExtra("id",crowId+"");
                     // intent.putExtra("user",mGroup);
                      intent.putExtra("flag",groupUser.getFlag());
                      startActivity(intent);
@@ -675,7 +681,7 @@ public class MyGroupDetailActivity extends AppCompatActivity {
                 // setGridViewHeightBasedOnChildren(mGridView);
             }
         });
-        getStatus();
+
         iv_msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -764,28 +770,6 @@ public class MyGroupDetailActivity extends AppCompatActivity {
         mIsShrink = true;
     }
 
-    /**
-     * 当GridView外层有ScrollView时，需要动态设置GridView高度
-     *
-     * @param gridview
-     */
-    protected void setListViewHeightBasedOnChildren(GridView gridview) {
-        if (gridview == null) return;
-        ListAdapter listAdapter = gridview.getAdapter();
-        if (listAdapter == null) return;
 
-        int totalHeight;
-        //向上取整
-        int count = (int) Math.ceil(listAdapter.getCount() / 5.0);
-        //获取一个子view
-        View itemView = listAdapter.getView(0, null, gridview);
-        //测量View的大小
-        itemView.measure(0, 0);
-        totalHeight = itemView.getMeasuredHeight();
-        ViewGroup.LayoutParams params = gridview.getLayoutParams();
-        //设置GridView的布局高度
-        params.height = totalHeight * count;
-        gridview.setLayoutParams(params);
-    }
 
 }

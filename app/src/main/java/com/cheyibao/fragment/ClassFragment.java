@@ -8,16 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
-import com.application.MyApplication;
-import com.bbcircle.DrivingSelfDetailActivity;
-import com.bbcircle.adapter.BBCircleListAdapter;
 import com.bbcircle.adapter.ClassItemAdapter;
 import com.bbcircle.data.ClassItem;
-import com.bbcircle.data.SelfDrive;
 import com.cheyibao.DrivingOrderActivity;
-import com.cheyibao.DrivingSchoolActivity;
+import com.example.yunchebao.driverschool.DrivingSchoolActivity;
 import com.cheyibao.list.SpreadListView;
 import com.cheyibao.model.DrvingSchool;
 import com.costans.PlatformContans;
@@ -25,10 +20,6 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
-import com.tool.listview.PersonalListView;
-import com.vipcenter.RegisterActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -2,34 +2,26 @@ package com.vipcenter;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.application.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.cheyibao.DrivingSchoolActivity;
-import com.cheyibao.model.ShopComment;
 import com.costans.PlatformContans;
-import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.nohttp.sample.NoHttpBaseActivity;
 import com.payencai.library.util.ToastUtil;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.tool.listview.PersonalScrollView;
-import com.tool.view.GridViewForScrollView;
 import com.vipcenter.adapter.GiftHomeListAdapter;
-import com.vipcenter.adapter.GiftMoreAdapter;
 import com.vipcenter.model.Gift;
 import com.vipcenter.model.MyWallet;
 

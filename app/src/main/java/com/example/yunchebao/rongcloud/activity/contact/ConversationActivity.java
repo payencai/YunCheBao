@@ -4,19 +4,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.application.MyApplication;
+import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.entity.UserMsg;
 import com.example.yunchebao.R;
+import com.example.yunchebao.rongcloud.model.GroupUser;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.example.yunchebao.rongcloud.activity.StrangerDelActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,11 +36,16 @@ import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
 
 public class ConversationActivity extends AppCompatActivity {
-    String targetId ;//传递的融云的id
-    String title ; //传递的融云名称/用户昵称
+    String targetId;//传递的融云的id
+    String title; //传递的融云名称/用户昵称
     @BindView(R.id.title)
     TextView tv_title;
-    String type="";
+    @BindView(R.id.iv_head)
+    ImageView iv_head;
+    String type = "";
+    UserMsg mUserMsg;
+    GroupUser mGroupUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +55,9 @@ public class ConversationActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        
-        targetId=getIntent().getData().getQueryParameter("targetId");
+
+        targetId = getIntent().getData().getQueryParameter("targetId");
         title = getIntent().getData().getQueryParameter("title");
-        type=targetId.substring(0,1);
-        //ToastUtil.showToast(ConversationActivity.this,"点击了头像"+type);
         tv_title.setText(title);
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,61 +65,83 @@ public class ConversationActivity extends AppCompatActivity {
                 finish();
             }
         });
-        RongIM.getInstance().setConversationClickListener(new RongIM.ConversationClickListener() {
+        iv_head.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onUserPortraitClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo, String s) {
+            public void onClick(View v) {
+                Intent intent;
+                if(mUserMsg!=null){
+                    if ("1".equals(mUserMsg.getIsFriend())) {
+                        intent = new Intent(ConversationActivity.this, FriendDetailActivity.class);
+                        intent.putExtra("id", targetId);
+                        startActivity(intent);
+                    } else {
+                        intent = new Intent(ConversationActivity.this, StrangerDelActivity.class);
+                        intent.putExtra("id", targetId);
+                        startActivity(intent);
 
-                getDetail(userInfo.getUserId());
-                return true;
-            }
+                    }
+                }
+                if(mGroupUser!=null){
+                    if (mGroupUser.getUserId().equals(MyApplication.getUserInfo().getId())) {
+                        intent = new Intent(ConversationActivity.this, MyGroupDetailActivity.class);
+                        intent.putExtra("id", targetId);
+                        startActivity(intent);
+                    } else {
+                        intent = new Intent(ConversationActivity.this, GroupDetailActivity.class);
+                        intent.putExtra("id", targetId);
+                        startActivity(intent);
+                    }
+                }
 
-            @Override
-            public boolean onUserPortraitLongClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo, String s) {
-                return false;
-            }
 
-            @Override
-            public boolean onMessageClick(Context context, View view, Message message) {
-                return false;
-            }
 
-            @Override
-            public boolean onMessageLinkClick(Context context, String s, Message message) {
-                return false;
-            }
-
-            @Override
-            public boolean onMessageLongClick(Context context, View view, Message message) {
-                return false;
             }
         });
+        if (targetId.contains("-")) {
+            getUserDetail(targetId);
+        } else {
+            getGroupDetail(targetId);
+        }
 
     }
-    private void setUi( UserMsg userMsg){
-        Intent intent;
-        if("1".equals(userMsg.getIsFriend())){
-            intent=new Intent(ConversationActivity.this, FriendDetailActivity.class);
-            intent.putExtra("id",userMsg.getId());
-            startActivity(intent);
-        }else{
-            intent=new Intent(ConversationActivity.this, StrangerDelActivity.class);
-            intent.putExtra("id",userMsg.getId());
-            startActivity(intent);
-        }
+
+    private void getGroupDetail(String id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("hxCrowdId", id);
+        HttpProxy.obtain().get(PlatformContans.Chat.getCrowdDetailsByHxCrowdId, params, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("data", result);
+                try {
+                    JSONObject Json = new JSONObject(result);
+                    JSONObject data = Json.getJSONObject("data");
+                    JSONObject object = data.getJSONObject("indexUser");
+                    mGroupUser = new Gson().fromJson(object.toString(), GroupUser.class);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
-    UserMsg mUserMsg;
-    private void getDetail(String targetId){
-        Map<String,Object> params=new HashMap<>();
-        params.put("userId",targetId);
+
+    private void getUserDetail(String id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", id);
         HttpProxy.obtain().get(PlatformContans.User.getUserResultById, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("detail",result);
+                Log.e("detail", result);
                 try {
-                    JSONObject jsonObject=new JSONObject(result);
-                    JSONObject data=jsonObject.getJSONObject("data");
-                    mUserMsg=new Gson().fromJson(data.toString(),UserMsg.class);
-                    setUi(mUserMsg);
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    mUserMsg = new Gson().fromJson(data.toString(), UserMsg.class);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

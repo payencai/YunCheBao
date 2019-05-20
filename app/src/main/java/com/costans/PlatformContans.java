@@ -320,6 +320,7 @@ public class PlatformContans {
         public static final String getFriendApplyList=root+  "/huanxin/getFriendApplyList";
         public static final String getCrowdsList=root+"/huanxin/getCrowdsList";
         public static final String getCrowdDetailsByCrowdId=root+"/huanxin/getCrowdDetailsByCrowdId";
+        public static final String getCrowdDetailsByHxCrowdId=root+"/huanxin/getCrowdDetailsByHxCrowdId";
         public static final String getCrowdApplyList=root+ "/huanxin/getCrowdApplyList";
         public static final String addCrowdApply=root+"/huanxin/addCrowdApply";
         public static final String addCrowds=root+  "/huanxin/addCrowds";

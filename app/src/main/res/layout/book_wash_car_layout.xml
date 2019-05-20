@@ -226,6 +226,7 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:maxLength="11"
                         android:inputType="number"
                         android:id="@+id/et_phone"
                         android:layout_width="wrap_content"
@@ -291,6 +292,7 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:maxLength="5"
                         android:inputType="number"
                         android:id="@+id/et_note"
                         android:layout_width="wrap_content"

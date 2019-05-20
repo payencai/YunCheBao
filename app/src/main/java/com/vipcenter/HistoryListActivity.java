@@ -108,12 +108,12 @@ public class HistoryListActivity extends NoHttpBaseActivity {
                 switch (mypublish.getType()) {
                     case 1://自驾游
                         intent=new Intent(HistoryListActivity.this, DrivingSelfDetailActivity.class);
-                        intent.putExtra("id",mypublish.getId());
+                        intent.putExtra("id",mypublish.getId()+"");
                         startActivity(intent);
                         break;
                     case 2://车友会
                         intent=new Intent(HistoryListActivity.this, DriverFriendsDetailActivity.class);
-                        intent.putExtra("id",mypublish.getId());
+                        intent.putExtra("id",mypublish.getId()+"");
                         startActivity(intent);
                         break;
 

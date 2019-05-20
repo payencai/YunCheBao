@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.cheyibao.DrivingSchoolActivity;
+import com.example.yunchebao.driverschool.DrivingSchoolActivity;
 import com.cheyibao.model.DrvingSchool;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;

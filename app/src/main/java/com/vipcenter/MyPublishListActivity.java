@@ -3,6 +3,9 @@ package com.vipcenter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
@@ -13,14 +16,19 @@ import com.bbcircle.DriverFriendsDetailActivity;
 import com.bbcircle.DrivingSelfDetailActivity;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.fourshop.bean.FourShopData;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
+import com.vipcenter.adapter.MyPubAdapter;
 import com.vipcenter.adapter.MyPublishListAdapter;
 import com.vipcenter.model.Mypublish;
 
@@ -42,42 +50,43 @@ import butterknife.OnClick;
  */
 
 public class MyPublishListActivity extends NoHttpBaseActivity {
-    @BindView(R.id.listview)
-    PullToRefreshListView refreshListView;
-    ListView listView;
-    private MyPublishListAdapter adapter;
+    @BindView(R.id.rv_pub)
+    RecyclerView rv_pub;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout mRefreshLayout;
+    private MyPubAdapter mMyPubAdapter;
     private List<Mypublish> list;
-    private Context ctx;
     int page = 1;
-
+    boolean isLoadMore=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.history_list_layout);
+        setContentView(R.layout.my_pub_article);
+        ButterKnife.bind(this);
         initView();
     }
 
     private void delete(int id, int type) {
         String url = "";
         Map<String, Object> params = new HashMap<>();
-        switch (type){
+        switch (type) {
             case 1:
-                url=PlatformContans.BabyCircle.deleteSelfDrivingCircle;
+                url = PlatformContans.BabyCircle.deleteSelfDrivingCircle;
                 break;
             case 2:
-                url=PlatformContans.BabyCircle.deleteCarCommunicationCircle;
+                url = PlatformContans.BabyCircle.deleteCarCommunicationCircle;
                 break;
             case 3:
-                url=PlatformContans.BabyCircle.deleteCarShowCircle;
+                url = PlatformContans.BabyCircle.deleteCarShowCircle;
                 break;
         }
         params.put("id", id);
         HttpProxy.obtain().post(url, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                  page=1;
-                  list.clear();
-                  getData();
+                page = 1;
+                list.clear();
+                getData();
             }
 
             @Override
@@ -88,20 +97,13 @@ public class MyPublishListActivity extends NoHttpBaseActivity {
     }
 
     private void initView() {
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "我的发表");
-        ButterKnife.bind(this);
-        findViewById(R.id.topPanel).setVisibility(View.VISIBLE);
-        ctx = this;
-        listView = refreshListView.getRefreshableView();
-        listView.setDivider(getResources().getDrawable(R.color.gray_ee));
-        listView.setDividerHeight(1);
         list = new ArrayList<>();
-        adapter = new MyPublishListAdapter(ctx, list);
-        adapter.setOnDeleteClickListener(new MyPublishListAdapter.onDeleteClickListener() {
+        mMyPubAdapter = new MyPubAdapter(R.layout.my_publish_list_item, list);
+        mMyPubAdapter.setOnDeleteClickListener(new MyPublishListAdapter.onDeleteClickListener() {
             @Override
             public void onClick(int pos) {
                 Mypublish mypublish = list.get(pos);
-                delete(mypublish.getId(),mypublish.getType());
+                delete(mypublish.getId(), mypublish.getType());
             }
 
             @Override
@@ -110,35 +112,32 @@ public class MyPublishListActivity extends NoHttpBaseActivity {
                 Intent intent;
                 switch (mypublish.getType()) {
                     case 1:
-                        intent=new Intent(MyPublishListActivity.this, DrivingSelfDetailActivity.class);
-                        intent.putExtra("id",mypublish.getId());
+                        intent = new Intent(MyPublishListActivity.this, DrivingSelfDetailActivity.class);
+                        intent.putExtra("id", mypublish.getId() + "");
                         startActivity(intent);
                         break;
                     case 2:
-                        intent=new Intent(MyPublishListActivity.this, DriverFriendsDetailActivity.class);
-                        intent.putExtra("id",mypublish.getId());
+                        intent = new Intent(MyPublishListActivity.this, DriverFriendsDetailActivity.class);
+                        intent.putExtra("id", mypublish.getId() + "");
                         startActivity(intent);
                         break;
-                    case 3:
-                        intent=new Intent(MyPublishListActivity.this, CarShowDetailActivity.class);
-                        intent.putExtra("id",mypublish.getId());
-                        startActivity(intent);
-                        break;
+
 
                 }
             }
         });
-        listView.setAdapter(adapter);
-
-
-        refreshListView.setMode(PullToRefreshBase.Mode.BOTH);
-        refreshListView.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onLastItemVisible() {
-                page++;
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page=1;
+                list.clear();
+                mMyPubAdapter.setNewData(list);
                 getData();
             }
         });
+        rv_pub.setLayoutManager(new LinearLayoutManager(this));
+        rv_pub.setAdapter(mMyPubAdapter);
+
         getData();
     }
 
@@ -148,16 +147,30 @@ public class MyPublishListActivity extends NoHttpBaseActivity {
         HttpProxy.obtain().get(PlatformContans.BabyCircle.getMyCircle, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("getnewcar", result);
+                mRefreshLayout.finishRefresh();
+                Log.e("getFourShopListByApp", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray data = jsonObject.getJSONArray("data");
+                    List<Mypublish> mypublishes = new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
-                        Mypublish baikeItem = new Gson().fromJson(item.toString(), Mypublish.class);
-                        list.add(baikeItem);
+                        Mypublish mypublish = new Gson().fromJson(item.toString(), Mypublish.class);
+                        mypublishes.add(mypublish);
+                        list.add(mypublish);
                     }
-                    adapter.notifyDataSetChanged();
+                    if (isLoadMore) {
+                        isLoadMore = false;
+                        if (data.length() == 0) {
+                            mMyPubAdapter.loadMoreEnd(true);
+                        } else {
+                            mMyPubAdapter.addData(mypublishes);
+                            mMyPubAdapter.loadMoreComplete();
+                        }
+                    } else {
+                        mMyPubAdapter.setNewData(list);
+
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();

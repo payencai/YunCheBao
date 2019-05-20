@@ -204,6 +204,7 @@ public class BookOldCarFragment extends BaseFragment {
                     String msg=jsonObject.getString("message");
                     if(code==0){
                         ToastUtil.showToast(getContext(),"发布成功！");
+                        getActivity().finish();
                     }else{
                         ToastUtil.showToast(getContext(),msg);
                     }

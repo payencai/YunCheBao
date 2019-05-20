@@ -84,7 +84,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                             if (code == 0) {
                                 JSONObject data = jsonObject.getJSONObject("data");
                                 Toast.makeText(CreateGroupActivity.this, "创建成功", Toast.LENGTH_SHORT).show();
-                                RongIM.getInstance().startGroupChat(CreateGroupActivity.this, data.getString("hxCrowdId"), data.getString("crowdId"));
+                                //RongIM.getInstance().startGroupChat(CreateGroupActivity.this, data.getString("hxCrowdId"), data.getString("crowdId"));
                                 finish();
                             }
 

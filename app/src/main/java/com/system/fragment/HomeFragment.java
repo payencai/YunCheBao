@@ -36,7 +36,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.model.LatLng;
 import com.application.MyApplication;
 
-import com.bbcircle.NewDrvingActivity;
+import com.example.yunchebao.driverschool.NewDrvingActivity;
 import com.bumptech.glide.Glide;
 
 import com.costans.PlatformContans;

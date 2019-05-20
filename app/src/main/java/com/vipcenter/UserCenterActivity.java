@@ -3,16 +3,13 @@ package com.vipcenter;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.application.MyApplication;
-import com.bbcircle.NewDrvingActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
@@ -21,6 +18,7 @@ import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.account.AccountManageActivity;
+import com.example.yunchebao.blacklist.BlackListActivity;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
@@ -31,7 +29,6 @@ import com.order.NewPublishActivity;
 import com.order.ServiceCarActivity;
 import com.payencai.library.util.ToastUtil;
 import com.payencai.library.view.CircleImageView;
-import com.system.MainActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.vipcenter.model.UserInfo;
@@ -179,9 +176,12 @@ public class UserCenterActivity extends NoHttpBaseActivity {
 
     }
 
-    @OnClick({R.id.back, R.id.tv_change,R.id.tv_exit,R.id.headIcon, R.id.rl_mypublish,R.id.signIn, R.id.shopCart, R.id.message, R.id.middleMenu1, R.id.middleMenu2, R.id.middleMenu3, R.id.lay1, R.id.lay2, R.id.lay3, R.id.lay4, R.id.lay5, R.id.lay6, R.id.lay7, R.id.lay8, R.id.lay9, R.id.lay10, R.id.lay11,R.id.lay12})
+    @OnClick({R.id.rl_balck,R.id.back, R.id.tv_change,R.id.tv_exit,R.id.headIcon, R.id.rl_mypublish,R.id.signIn, R.id.shopCart, R.id.message, R.id.middleMenu1, R.id.middleMenu2, R.id.middleMenu3, R.id.lay1, R.id.lay2, R.id.lay3, R.id.lay4, R.id.lay5, R.id.lay6, R.id.lay7, R.id.lay8, R.id.lay9, R.id.lay10, R.id.lay11,R.id.lay12})
     public void Onclick(View v) {
         switch (v.getId()) {
+            case R.id.rl_balck:
+                startActivity(new Intent(UserCenterActivity.this, BlackListActivity.class));
+                break;
             case R.id.tv_change:
                 startActivity(new Intent(UserCenterActivity.this, AccountManageActivity.class));
                 break;

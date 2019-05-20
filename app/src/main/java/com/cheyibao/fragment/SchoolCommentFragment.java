@@ -7,10 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
-import com.application.MyApplication;
-import com.cheyibao.DrivingSchoolActivity;
+import com.example.yunchebao.driverschool.DrivingSchoolActivity;
 import com.cheyibao.adapter.ShopCommentAdapter;
 import com.cheyibao.list.SpreadListView;
 import com.cheyibao.model.ShopComment;
@@ -19,7 +17,6 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.model.LoadMoreListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;

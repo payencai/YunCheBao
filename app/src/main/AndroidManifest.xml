@@ -64,7 +64,8 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".drive.activity.CommentMoreActivity"></activity>
+        <activity android:name=".blacklist.BlackListActivity"></activity>
+        <activity android:name=".drive.activity.CommentMoreActivity" />
         <activity android:name=".account.AccountManageActivity" />
         <activity
             android:name=".washrepair.NewWashrepairDetailActivity"
@@ -206,7 +207,7 @@
         <activity android:name="com.xihubao.Shop4SListActivity" />
         <activity android:name="com.xihubao.Shop4SOrderActivity" /> <!-- 车易宝 -->
         <activity android:name="com.cheyibao.RentShopDetailActivity" />
-        <activity android:name="com.cheyibao.DrivingSchoolActivity" />
+        <activity android:name=".driverschool.DrivingSchoolActivity" />
         <activity android:name="com.cheyibao.SellCarActivity" />
         <activity android:name="com.cheyibao.SellCarInfoImproveActivity" />
         <activity android:name="com.cheyibao.OldCarDetailActivity" />
@@ -427,7 +428,7 @@
         <activity
             android:name="com.newversion.NewContactsActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name="com.bbcircle.NewDrvingActivity" />
+        <activity android:name=".driverschool.NewDrvingActivity" />
         <activity android:name="com.order.ServiceCarActivity" />
         <activity android:name="com.order.NewPublishActivity" />
         <activity android:name="com.vipcenter.MyPhoneActivity" />

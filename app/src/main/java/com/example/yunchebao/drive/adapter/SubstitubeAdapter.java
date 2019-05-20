@@ -64,7 +64,7 @@ public class SubstitubeAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView= LayoutInflater.from(mContext).inflate(R.layout.item_coash_comment,null);
+        convertView= LayoutInflater.from(mContext).inflate(R.layout.item_drive_comment,null);
         SubstitubeComment driveMan=mDriveMEN.get(position);
         CircleImageView iv_head= (CircleImageView) convertView.findViewById(R.id.userhead);
         CircleImageView coashhead= (CircleImageView) convertView.findViewById(R.id.coashhead);

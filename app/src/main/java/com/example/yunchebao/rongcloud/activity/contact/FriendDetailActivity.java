@@ -224,7 +224,7 @@ public class FriendDetailActivity extends AppCompatActivity {
         sendmsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RongIM.getInstance().startPrivateChat(FriendDetailActivity.this,id, mUserMsg.getName());
+                RongIM.getInstance().startPrivateChat(FriendDetailActivity.this,id, "1"+mUserMsg.getName());
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
@@ -428,7 +428,7 @@ public class FriendDetailActivity extends AppCompatActivity {
 
             @Override
             public void onError(RongIMClient.ErrorCode errorCode) {
-                ToastUtil.showToast(FriendDetailActivity.this, errorCode.getMessage() + "");
+                //ToastUtil.showToast(FriendDetailActivity.this, errorCode.getMessage() + "");
             }
         });
     }

@@ -33,6 +33,7 @@ import com.http.ICallBack;
 import com.payencai.library.mediapicker.PickerActivity;
 import com.payencai.library.mediapicker.PickerConfig;
 import com.payencai.library.mediapicker.entity.Media;
+import com.payencai.library.util.ToastUtil;
 import com.payencai.library.util.VideoUtil;
 import com.system.X5WebviewActivity;
 import com.system.model.AddressBean;
@@ -455,8 +456,19 @@ public class BookRoadFragment extends Fragment {
             @Override
             public void OnSuccess(String result) {
 
-                Toast.makeText(getContext(), "发布成功", Toast.LENGTH_LONG).show();
-                Log.e("result", result);
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    int code=jsonObject.getInt("resultCode");
+                    String msg=jsonObject.getString("message");
+                    if(code==0){
+                        ToastUtil.showToast(getContext(),"发布成功！");
+                        getActivity().finish();
+                    }else{
+                        ToastUtil.showToast(getContext(),msg);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

@@ -8,14 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.cheyibao.fragment.NewCarFragment;
-import com.cheyibao.fragment.OldCarFragment;
-import com.cheyibao.fragment.RentCarFragment;
-import com.cheyibao.fragment.StudyCarFragment;
 import com.cheyibao.model.Shop;
 import com.example.yunchebao.R;
 import com.tool.adapter.MyFragmentPagerAdapter;
-import com.tool.listview.PersonalViewPager;
 
 import java.util.ArrayList;
 

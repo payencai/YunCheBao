@@ -42,6 +42,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.rong.callkit.util.SPUtils;
+import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Message;
@@ -50,6 +51,7 @@ import io.rong.message.ImageMessage;
 import io.rong.message.RichContentMessage;
 import io.rong.message.TextMessage;
 import io.rong.message.VoiceMessage;
+import io.rong.sight.SightExtensionModule;
 
 
 /**
@@ -215,6 +217,7 @@ public class MyApplication extends Application {
                     return true;
                 }
             });
+            RongExtensionManager.getInstance().registerExtensionModule(new SightExtensionModule());//小视频
         }
         CrashReport.initCrashReport(getApplicationContext(), "8acda1d42d", true); // bugly
         context = getApplicationContext();

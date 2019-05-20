@@ -93,17 +93,19 @@ public class GroupDetailActivity extends AppCompatActivity {
     @BindView(R.id.tv_clear)
             TextView tv_clear;
     String id;
+    String groupId;
     String name;
     Conversation.ConversationNotificationStatus conversationNotificationStatus1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         id= (String) getIntent().getStringExtra("id");
+        Log.e("groupid",id);
         setContentView(R.layout.activity_group_detail);
         ButterKnife.bind(this);
         initView();
         getDetail();
-        getStatus();
+
     }
     private void getStatus(){
         RongIM.getInstance().getConversationNotificationStatus(Conversation.ConversationType.GROUP, id, new RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>() {
@@ -124,7 +126,7 @@ public class GroupDetailActivity extends AppCompatActivity {
 
             @Override
             public void onError(RongIMClient.ErrorCode errorCode) {
-                ToastUtil.showToast(GroupDetailActivity.this, errorCode.getMessage() + "");
+                //ToastUtil.showToast(GroupDetailActivity.this, errorCode.getMessage() + "");
             }
         });
     }
@@ -158,7 +160,7 @@ public class GroupDetailActivity extends AppCompatActivity {
         if (true) {
 
             Map<String, Object> params = new HashMap<>();
-            params.put("crowdId",id);
+            params.put("crowdId",groupId);
 
                 HttpProxy.obtain().post(PlatformContans.Chat.quitCrowdByCrowdId, MyApplication.token, params, new ICallBack() {
                     @Override
@@ -189,8 +191,8 @@ public class GroupDetailActivity extends AppCompatActivity {
     String cloudId;
     private void getDetail(){
         Map<String,Object>params=new HashMap<>();
-        params.put("crowdId",id);
-        HttpProxy.obtain().get(PlatformContans.Chat.getCrowdDetailsByCrowdId, params,MyApplication.token, new ICallBack() {
+        params.put("hxCrowdId",id);
+        HttpProxy.obtain().get(PlatformContans.Chat.getCrowdDetailsByHxCrowdId, params,MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("data",result);
@@ -198,6 +200,7 @@ public class GroupDetailActivity extends AppCompatActivity {
                     JSONObject Json=new JSONObject(result);
                     JSONObject data=Json.getJSONObject("data");
                     name=data.getString("crowdName");
+                    groupId=data.getString("id");
                     cloudId=data.getString("hxCrowdId");
                     JSONArray indexList = data.getJSONArray("indexList");
                     JSONObject object=data.getJSONObject("indexUser");
@@ -217,6 +220,7 @@ public class GroupDetailActivity extends AppCompatActivity {
                     }
                     mAdapter.notifyDataSetChanged();
                     setGridViewHeightBasedOnChildren(mGridView);
+                    getStatus();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -265,7 +269,7 @@ public class GroupDetailActivity extends AppCompatActivity {
                 RongIM.getInstance().clearMessages(Conversation.ConversationType.GROUP,id , new RongIMClient.ResultCallback<Boolean>() {
                     @Override
                     public void onSuccess(Boolean aBoolean) {
-                        ToastUtil.showToast(GroupDetailActivity.this,aBoolean+"清除成功");
+                        ToastUtil.showToast(GroupDetailActivity.this,"清除成功");
                     }
 
                     @Override
@@ -285,7 +289,7 @@ public class GroupDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(GroupDetailActivity.this, GroupQrcodeActivity.class);
-                intent.putExtra("id",id);
+                intent.putExtra("id",groupId);
                 startActivity(intent);
             }
         });
@@ -428,28 +432,6 @@ public class GroupDetailActivity extends AppCompatActivity {
         mIsShrink = true;
     }
 
-    /**
-     * 当GridView外层有ScrollView时，需要动态设置GridView高度
-     *
-     * @param gridview
-     */
-    protected void setListViewHeightBasedOnChildren(GridView gridview) {
-        if (gridview == null) return;
-        ListAdapter listAdapter = gridview.getAdapter();
-        if (listAdapter == null) return;
 
-        int totalHeight;
-        //向上取整
-        int count = (int) Math.ceil(listAdapter.getCount() / 5.0);
-        //获取一个子view
-        View itemView = listAdapter.getView(0, null, gridview);
-        //测量View的大小
-        itemView.measure(0, 0);
-        totalHeight = itemView.getMeasuredHeight();
-        ViewGroup.LayoutParams params = gridview.getLayoutParams();
-        //设置GridView的布局高度
-        params.height = totalHeight * count;
-        gridview.setLayoutParams(params);
-    }
 
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
+import com.payencai.library.util.ToastUtil;
 import com.tool.ActivityConstans;
 import com.tool.CommonDateTools;
 import com.tool.UIControlUtils;
@@ -261,6 +263,52 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
         });
     }
 
+    private boolean checkInput() {
+        boolean isOk = true;
+        if (TextUtils.isEmpty(et_name.getEditableText().toString())) {
+            isOk = false;
+            ToastUtil.showToast(this, "输入不能为空！");
+            return isOk;
+        }
+        if (TextUtils.isEmpty(et_phone.getEditableText().toString())) {
+            isOk = false;
+            ToastUtil.showToast(this, "输入不能为空！");
+            return isOk;
+        }
+        if (TextUtils.isEmpty(et_des.getEditableText().toString())) {
+            isOk = false;
+            ToastUtil.showToast(this, "输入不能为空！");
+            return isOk;
+        }
+        if (TextUtils.isEmpty(et_num.getEditableText().toString())) {
+            isOk = false;
+            ToastUtil.showToast(this, "输入不能为空！");
+            return isOk;
+        }
+
+        if (TextUtils.isEmpty(et_code.getEditableText().toString())) {
+            isOk = false;
+            ToastUtil.showToast(this, "验证码不能为空！");
+            return isOk;
+        }
+        if (TextUtils.isEmpty(image1)) {
+            isOk = false;
+            ToastUtil.showToast(this, "证件不能为空！");
+            return isOk;
+        }
+        if (TextUtils.isEmpty(image2)) {
+            isOk = false;
+            ToastUtil.showToast(this, "证件不能为空！");
+            return isOk;
+        }
+        if (TextUtils.isEmpty(image3)) {
+            isOk = false;
+            ToastUtil.showToast(this, "证件不能为空！");
+            return isOk;
+        }
+        return isOk;
+    }
+
     private void initView() {
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "我要卖车");
         ButterKnife.bind(this);
@@ -270,11 +318,12 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(MyApplication.isLogin)
-                    postData();
-                else{
-                    startActivity(new Intent(SellCarInfoImproveActivity.this,RegisterActivity.class));
-                }
+                if (MyApplication.isLogin)
+                    if (checkInput()) {
+                        postData();
+                    } else {
+                        startActivity(new Intent(SellCarInfoImproveActivity.this, RegisterActivity.class));
+                    }
             }
         });
         getcode.setOnClickListener(new View.OnClickListener() {
@@ -320,7 +369,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
         params.put("carCategoryDetailId", detailId);
         params.put("secondId", id2);
         params.put("firstId", id1);
-        params.put("thirdId",id3);
+        params.put("thirdId", id3);
         params.put("carDescribe", et_des.getEditableText().toString());
         params.put("oldPrice", Double.parseDouble(b_price));
         params.put("registrationAddress", b_city);
@@ -333,7 +382,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
         params.put("linkmanTelephone", et_phone.getEditableText().toString());
         params.put("insuranceValidTime", time2Text.getEditableText().toString());//有效期年月日
         params.put("lastValidateCar", "2019-04-10 00:00:00");
-        params.put("registrationTime", b_time+"-10 00:00:00");
+        params.put("registrationTime", b_time + "-10 00:00:00");
         params.put("linkmanBuyCarInvoice", image3);
         params.put("linkmanDrivingLicense", image2);
         params.put("linkmanRegistrationCertificate", image1);

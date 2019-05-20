@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="80dp">
     <LinearLayout
+
          android:id="@+id/ll_commom"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -37,7 +38,7 @@
         android:layout_marginTop="15dp"
         android:src="@mipmap/chat_add"
         android:layout_gravity="center"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
+        android:layout_width="45dp"
+        android:layout_height="45dp" />
    
 </RelativeLayout>
