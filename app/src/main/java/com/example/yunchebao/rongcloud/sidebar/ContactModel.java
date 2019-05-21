@@ -24,6 +24,15 @@ public class ContactModel implements Serializable{
     private String index;
     private boolean isSelect;
     private String name;
+    private int userType;
+
+    public int getUserType() {
+        return userType;
+    }
+
+    public void setUserType(int userType) {
+        this.userType = userType;
+    }
 
     public boolean isSelect() {
         return isSelect;

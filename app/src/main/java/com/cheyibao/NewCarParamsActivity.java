@@ -3,6 +3,7 @@ package com.cheyibao;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 
 import com.cheyibao.adapter.NewCarParamsAdapter;
@@ -12,6 +13,7 @@ import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 
@@ -39,9 +41,15 @@ public class NewCarParamsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_car_params);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         id = getIntent().getStringExtra("param");
         paramBeans = new ArrayList<>();
-
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         getParams();
     }
 

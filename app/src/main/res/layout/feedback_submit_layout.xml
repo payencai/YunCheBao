@@ -25,6 +25,7 @@
             android:textSize="14sp" />
 
         <EditText
+            android:id="@+id/et_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -52,6 +53,7 @@
             android:textSize="14sp" />
 
         <EditText
+            android:id="@+id/et_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -79,6 +81,7 @@
             android:textSize="14sp" />
         
         <ImageView
+            android:id="@+id/iv_img"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginTop="30dp"
@@ -89,8 +92,8 @@
         android:id="@+id/nextBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="下一步"
-        app:solid="@color/gray_d2"
+        android:text="提交"
+        app:solid="@color/yellow_02"
         android:layout_margin="19dp"
         android:padding="14dp"
         app:corner="4dp"

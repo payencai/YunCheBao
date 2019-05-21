@@ -256,10 +256,16 @@ public class DynamicLookPermissionActivity extends AppCompatActivity {
 
             }
         }
-
-        ids = setToString(idList);
-
-        users = listToString(userList);
+        if(!idList.isEmpty())
+          ids = setToString(idList);
+        else{
+            ids="";
+        }
+        if(userList.size()>0)
+           users = listToString(userList);
+        else{
+            users="";
+        }
 
         if (kind == 3) {
             intent.putExtra("ids", ids);

@@ -348,7 +348,8 @@ public class DrivingSchoolActivity extends AppCompatActivity {
         tv_grade.setText(mDrvingSchool.getGrade()+"");
         tv_name.setText(mDrvingSchool.getName());
         tv_address.setText(mDrvingSchool.getAddress());
-        tv_score.setText(mDrvingSchool.getScore() + "分");
+        int score= (int) mDrvingSchool.getScore();
+        tv_score.setText(score + "分");
         sr_score.setRating((float) mDrvingSchool.getScore());
         tv_address.setOnClickListener(new View.OnClickListener() {
             @Override

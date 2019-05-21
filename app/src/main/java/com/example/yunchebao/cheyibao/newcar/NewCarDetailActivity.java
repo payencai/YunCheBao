@@ -1,7 +1,8 @@
-package com.cheyibao;
+package com.example.yunchebao.cheyibao.newcar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,9 +15,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.application.MyApplication;
-import com.bbcircle.CarShowDetailActivity;
 import com.bumptech.glide.Glide;
 import com.caryibao.NewCar;
+import com.cheyibao.CarPayActivity;
+import com.cheyibao.NewCarParamsActivity;
 import com.cheyibao.adapter.NewCarParamsAdapter;
 import com.cheyibao.adapter.ShopItemAdapter;
 import com.cheyibao.model.Merchant;
@@ -25,15 +27,14 @@ import com.cheyibao.model.Shop;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.lljjcoder.style.citylist.Toast.ToastUtils;
-import com.system.WebviewActivity;
 import com.tool.listview.PersonalListView;
 import com.vipcenter.RegisterActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
-import com.youth.banner.listener.OnBannerListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -93,6 +94,7 @@ public class NewCarDetailActivity extends AppCompatActivity {
         mNewCar = (NewCar) getIntent().getExtras().getSerializable("data");
         id=getIntent().getExtras().getString("id");
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
 
     }
@@ -251,8 +253,9 @@ public class NewCarDetailActivity extends AppCompatActivity {
     }
 
     private void initData( ){
-        tv_oldprice.setText("厂家指导价" + mNewCar.getAdvicePrice());
-        tv_newprice.setText("￥" + mNewCar.getNakedCarPrice());
+        tv_oldprice.setText("厂家指导价" + mNewCar.getAdvicePrice()/10000+"万");
+        tv_oldprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        tv_newprice.setText("￥" + mNewCar.getNakedCarPrice()/10000+"万");
         String name = mNewCar.getFirstName();
         if (!TextUtils.isEmpty(mNewCar.getSecondName()) && !"null".equals(mNewCar.getSecondName())) {
             name = name + mNewCar.getSecondName();

@@ -124,7 +124,7 @@
 
                                      <TextView
                                          android:gravity="center"
-                                         android:background="@color/yellow_64"
+                                         android:background="@mipmap/grades"
                                          android:id="@+id/tv_grade"
                                          android:layout_width="15dp"
                                          android:layout_height="15dp"

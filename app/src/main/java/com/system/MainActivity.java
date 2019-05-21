@@ -1,5 +1,6 @@
 package com.system;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,7 +9,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +37,7 @@ import com.example.yunchebao.rongcloud.activity.contact.MyGroupDetailActivity;
 import com.example.yunchebao.rongcloud.model.MyFriend;
 import com.example.yunchebao.rongcloud.model.MyGroup;
 import com.example.yunchebao.rongcloud.sidebar.ContactModel;
+import com.payencai.library.util.ToastUtil;
 import com.system.fragment.AnotherBabyFragment;
 import com.system.fragment.BaikeFragment;
 import com.system.fragment.CheyiFragment;
@@ -37,6 +45,7 @@ import com.system.fragment.HomeFragment;
 import com.system.fragment.MallFragment;
 import com.system.fragment.NewBaikeFragment;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
+import com.vipcenter.UserCenterActivity;
 import com.vipcenter.model.UserInfo;
 
 import org.json.JSONArray;
@@ -54,6 +63,7 @@ import butterknife.ButterKnife;
 import io.rong.callkit.util.SPUtils;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.manager.IUnReadMessageObserver;
+import io.rong.imkit.model.GroupUserInfo;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Group;
@@ -93,9 +103,62 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         ButterKnife.bind(this);
         //openGPS(this);
+        
         autoLogin();
-    }
+        RongIM.setConnectionStatusListener(new RongIMClient.ConnectionStatusListener() {
+            @Override
+            public void onChanged(ConnectionStatus connectionStatus) {
+                switch (connectionStatus){
+                    case KICKED_OFFLINE_BY_OTHER_CLIENT:
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                MyApplication.isLogin=false;
+                                MyApplication.token="";
+                                MyApplication.setUserInfo(null);
+                                SPUtils.put(MainActivity.this, "phone", "");
+                                showNickDialog();
+                            }
+                        });
 
+                        break;
+                }
+            }
+        });
+
+    }
+    private void showNickDialog() {
+        final Dialog dialog = new Dialog(this, R.style.dialog);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_exit, null);
+        //获得dialog的window窗口
+        //将自定义布局加载到dialog上
+        TextView tv_confirm= (TextView) dialogView.findViewById(R.id.tv_confirm);
+
+        tv_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+        dialog.setContentView(dialogView);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+        Window window = dialog.getWindow();
+        WindowManager windowManager=getWindowManager();
+        Display display=windowManager.getDefaultDisplay();
+        //设置dialog在屏幕底部
+        window.setGravity(Gravity.CENTER);
+        //设置dialog弹出时的动画效果，从屏幕底部向上弹出
+        //获得window窗口的属性
+        android.view.WindowManager.LayoutParams lp = window.getAttributes();
+        //设置窗口宽度为充满全屏
+        lp.width = (int) (display.getWidth()*0.7);
+        //设置窗口高度为包裹内容
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        //将设置好的属性set回去
+        window.setAttributes(lp);
+    }
     private void autoLogin() {
         String phone = (String) SPUtils.get(MainActivity.this, "phone", "");
         String pwd = (String) SPUtils.get(MainActivity.this, "pwd", "");

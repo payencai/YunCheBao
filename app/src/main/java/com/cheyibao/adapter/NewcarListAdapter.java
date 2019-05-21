@@ -2,6 +2,7 @@ package com.cheyibao.adapter;
 
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.caryibao.NewCar;
@@ -32,7 +33,10 @@ public class NewcarListAdapter extends BaseQuickAdapter<NewCar, BaseViewHolder> 
         if(!"null".equals(item.getThirdName()))
             value=value+item.getThirdName();
         name2.setText(value);
-        img.setImageURI(Uri.parse(item.getCarCategoryDetail().getBanner1()));
+        String imgs=item.getCarCategoryDetail().getBanner1();
+        if(!TextUtils.isEmpty(imgs)&&imgs.contains(","))
+            imgs=imgs.split(",")[0];
+        img.setImageURI(Uri.parse(imgs));
         name.setText(item.getFirstName());
         if(item.getMinPrice()>10000)
           tv_price.setText("￥"+item.getMinPrice()/10000+"万");

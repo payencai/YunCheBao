@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.cheyibao.NewCarShopActivity">
+    tools:context=".cheyibao.newcar.NewCarShopActivity">
 
     <RelativeLayout
         android:id="@+id/rl_top"

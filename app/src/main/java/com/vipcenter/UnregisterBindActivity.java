@@ -45,6 +45,10 @@ public class UnregisterBindActivity extends AppCompatActivity {
     TextView code3;
     @BindView(R.id.code4)
     TextView code4;
+    @BindView(R.id.code5)
+    TextView code5;
+    @BindView(R.id.code6)
+    TextView code6;
     @BindView(R.id.codeNum)
     EditText codeNumEdit;
     @BindView(R.id.pwd)
@@ -98,11 +102,21 @@ public class UnregisterBindActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (codeNumEdit.getText() != null && !codeNumEdit.getText().toString().equals("")) {
                     String code = codeNumEdit.getText().toString();
-                    if (code.length() > 3) {
-                        code4.setText(s.charAt(3) + "");
+                    if (code.length() > 5) {
+                        code6.setText(s.charAt(5) + "");
                         if(TextUtils.isEmpty(pwd.getEditableText().toString())){
                             return;
                         }
+                    } else {
+                        code6.setText("");
+                    }
+                    if (code.length() > 4) {
+                        code5.setText(s.charAt(4) + "");
+                    } else {
+                        code5.setText("");
+                    }
+                    if (code.length() > 3) {
+                        code4.setText(s.charAt(3) + "");
                     } else {
                         code4.setText("");
                     }
@@ -126,6 +140,8 @@ public class UnregisterBindActivity extends AppCompatActivity {
                     code2.setText("");
                     code3.setText("");
                     code4.setText("");
+                    code5.setText("");
+                    code6.setText("");
                 }
             }
 

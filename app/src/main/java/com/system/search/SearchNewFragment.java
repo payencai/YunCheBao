@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.caryibao.NewCar;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.cheyibao.NewCarDetailActivity;
+import com.example.yunchebao.cheyibao.newcar.NewCarDetailActivity;
 
 
 import com.costans.PlatformContans;

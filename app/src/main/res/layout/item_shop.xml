@@ -31,12 +31,14 @@
                     android:text="云南隆创尚通" />
 
                 <TextView
+                    android:id="@+id/tv_grade"
+                    android:textSize="10sp"
                     android:textColor="@color/white"
                     android:layout_marginLeft="10dp"
-                    android:background="@color/yellow_02"
+                    android:background="@mipmap/grades"
                     android:gravity="center"
                     android:layout_width="15dp"
-                    android:layout_height="18dp"
+                    android:layout_height="17dp"
                     android:text="1" />
                 <LinearLayout
                     android:layout_marginLeft="10dp"
@@ -92,7 +94,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="9"
+            android:layout_weight="7"
             android:orientation="vertical"
             android:padding="10dp">
             <LinearLayout
@@ -155,7 +157,7 @@
                 android:id="@+id/tv_dis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4.38km"
+                android:text="1108.38km"
                 android:textColor="@color/yellow_77" />
         </LinearLayout>
 
@@ -173,8 +175,9 @@
         android:layout_width="match_parent"
         android:layout_height="40dp">
         <TextView
+
             android:id="@+id/tv_sale"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:gravity="center"
             android:layout_weight="1"
             android:textColor="@color/black_33"
@@ -184,7 +187,7 @@
             android:layout_height="match_parent" />
         <TextView
             android:id="@+id/tv_comment"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:gravity="center"
             android:layout_weight="1"
             android:textColor="@color/black_33"

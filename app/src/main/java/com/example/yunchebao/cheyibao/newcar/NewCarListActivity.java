@@ -1,4 +1,4 @@
-package com.cheyibao;
+package com.example.yunchebao.cheyibao.newcar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,13 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.application.MyApplication;
-import com.baike.adapter.CarListAdapter;
 import com.caryibao.NewCar;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.cheyibao.OldCarSelectActivity;
+import com.cheyibao.SelectCarBrandActivity;
 import com.cheyibao.adapter.CarCommomAdapter;
 import com.cheyibao.adapter.NewcarListAdapter;
 import com.cheyibao.model.NewCarMenu;
@@ -25,7 +24,7 @@ import com.cheyibao.view.TypeSelectWindow;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
@@ -66,8 +65,7 @@ public class NewCarListActivity extends NoHttpBaseActivity {
     SmartRefreshLayout  mRefreshLayout;
     int page = 1;
     boolean isLoadMore=false;
-    @BindView(R.id.rule_line_tv)
-    TextView topLineTv;
+
     @BindView(R.id.cityName)
     TextView cityName;
     List<String> tagStrList;
@@ -100,6 +98,7 @@ public class NewCarListActivity extends NoHttpBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_car_list_layout);
+
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             flag = bundle.getInt("flag");
@@ -107,6 +106,7 @@ public class NewCarListActivity extends NoHttpBaseActivity {
             mCarBrand = (CarBrand) bundle.getSerializable("brand");
         }
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
 
@@ -343,7 +343,7 @@ public class NewCarListActivity extends NoHttpBaseActivity {
         rv_car.setAdapter(mAdapter);
     }
     private void initView() {
-        cityName.setText(MyApplication.getaMapLocation().getCity());
+        //cityName.setText(MyApplication.getaMapLocation().getCity());
         mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {

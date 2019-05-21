@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.cheyibao.NewCarShopActivity">
+    tools:context=".cheyibao.newcar.NewCarShopActivity">
 
     <RelativeLayout
         android:id="@+id/rl_top"
@@ -16,10 +15,10 @@
 
         <ImageView
             android:id="@+id/back"
-            android:layout_width="10dp"
-            android:layout_height="18dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
+            android:padding="15dp"
             android:src="@mipmap/back" />
 
         <TextView
@@ -30,19 +29,17 @@
             android:textColor="@color/black_33"
             android:textSize="18sp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="#e2e2e2"></View>
+
     </RelativeLayout>
 
     <LinearLayout
+        android:layout_marginTop="0.5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
+            android:background="@color/white"
             android:paddingTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,15 +54,14 @@
                      android:id="@+id/tv_shopname"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-
                      android:text="云南隆创尚通" />
                  <TextView
                      android:id="@+id/tv_grade"
                      android:gravity="center"
-                     android:background="@color/yellow_64"
+                     android:background="@mipmap/grades"
                      android:textColorHint="@color/white"
-                     android:layout_width="18dp"
-                     android:layout_height="15dp"
+                     android:layout_width="15dp"
+                     android:layout_height="17dp"
                      android:layout_marginLeft="10dp"
                      android:text="1"
                      android:textColor="@color/white"
@@ -95,15 +91,21 @@
             </LinearLayout>
         </LinearLayout>
 
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab_gank"
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/tab_shop"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            app:tabGravity="center"
-            app:tabIndicatorColor="@color/yellow_64"
-            app:tabPaddingStart="20dp" />
+            android:background="@android:color/white"
+            app:tl_indicator_color="@color/yellow_02"
+            app:tl_indicator_corner_radius="30dp"
+            app:tl_indicator_height="3dp"
+            app:tl_indicator_width="30dp"
+            app:tl_indicator_width_equal_title="false"
+            app:tl_tab_space_equal="true"
+            app:tl_textSelectColor="@color/yellow_02"
+            app:tl_textUnselectColor="@android:color/black"
+            app:tl_textsize="14sp" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_gank"

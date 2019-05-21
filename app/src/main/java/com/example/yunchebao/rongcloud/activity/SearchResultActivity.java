@@ -84,7 +84,12 @@ public class SearchResultActivity extends AppCompatActivity {
     }
 
     private void initView() {
-
+        findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         mFriends = new ArrayList<>();
         et_search.setText(content);
         if (type.equals("0")) {//好友搜索

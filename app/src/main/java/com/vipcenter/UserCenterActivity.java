@@ -78,12 +78,13 @@ public class UserCenterActivity extends NoHttpBaseActivity {
         HttpProxy.obtain().get(PlatformContans.User.getUserResult, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("result",result);
+                Log.e("getUserResult",result);
                 try {
                     JSONObject jsonObject=new JSONObject(result);
                     JSONObject data=jsonObject.getJSONObject("data");
                     UserInfo userInfo=new Gson().fromJson(data.toString(),UserInfo.class);
                     MyApplication.setUserInfo(userInfo);
+                    nameText.setText(userInfo.getName());
                     if(MyApplication.isLogin){
                         Glide.with(UserCenterActivity.this).load(MyApplication.getUserInfo().getHeadPortrait())
                                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(40)))

@@ -1,10 +1,8 @@
 package com.system.fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,16 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.application.MyApplication;
-import com.caryibao.NewCar;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.cheyibao.NewCarDetailActivity;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.system.adapter.CoinNoticeAdapter;
-import com.system.adapter.SearchNewAdapter;
 import com.system.model.CoinNotice;
 
 import org.json.JSONArray;

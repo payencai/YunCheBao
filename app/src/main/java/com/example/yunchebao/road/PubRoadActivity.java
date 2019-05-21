@@ -27,6 +27,7 @@ import com.http.ICallBack;
 import com.payencai.library.mediapicker.PickerActivity;
 import com.payencai.library.mediapicker.PickerConfig;
 import com.payencai.library.mediapicker.entity.Media;
+import com.payencai.library.util.ToastUtil;
 import com.payencai.library.util.VideoUtil;
 import com.system.X5WebviewActivity;
 import com.system.model.AddressBean;
@@ -117,6 +118,24 @@ public class PubRoadActivity extends AppCompatActivity {
 
     private void initView() {
         tv_shopname.setText(mRoadDetail.getShopName());
+        findViewById(R.id.tv_item1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et_detail.setText("拖车");
+            }
+        });
+        findViewById(R.id.tv_item2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et_detail.setText("加油");
+            }
+        });
+        findViewById(R.id.tv_item3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et_detail.setText("换胎");
+            }
+        });
         tv_phone.setText("商家电话："+mRoadDetail.getSaleTelephone());
         tv_addr.setText("商家地址："+mRoadDetail.getAddress());
         Glide.with(this).load(mRoadDetail.getLogo()).into(iv_logo);
@@ -151,7 +170,8 @@ public class PubRoadActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.tv_public:
-                addService();
+                if(check())
+                   addService();
                 break;
             case R.id.iv_video:
                 chooseVideo();
@@ -163,6 +183,40 @@ public class PubRoadActivity extends AppCompatActivity {
                 startActivityForResult(new Intent(this, X5WebviewActivity.class), 2);
                 break;
         }
+    }
+    private boolean check(){
+        boolean isOk=true;
+        if(TextUtils.isEmpty(carCategory)){
+            isOk=false;
+            ToastUtil.showToast(this,"请选择车型！");
+            return isOk;
+        }
+        if(TextUtils.isEmpty(et_phone.getEditableText().toString())){
+            isOk=false;
+            ToastUtil.showToast(this,"请输入手机号！");
+            return isOk;
+        }
+        if(TextUtils.isEmpty(et_color.getEditableText().toString())){
+            isOk=false;
+            ToastUtil.showToast(this,"请输入颜色！");
+            return isOk;
+        }
+        if(TextUtils.isEmpty(et_detail.getEditableText().toString())){
+            isOk=false;
+            ToastUtil.showToast(this,"请输入问题！");
+            return isOk;
+        }
+        if(TextUtils.isEmpty(et_addr.getEditableText().toString())){
+            isOk=false;
+            ToastUtil.showToast(this,"请输入地址！");
+            return isOk;
+        }
+        if(mAddressBean==null){
+            isOk=false;
+            ToastUtil.showToast(this,"请选择车辆位置！");
+            return isOk;
+        }
+        return  isOk;
     }
     private void addService() {
 

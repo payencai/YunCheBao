@@ -23,14 +23,14 @@
             android:id="@+id/cityName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
             android:padding="10dp"
-            android:text="昆明"
+            android:text="新车汇"
             android:textColor="@color/black_33"
             android:textSize="16sp" />
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/search_lay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -53,6 +53,8 @@
 
 
     <LinearLayout
+        android:layout_marginBottom="0.5dp"
+        android:layout_marginTop="0.5dp"
         android:id="@+id/ll_select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -105,11 +107,7 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/rule_line_tv"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/gray_cc" />
+
 
     <LinearLayout
         android:layout_width="match_parent"

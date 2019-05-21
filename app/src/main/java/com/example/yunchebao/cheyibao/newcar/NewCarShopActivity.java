@@ -1,4 +1,4 @@
-package com.cheyibao;
+package com.example.yunchebao.cheyibao.newcar;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,8 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.cheyibao.NewCarCommentFragment;
+import com.cheyibao.NewCarNearbyFragment;
 import com.cheyibao.model.Shop;
 import com.example.yunchebao.R;
+import com.flyco.tablayout.SlidingTabLayout;
+import com.gyf.immersionbar.ImmersionBar;
 import com.tool.adapter.MyFragmentPagerAdapter;
 
 import java.util.ArrayList;
@@ -18,12 +22,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class NewCarShopActivity extends AppCompatActivity {
-    private ArrayList<String> mTitleList = new ArrayList<>(2);
+
     private ArrayList<Fragment> mFragments = new ArrayList<>(2);
     @BindView(R.id.vp_gank)
     ViewPager vpGank;
-    @BindView(R.id.tab_gank)
-    TabLayout tabGank;
+    @BindView(R.id.tab_shop)
+    SlidingTabLayout tabGank;
     @BindView(R.id.tv_shopname)
     TextView tv_shopname;
     @BindView(R.id.tv_address)
@@ -32,13 +36,14 @@ public class NewCarShopActivity extends AppCompatActivity {
     TextView  tv_grade;
     Shop mShop;
     int flag = 0;
-    MyFragmentPagerAdapter mMyFragmentPagerAdapter;
 
+    String []mTitles={"在售车型","查看评论"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_car_shop);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         mShop = (Shop) getIntent().getSerializableExtra("data");
         flag = getIntent().getIntExtra("flag", 0);
         tv_shopname.setText(mShop.getName());
@@ -62,28 +67,11 @@ public class NewCarShopActivity extends AppCompatActivity {
     }
 
     private void initFragmentList() {
-        mTitleList.add("在售车型");
-        mTitleList.add("查看评论");
+
         mFragments.add(new NewCarNearbyFragment());
         mFragments.add(new NewCarCommentFragment());
-        mMyFragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragments, mTitleList);
-        vpGank.setAdapter(mMyFragmentPagerAdapter);
-        vpGank.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        tabGank.setViewPager(vpGank,mTitles,this,mFragments);
 
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        tabGank.setupWithViewPager(vpGank);
         if (flag == 2)
             vpGank.setCurrentItem(1);
     }

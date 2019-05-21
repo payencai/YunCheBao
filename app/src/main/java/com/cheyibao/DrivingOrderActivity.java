@@ -151,7 +151,14 @@ public class DrivingOrderActivity extends AppCompatActivity implements View.OnCl
                         ToastUtil.showToast(this,"请输入手机号");
                         return;
                     }
-                    if(mClassItem!=null&&mCoachItem!=null)
+                    if(mClassItem==null){
+                        ToastUtil.showToast(this,"请选择班型");
+                        return;
+                    }
+                    if(mCoachItem==null){
+                        ToastUtil.showToast(this,"请选择教练");
+                        return;
+                    }
                     postOrder();
                 }
                 break;

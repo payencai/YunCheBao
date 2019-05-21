@@ -54,6 +54,14 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_LOGS" />
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.ACCESS_ASSISTED_GPS" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION" />
+
     <application
         android:name="com.application.MyApplication"
         android:allowBackup="true"
@@ -223,7 +231,7 @@
         <activity android:name="com.cheyibao.OnSaleCarDetailActivity" />
         <activity android:name="com.cheyibao.CompanyDetailActivity" />
         <activity android:name="com.cheyibao.OnSaleCarDetailConfigActivity" />
-        <activity android:name="com.cheyibao.NewCarListActivity" /> <!-- 宝贝百科 -->
+        <activity android:name=".cheyibao.newcar.NewCarListActivity" /> <!-- 宝贝百科 -->
         <activity android:name="com.baike.MagzineListActivity" />
         <activity android:name="com.baike.MagzineCoverActivity" />
         <activity android:name="com.baike.MagzineDetailActivity" />
@@ -399,8 +407,8 @@
         <activity android:name=".rongcloud.activity.contact.GroupDetailActivity" />
         <activity android:name=".rongcloud.activity.contact.MyGroupDetailActivity" />
         <activity android:name=".rongcloud.activity.contact.GroupManageActivity" />
-        <activity android:name="com.cheyibao.NewCarDetailActivity" />
-        <activity android:name="com.cheyibao.NewCarShopActivity" />
+        <activity android:name=".cheyibao.newcar.NewCarDetailActivity" />
+        <activity android:name=".cheyibao.newcar.NewCarShopActivity" />
         <activity android:name="com.xihubao.WashPayActivity" />
         <activity android:name="com.bbcircle.RaceDetailActivity" />
         <activity

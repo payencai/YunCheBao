@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.example.yunchebao.drive.fragment.DriveOrderFragment;
 import com.example.yunchebao.R;
+import com.example.yunchebao.road.fragment.RoadOrderFragment;
 import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
@@ -36,8 +37,8 @@ public class RoadOrderActivity extends AppCompatActivity {
 
     private void initView() {
         fragments=new ArrayList<>();
-        fragments.add(DriveOrderFragment.newInstance(1));
-        fragments.add(DriveOrderFragment.newInstance(2));
+        fragments.add(RoadOrderFragment.newInstance(1));
+        fragments.add(RoadOrderFragment.newInstance(2));
         tab_layout.setViewPager(viewpager,  mTitles,this,fragments);
         back.setOnClickListener(new View.OnClickListener() {
             @Override

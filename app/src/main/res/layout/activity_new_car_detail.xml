@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cheyibao.NewCarDetailActivity">
+    tools:context=".cheyibao.newcar.NewCarDetailActivity">
     <RelativeLayout
         android:id="@+id/rl_top"
         android:background="@color/white"
@@ -12,11 +12,11 @@
         android:layout_height="50dp">
         <ImageView
             android:id="@+id/back"
-            android:layout_marginLeft="15dp"
+            android:padding="15dp"
             android:layout_centerVertical="true"
             android:src="@mipmap/back"
-            android:layout_width="10dp"
-            android:layout_height="18dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
         <TextView
             android:textSize="18sp"
             android:textColor="@color/black_33"
@@ -79,12 +79,7 @@
                            android:text="厂家指导价20.99万"
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content" />
-                       <View
-                           android:background="@color/gray_99"
-                           android:elevation="2dp"
-                           android:layout_centerInParent="true"
-                           android:layout_width="80dp"
-                           android:layout_height="1dp"></View>
+
                    </RelativeLayout>
                    <LinearLayout
                        android:layout_marginLeft="30dp"

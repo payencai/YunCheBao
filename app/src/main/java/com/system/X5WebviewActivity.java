@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-
+import android.webkit.GeolocationPermissions;
 
 
 import com.example.yunchebao.R;
@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.system.model.AddressBean;
+import com.tencent.smtt.export.external.interfaces.GeolocationPermissionsCallback;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
@@ -45,7 +46,7 @@ public class X5WebviewActivity extends AppCompatActivity {
                    String district=addressComponent.getString("district");
                    addressBean.setDistrict(district);
                    addressBean.setProvince(province);
-                   //Log.e("gaode",result);
+                   Log.e("gaode",result);
                    Intent intent = new Intent();
                    intent.putExtra("address", addressBean);
                    setResult(1, intent);
@@ -112,7 +113,10 @@ public class X5WebviewActivity extends AppCompatActivity {
             }
         });
         mX5WebView.setWebChromeClient(new WebChromeClient() {
-
+            @Override
+            public void onGeolocationPermissionsShowPrompt(String s, GeolocationPermissionsCallback geolocationPermissionsCallback) {
+                geolocationPermissionsCallback.invoke(s, true, true);
+            }
         });
         mX5WebView.loadUrl("http://120.79.176.228:8080/gaote-web/map/index.html");
         //mX5WebView.loadUrl("https://apis.map.qq.com/tools/locpicker?search=1&type=0&backurl=http://3gimg.qq.com/lightmap/components/locationPicker2/back.html&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77&referer=myapp");

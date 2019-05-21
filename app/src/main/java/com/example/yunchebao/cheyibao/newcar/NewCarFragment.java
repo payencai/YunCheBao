@@ -1,4 +1,4 @@
-package com.cheyibao.fragment;
+package com.example.yunchebao.cheyibao.newcar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +12,6 @@ import android.widget.LinearLayout;
 
 import com.baike.adapter.CarListAdapter;
 import com.caryibao.NewCar;
-import com.cheyibao.NewCarDetailActivity;
-import com.cheyibao.NewCarListActivity;
 import com.cheyibao.adapter.NewCarMenuAdapter;
 import com.costans.PlatformContans;
 import com.entity.Banner;
@@ -25,6 +23,7 @@ import com.nohttp.sample.BaseFragment;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.listview.PersonalListView;
+import com.tool.listview.PersonalScrollView;
 import com.tool.slideshowview.SlideShowView;
 import com.tool.view.GridViewForScrollView;
 import com.xihubao.model.CarBrand;
@@ -50,7 +49,8 @@ public class NewCarFragment extends BaseFragment {
 
     @BindView(R.id.listview)
     PersonalListView mListView;
-
+    @BindView(R.id.sc_new)
+    PersonalScrollView sc_new;
     List<CarBrand> mCarBrands = new ArrayList<>();
     //轮播图片
     private List<Map<String, String>> imageList = new ArrayList<>();
@@ -204,6 +204,13 @@ public class NewCarFragment extends BaseFragment {
                 Bundle bundle=new Bundle();
                 bundle.putSerializable("data",mNewCars.get(position));
                 ActivityAnimationUtils.commonTransition(getActivity(), NewCarDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
+            }
+        });
+        sc_new.setOnScrollBottomListener(new PersonalScrollView.OnScrollBottomListener() {
+            @Override
+            public void onScrollBottom() {
+                page++;
+                getNewCar();
             }
         });
         gv_newcar.setOnItemClickListener(new AdapterView.OnItemClickListener() {

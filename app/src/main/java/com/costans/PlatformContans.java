@@ -281,6 +281,9 @@ public class PlatformContans {
         public static final String getOldCarMerchantCarByUser=root+ "/oldcar/getOldCarMerchantCarByUser";
         public static final String getOldCarMerchantCarById=root+ "/oldcar/getOldCarMerchantCarById";
     }
+    public static class FeedBack{
+        public static final String addFeedBack=root+ "/feedBack/addFeedBack";
+    }
     public static class CarOrder{
         public static final String addCarOrder=root+ "/carOrder/addCarOrder";
         public static final String cancelCarOrder=root+ "/carOrder/cancelCarOrder";
@@ -327,6 +330,7 @@ public class PlatformContans {
         public static final String addFriendApply=root+"/huanxin/addFriendApply";
         public static final String deleteMyFriend=root+"/huanxin/deleteMyFriend";
         public static final String dismissCrowdByCrowdId=root+ "/huanxin/dismissCrowdByCrowdId";
+        public static final String isFriendByShopId=root+ "/huanxin/isFriendByShopId";
         public static final String deleteCrowdByUserIds=root+"/huanxin/deleteCrowdByUserIds";
         public static final String kickCrowdByCrowdId=root+"/huanxin/kickCrowdByCrowdId";
         public static final String transferCrowdByCrowdId=root+ "/huanxin/transferCrowdByCrowdId";

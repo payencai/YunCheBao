@@ -3,7 +3,6 @@ package com.cheyibao;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,16 +11,16 @@ import android.widget.AdapterView;
 
 import com.baike.adapter.CarListAdapter;
 import com.caryibao.NewCar;
-import com.cheyibao.list.SpreadListView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.cheyibao.newcar.NewCarDetailActivity;
+import com.example.yunchebao.cheyibao.newcar.NewCarShopActivity;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.model.LoadMoreListView;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
-import com.tool.listview.PersonalListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;

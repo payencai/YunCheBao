@@ -25,6 +25,7 @@ import com.nanchen.wavesidebar.WaveSideBarView;
 import com.example.yunchebao.rongcloud.sidebar.ContactModel;
 import com.example.yunchebao.rongcloud.sidebar.ContactsAdapter;
 import com.example.yunchebao.rongcloud.sidebar.PinnedHeaderDecoration;
+import com.xihubao.ShopInfoActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -74,6 +75,7 @@ public class FriendListFragment extends Fragment {
                             contactModel.setHeadPortrait(item.getString("headPortrait"));
                             contactModel.setHxAccount(item.getString("hxAccount"));
                             contactModel.setId(item.getString("id"));
+                            contactModel.setUserType(item.getInt("userType"));
                             contactModel.setUserId(item.getString("userId"));
                             contactModel.setName(item.getString("name"));
                             contactModel.setIsNotice(item.getString("isNotice"));
@@ -88,10 +90,21 @@ public class FriendListFragment extends Fragment {
                         mAdapter.setOnItemClickListener(new ContactsAdapter.OnItemClickListener() {
                             @Override
                             public void onClick(int position, ImageView imageView) {
-                                Intent intent=new Intent(getContext(),FriendDetailActivity.class);
-                                intent.putExtra("id",mShowModels.get(position).getUserId());
-                                startActivity(intent);
-
+                                ContactModel contactModel=mShowModels.get(position);
+                                Intent intent;
+                                Log.e("userType",contactModel.getUserType()+"");
+                                switch (contactModel.getUserType()){
+                                    case 1:
+                                        intent=new Intent(getContext(),FriendDetailActivity.class);
+                                        intent.putExtra("id",contactModel.getUserId());
+                                        startActivity(intent);
+                                        break;
+                                    case 2:
+                                        intent=new Intent(getContext(), ShopInfoActivity.class);
+                                        intent.putExtra("id",contactModel.getUserId());
+                                        startActivity(intent);
+                                        break;
+                                }
                             }
                         });
                         mRecyclerView.setAdapter(mAdapter);

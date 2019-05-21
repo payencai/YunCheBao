@@ -2,6 +2,7 @@ package com.baike.adapter;
 
 import android.content.Context;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,9 +63,19 @@ public class CarListAdapter extends BaseAdapter {
         if(!"null".equals(list.get(position).getThirdName()))
             value=value+list.get(position).getThirdName();
         vh.name2.setText(value);
-        vh.img.setImageURI(Uri.parse(list.get(position).getCarCategoryDetail().getBanner1()));
+        String imgs=list.get(position).getCarCategoryDetail().getBanner1();
+        if(!TextUtils.isEmpty(imgs)&&imgs.contains(","))
+            imgs=imgs.split(",")[0];
+        vh.img.setImageURI(Uri.parse(imgs));
         vh.name.setText(list.get(position).getFirstName());
-        vh.tv_price.setText("￥"+list.get(position).getMinPrice()/10000+"万");
+        int price= (int) list.get(position).getMinPrice();
+        if(price>10000){
+            price=price/10000;
+            vh.tv_price.setText("￥"+price+"万");
+        }else{
+            vh.tv_price.setText("￥"+price);
+        }
+
 //        }
         return convertView;
     }

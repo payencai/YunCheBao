@@ -64,13 +64,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <GridView
+        <com.tool.view.GridViewForScrollView
             android:id="@+id/gv_photo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:horizontalSpacing="10dp"
             android:numColumns="3"
-            android:verticalSpacing="10dp"></GridView>
+            android:verticalSpacing="10dp"></com.tool.view.GridViewForScrollView>
     </LinearLayout>
 </LinearLayout>

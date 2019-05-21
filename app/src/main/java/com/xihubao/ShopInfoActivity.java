@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.application.MyApplication;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
+import com.entity.UserMsg;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
@@ -42,6 +43,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.rong.imkit.RongIM;
 
 public class ShopInfoActivity extends AppCompatActivity {
     String id;
@@ -60,7 +62,8 @@ public class ShopInfoActivity extends AppCompatActivity {
     TextView tv_content;
     @BindView(R.id.back)
     ImageView back;
-
+    UserMsg mUserMsg;
+    boolean isfriend=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,12 +79,43 @@ public class ShopInfoActivity extends AppCompatActivity {
         tv_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showApplyDialog();
+                if(isfriend){
+                    RongIM.getInstance().startPrivateChat(ShopInfoActivity.this,id,mShopInfo.getName());
+                }else{
+                    showApplyDialog();
+                }
+
             }
         });
+        getUserDetail(id);
         getData();
     }
+    private void getUserDetail(String id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("shopId", id);
+        HttpProxy.obtain().get(PlatformContans.Chat.isFriendByShopId, params, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("detail", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String data = jsonObject.getString("data");
+                    if("1".equals(data)){
+                        isfriend=true;
+                        tv_add.setText("聊天");
+                    }
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     private void getData() {
         Map<String, Object> params = new HashMap<>();
         params.put("shopId", id);
@@ -194,7 +228,7 @@ public class ShopInfoActivity extends AppCompatActivity {
         try {
             bithday = format.parse(mShopInfo.getBirthday() + " 00:00:00");
             driveday = format.parse(mShopInfo.getDrivingLicenseTime() + " 00:00:00");
-            int age = getAgeByBirth(bithday);
+            int age = getAgeByBirth(bithday)-1;
             int driverage = getAgeByBirth(driveday);
             String value = mShopInfo.getSex() + " " + age + "岁 " + mShopInfo.getConstellation() + " 驾龄" + driverage + "年";
             tv_address.setText(value.replace("null", ""));

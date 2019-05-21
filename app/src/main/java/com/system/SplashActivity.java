@@ -77,7 +77,7 @@ public class SplashActivity extends AppCompatActivity {
 
     }
     private void startAni(){
-        AlphaAnimation alphaAnimation=new AlphaAnimation(0.1f,1.0f);
+        AlphaAnimation alphaAnimation=new AlphaAnimation(1.0f,1.0f);
         alphaAnimation.setDuration(3000);//设置动画播放时长1000毫秒（1秒）
         layoutSplash.startAnimation(alphaAnimation);
         //设置动画监听

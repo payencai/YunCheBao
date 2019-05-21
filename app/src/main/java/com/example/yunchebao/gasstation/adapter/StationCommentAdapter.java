@@ -13,6 +13,7 @@ import com.example.yunchebao.gasstation.model.StationComment;
 import com.example.yunchebao.gasstation.model.StationService;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.payencai.library.view.CircleImageView;
+import com.tool.view.GridViewForScrollView;
 import com.vipcenter.adapter.PhotoAdapter;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class StationCommentAdapter extends BaseQuickAdapter<StationComment, Base
 
     @Override
     protected void convert(BaseViewHolder helper, StationComment item) {
-        GridView gv_photo = (GridView) helper.getView(R.id.gv_photo);
+        GridViewForScrollView gv_photo = (GridViewForScrollView) helper.getView(R.id.gv_photo);
         TextView iv_content = (TextView) helper.getView(R.id.iv_content);
         CircleImageView userhead = (CircleImageView) helper.getView(R.id.userhead);
         TextView tv_name = (TextView) helper.getView(R.id.tv_name);

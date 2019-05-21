@@ -184,7 +184,7 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
             imageList.add(image_uri);
             slideShowView.setImageUrls(imageList);
             if(mSeldDrvingDetail.getList()!=null)
-            tv_aleady.setText("已有" + mSeldDrvingDetail.getList().size() + "人报名");
+            tv_aleady.setText("已有" + mSeldDrvingDetail.getEnterNum() + "人报名");
             tv_title.setText(mSeldDrvingDetail.getTitle());
             tv_createTime.setText(mSeldDrvingDetail.getCreateTime());
             tv_readNum.setText(mSeldDrvingDetail.getReadNum() + "");

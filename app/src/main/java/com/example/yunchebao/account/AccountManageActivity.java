@@ -148,6 +148,19 @@ public class AccountManageActivity extends AppCompatActivity {
                         MyApplication.setIsLogin(true);
                         SPUtils.put(AccountManageActivity.this,"phone",account);
                         SPUtils.put(AccountManageActivity.this,"pwd",pwd);
+                        accountList.clear();
+                        accountList.addAll(AccountUtil.getAccountList(MyApplication.getContext()));
+                        mAccounts.clear();
+                        for (int i = 0; i <accountList.size() ; i++) {
+                            AccountUtil.Account account=new Gson().fromJson(accountList.get(i), AccountUtil.Account.class);
+                            if(MyApplication.getUserInfo().getUsername().equals(account.getAccount())){
+                                account.setCurrent(true);
+                                oldpos=i;
+                            }
+                            mAccounts.add(account);
+                            Log.e("account",accountList.get(i));
+                        }
+                        mAccountAdapter.notifyDataSetChanged();
                         getData();
                     }else{
                        // Toast.makeText(AccountManageActivity.this,msg,Toast.LENGTH_SHORT).show();

@@ -1,6 +1,7 @@
 package com.example.yunchebao.fourshop.adapter;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,7 +29,10 @@ public class FourShopCarAdapter extends BaseQuickAdapter<FourShopCar, BaseViewHo
         TextView tv_price=helper.getView(R.id.tv_price);
         tv_price.setText((item.getNakedCarPrice()/10000)+"万");
         tv_name.setText(item.getFirstName()+item.getSecondName()+item.getThirdName());
-        Glide.with(helper.itemView.getContext()).load(item.getCarCategoryDetail().getBanner1()).into(iv_img);
+        String imgs=item.getCarCategoryDetail().getBanner1();
+        if(!TextUtils.isEmpty(imgs)&&imgs.contains(","))
+            imgs=imgs.split(",")[0];
+        Glide.with(helper.itemView.getContext()).load(imgs).into(iv_img);
 
     }
 }

@@ -12,11 +12,11 @@
         android:layout_height="50dp">
         <ImageView
             android:id="@+id/back"
-            android:layout_marginLeft="15dp"
+            android:padding="15dp"
             android:layout_centerVertical="true"
             android:src="@mipmap/back"
-            android:layout_width="10dp"
-            android:layout_height="18dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
         <TextView
             android:textSize="18sp"
             android:id="@+id/title"
@@ -203,6 +203,48 @@
 
                         <TextView
                             android:id="@+id/code4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@color/yellow_65"
+                            android:textSize="17sp" />
+
+                        <View
+                            android:layout_width="27dp"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="4dp"
+                            android:background="@color/black_0d"></View>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/code5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@color/yellow_65"
+                            android:textSize="17sp" />
+
+                        <View
+                            android:layout_width="27dp"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="4dp"
+                            android:background="@color/black_0d"></View>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/code6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=""
