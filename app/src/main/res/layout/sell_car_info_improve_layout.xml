@@ -24,7 +24,8 @@
                 android:background="@color/white"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="36dp">
+                android:padding="36dp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -177,10 +178,10 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="26dp"
-                        android:text=""
+                        android:layout_marginRight="10dp"
+                        android:text="请选择验车时间"
                         android:textColor="@color/gray_99"
-                        android:textSize="10sp" />
+                        android:textSize="14sp" />
 
                     <ImageView
                         android:layout_width="6dp"
@@ -205,24 +206,27 @@
                         android:textColor="@color/black_33"
                         android:textSize="14sp" />
 
-                    <EditText
+                    <TextView
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@id/iv_enter"
                         android:id="@+id/time2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
+
                         android:layout_centerVertical="true"
-                        android:hint="天"
                         android:background="@color/white"
+                        android:text="请选择有效期"
                         android:textColor="@color/gray_99"
                         android:textSize="14sp" />
 
                     <ImageView
-                        android:visibility="gone"
+                        android:id="@+id/iv_enter"
                         android:layout_width="6dp"
                         android:layout_height="12dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/arrow_right" />
+                        android:src="@mipmap/arrow_right"
+                         />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -241,12 +245,13 @@
                         android:textSize="14sp" />
 
                     <EditText
-                        android:gravity="right"
+
                         android:id="@+id/et_num"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:background="@color/white"
+                        android:gravity="right"
                         android:hint="填写次数"
                         android:inputType="number"
                         android:textSize="14sp" />
@@ -612,7 +617,8 @@
                         android:layout_alignParentRight="true"
                         android:text="0/10000"
                         android:textColor="@color/black_33"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:visibility="gone" />
                 </RelativeLayout>
 
                 <EditText
@@ -658,15 +664,25 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="(1/4)"
+                        android:text="最多10张"
                         android:textColor="@color/gray_99"
                         android:textSize="10sp" />
                 </RelativeLayout>
 
+                <com.tool.view.GridViewForScrollView
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/gv_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:numColumns="4"></com.tool.view.GridViewForScrollView>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <FrameLayout
                         android:id="@+id/fr_zj1"
@@ -683,11 +699,11 @@
                             android:src="@mipmap/camera_default" />
 
                         <ImageView
-                            android:visibility="gone"
                             android:layout_width="15dp"
                             android:layout_height="15dp"
                             android:layout_gravity="right"
-                            android:src="@mipmap/redcancle_icon" />
+                            android:src="@mipmap/redcancle_icon"
+                            android:visibility="gone" />
                     </FrameLayout>
 
                     <FrameLayout
@@ -774,28 +790,33 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/white"
                     android:orientation="horizontal"
                     android:padding="15dp">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="3"
+
                         android:text="联系人"
                         android:textColor="@color/black_33"
                         android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/et_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="7"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="20dp"
+
                         android:background="@color/white"
                         android:hint="请填写联系人姓名"
                         android:textColor="@color/black_33"
                         android:textSize="14sp" />
                 </LinearLayout>
-
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_ee"></View>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -803,41 +824,70 @@
                     android:padding="15dp">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="3"
+
                         android:text="手机号"
                         android:textColor="@color/black_33"
                         android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/et_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="20dp"
                         android:background="@color/white"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="7"
                         android:hint="请输入手机号"
-                        android:textColor="@color/yellow_65"
+
+                        android:inputType="phone"
+                        android:textColor="@color/black_33"
                         android:textSize="14sp" />
                 </LinearLayout>
-                <RelativeLayout
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_ee"></View>
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
-                    android:background="@color/white">
+                    android:background="@color/white"
+                    android:padding="15dp">
 
-                    <TextView
-                        android:id="@+id/title7"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_margin="15dp"
+                        android:layout_toLeftOf="@id/getcode"
+                        android:gravity="center_vertical">
 
-                        android:drawablePadding="10dp"
-                        android:text="验证码"
-                        android:textColor="@color/black_33"
-                        android:textSize="14sp" />
+                        <TextView
+
+                            android:id="@+id/title7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+
+                            android:drawablePadding="10dp"
+                            android:text="验证码"
+                            android:textColor="@color/black_33"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:inputType="numberDecimal"
+                            android:id="@+id/et_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@color/white"
+                            android:hint="请输入验证码"
+                            android:textColor="@color/black_33"
+                            android:textSize="14sp" />
+                    </LinearLayout>
 
                     <com.coorchice.library.SuperTextView
                         android:id="@+id/getcode"
@@ -845,29 +895,20 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="15dp"
-                        android:paddingBottom="6dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
+                        android:layout_marginRight="5dp"
+                        android:paddingLeft="5dp"
                         android:paddingTop="6dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="6dp"
                         android:text="获取验证码"
                         android:textColor="@color/white"
                         android:textSize="10sp"
                         app:corner="4dp"
                         app:solid="@color/yellow_02" />
 
-                    <EditText
-                        android:id="@+id/et_code"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
-                        android:layout_toLeftOf="@id/getcode"
-                        android:background="@color/white"
-                        android:hint="请输入验证码"
-                        android:textColor="@color/gray_99"
-                        android:textSize="12sp" />
+
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="6dp"
@@ -880,7 +921,6 @@
                     android:padding="24dp">
 
                     <com.coorchice.library.SuperTextView
-                        android:visibility="gone"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="14dp"
@@ -889,6 +929,7 @@
                         android:padding="16dp"
                         android:text="稍后完善"
                         android:textColor="@color/yellow_65"
+                        android:visibility="gone"
                         app:corner="5dp"
                         app:solid="@color/white"
                         app:stroke_color="@color/yellow_65"

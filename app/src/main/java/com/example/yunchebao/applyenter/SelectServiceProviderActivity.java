@@ -41,6 +41,12 @@ public class SelectServiceProviderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_service_provider);
         ButterKnife.bind(this);
         mAgencies = new ArrayList<>();
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         getAgencyLists(MyApplication.getaMapLocation().getCity());
     }
 

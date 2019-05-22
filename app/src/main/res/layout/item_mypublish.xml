@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="10dp"
     android:background="@color/white"
@@ -22,10 +23,12 @@
            <RelativeLayout
                android:layout_width="match_parent"
                android:layout_height="wrap_content">
-               <TextView
+               <com.elyeproj.loaderviewlibrary.LoaderTextView
                    android:layout_marginRight="15dp"
                    android:ellipsize="end"
                    android:maxLines="2"
+                   app:use_gradient="true"
+                   app:width_weight="0.4"
                    android:layout_toLeftOf="@id/tv_state"
                    android:id="@+id/tv_name"
                    android:textSize="14sp"
@@ -33,7 +36,7 @@
                    android:text="迈巴赫S级轿车"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content" />
-               <TextView
+               <com.elyeproj.loaderviewlibrary.LoaderTextView
                    android:id="@+id/tv_state"
                    android:layout_alignParentRight="true"
                    android:textSize="12sp"
@@ -46,13 +49,13 @@
                android:layout_marginTop="5dp"
                android:layout_width="match_parent"
                android:layout_height="wrap_content">
-               <TextView
+               <com.elyeproj.loaderviewlibrary.LoaderTextView
                    android:textColor="@color/gray_99"
                    android:textSize="13sp"
                    android:text="上传时间："
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content" />
-               <TextView
+               <com.elyeproj.loaderviewlibrary.LoaderTextView
                    android:id="@+id/tv_time"
                    android:textColor="@color/black_33"
                    android:textSize="13sp"
@@ -64,13 +67,13 @@
                android:layout_marginTop="5dp"
                android:layout_width="match_parent"
                android:layout_height="wrap_content">
-               <TextView
+               <com.elyeproj.loaderviewlibrary.LoaderTextView
                    android:textColor="@color/gray_99"
                    android:textSize="13sp"
                    android:text="售卖价格："
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content" />
-               <TextView
+               <com.elyeproj.loaderviewlibrary.LoaderTextView
                    android:id="@+id/tv_price"
                    android:textColor="#F95204"
                    android:textSize="13sp"
@@ -85,13 +88,13 @@
         android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
+        <com.elyeproj.loaderviewlibrary.LoaderTextView
             android:textSize="12sp"
             android:textColor="@color/gray_99"
             android:text="买家付款自动完成售卖"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <TextView
+        <com.elyeproj.loaderviewlibrary.LoaderTextView
             android:id="@+id/tv_cancel"
             android:layout_alignParentRight="true"
             android:textSize="15sp"

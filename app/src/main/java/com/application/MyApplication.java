@@ -31,6 +31,8 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tool.ExceptionHandler;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.vipcenter.model.UserInfo;
+import com.xiasuhuei321.loadingdialog.manager.StyleManager;
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
 
 import org.json.JSONException;
@@ -123,6 +125,15 @@ public class MyApplication extends Application {
         // 将该app注册到微信
         mWxApi.registerApp("wx13acff5b460a0164");
 
+    }
+    private void initLoading(){
+        StyleManager s = new StyleManager();
+
+//在这里调用方法设置s的属性
+//code here...
+        s.Anim(false).repeatTime(0).contentSize(-1).intercept(true);
+
+        LoadingDialog.initStyle(s);
     }
     @Override
     public void onCreate() {
@@ -225,6 +236,7 @@ public class MyApplication extends Application {
         user = new PhoneUserEntity();
         GSYVideoType.setShowType(GSYVideoType.SCREEN_MATCH_FULL);
         LitePal.initialize(this);
+        initLoading();
         registerToWX();
         // 系统崩溃处理
        // initCrashHandler();

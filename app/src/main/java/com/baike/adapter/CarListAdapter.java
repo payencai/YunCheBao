@@ -67,7 +67,7 @@ public class CarListAdapter extends BaseAdapter {
         if(!TextUtils.isEmpty(imgs)&&imgs.contains(","))
             imgs=imgs.split(",")[0];
         vh.img.setImageURI(Uri.parse(imgs));
-        vh.name.setText(list.get(position).getFirstName());
+        vh.name.setText(list.get(position).getFirstName()+list.get(position).getSecondName()+list.get(position).getThirdName());
         int price= (int) list.get(position).getMinPrice();
         if(price>10000){
             price=price/10000;

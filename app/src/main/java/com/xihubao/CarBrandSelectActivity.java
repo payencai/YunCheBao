@@ -70,6 +70,7 @@ public class CarBrandSelectActivity extends AppCompatActivity {
                 intent.putExtra("id", data.getStringExtra("id"));
                 intent.putExtra("id1", data.getStringExtra("id1"));
                 intent.putExtra("id2", data.getStringExtra("id2"));
+                intent.putExtra("id3", data.getStringExtra("id3"));
                 setResult(1, intent);
                 finish();
             }

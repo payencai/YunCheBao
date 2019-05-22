@@ -36,6 +36,7 @@ import com.payencai.library.util.ToastUtil;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.CommonDateTools;
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 import com.xihubao.CarBrandSelectActivity;
 import com.xihubao.Shop4SListActivity;
 
@@ -82,7 +83,7 @@ public class SellPublishFragment extends BaseFragment implements OnDateSetListen
     @BindView(R.id.item4)
     EditText et_dis;
     String image;
-
+    LoadingDialog mLoadingDialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -120,6 +121,13 @@ public class SellPublishFragment extends BaseFragment implements OnDateSetListen
     }
 
     public void upImage(String url, File file) {
+        mLoadingDialog.setLoadingText("上传中")
+                .setSuccessText("上传成功")//显示加载成功时的文字
+                .setFailedText("上传失败")
+                .setInterceptBack(false)
+                .setRepeatCount(3)
+                .show();
+
         OkHttpClient mOkHttpClent = new OkHttpClient();
 
         MultipartBody.Builder builder = new MultipartBody.Builder()
@@ -135,11 +143,20 @@ public class SellPublishFragment extends BaseFragment implements OnDateSetListen
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.e("upload", "onResponse: " + e.getMessage());
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mLoadingDialog.loadFailed();
+                        Log.e("upload", "onResponse: " + e.getMessage());
+                    }
+                });
+
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+
+
                 String string = response.body().string();
                 Log.e("upload", "onResponse: " + string);
                 try {
@@ -149,6 +166,7 @@ public class SellPublishFragment extends BaseFragment implements OnDateSetListen
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            mLoadingDialog.loadSuccess();
                             Glide.with(getContext()).load(image).into(img);
                         }
                     });
@@ -162,6 +180,7 @@ public class SellPublishFragment extends BaseFragment implements OnDateSetListen
     }
 
     private void initView() {
+        mLoadingDialog=new LoadingDialog(getContext());
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,6 +223,7 @@ public class SellPublishFragment extends BaseFragment implements OnDateSetListen
                     id1 = data.getExtras().getString("id1");
                     id2 = data.getExtras().getString("id2");
                     id3 = data.getExtras().getString("id3");
+                    Log.e("firstid",id1+"----"+id2+"----"+id3);
                     carInfoText.setText(brand);
                     break;
                 case 2:
@@ -262,10 +282,7 @@ public class SellPublishFragment extends BaseFragment implements OnDateSetListen
                 break;
             case R.id.submitBtn:
                 Bundle bundle = new Bundle();
-                if (TextUtils.isEmpty(image)) {
-                    ToastUtil.showToast(getContext(), "图片不能为空");
-                    return;
-                }
+
                 if (cityText.getText().toString().equals("请选择地点")) {
                     ToastUtil.showToast(getContext(), "地点不能为空");
                     return;
@@ -276,6 +293,10 @@ public class SellPublishFragment extends BaseFragment implements OnDateSetListen
                 }
                 if (TextUtils.isEmpty(et_price.getEditableText().toString())) {
                     ToastUtil.showToast(getContext(), "请输入价格");
+                    return;
+                }
+                if (TextUtils.isEmpty(image)) {
+                    ToastUtil.showToast(getContext(), "图片不能为空");
                     return;
                 }
                 bundle.putString("id", id);

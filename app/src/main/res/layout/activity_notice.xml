@@ -11,13 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <ImageView
-            android:layout_marginRight="30dp"
             android:id="@+id/back"
-            android:layout_marginLeft="15dp"
-             android:layout_centerVertical="true"
-            android:background="@mipmap/back"
-            android:layout_width="15dp"
-            android:layout_height="20dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:padding="15dp"
+            android:src="@mipmap/back" />
         <com.flyco.tablayout.SlidingTabLayout
             android:layout_centerInParent="true"
             android:layout_toRightOf="@id/back"

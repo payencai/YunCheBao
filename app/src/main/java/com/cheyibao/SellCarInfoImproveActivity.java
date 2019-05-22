@@ -1,13 +1,17 @@
 package com.cheyibao;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,7 +23,9 @@ import com.bumptech.glide.Glide;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.yuedan.adapter.ImageAdapter;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.jzxiang.pickerview.TimePickerDialog;
@@ -27,11 +33,22 @@ import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
+import com.payencai.library.mediapicker.PickerConfig;
+import com.payencai.library.util.StringUtil;
 import com.payencai.library.util.ToastUtil;
+import com.payencai.library.util.VideoUtil;
+import com.system.model.AddressBean;
 import com.tool.ActivityConstans;
 import com.tool.CommonDateTools;
+import com.tool.FileUtil;
+import com.tool.GlideImageEngine;
+import com.tool.StringUtils;
 import com.tool.UIControlUtils;
+import com.tool.view.GridViewForScrollView;
 import com.vipcenter.RegisterActivity;
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,8 +56,10 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -54,6 +73,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 /**
  * Created by sdhcjhss on 2017/12/26.
@@ -61,12 +83,13 @@ import okhttp3.Response;
 
 public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity implements OnDateSetListener {
     TimePickerDialog mDialogYearMonth;
-    SimpleDateFormat sf = new SimpleDateFormat("yyyy年MM月");
-
+    TimePickerDialog mDialogYearMonthDay;
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
+    SimpleDateFormat sf2 = new SimpleDateFormat("yyyy-MM-dd");
     @BindView(R.id.time1)
     TextView time1Text;
     @BindView(R.id.time2)
-    EditText time2Text;
+    TextView time2Text;
     @BindView(R.id.iv_dj)
     ImageView iv_dj;
     @BindView(R.id.iv_xs)
@@ -121,14 +144,48 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
     int timeTag = 1;
     int curpos = 0;
     String color;
+    int count = 60;
+    @BindView(R.id.gv_pic)
+    GridViewForScrollView gv_pic;
+    ImageAdapter mImageAdapter;
+    List<Uri> mSelected;
+    List<String> images;
+    TimeCount mTimeCount;
     String image1, image2, image3, image4, image5, image6, image7;
     String detailId, id1, id2, id3, b_img, b_price, b_dis, b_city, b_time = null;
+    LoadingDialog mLoadingDialog;
+    class TimeCount extends CountDownTimer {
+
+        public TimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            getcode.setEnabled(false);
+            getcode.setTextColor(getResources().getColor(R.color.gray_99));
+            count--;
+            //倒计时的过程中回调该函数
+            getcode.setText("剩余"+count + "s");
+        }
+
+        @Override
+        public void onFinish() {
+            count = 60;
+            getcode.setText("重新获取");
+            getcode.setEnabled(true);
+            getcode.setTextColor(getResources().getColor(R.color.white));
+            //倒计时结束时回调该函数
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = LayoutInflater.from(this).inflate(R.layout.sell_car_info_improve_layout, null);
         setContentView(view);
+        mTimeCount = new TimeCount(60000, 1000);
+        mLoadingDialog=new LoadingDialog(this);
         Bundle bundle = getIntent().getExtras();
         detailId = bundle.getString("id");
         id1 = bundle.getString("id1");
@@ -156,11 +213,42 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
                     if (file.exists()) {
                         //Bitmap bitmap = BitmapFactory.decodeFile(photoOutputUri.getPath());
                         //server_head.setImageBitmap(bitmap);
-                        upImage(PlatformContans.Commom.uploadImg, file);
+                        upFileImage(PlatformContans.Commom.uploadImg, file);
                     } else {
                         Toast.makeText(SellCarInfoImproveActivity.this, "找不到照片", Toast.LENGTH_SHORT).show();
                     }
                     break;
+                case 188:
+                    mSelected = Matisse.obtainResult(data);
+                    for (int i = 0; i < mSelected.size(); i++) {
+                        Log.e("images", Matisse.obtainPathResult(data).get(i));
+                        File fileByUri = FileUtil.getFileByUri(Matisse.obtainResult(data).get(i), this);
+                        Luban.with(this)
+                                .load(fileByUri)
+                                .ignoreBy(100)
+                                .filter(new CompressionPredicate() {
+                                    @Override
+                                    public boolean apply(String path) {
+                                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                                    }
+                                })
+                                .setCompressListener(new OnCompressListener() {
+                                    @Override
+                                    public void onStart() {
+                                    }
+
+                                    @Override
+                                    public void onSuccess(File file) {
+                                        //evaluationBeans.get(mTempPosition).getEvaluationImages().add(0,file);
+                                        upImage(PlatformContans.Commom.uploadImg, file);
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+                                    }
+                                }).launch();
+                    }
+
             }
         }
 
@@ -190,7 +278,74 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
                 photoOutputUri = Uri.parse("file:////sdcard/image_output.jpg"));
         startActivityForResult(cropPhotoIntent, 4);
     }
+    public void upFileImage(String url, File file) {
+        mLoadingDialog.setLoadingText("上传中")
+                .setSuccessText("上传成功")//显示加载成功时的文字
+                .setFailedText("上传失败")
+                .setInterceptBack(false)
+                .setRepeatCount(3)
+                .show();
+        OkHttpClient mOkHttpClent = new OkHttpClient();
 
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("image", "image",
+                        RequestBody.create(MediaType.parse("image/png"), file));
+        RequestBody requestBody = builder.build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+        Call call = mOkHttpClent.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mLoadingDialog.loadFailed();
+                    }
+                });
+                Log.e("upload", "onResponse: " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String string = response.body().string();
+                Log.e("upload", "onResponse: " + string);
+                try {
+                    JSONObject object = new JSONObject(string);
+                    int resultCode = object.getInt("resultCode");
+                    image = object.getString("data");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mLoadingDialog.loadSuccess();
+                            switch (curpos){
+                                case 1:
+                                    Glide.with(SellCarInfoImproveActivity.this).load(image).into(iv_dj);
+                                    image1=image;
+                                    break;
+                                case 2:
+                                    Glide.with(SellCarInfoImproveActivity.this).load(image).into(iv_xs);
+                                    image2=image;
+                                    break;
+                                case 3:
+                                    Glide.with(SellCarInfoImproveActivity.this).load(image).into(iv_gc);
+                                    image3=image;
+                                    break;
+                            }
+
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
     public void upImage(String url, File file) {
         OkHttpClient mOkHttpClent = new OkHttpClient();
 
@@ -218,40 +373,11 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
                     JSONObject object = new JSONObject(string);
                     int resultCode = object.getInt("resultCode");
                     image = object.getString("data");
+                    images.add(image);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            switch (curpos) {
-                                case 1:
-                                    image1 = image;
-                                    Glide.with(SellCarInfoImproveActivity.this).load(image).into(iv_dj);
-                                    break;
-                                case 2:
-                                    Glide.with(SellCarInfoImproveActivity.this).load(image).into(iv_xs);
-                                    image2 = image;
-                                    break;
-                                case 3:
-                                    Glide.with(SellCarInfoImproveActivity.this).load(image).into(iv_gc);
-                                    image3 = image;
-                                    break;
-                                case 4:
-                                    Glide.with(SellCarInfoImproveActivity.this).load(image).into(iv_zj1);
-                                    image4 = image;
-                                    break;
-                                case 5:
-                                    Glide.with(SellCarInfoImproveActivity.this).load(image).into(iv_zj2);
-                                    image5 = image;
-                                    break;
-                                case 6:
-                                    Glide.with(SellCarInfoImproveActivity.this).load(image).into(iv_zj3);
-                                    image6 = image;
-                                    break;
-                                case 7:
-                                    Glide.with(SellCarInfoImproveActivity.this).load(image).into(iv_zj4);
-                                    image7 = image;
-                                    break;
-                            }
-                            // Glide.with(SellCarInfoImproveActivity.this).load(image).into(img);
+                            mImageAdapter.notifyDataSetChanged();
                         }
                     });
 
@@ -312,17 +438,17 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
     private void initView() {
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "我要卖车");
         ButterKnife.bind(this);
-        time1Text.setText(CommonDateTools.getCurrentDate("yyyy年MM月"));
-        // time2Text.setText(CommonDateTools.getCurrentDate("yyyy年MM月"));
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
+        time1Text.setText(CommonDateTools.getCurrentDate("yyyy-MM"));
+        time2Text.setText(CommonDateTools.getCurrentDate("yyyy-MM-dd"));
         initTimePickerView();
+        initTime();
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (MyApplication.isLogin)
                     if (checkInput()) {
                         postData();
-                    } else {
-                        startActivity(new Intent(SellCarInfoImproveActivity.this, RegisterActivity.class));
                     }
             }
         });
@@ -330,6 +456,28 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
             @Override
             public void onClick(View v) {
                 getCodeByType(4, et_phone.getEditableText().toString());
+            }
+        });
+        images = new ArrayList<>();
+        images.add("");
+        mImageAdapter = new ImageAdapter(this, images);
+        gv_pic.setAdapter(mImageAdapter);
+        gv_pic.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    images.clear();
+                    mImageAdapter.notifyDataSetChanged();
+                    images.add("");
+                    Matisse.from(SellCarInfoImproveActivity.this)
+                            .choose(MimeType.ofImage())
+                            .countable(true)
+                            .maxSelectable(10)
+                            .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                            .thumbnailScale(0.85f)
+                            .imageEngine(new GlideImageEngine())
+                            .forResult(188);
+                }
             }
         });
     }
@@ -346,6 +494,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
                     JSONObject object = new JSONObject(result);
                     int code = object.getInt("resultCode");
                     if (code == 0) {
+                        mTimeCount.start();
                         Toast.makeText(SellCarInfoImproveActivity.this, "验证码已发送，请注意查收", Toast.LENGTH_LONG).show();
                         //注册,并且登录
                     } else {
@@ -376,11 +525,11 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
         params.put("color", color);
         params.put("code", et_code.getEditableText().toString());
         params.put("change", Integer.parseInt(et_num.getEditableText().toString()));
-        params.put("carImage", image4 + "," + image5 + "," + image6 + "," + image7);
+        params.put("carImage", StringUtils.listToString2(images,','));
         params.put("distance", b_dis);
         params.put("linkman", et_name.getEditableText().toString());
         params.put("linkmanTelephone", et_phone.getEditableText().toString());
-        params.put("insuranceValidTime", time2Text.getEditableText().toString());//有效期年月日
+        params.put("insuranceValidTime", time2Text.getText().toString());//有效期年月日
         params.put("lastValidateCar", "2019-04-10 00:00:00");
         params.put("registrationTime", b_time + "-10 00:00:00");
         params.put("linkmanBuyCarInvoice", image3);
@@ -391,8 +540,21 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
         HttpProxy.obtain().post(PlatformContans.OldCar.addOldCarUserCar, MyApplication.token, json, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        ToastUtil.showToast(SellCarInfoImproveActivity.this, "提交成功");
+                        finish();
+                    } else {
+                        String msg = jsonObject.getString("message");
+                        ToastUtil.showToast(SellCarInfoImproveActivity.this, msg);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 Log.e("result", result);
-                finish();
+
             }
 
             @Override
@@ -401,13 +563,26 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
             }
         });
     }
-
+    private void initTime() {
+        mDialogYearMonthDay = new TimePickerDialog.Builder()
+                .setCallBack(this)
+                .setCancelStringId("取消")
+                .setSureStringId("确定")
+                .setTitleStringId("有效期")
+                .setCyclic(false)
+                .setThemeColor(getResources().getColor(R.color.timepicker_dialog_bg))
+                .setToolBarTextColorId(R.color.colorPrimary)
+                .setThemeColor(getResources().getColor(R.color.colorPrimary))
+                .setType(Type.YEAR_MONTH_DAY)
+                .setWheelItemTextSize(12)
+                .build();
+    }
     private void initTimePickerView() {
         mDialogYearMonth = new TimePickerDialog.Builder()
                 .setCallBack(this)
                 .setCancelStringId("取消")
                 .setSureStringId("确定")
-                .setTitleStringId("上牌时间")
+                .setTitleStringId("验车时间")
                 .setCyclic(false)
                 .setThemeColor(getResources().getColor(R.color.timepicker_dialog_bg))
                 .setToolBarTextColorId(R.color.colorPrimary)
@@ -420,13 +595,20 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
     private void alertTimePicker() {
         mDialogYearMonth.show(getSupportFragmentManager(), "year_month");
     }
-
+    private void alertPicker() {
+        mDialogYearMonthDay.show(getSupportFragmentManager(), "year_month_day");
+    }
     @Override
     public void onDateSet(TimePickerDialog timePickerDialog, long millseconds) {
-        String text = getDateToString(millseconds);
+
         switch (timeTag) {
             case 1:
+                String text = getDateToString(millseconds);
                 time1Text.setText(text);
+                break;
+            case 2:
+                String text2 = getDate(millseconds);
+                time2Text.setText(text2);
                 break;
 
         }
@@ -437,7 +619,10 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
         Date d = new Date(time);
         return sf.format(d);
     }
-
+    public String getDate(long time) {
+        Date d = new Date(time);
+        return sf2.format(d);
+    }
     @OnClick({R.id.back, R.id.timeLay1, R.id.timeLay2, R.id.ll_gc, R.id.ll_xs, R.id.ll_dj, R.id.fr_zj1, R.id.fr_zj2, R.id.fr_zj3, R.id.fr_zj4
             , R.id.ll_gray, R.id.ll_blue, R.id.ll_black, R.id.ll_coffee, R.id.ll_green, R.id.ll_red, R.id.ll_origin,
             R.id.ll_white, R.id.ll_rgb, R.id.ll_other, R.id.ll_yellow})
@@ -481,7 +666,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
                 }
                 break;
             case R.id.ll_gray:
-                color = "#707070";
+                color = "灰色";
                 ll_gray.setBackground(getResources().getDrawable(R.drawable.selected_bg_yellow_small));
                 ll_black.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 ll_blue.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
@@ -496,7 +681,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
 
                 break;
             case R.id.ll_black:
-                color = "#333333";
+                color = "黑色";
                 ll_black.setBackground(getResources().getDrawable(R.drawable.selected_bg_yellow_small));
                 ll_gray.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 ll_blue.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
@@ -510,7 +695,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
                 ll_red.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 break;
             case R.id.ll_blue:
-                color = "#58c1f9";
+                color = "蓝色";
                 ll_blue.setBackground(getResources().getDrawable(R.drawable.selected_bg_yellow_small));
                 ll_gray.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 ll_black.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
@@ -524,7 +709,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
                 ll_red.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 break;
             case R.id.ll_coffee:
-                color = "#996922";
+                color = "咖啡色";
                 ll_coffee.setBackground(getResources().getDrawable(R.drawable.selected_bg_yellow_small));
                 ll_gray.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 ll_black.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
@@ -538,7 +723,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
                 ll_red.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 break;
             case R.id.ll_white:
-                color = "#ffffff";
+                color = "白色";
                 ll_white.setBackground(getResources().getDrawable(R.drawable.selected_bg_yellow_small));
                 ll_gray.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 ll_black.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
@@ -552,7 +737,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
                 ll_red.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 break;
             case R.id.ll_origin:
-                color = "#f1a03d";
+                color = "橙色";
                 ll_origin.setBackground(getResources().getDrawable(R.drawable.selected_bg_yellow_small));
                 ll_gray.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 ll_black.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
@@ -566,7 +751,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
                 ll_red.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 break;
             case R.id.ll_yellow:
-                color = "#ead795";
+                color = "黄色";
                 ll_yellow.setBackground(getResources().getDrawable(R.drawable.selected_bg_yellow_small));
                 ll_gray.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 ll_black.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
@@ -580,7 +765,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
                 ll_red.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 break;
             case R.id.ll_rgb:
-                color = "#rgb";
+                color = "彩色";
                 ll_rgb.setBackground(getResources().getDrawable(R.drawable.selected_bg_yellow_small));
                 ll_gray.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 ll_black.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
@@ -594,7 +779,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
                 ll_red.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 break;
             case R.id.ll_other:
-                color = "#other";
+                color = "其他";
                 ll_other.setBackground(getResources().getDrawable(R.drawable.selected_bg_yellow_small));
                 ll_gray.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 ll_black.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
@@ -608,7 +793,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
                 ll_red.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 break;
             case R.id.ll_green:
-                color = "#87e869";
+                color = "绿色";
                 ll_green.setBackground(getResources().getDrawable(R.drawable.selected_bg_yellow_small));
                 ll_gray.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 ll_black.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
@@ -622,7 +807,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
                 ll_red.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 break;
             case R.id.ll_red:
-                color = "#ead795";
+                color = "红色";
                 ll_red.setBackground(getResources().getDrawable(R.drawable.selected_bg_yellow_small));
                 ll_gray.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 ll_black.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
@@ -635,12 +820,12 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
                 ll_green.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 ll_yellow.setBackground(getResources().getDrawable(R.drawable.gray_stroke_r4));
                 break;
-//            case R.id.timeLay2:
-//                timeTag = 2;
-//                if (mDialogYearMonth != null) {
-//                    alertTimePicker();
-//                }
-//                break;
+            case R.id.timeLay2:
+                timeTag = 2;
+                if (mDialogYearMonth != null) {
+                    alertPicker();
+                }
+                break;
         }
     }
 }

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -58,6 +59,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 
 /**
  * Created by sdhcjhss on 2018/1/8.
@@ -183,7 +185,7 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
             image_uri.put("imageUrls", mSeldDrvingDetail.getImage());
             imageList.add(image_uri);
             slideShowView.setImageUrls(imageList);
-            if(mSeldDrvingDetail.getList()!=null)
+
             tv_aleady.setText("已有" + mSeldDrvingDetail.getEnterNum() + "人报名");
             tv_title.setText(mSeldDrvingDetail.getTitle());
             tv_createTime.setText(mSeldDrvingDetail.getCreateTime());
@@ -200,6 +202,13 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
             isfocus(mSeldDrvingDetail.getUserId());
             Glide.with(this).load(mSeldDrvingDetail.getHeadPortrait()).into(tv_head);
             getComment();
+            RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+                @Override
+                public UserInfo getUserInfo(String s) {
+                    UserInfo userInfo=new UserInfo(mSeldDrvingDetail.getUserId(),mSeldDrvingDetail.getName(), Uri.parse(mSeldDrvingDetail.getHeadPortrait()));
+                    return userInfo;
+                }
+            },true);
         }
     }
 

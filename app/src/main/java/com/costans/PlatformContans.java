@@ -275,7 +275,7 @@ public class PlatformContans {
         public static final String getRentCarCarListForApp=root+ "/rentCar/getRentCarCarListForApp";   //app分页获取短租车辆列表
     }
     public static class OldCar{
-
+        public static final String delOldCarMerchantCar=root+ "/oldcar/delOldCarMerchantCar";
         public static final String addOldCarUserCar=root+ "/oldcar/addOldCarUserCar";
         public static final String getOldCarMerchantCarByApp=root+ "/oldcar/getOldCarMerchantCarByApp";
         public static final String getOldCarMerchantCarByUser=root+ "/oldcar/getOldCarMerchantCarByUser";

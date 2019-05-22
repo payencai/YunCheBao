@@ -16,10 +16,10 @@
             android:layout_height="180dp">
             <ImageView
                 android:id="@+id/back"
-                android:layout_margin="15dp"
+                android:padding="15dp"
                 android:src="@mipmap/white_back"
-                android:layout_width="20dp"
-                android:layout_height="18dp" />
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
             <ImageView
                 android:id="@+id/tv_pub"
                 android:layout_alignParentRight="true"

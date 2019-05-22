@@ -2,6 +2,7 @@ package com.order;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,10 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.payencai.library.util.ToastUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,6 +34,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import go.error;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,7 +47,8 @@ public class NewPublishFragment extends Fragment {
     public NewPublishFragment() {
         // Required empty public constructor
     }
-
+    @BindView(R.id.refresh)
+    SmartRefreshLayout refresh;
     @BindView(R.id.rv_order)
     RecyclerView rv_order;
     List<NewPublish> mCarOrders;
@@ -63,7 +70,39 @@ public class NewPublishFragment extends Fragment {
         initView();
         return view;
     }
+   private void cancelsale(String id){
+        Map<String,Object> params=new HashMap<>();
+        params.put("id",id) ;
+        String json=new Gson().toJson(params);
+        HttpProxy.obtain().post(PlatformContans.OldCar.delOldCarMerchantCar, MyApplication.token, json, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
 
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        page=1;
+                        mCarOrders.clear();
+                        mCarOrderAdapter.setNewData(mCarOrders);
+                        getOldCar();
+                        ToastUtil.showToast(getContext(),"取消成功");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+    View empty;
     private void initView() {
         state=getArguments().getInt("state");
         mCarOrders = new ArrayList<>();
@@ -73,16 +112,35 @@ public class NewPublishFragment extends Fragment {
             public void onLoadMoreRequested() {
                 page++;
                 isLoadMore = true;
-                getWashOrder();
+                getOldCar();
             }
         }, rv_order);
+        empty=LayoutInflater.from(getContext()).inflate(R.layout.empty_web,null);
+        mCarOrderAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                NewPublish newPublish= (NewPublish) adapter.getItem(position);
+                if(view.getId()==R.id.tv_cancel){
+                    cancelsale(newPublish.getId());
+                }
+            }
+        });
         rv_order.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_order.setAdapter(mCarOrderAdapter);
-        getWashOrder();
+        refresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page=1;
+                mCarOrders.clear();
+                mCarOrderAdapter.setNewData(mCarOrders);
+                getOldCar();
+            }
+        });
+        getOldCar();
 
     }
 
-    private void getWashOrder() {
+    private void getOldCar() {
         Map<String, Object> params = new HashMap<>();
         params.put("audit", 2);
         params.put("state", state);
@@ -91,7 +149,8 @@ public class NewPublishFragment extends Fragment {
         HttpProxy.obtain().get(PlatformContans.OldCar.getOldCarMerchantCarByUser, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("result",result);
+                Log.e("getold",result);
+                refresh.finishRefresh();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     int code = jsonObject.getInt("resultCode");
@@ -103,6 +162,9 @@ public class NewPublishFragment extends Fragment {
                             JSONObject item = data.getJSONObject(i);
                             NewPublish carOrder = new Gson().fromJson(item.toString(), NewPublish.class);
                             mCarOrder.add(carOrder);
+                        }
+                        if(page==1&&data.length()==0){
+                            mCarOrderAdapter.setEmptyView(empty);
                         }
                         if (isLoadMore) {
                             isLoadMore = false;

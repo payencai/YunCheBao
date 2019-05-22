@@ -27,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,6 +54,8 @@ public class AllKindActivity extends NoHttpFragmentBaseActivity
     public static int mPosition;
     @BindView(R.id.listview)
     ListView listView;
+    @BindView(R.id.tv_value)
+    TextView tv_value;
     @BindView(R.id.pl_goods)
     GridView pl_goods;
     List<GoodsType> mFirstGoodsTypes = new ArrayList<>();
@@ -156,6 +159,7 @@ public class AllKindActivity extends NoHttpFragmentBaseActivity
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //拿到当前位置
         mPosition = position;
+        tv_value.setText(mFirstGoodsTypes.get(position).getName());
         //即使刷新adapter
         adapter.notifyDataSetChanged();
         getSecData(mFirstGoodsTypes.get(position).getId());

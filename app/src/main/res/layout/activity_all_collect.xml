@@ -21,9 +21,9 @@
 
             <ImageView
                 android:id="@+id/back"
-                android:layout_width="32dp"
-                android:layout_height="48dp"
-                android:padding="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="15dp"
                 android:src="@mipmap/back"
                  />
 

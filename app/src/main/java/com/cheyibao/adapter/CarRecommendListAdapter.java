@@ -15,6 +15,7 @@ import com.entity.PhoneGoodEntity;
 import com.entity.PhoneMagEntity;
 import com.example.yunchebao.R;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.tool.MathUtil;
 
 import java.util.List;
 
@@ -80,8 +81,17 @@ public class CarRecommendListAdapter extends BaseAdapter {
             value=value+"  个人";
         }
         vh.item2.setText(value);
-        vh.tv_price.setText("低至￥"+oldCar.getOldPrice()/10000+"万");
-        vh.tv_newprice.setText("新车含税￥"+oldCar.getNewPrice()/10000+"万");
+        String oldprice= MathUtil.getDoubleTwo(oldCar.getOldPrice());
+        String newprice= MathUtil.getDoubleTwo(oldCar.getNewPrice());
+        if(oldCar.getOldPrice()>10000){
+            oldprice= MathUtil.getDoubleTwo(oldCar.getOldPrice()/10000)+"万";
+        }
+        if(oldCar.getNewPrice()>10000){
+            newprice= MathUtil.getDoubleTwo(oldCar.getNewPrice()/10000)+"万";
+        }
+
+        vh.tv_price.setText("低至￥"+oldprice);
+        vh.tv_newprice.setText("新车含税￥"+newprice);
         vh.tv_newprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         return convertView;
     }

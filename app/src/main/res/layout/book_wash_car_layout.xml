@@ -151,7 +151,7 @@
                         android:maxLines="2"
                         android:id="@+id/et_addr"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:background="@color/white"
                         android:hint="请输入详细地址"
                         android:textColor="@color/gray_66"
@@ -214,7 +214,7 @@
                 android:padding="15dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -229,8 +229,8 @@
                         android:maxLength="11"
                         android:inputType="number"
                         android:id="@+id/et_phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
                         android:background="@color/white"
                         android:hint="请输入手机号"
                         android:textColor="@color/gray_66"
@@ -280,7 +280,7 @@
                 android:padding="15dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -295,8 +295,8 @@
                         android:maxLength="5"
                         android:inputType="number"
                         android:id="@+id/et_note"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
                         android:background="@color/white"
                         android:hint="请填写范围"
                         android:textColor="@color/gray_66"

@@ -8,35 +8,32 @@ import java.util.List;
  */
 public class SeldDrvingDetail {
 
+
     /**
      * address : string
+     * age : 0
      * commentNum : 0
      * content : string
-     * createTime : 2018-12-29T06:59:07.498Z
-     * endTime : 2018-12-29T06:59:07.498Z
+     * createTime : 2019-05-22T10:46:28.179Z
+     * endTime : 2019-05-22T10:46:28.179Z
      * enterNum : 0
      * headPortrait : string
      * id : 0
      * image : string
-     * list : [{"createTime":"2018-12-29T06:59:07.498Z","headPortrait":"string","id":"string","name":"string","nickname":"string","recordId":0,"telephone":"string","userId":"string"}]
+     * isCollection : 0
+     * isEnter : 0
+     * list : [{"createTime":"2019-05-22T10:46:28.179Z","headPortrait":"string","id":"string","name":"string","nickname":"string","recordId":0,"telephone":"string","userId":"string"}]
      * name : string
      * readNum : 0
-     * startTime : 2018-12-29T06:59:07.498Z
+     * sex : string
+     * startTime : 2019-05-22T10:46:28.179Z
      * telephone : string
      * title : string
      * userId : string
      */
-    private int isCollection;
-
-    public int getIsCollection() {
-        return isCollection;
-    }
-
-    public void setIsCollection(int isCollection) {
-        this.isCollection = isCollection;
-    }
 
     private String address;
+    private int age;
     private int commentNum;
     private String content;
     private String createTime;
@@ -45,8 +42,11 @@ public class SeldDrvingDetail {
     private String headPortrait;
     private int id;
     private String image;
+    private int isCollection;
+    private int isEnter;
     private String name;
     private int readNum;
+    private String sex;
     private String startTime;
     private String telephone;
     private String title;
@@ -59,6 +59,14 @@ public class SeldDrvingDetail {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public int getCommentNum() {
@@ -125,6 +133,22 @@ public class SeldDrvingDetail {
         this.image = image;
     }
 
+    public int getIsCollection() {
+        return isCollection;
+    }
+
+    public void setIsCollection(int isCollection) {
+        this.isCollection = isCollection;
+    }
+
+    public int getIsEnter() {
+        return isEnter;
+    }
+
+    public void setIsEnter(int isEnter) {
+        this.isEnter = isEnter;
+    }
+
     public String getName() {
         return name;
     }
@@ -139,6 +163,14 @@ public class SeldDrvingDetail {
 
     public void setReadNum(int readNum) {
         this.readNum = readNum;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public String getStartTime() {
@@ -183,7 +215,7 @@ public class SeldDrvingDetail {
 
     public static class ListBean {
         /**
-         * createTime : 2018-12-29T06:59:07.498Z
+         * createTime : 2019-05-22T10:46:28.179Z
          * headPortrait : string
          * id : string
          * name : string

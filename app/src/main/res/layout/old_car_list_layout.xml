@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/gray_ee"
     android:orientation="vertical">
 
@@ -22,14 +23,14 @@
             android:id="@+id/cityName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
             android:padding="10dp"
-            android:text="昆明"
+            android:text="二手车"
             android:textColor="@color/black_33"
             android:textSize="16sp" />
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/search_lay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -52,6 +53,7 @@
 
 
     <LinearLayout
+        android:layout_marginTop="0.5dp"
         android:id="@+id/ll_select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -170,14 +172,25 @@
 
     </LinearLayout>
 
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/listview"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:fadingEdge="none"
-        android:scrollbars="none"
-        app:ptrAnimationStyle="custom"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+        app:srlFooterTranslationViewId="@+id/rv_car">
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srlClassicsSpinnerStyle="FixedBehind"
+            app:srlPrimaryColor="#444"
+            app:srlAccentColor="@android:color/white">
+        </com.scwang.smartrefresh.layout.header.ClassicsHeader>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_car"
+            tools:itemCount="2"
+            tools:listitem="@layout/car_recommend_list_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

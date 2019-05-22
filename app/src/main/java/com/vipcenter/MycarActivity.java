@@ -52,6 +52,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import go.error;
+import id.zelory.compressor.Compressor;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -77,6 +78,8 @@ public class MycarActivity extends AppCompatActivity {
     ImageView iv_id2;
     @BindView(R.id.et_number)
     EditText et_number;
+    @BindView(R.id.et_file)
+    EditText et_file;
     @BindView(R.id.tv_submit)
     TextView tv_submit;
     @BindView(R.id.back)
@@ -110,27 +113,15 @@ public class MycarActivity extends AppCompatActivity {
                 case 201:
                 case 202:
                     List<String> pathList = Matisse.obtainPathResult(data);
-                    Luban.with(this)
-                            .load(pathList.get(0))                                   // 传人要压缩的图片列表
-                            .ignoreBy(100)                                  // 忽略不压缩图片的大小
-                            .setTargetDir(Environment.getExternalStorageDirectory()+"/imgs")                        // 设置压缩后文件存储位置
-                            .setCompressListener(new OnCompressListener() { //设置回调
-                                @Override
-                                public void onStart() {
-                                    // TODO 压缩开始前调用，可以在方法内启动 loading UI
-                                }
 
-                                @Override
-                                public void onSuccess(File file) {
-                                    upImage(PlatformContans.Commom.uploadImg,file);
-                                    // TODO 压缩成功后调用，返回压缩后的图片文件
-                                }
-
-                                @Override
-                                public void onError(Throwable e) {
-                                    // TODO 当压缩过程出现问题时调用
-                                }
-                            }).launch();    //启动压缩
+                    File file= null;
+                    try {
+                        file = new Compressor(this).setQuality(75).compressToFile(new File(pathList.get(0)));
+                        upImage(PlatformContans.Commom.uploadImg,file);
+                        Log.e("path",pathList.get(0));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
 
 
@@ -237,10 +228,20 @@ public class MycarActivity extends AppCompatActivity {
                 String name=MyApplication.getUserInfo().getName();
                 cartype=tv_cartype.getText().toString();
                 carNumber=tv_number.getText().toString()+et_number.getEditableText().toString();
-                if(TextUtils.isEmpty(cartype)){
+                if(TextUtils.equals(cartype,"请选择车型")){
+                    ToastUtil.showToast(MycarActivity.this,"请选择车型");
                     return;
                 }
-                if(TextUtils.isEmpty(carNumber)){
+                if(TextUtils.isEmpty(et_number.getEditableText().toString())){
+                    ToastUtil.showToast(MycarActivity.this,"请输入车牌号");
+                    return;
+                }
+                if(TextUtils.isEmpty(drivingBackImg)){
+                    ToastUtil.showToast(MycarActivity.this,"请上传身份证照片");
+                    return;
+                }
+                if(TextUtils.isEmpty(drivingPositiveImg)){
+                    ToastUtil.showToast(MycarActivity.this,"请上传身份证照片");
                     return;
                 }
                 if(mMyCar==null)
@@ -298,6 +299,7 @@ public class MycarActivity extends AppCompatActivity {
         params.put("models",models);
         params.put("id",mMyCar.getId());
         params.put("plateNumber",plateNumber);
+        params.put("fileNumber",et_file.getEditableText().toString());
         params.put("userName",userName);
         params.put("drivingBackImg",drivingBackImg);
         params.put("drivingPositiveImg",drivingPositiveImg);

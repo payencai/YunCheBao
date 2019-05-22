@@ -14,11 +14,11 @@
         android:layout_height="50dp">
         <ImageView
             android:id="@+id/back"
-            android:layout_marginLeft="15dp"
+            android:padding="15dp"
             android:layout_centerVertical="true"
             android:src="@mipmap/back"
-            android:layout_width="10dp"
-            android:layout_height="18dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
         <TextView
             android:textSize="18sp"
             android:textColor="@color/black_33"

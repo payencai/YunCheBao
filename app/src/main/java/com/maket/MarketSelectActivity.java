@@ -3,22 +3,14 @@ package com.maket;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 
-import com.cheyibao.OldCarListActivity;
 import com.example.yunchebao.R;
 import com.nohttp.sample.NoHttpBaseActivity;
-import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

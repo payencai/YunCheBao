@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.elyeproj.loaderviewlibrary.LoaderImageView;
+import com.elyeproj.loaderviewlibrary.LoaderTextView;
 import com.example.yunchebao.R;
 
 import java.util.List;
@@ -23,14 +25,17 @@ public class NewPublishAdapter extends BaseQuickAdapter<NewPublish,BaseViewHolde
 
     @Override
     protected void convert(BaseViewHolder helper, NewPublish item) {
-        TextView tv_name=helper.getView(R.id.tv_name);
-        TextView tv_time=helper.getView(R.id.tv_time);
-        TextView tv_state=helper.getView(R.id.tv_state);
-        TextView tv_cancel=helper.getView(R.id.tv_cancel);
-        TextView tv_price=helper.getView(R.id.tv_price);
+        LoaderTextView tv_name=helper.getView(R.id.tv_name);
+        LoaderTextView tv_time=helper.getView(R.id.tv_time);
+        LoaderTextView tv_state=helper.getView(R.id.tv_state);
+        LoaderTextView tv_cancel=helper.getView(R.id.tv_cancel);
+        helper.addOnClickListener(R.id.tv_cancel);
+        LoaderTextView tv_price=helper.getView(R.id.tv_price);
         ImageView iv_car=helper.getView(R.id.iv_car);
-        tv_name.setText(item.getFirstName()+item.getSecondName()+item.getFirstName());
-        tv_price.setText("￥"+item.getNewPrice());
+        String name=item.getFirstName()+" "+item.getSecondName()+" "+item.getThirdName();
+        name=name.replace("null","");
+        tv_name.setText(name);
+        tv_price.setText(item.getOldPrice()+"万");
         tv_time.setText(item.getCreateTime().substring(0,10));
         if(item.getCarImage().contains(",")){
             String [] images=item.getCarImage().split(",");

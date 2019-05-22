@@ -12,7 +12,6 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 
 import com.cheyibao.OldCarDetailActivity;
-import com.cheyibao.OldCarListActivity;
 import com.cheyibao.OldCarSelectActivity;
 import com.cheyibao.SellCarActivity;
 import com.cheyibao.adapter.NewCarMenuAdapter;

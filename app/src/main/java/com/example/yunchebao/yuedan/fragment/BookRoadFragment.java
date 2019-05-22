@@ -2,6 +2,7 @@ package com.example.yunchebao.yuedan.fragment;
 
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -40,12 +41,16 @@ import com.system.model.AddressBean;
 import com.tool.FileUtil;
 import com.tool.GlideImageEngine;
 import com.tool.WheelView;
+import com.tool.view.GridViewForScrollView;
 import com.vipcenter.RegisterActivity;
 import com.xihubao.CarBrandSelectActivity;
 import com.example.yunchebao.yuedan.adapter.ImageAdapter;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
+import com.zhihu.matisse.internal.entity.IncapableCause;
+import com.zhihu.matisse.internal.entity.Item;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +61,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -111,8 +118,9 @@ public class BookRoadFragment extends Fragment {
     @BindView(R.id.iv_play)
     ImageView iv_play;
     @BindView(R.id.gv_pic)
-    GridView gv_pic;
+    GridViewForScrollView gv_pic;
     ImageAdapter mImageAdapter;
+
     public BookRoadFragment() {
         // Required empty public constructor
     }
@@ -179,7 +187,9 @@ public class BookRoadFragment extends Fragment {
     String imgs;
     String video;
     String time;
-
+    List<Uri> mSelected;
+    List<String> images;
+    ArrayList<Media> defaultSelect = new ArrayList<>();
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -196,20 +206,20 @@ public class BookRoadFragment extends Fragment {
         if (requestCode == 3 && data != null) {
             defaultSelect = data.getParcelableArrayListExtra(PickerConfig.EXTRA_RESULT);
             if (defaultSelect.size() > 0) {
+                File filevideo = new File(defaultSelect.get(0).path);
                 Bitmap bitmap = VideoUtil.voidToFirstBitmap(defaultSelect.get(0).path);
                 iv_video.setImageBitmap(bitmap);
-                File filevideo = new File(defaultSelect.get(0).path);
+                iv_play.setVisibility(View.VISIBLE);
                 upLoadVideo(PlatformContans.Commom.uploadVideo, filevideo);
             }
         }
     }
 
-    ArrayList<Media> defaultSelect = new ArrayList<>();
 
     private void chooseVideo() {
         Intent intent = new Intent(getContext(), PickerActivity.class);
         intent.putExtra(PickerConfig.SELECT_MODE, PickerConfig.PICKER_VIDEO);//default image and video (Optional)
-        long maxSize = 10485760L;//long long long long类型
+        long maxSize = 41943040L;//long long long long类型
         intent.putExtra(PickerConfig.MAX_SELECT_SIZE, maxSize); //default 10MB (Optional)
         intent.putExtra(PickerConfig.MAX_SELECT_COUNT, 1);  //default 40 (Optional)
         intent.putExtra(PickerConfig.DEFAULT_SELECTED_LIST, defaultSelect); //(Optional)默认选中的照片
@@ -217,9 +227,14 @@ public class BookRoadFragment extends Fragment {
     }
 
     public void upLoadVideo(String url, File file) {
-        OkHttpClient mOkHttpClent = new OkHttpClient();
+        OkHttpClient mOkHttpClent = new OkHttpClient.Builder()
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .build();
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
+
                 .addFormDataPart("file", "file",
                         RequestBody.create(MediaType.parse("multipart/form-data"), file));
         RequestBody requestBody = builder.build();
@@ -231,6 +246,12 @@ public class BookRoadFragment extends Fragment {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //ToastUtil.showToast(getContext(),"视频太大超时");
+                    }
+                });
                 Log.e("upload", "onResponse: " + e.getMessage());
             }
 
@@ -243,12 +264,7 @@ public class BookRoadFragment extends Fragment {
                     int resultCode = object.getInt("resultCode");
                     final String data = object.getString("data");
                     video = data;
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            iv_play.setVisibility(View.VISIBLE);
-                        }
-                    });
+
                     ///
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -280,23 +296,19 @@ public class BookRoadFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String string = response.body().string();
-                Log.e("upload", "onResponse: " + string);
+
                 try {
                     JSONObject object = new JSONObject(string);
-                    int resultCode = object.getInt("resultCode");
-                    final String data = object.getString("data");
-                    if(!images.contains(data)){
-                        images.add(data);
-                    }
-                    if(images.size()==mSelected.size()){
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                mImageAdapter.notifyDataSetChanged();
-                            }
-                        });
+                     String data = object.getString("data");
+                    images.add(data);
+                    Log.e("upload", "onResponse: " + string);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mImageAdapter.notifyDataSetChanged();
+                        }
+                    });
 
-                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -306,10 +318,9 @@ public class BookRoadFragment extends Fragment {
         });
     }
 
-    List<Uri> mSelected;
 
     public void setImages(Intent data) {
-        mSelected=Matisse.obtainResult(data);
+        mSelected = Matisse.obtainResult(data);
         for (int i = 0; i < mSelected.size(); i++) {
             File fileByUri = FileUtil.getFileByUri(Matisse.obtainResult(data).get(i), getContext());
             Luban.with(getContext())
@@ -338,26 +349,61 @@ public class BookRoadFragment extends Fragment {
                     }).launch();
         }
     }
-    List<String> images;
+
+
+    private boolean checkInput() {
+        boolean isOk = true;
+
+
+        if (TextUtils.isEmpty(carCategory)) {
+            isOk = false;
+            ToastUtil.showToast(getContext(), "请选择车型");
+        }
+        if (TextUtils.isEmpty(et_detail.getEditableText().toString())) {
+            isOk = false;
+            ToastUtil.showToast(getContext(), "问题不能为空");
+        }
+        if (TextUtils.isEmpty(et_phone.getEditableText().toString())) {
+            isOk = false;
+            ToastUtil.showToast(getContext(), "手机号不能为空");
+        }
+        if (TextUtils.isEmpty(et_note.getEditableText().toString())) {
+            isOk = false;
+            ToastUtil.showToast(getContext(), "范围不能为空");
+        }
+        if (TextUtils.isEmpty(et_color.getEditableText().toString())) {
+            isOk = false;
+            ToastUtil.showToast(getContext(), "颜色不能为空");
+        }
+        if (TextUtils.isEmpty(et_address.getEditableText().toString())) {
+            isOk = false;
+            ToastUtil.showToast(getContext(), "详细地址不能为空");
+        }
+        if (mAddressBean == null) {
+            isOk = false;
+            ToastUtil.showToast(getContext(), "车辆位置不能为空");
+        }
+        return isOk;
+    }
     private void initView() {
-        images=new ArrayList<>();
+        images = new ArrayList<>();
         images.add("");
-        mImageAdapter=new ImageAdapter(getContext(),images);
+        mImageAdapter = new ImageAdapter(getContext(), images);
         gv_pic.setAdapter(mImageAdapter);
         gv_pic.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position==0){
+                if (position == 0) {
                     images.clear();
                     mImageAdapter.notifyDataSetChanged();
+                    images.add("");
                     Matisse.from(getActivity())
+
                             .choose(MimeType.ofImage())
                             .countable(true)
                             .maxSelectable(4)
-                            .originalEnable(true)
                             .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
                             .thumbnailScale(0.85f)
-                            .captureStrategy(new CaptureStrategy(true, "com.yancy.gallerypickdemo.fileprovider"))
                             .imageEngine(new GlideImageEngine())
                             .forResult(188);
                 }
@@ -366,7 +412,7 @@ public class BookRoadFragment extends Fragment {
         tv_item1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               et_detail.setText(tv_item1.getText().toString());
+                et_detail.setText(tv_item1.getText().toString());
             }
         });
         tv_item2.setOnClickListener(new View.OnClickListener() {
@@ -411,18 +457,7 @@ public class BookRoadFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (MyApplication.isLogin) {
-                    if (TextUtils.isEmpty(et_phone.getEditableText().toString())) {
-                        return;
-                    }
-                    if (TextUtils.isEmpty(et_address.getText().toString())) {
-                        return;
-                    }
-                    if (TextUtils.isEmpty(et_type.getText().toString())) {
-                        return;
-                    }
-                    if (TextUtils.isEmpty(et_detail.getEditableText().toString())) {
-                        return;
-                    }
+                    if(checkInput())
                     addService();
                 } else {
                     startActivity(new Intent(getContext(), RegisterActivity.class));
@@ -432,8 +467,8 @@ public class BookRoadFragment extends Fragment {
     }
 
     private void addService() {
-        for (int i = 0; i <images.size() ; i++) {
-            imgs=imgs+","+images.get(i);
+        for (int i = 0; i < images.size(); i++) {
+            imgs = imgs + "," + images.get(i);
         }
         Map<String, Object> params = new HashMap<>();
         params.put("telephone", et_phone.getEditableText().toString());
@@ -457,14 +492,14 @@ public class BookRoadFragment extends Fragment {
             public void OnSuccess(String result) {
 
                 try {
-                    JSONObject jsonObject=new JSONObject(result);
-                    int code=jsonObject.getInt("resultCode");
-                    String msg=jsonObject.getString("message");
-                    if(code==0){
-                        ToastUtil.showToast(getContext(),"发布成功！");
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    String msg = jsonObject.getString("message");
+                    if (code == 0) {
+                        ToastUtil.showToast(getContext(), "发布成功！");
                         getActivity().finish();
-                    }else{
-                        ToastUtil.showToast(getContext(),msg);
+                    } else {
+                        ToastUtil.showToast(getContext(), msg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

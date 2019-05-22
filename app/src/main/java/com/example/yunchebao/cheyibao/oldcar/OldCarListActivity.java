@@ -1,7 +1,10 @@
-package com.cheyibao;
+package com.example.yunchebao.cheyibao.oldcar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -11,18 +14,28 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.application.MyApplication;
+import com.caryibao.NewCar;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.cheyibao.OldCarDetailActivity;
+import com.cheyibao.OldCarSelectActivity;
+import com.cheyibao.SelectCarBrandActivity;
 import com.cheyibao.adapter.CarCommomAdapter;
 import com.cheyibao.adapter.CarRecommendListAdapter;
+import com.cheyibao.adapter.NewcarListAdapter;
 import com.cheyibao.model.OldCar;
 import com.cheyibao.view.PriceSelectWindow;
 import com.cheyibao.view.TypeSelectWindow;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.cheyibao.oldcar.adapter.OldcarListAdapter;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.view.GridViewForScrollView;
@@ -48,17 +61,18 @@ import co.lujun.androidtagview.TagView;
  */
 
 public class OldCarListActivity extends NoHttpBaseActivity {
-    private List<OldCar> list;
-    private CarRecommendListAdapter adapter;
-
-    @BindView(R.id.listview)
-    PullToRefreshListView refreshListView;
-    ListView listView;
+    List<OldCar> mOldCars;
+    OldcarListAdapter mAdapter;
+    @BindView(R.id.rv_car)
+    RecyclerView rv_car;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout mRefreshLayout;
     @BindView(R.id.rule_line_tv)
     TextView topLineTv;
     @BindView(R.id.cityName)
     TextView cityName;
     int page = 1;
+    boolean isLoadMore=false;
     @BindView(R.id.menu1)
     TextView menuText1;
     @BindView(R.id.menu2)
@@ -104,7 +118,7 @@ public class OldCarListActivity extends NoHttpBaseActivity {
         }
 
         initView();
-        getData();
+
     }
 
     private void getData() {
@@ -149,16 +163,29 @@ public class OldCarListActivity extends NoHttpBaseActivity {
             @Override
             public void OnSuccess(String result) {
                 Log.e("getdata", result);
+                mRefreshLayout.finishRefresh();
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     jsonObject = jsonObject.getJSONObject("data");
                     JSONArray data = jsonObject.getJSONArray("beanList");
+                    List<OldCar>  newCars=new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
-                        OldCar baikeItem = new Gson().fromJson(item.toString(), OldCar.class);
-                        list.add(baikeItem);
+                        OldCar newCar = new Gson().fromJson(item.toString(), OldCar.class);
+                        mOldCars.add(newCar);
+                        newCars.add(newCar);
                     }
-                    adapter.notifyDataSetChanged();
+                    if(isLoadMore){
+                        isLoadMore=false;
+                        if(data.length()==0){
+                            mAdapter.loadMoreEnd(true);
+                        }else{
+                            mAdapter.addData(newCars);
+                            mAdapter.loadMoreComplete();
+                        }
+                    }else{
+                        mAdapter.setNewData(mOldCars);
+                    }
                     //updateData();
 
                 } catch (JSONException e) {
@@ -226,7 +253,6 @@ public class OldCarListActivity extends NoHttpBaseActivity {
     private void initView() {
         ButterKnife.bind(this);
 
-
         initTag();
         cityName.setText(MyApplication.getaMapLocation().getCity());
         mTagContainerLayout = (TagContainerLayout) findViewById(R.id.tagcontainerLayout);
@@ -285,27 +311,41 @@ public class OldCarListActivity extends NoHttpBaseActivity {
                     models = "";
                 }
                 page = 1;
-                list.clear();
+                mOldCars.clear();
                 getData();
 
             }
         });
-        listView = refreshListView.getRefreshableView();
-        listView.setDivider(getResources().getDrawable(R.color.gray_cc));
-        listView.setDividerHeight(1);
-        list = new ArrayList<>();
-        adapter = new CarRecommendListAdapter(this, list);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mOldCars=new ArrayList<>();
+        mAdapter=new OldcarListAdapter(R.layout.car_recommend_list_item,mOldCars);
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                position--;
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                OldCar oldCar= (OldCar) adapter.getItem(position);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("data", list.get(position));
+                bundle.putSerializable("data", oldCar);
                 ActivityAnimationUtils.commonTransition(OldCarListActivity.this, OldCarDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
-
             }
         });
+        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                page++;
+                isLoadMore=true;
+                getData();
+            }
+        });
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page=1;
+                mOldCars.clear();
+                getData();
+            }
+        });
+        rv_car.setLayoutManager(new LinearLayoutManager(this));
+        rv_car.setAdapter(mAdapter);
+        getData();
     }
 
 
@@ -340,7 +380,7 @@ public class OldCarListActivity extends NoHttpBaseActivity {
                 }
                 mTagContainerLayout.setTags(tagStrList);
                 page = 1;
-                list.clear();
+                mOldCars.clear();
                 getData();
 
 
@@ -369,7 +409,7 @@ public class OldCarListActivity extends NoHttpBaseActivity {
                 }
                 mTagContainerLayout.setTags(tagStrList);
                 page = 1;
-                list.clear();
+                mOldCars.clear();
                 getData();
             }
         });
@@ -396,7 +436,7 @@ public class OldCarListActivity extends NoHttpBaseActivity {
                 }
                 mTagContainerLayout.setTags(tagStrList);
                 page = 1;
-                list.clear();
+                mOldCars.clear();
                 getData();
             }
         });
@@ -423,7 +463,7 @@ public class OldCarListActivity extends NoHttpBaseActivity {
                 }
                 mTagContainerLayout.setTags(tagStrList);
                 page = 1;
-                list.clear();
+                mOldCars.clear();
                 getData();
             }
         });
@@ -446,7 +486,7 @@ public class OldCarListActivity extends NoHttpBaseActivity {
             }
             mTagContainerLayout.setTags(tagStrList);
             page = 1;
-            list.clear();
+            mOldCars.clear();
             getData();
         }
         if (requestCode == 2 && data != null) {
@@ -492,7 +532,7 @@ public class OldCarListActivity extends NoHttpBaseActivity {
             }
             mTagContainerLayout.setTags(tagStrList);
             page = 1;
-            list.clear();
+            mOldCars.clear();
             getData();
         }
     }
@@ -591,7 +631,7 @@ public class OldCarListActivity extends NoHttpBaseActivity {
                     }
                 }
                 page = 1;
-                list.clear();
+                mOldCars.clear();
                 getData();
             }
         });
@@ -646,7 +686,7 @@ public class OldCarListActivity extends NoHttpBaseActivity {
                 seat = "";
                 country = "";
                 models = "";
-                list.clear();
+                mOldCars.clear();
                 getData();
 
                 break;

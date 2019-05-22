@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.example.yunchebao.R;
 import com.flyco.tablayout.SlidingTabLayout;
+import com.gyf.immersionbar.ImmersionBar;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.tool.adapter.MyFragmentPagerAdapter;
@@ -24,7 +25,7 @@ public class NewPublishActivity extends AppCompatActivity {
 
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();
-    private String[]titles={"售卖中","已完成"};
+    private String[]titles={"售卖中","已完成","被拒绝"};
     @BindView(R.id.vp_pub)
     ViewPager vp_pub;
     @BindView(R.id.tab_pub)
@@ -39,6 +40,7 @@ public class NewPublishActivity extends AppCompatActivity {
 
     private void initView() {
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         findViewById(R.id.topPanel).setVisibility(View.VISIBLE);
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "我发布的");
         initFragmentList();
@@ -51,6 +53,7 @@ public class NewPublishActivity extends AppCompatActivity {
 
         mFragments.add(NewPublishFragment.newInstance(1));
         mFragments.add(NewPublishFragment.newInstance(2));
+        mFragments.add(NewPublishFragment.newInstance(3));
         tab_pub.setViewPager(vp_pub,titles,this,mFragments);
     }
 

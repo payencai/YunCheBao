@@ -224,7 +224,7 @@
         <activity android:name="com.cheyibao.SellerDetailActivity" />
         <activity android:name="com.cheyibao.AskLowPriceActivity" />
         <activity android:name="com.cheyibao.OldCarSelectActivity" />
-        <activity android:name="com.cheyibao.OldCarListActivity" />
+        <activity android:name=".cheyibao.oldcar.OldCarListActivity" />
         <activity android:name="com.cheyibao.NewCarActivity" />
         <activity android:name="com.cheyibao.NewCarSellerActivity" />
         <activity android:name="com.cheyibao.OnSaleCarActivity" />
@@ -349,7 +349,17 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/rc_file_path" />
         </provider>
-
+        <receiver
+            android:exported="true"
+            android:name=".rongcloud.receiver.DemoNotificationReceiver">
+            <intent-filter>
+                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MESSAGE_CLICKED" />
+                <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED" />
+                <action android:name="io.rong.push.intent.THIRD_PARTY_PUSH_STATE" />
+            </intent-filter>
+        </receiver>
         <activity
             android:name=".rongcloud.activity.ChatActivity"
             android:screenOrientation="portrait"

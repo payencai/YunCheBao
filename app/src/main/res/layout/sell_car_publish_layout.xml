@@ -55,8 +55,11 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/title1"
+                android:gravity="right"
                 android:id="@+id/item1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -92,8 +95,10 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:gravity="right"
+                android:layout_toRightOf="@id/title2"
                 android:id="@+id/item2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -168,6 +173,7 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:inputType="numberDecimal"
                 android:maxLength="8"
                 android:gravity="right|end"
                 android:layout_toLeftOf="@+id/tv_dis"
@@ -269,6 +275,7 @@
                 android:textSize="12sp" />
 
             <EditText
+                android:inputType="numberDecimal"
                 android:gravity="right"
                 android:id="@+id/item5"
                 android:maxLength="8"
@@ -369,7 +376,7 @@
             android:id="@+id/submitBtn"
             style="@style/form_submit_btn"
             android:layout_marginTop="16dp"
-            android:text="发布卖车"
+            android:text="下一步"
             app:corner="2dp"
             app:solid="@color/yellow_63" />
 

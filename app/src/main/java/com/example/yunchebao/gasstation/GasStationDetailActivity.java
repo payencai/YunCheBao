@@ -267,10 +267,10 @@ public class GasStationDetailActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject data = jsonObject.getJSONObject("data");
                     mFourShopData = new Gson().fromJson(data.toString(), GasStation.class);
-                    String imgs = img1 + "," + img2 + "," + img3;
-                    String videos = video1 + "," + video2 + "," + video3;
-                    mFourShopData.setVideos(videos);
-                    mFourShopData.setVimgs(imgs);
+//                    String imgs = img1 + "," + img2 + "," + img3;
+//                    String videos = video1 + "," + video2 + "," + video3;
+//                    mFourShopData.setVideos(videos);
+//                    mFourShopData.setVimgs(imgs);
                     setUIData();
                 } catch (JSONException e) {
                     e.printStackTrace();

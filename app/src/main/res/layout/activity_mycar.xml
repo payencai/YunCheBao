@@ -55,7 +55,7 @@
                     android:layout_margin="15dp"
                     android:textColor="@color/gray_99"
                     android:text="车型"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <RelativeLayout
@@ -89,7 +89,7 @@
                     android:layout_margin="15dp"
                     android:textColor="@color/gray_99"
                     android:text="车牌号"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -141,6 +141,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp" />
                 <View
+                    android:background="#f3f3f3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"></View>
+                <TextView
+                    android:layout_margin="15dp"
+                    android:textColor="@color/gray_99"
+                    android:text="档案编号"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:maxLength="30"
+                    android:textColorHint="#ccc"
+                    android:id="@+id/et_file"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="14sp"
+                    android:hint="请输入档案编号"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+                <View
+                    android:layout_marginTop="5dp"
                     android:background="#f3f3f3"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"></View>
