@@ -46,7 +46,10 @@ import java.util.Map;
 import io.rong.callkit.util.SPUtils;
 import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
+import io.rong.imkit.model.GroupUserInfo;
+import io.rong.imkit.userInfoCache.RongUserInfoManager;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.MessageContent;
 import io.rong.message.ImageMessage;
@@ -205,26 +208,34 @@ public class MyApplication extends Application {
                     } else {
 
                     }
-                    if (!TextUtils.isEmpty(extra)) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(extra);
-                            String userid = jsonObject.getString("userId");
-                            String username = jsonObject.getString("nickName");
-                            String avatar = jsonObject.getString("avatar");
-                            avatar = avatar.replaceAll("\\\\", "");
-                            String finalAvatar = avatar;
-                            Log.e("extra", extra);
-                            RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
-                                @Override
-                                public io.rong.imlib.model.UserInfo getUserInfo(String s) {
-                                    io.rong.imlib.model.UserInfo userInfo = new io.rong.imlib.model.UserInfo(userid, username, Uri.parse(finalAvatar));
-                                    return userInfo;
-                                }
-                            }, true);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                    //Log.e("extra",extra);
+                    if (message.getConversationType().equals(Conversation.ConversationType.GROUP)) {
+                            GroupUserInfo info = new GroupUserInfo(message.getTargetId(), message.getSenderUserId(), extra);
+                            RongIM.getInstance().refreshGroupUserInfoCache(info);
+
+                    }else if(message.getConversationType().equals(Conversation.ConversationType.PRIVATE)){
+                        if (!TextUtils.isEmpty(extra)) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(extra);
+                                String userid = jsonObject.getString("userId");
+                                String username = jsonObject.getString("nickName");
+                                String avatar = jsonObject.getString("avatar");
+                                avatar = avatar.replaceAll("\\\\", "");
+                                String finalAvatar = avatar;
+
+                                RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+                                    @Override
+                                    public io.rong.imlib.model.UserInfo getUserInfo(String s) {
+                                        io.rong.imlib.model.UserInfo userInfo = new io.rong.imlib.model.UserInfo(userid, username, Uri.parse(finalAvatar));
+                                        return userInfo;
+                                    }
+                                }, true);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
+
                     return true;
                 }
             });

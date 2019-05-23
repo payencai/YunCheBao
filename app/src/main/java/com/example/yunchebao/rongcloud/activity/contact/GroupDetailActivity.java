@@ -369,12 +369,7 @@ public class GroupDetailActivity extends AppCompatActivity {
                 dialog.dismiss();
                 String name=et_nick.getEditableText().toString();
                 if(!TextUtils.isEmpty(name)){
-                    RongIM.setGroupUserInfoProvider(new RongIM.GroupUserInfoProvider() {
-                        @Override
-                        public GroupUserInfo getGroupUserInfo(String s, String s1) {
-                            return new GroupUserInfo(hxCrowdId,MyApplication.getUserInfo().getId(),name);
-                        }
-                    },true);
+                    RongIM.getInstance().refreshGroupUserInfoCache(new GroupUserInfo(hxCrowdId,MyApplication.getUserInfo().getId(),name));
                     nickname.setText(name);
                     updateMyNick(name);
                 }

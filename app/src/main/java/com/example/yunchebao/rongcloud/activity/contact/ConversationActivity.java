@@ -32,9 +32,16 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.rong.imkit.RongIM;
+import io.rong.imkit.model.GroupUserInfo;
+import io.rong.imkit.userInfoCache.RongUserInfoManager;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
+import io.rong.imlib.model.MessageContent;
 import io.rong.imlib.model.UserInfo;
+import io.rong.message.ImageMessage;
+import io.rong.message.RichContentMessage;
+import io.rong.message.TextMessage;
+import io.rong.message.VoiceMessage;
 
 public class ConversationActivity extends AppCompatActivity {
     String targetId;//传递的融云的id
@@ -102,10 +109,71 @@ public class ConversationActivity extends AppCompatActivity {
             getUserDetail(targetId);
         } else {
             getGroupDetail(targetId);
+            setSendMessageListener(targetId);
         }
 
     }
+    private void setSendMessageListener(String groupId) {
+        RongIM.getInstance().setSendMessageListener(new RongIM.OnSendMessageListener() {
+            @Override
+            public Message onSend(Message message) {
+                if (null != message.getContent() && message.getContent() instanceof TextMessage) {
+                    TextMessage txtMsg = (TextMessage) message.getContent();
+                    if (null != txtMsg) {
+                        if (message.getConversationType().equals(Conversation.ConversationType.GROUP)) {
+                            //获取群昵称查看群昵称是否与原昵称相同，相同就不增加extra字段
+//                            requestGroupNickName(mTargetId);
+                            GroupUserInfo groupUserInfo = RongUserInfoManager.getInstance().getGroupUserInfo(groupId, MyApplication.getUserInfo().getId());
+                            //必须去判断是否为空，否则会报空指针
+                            if (null != groupUserInfo) {
+                                if (null != groupUserInfo.getNickname()) {
+                                    if (!groupUserInfo.getNickname().equals(MyApplication.getUserInfo().getName())) {
+                                        txtMsg.setExtra(groupUserInfo.getNickname() );
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                return message;
+            }
 
+            @Override
+            public boolean onSent(Message message, RongIM.SentMessageErrorCode sentMessageErrorCode) {
+                if (message.getSentStatus() == Message.SentStatus.FAILED) {
+                    if (sentMessageErrorCode == RongIM.SentMessageErrorCode.NOT_IN_CHATROOM) {
+                        //不在聊天室
+                    } else if (sentMessageErrorCode == RongIM.SentMessageErrorCode.NOT_IN_DISCUSSION) {
+                        //不在讨论组
+                    } else if (sentMessageErrorCode == RongIM.SentMessageErrorCode.NOT_IN_GROUP) {
+                        //不在群组
+                    } else if (sentMessageErrorCode == RongIM.SentMessageErrorCode.REJECTED_BY_BLACKLIST) {
+                        //你在他的黑名单中
+                    }
+                }
+                MessageContent messageContent = message.getContent();
+                if (messageContent instanceof TextMessage) {//文本消息
+                    TextMessage textMessage = (TextMessage) messageContent;
+                    Log.d("TAG", "onSent-TextMessage:" + textMessage.getContent());
+                } else if (messageContent instanceof ImageMessage) {//图片消息
+                    ImageMessage imageMessage = (ImageMessage) messageContent;
+                    Log.d("TAG", "onSent-ImageMessage:" + imageMessage.getRemoteUri());
+                } else if (messageContent instanceof VoiceMessage) {//语音消息
+                    VoiceMessage voiceMessage = (VoiceMessage) messageContent;
+                    Log.d("TAG", "onSent-voiceMessage:" + voiceMessage.getUri().toString());
+                } else if (messageContent instanceof RichContentMessage) {//图文消息
+                    RichContentMessage richContentMessage = (RichContentMessage) messageContent;
+                    Log.d("TAG", "onSent-RichContentMessage:" + richContentMessage.getContent());
+                } else {
+                    Log.d("TAG", "onSent-其他消息，自己来判断处理");
+                }
+
+
+
+                return false;
+            }
+        });
+    }
     private void getGroupDetail(String id) {
         Map<String, Object> params = new HashMap<>();
         params.put("hxCrowdId", id);
