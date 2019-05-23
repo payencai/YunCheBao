@@ -53,7 +53,6 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_LOGS" />
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -72,7 +71,10 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".blacklist.BlackListActivity"></activity>
+        <activity android:name="com.vipcenter.FindPwdActivity"></activity>
+        <activity android:name=".drive.activity.DriverDetailActivity" />
+        <activity android:name=".driverschool.CoachDetailActivity" />
+        <activity android:name=".blacklist.BlackListActivity" />
         <activity android:name=".drive.activity.CommentMoreActivity" />
         <activity android:name=".account.AccountManageActivity" />
         <activity
@@ -216,7 +218,7 @@
         <activity android:name="com.xihubao.Shop4SOrderActivity" /> <!-- 车易宝 -->
         <activity android:name="com.cheyibao.RentShopDetailActivity" />
         <activity android:name=".driverschool.DrivingSchoolActivity" />
-        <activity android:name="com.cheyibao.SellCarActivity" />
+        <activity android:name=".cheyibao.oldcar.SellCarActivity" />
         <activity android:name="com.cheyibao.SellCarInfoImproveActivity" />
         <activity android:name="com.cheyibao.OldCarDetailActivity" />
         <activity android:name="com.cheyibao.OldCarPersonDetailActivity" />
@@ -349,9 +351,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/rc_file_path" />
         </provider>
+
         <receiver
-            android:exported="true"
-            android:name=".rongcloud.receiver.DemoNotificationReceiver">
+            android:name=".rongcloud.receiver.DemoNotificationReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
                 <action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED" />
@@ -360,6 +363,7 @@
                 <action android:name="io.rong.push.intent.THIRD_PARTY_PUSH_STATE" />
             </intent-filter>
         </receiver>
+
         <activity
             android:name=".rongcloud.activity.ChatActivity"
             android:screenOrientation="portrait"

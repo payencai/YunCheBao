@@ -18,33 +18,37 @@ import java.util.List;
  * 作者：凌涛 on 2019/1/28 16:43
  * 邮箱：771548229@qq..com
  */
-public class NewPublishAdapter extends BaseQuickAdapter<NewPublish,BaseViewHolder> {
+public class NewPublishAdapter extends BaseQuickAdapter<NewPublish, BaseViewHolder> {
     public NewPublishAdapter(int layoutResId, @Nullable List<NewPublish> data) {
         super(layoutResId, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, NewPublish item) {
-        LoaderTextView tv_name=helper.getView(R.id.tv_name);
-        LoaderTextView tv_time=helper.getView(R.id.tv_time);
-        LoaderTextView tv_state=helper.getView(R.id.tv_state);
-        LoaderTextView tv_cancel=helper.getView(R.id.tv_cancel);
+        LoaderTextView tv_name = helper.getView(R.id.tv_name);
+        LoaderTextView tv_time = helper.getView(R.id.tv_time);
+        LoaderTextView tv_state = helper.getView(R.id.tv_state);
+        LoaderTextView tv_cancel = helper.getView(R.id.tv_cancel);
         helper.addOnClickListener(R.id.tv_cancel);
-        LoaderTextView tv_price=helper.getView(R.id.tv_price);
-        ImageView iv_car=helper.getView(R.id.iv_car);
-        String name=item.getFirstName()+" "+item.getSecondName()+" "+item.getThirdName();
-        name=name.replace("null","");
+        LoaderTextView tv_price = helper.getView(R.id.tv_price);
+        ImageView iv_car = helper.getView(R.id.iv_car);
+        String name = item.getFirstName() + " " + item.getSecondName() + " " + item.getThirdName();
+        name = name.replace("null", "");
         tv_name.setText(name);
-        tv_price.setText(item.getOldPrice()+"万");
-        tv_time.setText(item.getCreateTime().substring(0,10));
-        if(item.getCarImage().contains(",")){
-            String [] images=item.getCarImage().split(",");
+        if (item.getOldPrice() > 10000)
+            tv_price.setText(item.getOldPrice() / 10000 + "万");
+        else {
+            tv_price.setText(item.getOldPrice() + "万");
+        }
+        tv_time.setText(item.getCreateTime().substring(0, 10));
+        if (item.getCarImage().contains(",")) {
+            String[] images = item.getCarImage().split(",");
             Glide.with(mContext).load(images[0]).into(iv_car);
-        }else{
+        } else {
             Glide.with(mContext).load(item.getCarImage()).into(iv_car);
         }
 
-        if(item.getState()==2){
+        if (item.getState() == 2) {
             tv_state.setText("已完成");
             tv_cancel.setVisibility(View.GONE);
 

@@ -23,6 +23,7 @@ import com.example.yunchebao.wxapi.WXEntryActivity;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.payencai.library.util.ToastUtil;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.tauth.IUiListener;
@@ -47,6 +48,8 @@ public class LoginByaccountActivity extends AppCompatActivity {
     TextView tv_change;
     @BindView(R.id.cancelBtn)
     ImageView cancelBtn;
+    @BindView(R.id.iv_ask)
+    ImageView iv_ask;
     @BindView(R.id.login)
     TextView login;
     @BindView(R.id.account)
@@ -79,6 +82,19 @@ public class LoginByaccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 QQLogin();
+            }
+        });
+        iv_ask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String phone=account.getEditableText().toString();
+                if(TextUtils.isEmpty(phone)){
+                    ToastUtil.showToast(LoginByaccountActivity.this,"请先输入手机号");
+                    return;
+                }
+                Intent intent=new Intent(LoginByaccountActivity.this,FindPwdActivity.class);
+                intent.putExtra("phone",phone);
+                startActivity(intent);
             }
         });
         tv_change.setOnClickListener(new View.OnClickListener() {
@@ -193,7 +209,7 @@ public class LoginByaccountActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(String error) {
-
+                 ToastUtil.showToast(LoginByaccountActivity.this,"网络出错");
             }
         });
     }
@@ -250,7 +266,7 @@ public class LoginByaccountActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(String error) {
-
+                ToastUtil.showToast(LoginByaccountActivity.this,"网络出错");
             }
         });
     }
@@ -341,7 +357,7 @@ public class LoginByaccountActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(String error) {
-
+                ToastUtil.showToast(LoginByaccountActivity.this,"网络出错");
             }
         });
     }

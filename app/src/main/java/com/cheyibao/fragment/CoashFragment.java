@@ -8,8 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.cheyibao.DrivingOrderActivity;
+import com.example.yunchebao.driverschool.CoachDetailActivity;
 import com.example.yunchebao.driverschool.DrivingSchoolActivity;
 import com.cheyibao.adapter.CoashItemAdapter;
 import com.cheyibao.list.SpreadListView;
@@ -78,7 +80,15 @@ public class CoashFragment extends Fragment {
             }
         });
         listView.setAdapter(adapter);
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CoachItem coachItem=list.get(position);
+                Intent intent=new Intent(getContext(), CoachDetailActivity.class);
+                intent.putExtra("id", coachItem.getId());
+                startActivity(intent);
+            }
+        });
         getData();
 
     }

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
+import com.example.yunchebao.drive.fragment.BrandDriveFragment;
 import com.example.yunchebao.drive.fragment.ReplaceDriveFragment;
 import com.entity.Banner;
 import com.example.yunchebao.R;
@@ -45,7 +46,7 @@ public class DriveServiceActivity extends AppCompatActivity {
     @BindView(R.id.viewPager)
     ViewPager viewPager;
     ArrayList<Fragment> mFragments;
-    String []mTitles={"距离最近","评分最好"};
+    String []mTitles={"距离最近","评分最好","品牌代驾"};
     List<Banner> mBanners = new ArrayList<>();
     List<String> images = new ArrayList<>();
     @BindView(R.id.banner)
@@ -72,6 +73,7 @@ public class DriveServiceActivity extends AppCompatActivity {
             ReplaceDriveFragment orderListFragment=ReplaceDriveFragment.newInstance(i);
             mFragments.add(orderListFragment);
         }
+        mFragments.add(new BrandDriveFragment());
         scrollIndicatorView.setViewPager(viewPager,mTitles,this,mFragments);
         getBaner();
     }

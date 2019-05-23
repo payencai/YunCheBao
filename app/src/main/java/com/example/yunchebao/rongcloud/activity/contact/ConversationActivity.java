@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.entity.UserMsg;
 import com.example.yunchebao.R;
+import com.example.yunchebao.rongcloud.model.GroupDetail;
 import com.example.yunchebao.rongcloud.model.GroupUser;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
@@ -44,7 +45,7 @@ public class ConversationActivity extends AppCompatActivity {
     ImageView iv_head;
     String type = "";
     UserMsg mUserMsg;
-    GroupUser mGroupUser;
+    GroupDetail mGroupUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,13 +83,13 @@ public class ConversationActivity extends AppCompatActivity {
                     }
                 }
                 if(mGroupUser!=null){
-                    if (mGroupUser.getUserId().equals(MyApplication.getUserInfo().getId())) {
+                    if (mGroupUser.getCrowdUserId().equals(MyApplication.getUserInfo().getId())) {
                         intent = new Intent(ConversationActivity.this, MyGroupDetailActivity.class);
-                        intent.putExtra("id", targetId);
+                        intent.putExtra("id", mGroupUser.getHxCrowdId());
                         startActivity(intent);
                     } else {
                         intent = new Intent(ConversationActivity.this, GroupDetailActivity.class);
-                        intent.putExtra("id", targetId);
+                        intent.putExtra("id", mGroupUser.getHxCrowdId());
                         startActivity(intent);
                     }
                 }
@@ -115,8 +116,7 @@ public class ConversationActivity extends AppCompatActivity {
                 try {
                     JSONObject Json = new JSONObject(result);
                     JSONObject data = Json.getJSONObject("data");
-                    JSONObject object = data.getJSONObject("indexUser");
-                    mGroupUser = new Gson().fromJson(object.toString(), GroupUser.class);
+                    mGroupUser = new Gson().fromJson(data.toString(), GroupDetail.class);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

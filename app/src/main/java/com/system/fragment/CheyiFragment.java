@@ -18,7 +18,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.application.MyApplication;
 import com.example.yunchebao.cheyibao.newcar.NewCarFragment;
 import com.example.yunchebao.cheyibao.oldcar.OldCarFragment;
-import com.cheyibao.fragment.RentCarFragment;
+import com.example.yunchebao.cheyibao.rentcar.RentCarFragment;
 import com.example.yunchebao.R;
 import com.nohttp.sample.BaseFragment;
 import com.system.SearchActivity;

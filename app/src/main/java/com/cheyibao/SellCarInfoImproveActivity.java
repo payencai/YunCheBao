@@ -191,7 +191,6 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
         id1 = bundle.getString("id1");
         id2 = bundle.getString("id2");
         id3 = bundle.getString("id3");
-        b_img = bundle.getString("image");
         b_city = bundle.getString("city");
         b_time = bundle.getString("time");
         b_dis = bundle.getString("dis");

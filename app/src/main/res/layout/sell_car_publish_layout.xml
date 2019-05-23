@@ -198,6 +198,7 @@
         </RelativeLayout>
 
         <TextView
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -208,6 +209,7 @@
             android:textColor="@color/black_33" />
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -270,7 +272,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:text="万元"
+                android:text="元"
                 android:textColor="@color/black_33"
                 android:textSize="12sp" />
 

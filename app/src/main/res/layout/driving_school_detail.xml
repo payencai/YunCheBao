@@ -74,6 +74,7 @@
 
 
                         <LinearLayout
+                            android:gravity="center_vertical"
                             android:layout_gravity="center_vertical"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -84,7 +85,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/sr_score"
-                                app:srb_starSize="10dp" />
+                                app:srb_starSize="12dp" />
 
                             <TextView
                                 android:id="@+id/tv_score"

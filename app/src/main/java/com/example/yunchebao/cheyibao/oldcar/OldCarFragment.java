@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 
 import com.cheyibao.OldCarDetailActivity;
 import com.cheyibao.OldCarSelectActivity;
-import com.cheyibao.SellCarActivity;
 import com.cheyibao.adapter.NewCarMenuAdapter;
 import com.cheyibao.model.OldCar;
 import com.costans.PlatformContans;

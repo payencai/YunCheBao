@@ -254,7 +254,7 @@ public class OldCarListActivity extends NoHttpBaseActivity {
         ButterKnife.bind(this);
 
         initTag();
-        cityName.setText(MyApplication.getaMapLocation().getCity());
+        //cityName.setText(MyApplication.getaMapLocation().getCity());
         mTagContainerLayout = (TagContainerLayout) findViewById(R.id.tagcontainerLayout);
         mTagContainerLayout.setTags(tagStrList);
         mTagContainerLayout.setOnTagClickListener(new TagView.OnTagClickListener() {

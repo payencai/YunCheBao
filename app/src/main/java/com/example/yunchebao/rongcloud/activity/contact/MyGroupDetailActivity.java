@@ -329,7 +329,10 @@ public class MyGroupDetailActivity extends AppCompatActivity {
             public void OnSuccess(String result) {
                 Log.e("result",result);
                 ToastUtil.showToast(MyGroupDetailActivity.this,"修改成功");
-
+                 mShowGroupUser.clear();
+                 mAllGroupUser.clear();
+                 m2GroupUser.clear();
+                 getDetail();
             }
 
             @Override
@@ -404,7 +407,7 @@ public class MyGroupDetailActivity extends AppCompatActivity {
                 dialog.dismiss();
                 String name=et_nick.getEditableText().toString();
                 if(!TextUtils.isEmpty(name)){
-                    RongIM.getInstance().refreshGroupUserInfoCache(new GroupUserInfo(groupId,MyApplication.getUserInfo().getId(),name));
+                    RongIM.getInstance().refreshGroupUserInfoCache(new GroupUserInfo(cloudId,MyApplication.getUserInfo().getId(),name));
                     nickname.setText(name);
                     updateMyNick(name);
                 }

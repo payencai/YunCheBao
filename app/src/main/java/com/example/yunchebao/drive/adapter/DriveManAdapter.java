@@ -1,6 +1,7 @@
 package com.example.yunchebao.drive.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,8 +45,10 @@ public class DriveManAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
+
     OnSelectListener mOnSelectListener;
-    public interface OnSelectListener{
+
+    public interface OnSelectListener {
         void onSelect(int position);
     }
 
@@ -59,23 +62,26 @@ public class DriveManAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView= LayoutInflater.from(mContext).inflate(R.layout.item_coash,null);
-        DriveMan driveMan=mDriveMEN.get(position);
-        ImageView iv_head= (ImageView) convertView.findViewById(R.id.iv_head);
-        TextView tv_name= (TextView) convertView.findViewById(R.id.tv_name);
-        TextView tvgrade= (TextView) convertView.findViewById(R.id.tv_rate);
-        SimpleRatingBar simpleRatingBar= (SimpleRatingBar) convertView.findViewById(R.id.sr_score);
-        TextView tv_select= (TextView) convertView.findViewById(R.id.tv_select);
+        convertView = LayoutInflater.from(mContext).inflate(R.layout.item_coash, null);
+        DriveMan driveMan = mDriveMEN.get(position);
+        ImageView iv_head = (ImageView) convertView.findViewById(R.id.iv_head);
+        TextView tv_name = (TextView) convertView.findViewById(R.id.tv_name);
+        TextView tvgrade = (TextView) convertView.findViewById(R.id.tv_rate);
+        SimpleRatingBar simpleRatingBar = (SimpleRatingBar) convertView.findViewById(R.id.sr_score);
+        TextView tv_select = (TextView) convertView.findViewById(R.id.tv_select);
         tv_name.setText(driveMan.getName());
         simpleRatingBar.setRating(driveMan.getScore());
-        tvgrade.setText(driveMan.getGrade()+"");
+        tvgrade.setText(driveMan.getGrade() + "");
         tv_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mOnSelectListener.onSelect(position);
             }
         });
-        Glide.with(mContext).load(driveMan.getHeadPortrait()).apply(RequestOptions.bitmapTransform(new CenterCrop())).into(iv_head);
+        if (TextUtils.isEmpty(driveMan.getHeadPortrait())) {
+            iv_head.setImageResource(R.mipmap.ic_default_head);
+        } else
+            Glide.with(mContext).load(driveMan.getHeadPortrait()).apply(RequestOptions.bitmapTransform(new CenterCrop())).into(iv_head);
         return convertView;
     }
 }

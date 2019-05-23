@@ -3,6 +3,7 @@ package com.example.yunchebao.myservice;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.application.MyApplication;
@@ -58,6 +59,12 @@ public class SeeRentCommentActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         getDetail();
     }
     private void getDetail() {

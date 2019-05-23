@@ -79,6 +79,15 @@ public class DriverMoreActivity extends AppCompatActivity {
                 getData();
             }
         },rv_comment);
+        mDriverCommentAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                DriveMan driveMan= (DriveMan) adapter.getItem(position);
+                Intent intent=new Intent(DriverMoreActivity.this,DriverDetailActivity.class);
+                intent.putExtra("id",driveMan.getId());
+                startActivity(intent);
+            }
+        });
         mDriverCommentAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

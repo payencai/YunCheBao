@@ -354,7 +354,7 @@ public class PlatformContans {
         public static final String getDrivingSchoolCoach=root+ "/drivingschool/getDrivingSchoolCoach";
         public static final String getCoashComment=root+ "/drivingschool/getMerchantEvaluationByUser";
         public static final String getUserComment=root+ "/evaluation/getMerchantEvaluationByUser";
-        public static final String getDrivingSchoolPhoto=root+"/drivingschool/getDrivingSchoolPhoto";
+        public static final String getDrivingSchoolCoachByCoachId=root+"/drivingschool/getDrivingSchoolCoachByCoachId";
     }
     public static class MyService{
         public static final String cancelSchoolCarOrder=root+"/carOrder/cancelCarOrder";
@@ -380,7 +380,7 @@ public class PlatformContans {
         public static final String getSubstituteDrivingCommentListByDriverId=root+"/substituteDriving/getSubstituteDrivingCommentListByDriverId";
         public static final String getSubstituteDrivingCommentByOrderId=root+"/substituteDriving/getSubstituteDrivingCommentByOrderId";
         public static final String getSubstituteDriverListForApp=root+"/substituteDriving/getSubstituteDriverListForApp";
-        public static final String getSubstituteDriverList=root+"/substituteDriving/getSubstituteDriverList";
+        public static final String getSubstituteDriverByDriverId=root+"/substituteDriving/getSubstituteDriverByDriverId";
         public static final String getShopCollectionList=root+"/substituteDriving/getShopCollectionList";
         public static final String addSubstituteDrivingOrder=root+"/substituteDriving/addSubstituteDrivingOrder";
         public static final String addSubstituteDrivingComment=root+"/substituteDriving/addSubstituteDrivingComment";

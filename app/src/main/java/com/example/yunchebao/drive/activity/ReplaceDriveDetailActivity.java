@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.system.WebviewActivity;
+import com.tool.MathUtil;
 import com.xihubao.ShopInfoActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -162,6 +164,14 @@ public class ReplaceDriveDetailActivity extends AppCompatActivity {
         mSubstitubeAdapter = new SubstitubeAdapter(this, mSubstitubeComments);
         lv_comment.setAdapter(mSubstitubeAdapter);
         lv_drive.setAdapter(mDriveManAdapter);
+        lv_drive.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=new Intent(ReplaceDriveDetailActivity.this,DriverDetailActivity.class);
+                intent.putExtra("id",mDriveMEN.get(position).getId());
+                startActivity(intent);
+            }
+        });
         mDriveManAdapter.setOnSelectListener(new DriveManAdapter.OnSelectListener() {
             @Override
             public void onSelect(int position) {
@@ -172,6 +182,7 @@ public class ReplaceDriveDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -246,10 +257,9 @@ public class ReplaceDriveDetailActivity extends AppCompatActivity {
         tv_name.setText(mReplaceDrive.getShopName());
         tv_address.setText(mReplaceDrive.getProvince() + mReplaceDrive.getCity() + mReplaceDrive.getArea() + mReplaceDrive.getAddress());
         tv_grade.setText(mReplaceDrive.getGrade() + "");
-        tv_score.setText(mReplaceDrive.getScore() + "");
+        tv_score.setText((int)mReplaceDrive.getScore() + "");
         sr_score.setRating(mReplaceDrive.getScore());
-        java.text.DecimalFormat df = new java.text.DecimalFormat("#.000");
-        tv_dis.setText(df.format(mReplaceDrive.getDistance()) + "km");
+        tv_dis.setText(MathUtil.getDoubleTwo(mReplaceDrive.getDistance()) + "km");
         String banner = mReplaceDrive.getBanner();
         String vimgs=mReplaceDrive.getVimgs();
         String video=mReplaceDrive.getVideos();

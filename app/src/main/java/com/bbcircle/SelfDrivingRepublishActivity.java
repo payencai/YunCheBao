@@ -339,6 +339,7 @@ public class SelfDrivingRepublishActivity extends NoHttpFragmentBaseActivity imp
                 .setType(Type.ALL)
                 .setWheelItemTextSize(12)
                 .build();
+
         mDialogYearMonth2 = new TimePickerDialog.Builder()
                 .setCallBack(this)
                 .setCancelStringId("取消")
@@ -388,6 +389,13 @@ public class SelfDrivingRepublishActivity extends NoHttpFragmentBaseActivity imp
         String end= time2Text.getText().toString() + ":00";
         if(compare_date(start,end)>=0){
             ToastUtil.showToast(this,"开始时间不能大于结束时间！");
+            return;
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:mm:ss
+        Date date = new Date(System.currentTimeMillis());
+        String now=simpleDateFormat.format(date);
+        if(compare_date(now,start)>=0){
+            ToastUtil.showToast(this,"发布时间应不能选择小于今天的");
             return;
         }
         Map<String, Object> params = new HashMap<>();

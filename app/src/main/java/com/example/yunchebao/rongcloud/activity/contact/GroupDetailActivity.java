@@ -92,15 +92,16 @@ public class GroupDetailActivity extends AppCompatActivity {
     ImageView iv_msg;
     @BindView(R.id.tv_clear)
             TextView tv_clear;
-    String id;
+    String hxCrowdId;
     String groupId;
     String name;
+    int indexId;
     Conversation.ConversationNotificationStatus conversationNotificationStatus1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        id= (String) getIntent().getStringExtra("id");
-        Log.e("groupid",id);
+        hxCrowdId= (String) getIntent().getStringExtra("id");
+        Log.e("hxCrowdId",hxCrowdId);
         setContentView(R.layout.activity_group_detail);
         ButterKnife.bind(this);
         initView();
@@ -108,7 +109,7 @@ public class GroupDetailActivity extends AppCompatActivity {
 
     }
     private void getStatus(){
-        RongIM.getInstance().getConversationNotificationStatus(Conversation.ConversationType.GROUP, id, new RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>() {
+        RongIM.getInstance().getConversationNotificationStatus(Conversation.ConversationType.GROUP, hxCrowdId, new RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>() {
             @Override
             public void onSuccess(Conversation.ConversationNotificationStatus conversationNotificationStatus) {
                 final int value = conversationNotificationStatus.getValue();
@@ -191,7 +192,7 @@ public class GroupDetailActivity extends AppCompatActivity {
     String cloudId;
     private void getDetail(){
         Map<String,Object>params=new HashMap<>();
-        params.put("hxCrowdId",id);
+        params.put("hxCrowdId",hxCrowdId);
         HttpProxy.obtain().get(PlatformContans.Chat.getCrowdDetailsByHxCrowdId, params,MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -212,10 +213,13 @@ public class GroupDetailActivity extends AppCompatActivity {
                     people.setText(indexList.length()+"人");
                     for (int i = 0; i <indexList.length(); i++) {
                         JSONObject item = indexList.getJSONObject(i);
-                        GroupUser applyFriend = new Gson().fromJson(item.toString(), GroupUser.class);
-                        mAllGroupUser.add(applyFriend);
+                        GroupUser groupUser1 = new Gson().fromJson(item.toString(), GroupUser.class);
+                        if(MyApplication.getUserInfo().getId().equals(groupUser1.getUserId())){
+                            indexId=groupUser1.getId();
+                        }
+                        mAllGroupUser.add(groupUser1);
                         if(i<10){
-                            mShowGroupUser.add(applyFriend);
+                            mShowGroupUser.add(groupUser1);
                         }
                     }
                     mAdapter.notifyDataSetChanged();
@@ -236,7 +240,7 @@ public class GroupDetailActivity extends AppCompatActivity {
         sendmsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RongIM.getInstance().startGroupChat(GroupDetailActivity.this, cloudId, name);
+                RongIM.getInstance().startGroupChat(GroupDetailActivity.this, hxCrowdId, name);
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
@@ -249,7 +253,7 @@ public class GroupDetailActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    RongIM.getInstance().setConversationNotificationStatus(Conversation.ConversationType.GROUP, id, conversationNotificationStatus1, new RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>() {
+                    RongIM.getInstance().setConversationNotificationStatus(Conversation.ConversationType.GROUP, hxCrowdId, conversationNotificationStatus1, new RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>() {
                         @Override
                         public void onSuccess(Conversation.ConversationNotificationStatus conversationNotificationStatus) {
                             getStatus();
@@ -266,7 +270,7 @@ public class GroupDetailActivity extends AppCompatActivity {
         tv_clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RongIM.getInstance().clearMessages(Conversation.ConversationType.GROUP,id , new RongIMClient.ResultCallback<Boolean>() {
+                RongIM.getInstance().clearMessages(Conversation.ConversationType.GROUP,hxCrowdId , new RongIMClient.ResultCallback<Boolean>() {
                     @Override
                     public void onSuccess(Boolean aBoolean) {
                         ToastUtil.showToast(GroupDetailActivity.this,"清除成功");
@@ -323,6 +327,28 @@ public class GroupDetailActivity extends AppCompatActivity {
         //setListViewHeightBasedOnChildren(mGridView);
 
     }
+    private void updateMyNick(String name){
+        Map<String,Object> params=new HashMap<>();
+        params.put("id",indexId);
+        params.put("nickName",name);
+        HttpProxy.obtain().post(PlatformContans.Chat.updateMyCrowdData, MyApplication.token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("result",result);
+                ToastUtil.showToast(GroupDetailActivity.this,"修改成功");
+                mShowGroupUser.clear();
+                mShowGroupUser.clear();
+                m2GroupUser.clear();
+                getDetail();
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
     private void showNickDialog() {
         final Dialog dialog = new Dialog(this, R.style.dialog);
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_nick, null);
@@ -343,8 +369,14 @@ public class GroupDetailActivity extends AppCompatActivity {
                 dialog.dismiss();
                 String name=et_nick.getEditableText().toString();
                 if(!TextUtils.isEmpty(name)){
-                    RongIM.getInstance().refreshGroupUserInfoCache(new GroupUserInfo(cloudId,MyApplication.getUserInfo().getId(),name));
+                    RongIM.setGroupUserInfoProvider(new RongIM.GroupUserInfoProvider() {
+                        @Override
+                        public GroupUserInfo getGroupUserInfo(String s, String s1) {
+                            return new GroupUserInfo(hxCrowdId,MyApplication.getUserInfo().getId(),name);
+                        }
+                    },true);
                     nickname.setText(name);
+                    updateMyNick(name);
                 }
             }
         });

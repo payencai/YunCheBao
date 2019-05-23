@@ -158,7 +158,7 @@ public class RentCarOrderCommentActivity extends AppCompatActivity {
 
     @OnClick(R.id.back)
     public void onBackClicked() {
-        onBackPressed();
+       finish();
     }
 
     @OnClick(R.id.textBtn)

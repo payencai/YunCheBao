@@ -282,9 +282,12 @@ public class SellPublishFragment extends BaseFragment implements OnDateSetListen
                 break;
             case R.id.submitBtn:
                 Bundle bundle = new Bundle();
-
+                if (TextUtils.isEmpty(id1)) {
+                    ToastUtil.showToast(getContext(), "请选择车型");
+                    return;
+                }
                 if (cityText.getText().toString().equals("请选择地点")) {
-                    ToastUtil.showToast(getContext(), "地点不能为空");
+                    ToastUtil.showToast(getContext(), "上牌地点不能为空");
                     return;
                 }
                 if (TextUtils.isEmpty(et_dis.getEditableText().toString())) {
@@ -295,15 +298,12 @@ public class SellPublishFragment extends BaseFragment implements OnDateSetListen
                     ToastUtil.showToast(getContext(), "请输入价格");
                     return;
                 }
-                if (TextUtils.isEmpty(image)) {
-                    ToastUtil.showToast(getContext(), "图片不能为空");
-                    return;
-                }
+
                 bundle.putString("id", id);
                 bundle.putString("id1", id1);
                 bundle.putString("id2", id2);
                 bundle.putString("id3", id3);
-                bundle.putString("image", image);
+
                 bundle.putString("city", cityText.getText().toString());
                 bundle.putString("time", "2019-03");
                 bundle.putString("dis", et_dis.getEditableText().toString());

@@ -40,7 +40,7 @@ public class CarFriendAdapter extends BaseQuickAdapter<CarFriend, BaseViewHolder
         ImageView iv_video=(ImageView) helper.getView(R.id.iv_video);
         name2.setText(carShow.getCommentNum()+"回帖");
         name1.setText(carShow.getName());
-        tv_title.setText(carShow.getTitle());
+        tv_title.setText("【"+carShow.getCircleName()+"】"+carShow.getTitle());
         // iv_video.setVisibility(View.VISIBLE);
         if(!TextUtils.isEmpty(carShow.getImage()))
             img2.setImageURI(Uri.parse(carShow.getImage()));

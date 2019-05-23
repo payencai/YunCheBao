@@ -177,7 +177,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         HttpProxy.obtain().post(PlatformContans.User.loginByPwd, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("loginByPwd", result);
+                Log.e("loginUser", result);
                 try {
                     //Toast.makeText(RegisterActivity.this,"",Toast.LENGTH_LONG).show();
                     JSONObject object = new JSONObject(result);
@@ -189,7 +189,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                         MyApplication.token = userInfo.getToken();
                         MyApplication.setUserInfo(userInfo);
                         MyApplication.setIsLogin(true);
-
+                        MyApplication.isLogin=true;
                         getData();
 
                     } else {
@@ -413,8 +413,8 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
     }
 
     private void getData() {
-        final com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
-        if (userinfo != null)
+
+
             HttpProxy.obtain().get(PlatformContans.Chat.getCrowdsList, MyApplication.token, new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
