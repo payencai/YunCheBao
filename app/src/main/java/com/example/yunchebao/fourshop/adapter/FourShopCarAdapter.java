@@ -27,7 +27,11 @@ public class FourShopCarAdapter extends BaseQuickAdapter<FourShopCar, BaseViewHo
         ImageView iv_img=helper.getView(R.id.iv_img);
         TextView tv_name=helper.getView(R.id.tv_name);
         TextView tv_price=helper.getView(R.id.tv_price);
-        tv_price.setText((item.getNakedCarPrice()/10000)+"万");
+        if(item.getNakedCarPrice()>10000)
+            tv_price.setText((item.getNakedCarPrice()/10000)+"万");
+        else{
+            tv_price.setText((item.getNakedCarPrice())+"元");
+        }
         tv_name.setText(item.getFirstName()+item.getSecondName()+item.getThirdName());
         String imgs=item.getCarCategoryDetail().getBanner1();
         if(!TextUtils.isEmpty(imgs)&&imgs.contains(","))

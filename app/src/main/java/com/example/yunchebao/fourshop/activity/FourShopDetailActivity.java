@@ -95,6 +95,8 @@ public class FourShopDetailActivity extends AppCompatActivity {
     ImageView iv_heart;
     @BindView(R.id.tv_address)
     TextView tv_address;
+    @BindView(R.id.tv_time)
+    TextView tv_time;
     @BindView(R.id.tv_dis)
     TextView tv_dis;
     @BindView(R.id.slidingTabLayout)
@@ -233,11 +235,13 @@ public class FourShopDetailActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(banner)) {
             banners = Arrays.asList(banner.split(","));
         }
+
         images.addAll(vimages);
         images.addAll(banners);
         initBanner(images);
         isCollect();
         initTab();
+        tv_time.setText("营业时间："+mFourShopData.getAmStart()+"-"+mFourShopData.getPmStop());
         tv_dis.setText(mFourShopData.getDistance() + "km");
         tv_score.setText("" + mFourShopData.getScore());
         tv_grade.setText("" + mFourShopData.getGrade());
@@ -266,10 +270,10 @@ public class FourShopDetailActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject data = jsonObject.getJSONObject("data");
                     mFourShopData = new Gson().fromJson(data.toString(), FourShopData.class);
-                    String imgs = img1 + "," + img2 + "," + img3;
-                    String videos = video1 + "," + video2 + "," + video3;
-                    mFourShopData.setVideos(videos);
-                    mFourShopData.setVimgs(imgs);
+//                    String imgs = img1 + "," + img2 + "," + img3;
+//                    String videos = video1 + "," + video2 + "," + video3;
+//                    mFourShopData.setVideos(videos);
+//                    mFourShopData.setVimgs(imgs);
                     setUIData();
                 } catch (JSONException e) {
                     e.printStackTrace();

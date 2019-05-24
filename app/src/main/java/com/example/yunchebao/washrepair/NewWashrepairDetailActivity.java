@@ -106,6 +106,8 @@ public class NewWashrepairDetailActivity extends AppCompatActivity {
     NoScrollViewPager mViewPager;
     @BindView(R.id.banner)
     Banner banner;
+    @BindView(R.id.tv_time)
+    TextView tv_time;
     ImmersionBar mImmersionBar;
     String[] titles = {"服务", "评论"};
     String id;
@@ -119,11 +121,11 @@ public class NewWashrepairDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_washrepair_detail);
         ButterKnife.bind(this);
         id = getIntent().getStringExtra("id");
-        type=getIntent().getIntExtra("type",0);
+        type = getIntent().getIntExtra("type", 0);
         initView();
     }
 
-    @OnClick({R.id.ll_shop, R.id.rl_phone, R.id.rl_collect, R.id.ll_map,R.id.iv_back})
+    @OnClick({R.id.ll_shop, R.id.rl_phone, R.id.rl_collect, R.id.ll_map, R.id.iv_back})
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -243,6 +245,7 @@ public class NewWashrepairDetailActivity extends AppCompatActivity {
         initBanner(images);
         isCollect();
         initTab();
+        tv_time.setText("营业时间："+mWashRepairDetail.getAmStart()+"-"+mWashRepairDetail.getPmStop());
         tv_dis.setText(mWashRepairDetail.getDistance() + "km");
         tv_score.setText("" + mWashRepairDetail.getScore());
         tv_grade.setText("" + mWashRepairDetail.getGrade());
@@ -271,10 +274,10 @@ public class NewWashrepairDetailActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONObject data = jsonObject.getJSONObject("data");
                     mWashRepairDetail = new Gson().fromJson(data.toString(), WashRepairDetail.class);
-                    String imgs = img1 + "," + img2 + "," + img3;
-                    String videos = video1 + "," + video2 + "," + video3;
-                    mWashRepairDetail.setVideos(videos);
-                    mWashRepairDetail.setVimgs(imgs);
+//                    String imgs = img1 + "," + img2 + "," + img3;
+//                    String videos = video1 + "," + video2 + "," + video3;
+//                    mWashRepairDetail.setVideos(videos);
+//                    mWashRepairDetail.setVimgs(imgs);
                     setUIData();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -289,11 +292,11 @@ public class NewWashrepairDetailActivity extends AppCompatActivity {
     }
 
     private void initTab() {
-        WashServiceFragment washServiceFragment=WashServiceFragment.newInstance(id,type,mWashRepairDetail.getShopName());
-        WashrepairCommentFragment washrepairCommentFragment=WashrepairCommentFragment.newInstance(id);
+        WashServiceFragment washServiceFragment = WashServiceFragment.newInstance(id, type, mWashRepairDetail.getShopName());
+        WashrepairCommentFragment washrepairCommentFragment = WashrepairCommentFragment.newInstance(id);
         mFragments.add(washServiceFragment);
         mFragments.add(washrepairCommentFragment);
-        titles[1]="评论("+mWashRepairDetail.getNumber()+")";
+        titles[1] = "评论(" + mWashRepairDetail.getNumber() + ")";
         mSlidingTabLayout.setViewPager(mViewPager, titles, this, mFragments);
     }
 

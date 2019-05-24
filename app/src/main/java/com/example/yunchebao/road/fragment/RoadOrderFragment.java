@@ -3,6 +3,7 @@ package com.example.yunchebao.road.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -197,6 +199,7 @@ public class RoadOrderFragment extends Fragment {
         TextView tv_confirm = (TextView) view.findViewById(R.id.tv_confirm);
         TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
         EditText et_money = (EditText) view.findViewById(R.id.et_money);
+
         final Dialog dialog = new Dialog(getContext(), R.style.MyDialog);
         iv_del.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,7 +230,22 @@ public class RoadOrderFragment extends Fragment {
         params.width = (int) (display.getWidth() * 0.8);
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(params);
+        showKeyboard(et_money);
 
+    }
+
+    public void showKeyboard(EditText editText) {
+        if(editText!=null){
+            //设置可获得焦点
+            editText.setFocusable(true);
+            editText.setFocusableInTouchMode(true);
+            //请求获得焦点
+            editText.requestFocus();
+            //调用系统输入法
+            InputMethodManager inputManager = (InputMethodManager) editText
+                    .getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.showSoftInput(editText, 0);
+        }
     }
 
     private void getData() {

@@ -42,6 +42,10 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!isTaskRoot()) {
+            finish();
+            return;
+        }
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {

@@ -31,7 +31,43 @@ public class RoadDetail implements Serializable {
      * videos : string
      * vimgs : string
      */
+    private String pmStart;
+    private String pmStop;
+    private String amStart;
 
+    public String getPmStart() {
+        return pmStart;
+    }
+
+    public void setPmStart(String pmStart) {
+        this.pmStart = pmStart;
+    }
+
+    public String getPmStop() {
+        return pmStop;
+    }
+
+    public void setPmStop(String pmStop) {
+        this.pmStop = pmStop;
+    }
+
+    public String getAmStart() {
+        return amStart;
+    }
+
+    public void setAmStart(String amStart) {
+        this.amStart = amStart;
+    }
+
+    public String getAmStop() {
+        return amStop;
+    }
+
+    public void setAmStop(String amStop) {
+        this.amStop = amStop;
+    }
+
+    private String amStop;
     private String address;
     private String area;
     private String banner;

@@ -98,6 +98,8 @@ public class GasStationDetailActivity extends AppCompatActivity {
     TextView tv_address;
     @BindView(R.id.tv_dis)
     TextView tv_dis;
+    @BindView(R.id.tv_time)
+    TextView tv_time;
     @BindView(R.id.slidingTabLayout)
     SlidingTabLayout mSlidingTabLayout;
     @BindView(R.id.viewPager)
@@ -239,6 +241,7 @@ public class GasStationDetailActivity extends AppCompatActivity {
         initBanner(images);
         isCollect();
         initTab();
+        //tv_time.setText("营业时间："+mFourShopData.getAmStart()+"-"+mFourShopData.getPmStop());
         tv_dis.setText(mFourShopData.getDistance() + "km");
         tv_score.setText("" + mFourShopData.getScore());
         tv_grade.setText("" + mFourShopData.getGrade());

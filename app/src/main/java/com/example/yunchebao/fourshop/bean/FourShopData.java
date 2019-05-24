@@ -38,8 +38,7 @@ public class FourShopData {
      */
 
     private String address;
-    private String amStart;
-    private String amStop;
+
     private String area;
     private String banner;
     private String brand;
@@ -57,6 +56,8 @@ public class FourShopData {
     private int orderNum;
     private String pmStart;
     private String pmStop;
+    private String amStart;
+    private String amStop;
     private double price;
     private String province;
     private String saleTelephone;

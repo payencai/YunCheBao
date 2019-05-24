@@ -36,6 +36,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.model.LatLng;
 import com.application.MyApplication;
 
+import com.cityselect.CityListActivity;
 import com.example.yunchebao.driverschool.NewDrvingActivity;
 import com.bumptech.glide.Glide;
 
@@ -654,6 +655,16 @@ public class HomeFragment extends BaseFragment {
 
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==8&&data!=null){
+            String city = data.getExtras().getString("city");
+            tv_locate.setText(city);
+        }
+    }
+
     private void init() {
         ctx = getActivity();
         getBaner();
@@ -724,10 +735,13 @@ public class HomeFragment extends BaseFragment {
         ll_item3.setSelected(false);
     }
 
-    @OnClick({R.id.messenger_icon,R.id.menuLayDrive,R.id.rl_notice,R.id.search_lay, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.menuLay4, R.id.menuLay7, R.id.menuLay5, R.id.menuLay6, R.id.menuLay8, R.id.menuLay9, R.id.menuLay10, R.id.user_center_icon})
+    @OnClick({R.id.ll_locate,R.id.messenger_icon,R.id.menuLayDrive,R.id.rl_notice,R.id.search_lay, R.id.menuLay1, R.id.menuLay2, R.id.menuLay3, R.id.menuLay4, R.id.menuLay7, R.id.menuLay5, R.id.menuLay6, R.id.menuLay8, R.id.menuLay9, R.id.menuLay10, R.id.user_center_icon})
     public void OnClick(View v) {
         Intent intent2=new Intent(getContext(), NewWashRepairActivity.class);
         switch (v.getId()) {
+            case R.id.ll_locate:
+                startActivityForResult(new Intent(getContext(), CityListActivity.class), 8);
+                break;
             case R.id.menuLayDrive:
                 startActivity(new Intent(getContext(), DriveServiceActivity.class));
                 break;

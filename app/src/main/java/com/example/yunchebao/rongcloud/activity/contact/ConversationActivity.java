@@ -128,7 +128,15 @@ public class ConversationActivity extends AppCompatActivity {
                             if (null != groupUserInfo) {
                                 if (null != groupUserInfo.getNickname()) {
                                     if (!groupUserInfo.getNickname().equals(MyApplication.getUserInfo().getName())) {
-                                        txtMsg.setExtra(groupUserInfo.getNickname() );
+                                        Map<String, String> params = new HashMap<>();
+                                        params.put("nickName", groupUserInfo.getNickname());
+                                        params.put("userId", groupUserInfo.getUserId());
+                                        params.put("avatar", MyApplication.getUserInfo().getHeadPortrait());
+                                        params.put("toNickName", groupUserInfo.getNickname());
+                                        params.put("toUserId", groupUserInfo.getUserId());
+                                        params.put("toAvatar", MyApplication.getUserInfo().getHeadPortrait());
+                                        String extra = new Gson().toJson(params);
+                                        txtMsg.setExtra(extra );
                                     }
                                 }
                             }

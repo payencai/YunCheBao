@@ -84,7 +84,8 @@
         <activity android:name=".applyenter.SelectServiceProviderActivity" />
         <activity android:name=".road.SeeRoadCommentActivity" />
         <activity android:name=".road.AddRoadCommentActivity" />
-        <activity android:name=".road.MyRoadOrderActivity" />
+        <activity
+            android:name=".road.MyRoadOrderActivity" />
         <activity android:name=".road.NewRoadDetailActivity" />
         <activity android:name=".road.NewRoadhelpActivity" />
         <activity android:name="com.cheyibao.BrandSelectedActivity" />
@@ -168,6 +169,7 @@
         </activity>
         <activity android:name="io.rong.callkit.CallSelectMemberActivity" />
         <activity
+            android:launchMode="singleTop"
             android:name="com.system.MainActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -474,6 +476,7 @@
         <activity android:name="com.cheyibao.AddRentCommentActivity" />
         <activity android:name="com.vipcenter.EnteringActivity" />
         <activity
+            android:launchMode="singleTop"
             android:name="com.system.SplashActivity"
             android:theme="@style/WelcomeStyle">
             <intent-filter>

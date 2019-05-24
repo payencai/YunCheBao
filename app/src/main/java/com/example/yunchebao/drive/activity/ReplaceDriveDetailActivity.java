@@ -254,6 +254,7 @@ public class ReplaceDriveDetailActivity extends AppCompatActivity {
     }
 
     private void initData() {
+
         tv_name.setText(mReplaceDrive.getShopName());
         tv_address.setText(mReplaceDrive.getProvince() + mReplaceDrive.getCity() + mReplaceDrive.getArea() + mReplaceDrive.getAddress());
         tv_grade.setText(mReplaceDrive.getGrade() + "");

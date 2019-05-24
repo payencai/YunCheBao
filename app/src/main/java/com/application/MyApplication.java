@@ -70,6 +70,7 @@ public class MyApplication extends Application {
     private static List<ContactModel> sUserInfos;
     private static AMapLocation aMapLocation;
     public static String token;
+
     public static List<ContactModel> getUserInfos() {
         return sUserInfos;
     }
@@ -92,14 +93,16 @@ public class MyApplication extends Application {
     public static void setUserInfos(List<ContactModel> userInfos) {
         sUserInfos = userInfos;
     }
-    private  static ListDataSave dataSave ;
+
+    private static ListDataSave dataSave;
 
     public static ListDataSave getDataSave() {
         return dataSave;
     }
 
     public static void setDataSave(ListDataSave listDataSave) {
-        MyApplication.dataSave = listDataSave;;
+        MyApplication.dataSave = listDataSave;
+        ;
     }
 
     private PhoneUserEntity user;
@@ -122,6 +125,7 @@ public class MyApplication extends Application {
     public static void setIsLogin(boolean isLogin) {
         MyApplication.isLogin = isLogin;
     }
+
     private void registerToWX() {
         //第二个参数是指你应用在微信开放平台上的AppID
         mWxApi = WXAPIFactory.createWXAPI(this, "wx13acff5b460a0164", false);
@@ -129,7 +133,8 @@ public class MyApplication extends Application {
         mWxApi.registerApp("wx13acff5b460a0164");
 
     }
-    private void initLoading(){
+
+    private void initLoading() {
         StyleManager s = new StyleManager();
 
 //在这里调用方法设置s的属性
@@ -138,6 +143,7 @@ public class MyApplication extends Application {
 
         LoadingDialog.initStyle(s);
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -146,36 +152,40 @@ public class MyApplication extends Application {
             RongIM.getInstance().setSendMessageListener(new RongIM.OnSendMessageListener() {
                 @Override
                 public Message onSend(Message message) {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("userId", MyApplication.getUserInfo().getId());
-                    params.put("nickName", MyApplication.getUserInfo().getName());
-                    params.put("avatar", MyApplication.getUserInfo().getHeadPortrait());
-                    String extra = new Gson().toJson(params);
-                    MessageContent messageContent = message.getContent();
 
-                    if (messageContent instanceof TextMessage) {//文本消息
-                        TextMessage textMessage = (TextMessage) messageContent;
-                        textMessage.setExtra(extra);
-                        message.setContent(textMessage);
-                        Log.d(TAG, "onSent-TextMessage:" + textMessage.getContent());
-                    } else if (messageContent instanceof ImageMessage) {//图片消息
-                        ImageMessage imageMessage = (ImageMessage) messageContent;
-                        imageMessage.setExtra(extra);
-                        message.setContent(imageMessage);
-                        Log.d(TAG, "onSent-ImageMessage:" + imageMessage.getRemoteUri());
-                    } else if (messageContent instanceof VoiceMessage) {//语音消息
-                        VoiceMessage voiceMessage = (VoiceMessage) messageContent;
-                        voiceMessage.setExtra(extra);
-                        message.setContent(voiceMessage);
-                        Log.d(TAG, "onSent-voiceMessage:" + voiceMessage.getUri().toString());
-                    } else if (messageContent instanceof RichContentMessage) {//图文消息
-                        RichContentMessage richContentMessage = (RichContentMessage) messageContent;
-                        richContentMessage.setExtra(extra);
-                        message.setContent(richContentMessage);
-                        Log.d(TAG, "onSent-RichContentMessage:" + richContentMessage.getContent());
-                    } else {
+                    if (message.getConversationType().equals(Conversation.ConversationType.PRIVATE)) {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("userId", MyApplication.getUserInfo().getId());
+                        params.put("nickName", MyApplication.getUserInfo().getName());
+                        params.put("avatar", MyApplication.getUserInfo().getHeadPortrait());
+                        String extra = new Gson().toJson(params);
+                        MessageContent messageContent = message.getContent();
 
+                        if (messageContent instanceof TextMessage) {//文本消息
+                            TextMessage textMessage = (TextMessage) messageContent;
+                            textMessage.setExtra(extra);
+                            message.setContent(textMessage);
+                            Log.d(TAG, "onSent-TextMessage:" + textMessage.getContent());
+                        } else if (messageContent instanceof ImageMessage) {//图片消息
+                            ImageMessage imageMessage = (ImageMessage) messageContent;
+                            imageMessage.setExtra(extra);
+                            message.setContent(imageMessage);
+                            Log.d(TAG, "onSent-ImageMessage:" + imageMessage.getRemoteUri());
+                        } else if (messageContent instanceof VoiceMessage) {//语音消息
+                            VoiceMessage voiceMessage = (VoiceMessage) messageContent;
+                            voiceMessage.setExtra(extra);
+                            message.setContent(voiceMessage);
+                            Log.d(TAG, "onSent-voiceMessage:" + voiceMessage.getUri().toString());
+                        } else if (messageContent instanceof RichContentMessage) {//图文消息
+                            RichContentMessage richContentMessage = (RichContentMessage) messageContent;
+                            richContentMessage.setExtra(extra);
+                            message.setContent(richContentMessage);
+                            Log.d(TAG, "onSent-RichContentMessage:" + richContentMessage.getContent());
+                        } else {
+
+                        }
                     }
+
                     return message;
                 }
 
@@ -208,12 +218,26 @@ public class MyApplication extends Application {
                     } else {
 
                     }
-                    //Log.e("extra",extra);
-                    if (message.getConversationType().equals(Conversation.ConversationType.GROUP)) {
-                            GroupUserInfo info = new GroupUserInfo(message.getTargetId(), message.getSenderUserId(), extra);
-                            RongIM.getInstance().refreshGroupUserInfoCache(info);
 
-                    }else if(message.getConversationType().equals(Conversation.ConversationType.PRIVATE)){
+                    if (message.getConversationType().equals(Conversation.ConversationType.GROUP)) {
+                        JSONObject jsonObject = null;
+                        try {
+                            if (!TextUtils.isEmpty(extra)) {
+                                Log.e("extra", extra);
+                                jsonObject = new JSONObject(extra);
+                                String username = jsonObject.getString("nickName");
+                                if (!TextUtils.isEmpty(username)) {
+                                    GroupUserInfo info = new GroupUserInfo(message.getTargetId(), message.getSenderUserId(), username);
+                                    RongIM.getInstance().refreshGroupUserInfoCache(info);
+                                }
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    } else if (message.getConversationType().equals(Conversation.ConversationType.PRIVATE)) {
                         if (!TextUtils.isEmpty(extra)) {
                             try {
                                 JSONObject jsonObject = new JSONObject(extra);
@@ -250,7 +274,7 @@ public class MyApplication extends Application {
         initLoading();
         registerToWX();
         // 系统崩溃处理
-       // initCrashHandler();
+        // initCrashHandler();
         //初始化Nohttp
         initNohttp();
         //初始化Fresco
@@ -266,7 +290,7 @@ public class MyApplication extends Application {
     private ActivityLifecycleCallbacks lifecycleCallbacks = new ActivityLifecycleCallbacks() {
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-            if (!isLogin){
+            if (!isLogin) {
                 autoLogin();
             }
         }
@@ -278,7 +302,7 @@ public class MyApplication extends Application {
 
         @Override
         public void onActivityResumed(Activity activity) {
-            if (!isLogin){
+            if (!isLogin) {
                 autoLogin();
             }
         }
@@ -346,7 +370,6 @@ public class MyApplication extends Application {
     }
 
 
-
     private void initCrashHandler() { // 系统崩溃处理
         ExceptionHandler crashHandler = ExceptionHandler.getInstance();
         crashHandler.init(this);
@@ -364,6 +387,7 @@ public class MyApplication extends Application {
         NoHttp.initialize(this);
 
     }
+
     public static String getCurProcessName(Context context) {
         int pid = android.os.Process.myPid();
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
