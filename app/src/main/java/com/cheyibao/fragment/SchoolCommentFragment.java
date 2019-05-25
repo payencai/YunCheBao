@@ -74,7 +74,7 @@ public class SchoolCommentFragment extends Fragment {
         id=drivingSchoolActivity.getDrvingSchool().getId();
         Map<String,Object> params=new HashMap<>();
         params.put("page",page);
-        //params.put("merchantId",id);
+        params.put("merchantId",id);
         params.put("type",4);
         HttpProxy.obtain().get(PlatformContans.DrivingSchool.getUserComment, params,new ICallBack() {
             @Override

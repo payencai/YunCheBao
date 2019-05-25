@@ -201,10 +201,10 @@ public class RentOrderDetailActivity extends AppCompatActivity {
 
     void setData(){
 
-        tv_carname.setText(mRentOrderDetail.getName());
-        tv_addr.setText(mRentOrderDetail.getAddress());
+        tv_carname.setText(mRentOrderDetail.getBrand()+mRentOrderDetail.getCarTategory());
+        tv_addr.setText(mRentOrderDetail.getShopProvince()+mRentOrderDetail.getShopCity()+mRentOrderDetail.getShopArea()+mRentOrderDetail.getShopAddress());
         tv_shop.setText(mRentOrderDetail.getShopName());
-        tv_phone.setText(mRentOrderDetail.getTelephone());
+        tv_phone.setText(mRentOrderDetail.getShopSaleTelephone());
         tv_avgprice.setText("￥"+mRentOrderDetail.getTotal());
         tv_auto.setText(mRentOrderDetail.getSeat()+"座");
         tv_date.setText("x"+mRentOrderDetail.getRentDay());

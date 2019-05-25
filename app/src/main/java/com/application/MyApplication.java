@@ -3,9 +3,13 @@ package com.application;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
+import android.app.Service;
 import android.content.Context;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,6 +18,7 @@ import com.amap.api.location.AMapLocation;
 
 import com.costans.PlatformContans;
 import com.entity.PhoneUserEntity;
+import com.example.yunchebao.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
@@ -50,6 +55,7 @@ import io.rong.imkit.model.GroupUserInfo;
 import io.rong.imkit.userInfoCache.RongUserInfoManager;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Group;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.MessageContent;
 import io.rong.message.ImageMessage;
@@ -70,7 +76,8 @@ public class MyApplication extends Application {
     private static List<ContactModel> sUserInfos;
     private static AMapLocation aMapLocation;
     public static String token;
-
+    private Vibrator mVibrator;
+    private Ringtone mRingtone;
     public static List<ContactModel> getUserInfos() {
         return sUserInfos;
     }
@@ -135,6 +142,7 @@ public class MyApplication extends Application {
     }
 
     private void initLoading() {
+
         StyleManager s = new StyleManager();
 
 //在这里调用方法设置s的属性
@@ -143,10 +151,57 @@ public class MyApplication extends Application {
 
         LoadingDialog.initStyle(s);
     }
+    private void getPrivateStatus(String id){
+        RongIM.getInstance().getConversationNotificationStatus(Conversation.ConversationType.PRIVATE, id, new RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>() {
+            @Override
+            public void onSuccess(Conversation.ConversationNotificationStatus conversationNotificationStatus) {
+                final int value = conversationNotificationStatus.getValue();
+                if (value == 1) {
+                    notifyRing();
+                   // notifyVibrator();
+                }
 
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                //ToastUtil.showToast(FriendDetailActivity.this, errorCode.getMessage() + "");
+            }
+        });
+    }
+    private void getGroupStatus(String hxCrowdId){
+        RongIM.getInstance().getConversationNotificationStatus(Conversation.ConversationType.GROUP, hxCrowdId, new RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>() {
+            @Override
+            public void onSuccess(Conversation.ConversationNotificationStatus conversationNotificationStatus) {
+                final int value = conversationNotificationStatus.getValue();
+
+                if (value == 1) {
+                    notifyRing();
+                    //notifyVibrator();
+
+                }
+
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                //ToastUtil.showToast(GroupDetailActivity.this, errorCode.getMessage() + "");
+            }
+        });
+    }
     @Override
     public void onCreate() {
         super.onCreate();
+        // 初始化震动通知
+        if (isInitVibratorNotify()) {
+            mVibrator = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE);
+        }
+
+        if (isInitRingNotify()) {
+            Uri notifyUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            mRingtone = RingtoneManager.getRingtone(this, notifyUri);
+        }
+
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext()))) {
             RongIM.init(this);
             RongIM.getInstance().setSendMessageListener(new RongIM.OnSendMessageListener() {
@@ -197,6 +252,7 @@ public class MyApplication extends Application {
             RongIM.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
                 @Override
                 public boolean onReceived(Message message, int i) {
+
                     String extra = "";
                     MessageContent messageContent = message.getContent();
                     if (messageContent instanceof TextMessage) {//文本消息
@@ -220,15 +276,27 @@ public class MyApplication extends Application {
                     }
 
                     if (message.getConversationType().equals(Conversation.ConversationType.GROUP)) {
+                        Log.e("extra", message.getTargetId()+"");
+                        getGroupStatus(message.getMessageId()+"");
                         JSONObject jsonObject = null;
                         try {
                             if (!TextUtils.isEmpty(extra)) {
-                                Log.e("extra", extra);
+
                                 jsonObject = new JSONObject(extra);
                                 String username = jsonObject.getString("nickName");
+                                String groupName=jsonObject.getString("groupName");
+                                String groupAvatar=jsonObject.getString("groupAvatar");
+
                                 if (!TextUtils.isEmpty(username)) {
                                     GroupUserInfo info = new GroupUserInfo(message.getTargetId(), message.getSenderUserId(), username);
                                     RongIM.getInstance().refreshGroupUserInfoCache(info);
+                                    RongIM.setGroupInfoProvider(new RongIM.GroupInfoProvider() {
+                                        @Override
+                                        public Group getGroupInfo(String s) {
+                                            Group group=new Group(s,groupName,Uri.parse(groupAvatar));
+                                            return group;
+                                        }
+                                    },true);
                                 }
                             }
 
@@ -237,11 +305,14 @@ public class MyApplication extends Application {
                         }
 
 
-                    } else if (message.getConversationType().equals(Conversation.ConversationType.PRIVATE)) {
+                    } else  {
+                        Log.e("userid",message.getSenderUserId()+"");
+                        getPrivateStatus(message.getSenderUserId()+"");
                         if (!TextUtils.isEmpty(extra)) {
                             try {
                                 JSONObject jsonObject = new JSONObject(extra);
                                 String userid = jsonObject.getString("userId");
+
                                 String username = jsonObject.getString("nickName");
                                 String avatar = jsonObject.getString("avatar");
                                 avatar = avatar.replaceAll("\\\\", "");
@@ -386,6 +457,7 @@ public class MyApplication extends Application {
         Logger.setTag("NoHttpSample"); // 设置NoHttp打印Log的TAG。
         NoHttp.initialize(this);
 
+
     }
 
     public static String getCurProcessName(Context context) {
@@ -414,4 +486,42 @@ public class MyApplication extends Application {
     public void setUser(PhoneUserEntity user) {
         this.user = user;
     }
+
+    /**
+     * 震动通知
+     */
+    protected void notifyVibrator() {
+        if (mVibrator != null) {
+            // 震动 1s
+            mVibrator.vibrate(1000);
+        }
+    }
+
+    /**
+     * 声音通知
+     */
+    protected void notifyRing() {
+        if (mRingtone != null) {
+            mRingtone.play();
+        }
+    }
+
+    /**
+     * 是否打开震动
+     *
+     * @return 震动
+     */
+    protected boolean isInitVibratorNotify() {
+        return true;
+    }
+
+    /**
+     * 是否打开声音提醒
+     *
+     * @return 声音
+     */
+    protected boolean isInitRingNotify() {
+        return true;
+    }
+
 }

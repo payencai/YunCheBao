@@ -98,7 +98,7 @@ import butterknife.OnClick;
 public class HomeFragment extends BaseFragment {
 
     private static final String TAG = "MainActivity";
-    private Context ctx;
+
     //轮播图片
     private List<Map<String, String>> imageList = new ArrayList<>();
     @BindView(R.id.tv_coin)
@@ -284,7 +284,7 @@ public class HomeFragment extends BaseFragment {
         ButterKnife.bind(this, rootView);
         MyApplication.setDataSave(new ListDataSave(MyApplication.getContext(), "data"));
         if(Build.VERSION.SDK_INT>=28)
-            initGPS(getActivity());
+            initGPS(getContext());
         initLocation();
         getImageUrl();
         init();
@@ -314,21 +314,21 @@ public class HomeFragment extends BaseFragment {
         }
     };
     LocationManager locationManager;
-    public  void initGPS(final Activity activity) {
+    public  void initGPS(final Context context) {
 
-        locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
         // 判断GPS模块是否开启，如果没有则开启
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 
-            AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(context);
             dialog.setMessage("安卓9.0及以上系统要使用定位功能，必须开启GPS");
             dialog.setPositiveButton("设置", new DialogInterface.OnClickListener() {
 
                 @Override
                 public void onClick(DialogInterface dialogInterface, int position) {
                     Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    activity.startActivityForResult(intent, 1); // 设置完成后返回到原来的界面
+                    startActivityForResult(intent, 1); // 设置完成后返回到原来的界面
                 }
             });
 
@@ -337,7 +337,7 @@ public class HomeFragment extends BaseFragment {
                 public void onClick(DialogInterface dialogInterface, int position) {
                     Log.d(TAG, "---> 取消");
                     dialogInterface.dismiss();
-                    activity.finish();
+                    getActivity().finish();
                 }
             });
 
@@ -666,7 +666,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void init() {
-        ctx = getActivity();
+
         getBaner();
         ll_item1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -773,19 +773,24 @@ public class HomeFragment extends BaseFragment {
                 startActivity(intent2);
                 break;
             case R.id.menuLay3://4S店
-                ActivityAnimationUtils.commonTransition(getActivity(), NewFourShopActivity.class, ActivityConstans.Animation.FADE);
+                startActivity(new Intent(getContext(),NewFourShopActivity.class));
+                //ActivityAnimationUtils.commonTransition(get, NewFourShopActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay4://驾校汇
-                startActivity(new Intent(getContext(), NewDrvingActivity.class));
+                startActivity(new Intent(getContext(),NewDrvingActivity.class));
+                //startActivity(new Intent(getContext(), NewDrvingActivity.class));
                 break;
             case R.id.menuLay5:///约单
-                ActivityAnimationUtils.commonTransition(getActivity(), YuedanHomeActivity.class, ActivityConstans.Animation.FADE);
+                startActivity(new Intent(getContext(),YuedanHomeActivity.class));
+                //ActivityAnimationUtils.commonTransition(getActivity(), YuedanHomeActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay6://加油站
-                 ActivityAnimationUtils.commonTransition(getActivity(), GasStationActivity.class, ActivityConstans.Animation.FADE);
+                startActivity(new Intent(getContext(),GasStationActivity.class));
+                 //ActivityAnimationUtils.commonTransition(getActivity(), GasStationActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay7://紧急
-                ActivityAnimationUtils.commonTransition(getActivity(), NewRoadhelpActivity.class, ActivityConstans.Animation.FADE);
+                startActivity(new Intent(getContext(),NewRoadhelpActivity.class));
+                //ActivityAnimationUtils.commonTransition(getActivity(), NewRoadhelpActivity.class, ActivityConstans.Animation.FADE);
                 //ActivityAnimationUtils.commonTransition(getActivity(), RoadAssistanceListActivity.class, ActivityConstans.Animation.FADE);
                 break;
             case R.id.menuLay8://违章
@@ -805,7 +810,8 @@ public class HomeFragment extends BaseFragment {
 
             case R.id.user_center_icon://个人中心
                 if (MyApplication.isLogin)
-                    ActivityAnimationUtils.commonTransition(getActivity(), UserCenterActivity.class, ActivityConstans.Animation.FADE);
+                    startActivity(new Intent(getContext(),UserCenterActivity.class));
+                   // ActivityAnimationUtils.commonTransition(getActivity(), UserCenterActivity.class, ActivityConstans.Animation.FADE);
                 else {
                     startActivity(new Intent(getContext(), RegisterActivity.class));
                 }

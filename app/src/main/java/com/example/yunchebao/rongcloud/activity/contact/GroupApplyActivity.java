@@ -2,6 +2,7 @@ package com.example.yunchebao.rongcloud.activity.contact;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,6 +45,9 @@ public class GroupApplyActivity extends AppCompatActivity {
     List<ApplyGroup> mShowModels = new ArrayList<>();
     @BindView(R.id.main_recycler)
     RecyclerView mRecyclerView;
+    @BindView(R.id.sr_refresh)
+    SwipeRefreshLayout sr_refresh;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,26 +95,26 @@ public class GroupApplyActivity extends AppCompatActivity {
             params.put("rejectReason", reason);
         }
 
-            HttpProxy.obtain().post(PlatformContans.Chat.updateCrowdApply, MyApplication.token, params, new ICallBack() {
-                @Override
-                public void OnSuccess(String result) {
-                    if(dialog!=null)
-                        dialog.dismiss();
-                    if (state == 2)
-                        Toast.makeText(GroupApplyActivity.this, "已拒绝", Toast.LENGTH_SHORT).show();
-                    else {
-                        Toast.makeText(GroupApplyActivity.this, "已入群", Toast.LENGTH_SHORT).show();
-                    }
-                    mContactModels.clear();
-                    mShowModels.clear();
-                    getData();
+        HttpProxy.obtain().post(PlatformContans.Chat.updateCrowdApply, MyApplication.token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                if (dialog != null)
+                    dialog.dismiss();
+                if (state == 2)
+                    Toast.makeText(GroupApplyActivity.this, "已拒绝", Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(GroupApplyActivity.this, "已入群", Toast.LENGTH_SHORT).show();
                 }
+                mContactModels.clear();
+                mShowModels.clear();
+                getData();
+            }
 
-                @Override
-                public void onFailure(String error) {
+            @Override
+            public void onFailure(String error) {
 
-                }
-            });
+            }
+        });
     }
 
     @Override
@@ -128,11 +132,19 @@ public class GroupApplyActivity extends AppCompatActivity {
                 finish();
             }
         });
+        sr_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mShowModels.clear();
+                mContactModels.clear();
+                getData();
+            }
+        });
         mApplyFriendAdapter = new ApplyGroupAdapter(mShowModels);
         mApplyFriendAdapter.setOnItemClickListener(new ApplyGroupAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position, ApplyGroup contactModel) {
-                if(contactModel.getState()==0){
+                if (contactModel.getState() == 0) {
 //                    Intent intent = new Intent(GroupApplyActivity.this, ApplyDetailActivity.class);
 //                    intent.putExtra("apply", contactModel);
 //                    startActivityForResult(intent,1);
@@ -142,7 +154,7 @@ public class GroupApplyActivity extends AppCompatActivity {
             @Override
             public void agree(ApplyGroup applyFriend) {
                 //showApplyDialog(applyFriend);
-                applyAndagree(1,applyFriend,"",null);
+                applyAndagree(1, applyFriend, "", null);
             }
 
             @Override
@@ -165,29 +177,32 @@ public class GroupApplyActivity extends AppCompatActivity {
 
     private void getData() {
 
-            HttpProxy.obtain().get(PlatformContans.Chat.getCrowdApplyList,MyApplication.token , new ICallBack() {
-                @Override
-                public void OnSuccess(String result) {
-                    Log.e("groupapply", result);
-                    try {
-                        JSONObject jsonObject = new JSONObject(result);
-                        JSONArray data = jsonObject.getJSONArray("data");
-                        for (int i = 0; i < data.length(); i++) {
-                            JSONObject item = data.getJSONObject(i);
-                            ApplyGroup applyFriend = new Gson().fromJson(item.toString(), ApplyGroup.class);
-                            mContactModels.add(applyFriend);
-                        }
-                        mShowModels.addAll(mContactModels);
-                        mApplyFriendAdapter.notifyDataSetChanged();
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+        HttpProxy.obtain().get(PlatformContans.Chat.getCrowdApplyList, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                if (sr_refresh.isRefreshing()) {
+                    sr_refresh.setRefreshing(false);
+                }
+                Log.e("groupapply", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        ApplyGroup applyFriend = new Gson().fromJson(item.toString(), ApplyGroup.class);
+                        mContactModels.add(applyFriend);
                     }
-                }
+                    mShowModels.addAll(mContactModels);
+                    mApplyFriendAdapter.notifyDataSetChanged();
 
-                @Override
-                public void onFailure(String error) {
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            });
+            }
+
+            @Override
+            public void onFailure(String error) {
+            }
+        });
     }
 }

@@ -529,7 +529,7 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
                 page = 1;
                 mCircleComments.clear();
                 getComment();
-                //Toast.makeText(DriverFriendsDetailActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DrivingSelfDetailActivity.this, "评论成功", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -551,6 +551,7 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
                 page = 1;
                 mCircleComments.clear();
                 getComment();
+                Toast.makeText(DrivingSelfDetailActivity.this, "回复成功", Toast.LENGTH_SHORT).show();
                 //Toast.makeText(DriverFriendsDetailActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
             }
 

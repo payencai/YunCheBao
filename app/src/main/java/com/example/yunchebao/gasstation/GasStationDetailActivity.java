@@ -243,7 +243,7 @@ public class GasStationDetailActivity extends AppCompatActivity {
         initTab();
         //tv_time.setText("营业时间："+mFourShopData.getAmStart()+"-"+mFourShopData.getPmStop());
         tv_dis.setText(mFourShopData.getDistance() + "km");
-        tv_score.setText("" + mFourShopData.getScore());
+        tv_score.setText("" + (int)mFourShopData.getScore());
         tv_grade.setText("" + mFourShopData.getGrade());
         tv_shopname.setText(mFourShopData.getShopName());
         tv_address.setText(mFourShopData.getProvince() + mFourShopData.getCity() + mFourShopData.getArea() + mFourShopData.getAddress());

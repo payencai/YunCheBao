@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -200,7 +201,7 @@ public class RoadOrderFragment extends Fragment {
         TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
         EditText et_money = (EditText) view.findViewById(R.id.et_money);
 
-        final Dialog dialog = new Dialog(getContext(), R.style.MyDialog);
+        final Dialog dialog = new Dialog(getContext(), R.style.PayDialog);
         iv_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -230,7 +231,15 @@ public class RoadOrderFragment extends Fragment {
         params.width = (int) (display.getWidth() * 0.8);
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(params);
-        showKeyboard(et_money);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                SystemClock.sleep(300);
+//                InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+//                inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+//            }
+//        });
+       // showKeyboard(et_money);
 
     }
 

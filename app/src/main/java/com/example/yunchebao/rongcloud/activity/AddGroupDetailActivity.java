@@ -105,21 +105,24 @@ public class AddGroupDetailActivity extends AppCompatActivity {
 
     private void apply(String reason, final Dialog dialog) {
         Map<String, Object> params = new HashMap<>();
-        params.put("crowdId", mGroup.getId());
+        params.put("crowdId", mGroup.getHxCrowdId());
         params.put("applyReason", reason);
 
 
             HttpProxy.obtain().post(PlatformContans.Chat.addCrowdApply,MyApplication.token , params, new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
-                    Log.e("friend", result);
+                    Log.e("friend", mGroup.getId()+result);
                     dialog.dismiss();
                     try {
                         JSONObject jsonObject = new JSONObject(result);
                         int code = jsonObject.getInt("resultCode");
+                        String msg=jsonObject.getString("message");
                         if (code == 0) {
                             dialog.dismiss();
                             Toast.makeText(AddGroupDetailActivity.this, "已提交申请", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(AddGroupDetailActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (JSONException e) {

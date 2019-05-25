@@ -20,6 +20,7 @@ import com.example.yunchebao.rongcloud.activity.contact.MyContactActivity;
 import com.example.yunchebao.rongcloud.activity.stranger.SaomaActivity;
 import com.example.yunchebao.rongcloud.activity.stranger.StrangerMsgActivity;
 import com.example.yunchebao.rongcloud.model.MyGroup;
+import com.gyf.immersionbar.ImmersionBar;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import org.litepal.LitePal;
@@ -52,6 +53,7 @@ public class ChatActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.conversationlist);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
         enterFragment();
 

@@ -41,6 +41,7 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.maket.adapter.GoodsOrderImageAdapter;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.tool.MathUtil;
 import com.tool.view.HorizontalListView;
 import com.xihubao.ShopInfoActivity;
 
@@ -119,7 +120,7 @@ public class ShopDetailActivity extends AppCompatActivity {
         if(TextUtils.isEmpty(rentShop.getAmStart())){
             businessHoursView.setText("营业时间:8:00-18:30");
         }
-        scoreView.setText(String.format("%s分", rentShop.getScore()));
+        scoreView.setText(String.format("%s分", MathUtil.getDoubleTwo(rentShop.getScore())));
         addressView.setText(String.format("%s%s%s%s", rentShop.getProvince(), rentShop.getCity(), rentShop.getArea(), rentShop.getAddress()));
         phoneView.setText(rentShop.getSaleTelephone());
         List<String> images = new ArrayList<>();

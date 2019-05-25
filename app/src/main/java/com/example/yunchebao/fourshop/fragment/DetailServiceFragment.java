@@ -37,6 +37,7 @@ import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tool.MyListView;
+import com.tool.view.ListViewForScrollView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,7 +60,7 @@ public class DetailServiceFragment extends Fragment {
     @BindView(R.id.lv_left)
     MyListView lv_left;
     @BindView(R.id.lv_right)
-    MyListView lv_right;
+    ListViewForScrollView lv_right;
     @BindView(R.id.tv_type)
     TextView tv_type;
     FourShopDetailActivity mActivity;

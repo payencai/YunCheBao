@@ -27,6 +27,7 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
+import com.system.model.ShopInfo;
 import com.youth.banner.BannerConfig;
 
 import org.json.JSONException;
@@ -62,7 +63,7 @@ public class DriverDetailActivity extends AppCompatActivity {
     DriverDetail mCoachDetail;
     String id;
     List<String> mImages = new ArrayList<>();
-
+    ShopInfo mShopInfo;
     boolean isfriend=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +83,7 @@ public class DriverDetailActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.tv_add:
                 if(isfriend){
-                    RongIM.getInstance().startPrivateChat(DriverDetailActivity.this,mCoachDetail.getShopId(),mCoachDetail.getName());
+                    RongIM.getInstance().startPrivateChat(DriverDetailActivity.this,mCoachDetail.getShopId(),mShopInfo.getName());
                 }else{
                     showApplyDialog();
                 }
@@ -91,6 +92,30 @@ public class DriverDetailActivity extends AppCompatActivity {
                 finish();
                 break;
         }
+    }
+
+    private void getShopInfo(String shopid) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("shopId", shopid);
+        HttpProxy.obtain().get(PlatformContans.MerchAdmin.getMerchInformationByShopId, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("shopDetail", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    mShopInfo = new Gson().fromJson(data.toString(), ShopInfo.class);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
     private void getUserDetail(String id) {
         Map<String, Object> params = new HashMap<>();
@@ -130,6 +155,7 @@ public class DriverDetailActivity extends AppCompatActivity {
                     JSONObject data = jsonObject.getJSONObject("data");
                     mCoachDetail = new Gson().fromJson(data.toString(), DriverDetail.class);
                     getUserDetail(mCoachDetail.getShopId());
+                    getShopInfo(mCoachDetail.getShopId());
                     setData();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -145,7 +171,8 @@ public class DriverDetailActivity extends AppCompatActivity {
 
     private void setData() {
         tv_nick.setText(mCoachDetail.getName());
-        tv_address.setText(mCoachDetail.getNativePlace() + " " + mCoachDetail.getTelephone());
+        String address=mCoachDetail.getNativePlace() + " " + mCoachDetail.getTelephone();
+        tv_address.setText(address.replace("null",""));
         String images = mCoachDetail.getImgs();
         if (!TextUtils.isEmpty(images)) {
             if (images.contains(",")) {

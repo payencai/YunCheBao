@@ -23,6 +23,7 @@ import com.costans.PlatformContans;
 import com.entity.UserMsg;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.example.yunchebao.rongcloud.model.ApplyFriend;
@@ -62,6 +63,7 @@ public class ApplyDetailActivity extends AppCompatActivity {
         mApplyFriend= (ApplyFriend) getIntent().getSerializableExtra("apply");
         setContentView(R.layout.activity_apply_detail);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
         getDetail();
     }

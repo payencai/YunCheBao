@@ -18,33 +18,33 @@ import java.util.List;
  * 作者：凌涛 on 2019/4/22 17:48
  * 邮箱：771548229@qq..com
  */
-public class RoadOrderAdapter  extends BaseQuickAdapter<RoadOrder, BaseViewHolder> {
+public class RoadOrderAdapter extends BaseQuickAdapter<RoadOrder, BaseViewHolder> {
     public RoadOrderAdapter(int layoutResId, @Nullable List<RoadOrder> data) {
         super(layoutResId, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, RoadOrder item) {
-        ImageView iv_logo=helper.getView(R.id.iv_logo);
-        TextView tv_name=helper.getView(R.id.tv_name);
-        TextView tv_time=helper.getView(R.id.tv_time);
-        SuperTextView sp_pay=helper.getView(R.id.fukuan);
+        ImageView iv_logo = helper.getView(R.id.iv_logo);
+        TextView tv_name = helper.getView(R.id.tv_name);
+        TextView tv_time = helper.getView(R.id.tv_time);
+        SuperTextView sp_pay = helper.getView(R.id.fukuan);
         helper.addOnClickListener(R.id.fukuan);
         helper.addOnClickListener(R.id.delete);
-        if(item.getState()==1){
+        if (item.getState() == 1) {
             sp_pay.setText("付款");
-              //未付款
-        }else {
-            if(item.getIsComment()==0){
+            //未付款
+        } else {
+            if (item.getIsComment() == 0) {
                 sp_pay.setText("评价");
-            }else{
+            } else {
                 sp_pay.setText("查看评价");
             }
         }
 
-        tv_name.setText(item.getName());
-        tv_time.setText("发布时间: "+item.getCreateTime());
-        String imgs=item.getImgs();
-        Glide.with(helper.itemView.getContext()).load(imgs).into(iv_logo);
+        tv_name.setText(item.getShopName());
+        tv_time.setText("发布时间: " + item.getCreateTime());
+
+        Glide.with(mContext).load(item.getLogo()).into(iv_logo);
     }
 }

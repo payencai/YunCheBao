@@ -71,7 +71,8 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.vipcenter.FindPwdActivity"></activity>
+        <activity android:name=".yuedan.SelectCarTypeActivity"></activity>
+        <activity android:name="com.vipcenter.FindPwdActivity" />
         <activity android:name=".drive.activity.DriverDetailActivity" />
         <activity android:name=".driverschool.CoachDetailActivity" />
         <activity android:name=".blacklist.BlackListActivity" />
@@ -84,8 +85,7 @@
         <activity android:name=".applyenter.SelectServiceProviderActivity" />
         <activity android:name=".road.SeeRoadCommentActivity" />
         <activity android:name=".road.AddRoadCommentActivity" />
-        <activity
-            android:name=".road.MyRoadOrderActivity" />
+        <activity android:name=".road.MyRoadOrderActivity" />
         <activity android:name=".road.NewRoadDetailActivity" />
         <activity android:name=".road.NewRoadhelpActivity" />
         <activity android:name="com.cheyibao.BrandSelectedActivity" />
@@ -169,8 +169,8 @@
         </activity>
         <activity android:name="io.rong.callkit.CallSelectMemberActivity" />
         <activity
-            android:launchMode="singleTop"
             android:name="com.system.MainActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.tencent.tauth.AuthActivity"
@@ -453,7 +453,7 @@
             android:name="com.newversion.NewContactsActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".driverschool.NewDrvingActivity" />
-        <activity android:name="com.order.ServiceCarActivity" />
+        <activity android:name=".myservice.ServiceCarActivity" />
         <activity android:name="com.order.NewPublishActivity" />
         <activity android:name="com.vipcenter.MyPhoneActivity" />
         <activity android:name="com.vipcenter.NewPhoneActivity" />
@@ -476,8 +476,8 @@
         <activity android:name="com.cheyibao.AddRentCommentActivity" />
         <activity android:name="com.vipcenter.EnteringActivity" />
         <activity
-            android:launchMode="singleTop"
             android:name="com.system.SplashActivity"
+            android:launchMode="singleTop"
             android:theme="@style/WelcomeStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

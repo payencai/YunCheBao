@@ -196,7 +196,7 @@ public class ShoolOrderDetailActivity extends AppCompatActivity {
         tv_phone.setText(mSchoolOrderDetail.getShopTelephone());
         tv_address.setText(mSchoolOrderDetail.getAddress());
         tv_name.setText(mSchoolOrderDetail.getShopName());
-        tv_avgprice.setText("￥"+mSchoolOrderDetail.getPrice());
+        tv_avgprice.setText("￥"+mSchoolOrderDetail.getTotal());
         tv_class.setText(mSchoolOrderDetail.getClassName());
         tv_time.setText(mSchoolOrderDetail.getCreateTime().substring(0,10));
         tv_coash.setText(mSchoolOrderDetail.getCoachName());

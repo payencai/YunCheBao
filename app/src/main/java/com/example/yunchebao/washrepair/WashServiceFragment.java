@@ -40,6 +40,7 @@ import com.maket.GoodsPayActivity;
 import com.payencai.library.util.ToastUtil;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tool.MyListView;
+import com.tool.view.ListViewForScrollView;
 import com.xihubao.adapter.ServerCatogryAdapter;
 import com.xihubao.adapter.ServerDetailAdapter;
 
@@ -82,7 +83,7 @@ public class WashServiceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_detail, container, false);
+        View view=inflater.inflate(R.layout.fragment_wash_detail, container, false);
         ButterKnife.bind(this,view);
         id=getArguments().getString("id");
         shopname=getArguments().getString("shop");

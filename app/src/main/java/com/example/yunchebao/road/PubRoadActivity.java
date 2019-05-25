@@ -7,7 +7,9 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -92,7 +94,9 @@ public class PubRoadActivity extends AppCompatActivity {
     @BindView(R.id.et_addr)
     EditText et_addr;
     @BindView(R.id.et_detail)
-            EditText et_detail;
+    EditText et_detail;
+    @BindView(R.id.tv_num)
+    TextView tv_num;
     ImageAdapter mImageAdapter;
     List<String> images;
     AddressBean mAddressBean;
@@ -105,14 +109,14 @@ public class PubRoadActivity extends AppCompatActivity {
     RoadDetail mRoadDetail;
     ArrayList<Media> defaultSelect = new ArrayList<>();
     List<Uri> mSelected;
-
+    int count=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pub_road);
         ButterKnife.bind(this);
-        id=getIntent().getStringExtra("id");
-        mRoadDetail= (RoadDetail) getIntent().getSerializableExtra("data");
+        id = getIntent().getStringExtra("id");
+        mRoadDetail = (RoadDetail) getIntent().getSerializableExtra("data");
         initView();
     }
 
@@ -122,6 +126,22 @@ public class PubRoadActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 et_detail.setText("拖车");
+            }
+        });
+        et_detail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                tv_num.setText(s.length()+"/200");
             }
         });
         findViewById(R.id.tv_item2).setOnClickListener(new View.OnClickListener() {
@@ -136,8 +156,8 @@ public class PubRoadActivity extends AppCompatActivity {
                 et_detail.setText("换胎");
             }
         });
-        tv_phone.setText("商家电话："+mRoadDetail.getSaleTelephone());
-        tv_addr.setText("商家地址："+mRoadDetail.getAddress());
+        tv_phone.setText("商家电话：" + mRoadDetail.getSaleTelephone());
+        tv_addr.setText("商家地址：" + mRoadDetail.getAddress());
         Glide.with(this).load(mRoadDetail.getLogo()).into(iv_logo);
         images = new ArrayList<>();
         images.add("");
@@ -163,15 +183,15 @@ public class PubRoadActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick({R.id.rl_cartype, R.id.addressLay, R.id.iv_video,R.id.tv_public,R.id.back})
+    @OnClick({R.id.rl_cartype, R.id.addressLay, R.id.iv_video, R.id.tv_public, R.id.back})
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
             case R.id.tv_public:
-                if(check())
-                   addService();
+                if (check())
+                    addService();
                 break;
             case R.id.iv_video:
                 chooseVideo();
@@ -184,40 +204,42 @@ public class PubRoadActivity extends AppCompatActivity {
                 break;
         }
     }
-    private boolean check(){
-        boolean isOk=true;
-        if(TextUtils.isEmpty(carCategory)){
-            isOk=false;
-            ToastUtil.showToast(this,"请选择车型！");
+
+    private boolean check() {
+        boolean isOk = true;
+        if (TextUtils.isEmpty(carCategory)) {
+            isOk = false;
+            ToastUtil.showToast(this, "请选择车型！");
             return isOk;
         }
-        if(TextUtils.isEmpty(et_phone.getEditableText().toString())){
-            isOk=false;
-            ToastUtil.showToast(this,"请输入手机号！");
+        if (TextUtils.isEmpty(et_phone.getEditableText().toString())) {
+            isOk = false;
+            ToastUtil.showToast(this, "请输入手机号！");
             return isOk;
         }
-        if(TextUtils.isEmpty(et_color.getEditableText().toString())){
-            isOk=false;
-            ToastUtil.showToast(this,"请输入颜色！");
+        if (TextUtils.isEmpty(et_color.getEditableText().toString())) {
+            isOk = false;
+            ToastUtil.showToast(this, "请输入颜色！");
             return isOk;
         }
-        if(TextUtils.isEmpty(et_detail.getEditableText().toString())){
-            isOk=false;
-            ToastUtil.showToast(this,"请输入问题！");
+        if (TextUtils.isEmpty(et_detail.getEditableText().toString())) {
+            isOk = false;
+            ToastUtil.showToast(this, "请输入问题！");
             return isOk;
         }
-        if(TextUtils.isEmpty(et_addr.getEditableText().toString())){
-            isOk=false;
-            ToastUtil.showToast(this,"请输入地址！");
+        if (TextUtils.isEmpty(et_addr.getEditableText().toString())) {
+            isOk = false;
+            ToastUtil.showToast(this, "请输入地址！");
             return isOk;
         }
-        if(mAddressBean==null){
-            isOk=false;
-            ToastUtil.showToast(this,"请选择车辆位置！");
+        if (mAddressBean == null) {
+            isOk = false;
+            ToastUtil.showToast(this, "请选择车辆位置！");
             return isOk;
         }
-        return  isOk;
+        return isOk;
     }
+
     private void addService() {
 
         Map<String, Object> params = new HashMap<>();
@@ -232,11 +254,11 @@ public class PubRoadActivity extends AppCompatActivity {
         params.put("addressDetail", et_addr.getEditableText().toString());
         params.put("longitude", mAddressBean.getLatlng().getLng() + "");
         params.put("latitude", mAddressBean.getLatlng().getLat() + "");
-        if(!TextUtils.isEmpty(imgs))
-        params.put("imgs", imgs.substring(1));
+        if (!TextUtils.isEmpty(imgs))
+            params.put("imgs", imgs.substring(1));
         params.put("video", video);
         params.put("vimg", vimg);
-        params.put("shopId",id);
+        params.put("shopId", id);
         Log.e("result", params.toString());
         HttpProxy.obtain().post(PlatformContans.RoadRescue.addRoadRescueOrder, MyApplication.token, params, new ICallBack() {
             @Override
@@ -252,6 +274,7 @@ public class PubRoadActivity extends AppCompatActivity {
             }
         });
     }
+
     private void chooseVideo() {
         Intent intent = new Intent(this, PickerActivity.class);
         intent.putExtra(PickerConfig.SELECT_MODE, PickerConfig.PICKER_VIDEO);//default image and video (Optional)
@@ -326,7 +349,7 @@ public class PubRoadActivity extends AppCompatActivity {
                     JSONObject object = new JSONObject(string);
                     int resultCode = object.getInt("resultCode");
                     final String data = object.getString("data");
-                    vimg=data;
+                    vimg = data;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -341,6 +364,7 @@ public class PubRoadActivity extends AppCompatActivity {
             }
         });
     }
+
     public void upImage(String url, File file) {
         OkHttpClient mOkHttpClent = new OkHttpClient();
 
@@ -370,7 +394,7 @@ public class PubRoadActivity extends AppCompatActivity {
                     final String data = object.getString("data");
                     if (!images.contains(data)) {
                         images.add(data);
-                        imgs=StringUtils.listToString2(images,',');
+                        imgs = StringUtils.listToString2(images, ',');
                     }
                     runOnUiThread(new Runnable() {
                         @Override
@@ -435,10 +459,10 @@ public class PubRoadActivity extends AppCompatActivity {
         if (requestCode == 4 && data != null) {
             defaultSelect = data.getParcelableArrayListExtra(PickerConfig.EXTRA_RESULT);
             if (defaultSelect.size() > 0) {
-                String path=defaultSelect.get(0).path;
+                String path = defaultSelect.get(0).path;
                 Bitmap bitmap = VideoUtil.voidToFirstBitmap(path);
-                String thumb=VideoUtil.bitmapToStringPath(this,bitmap);
-                upThumbImage(PlatformContans.Commom.uploadImg,new File(thumb));
+                String thumb = VideoUtil.bitmapToStringPath(this, bitmap);
+                upThumbImage(PlatformContans.Commom.uploadImg, new File(thumb));
                 File filevideo = new File(path);
                 upLoadVideo(PlatformContans.Commom.uploadVideo, filevideo);
             }

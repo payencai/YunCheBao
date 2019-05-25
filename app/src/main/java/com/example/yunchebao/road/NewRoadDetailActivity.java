@@ -250,7 +250,11 @@ public class NewRoadDetailActivity extends AppCompatActivity {
         initBanner(images);
         isCollect();
         initTab();
-        tv_time.setText("营业时间："+mFourShopData.getAmStart()+"-"+mFourShopData.getPmStop());
+        if(!TextUtils.isEmpty(mFourShopData.getAmStart()))
+           tv_time.setText("营业时间："+mFourShopData.getAmStart()+"-"+mFourShopData.getPmStop());
+        else{
+
+        }
         tv_dis.setText(mFourShopData.getDistance() + "km");
         tv_score.setText("" + mFourShopData.getScore());
         tv_grade.setText("" + mFourShopData.getGrade());

@@ -47,7 +47,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
             </com.tool.MyListView>
-            <com.tool.view.ListViewForScrollView
+            <com.tool.MyListView
                 android:background="@color/white"
                 android:id="@+id/lv_right"
                 android:dividerHeight="1dp"
@@ -56,7 +56,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
 
-            </com.tool.view.ListViewForScrollView>
+            </com.tool.MyListView>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

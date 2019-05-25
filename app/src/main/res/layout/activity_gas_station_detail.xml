@@ -192,6 +192,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:layout_gravity="center_vertical"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
@@ -199,7 +200,7 @@
                         android:padding="10dp">
                         <LinearLayout
                             android:gravity="center_vertical"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <ImageView
                                 android:src="@mipmap/location_gray_icon"
@@ -208,13 +209,14 @@
                             <TextView
                                 android:layout_marginLeft="5dp"
                                 android:id="@+id/tv_address"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="永平路136号"
                                 android:textColor="@color/gray_99"
                                 android:textSize="12sp" />
                         </LinearLayout>
                         <LinearLayout
+                            android:visibility="gone"
                             android:layout_marginTop="10dp"
                             android:gravity="center_vertical"
                             android:layout_width="wrap_content"

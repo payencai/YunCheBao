@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.application.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nanchen.wavesidebar.Trans2PinYinUtil;
@@ -56,6 +57,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initData();
         getContacts();
 

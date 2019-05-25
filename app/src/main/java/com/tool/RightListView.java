@@ -1,30 +1,27 @@
 package com.tool;
 
 import android.content.Context;
-import android.os.Build;
 import android.support.v4.view.NestedScrollingChild;
 import android.support.v4.view.NestedScrollingChildHelper;
 import android.util.AttributeSet;
 import android.widget.ListView;
-
-import com.tool.view.ListViewForScrollView;
 
 /**
  * 作者：凌涛 on 2019/4/18 17:17
  * 邮箱：771548229@qq..com
  */
 
-public class MyListView extends ListView implements NestedScrollingChild {
+public class RightListView extends ListView implements NestedScrollingChild {
 
     private final NestedScrollingChildHelper mScrollingChildHelper;
 
-    public MyListView(Context context) {
+    public RightListView(Context context) {
         super(context);
         mScrollingChildHelper = new NestedScrollingChildHelper(this);
         setNestedScrollingEnabled(true);
     }
 
-    public MyListView(Context context, AttributeSet attrs) {
+    public RightListView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mScrollingChildHelper = new NestedScrollingChildHelper(this);
         setNestedScrollingEnabled(true);

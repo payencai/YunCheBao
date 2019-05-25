@@ -39,7 +39,7 @@ public class GasStationAdapter extends BaseQuickAdapter<GasStation, BaseViewHold
         tv_addr.setText(item.getAddress());
         tv_dis.setText(MathUtil.getDoubleTwo(item.getDistance())+"km");
         sb_score.setRating((float) item.getScore());
-        tv_num.setText("评价"+item.getScore()+"|"+"订单"+item.getNumber());
+        tv_num.setText("评价"+item.getNumber()+"|"+"订单"+item.getOrderNum());
         Glide.with(helper.itemView.getContext()).load(item.getLogo()).into(iv_logo);
     }
 }

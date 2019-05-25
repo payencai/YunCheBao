@@ -515,7 +515,12 @@ public class GoodDetailFragment extends BaseFragment {
         if (MyApplication.isLogin) {
             token = MyApplication.token;
         } else {
-            tv_address.setText(MyApplication.getaMapLocation().getProvince() + MyApplication.getaMapLocation().getCity() + MyApplication.getaMapLocation().getDistrict());
+            if(MyApplication.getaMapLocation()!=null){
+                tv_address.setText(MyApplication.getaMapLocation().getProvince() + MyApplication.getaMapLocation().getCity() + MyApplication.getaMapLocation().getDistrict());
+            }else{
+                tv_address.setText("北京市朝阳区");
+            }
+
         }
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
@@ -608,7 +613,11 @@ public class GoodDetailFragment extends BaseFragment {
                 if (dialog != null && dialog.isShowing()) {
                     dialog.dismiss();
                 }
-                startActivityForResult(new Intent(getActivity(), AddressAddActivity.class), 1);
+                if(MyApplication.isLogin)
+                    startActivityForResult(new Intent(getActivity(), AddressAddActivity.class), 1);
+                else{
+                    startActivity(new Intent(getContext(),RegisterActivity.class));
+                }
             }
         });
         getAddress(0);

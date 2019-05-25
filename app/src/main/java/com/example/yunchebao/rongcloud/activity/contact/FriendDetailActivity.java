@@ -29,6 +29,7 @@ import com.costans.PlatformContans;
 import com.entity.UserMsg;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.newversion.MyTagsActivity;
@@ -93,6 +94,7 @@ public class FriendDetailActivity extends AppCompatActivity {
         id=getIntent().getStringExtra("id");
         setContentView(R.layout.activity_friend_detail);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
 

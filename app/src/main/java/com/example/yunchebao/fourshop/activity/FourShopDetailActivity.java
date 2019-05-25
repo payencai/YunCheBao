@@ -172,28 +172,28 @@ public class FourShopDetailActivity extends AppCompatActivity {
                 Glide.with(FourShopDetailActivity.this).load((String) path).into(imageView);
             }
         });
-        banner.setOnBannerListener(new OnBannerListener() {
-            @Override
-            public void OnBannerClick(int position) {
-                if (videoCount > position) {
-                    Intent intent = new Intent(FourShopDetailActivity.this, SimplePlayerActivity.class);
-                    intent.putExtra("img", images.get(position));
-                    intent.putExtra("video", videos.get(position));
-                    startActivity(intent);
-                } else {
-                    //Log.e("url", mBanners.get(position).getPicture() + "-" + mBanners.get(position).getSkipUrl());
-                    Intent intent = new Intent(FourShopDetailActivity.this, WebviewActivity.class);
-                    String url = "";
-                    if (!url.contains("http") && !url.contains("https")) {
-                        url = "http://" + url;
-                    }
-                    intent.putExtra("url", url);
-                    startActivity(intent);
-                }
-
-
-            }
-        });
+//        banner.setOnBannerListener(new OnBannerListener() {
+//            @Override
+//            public void OnBannerClick(int position) {
+//                if (videoCount > position) {
+//                    Intent intent = new Intent(FourShopDetailActivity.this, SimplePlayerActivity.class);
+//                    intent.putExtra("img", images.get(position));
+//                    intent.putExtra("video", videos.get(position));
+//                    startActivity(intent);
+//                } else {
+//                    //Log.e("url", mBanners.get(position).getPicture() + "-" + mBanners.get(position).getSkipUrl());
+//                    Intent intent = new Intent(FourShopDetailActivity.this, WebviewActivity.class);
+//                    String url = "";
+//                    if (!url.contains("http") && !url.contains("https")) {
+//                        url = "http://" + url;
+//                    }
+//                    intent.putExtra("url", url);
+//                    startActivity(intent);
+//                }
+//
+//
+//            }
+//        });
         banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

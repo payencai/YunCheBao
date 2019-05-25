@@ -34,6 +34,7 @@ import butterknife.ButterKnife;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.model.GroupUserInfo;
 import io.rong.imkit.userInfoCache.RongUserInfoManager;
+import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.MessageContent;
@@ -59,6 +60,7 @@ public class ConversationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
         ButterKnife.bind(this);
+
         initView();
     }
 
@@ -109,11 +111,11 @@ public class ConversationActivity extends AppCompatActivity {
             getUserDetail(targetId);
         } else {
             getGroupDetail(targetId);
-            setSendMessageListener(targetId);
+
         }
 
     }
-    private void setSendMessageListener(String groupId) {
+    private void setSendMessageListener(String groupId,String groupName,String avatar) {
         RongIM.getInstance().setSendMessageListener(new RongIM.OnSendMessageListener() {
             @Override
             public Message onSend(Message message) {
@@ -129,6 +131,9 @@ public class ConversationActivity extends AppCompatActivity {
                                 if (null != groupUserInfo.getNickname()) {
                                     if (!groupUserInfo.getNickname().equals(MyApplication.getUserInfo().getName())) {
                                         Map<String, String> params = new HashMap<>();
+                                        params.put("groupName", groupName);
+                                        params.put("groupUserId", groupId);
+                                        params.put("groupAvatar", avatar);
                                         params.put("nickName", groupUserInfo.getNickname());
                                         params.put("userId", groupUserInfo.getUserId());
                                         params.put("avatar", MyApplication.getUserInfo().getHeadPortrait());
@@ -193,7 +198,7 @@ public class ConversationActivity extends AppCompatActivity {
                     JSONObject Json = new JSONObject(result);
                     JSONObject data = Json.getJSONObject("data");
                     mGroupUser = new Gson().fromJson(data.toString(), GroupDetail.class);
-
+                    setSendMessageListener(targetId,mGroupUser.getCrowdName(),mGroupUser.getImage());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

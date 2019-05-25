@@ -1,12 +1,14 @@
 package com.example.yunchebao.yuedan.adapter;
 
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.coorchice.library.SuperTextView;
 import com.example.yunchebao.R;
 import com.example.yunchebao.yuedan.model.YueOrder;
 
@@ -27,9 +29,13 @@ public class YuedanAdapter extends BaseQuickAdapter<YueOrder,BaseViewHolder> {
         helper.addOnClickListener(R.id.delete);
         ImageView iv_logo=helper.getView(R.id.iv_logo);
         TextView tv_name=helper.getView(R.id.tv_name);
+        SuperTextView fukuan=helper.getView(R.id.fukuan);
         TextView tv_time=helper.getView(R.id.tv_time);
         tv_name.setText(item.getShopName());
         tv_time.setText("发布时间: "+item.getAppointmentTime());
+        if(item.getState()==2){
+            fukuan.setVisibility(View.GONE);
+        }
         Glide.with(helper.itemView.getContext()).load(item.getShopImg()).into(iv_logo);
     }
 }

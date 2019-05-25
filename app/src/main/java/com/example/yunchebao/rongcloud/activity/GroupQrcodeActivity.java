@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.yunchebao.R;
+import com.gyf.immersionbar.ImmersionBar;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import butterknife.BindView;
@@ -22,6 +23,7 @@ public class GroupQrcodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_group_qrcode);
         ButterKnife.bind(this);
         id=getIntent().getStringExtra("id");
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
 

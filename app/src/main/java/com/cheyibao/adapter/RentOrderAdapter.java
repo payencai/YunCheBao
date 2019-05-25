@@ -32,7 +32,7 @@ public class RentOrderAdapter extends BaseQuickAdapter<RentOrder, BaseViewHolder
         TextView tv_total = helper.getView(R.id.tv_total);
         TextView tv_date = helper.getView(R.id.tv_date);
         TextView tv_job = helper.getView(R.id.tv_job);
-        tv_name.setText(item.getName());
+        tv_name.setText(item.getBrand()+item.getCarTategory());
         tv_total.setText("价格：" + item.getTotal());
         tv_date.setText(item.getCreateTime().substring(0, 10));
         Glide.with(helper.itemView.getContext()).load(item.getImage()).into(iv_logo);

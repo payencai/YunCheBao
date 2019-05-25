@@ -145,7 +145,8 @@ public class CoachDetailActivity extends AppCompatActivity {
 
     private void setData() {
         tv_nick.setText(mCoachDetail.getCoachName());
-        tv_address.setText(mCoachDetail.getNativePlace() + " " + mCoachDetail.getTelephone());
+        String address=mCoachDetail.getNativePlace() + " " + mCoachDetail.getTelephone();
+        tv_address.setText(address.replace("null",""));
         String images = mCoachDetail.getImgs();
         if (!TextUtils.isEmpty(images)) {
             if (images.contains(",")) {

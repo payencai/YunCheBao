@@ -29,6 +29,7 @@ import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
@@ -104,6 +105,7 @@ public class GroupDetailActivity extends AppCompatActivity {
         Log.e("hxCrowdId",hxCrowdId);
         setContentView(R.layout.activity_group_detail);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
         getDetail();
 

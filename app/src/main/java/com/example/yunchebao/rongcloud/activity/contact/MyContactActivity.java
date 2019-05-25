@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.example.yunchebao.R;
 import com.example.yunchebao.rongcloud.adapter.MyViewPagerAdapter;
+import com.gyf.immersionbar.ImmersionBar;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ public class MyContactActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_contact);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initData();
     }
     private void initData(){

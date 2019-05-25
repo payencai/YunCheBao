@@ -193,15 +193,15 @@ public class BookWashCarFragment extends BaseFragment implements OnDateSetListen
 
     private void setUI() {
 
-        tv_item1.setText((int)mWashCarType.getEarnestMoneyOne()+"元");
-        tv_item2.setText((int)mWashCarType.getEarnestMoneyTwo()+"元");
-        tv_item3.setText((int)mWashCarType.getEarnestMoneyThree()+"元");
-        tv_item4.setText((int)mWashCarType.getEarnestMoneyFour()+"元");
-        tv_item5.setText((int)mWashCarType.getEarnestMoneyFive()+"元");
+        tv_item1.setText(mWashCarType.getEarnestMoneyOne()+"元");
+        tv_item2.setText(mWashCarType.getEarnestMoneyTwo()+"元");
+        tv_item3.setText(mWashCarType.getEarnestMoneyThree()+"元");
+        tv_item4.setText(mWashCarType.getEarnestMoneyFour()+"元");
+        tv_item5.setText(mWashCarType.getEarnestMoneyFive()+"元");
         washtype.setText(mWashCarType.getName());
         tv_price.setText(mWashCarType.getPrice()+"");
 
-        honmoney=mWashCarType.getEarnestMoneyOne();
+        honmoney=0;
     }
 
     private void getData() {

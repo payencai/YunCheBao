@@ -56,8 +56,53 @@ public class RentOrderDetail {
      * userId : string
      * variableBox : string
      */
-
+    private String shopAddress;
+    private String shopProvince;
+    private String shopCity;
+    private String shopArea;
     private String address;
+
+    public String getShopAddress() {
+        return shopAddress;
+    }
+
+    public void setShopAddress(String shopAddress) {
+        this.shopAddress = shopAddress;
+    }
+
+    public String getShopProvince() {
+        return shopProvince;
+    }
+
+    public void setShopProvince(String shopProvince) {
+        this.shopProvince = shopProvince;
+    }
+
+    public String getShopCity() {
+        return shopCity;
+    }
+
+    public void setShopCity(String shopCity) {
+        this.shopCity = shopCity;
+    }
+
+    public String getShopArea() {
+        return shopArea;
+    }
+
+    public void setShopArea(String shopArea) {
+        this.shopArea = shopArea;
+    }
+
+    public String getShopSaleTelephone() {
+        return shopSaleTelephone;
+    }
+
+    public void setShopSaleTelephone(String shopSaleTelephone) {
+        this.shopSaleTelephone = shopSaleTelephone;
+    }
+
+    private String shopSaleTelephone;
     private String agencyId;
     private String answer;
     private String area;

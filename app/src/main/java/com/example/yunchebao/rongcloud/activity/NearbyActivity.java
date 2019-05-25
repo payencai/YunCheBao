@@ -65,6 +65,7 @@ public class NearbyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nearby);
         ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         ButterKnife.bind(this);
+
         initView();
     }
 

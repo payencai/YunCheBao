@@ -41,7 +41,34 @@ public class Road implements Serializable{
     private String saleTelephone;
     private String serve;
     private String shopName;
+    private int number;
+    private int orderNum;
 
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public int getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(int orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    public float getScore() {
+        return score;
+    }
+
+    public void setScore(float score) {
+        this.score = score;
+    }
+
+    private float score;
     public String getAddress() {
         return address;
     }

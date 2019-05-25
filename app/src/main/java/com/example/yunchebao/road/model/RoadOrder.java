@@ -8,6 +8,14 @@ import java.io.Serializable;
  */
 public class RoadOrder implements Serializable {
 
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
     /**
      * address : string
      * addressDetail : string
@@ -38,13 +46,22 @@ public class RoadOrder implements Serializable {
      * video : string
      * vimg : string
      */
-
+    private String shopName;
     private String address;
     private String addressDetail;
     private String agencyId;
     private String area;
     private String carCategory;
     private String city;
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
     private String color;
     private String createTime;
     private String detail;
@@ -55,6 +72,7 @@ public class RoadOrder implements Serializable {
     private String latitude;
     private String longitude;
     private String name;
+    private String logo;
     private int payMethod;
     private String payTime;
     private double price;

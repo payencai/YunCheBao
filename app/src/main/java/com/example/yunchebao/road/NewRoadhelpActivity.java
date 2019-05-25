@@ -297,7 +297,7 @@ public class NewRoadhelpActivity extends AppCompatActivity implements DropdownLi
 
     private void initAdapter() {
         mShopDataList = new ArrayList<>();
-        mAdapter = new RoadAdapter(R.layout.item_road, mShopDataList);
+        mAdapter = new RoadAdapter(R.layout.item_search_wash, mShopDataList);
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
