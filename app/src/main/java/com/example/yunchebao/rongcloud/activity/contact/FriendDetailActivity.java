@@ -32,6 +32,7 @@ import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.luffy.imagepreviewlib.core.PictureConfig;
 import com.newversion.MyTagsActivity;
 import com.payencai.library.util.ToastUtil;
 import com.zyyoona7.popup.EasyPopup;
@@ -41,6 +42,7 @@ import com.zyyoona7.popup.YGravity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -222,7 +224,22 @@ public class FriendDetailActivity extends AppCompatActivity {
         });
     }
     private void initView() {
-
+        head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<String> images=new ArrayList<>();
+                images.add(mUserMsg.getHeadPortrait());
+                PictureConfig config = new PictureConfig.Builder()
+                        .setListData(images)  //图片数据List<String> list
+                        .setPosition(0)                         //图片下标（从第position张图片开始浏览）
+                        .setDownloadPath("head")        //图片下载文件夹地址
+                        .setIsShowNumber(true)                  //是否显示数字下标
+                        .needDownload(true)                     //是否支持图片下载
+                        .setPlaceHolder(R.mipmap.ic_launcher)   //占位符
+                        .build();
+                config.gotoActivity(FriendDetailActivity.this, config);
+            }
+        });
         sendmsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

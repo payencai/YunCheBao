@@ -25,10 +25,12 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.http.processor.OkHttpProcessor;
 
+
 import com.nohttp.Logger;
 import com.nohttp.NoHttp;
 import com.example.yunchebao.rongcloud.adapter.ListDataSave;
 import com.example.yunchebao.rongcloud.sidebar.ContactModel;
+
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -351,6 +353,7 @@ public class MyApplication extends Application {
         //初始化Fresco
         initFresco();
         //初始化EaseUI
+        // 初始化代码需要在Application中完成。
 
         HttpProxy.init(new OkHttpProcessor());
         ZXingLibrary.initDisplayOpinion(this);

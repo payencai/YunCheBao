@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.application.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.yuedan.SelectCarTypeActivity;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.mediapicker.PickerActivity;
@@ -444,7 +445,7 @@ public class BookRoadFragment extends Fragment {
         rl_cartype.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getContext(), CarBrandSelectActivity.class), 1);
+                startActivityForResult(new Intent(getContext(), SelectCarTypeActivity.class), 1);
             }
         });
         addressLay.setOnClickListener(new View.OnClickListener() {

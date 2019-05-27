@@ -11,10 +11,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.application.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.rongcloud.model.ApplyGroup;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
@@ -39,6 +41,8 @@ public class GroupListFragment extends Fragment {
     RelativeLayout groupApply;
     @BindView(R.id.lv_group)
     ListView lv_group;
+    @BindView(R.id.tv_unhandle)
+    TextView tv_unhandle;
     GroupAdapter mGroupAdapter;
     List<Group> mGroups=new ArrayList<>();
     public GroupListFragment() {
@@ -117,5 +121,48 @@ public class GroupListFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         mGroups.clear();
         getData();
+    }
+    int count=0;
+    private void getGroupApplyCount() {
+
+        HttpProxy.obtain().get(PlatformContans.Chat.getCrowdApplyList, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+
+                Log.e("groupapply", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        ApplyGroup applyFriend = new Gson().fromJson(item.toString(), ApplyGroup.class);
+                        if(applyFriend.getState()==0){
+                            count++;
+                        }
+                    }
+                    if(count>0){
+                        tv_unhandle.setText(count+"");
+                        tv_unhandle.setVisibility(View.VISIBLE);
+                    }else{
+                        tv_unhandle.setVisibility(View.GONE);
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        count=0;
+        getGroupApplyCount();
     }
 }

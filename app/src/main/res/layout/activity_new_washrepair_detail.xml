@@ -212,6 +212,7 @@
                                 android:layout_height="10dp" />
                             <TextView
                                 android:ellipsize="end"
+                                android:singleLine="true"
                                 android:maxLines="1"
                                 android:layout_marginLeft="5dp"
                                 android:id="@+id/tv_address"

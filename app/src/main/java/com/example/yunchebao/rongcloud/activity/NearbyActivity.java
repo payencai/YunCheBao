@@ -2,6 +2,7 @@ package com.example.yunchebao.rongcloud.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,6 +46,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import go.error;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 
 public class NearbyActivity extends AppCompatActivity {
     int page = 1;
@@ -161,9 +164,11 @@ public class NearbyActivity extends AppCompatActivity {
                     List<Nearby> replaceDrives = new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
-                        Nearby replaceDrive = new Gson().fromJson(item.toString(), Nearby.class);
-                        mNearbies.add(replaceDrive);
-                        replaceDrives.add(replaceDrive);
+                        Nearby nearby = new Gson().fromJson(item.toString(), Nearby.class);
+                        UserInfo userInfo = new UserInfo(nearby.getId(), nearby.getName(), Uri.parse(nearby.getHeadPortrait()));
+                        RongIM.getInstance().refreshUserInfoCache(userInfo);
+                        mNearbies.add(nearby);
+                        replaceDrives.add(nearby);
                     }
                     if (isLoadMore) {
                         isLoadMore = false;

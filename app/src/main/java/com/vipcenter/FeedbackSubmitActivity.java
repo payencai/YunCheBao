@@ -169,10 +169,7 @@ public class FeedbackSubmitActivity extends NoHttpBaseActivity {
                     ToastUtil.showToast(this,"请输入内容");
                     return;
                 }
-                if(TextUtils.isEmpty(image)){
-                    ToastUtil.showToast(this,"请上传照片");
-                    return;
-                }
+
                 addComment(tel,content);
                 break;
             case R.id.iv_img:

@@ -1,18 +1,29 @@
 package com.example.yunchebao.fourshop.adapter;
 
+
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
+
 import android.widget.TextView;
+
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.yunchebao.R;
 import com.example.yunchebao.fourshop.bean.FourShopComment;
+
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+
+import com.luffy.imagepreviewlib.core.PictureConfig;
 import com.payencai.library.view.CircleImageView;
 import com.vipcenter.adapter.PhotoAdapter;
+
+
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +34,36 @@ import java.util.List;
  */
 public class FourShopCommentAdapter extends BaseQuickAdapter<FourShopComment, BaseViewHolder> {
     PhotoAdapter mPhotoAdapter;
-    List<String> images;
-
+    ArrayList<String> images;
+    public   OnImageClick onImageClick;
     public FourShopCommentAdapter(int layoutResId, @Nullable List<FourShopComment> data) {
         super(layoutResId, data);
     }
-
+    public interface  OnImageClick{
+        void onClick(int pos,ArrayList<String> images);
+    }
+    public void setOnImageClick(OnImageClick onImageClick){
+        this.onImageClick=onImageClick;
+    }
     @Override
     protected void convert(BaseViewHolder helper, FourShopComment item) {
         GridView gv_photo = (GridView) helper.getView(R.id.gv_photo);
+        gv_photo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PictureConfig config = new PictureConfig.Builder()
+                        .setListData(images)  //图片数据List<String> list
+                        .setPosition(position)                         //图片下标（从第position张图片开始浏览）
+                        .setDownloadPath("imagepreview")        //图片下载文件夹地址
+                        .setIsShowNumber(true)                  //是否显示数字下标
+                        .needDownload(true)                     //是否支持图片下载
+                        .setPlaceHolder(R.mipmap.ic_launcher)   //占位符
+                        .build();
+                config.gotoActivity(mContext, config);
+
+            }
+
+        });
         TextView iv_content = (TextView) helper.getView(R.id.iv_content);
         CircleImageView userhead = (CircleImageView) helper.getView(R.id.userhead);
         TextView tv_name = (TextView) helper.getView(R.id.tv_name);

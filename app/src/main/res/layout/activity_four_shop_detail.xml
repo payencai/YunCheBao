@@ -207,11 +207,13 @@
                                 android:layout_width="10dp"
                                 android:layout_height="10dp" />
                             <TextView
+                                android:ellipsize="end"
+                                android:singleLine="true"
                                 android:layout_marginLeft="5dp"
                                 android:id="@+id/tv_address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="永平路136号"
+                                android:text="永平路136号永平路136号永平路136号永平路136号"
                                 android:textColor="@color/gray_99"
                                 android:textSize="12sp" />
                         </LinearLayout>

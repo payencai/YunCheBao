@@ -274,6 +274,7 @@ public class PlatformContans {
         public static final String getRentCarCarListForHighCar=root+ "/rentCar/getRentCarCarListForHighCar";   //高端自驾分页获取短租车辆列表
         public static final String getRentCarCarListForApp=root+ "/rentCar/getRentCarCarListForApp";   //app分页获取短租车辆列表
     }
+
     public static class OldCar{
         public static final String delOldCarMerchantCar=root+ "/oldcar/delOldCarMerchantCar";
         public static final String addOldCarUserCar=root+ "/oldcar/addOldCarUserCar";
@@ -344,6 +345,7 @@ public class PlatformContans {
         public static final String getNewCarMerchantMessageById=root+"/newcar/getNewCarMerchantMessageById";
     }
     public static  class CarCategory{
+        public static final String getDetail=root+"/carcategory/getCarCategoryDetailByCarCategoryId";
         public static final String getFirstCategory=root+ "/carcategory/getFirstCategory";
         public static final String getSubclass=root+ "/carcategory/getSubclass";
         public static final String getNewOldIndex=root+ "/carcategory/getNewOldIndex";

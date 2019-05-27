@@ -127,6 +127,22 @@
                     android:text="新加好友"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/tv_newCount"
+                        android:textSize="10sp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/shape_unread"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp" />
+                </RelativeLayout>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/ll_item3"

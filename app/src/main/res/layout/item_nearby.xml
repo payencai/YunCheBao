@@ -8,6 +8,7 @@
     <com.payencai.library.view.CircleImageView
         android:layout_width="35dp"
         android:id="@+id/iv_head"
+        android:scaleType="fitXY"
         android:src="@mipmap/notlogin_head"
         android:layout_height="35dp" />
     <LinearLayout

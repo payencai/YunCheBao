@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.application.MyApplication;
+import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.friendcircle.NewFriendCircleActivity;
+import com.example.yunchebao.rongcloud.model.ApplyFriend;
+import com.google.gson.Gson;
+import com.http.HttpProxy;
+import com.http.ICallBack;
 import com.newversion.MyTagsActivity;
 import com.newversion.NewCarFriendActivity;
 import com.newversion.NewContactsActivity;
@@ -31,6 +37,10 @@ import com.zyyoona7.popup.EasyPopup;
 import com.zyyoona7.popup.XGravity;
 import com.zyyoona7.popup.YGravity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.rong.imkit.RongIM;
@@ -44,6 +54,9 @@ public class AnotherBabyFragment extends Fragment {
 
     @BindView(R.id.tv_unread)
     TextView tv_unread;
+    @BindView(R.id.tv_newCount)
+    TextView tv_newCount;
+    int count=0;
     public AnotherBabyFragment() {
         // Required empty public constructor
     }
@@ -168,27 +181,50 @@ public class AnotherBabyFragment extends Fragment {
                 initWindow(v);
             }
         });
-        RongIM.getInstance().addUnReadMessageCountChangedObserver(new IUnReadMessageObserver() {
-            @Override
-            public void onCountChanged(int i) {
 
-                tv_unread.setText(i+"");
-                if(i>0)
-                    tv_unread.setVisibility(View.VISIBLE);
-                else{
-                    tv_unread.setVisibility(View.GONE);
-                }
-            }
-        }, Conversation.ConversationType.PRIVATE);
         return view;
     }
+    private void getNewApplyCount() {
 
+            HttpProxy.obtain().get(PlatformContans.Chat.getFriendApplyList, MyApplication.token, new ICallBack() {
+                @Override
+                public void OnSuccess(String result) {
+                    Log.e("apply", result);
+                    try {
+                        JSONObject jsonObject = new JSONObject(result);
+                        JSONArray data = jsonObject.getJSONArray("data");
+                        for (int i = 0; i < data.length(); i++) {
+                            JSONObject item = data.getJSONObject(i);
+                            ApplyFriend applyFriend = new Gson().fromJson(item.toString(), ApplyFriend.class);
+                            if(applyFriend.getState()==0){
+                                count++;
+                            }
+                        }
+                        if(count>0){
+                            tv_newCount.setText(count+"");
+                            tv_newCount.setVisibility(View.VISIBLE);
+                        }else{
+                            tv_newCount.setVisibility(View.GONE);
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(String error) {
+                }
+            });
+    }
     @Override
     public void onResume() {
         super.onResume();
+        count=0;
         RongIM.getInstance().addUnReadMessageCountChangedObserver(new IUnReadMessageObserver() {
             @Override
             public void onCountChanged(int i) {
+
                 tv_unread.setText(i+"");
                 if(i>0)
                     tv_unread.setVisibility(View.VISIBLE);
@@ -196,7 +232,8 @@ public class AnotherBabyFragment extends Fragment {
                     tv_unread.setVisibility(View.GONE);
                 }
             }
-        }, Conversation.ConversationType.PRIVATE);
+        },  Conversation.ConversationType.PRIVATE, Conversation.ConversationType.GROUP);
+        getNewApplyCount();
 
     }
 

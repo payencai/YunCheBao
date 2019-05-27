@@ -23,6 +23,7 @@ import com.application.MyApplication;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.yuedan.SelectCarTypeActivity;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
@@ -157,6 +158,14 @@ public class BookWashCarFragment extends BaseFragment implements OnDateSetListen
     }
     private boolean checkInput(){
         boolean isOk=true;
+        if(TextUtils.isEmpty(carCategory)){
+            isOk=false;
+            ToastUtil.showToast(getContext(),"请选择车型");
+        }
+        if(mAddressBean==null){
+            isOk=false;
+            ToastUtil.showToast(getContext(),"车辆位置不能为空");
+        }
         if(TextUtils.equals("请选择时间",tv_time.getText().toString())){
             isOk=false;
             ToastUtil.showToast(getContext(),"请选择时间");
@@ -165,10 +174,7 @@ public class BookWashCarFragment extends BaseFragment implements OnDateSetListen
             isOk=false;
             ToastUtil.showToast(getContext(),"详情不能为空");
         }
-        if(TextUtils.isEmpty(carCategory)){
-            isOk=false;
-            ToastUtil.showToast(getContext(),"请选择车型");
-        }
+
         if(TextUtils.isEmpty(et_phone.getEditableText().toString())){
             isOk=false;
             ToastUtil.showToast(getContext(),"手机号不能为空");
@@ -177,10 +183,7 @@ public class BookWashCarFragment extends BaseFragment implements OnDateSetListen
             isOk=false;
             ToastUtil.showToast(getContext(),"范围不能为空");
         }
-        if(mAddressBean==null){
-            isOk=false;
-            ToastUtil.showToast(getContext(),"车辆位置不能为空");
-        }
+
         return isOk;
     }
     public static BookWashCarFragment newInstance(int type) {
@@ -305,6 +308,7 @@ public class BookWashCarFragment extends BaseFragment implements OnDateSetListen
                     String msg=jsonObject.getString("message");
                     if(code==0){
                         ToastUtil.showToast(getContext(),"发布成功！");
+                        getActivity().finish();
                     }else{
                         ToastUtil.showToast(getContext(),msg);
                     }
@@ -456,7 +460,7 @@ public class BookWashCarFragment extends BaseFragment implements OnDateSetListen
         rl_cartype.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getContext(), CarBrandSelectActivity.class),3);
+                startActivityForResult(new Intent(getContext(), SelectCarTypeActivity.class),3);
             }
         });
         rl_time.setOnClickListener(new View.OnClickListener() {

@@ -71,7 +71,8 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".yuedan.SelectCarTypeActivity"></activity>
+        <activity android:name=".rongcloud.activity.SeePictureActivity"></activity>
+        <activity android:name=".yuedan.SelectCarTypeActivity" />
         <activity android:name="com.vipcenter.FindPwdActivity" />
         <activity android:name=".drive.activity.DriverDetailActivity" />
         <activity android:name=".driverschool.CoachDetailActivity" />
@@ -508,7 +509,9 @@
         <activity android:name="com.xihubao.ShopInfoActivity" />
         <activity android:name="com.maket.RentestGoodsActivity" />
         <activity android:name="com.xihubao.RoadActivity" />
-        <activity android:name="com.system.SearchActivity" />
+        <activity
+            android:name="com.system.SearchActivity"
+            android:windowSoftInputMode="stateAlwaysVisible" />
         <activity
             android:name="com.system.SearchFinishActivity"
             android:windowSoftInputMode="stateHidden" />

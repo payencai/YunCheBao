@@ -21,6 +21,7 @@ import com.application.MyApplication;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.yuedan.SelectCarTypeActivity;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
@@ -135,7 +136,7 @@ public class BookOldCarFragment extends BaseFragment {
         ll_cartype.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getContext(), CarBrandSelectActivity.class),1);
+                startActivityForResult(new Intent(getContext(), SelectCarTypeActivity.class),1);
             }
         });
         rl_num.setOnClickListener(new View.OnClickListener() {

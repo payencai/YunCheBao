@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
@@ -19,6 +20,9 @@ import com.example.yunchebao.fourshop.bean.FourShopComment;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+
+
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +35,8 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+//import cc.shinichi.library.ImagePreview;
+//import cc.shinichi.library.bean.ImageInfo;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,10 +47,11 @@ public class FourShopCommentFragment extends Fragment {
     RecyclerView rv_order;
     FourShopCommentAdapter mFourShopCommentAdapter;
     List<FourShopComment> mFourShopComments;
-    int page=1;
-    boolean isLoadMore=false;
+    int page = 1;
+    boolean isLoadMore = false;
     String id;
     FourShopDetailActivity mActivity;
+
     public FourShopCommentFragment() {
         // Required empty public constructor
     }
@@ -54,32 +61,33 @@ public class FourShopCommentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_four_shop_comment, container, false);
-        ButterKnife.bind(this,view);
-        mActivity= (FourShopDetailActivity) getActivity();
-        id=mActivity.getId();
+        View view = inflater.inflate(R.layout.fragment_four_shop_comment, container, false);
+        ButterKnife.bind(this, view);
+        mActivity = (FourShopDetailActivity) getActivity();
+        id = mActivity.getId();
         initView();
         return view;
     }
 
     private void initView() {
-        mFourShopComments=new ArrayList<>();
+        mFourShopComments = new ArrayList<>();
 
-        mFourShopCommentAdapter=new FourShopCommentAdapter(R.layout.item_shop_comment,mFourShopComments);
+        mFourShopCommentAdapter = new FourShopCommentAdapter(R.layout.item_shop_comment, mFourShopComments);
         mFourShopCommentAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
                 page++;
-                isLoadMore=true;
+                isLoadMore = true;
                 getData();
             }
-        },rv_order);
+        }, rv_order);
+
         rv_order.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_order.setAdapter(mFourShopCommentAdapter);
         getData();
     }
 
-    private void getData(){
+    private void getData() {
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
         params.put("shopId", id);
@@ -90,7 +98,7 @@ public class FourShopCommentFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray data = jsonObject.getJSONArray("data");
-                    List<FourShopComment> replaceDrives=new ArrayList<>();
+                    List<FourShopComment> replaceDrives = new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
                         FourShopComment replaceDrive = new Gson().fromJson(item.toString(), FourShopComment.class);

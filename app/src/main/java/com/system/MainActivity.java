@@ -269,7 +269,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                     tv_unread.setVisibility(View.GONE);
                 }
             }
-        }, Conversation.ConversationType.PRIVATE);
+        },  Conversation.ConversationType.PRIVATE, Conversation.ConversationType.GROUP);
     }
 
     private void initListener() {

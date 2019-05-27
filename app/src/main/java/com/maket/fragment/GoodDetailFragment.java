@@ -545,9 +545,18 @@ public class GoodDetailFragment extends BaseFragment {
                         } else {
                             for (int i = 0; i < data.length(); i++) {
                                 JSONObject item = data.getJSONObject(i);
-                                mPersonAddress = new Gson().fromJson(item.toString(), PersonAddress.class);
+                                if(i==0)
+                                   mPersonAddress = new Gson().fromJson(item.toString(), PersonAddress.class);
                             }
-                            tv_address.setText(mPersonAddress.getProvince() + mPersonAddress.getCity() + mPersonAddress.getDistrict() + mPersonAddress.getAddress());
+                            if(data.length()>0)
+                                tv_address.setText(mPersonAddress.getProvince() + mPersonAddress.getCity() + mPersonAddress.getDistrict() + mPersonAddress.getAddress());
+                            else{
+                                if(MyApplication.getaMapLocation()!=null)
+                                   tv_address.setText(MyApplication.getaMapLocation().getProvince()+MyApplication.getaMapLocation().getCity()+MyApplication.getaMapLocation().getDistrict());
+                                else{
+                                    tv_address.setText("北京市朝阳区");
+                                }
+                            }
                         }
                     }
 

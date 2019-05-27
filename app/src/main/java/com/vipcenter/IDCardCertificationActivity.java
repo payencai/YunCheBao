@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -85,14 +86,18 @@ public class IDCardCertificationActivity extends NoHttpBaseActivity {
                     int code = jsonObject.getInt("resultCode");
                     if (code == 0) {
                         jsonObject = jsonObject.getJSONObject("data");
-                        et_name.setText(jsonObject.getString("name"));
-                        String idno=jsonObject.getString("idNo");
-                        et_number.setText(idno.substring(0,2)+"*******"+idno.substring(idno.length()-2,idno.length()));
-                        et_name.setEnabled(false);
-                        et_name.setFocusable(false);
-                        et_number.setEnabled(false);
-                        et_number.setFocusable(false);
-                        ll_add.setVisibility(View.GONE);
+                        if(jsonObject!=null){
+                            et_name.setText(jsonObject.getString("name"));
+                            String idno=jsonObject.getString("idNo");
+                            if(!TextUtils.isEmpty(idno))
+                            et_number.setText(idno.substring(0,2)+"*******"+idno.substring(idno.length()-2,idno.length()));
+                            et_name.setEnabled(false);
+                            et_name.setFocusable(false);
+                            et_number.setEnabled(false);
+                            et_number.setFocusable(false);
+                            ll_add.setVisibility(View.GONE);
+                        }
+
                     } else {
                         ll_add.setVisibility(View.VISIBLE);
                     }
@@ -128,11 +133,30 @@ public class IDCardCertificationActivity extends NoHttpBaseActivity {
         tv_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postMsg();
+                if(checkInput())
+                   postMsg();
             }
         });
     }
-
+   private boolean checkInput(){
+        boolean isOk=true;
+        if(TextUtils.isEmpty(et_name.getEditableText().toString())){
+            isOk=false;
+            ToastUtil.showToast(this,"姓名不能为空");
+            return isOk;
+        }
+       if(TextUtils.isEmpty(et_number.getEditableText().toString())){
+           isOk=false;
+           ToastUtil.showToast(this,"身份证号码不能为空");
+           return isOk;
+       }
+       if(TextUtils.isEmpty(image1)||TextUtils.isEmpty(image2)){
+           isOk=false;
+           ToastUtil.showToast(this,"身份证照片不能为空");
+           return isOk;
+       }
+        return  isOk;
+   }
     /**
      * 裁剪图片
      */

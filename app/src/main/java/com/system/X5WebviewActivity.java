@@ -3,6 +3,7 @@ package com.system;
 import android.content.Intent;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -75,25 +76,33 @@ public class X5WebviewActivity extends AppCompatActivity {
         mX5WebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.contains("http://www.test.com/?loc=")) {
-                    String[] split = url.split("loc=");
-                    String s = split[1];
+
+                if (url.contains("addr")) {
+
                     String strUTF8 = null;
                     try {
-                        strUTF8 = URLDecoder.decode(s, "UTF-8");
+                        strUTF8 = URLDecoder.decode(url, "UTF-8");
+                        Uri uri = Uri.parse(strUTF8);
+                        String latng= uri.getQueryParameter("latng");
+                        String [] latlng=latng.split(",");
+                        String lat=latlng[0];
+                        String lng=latlng[1];
+                        String addr= uri.getQueryParameter("addr");
+                        String name= uri.getQueryParameter("name");
+                        String city= uri.getQueryParameter("city");
+                        addressBean=new AddressBean();
+                        AddressBean.LatlngBean latlngBean=new AddressBean.LatlngBean();
+                        latlngBean.setLat(Double.parseDouble(lat));
+                        latlngBean.setLng(Double.parseDouble(lng));
+                        addressBean.setLatlng(latlngBean);
+                        addressBean.setPoiaddress(addr);
+                        addressBean.setCityname(city);
+                        addressBean.setPoiname(name);
+                        getCity(addressBean.getLatlng().getLat(),addressBean.getLatlng().getLng());
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
                     Log.e("address", strUTF8);
-                    try {
-                         JSONObject jsonObject=new JSONObject(strUTF8);
-                         addressBean=new Gson().fromJson(jsonObject.toString(),AddressBean.class);
-                         getCity(addressBean.getLatlng().getLat(),addressBean.getLatlng().getLng());
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
                     return true;
                 } else {
                     return false;
@@ -118,8 +127,8 @@ public class X5WebviewActivity extends AppCompatActivity {
                 geolocationPermissionsCallback.invoke(s, true, true);
             }
         });
-        mX5WebView.loadUrl("http://120.79.176.228:8080/gaote-web/map/index.html");
-        //mX5WebView.loadUrl("https://apis.map.qq.com/tools/locpicker?search=1&type=0&backurl=http://3gimg.qq.com/lightmap/components/locationPicker2/back.html&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77&referer=myapp");
+        //mX5WebView.loadUrl("http://120.79.176.228:8080/gaote-web/map/index.html");
+        mX5WebView.loadUrl("https://apis.map.qq.com/tools/locpicker?search=1&type=0&backurl=http://3gimg.qq.com/lightmap/components/locationPicker2/back.html&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77&referer=myapp");
 
     }
 }

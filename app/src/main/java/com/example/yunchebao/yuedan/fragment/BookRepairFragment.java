@@ -29,6 +29,7 @@ import com.application.MyApplication;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.yuedan.SelectCarTypeActivity;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
@@ -646,7 +647,7 @@ public class BookRepairFragment extends BaseFragment implements OnDateSetListene
         rl_cartype.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getContext(), CarBrandSelectActivity.class), 3);
+                startActivityForResult(new Intent(getContext(), SelectCarTypeActivity.class), 3);
             }
         });
         rl_time.setOnClickListener(new View.OnClickListener() {

@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="57dp">
         <TextView
+            android:id="@+id/tv_apply"
             android:layout_marginLeft="15dp"
             android:textColor="@color/black_33"
             android:layout_centerVertical="true"
@@ -18,13 +19,39 @@
             android:text="申请入群"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <ImageView
-            android:layout_marginRight="15dp"
-            android:src="@mipmap/enter"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_width="10dp"
-            android:layout_height="18dp" />
+        <RelativeLayout
+            android:layout_toRightOf="@id/tv_apply"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_unhandle"
+                    android:textSize="10sp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/shape_unread"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp" />
+                <ImageView
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/enter"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="10dp"
+                    android:layout_height="16dp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
     </RelativeLayout>
      <ListView
          android:divider="@color/white"

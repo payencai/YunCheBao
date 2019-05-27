@@ -22,10 +22,12 @@ import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.entity.UserMsg;
 import com.example.yunchebao.R;
+import com.example.yunchebao.rongcloud.activity.contact.FriendDetailActivity;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.luffy.imagepreviewlib.core.PictureConfig;
 import com.newversion.MyTagsActivity;
 import com.payencai.library.util.ToastUtil;
 import com.payencai.library.view.CircleImageView;
@@ -34,6 +36,7 @@ import com.vipcenter.model.UserInfo;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,7 +79,22 @@ public class StrangerDelActivity extends AppCompatActivity {
     private void initView() {
 
             getDetail(userId);
-
+        head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<String> images=new ArrayList<>();
+                images.add(userMsg.getHeadPortrait());
+                PictureConfig config = new PictureConfig.Builder()
+                        .setListData(images)  //图片数据List<String> list
+                        .setPosition(0)                         //图片下标（从第position张图片开始浏览）
+                        .setDownloadPath("head")        //图片下载文件夹地址
+                        .setIsShowNumber(true)                  //是否显示数字下标
+                        .needDownload(true)                     //是否支持图片下载
+                        .setPlaceHolder(R.mipmap.ic_launcher)   //占位符
+                        .build();
+                config.gotoActivity(StrangerDelActivity.this, config);
+            }
+        });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
