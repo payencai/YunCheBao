@@ -5,10 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.bbcircle.SelfDrivingRepublishActivity;
-import com.bbcircle.fragment.DriverFragment;
+import com.example.yunchebao.babycircle.selfdrive.SelfDrivingRepublishActivity;
 import com.bbcircle.fragment.SelfDrivingFragment;
 import com.example.yunchebao.R;
+import com.gyf.immersionbar.ImmersionBar;
 
 import butterknife.ButterKnife;
 
@@ -19,6 +19,7 @@ public class NewSelfDrvingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_self_drving);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         mDriverFragment=new SelfDrivingFragment();
 
         getSupportFragmentManager().beginTransaction().add(R.id.fr_content,mDriverFragment).commit();

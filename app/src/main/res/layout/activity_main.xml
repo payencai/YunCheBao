@@ -26,6 +26,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/main_fl_1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -33,7 +34,7 @@
                 android:orientation="horizontal">
                 <!--主页-->
                 <FrameLayout
-                    android:id="@+id/main_fl_1"
+
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -44,8 +45,8 @@
                         android:layout_height="22dp"
                         android:layout_gravity="top|center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/home_icon_1" />
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/ic_cheyi_select" />
 
                     <TextView
                         android:id="@+id/main_tv_1"
@@ -63,12 +64,13 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/main_fl_2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
                 <!--商家-->
                 <FrameLayout
-                    android:id="@+id/main_fl_2"
+
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
@@ -76,12 +78,12 @@
 
                     <ImageView
                         android:id="@+id/main_iv_2"
-                        android:layout_width="21dp"
-                        android:layout_height="19dp"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
                         android:layout_gravity="top|center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/home_icon_1" />
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/ic_cheyi_unselect" />
 
                     <TextView
                         android:id="@+id/main_tv_2"
@@ -100,12 +102,13 @@
 
 
             <RelativeLayout
+                android:id="@+id/main_fl_3"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
                 <!--我的店铺-->
                 <FrameLayout
-                    android:id="@+id/main_fl_3"
+
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentTop="true"
@@ -113,13 +116,14 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/main_iv_3"
-                        android:layout_width="21dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="top|center_horizontal"
                         android:layout_marginTop="5dp"
+                        android:id="@+id/main_iv_3"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_gravity="top|center_horizontal"
+
                         android:scaleType="fitXY"
-                        android:src="@mipmap/home_icon_1" />
+                        android:src="@mipmap/ic_circle_unselect" />
 
                     <TextView
                         android:id="@+id/main_tv_3"
@@ -134,7 +138,7 @@
 
                 </FrameLayout>
                 <TextView
-
+                    android:layout_marginTop="3dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:id="@+id/tv_unread"
@@ -150,12 +154,13 @@
                     android:layout_height="16dp" />
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/main_fl_4"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
                 <!--商家-->
                 <FrameLayout
-                    android:id="@+id/main_fl_4"
+
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
@@ -163,12 +168,12 @@
 
                     <ImageView
                         android:id="@+id/main_iv_4"
-                        android:layout_width="19dp"
-                        android:layout_height="25dp"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
                         android:layout_gravity="top|center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/home_icon_1" />
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/ic_baike_unselect" />
 
                     <TextView
                         android:id="@+id/main_tv_4"
@@ -184,12 +189,13 @@
                 </FrameLayout>
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/main_fl_5"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
                 <!--我的店铺-->
                 <FrameLayout
-                    android:id="@+id/main_fl_5"
+
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
@@ -197,12 +203,12 @@
 
                     <ImageView
                         android:id="@+id/main_iv_5"
-                        android:layout_width="18dp"
+                        android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:layout_gravity="top|center_horizontal"
                         android:layout_marginTop="5dp"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/home_icon_1" />
+                        android:src="@mipmap/ic_shop_unselect" />
 
                     <TextView
                         android:id="@+id/main_tv_5"

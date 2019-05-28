@@ -1,5 +1,6 @@
 package com.example.yunchebao.blacklist;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,9 +14,13 @@ import com.costans.PlatformContans;
 import com.entity.UserMsg;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.lljjcoder.style.citylist.Toast.ToastUtils;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +39,8 @@ public class BlackListActivity extends AppCompatActivity {
     BlackuserAdapter BlackuserAdapter;
     @BindView(R.id.rv_black)
     RecyclerView rv_black;
-
+    @BindView(R.id.refresh)
+    SmartRefreshLayout refreshLayout;
     List<BlackUser> mBlackUsers;
     UserMsg mUserMsg;
     @Override
@@ -42,6 +48,7 @@ public class BlackListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_black_list);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
 
@@ -50,6 +57,14 @@ public class BlackListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                mBlackUsers.clear();
+                BlackuserAdapter.setNewData(mBlackUsers);
+                getData();
             }
         });
         mBlackUsers=new ArrayList<>();
@@ -75,14 +90,18 @@ public class BlackListActivity extends AppCompatActivity {
         });
         rv_black.setLayoutManager(new LinearLayoutManager(this));
         rv_black.setAdapter(BlackuserAdapter);
+        getData();
+
+    }
+    private void getData(){
         RongIM.getInstance().getBlacklist(new RongIMClient.GetBlacklistCallback() {
             @Override
             public void onSuccess(String[] strings) {
                 if(strings!=null)
-                for (int i = 0; i <strings.length ; i++) {
-                    String userId=strings[i];
-                    getDetail(userId);
-                }
+                    for (int i = 0; i <strings.length ; i++) {
+                        String userId=strings[i];
+                        getDetail(userId);
+                    }
             }
 
             @Override
@@ -97,6 +116,7 @@ public class BlackListActivity extends AppCompatActivity {
         HttpProxy.obtain().get(PlatformContans.User.getUserResultById, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+                refreshLayout.finishRefresh();
                 Log.e("detail",result);
                 try {
                     JSONObject jsonObject=new JSONObject(result);

@@ -488,7 +488,8 @@ public class EnteringActivity extends NoHttpBaseActivity {
         shopTypes.add("驾校");
         shopTypes.add("道路救援");
         shopTypes.add("宝贝商城");
-
+        shopTypes.add("代驾");
+        shopTypes.add("加油站");
         View view = this.getLayoutInflater().inflate(R.layout.dialog_washcar_type, null);
 
         final Dialog dialog = new Dialog(this, R.style.MyDialog);

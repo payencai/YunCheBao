@@ -1,10 +1,9 @@
-package com.bbcircle;
+package com.example.yunchebao.babycircle.selfdrive;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
@@ -22,23 +21,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.MyApplication;
+import com.bbcircle.DrivingSelfReplaySuccessActivity;
+import com.bbcircle.PublishInputActivity;
+import com.bbcircle.ReplySettingActivity;
 import com.bbcircle.view.NoScrollWebView;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
-import com.nohttp.sample.NoHttpBaseActivity;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
-import com.payencai.library.util.LogUtil;
 import com.payencai.library.util.ToastUtil;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.BottomMenuDialog;
-import com.tool.UIControlUtils;
 import com.vipcenter.RegisterActivity;
 
 import org.json.JSONException;
@@ -46,8 +46,6 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -57,7 +55,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import jp.wasabeef.richeditor.RichEditor;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -178,6 +175,7 @@ public class SelfDrivingRepublishActivity extends NoHttpFragmentBaseActivity imp
     }
     private void initView() {
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         ctx = this;
         cameraIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,7 +187,7 @@ public class SelfDrivingRepublishActivity extends NoHttpFragmentBaseActivity imp
         description.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(SelfDrivingRepublishActivity.this,PublishInputActivity.class);
+                Intent intent=new Intent(SelfDrivingRepublishActivity.this, PublishInputActivity.class);
                 intent.putExtra("html",content);
                 startActivityForResult(intent,3);
             }

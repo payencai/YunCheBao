@@ -1,6 +1,5 @@
 package com.vipcenter.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,39 +7,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.ScrollView;
 
 import com.application.MyApplication;
 import com.bbcircle.CarShowDetailActivity;
-import com.bbcircle.DriverFriendsDetailActivity;
-import com.bbcircle.DrivingSelfDetailActivity;
+import com.example.yunchebao.babycircle.carfriend.DriverFriendsDetailActivity;
+import com.example.yunchebao.babycircle.selfdrive.DrivingSelfDetailActivity;
 import com.bbcircle.RaceDetailActivity;
-import com.bbcircle.data.CarshowDetail;
-import com.bbcircle.data.SelfDrive;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.entity.PhoneArticleEntity;
-import com.entity.PhoneOrderEntity;
-import com.entity.PhoneShopEntity;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
-import com.tool.listview.PersonalListView;
-import com.tool.view.ListViewForScrollView;
 import com.vipcenter.adapter.ArticleListAdapter;
-import com.vipcenter.adapter.NewCarCollectAdapter;
-import com.vipcenter.model.NewCarCollect;
-import com.xihubao.WashCarDetailActivity;
-import com.xihubao.adapter.WashCarListAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

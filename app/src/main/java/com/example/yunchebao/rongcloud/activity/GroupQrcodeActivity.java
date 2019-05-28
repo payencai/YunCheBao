@@ -3,6 +3,7 @@ package com.example.yunchebao.rongcloud.activity;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -29,6 +30,7 @@ public class GroupQrcodeActivity extends AppCompatActivity {
 
     private void initView() {
         String url="云车宝群组:"+ id;
+        Log.e("url",url);
         Bitmap bitmap = CodeUtils.createImage(url,200,200,null);
         iv_qrcode.setImageBitmap(bitmap);
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {

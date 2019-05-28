@@ -169,5 +169,14 @@
         <attr name="noNetworkView" format="reference"/>
         <attr name="contentView" format="reference"/>
     </declare-styleable>
+    <declare-styleable name="VerCodeInputView">
+        <attr name="inputNum" format="integer"/>
+        <attr name="inputTxtColor" format="color"/>
+        <attr name="inputWidth" format="dimension"/>
+        <attr name="inputPadding" format="dimension"/>
+        <attr name="inputTxtSize" format="dimension"/>
+        <attr name="inputBg" format="reference"/>
+        <attr name="android:inputType"/>
 
+    </declare-styleable>
 </resources>

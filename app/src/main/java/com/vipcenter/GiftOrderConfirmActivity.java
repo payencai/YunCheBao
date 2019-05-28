@@ -17,6 +17,7 @@ import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.GoodsPayActivity;
@@ -80,6 +81,7 @@ public class GiftOrderConfirmActivity extends NoHttpBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gift_order_confirm);
         mGift = (Gift) getIntent().getExtras().getSerializable("gift");
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
         getAddress();
     }
@@ -152,16 +154,11 @@ public class GiftOrderConfirmActivity extends NoHttpBaseActivity {
 
 
     private void getAddress() {
-        String token = "";
-        if (MyApplication.isLogin) {
-            token = MyApplication.token;
-        } else {
-            // tv.setText(MyApplication.getaMapLocation().getProvince() + MyApplication.getaMapLocation().getCity() + MyApplication.getaMapLocation().getDistrict());
-        }
+
         Map<String, Object> params = new HashMap<>();
         params.put("page", 1);
-        params.put("isDefault", 1);
-        HttpProxy.obtain().get(PlatformContans.AddressManage.getUserAddress, params, token, new ICallBack() {
+
+        HttpProxy.obtain().get(PlatformContans.AddressManage.getUserAddress, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
 
@@ -171,18 +168,23 @@ public class GiftOrderConfirmActivity extends NoHttpBaseActivity {
                     JSONArray data = jsonObject.getJSONArray("data");
                     int code = jsonObject.getInt("resultCode");
                     if (code == 0) {
-
                         for (int i = 0; i < data.length(); i++) {
                             JSONObject item = data.getJSONObject(i);
-                            personAddress = new Gson().fromJson(item.toString(), PersonAddress.class);
+                            if(i==0)
+                                personAddress = new Gson().fromJson(item.toString(), PersonAddress.class);
+                        }
+                        if(personAddress!=null){
+                            tv_contact.setText(personAddress.getNickname() + "    " + personAddress.getTelephone());
+                            if (personAddress.getIsDefault() == 2) {
+                                tv_default.setVisibility(View.GONE);
+                            }
+                            tv_addrname.setText(personAddress.getProvince() + personAddress.getCity() + personAddress.getDistrict());
+                            tv_detail.setText(personAddress.getAddress());
+                        }else{
+                            tv_detail.setText(MyApplication.getaMapLocation().getAddress());
+                            tv_addrname.setText(MyApplication.getaMapLocation().getProvince()+MyApplication.getaMapLocation().getCity()+MyApplication.getaMapLocation().getDistrict());
+                        }
 
-                        }
-                        tv_contact.setText(personAddress.getNickname() + "    " + personAddress.getTelephone());
-                        if (personAddress.getIsDefault() == 2) {
-                            tv_default.setVisibility(View.GONE);
-                        }
-                        tv_addrname.setText(personAddress.getProvince() + personAddress.getCity() + personAddress.getDistrict());
-                        tv_detail.setText(personAddress.getAddress());
 
                     }
 
@@ -226,6 +228,7 @@ public class GiftOrderConfirmActivity extends NoHttpBaseActivity {
     private void initView() {
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "商品填写");
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         tv_coin1.setText(mGift.getCoinCount() + "宝币");
         tv_coin2.setText(mGift.getCoinCount() + "宝币");
         tv_coin3.setText(mGift.getCoinCount() + "宝币");
@@ -249,7 +252,7 @@ public class GiftOrderConfirmActivity extends NoHttpBaseActivity {
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.back:
-                onBackPressed();
+                finish();
                 break;
             case R.id.addressLay:
                 startActivityForResult(new Intent(GiftOrderConfirmActivity.this, AddressListActivity.class), 1);
@@ -272,6 +275,10 @@ public class GiftOrderConfirmActivity extends NoHttpBaseActivity {
                 takeOrder(json);
                 break;
             case R.id.tv_send:
+                if(personAddress==null){
+                    ToastUtil.showToast(this,"请先去选择一个收货人信息");
+                    return;
+                }
                 mTimeCount.start();
                 getCodeByType(personAddress.getTelephone());
                 break;

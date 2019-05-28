@@ -10,6 +10,7 @@ import com.example.yunchebao.R;
 import com.example.yunchebao.rongcloud.activity.contact.FriendListFragment;
 import com.example.yunchebao.rongcloud.activity.contact.GroupListFragment;
 import com.example.yunchebao.rongcloud.activity.contact.NewFriendFragment;
+import com.gyf.immersionbar.ImmersionBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +25,7 @@ public class NewContactsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_contacts);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         type=getIntent().getIntExtra("type",0);
         if(type==1){
             mFragment=new FriendListFragment();

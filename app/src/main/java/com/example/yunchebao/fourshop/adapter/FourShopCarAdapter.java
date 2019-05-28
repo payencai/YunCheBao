@@ -37,6 +37,10 @@ public class FourShopCarAdapter extends BaseQuickAdapter<FourShopCar, BaseViewHo
         if(!TextUtils.isEmpty(imgs)&&imgs.contains(","))
             imgs=imgs.split(",")[0];
         Glide.with(helper.itemView.getContext()).load(imgs).into(iv_img);
+        if (TextUtils.isEmpty(imgs)) {
+            iv_img.setImageResource(R.mipmap.icon);
+
+        }
 
     }
 }

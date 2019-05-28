@@ -3,6 +3,7 @@ package com.example.yunchebao.rongcloud.activity.contact;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +26,10 @@ import com.nanchen.wavesidebar.WaveSideBarView;
 import com.example.yunchebao.rongcloud.sidebar.ContactModel;
 import com.example.yunchebao.rongcloud.sidebar.ContactsAdapter;
 import com.example.yunchebao.rongcloud.sidebar.PinnedHeaderDecoration;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xihubao.ShopInfoActivity;
 
 import org.json.JSONArray;
@@ -33,6 +38,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +53,8 @@ public class FriendListFragment extends Fragment {
     private WaveSideBarView mWaveSideBarView;
     private EditText mSearchEditText;
     private ContactsAdapter mAdapter;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout refresh;
     public FriendListFragment() {
         // Required empty public constructor
     }
@@ -55,6 +65,7 @@ public class FriendListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_friend_list, container, false);
+        ButterKnife.bind(this,view);
         initData(view);
         getContacts();
         return view;
@@ -65,6 +76,7 @@ public class FriendListFragment extends Fragment {
             HttpProxy.obtain().get(PlatformContans.Chat.getMyFriendList, MyApplication.token, new ICallBack() {
                 @Override
                 public void OnSuccess(String result) {
+                    refresh.finishRefresh();
                     Log.e("group",result);
                     try {
                         JSONObject jsonObject=new JSONObject(result);
@@ -150,7 +162,14 @@ public class FriendListFragment extends Fragment {
                 }
             }
         });
-
+        refresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                mShowModels.clear();
+                mContactModels.clear();
+                getContacts();
+            }
+        });
         // 搜索按钮相关
         mSearchEditText = (EditText) view.findViewById(R.id.main_search);
         mSearchEditText.addTextChangedListener(new TextWatcher() {

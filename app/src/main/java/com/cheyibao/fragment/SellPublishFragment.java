@@ -5,13 +5,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,12 +19,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bbcircle.SelfDrivingRepublishActivity;
 import com.bumptech.glide.Glide;
 import com.cheyibao.SellCarInfoImproveActivity;
 import com.cityselect.CityListActivity;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.yuedan.SelectCarTypeActivity;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
@@ -38,7 +35,6 @@ import com.tool.ActivityConstans;
 import com.tool.CommonDateTools;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 import com.xihubao.CarBrandSelectActivity;
-import com.xihubao.Shop4SListActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -223,7 +219,7 @@ public class SellPublishFragment extends BaseFragment implements OnDateSetListen
                     id1 = data.getExtras().getString("id1");
                     id2 = data.getExtras().getString("id2");
                     id3 = data.getExtras().getString("id3");
-                    Log.e("firstid",id1+"----"+id2+"----"+id3);
+                    Log.e("firstid",id+"----"+id1+"----"+id2+"----"+id3);
                     carInfoText.setText(brand);
                     break;
                 case 2:
@@ -269,7 +265,7 @@ public class SellPublishFragment extends BaseFragment implements OnDateSetListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.lay1://品牌选择
-                startActivityForResult(new Intent(getContext(), CarBrandSelectActivity.class), 1);
+                startActivityForResult(new Intent(getContext(), SelectCarTypeActivity.class), 1);
 
                 break;
             case R.id.lay2://城市选择

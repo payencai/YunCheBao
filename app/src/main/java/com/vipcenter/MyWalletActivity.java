@@ -75,7 +75,7 @@ public class MyWalletActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_wallet_layout);
         ButterKnife.bind(this);
-        ImmersionBar.with(this).statusBarColor(R.color.pay).fitsSystemWindows(true).init();
+       //ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
 
@@ -414,7 +414,7 @@ public class MyWalletActivity extends AppCompatActivity {
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.back:
-                onBackPressed();
+                finish();
                 break;
 //            case R.id.toMoreBtn:
 //                ActivityAnimationUtils.commonTransition(MyWalletActivity.this, GiftMarketHomeActivity.class, ActivityConstans.Animation.FADE);

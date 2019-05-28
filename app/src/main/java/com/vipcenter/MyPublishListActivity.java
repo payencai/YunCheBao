@@ -1,6 +1,5 @@
 package com.vipcenter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,26 +7,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
 
 import com.application.MyApplication;
-import com.bbcircle.CarShowDetailActivity;
-import com.bbcircle.DriverFriendsDetailActivity;
-import com.bbcircle.DrivingSelfDetailActivity;
+import com.example.yunchebao.babycircle.carfriend.DriverFriendsDetailActivity;
+import com.example.yunchebao.babycircle.selfdrive.DrivingSelfDetailActivity;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
-import com.example.yunchebao.fourshop.bean.FourShopData;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.tool.ActivityConstans;
-import com.tool.UIControlUtils;
 import com.vipcenter.adapter.MyPubAdapter;
 import com.vipcenter.adapter.MyPublishListAdapter;
 import com.vipcenter.model.Mypublish;

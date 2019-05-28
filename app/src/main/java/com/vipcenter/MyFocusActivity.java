@@ -1,6 +1,5 @@
 package com.vipcenter;
 
-import android.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,14 +8,12 @@ import android.util.Log;
 import android.view.View;
 
 import com.application.MyApplication;
-import com.bbcircle.DrivingSelfDetailActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.order.NewPublish;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.vipcenter.adapter.FocusAdapter;

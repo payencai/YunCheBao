@@ -1,6 +1,5 @@
 package com.vipcenter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,26 +8,18 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.application.MyApplication;
-import com.baike.MagzineCoverActivity;
-import com.baike.adapter.MagzineListAdapter;
-import com.baike.model.BaikeItem;
-import com.bbcircle.CarShowDetailActivity;
-import com.bbcircle.DriverFriendsDetailActivity;
-import com.bbcircle.DrivingSelfDetailActivity;
+import com.example.yunchebao.babycircle.carfriend.DriverFriendsDetailActivity;
+import com.example.yunchebao.babycircle.selfdrive.DrivingSelfDetailActivity;
 import com.bbcircle.data.History;
 import com.costans.PlatformContans;
-import com.entity.PhoneMagEntity;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
-import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.vipcenter.adapter.HistoryListAdapter;
-import com.vipcenter.model.Mypublish;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +27,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

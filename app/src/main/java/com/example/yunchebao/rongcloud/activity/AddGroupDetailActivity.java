@@ -18,6 +18,7 @@ import com.application.MyApplication;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.example.yunchebao.rongcloud.model.Group;
@@ -50,6 +51,7 @@ public class AddGroupDetailActivity extends AppCompatActivity {
         mGroup= (Group) getIntent().getSerializableExtra("group");
         setContentView(R.layout.activity_add_group_detail);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
     private void initView() {

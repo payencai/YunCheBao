@@ -88,7 +88,7 @@
 
     <color name="pink_db">#fddadb</color>
 
-
+    <color name="wallet">#fe920a</color>
     <!--sweetAlert-->
     <color name="float_transparent">#00000000</color>
     <color name="sweet_dialog_bg_color">@color/white</color>

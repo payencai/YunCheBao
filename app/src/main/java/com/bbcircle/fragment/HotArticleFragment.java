@@ -5,28 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.baike.adapter.MagzineListAdapter;
-import com.bbcircle.DrivingSelfDetailActivity;
 import com.bbcircle.adapter.BBCircleListAdapter;
 import com.bbcircle.data.SelfDrive;
-import com.cheyibao.adapter.CarRecommendListAdapter;
-import com.entity.PhoneArticleEntity;
-import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nohttp.sample.BaseFragment;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
-import com.tool.slideshowview.SlideShowView;
-import com.tool.view.ListViewForScrollView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -20,6 +20,12 @@
         <item name="colorPrimaryDark">@color/gray_99</item>
         <item name="colorAccent">@color/gray_99</item>
     </style>
+    <style name="PayTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/pay</item>
+        <item name="colorPrimaryDark">@color/pay</item>
+        <item name="colorAccent">@color/pay</item>
+    </style>
     <style name="VideoTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowFullscreen">true</item>
     </style>

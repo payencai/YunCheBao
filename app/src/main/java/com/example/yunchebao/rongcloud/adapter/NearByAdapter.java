@@ -26,6 +26,7 @@ public class NearByAdapter extends BaseQuickAdapter<Nearby, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Nearby item) {
+        helper.setIsRecyclable(false);
         CircleImageView iv_head = helper.getView(R.id.iv_head);
         ImageView iv_sex = helper.getView(R.id.iv_sex);
         TextView tv_name = helper.getView(R.id.tv_name);
@@ -38,14 +39,10 @@ public class NearByAdapter extends BaseQuickAdapter<Nearby, BaseViewHolder> {
             tv_dis.setText(MathUtil.getDoubleTwo(item.getDistance()) + "km");
         }
 
-        if ("男".
-
-                equals(item.getSex())) {
+        if ("男".equals(item.getSex())) {
             iv_sex.setImageResource(R.mipmap.ic_man);
             iv_sex.setVisibility(View.VISIBLE);
-        } else if ("女".
-
-                equals(item.getSex())) {
+        } else if ("女". equals(item.getSex())) {
             iv_sex.setImageResource(R.mipmap.ic_women);
             iv_sex.setVisibility(View.VISIBLE);
         } else {

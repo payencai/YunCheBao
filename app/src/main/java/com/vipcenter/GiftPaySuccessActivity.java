@@ -7,12 +7,12 @@ import android.widget.AdapterView;
 
 import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
+import com.example.yunchebao.gift.GiftMarketHomeActivity;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.tool.view.GridViewForScrollView;
-import com.vipcenter.adapter.GiftHomeListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

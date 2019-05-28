@@ -1,4 +1,4 @@
-package com.bbcircle;
+package com.example.yunchebao.babycircle.selfdrive;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.MyApplication;
+import com.bbcircle.DrivingSelfReplaySuccessActivity;
 import com.bbcircle.adapter.CircleCommentAdapter;
 import com.bbcircle.data.CircleComment;
 import com.bbcircle.data.SeldDrvingDetail;
@@ -35,6 +36,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
@@ -43,6 +45,7 @@ import com.payencai.library.view.CircleImageView;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
+import com.tool.listview.PersonalScrollView;
 import com.tool.slideshowview.SlideShowView;
 import com.vipcenter.RegisterActivity;
 
@@ -102,6 +105,10 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
     RecyclerView rv_comment;
     @BindView(R.id.et_comment)
     EditText et_comment;
+    @BindView(R.id.sc_self)
+    PersonalScrollView ll_bottom;
+    @BindView(R.id.ll_content)
+    LinearLayout ll_content;
     String id;
     int type = 0;
     int page = 1;
@@ -209,6 +216,9 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
                     return userInfo;
                 }
             },true);
+            if(MyApplication.getUserInfo().getId().equals(mSeldDrvingDetail.getUserId())){
+                ll_content.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -246,6 +256,7 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driving_self_detail_layout);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "自驾游");
         id = getIntent().getStringExtra("id");
         initView();
@@ -305,9 +316,41 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
         rv_comment.setHasFixedSize(true);
         rv_comment.setNestedScrollingEnabled(false);
         rv_comment.setAdapter(mCircleCommentAdapter);
+
+
+
         getDatail();
     }
 
+    //目标项是否在最后一个可见项之后
+    private boolean mShouldScroll;
+    //记录目标项位置
+    private int mToPosition;
+    /**
+     * 滑动到指定位置
+     */
+    private void smoothMoveToPosition(RecyclerView mRecyclerView, final int position) {
+        // 第一个可见位置
+        int firstItem = mRecyclerView.getChildLayoutPosition(mRecyclerView.getChildAt(0));
+        // 最后一个可见位置
+        int lastItem = mRecyclerView.getChildLayoutPosition(mRecyclerView.getChildAt(mRecyclerView.getChildCount() - 1));
+        if (position < firstItem) {
+            // 第一种可能:跳转位置在第一个可见位置之前
+            mRecyclerView.smoothScrollToPosition(position);
+        } else if (position <= lastItem) {
+            // 第二种可能:跳转位置在第一个可见位置之后
+            int movePosition = position - firstItem;
+            if (movePosition >= 0 && movePosition < mRecyclerView.getChildCount()) {
+                int top = mRecyclerView.getChildAt(movePosition).getTop();
+                mRecyclerView.smoothScrollBy(0, top);
+            }
+        } else {
+            // 第三种可能:跳转位置在最后可见项之后
+            mRecyclerView.smoothScrollToPosition(position);
+            mToPosition = position;
+            mShouldScroll = true;
+        }
+    }
 
     private void getDatail() {
         Map<String, Object> params = new HashMap<>();
@@ -506,6 +549,10 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
                 onBackPressed();
                 break;
             case R.id.submitBtn:
+                if(MyApplication.getUserInfo().getId().equals(mSeldDrvingDetail.getUserId())){
+                    ToastUtil.showToast(this,"你是发布者不能报名！");
+                    return;
+                }
                 attenToast();
                 break;
             case R.id.comment:
@@ -526,9 +573,11 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
         HttpProxy.obtain().post(PlatformContans.BabyCircle.addBabyCircleComment, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+
                 page = 1;
                 mCircleComments.clear();
                 getComment();
+                ll_bottom.smoothScrollTo(0,rv_comment.getTop());
                 Toast.makeText(DrivingSelfDetailActivity.this, "评论成功", Toast.LENGTH_SHORT).show();
             }
 

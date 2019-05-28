@@ -1,19 +1,14 @@
-package com.bbcircle;
+package com.example.yunchebao.babycircle.carfriend;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -22,7 +17,6 @@ import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +24,6 @@ import com.application.MyApplication;
 import com.bbcircle.adapter.CircleCommentAdapter;
 import com.bbcircle.data.CarFriendDetail;
 import com.bbcircle.data.CircleComment;
-import com.bbcircle.data.SeldDrvingDetail;
 import com.bbcircle.view.NoScrollWebView;
 import com.bbcircle.view.SoftKeyBoardListener;
 import com.bumptech.glide.Glide;
@@ -38,15 +31,14 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.payencai.library.util.ToastUtil;
-import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
-import com.tool.MathUtil;
-import com.tool.SimpleCommonUtils;
 import com.tool.UIControlUtils;
+import com.tool.listview.PersonalScrollView;
 import com.tool.slideshowview.SlideShowView;
 import com.vipcenter.RegisterActivity;
 
@@ -99,8 +91,12 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
     EditText et_comment;
     @BindView(R.id.tv_focus)
     TextView tv_focus;
+    @BindView(R.id.ll_content)
+    LinearLayout ll_content;
     @BindView(R.id.tv_pub)
     TextView tv_pub;
+    @BindView(R.id.sc_self)
+    PersonalScrollView sc_self;
     CircleCommentAdapter mCircleCommentAdapter;
     List<CircleComment> mCircleComments = new ArrayList<>();
     int page = 1;
@@ -113,6 +109,7 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driver_friends_detail_layout);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "详情");
         ctx = this;
         //网络地址获取轮播图
@@ -198,6 +195,9 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
             }
             isfocus(mSeldDrvingDetail.getUserId());
             Glide.with(this).load(mSeldDrvingDetail.getHeadPortrait()).into(tv_head);
+            if(MyApplication.getUserInfo().getId().equals(mSeldDrvingDetail.getUserId())){
+                ll_content.setVisibility(View.GONE);
+            }
         }
         getComment();
     }
@@ -397,7 +397,8 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
                 page = 1;
                 mCircleComments.clear();
                 getComment();
-                //Toast.makeText(DriverFriendsDetailActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                sc_self.smoothScrollTo(0,rv_comment.getTop());
+                Toast.makeText(DriverFriendsDetailActivity.this, "评价成功", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -419,7 +420,7 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
                 page = 1;
                 mCircleComments.clear();
                 getComment();
-                //Toast.makeText(DriverFriendsDetailActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DriverFriendsDetailActivity.this, "回复成功", Toast.LENGTH_SHORT).show();
             }
 
             @Override

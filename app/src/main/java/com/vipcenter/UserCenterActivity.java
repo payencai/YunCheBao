@@ -19,6 +19,7 @@ import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.account.AccountManageActivity;
 import com.example.yunchebao.blacklist.BlackListActivity;
+import com.example.yunchebao.gift.GiftMarketHomeActivity;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;

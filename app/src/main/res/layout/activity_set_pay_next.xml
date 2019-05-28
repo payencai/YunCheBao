@@ -37,10 +37,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <com.tool.view.PasswordView
+        android:visibility="gone"
         android:layout_margin="15dp"
         android:id="@+id/passwordView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         app:cipherEnable="true" />
+    <com.example.yunchebao.view.VerCodeInputView
+        app:inputNum="6"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:id="@+id/vi_code"
+        app:inputBg="@drawable/bg_edit_vercode"
+        app:inputTxtColor="@color/black_33"
+        app:inputTxtSize="12sp"
+        android:inputType="numberPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.example.yunchebao.view.VerCodeInputView>
 </LinearLayout>

@@ -2,14 +2,10 @@ package com.bbcircle;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.media.MediaMetadataRetriever;
-import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -21,13 +17,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.application.MyApplication;
 import com.bbcircle.view.NoScrollWebView;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.babycircle.selfdrive.SelfDrivingRepublishActivity;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
@@ -37,7 +33,6 @@ import com.payencai.library.mediapicker.entity.Media;
 import com.payencai.library.util.VideoUtil;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
-import com.tool.LogUtil;
 import com.tool.UIControlUtils;
 import com.vipcenter.RegisterActivity;
 
@@ -206,7 +201,7 @@ public class CarsShowRepublishActivity extends NoHttpBaseActivity {
         settings.setDomStorageEnabled(true);
         settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
-        mWebView.setWebViewClient(new SelfDrivingRepublishActivity.MyWebViewClient(this));
+        mWebView.setWebViewClient(new MyWebViewClient(this));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING);
         } else {

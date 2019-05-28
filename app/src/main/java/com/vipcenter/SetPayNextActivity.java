@@ -4,10 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
 import com.application.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.view.VerCodeInputView;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
@@ -25,6 +28,8 @@ import butterknife.ButterKnife;
 public class SetPayNextActivity extends AppCompatActivity implements PasswordView.PasswordListener{
     @BindView(R.id.passwordView)
     PasswordView passwordView;
+    @BindView(R.id.vi_code)
+    VerCodeInputView vicode;
     String code;
     String phone;
     @Override
@@ -34,6 +39,7 @@ public class SetPayNextActivity extends AppCompatActivity implements PasswordVie
         code=getIntent().getExtras().getString("code");
         phone= MyApplication.getUserInfo().getUsername();
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
 
@@ -42,8 +48,20 @@ public class SetPayNextActivity extends AppCompatActivity implements PasswordVie
         passwordView.setPasswordListener(this);
         //passwordView.setPasswordLength(6);
         passwordView.setCursorEnable(true);
-
-
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        vicode.setAutoWidth();
+        vicode.setOnCompleteListener(new VerCodeInputView.OnCompleteListener() {
+            @Override
+            public void onComplete(String content) {
+                //ToastUtil.showToast(SetPayNextActivity.this,content);
+                setPassword(content);
+            }
+        });
     }
 
     @Override
@@ -70,9 +88,12 @@ public class SetPayNextActivity extends AppCompatActivity implements PasswordVie
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     int code = jsonObject.getInt("resultCode");
+                    String msg=jsonObject.getString("message");
                     if (code == 0) {
                         ToastUtil.showToast(SetPayNextActivity.this,"设置成功");
                          finish();
+                    }else{
+                        ToastUtil.showToast(SetPayNextActivity.this,msg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

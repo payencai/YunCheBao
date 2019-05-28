@@ -1,4 +1,4 @@
-package com.bbcircle;
+package com.example.yunchebao.babycircle.carfriend;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,10 +21,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.MyApplication;
+import com.bbcircle.DrivingSelfReplaySuccessActivity;
+import com.bbcircle.PublishInputActivity;
 import com.bbcircle.view.NoScrollWebView;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.babycircle.selfdrive.SelfDrivingRepublishActivity;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
@@ -80,6 +84,7 @@ public class DriverFriendsRepublishActivity extends NoHttpBaseActivity {
 
     private void initView() {
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         cameraIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +94,7 @@ public class DriverFriendsRepublishActivity extends NoHttpBaseActivity {
         et_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(DriverFriendsRepublishActivity.this,PublishInputActivity.class),3);
+                startActivityForResult(new Intent(DriverFriendsRepublishActivity.this, PublishInputActivity.class),3);
             }
         });
     }
@@ -142,7 +147,7 @@ public class DriverFriendsRepublishActivity extends NoHttpBaseActivity {
         settings.setDomStorageEnabled(true);
         settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
-        mWebView.setWebViewClient(new SelfDrivingRepublishActivity.MyWebViewClient(this));
+        mWebView.setWebViewClient(new MyWebViewClient(this));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING);
         } else {

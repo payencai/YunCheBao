@@ -1,8 +1,7 @@
 package com.vipcenter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
+
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -19,22 +18,24 @@ import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
-import com.system.WebviewActivity;
+
+
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.tool.listview.PersonalListView;
-import com.tool.slideshowview.SlideShowView;
+
 import com.vipcenter.adapter.GiftParamsItemAdapter;
 import com.vipcenter.model.Gift;
 import com.vipcenter.model.GiftParams;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
-import com.youth.banner.listener.OnBannerListener;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -110,19 +111,22 @@ public class GiftGoodDetailActivity extends NoHttpBaseActivity {
     }
 
     private void initWebview() {
-        WebSettings settings = webView.getSettings();
-        webView.requestFocusFromTouch();
-        settings.setJavaScriptEnabled(true);  //支持js
-        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN); //支持内容重新布局
-        settings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
-        settings.setLoadsImagesAutomatically(true);  //支持自动加载图片
-        settings.setDefaultTextEncodingName("utf-8");//设置编码格式
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            settings.setBlockNetworkImage(false);
-        } else {
-            settings.setBlockNetworkImage(true);//图片最后加载，
-        }
+        WebSettings webSetting = webView.getSettings();
+        webSetting.setJavaScriptEnabled(true);
+        webSetting.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSetting.setAllowFileAccess(true);
+        webSetting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+        webSetting.setSupportMultipleWindows(true);
+        webSetting.setLoadWithOverviewMode(true);
+        webSetting.setAppCacheEnabled(true);
+        // webSetting.setDatabaseEnabled(true);
+        webSetting.setDomStorageEnabled(true);
+        webSetting.setGeolocationEnabled(true);
+        webSetting.setAppCacheMaxSize(Long.MAX_VALUE);
+        // webSetting.setPageCacheCapacity(IX5WebSettings.DEFAULT_CACHE_CAPACITY);
+        webSetting.setPluginState(WebSettings.PluginState.ON_DEMAND);
+        // webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH);
+        webSetting.setCacheMode(WebSettings.LOAD_NO_CACHE);
         webView.setWebChromeClient(new WebChromeClient() {
 
         });
@@ -138,7 +142,8 @@ public class GiftGoodDetailActivity extends NoHttpBaseActivity {
     }
     private void initView() {
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "商品详情页");
-        ButterKnife.bind(this);
+        ButterKnife.bind(this);  ImmersionBar.with(this).fitsSystemWindows(true).statusBarColor(R.color.white).init();
+
         ctx = this;
         mGift = (Gift) getIntent().getExtras().getSerializable("data");
         tv_name.setText(mGift.getCommodityName());

@@ -250,6 +250,12 @@ public class MyGroupDetailActivity extends AppCompatActivity {
             }
 
         }
+        if(requestCode==188||requestCode==189){
+            mShowGroupUser.clear();
+            mAllGroupUser.clear();
+            m2GroupUser.clear();
+            getDetail();
+        }
 
 
     }
@@ -657,16 +663,17 @@ public class MyGroupDetailActivity extends AppCompatActivity {
                      //intent.putExtra("user",mGroup);
                      intent.putExtra("flag",groupUser.getFlag());
                      intent.putExtra("id",crowId+"");
-                     startActivity(intent);
+                     startActivityForResult(intent,188);
                  }else if(groupUser.getFlag()==2){
                      Intent intent=new Intent(MyGroupDetailActivity.this,GroupManageActivity.class);
                      intent.putExtra("id",crowId+"");
                     // intent.putExtra("user",mGroup);
                      intent.putExtra("flag",groupUser.getFlag());
-                     startActivity(intent);
+                     startActivityForResult(intent,189);
                  }else{
-                     RongIM.getInstance().setCurrentUserInfo(new UserInfo(groupUser.getUserId(),groupUser.getNickName(),Uri.parse(groupUser.getHeadPortrait())));
-                     RongIM.getInstance().startPrivateChat(MyGroupDetailActivity.this,groupUser.getUserId(),groupUser.getNickName());
+                     Intent intent=new Intent(MyGroupDetailActivity.this,FriendDetailActivity.class);
+                     intent.putExtra("id",groupUser.getUserId());
+                     startActivity(intent);
                  }
             }
         });

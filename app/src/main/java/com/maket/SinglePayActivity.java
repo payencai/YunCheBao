@@ -156,12 +156,18 @@ public class SinglePayActivity extends AppCompatActivity {
                             personAddress = new Gson().fromJson(item.toString(), PersonAddress.class);
 
                         }
-                        tv_contact.setText(personAddress.getNickname() + "    " + personAddress.getTelephone());
-                        if (personAddress.getIsDefault() == 2) {
-                            tv_default.setVisibility(View.GONE);
+                        if(personAddress!=null){
+                            tv_contact.setText(personAddress.getNickname() + "    " + personAddress.getTelephone());
+                            if (personAddress.getIsDefault() == 2) {
+                                tv_default.setVisibility(View.GONE);
+                            }
+                            tv_addrname.setText(personAddress.getProvince() + personAddress.getCity() + personAddress.getDistrict());
+                            tv_detail.setText(personAddress.getAddress());
+                        }else{
+                            tv_addrname.setText(MyApplication.getaMapLocation().getProvince() + MyApplication.getaMapLocation().getCity() + MyApplication.getaMapLocation().getDistrict());
+                            tv_detail.setText(MyApplication.getaMapLocation().getAddress());
                         }
-                        tv_addrname.setText(personAddress.getProvince() + personAddress.getCity() + personAddress.getDistrict());
-                        tv_detail.setText(personAddress.getAddress());
+
 
                     }
 

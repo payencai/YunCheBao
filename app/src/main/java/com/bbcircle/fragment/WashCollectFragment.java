@@ -1,7 +1,5 @@
 package com.bbcircle.fragment;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,34 +7,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.application.MyApplication;
-import com.bbcircle.CarShowDetailActivity;
-import com.bbcircle.DriverFriendsDetailActivity;
-import com.bbcircle.DrivingSelfDetailActivity;
-import com.bbcircle.RaceDetailActivity;
 import com.bbcircle.adapter.WashCollectAdapter;
 import com.bbcircle.data.WashCollect;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
-import com.entity.PhoneArticleEntity;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
-import com.tool.listview.PersonalListView;
-import com.vipcenter.RegisterActivity;
-import com.vipcenter.adapter.ArticleListAdapter;
-import com.xihubao.RepairListActivity;
 import com.xihubao.WashCarDetailActivity;
-import com.xihubao.WashCarListActivity;
-import com.xihubao.adapter.WashCarListAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

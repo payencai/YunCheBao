@@ -26,7 +26,9 @@ import android.widget.Toast;
 import com.application.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.view.VerCodeInputView;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.example.yunchebao.rongcloud.model.MyFriend;
@@ -69,7 +71,7 @@ import io.rong.message.TextMessage;
 
 public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.code)
-    TextView codeBtn;
+    TextView tv_getcode;
     @BindView(R.id.phoneNum)
     XEditText phoneNum;
     @BindView(R.id.codeGetAgain)
@@ -79,20 +81,8 @@ public class RegisterActivity extends AppCompatActivity {
     ImageView iv_qq;
     @BindView(R.id.iv_wechat)
     ImageView iv_wechat;
-    @BindView(R.id.code1)
-    TextView code1;
-    @BindView(R.id.code2)
-    TextView code2;
-    @BindView(R.id.code3)
-    TextView code3;
-    @BindView(R.id.code4)
-    TextView code4;
-    @BindView(R.id.code5)
-    TextView code5;
-    @BindView(R.id.code6)
-    TextView code6;
-    @BindView(R.id.codeNum)
-    EditText codeNumEdit;
+    @BindView(R.id.vi_code)
+    VerCodeInputView vicode;
     @BindView(R.id.tv_loginbypwd)
     TextView tv_loginbypwd;
     @BindView(R.id.sendphone)
@@ -102,10 +92,12 @@ public class RegisterActivity extends AppCompatActivity {
     com.tencent.connect.UserInfo mInfo;
     private IWXAPI iwxapi;
     TimeCount mTimeCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_layout);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.gray_ee).init();
         mTencent = Tencent.createInstance("101536200", getApplicationContext());
         //mTencent = Tencent.createInstance("1108534147", getApplicationContext());
         EventBus.getDefault().register(this);
@@ -130,14 +122,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         @Override
         public void onFinish() {
-            count=60;
+            count = 60;
             codeGetAgain.setText("重新获取");
             codeGetAgain.setEnabled(true);
             codeGetAgain.setTextColor(getResources().getColor(R.color.yellow_02));
             //倒计时结束时回调该函数
         }
     }
-
 
 
     @Override
@@ -179,6 +170,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             });
     }
+
     private void getData() {
         final com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
         if (userinfo != null)
@@ -209,6 +201,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             });
     }
+
     private void connect(String token) {
 
         RongIM.connect(token, new RongIMClient.ConnectCallback() {
@@ -233,7 +226,7 @@ public class RegisterActivity extends AppCompatActivity {
                                                 @Override
                                                 public Group getGroupInfo(String s) {
                                                     List<MyGroup> myFriends = LitePal.findAll(MyGroup.class);
-                                                    Log.e("data",s);
+                                                    Log.e("data", s);
                                                     for (int i = 0; i < myFriends.size(); i++) {
                                                         MyGroup myFriend = myFriends.get(i);
                                                         String myid = myFriend.getHxCrowdId();
@@ -246,19 +239,19 @@ public class RegisterActivity extends AppCompatActivity {
                                                     }
                                                     return null;
                                                 }
-                                            },true
+                                            }, true
                 );
                 RongIM.setGroupUserInfoProvider(new RongIM.GroupUserInfoProvider() {
                     @Override
                     public GroupUserInfo getGroupUserInfo(String s, String s1) {
                         return null;
                     }
-                },true);
+                }, true);
                 RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
                     @Override
                     public io.rong.imlib.model.UserInfo getUserInfo(String s) {
                         List<MyFriend> myFriends = LitePal.findAll(MyFriend.class);
-                        Log.e("data",s);
+                        Log.e("data", s);
                         for (int i = 0; i < myFriends.size(); i++) {
                             MyFriend myFriend = myFriends.get(i);
                             String myid = myFriend.getUserId();
@@ -293,13 +286,13 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public boolean onReceived(Message message, int i) {
 
-                        TextMessage textMessage= (TextMessage) message.getContent();
+                        TextMessage textMessage = (TextMessage) message.getContent();
 //                        FileMessage fileMessage= (FileMessage) message.getContent();
 //                        VoiceMessage voiceMessage= (VoiceMessage) message.getContent();
 //                        ImageMessage imageMessage= (ImageMessage) message.getContent();
-                        String extra="";
-                        if(textMessage!=null){
-                            extra=textMessage.getExtra();
+                        String extra = "";
+                        if (textMessage != null) {
+                            extra = textMessage.getExtra();
                         }
 //                        if(fileMessage!=null){
 //                            extra=fileMessage.getExtra();
@@ -310,20 +303,20 @@ public class RegisterActivity extends AppCompatActivity {
 //                        if(voiceMessage!=null){
 //                            extra=voiceMessage.getExtra();
 //                        }
-                        if(!TextUtils.isEmpty(extra)){
+                        if (!TextUtils.isEmpty(extra)) {
                             try {
 
-                                JSONObject jsonObject=new JSONObject(extra);
-                                String userid=jsonObject.getString("userId");
-                                String username=jsonObject.getString("nickName");
-                                String avatar=jsonObject.getString("avatar");
-                                avatar=avatar.replaceAll( "\\\\",  "");
+                                JSONObject jsonObject = new JSONObject(extra);
+                                String userid = jsonObject.getString("userId");
+                                String username = jsonObject.getString("nickName");
+                                String avatar = jsonObject.getString("avatar");
+                                avatar = avatar.replaceAll("\\\\", "");
                                 String finalAvatar = avatar;
-                                Log.e("extra",extra);
+                                Log.e("extra", extra);
                                 RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
                                     @Override
                                     public io.rong.imlib.model.UserInfo getUserInfo(String s) {
-                                        io.rong.imlib.model.UserInfo userInfo=new io.rong.imlib.model.UserInfo(userid,username,Uri.parse(finalAvatar));
+                                        io.rong.imlib.model.UserInfo userInfo = new io.rong.imlib.model.UserInfo(userid, username, Uri.parse(finalAvatar));
                                         return userInfo;
                                     }
                                 }, true);
@@ -358,7 +351,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                startActivity(new Intent(RegisterActivity.this,IDCardCertificationActivity.class));
+                startActivity(new Intent(RegisterActivity.this, IDCardCertificationActivity.class));
                 finish();
             }
         });
@@ -390,6 +383,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void onEventMainThread(String openid) {
         loginByWeChat(openid);
     }
+
     /**
      * 登录方法
      */
@@ -399,10 +393,12 @@ public class RegisterActivity extends AppCompatActivity {
             mTencent.login(this, "all", mBaseUiListener);
         }
     }
+
     private IWXAPI api;
     String getUserInfo = "https://api.weixin.qq.com/sns/userinfo?access_token=" + "access" + "&openid=" + "openId";
+
     private void setWXLogin() {
-        api= MyApplication.mWxApi;
+        api = MyApplication.mWxApi;
         if (api != null && api.isWXAppInstalled()) {
             SendAuth.Req req = new SendAuth.Req();
             req.scope = "snsapi_userinfo";
@@ -445,25 +441,23 @@ public class RegisterActivity extends AppCompatActivity {
                         JSONObject data = object.getJSONObject("data");
                         Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                         UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
-                        MyApplication.token=userInfo.getToken();
+                        MyApplication.token = userInfo.getToken();
                         MyApplication.setUserInfo(userInfo);
                         MyApplication.setIsLogin(true);
                         getData();
-                        int isShow= (int) SPUtils.get(RegisterActivity.this,"isShow",0);
-                        if(isShow==0){
-                            SPUtils.put(RegisterActivity.this,"isShow",1);
+                        int isShow = (int) SPUtils.get(RegisterActivity.this, "isShow", 0);
+                        if (isShow == 0) {
+                            SPUtils.put(RegisterActivity.this, "isShow", 1);
                             showDialog();
-                        }
-                        else if(isShow==1){
+                        } else if (isShow == 1) {
                             Intent intent = new Intent();
                             intent.putExtra("user", userInfo);
                             setResult(1, intent);
                             finish();
                         }
-                    }
-                    else if(code==7001){
-                        Intent  intent=new Intent(RegisterActivity.this,BindPhoneActivity.class);
-                        intent.putExtra("openid",openid+"1");
+                    } else if (code == 7001) {
+                        Intent intent = new Intent(RegisterActivity.this, BindPhoneActivity.class);
+                        intent.putExtra("openid", openid + "1");
                         startActivity(intent);
                     }
 
@@ -480,6 +474,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
     private void loginByWeChat(final String openid) {
         Map<String, Object> params = new HashMap<>();
         params.put("wxId", openid);
@@ -492,27 +487,25 @@ public class RegisterActivity extends AppCompatActivity {
                     int code = object.getInt("resultCode");
                     if (code == 0) {
                         JSONObject data = object.getJSONObject("data");
-                         Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                         UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
-                        MyApplication.token=userInfo.getToken();
+                        MyApplication.token = userInfo.getToken();
                         MyApplication.setUserInfo(userInfo);
                         MyApplication.setIsLogin(true);
                         getData();
-                        int isShow= (int) SPUtils.get(RegisterActivity.this,"isShow",0);
-                        if(isShow==0){
-                            SPUtils.put(RegisterActivity.this,"isShow",1);
+                        int isShow = (int) SPUtils.get(RegisterActivity.this, "isShow", 0);
+                        if (isShow == 0) {
+                            SPUtils.put(RegisterActivity.this, "isShow", 1);
                             showDialog();
-                        }
-                        else if(isShow==1){
+                        } else if (isShow == 1) {
                             Intent intent = new Intent();
                             intent.putExtra("user", userInfo);
                             setResult(3, intent);
                             finish();
                         }
-                    }
-                    else if(code==7000){
-                        Intent  intent=new Intent(RegisterActivity.this,BindPhoneActivity.class);
-                        intent.putExtra("openid",openid+"2");
+                    } else if (code == 7000) {
+                        Intent intent = new Intent(RegisterActivity.this, BindPhoneActivity.class);
+                        intent.putExtra("openid", openid + "2");
                         startActivity(intent);
                         finish();
                     }
@@ -530,6 +523,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
     private void loginByPhone(String phone, String code) {
         Map<String, Object> params = new HashMap<>();
         params.put("username", phone);
@@ -543,28 +537,27 @@ public class RegisterActivity extends AppCompatActivity {
                     ///Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_LONG).show();
                     JSONObject object = new JSONObject(result);
                     int code = object.getInt("resultCode");
-                    String msg=object.getString("message");
+                    String msg = object.getString("message");
                     if (code == 0) {
                         JSONObject data = object.getJSONObject("data");
                         Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                         UserInfo userInfo = new Gson().fromJson(data.toString(), UserInfo.class);
-                        MyApplication.token=userInfo.getToken();
+                        MyApplication.token = userInfo.getToken();
                         MyApplication.setUserInfo(userInfo);
                         MyApplication.setIsLogin(true);
                         getData();
-                        int isShow= (int) SPUtils.get(RegisterActivity.this,"isShow",0);
-                        if(isShow==0){
-                            SPUtils.put(RegisterActivity.this,"isShow",1);
+                        int isShow = (int) SPUtils.get(RegisterActivity.this, "isShow", 0);
+                        if (isShow == 0) {
+                            SPUtils.put(RegisterActivity.this, "isShow", 1);
                             showDialog();
-                        }
-                        else if(isShow==1){
+                        } else if (isShow == 1) {
                             Intent intent = new Intent();
                             intent.putExtra("user", userInfo);
                             setResult(1, intent);
                             finish();
                         }
 
-                    }else{
+                    } else {
                         Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
 
@@ -581,10 +574,11 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
     private void initOpenIdAndToken(Object object) {
         //Toast.makeText(RegisterActivity.this, "fdfgg", Toast.LENGTH_SHORT).show();
         JSONObject jb = (JSONObject) object;
-        Log.e("jb",jb.toString());
+        Log.e("jb", jb.toString());
         try {
             String openID = jb.getString("openid");  //openid用户唯一标识
             String access_token = jb.getString("access_token");
@@ -598,14 +592,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-
-
-
     private void initView() {
         ButterKnife.bind(this);
         ctx = this;
-//        api = WXAPIFactory.createWXAPI(this, "", true);
-//        api.registerApp("");
+
 
         iv_wechat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -619,7 +609,7 @@ public class RegisterActivity extends AppCompatActivity {
                 QQLogin();
             }
         });
-        codeBtn.setEnabled(false);
+        tv_getcode.setEnabled(false);
         phoneNum.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -633,121 +623,102 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String phone=s.toString();
-                if (phone.length()==11) {
-                    codeBtn.setEnabled(true);
-                    codeBtn.setTextColor(ContextCompat.getColor(ctx, R.color.yellow_65));
+                String phone = s.toString();
+                if (phone.length() == 11) {
+                    tv_getcode.setEnabled(true);
+                    tv_getcode.setTextColor(ContextCompat.getColor(ctx, R.color.yellow_65));
                 } else {
-                    codeBtn.setEnabled(false);
-                    codeBtn.setTextColor(ContextCompat.getColor(ctx, R.color.gray_99));
+                    tv_getcode.setEnabled(false);
+                    tv_getcode.setTextColor(ContextCompat.getColor(ctx, R.color.gray_99));
                 }
             }
         });
-        codeNumEdit.addTextChangedListener(new TextWatcher() {
+        vicode.setAutoWidth();
+        vicode.setOnCompleteListener(new VerCodeInputView.OnCompleteListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (codeNumEdit.getText() != null && !codeNumEdit.getText().toString().equals("")) {
-                    String code = codeNumEdit.getText().toString();
-                    if (code.length() > 5) {
-                        code6.setText(s.charAt(5) + "");
-                        if (ty == 1) {
-                            Intent intent = new Intent(RegisterActivity.this, SetPasswordActivity.class);
-                            intent.putExtra("code", code);
-                            intent.putExtra("phone", sendphone.getText().toString());
-                            startActivityForResult(intent, 0);
-                        } else if (ty == 3) {
-                            //finish();
-                            loginByPhone(sendphone.getText().toString(), code);
-                        }
-                    } else {
-                        code6.setText("");
-                    }
-                    if (code.length() > 4) {
-                        code5.setText(s.charAt(4) + "");
-                    } else {
-                        code5.setText("");
-                    }
-                    if (code.length() > 3) {
-                        code4.setText(s.charAt(3) + "");
-                    } else {
-                        code4.setText("");
-                    }
-                    if (code.length() > 2) {
-                        code3.setText(s.charAt(2) + "");
-                    } else {
-                        code3.setText("");
-                    }
-                    if (code.length() > 1) {
-                        code2.setText(s.charAt(1) + "");
-                    } else {
-                        code2.setText("");
-                    }
-                    if (code.length() > 0) {
-                        code1.setText(s.charAt(0) + "");
-                    } else {
-                        code1.setText("");
-                    }
-                } else {
-                    code1.setText("");
-                    code2.setText("");
-                    code3.setText("");
-                    code4.setText("");
-                    code5.setText("");
-                    code6.setText("");
+            public void onComplete(String content) {
+                //ToastUtil.showToast(SetPayNextActivity.this,content);
+                if (ty == 1) {
+                    Intent intent = new Intent(RegisterActivity.this, SetPasswordActivity.class);
+                    intent.putExtra("code", content);
+                    intent.putExtra("phone", sendphone.getText().toString());
+                    startActivityForResult(intent, 200);
+                } else if (ty == 3) {
+                    //finish();
+                    loginByPhone(sendphone.getText().toString(), content);
                 }
             }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
         });
+//        codeNumEdit.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if (codeNumEdit.getText() != null && !codeNumEdit.getText().toString().equals("")) {
+//                    String code = codeNumEdit.getText().toString();
+//                    if (code.length() > 5) {
+//                        code6.setText(s.charAt(5) + "");
+//                        if (ty == 1) {
+//                            Intent intent = new Intent(RegisterActivity.this, SetPasswordActivity.class);
+//                            intent.putExtra("code", code);
+//                            intent.putExtra("phone", sendphone.getText().toString());
+//                            startActivityForResult(intent, 200);
+//                        } else if (ty == 3) {
+//                            //finish();
+//                            loginByPhone(sendphone.getText().toString(), code);
+//                        }
+//                    } else {
+//                        code6.setText("");
+//                    }
+//                    if (code.length() > 4) {
+//                        code5.setText(s.charAt(4) + "");
+//                    } else {
+//                        code5.setText("");
+//                    }
+//                    if (code.length() > 3) {
+//                        code4.setText(s.charAt(3) + "");
+//                    } else {
+//                        code4.setText("");
+//                    }
+//                    if (code.length() > 2) {
+//                        code3.setText(s.charAt(2) + "");
+//                    } else {
+//                        code3.setText("");
+//                    }
+//                    if (code.length() > 1) {
+//                        code2.setText(s.charAt(1) + "");
+//                    } else {
+//                        code2.setText("");
+//                    }
+//                    if (code.length() > 0) {
+//                        code1.setText(s.charAt(0) + "");
+//                    } else {
+//                        code1.setText("");
+//                    }
+//                } else {
+//                    code1.setText("");
+//                    code2.setText("");
+//                    code3.setText("");
+//                    code4.setText("");
+//                    code5.setText("");
+//                    code6.setText("");
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//            }
+//        });
         tv_loginbypwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(RegisterActivity.this, LoginByaccountActivity.class), 1);
             }
         });
-        codeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                codeGetAgain.setEnabled(false);
-                String phone = phoneNum.getTrimmedString();
-                sendphone.setText(phone);
-                new CountDownTimer(60 * 1000, 1000) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                count--;
-                                //倒计时的过程中回调该函数
-                                codeGetAgain.setText(count + "s");
-                                if (count == 0) {
-                                    count=60;
-                                    codeGetAgain.setText("重新获取");
-                                    codeGetAgain.setEnabled(true);
-                                    codeGetAgain.setTextColor(getResources().getColor(R.color.yellow_02));
-                                }
-                            }
-                        });
-
-
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        //倒计时结束时回调该函数
-                    }
-                }.start();
-                checkIsExists(phone);
-            }
-        });
 
         mTimeCount = new TimeCount(60000, 1000);
 
@@ -756,7 +727,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
-        Log.e("result",resultCode+"");
+        Log.e("result", resultCode + "");
         Tencent.onActivityResultData(requestCode, resultCode, data, mBaseUiListener);
         //Log.e("data", data.getDataString());
         if (requestCode == 1 || requestCode == 0) {
@@ -766,14 +737,16 @@ public class RegisterActivity extends AppCompatActivity {
                 finish();
             }
         }
+        if (requestCode == 200 && resultCode == RESULT_OK) {
+            finish();
+        }
 
     }
 
 
-
-
     int ty;
-     int count=60;
+    int count = 60;
+
     private void checkIsExists(final String account) {
         Map<String, Object> params = new HashMap<>();
         params.put("username", account);
@@ -789,8 +762,9 @@ public class RegisterActivity extends AppCompatActivity {
                     if (phoneNum.getText() != null && !phoneNum.getText().toString().equals("")) {
                         findViewById(R.id.view1).setVisibility(View.GONE);
                         findViewById(R.id.view2).setVisibility(View.VISIBLE);
-                        showSoftInputFromWindow(codeNumEdit);
+                        hide();
                     }
+
                     if (TextUtils.equals("0", data)) {
                         ty = 1;
                         //注册,并且登录
@@ -861,22 +835,27 @@ public class RegisterActivity extends AppCompatActivity {
         imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
 
     }
+    public void hide(){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+    }
 
-    @OnClick({R.id.cancelBtn, R.id.code, R.id.codeLay, R.id.codeGetAgain})
+    @OnClick({R.id.cancelBtn, R.id.code, R.id.codeGetAgain})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.cancelBtn:
                 onBackPressed();
                 break;
             case R.id.code:
+                codeGetAgain.setEnabled(false);
+                String phone = phoneNum.getTrimmedString();
+                sendphone.setText(phone);
+                checkIsExists(phone);
                 break;
             case R.id.codeGetAgain:
 
                 getCodeByType(ty, phoneNum.getText().toString());
-                codeNumEdit.setText("");
-                break;
-            case R.id.codeLay:
-                showSoftInputFromWindow(codeNumEdit);
+
                 break;
         }
     }

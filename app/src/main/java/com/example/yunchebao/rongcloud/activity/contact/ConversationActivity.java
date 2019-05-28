@@ -18,6 +18,7 @@ import com.example.yunchebao.R;
 import com.example.yunchebao.rongcloud.model.GroupDetail;
 import com.example.yunchebao.rongcloud.model.GroupUser;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.example.yunchebao.rongcloud.activity.StrangerDelActivity;
@@ -60,7 +61,7 @@ public class ConversationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
         ButterKnife.bind(this);
-
+        ImmersionBar.with(this).autoDarkModeEnable(true).statusBarColor(R.color.white).init();
         initView();
     }
 

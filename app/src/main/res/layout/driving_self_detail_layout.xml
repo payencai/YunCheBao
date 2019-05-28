@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <com.tool.listview.PersonalScrollView
+            android:id="@+id/sc_self"
             android:layout_above="@+id/ll_bottom"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -173,6 +174,7 @@
                             android:textSize="10sp" />
 
                         <LinearLayout
+                            android:id="@+id/ll_content"
                             android:layout_marginTop="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

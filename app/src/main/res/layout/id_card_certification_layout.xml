@@ -37,7 +37,7 @@
                     <EditText
                         android:id="@+id/et_name"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="9"
                         android:background="@color/white"
@@ -93,9 +93,11 @@
                     android:textSize="14sp" />
 
                 <EditText
+
+                    android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     android:id="@+id/et_number"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="9"
                     android:background="@color/white"

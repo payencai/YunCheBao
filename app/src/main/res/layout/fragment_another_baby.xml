@@ -68,7 +68,7 @@
                 android:textSize="12sp" />
         </RelativeLayout>
     </RelativeLayout>
-    <com.cheyibao.model.ReboundScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_marginTop="1dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -365,7 +365,7 @@
                     android:layout_height="15dp" />
             </RelativeLayout>
         </LinearLayout>
-    </com.cheyibao.model.ReboundScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 
 </LinearLayout>

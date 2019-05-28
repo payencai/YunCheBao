@@ -1,4 +1,4 @@
-package com.vipcenter;
+package com.example.yunchebao.gift;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
@@ -21,6 +22,10 @@ import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.tool.listview.PersonalScrollView;
+import com.vipcenter.GiftBaobeiCenterActivity;
+import com.vipcenter.GiftGoodDetailActivity;
+import com.vipcenter.GiftMoreActivity;
+import com.vipcenter.GiftRuleActivity;
 import com.vipcenter.adapter.GiftHomeListAdapter;
 import com.vipcenter.model.Gift;
 import com.vipcenter.model.MyWallet;
@@ -59,6 +64,7 @@ public class GiftMarketHomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gift_market_home);
+        ImmersionBar.with(this).fitsSystemWindows(true).statusBarColor(R.color.wallet).init();
         initView();
     }
 

@@ -116,7 +116,9 @@
         <activity
             android:name=".road.PubRoadActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-        <activity android:name=".rongcloud.activity.NearbyActivity" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".rongcloud.activity.NearbyActivity" />
         <activity android:name=".fourshop.activity.SeeCommentActivity" />
         <activity android:name=".fourshop.activity.AddFourCommentActivity" />
         <activity android:name=".fourshop.activity.CarDetailActivity" />
@@ -246,12 +248,12 @@
         <activity android:name="com.baike.BuyCarListActivity" />
         <activity android:name="com.baike.BaikeDetailActivity" /> <!-- 宝贝圈 -->
         <activity android:name="com.bbcircle.PublishAreaSelectActivity" />
-        <activity android:name="com.bbcircle.SelfDrivingRepublishActivity" />
-        <activity android:name="com.bbcircle.DrivingSelfDetailActivity" />
+        <activity android:name=".babycircle.selfdrive.SelfDrivingRepublishActivity" />
+        <activity android:name=".babycircle.selfdrive.DrivingSelfDetailActivity" />
         <activity android:name="com.bbcircle.CarsShowRepublishActivity" />
-        <activity android:name="com.bbcircle.DriverFriendsRepublishActivity" />
+        <activity android:name=".babycircle.carfriend.DriverFriendsRepublishActivity" />
         <activity android:name="com.bbcircle.DrivingSelfReplaySuccessActivity" />
-        <activity android:name="com.bbcircle.DriverFriendsDetailActivity" />
+        <activity android:name=".babycircle.carfriend.DriverFriendsDetailActivity" />
         <activity android:name="com.bbcircle.CarShowDetailActivity" />
         <activity android:name="com.bbcircle.CommentsActivity" />
         <activity android:name="com.bbcircle.ReplySettingActivity" />
@@ -264,7 +266,9 @@
         <activity android:name="com.maket.MarketSelectListActivity" />
         <activity android:name="com.maket.MarketSelectActivity" /> <!-- 个人中心 -->
         <activity android:name="com.vipcenter.UserCenterActivity" />
-        <activity android:name="com.vipcenter.MyWalletActivity" />
+        <activity
+            android:theme="@style/PayTheme"
+            android:name="com.vipcenter.MyWalletActivity" />
         <activity android:name="com.vipcenter.ConsumptionListActivity" />
         <activity android:name="com.vipcenter.ConsumptionDetailActivity" />
         <activity android:name="com.vipcenter.DepositListActivity" />
@@ -305,7 +309,7 @@
         <activity android:name="com.vipcenter.OrderDetailActivity" />
         <activity android:name="com.vipcenter.WashCommentActivity" />
         <activity android:name="com.vipcenter.WashCommentSubmitActivity" /> <!-- 礼品汇 -->
-        <activity android:name="com.vipcenter.GiftMarketHomeActivity" />
+        <activity android:name=".gift.GiftMarketHomeActivity" />
         <activity android:name="com.vipcenter.GiftRuleActivity" />
         <activity android:name="com.vipcenter.GiftBaobeiCenterActivity" />
         <activity android:name="com.vipcenter.GiftRecordListActivity" />

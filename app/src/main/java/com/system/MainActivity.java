@@ -103,7 +103,6 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         ButterKnife.bind(this);
         //openGPS(this);
-        
         autoLogin();
         RongIM.setConnectionStatusListener(new RongIMClient.ConnectionStatusListener() {
             @Override
@@ -285,42 +284,42 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         clearTagbarState();
         if (viewId == R.id.main_fl_1) {
             tv_tab1.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
-            iv_tab1.setImageResource(R.mipmap.home_icon_1y);
+            iv_tab1.setImageResource(R.mipmap.ic_home_select);
             return;
         }
         if (viewId == R.id.main_fl_2) {
             tv_tab2.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
-            iv_tab2.setImageResource(R.mipmap.home_icon_2y);
+            iv_tab2.setImageResource(R.mipmap.ic_cheyi_select);
             return;
         }
         if (viewId == R.id.main_fl_3) {
             tv_tab3.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
-            iv_tab3.setImageResource(R.mipmap.home_icon_3y);
+            iv_tab3.setImageResource(R.mipmap.ic_circle_select);
             return;
         }
         if (viewId == R.id.main_fl_4) {
             tv_tab4.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
-            iv_tab4.setImageResource(R.mipmap.home_icon_4y);
+            iv_tab4.setImageResource(R.mipmap.ic_baike_select);
             return;
         }
         if (viewId == R.id.main_fl_5) {
             tv_tab5.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
-            iv_tab5.setImageResource(R.mipmap.home_icon_5y);
+            iv_tab5.setImageResource(R.mipmap.ic_shop_select);
             return;
         }
     }
 
     private void clearTagbarState() {
         tv_tab1.setTextColor(ContextCompat.getColor(this, R.color.black_33));
-        iv_tab1.setImageResource(R.mipmap.home_icon_1);
+        iv_tab1.setImageResource(R.mipmap.ic_home_unselect);
         tv_tab2.setTextColor(ContextCompat.getColor(this, R.color.black_33));
-        iv_tab2.setImageResource(R.mipmap.home_icon_2);
+        iv_tab2.setImageResource(R.mipmap.ic_cheyi_unselect);
         tv_tab3.setTextColor(ContextCompat.getColor(this, R.color.black_33));
-        iv_tab3.setImageResource(R.mipmap.home_icon_3);
+        iv_tab3.setImageResource(R.mipmap.ic_circle_unselect);
         tv_tab4.setTextColor(ContextCompat.getColor(this, R.color.black_33));
-        iv_tab4.setImageResource(R.mipmap.home_icon_4);
+        iv_tab4.setImageResource(R.mipmap.ic_baike_unselect);
         tv_tab5.setTextColor(ContextCompat.getColor(this, R.color.black_33));
-        iv_tab5.setImageResource(R.mipmap.home_icon_5);
+        iv_tab5.setImageResource(R.mipmap.ic_shop_unselect);
     }
 
     private void hideAllFragment() {
@@ -525,7 +524,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
     private void getGroupData(String id) {
         Map<String, Object> params = new HashMap<>();
         params.put("crowdId", id);
-        final com.vipcenter.model.UserInfo userinfo = MyApplication.getUserInfo();
+
         HttpProxy.obtain().get(PlatformContans.Chat.getCrowdDetailsByCrowdId, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -534,6 +533,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                     JSONObject Json = new JSONObject(result);
                     JSONObject data = Json.getJSONObject("data");
                     String name = data.getString("crowdName");
+                    String crowId=data.getString("hxCrowdId");
                     String image = data.getString("image");
                     JSONArray indexList = data.getJSONArray("indexList");
                     String groupOwnerId = data.getString("crowdUserId");
@@ -548,12 +548,12 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
 
                     if (groupOwnerId.equals(MyApplication.getUserInfo().getId())) {
                         Intent intent = new Intent(MainActivity.this, MyGroupDetailActivity.class);
-                        intent.putExtra("id", id);
+                        intent.putExtra("id", crowId);
                         startActivity(intent);
                     } else {
                         if (isIn) {
                             Intent intent = new Intent(MainActivity.this, GroupDetailActivity.class);
-                            intent.putExtra("id", id);
+                            intent.putExtra("id", crowId);
                             startActivity(intent);
                         } else {
                             Intent intent = new Intent(MainActivity.this, AddGroupDetailActivity.class);

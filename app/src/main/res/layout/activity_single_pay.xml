@@ -66,7 +66,7 @@
                         android:id="@+id/tv_contact"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="张先生   158****3661"
+                        android:text="请选择收货地址"
                         android:textColor="@color/black_33"
                         android:textSize="14sp" />
 
@@ -92,9 +92,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginTop="10dp"
-
                         android:drawablePadding="10dp"
-                        android:text="云南省昆明市西山区前卫西路世纪半岛"
+                        android:text=""
                         android:textColor="@color/black_33"
                         android:textSize="14sp"
                         android:visibility="visible" />
@@ -114,7 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="广州大学城信息枢纽"
+                    android:text=""
                     android:textColor="@color/gray_99"
                     android:textSize="12sp"
                     android:visibility="visible" />

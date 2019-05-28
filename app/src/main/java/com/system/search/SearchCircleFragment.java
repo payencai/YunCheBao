@@ -13,8 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.application.MyApplication;
-import com.bbcircle.DriverFriendsDetailActivity;
-import com.bbcircle.DrivingSelfDetailActivity;
+import com.example.yunchebao.babycircle.carfriend.DriverFriendsDetailActivity;
+import com.example.yunchebao.babycircle.selfdrive.DrivingSelfDetailActivity;
 import com.bbcircle.adapter.CarFriendAdapter;
 import com.bbcircle.data.CarFriend;
 import com.chad.library.adapter.base.BaseQuickAdapter;

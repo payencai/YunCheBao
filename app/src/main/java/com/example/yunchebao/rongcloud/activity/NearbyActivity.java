@@ -66,15 +66,16 @@ public class NearbyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearby);
-        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         ButterKnife.bind(this);
-
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
 
     private void initView() {
+        Log.e("loading","loading");
         mNearbies = new ArrayList<>();
         mNearByAdapter = new NearByAdapter(R.layout.item_nearby, mNearbies);
+        rv_nearby.setLayoutManager(new LinearLayoutManager(this));
         mNearByAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -96,14 +97,8 @@ public class NearbyActivity extends AppCompatActivity {
                 refersh();
             }
         });
-        rv_nearby.setLayoutManager(new LinearLayoutManager(this));
         rv_nearby.setAdapter(mNearByAdapter);
-        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
         getData();
     }
 
@@ -147,6 +142,7 @@ public class NearbyActivity extends AppCompatActivity {
     }
 
     private void getData() {
+
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
         params.put("sex", sex);
@@ -157,30 +153,28 @@ public class NearbyActivity extends AppCompatActivity {
             @Override
             public void OnSuccess(String result) {
                 refersh.finishRefresh();
-                Log.e("getFourShopListByApp", result);
+                Log.e("searchNearbyUser", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray data = jsonObject.getJSONArray("data");
-                    List<Nearby> replaceDrives = new ArrayList<>();
+                    List<Nearby> nearbyList = new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
                         Nearby nearby = new Gson().fromJson(item.toString(), Nearby.class);
+                        nearbyList.add(nearby);
                         UserInfo userInfo = new UserInfo(nearby.getId(), nearby.getName(), Uri.parse(nearby.getHeadPortrait()));
                         RongIM.getInstance().refreshUserInfoCache(userInfo);
-                        mNearbies.add(nearby);
-                        replaceDrives.add(nearby);
                     }
+                    mNearByAdapter.addData(nearbyList);
                     if (isLoadMore) {
                         isLoadMore = false;
                         if (data.length() == 0) {
                             mNearByAdapter.loadMoreEnd(true);
                         } else {
-                            mNearByAdapter.addData(replaceDrives);
                             mNearByAdapter.loadMoreComplete();
                         }
                     } else {
-                        mNearByAdapter.setNewData(mNearbies);
-
+                        mNearByAdapter.loadMoreComplete();
                     }
 
                 } catch (JSONException e) {
@@ -199,6 +193,7 @@ public class NearbyActivity extends AppCompatActivity {
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.back:
+                finish();
                 break;
             case R.id.rl_more:
                 showNearbyDialog();

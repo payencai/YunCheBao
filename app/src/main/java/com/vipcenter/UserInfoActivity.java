@@ -1,19 +1,16 @@
 package com.vipcenter;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
@@ -28,13 +25,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.MyApplication;
-import com.bbcircle.DriverFriendsRepublishActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
@@ -443,6 +439,7 @@ public class UserInfoActivity extends NoHttpBaseActivity {
     private void initView() {
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "个人资料");
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         Glide.with(this).load(MyApplication.getUserInfo().getHeadPortrait())
                 .into(sd_head);
         sd_head.setOnClickListener(new View.OnClickListener() {
