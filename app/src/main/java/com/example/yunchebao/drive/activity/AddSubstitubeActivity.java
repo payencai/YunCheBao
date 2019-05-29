@@ -13,11 +13,13 @@ import com.application.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.drive.model.DriveMan;
 import com.example.yunchebao.R;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
 import com.system.X5WebviewActivity;
 import com.system.model.AddressBean;
+import com.vipcenter.RegisterActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +49,7 @@ public class AddSubstitubeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_substitube);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         mDriveMan = (DriveMan) getIntent().getSerializableExtra("data");
         id = getIntent().getStringExtra("id");
         initView();
@@ -111,6 +114,10 @@ public class AddSubstitubeActivity extends AppCompatActivity {
                 }
                 if(addrDest==null){
                     ToastUtil.showToast(this, "目的地址不能为空");
+                    return;
+                }
+                if(!MyApplication.isLogin){
+                    startActivity(new Intent(AddSubstitubeActivity.this, RegisterActivity.class));
                     return;
                 }
                 addOrder();

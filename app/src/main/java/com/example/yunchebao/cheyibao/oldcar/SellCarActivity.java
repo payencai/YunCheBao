@@ -10,6 +10,7 @@ import android.view.View;
 import com.cheyibao.fragment.SellCarHandbookFragment;
 import com.cheyibao.fragment.SellPublishFragment;
 import com.example.yunchebao.R;
+import com.gyf.immersionbar.ImmersionBar;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
@@ -39,6 +40,7 @@ public class SellCarActivity extends NoHttpFragmentBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sell_car);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
 

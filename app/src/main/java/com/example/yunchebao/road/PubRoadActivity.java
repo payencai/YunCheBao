@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.road.model.RoadDetail;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.mediapicker.PickerActivity;
@@ -115,6 +116,7 @@ public class PubRoadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pub_road);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         id = getIntent().getStringExtra("id");
         mRoadDetail = (RoadDetail) getIntent().getSerializableExtra("data");
         initView();

@@ -115,7 +115,8 @@ public class ShopDetailActivity extends AppCompatActivity {
     private void initView() {
         shopNameView.setText(rentShop.getName());
         gradeView.setText(String.format("%s", rentShop.getGrade()));
-        businessHoursView.setText(String.format("营业时间:%s~%s", TextUtils.isEmpty(rentShop.getAmStart())? rentShop.getPmStart():rentShop.getAmStart(), TextUtils.isEmpty(rentShop.getPmStop())? rentShop.getAmStop():rentShop.getPmStop()));
+        String time="营业时间:"+rentShop.getAmStart()+"-"+rentShop.getPmStop();
+        businessHoursView.setText(time.replace("null",""));
         sbScore.setRating((float) rentShop.getScore());
         if(TextUtils.isEmpty(rentShop.getAmStart())){
             businessHoursView.setText("营业时间:8:00-18:30");

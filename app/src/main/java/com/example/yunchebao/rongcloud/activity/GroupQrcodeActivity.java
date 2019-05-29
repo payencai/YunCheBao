@@ -24,7 +24,7 @@ public class GroupQrcodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_group_qrcode);
         ButterKnife.bind(this);
         id=getIntent().getStringExtra("id");
-        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
+        ImmersionBar.with(this).statusBarColor(R.color.yellow_64).init();
         initView();
     }
 

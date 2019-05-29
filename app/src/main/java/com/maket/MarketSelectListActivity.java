@@ -11,10 +11,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bbcircle.data.ClassItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -65,6 +69,8 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
     TextView rankSaleBtn;
     @BindView(R.id.rankDefault)
     TextView rankDefaultBtn;
+    @BindView(R.id.et_search)
+    EditText et_search;
     Resources res;
     int page=1;
     String id;
@@ -74,6 +80,7 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
     String sort;
     String minPrice;
     String maxPrice;
+    String keyword;
     @BindView(R.id.refresh)
     SmartRefreshLayout mRefreshLayout;
     GoodsTypeAdapter mGoodsTypeAdapter;
@@ -117,12 +124,36 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 page=1;
                 mGoodLists.clear();
+                maxPrice="";
+                minPrice="";
                 mGoodsTypeAdapter.setNewData(mGoodLists);
                 getData(id);
             }
         });
         rv_goods.setLayoutManager(new LinearLayoutManager(this));
         rv_goods.setAdapter(mGoodsTypeAdapter);
+        et_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
+
+                    keyword = et_search.getText().toString().trim();
+
+                    if (TextUtils.isEmpty(keyword)) {
+                        Toast.makeText(MarketSelectListActivity.this, "请输入搜索关键字", Toast.LENGTH_SHORT).show();
+
+                        return false;
+                    }
+                    page=1;
+                    mGoodLists.clear();
+                    mGoodsTypeAdapter.setNewData(mGoodLists);
+                    getData(id);
+                    // 搜索功能主体
+
+                    return true;
+                }
+                return false;
+            }
+        });
 
         getData(id);
 
@@ -144,7 +175,9 @@ public class MarketSelectListActivity extends NoHttpBaseActivity {
         if(!TextUtils.isEmpty(maxPrice)){
             params.put("maxPrice",maxPrice);
         }
-
+        if(!TextUtils.isEmpty(keyword)){
+            params.put("keyword",keyword);
+        }
         HttpProxy.obtain().get(PlatformContans.GoodMenu.getGoodList, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {

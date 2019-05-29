@@ -26,6 +26,7 @@ import com.example.yunchebao.R;
 import com.example.yunchebao.applyenter.Agency;
 import com.example.yunchebao.applyenter.SelectServiceProviderActivity;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
@@ -112,6 +113,7 @@ public class EnteringActivity extends NoHttpBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entering);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
 

@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
-import com.cheyibao.DrivingOrderActivity;
+import com.example.yunchebao.driverschool.DrivingOrderActivity;
 import com.example.yunchebao.driverschool.CoachDetailActivity;
 import com.example.yunchebao.driverschool.DrivingSchoolActivity;
 import com.cheyibao.adapter.CoashItemAdapter;

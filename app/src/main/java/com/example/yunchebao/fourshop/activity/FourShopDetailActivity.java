@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,7 @@ import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.drive.activity.SimplePlayerActivity;
 import com.example.yunchebao.R;
+import com.example.yunchebao.washrepair.NewWashrepairDetailActivity;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.example.yunchebao.fourshop.bean.FourShopData;
 import com.example.yunchebao.fourshop.fragment.DetailServiceFragment;
@@ -42,6 +44,7 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.system.WebviewActivity;
 import com.tool.NoScrollViewPager;
+import com.vipcenter.RegisterActivity;
 import com.xihubao.ShopInfoActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -106,7 +109,7 @@ public class FourShopDetailActivity extends AppCompatActivity {
     @BindView(R.id.banner)
     Banner banner;
     ImmersionBar mImmersionBar;
-    String[] titles = {"车辆","服务","评论"};
+    String[] titles = {"车辆", "服务", "评论"};
     String id;
     FourShopData mFourShopData;
     ArrayList<Fragment> mFragments = new ArrayList<>();
@@ -117,10 +120,15 @@ public class FourShopDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_four_shop_detail);
         ButterKnife.bind(this);
         id = getIntent().getStringExtra("id");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+        }
         initView();
     }
 
-    @OnClick({R.id.ll_shop, R.id.rl_phone, R.id.rl_collect, R.id.ll_map,R.id.iv_back})
+    @OnClick({R.id.ll_shop, R.id.rl_phone, R.id.rl_collect, R.id.ll_map, R.id.iv_back})
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -130,6 +138,10 @@ public class FourShopDetailActivity extends AppCompatActivity {
                 showMapDialog(new LatLng(Double.parseDouble(mFourShopData.getLatitude()), Double.parseDouble(mFourShopData.getLongitude())));
                 break;
             case R.id.rl_collect:
+                if (!MyApplication.isLogin) {
+                    startActivity(new Intent(FourShopDetailActivity.this, RegisterActivity.class));
+                    return;
+                }
                 if (isCollect == 0) {
                     isCollect = 1;
                     iv_heart.setImageResource(R.mipmap.orange_heart_icon);
@@ -241,7 +253,7 @@ public class FourShopDetailActivity extends AppCompatActivity {
         initBanner(images);
         isCollect();
         initTab();
-        tv_time.setText("营业时间："+mFourShopData.getAmStart()+"-"+mFourShopData.getPmStop());
+        tv_time.setText("营业时间：" + mFourShopData.getAmStart() + "-" + mFourShopData.getPmStop());
         tv_dis.setText(mFourShopData.getDistance() + "km");
         tv_score.setText("" + mFourShopData.getScore());
         tv_grade.setText("" + mFourShopData.getGrade());
@@ -290,7 +302,7 @@ public class FourShopDetailActivity extends AppCompatActivity {
     private void initTab() {
         DetailServiceFragment detailServiceFragment = new DetailServiceFragment();
         FourShopCarFragment fourShopCarFragment = new FourShopCarFragment();
-        FourShopCommentFragment fourShopCommentFragment=new FourShopCommentFragment();
+        FourShopCommentFragment fourShopCommentFragment = new FourShopCommentFragment();
         mFragments.add(fourShopCarFragment);
         mFragments.add(detailServiceFragment);
         mFragments.add(fourShopCommentFragment);

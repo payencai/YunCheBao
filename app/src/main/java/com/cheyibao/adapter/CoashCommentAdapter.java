@@ -33,7 +33,7 @@ import java.util.List;
 public class CoashCommentAdapter extends BaseAdapter{
     private List<CoashComment> mClassItems;
     private Context mContext;
-    PhotoAdapter mPhotoAdapter;
+
 
     public CoashCommentAdapter(Context context, List<CoashComment> classItems) {
         mClassItems = classItems;
@@ -104,7 +104,7 @@ public class CoashCommentAdapter extends BaseAdapter{
 
         iv_coashhead.setImageResource(R.mipmap.ic_default_head);
         tv_coashname.setText("匿名用户");
-        mPhotoAdapter=new PhotoAdapter(mContext,images);
+        PhotoAdapter mPhotoAdapter=new PhotoAdapter(mContext,images);
         gv_photo.setAdapter(mPhotoAdapter);
 
         gv_photo.setOnItemClickListener(new AdapterView.OnItemClickListener() {

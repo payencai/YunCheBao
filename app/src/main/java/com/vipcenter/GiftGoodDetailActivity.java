@@ -2,6 +2,7 @@ package com.vipcenter;
 
 import android.content.Context;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -88,6 +89,11 @@ public class GiftGoodDetailActivity extends NoHttpBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gift_good_detail_layout);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+        }
         initView();
         initBanner();
         initWebview();
@@ -142,7 +148,7 @@ public class GiftGoodDetailActivity extends NoHttpBaseActivity {
     }
     private void initView() {
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "商品详情页");
-        ButterKnife.bind(this);  ImmersionBar.with(this).fitsSystemWindows(true).statusBarColor(R.color.white).init();
+
 
         ctx = this;
         mGift = (Gift) getIntent().getExtras().getSerializable("data");

@@ -29,6 +29,7 @@ import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.cheyibao.oldcar.adapter.OldcarListAdapter;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
@@ -116,7 +117,7 @@ public class OldCarListActivity extends NoHttpBaseActivity {
                 firstId=mNewCarMenu.getFistId();
             }
         }
-
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
 
     }

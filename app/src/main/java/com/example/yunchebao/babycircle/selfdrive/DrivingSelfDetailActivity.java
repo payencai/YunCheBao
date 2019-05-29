@@ -35,6 +35,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.babycircle.adapter.JoinAdapter;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
@@ -47,6 +48,7 @@ import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.tool.listview.PersonalScrollView;
 import com.tool.slideshowview.SlideShowView;
+import com.tool.view.ListViewForScrollView;
 import com.vipcenter.RegisterActivity;
 
 import org.json.JSONArray;
@@ -75,6 +77,8 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
     SlideShowView slideShowView;
     @BindView(R.id.tv_title)
     TextView tv_title;
+    @BindView(R.id.lv_join)
+    ListViewForScrollView lv_join;
     @BindView(R.id.createtime)
     TextView tv_createTime;
     @BindView(R.id.readNum)
@@ -117,6 +121,7 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
     CircleCommentAdapter mCircleCommentAdapter;
     List<CircleComment> mCircleComments = new ArrayList<>();
     SeldDrvingDetail mSeldDrvingDetail;
+    JoinAdapter joinAdapter;
     private void initWebview(String url) {
         WebSettings settings = mWebView.getSettings();
         mWebView.requestFocusFromTouch();
@@ -204,7 +209,7 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
             if(mSeldDrvingDetail.getIsCollection()==1){
                 iv_heart.setImageResource(R.mipmap.orange_heart_icon);
             }else{
-                //iv_heart.setImageResource(R.mipmap.white_heart_icon);
+                iv_heart.setImageResource(R.mipmap.collect_gray_hole);
             }
             isfocus(mSeldDrvingDetail.getUserId());
             Glide.with(this).load(mSeldDrvingDetail.getHeadPortrait()).into(tv_head);
@@ -219,6 +224,11 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
             if(MyApplication.getUserInfo().getId().equals(mSeldDrvingDetail.getUserId())){
                 ll_content.setVisibility(View.GONE);
             }
+            if(mSeldDrvingDetail.getList()!=null&&mSeldDrvingDetail.getList().size()>0){
+                joinAdapter=new JoinAdapter(this,mSeldDrvingDetail.getList());
+                lv_join.setAdapter(joinAdapter);
+            }
+
         }
     }
 
@@ -256,9 +266,14 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driving_self_detail_layout);
         ButterKnife.bind(this);
-        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
+        //ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "自驾游");
         id = getIntent().getStringExtra("id");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+        }
         initView();
     }
 
@@ -360,7 +375,7 @@ public class DrivingSelfDetailActivity extends NoHttpBaseActivity {
             @Override
             public void OnSuccess(String result) {
                 try {
-                    Log.e("detail", result);
+                    Log.d("detail", result);
                     JSONObject jsonObject = new JSONObject(result);
                     int code=jsonObject.getInt("resultCode");
                     if(code==0){

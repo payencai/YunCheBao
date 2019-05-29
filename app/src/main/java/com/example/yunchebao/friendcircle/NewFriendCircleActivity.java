@@ -8,6 +8,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -72,6 +73,8 @@ public class NewFriendCircleActivity extends AppCompatActivity {
     ImageView iv_headpic;
     @BindView(R.id.tv_name)
     TextView tv_name;
+    @BindView(R.id.sr_refresh)
+    SwipeRefreshLayout sr_refresh;
     @BindView(R.id.appbar)
     AppBarLayout mAppBarLayout;
     @BindView(R.id.bg_img)
@@ -195,7 +198,7 @@ public class NewFriendCircleActivity extends AppCompatActivity {
                 .from(this)
                 //选择视频和图片
                 //选择图片
-                .choose(MimeType.ofImage(), false)
+                .choose(MimeType.ofAll(), true)
                 //有序选择图片 123456...
                 .countable(true)
                 //最大选择数量为9
@@ -321,7 +324,15 @@ public class NewFriendCircleActivity extends AppCompatActivity {
                 }
             }
         });
-
+        sr_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                page=1;
+                mCircleData.clear();
+                mCircleDataAdapter.setNewData(mCircleData);
+                getData(true);
+            }
+        });
         mCircleData = new ArrayList<>();
         mCircleDataAdapter = new CircleDataAdapter(this, R.layout.item_friends_dynamic, mCircleData);
         mCircleDataAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -405,6 +416,9 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         HttpProxy.obtain().get(url, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+                if(sr_refresh.isRefreshing()){
+                    sr_refresh.setRefreshing(false);
+                }
                 Log.e("getCircleList", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);

@@ -50,6 +50,8 @@ import butterknife.ButterKnife;
 public class BaikeItemFragment extends Fragment {
     @BindView(R.id.id_stickynavlayout_innerscrollview)
     RecyclerView rv_content;
+    @BindView(R.id.sr_refresh)
+    SwipeRefreshLayout sr_refresh;
     private int type;
     private String id;
     BKItemAdapter mBaikeItemAdapter;
@@ -122,7 +124,15 @@ public class BaikeItemFragment extends Fragment {
         });
         rv_content.setAdapter(mBaikeItemAdapter);
 
-
+        sr_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                page=1;
+                mBaikeItems.clear();
+                mBaikeItemAdapter.setNewData(mBaikeItems);
+                getData();
+            }
+        });
         page=1;
         getData();
     }
@@ -136,7 +146,9 @@ public class BaikeItemFragment extends Fragment {
         HttpProxy.obtain().get(PlatformContans.WiKi.getBabyWikiByclassifyId, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-
+                if(sr_refresh.isRefreshing()){
+                    sr_refresh.setRefreshing(false);
+                }
                 Log.e("getWikiClassifyByType", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);

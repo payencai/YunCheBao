@@ -1,5 +1,6 @@
 package com.maket;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -49,6 +50,11 @@ public class GoodDetailActivity extends NoHttpFragmentBaseActivity implements Go
         super.onCreate(savedInstanceState);
         mGoodList= (GoodList) getIntent().getSerializableExtra("data");
         setContentView(R.layout.market_good_detail_main);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+        }
         initView();
     }
 

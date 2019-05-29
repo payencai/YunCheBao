@@ -85,8 +85,10 @@ import top.zibin.luban.OnCompressListener;
 public class BookRoadFragment extends Fragment {
     @BindView(R.id.et_phone)
     EditText et_phone;
-    @BindView(R.id.et_address)
-    TextView et_address;
+    @BindView(R.id.et_addr)
+    EditText et_addr;
+    @BindView(R.id.tv_address)
+    EditText tv_address;
     @BindView(R.id.tv_item1)
     TextView tv_item1;
     @BindView(R.id.tv_item2)
@@ -197,7 +199,7 @@ public class BookRoadFragment extends Fragment {
         if (requestCode == 2 && data != null) {
             mAddressBean = (AddressBean) data.getSerializableExtra("address");
             address = mAddressBean.getPoiaddress();
-            et_address.setText(address);
+            tv_address.setText(address);
             Log.e("mAddressBean", mAddressBean.toString());
         }
         if (requestCode == 1 && data != null) {
@@ -376,7 +378,7 @@ public class BookRoadFragment extends Fragment {
             isOk = false;
             ToastUtil.showToast(getContext(), "颜色不能为空");
         }
-        if (TextUtils.isEmpty(et_address.getEditableText().toString())) {
+        if (TextUtils.isEmpty(et_addr.getEditableText().toString())) {
             isOk = false;
             ToastUtil.showToast(getContext(), "详细地址不能为空");
         }

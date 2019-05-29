@@ -208,7 +208,12 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-
+                <com.tool.view.ListViewForScrollView
+                    android:divider="@color/white"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/lv_join"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></com.tool.view.ListViewForScrollView>
                 <!-- middle end-->
 
                 <LinearLayout

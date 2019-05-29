@@ -11,6 +11,7 @@ import android.webkit.JavascriptInterface;
 
 
 import com.example.yunchebao.R;
+import com.gyf.immersionbar.ImmersionBar;
 import com.payencai.library.util.ToastUtil;
 import com.tencent.smtt.export.external.interfaces.SslError;
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler;
@@ -31,6 +32,7 @@ public class WebviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_webview);
         url = getIntent().getStringExtra("url");
         Log.e("url",url);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         mWebView = (X5WebView) findViewById(R.id.webView);
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override

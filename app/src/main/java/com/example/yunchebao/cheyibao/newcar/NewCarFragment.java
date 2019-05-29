@@ -1,5 +1,6 @@
 package com.example.yunchebao.cheyibao.newcar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.baike.adapter.CarListAdapter;
+import com.bumptech.glide.Glide;
 import com.caryibao.NewCar;
 import com.cheyibao.adapter.NewCarMenuAdapter;
 import com.costans.PlatformContans;
@@ -20,6 +23,7 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
+import com.system.WebviewActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.listview.PersonalListView;
@@ -27,6 +31,8 @@ import com.tool.listview.PersonalScrollView;
 import com.tool.slideshowview.SlideShowView;
 import com.tool.view.GridViewForScrollView;
 import com.xihubao.model.CarBrand;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,9 +59,9 @@ public class NewCarFragment extends BaseFragment {
     PersonalScrollView sc_new;
     List<CarBrand> mCarBrands = new ArrayList<>();
     //轮播图片
-    private List<Map<String, String>> imageList = new ArrayList<>();
-    @BindView(R.id.slideshowView)
-    SlideShowView slideShowView;
+    private List<String> imageList = new ArrayList<>();
+    @BindView(R.id.banner)
+    com.youth.banner.Banner banner;
 
     @BindView(R.id.gv_newcar)
     GridViewForScrollView gv_newcar;
@@ -64,6 +70,7 @@ public class NewCarFragment extends BaseFragment {
     int page=1;
     private List<NewCar> mNewCars;
     private CarListAdapter adapter;
+    List<Banner> bannerList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -137,7 +144,34 @@ public class NewCarFragment extends BaseFragment {
             }
         });
     }
-
+    private void initBanner() {
+        banner.setImageLoader(new com.youth.banner.loader.ImageLoader() {
+            @Override
+            public void displayImage(Context context, Object path, ImageView imageView) {
+                //此处可以自行选择，我直接用的Picasso
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                Glide.with(getContext()).load((String) path).into(imageView);
+            }
+        });
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Log.e("url", bannerList.get(position).getPicture() + "-" + bannerList.get(position).getSkipUrl());
+                Intent intent = new Intent(getContext(), WebviewActivity.class);
+                String url = bannerList.get(position).getSkipUrl();
+                if (!url.contains("http") && !url.contains("https")) {
+                    url = "http://" + url;
+                }
+                intent.putExtra("url", url);
+                startActivity(intent);
+            }
+        });
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
+        banner.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位置
+        banner.setDelayTime(2000);//设置轮播时间
+        banner.setImages(imageList);//设置图片源
+        banner.start();
+    }
     private void getBaner() {
         imageList.clear();
         Map<String, Object> params = new HashMap<>();
@@ -152,12 +186,13 @@ public class NewCarFragment extends BaseFragment {
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
                         Banner banner = new Gson().fromJson(item.toString(), Banner.class);
+                        bannerList.add(banner);
                         String url = item.getString("picture");
                         Map<String, String> image_uri = new HashMap<String, String>();
                         image_uri.put("imageUrls", url);
-                        imageList.add(image_uri);
+                        imageList.add(banner.getPicture());
                     }
-                    slideShowView.setImageUrls(imageList);
+                    initBanner();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -188,6 +223,7 @@ public class NewCarFragment extends BaseFragment {
     }
     private void initView() {
         mCarBrands.clear();
+        bannerList=new ArrayList<>();
         mNewCars=new ArrayList<>();
         mNewCarMenuAdapter=new NewCarMenuAdapter(getContext(),mNewCarMenus);
         gv_newcar.setAdapter(mNewCarMenuAdapter);

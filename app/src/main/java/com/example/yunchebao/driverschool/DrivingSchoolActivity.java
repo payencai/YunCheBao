@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -32,6 +33,7 @@ import com.cheyibao.list.AutofitViewPager;
 import com.cheyibao.model.DrvingSchool;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.fourshop.activity.FourShopDetailActivity;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
@@ -41,6 +43,7 @@ import com.tool.TabUtils;
 import com.tool.UIControlUtils;
 import com.tool.adapter.CommentPagerAdapter;
 import com.tool.adapter.MyFragmentPagerAdapter;
+import com.vipcenter.RegisterActivity;
 import com.xihubao.ShopInfoActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -103,6 +106,11 @@ public class DrivingSchoolActivity extends AppCompatActivity {
         setContentView(R.layout.driving_school_detail);
         ButterKnife.bind(this);
         ctx = this;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+        }
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "驾校详情");
         findViewById(R.id.shareBtn).setVisibility(View.GONE);
         if (mDrvingSchool == null) {
@@ -382,6 +390,10 @@ public class DrivingSchoolActivity extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.collectBtn:
+                if (!MyApplication.isLogin) {
+                    startActivity(new Intent(DrivingSchoolActivity.this, RegisterActivity.class));
+                    return;
+                }
                 if (isCollect == 0) {
                     isCollect = 1;
                     collectIcon.setImageResource(R.mipmap.collect_yellow);

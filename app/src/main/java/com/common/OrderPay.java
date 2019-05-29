@@ -49,17 +49,20 @@ public class OrderPay {
     private void payByWechat(String data,String url){
         Map<String,Object> params=new HashMap<>();
         params.put("orderId",data);
-        HttpProxy.obtain().post(url, MyApplication.token, params,new ICallBack() {
+        HttpProxy.obtain().post(url,params,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     int code = jsonObject.getInt("resultCode");
+                    String msg=jsonObject.getString("message");
                     if (code == 0) {
                         JSONObject data=jsonObject.getJSONObject("data") ;
                         WechatRes wechatRes=new Gson().fromJson(data.toString(),WechatRes.class);
                         startWechatPay(wechatRes);
+                    }else{
+                        ToastUtil.showToast(activity,msg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -127,7 +130,7 @@ public class OrderPay {
             }
         });
     }
-    public void showPayDialog(String data,String url) {
+    public void showPayDialog(String data) {
 
         Dialog dialog = new Dialog(activity, R.style.dialog);
         dialog.show();
@@ -142,9 +145,9 @@ public class OrderPay {
             public void onClick(View v) {
                 dialog.dismiss();
                 if(type==1)  {
-                    payByWechat(data,url);
+                    payByWechat(data,PlatformContans.WechatPay.carOrderPay);
                 }else{
-                    payByAlipay(data,url);
+                    payByAlipay(data,PlatformContans.Pay.rentCarOrderPay);
                 }
             }
         });

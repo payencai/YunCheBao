@@ -45,7 +45,7 @@
                         android:layout_height="22dp"
                         android:layout_gravity="top|center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:scaleType="centerCrop"
+                        android:scaleType="fitXY"
                         android:src="@mipmap/ic_cheyi_select" />
 
                     <TextView
@@ -82,7 +82,7 @@
                         android:layout_height="22dp"
                         android:layout_gravity="top|center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:scaleType="centerCrop"
+                        android:scaleType="fitXY"
                         android:src="@mipmap/ic_cheyi_unselect" />
 
                     <TextView

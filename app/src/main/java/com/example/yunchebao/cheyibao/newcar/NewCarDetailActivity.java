@@ -253,9 +253,17 @@ public class NewCarDetailActivity extends AppCompatActivity {
     }
 
     private void initData( ){
-        tv_oldprice.setText("厂家指导价" + mNewCar.getAdvicePrice()/10000+"万");
+        if(mNewCar.getAdvicePrice()>10000)
+           tv_oldprice.setText("厂家指导价" + mNewCar.getAdvicePrice()/10000+"万");
+        else{
+            tv_oldprice.setText("厂家指导价"+mNewCar.getAdvicePrice()+"元");
+        }
         tv_oldprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        tv_newprice.setText("￥" + mNewCar.getNakedCarPrice()/10000+"万");
+        if(mNewCar.getNakedCarPrice()>10000)
+           tv_newprice.setText("￥" + mNewCar.getNakedCarPrice()/10000+"万");
+        else{
+            tv_newprice.setText("￥" + mNewCar.getNakedCarPrice()+"元");
+        }
         String name = mNewCar.getFirstName();
         if (!TextUtils.isEmpty(mNewCar.getSecondName()) && !"null".equals(mNewCar.getSecondName())) {
             name = name + mNewCar.getSecondName();
@@ -265,12 +273,21 @@ public class NewCarDetailActivity extends AppCompatActivity {
         }
         tv_color.setText(mNewCar.getColor());
         tv_name.setText(name);
-        if (!TextUtils.isEmpty(mNewCar.getCarCategoryDetail().getBanner1()) && !"null".equals(mNewCar.getCarCategoryDetail().getBanner1()))
-            images.add(mNewCar.getCarCategoryDetail().getBanner1());
-        if (!TextUtils.isEmpty(mNewCar.getCarCategoryDetail().getBanner2()) && !"null".equals(mNewCar.getCarCategoryDetail().getBanner2()))
-            images.add(mNewCar.getCarCategoryDetail().getBanner2());
-        if (!TextUtils.isEmpty(mNewCar.getCarCategoryDetail().getBanner3()) && !"null".equals(mNewCar.getCarCategoryDetail().getBanner3()))
-            images.add(mNewCar.getCarCategoryDetail().getBanner3());
+        String banner1=mNewCar.getCarCategoryDetail().getBanner1();
+        String banner2=mNewCar.getCarCategoryDetail().getBanner2();
+        String banner3=mNewCar.getCarCategoryDetail().getBanner3();
+        if(!TextUtils.isEmpty(banner1)){
+            if(banner1.contains(",")){
+                String []pics=banner1.split(",");
+                for (int i = 0; i <pics.length; i++) {
+                    images.add(pics[i]);
+                }
+            }else{
+                images.add(banner1);
+            }
+        }
+        images.add(banner2);
+        images.add(banner3);
     }
 
     private void initView() {
@@ -310,6 +327,10 @@ public class NewCarDetailActivity extends AppCompatActivity {
         collectIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!MyApplication.isLogin){
+                    startActivity(new Intent(NewCarDetailActivity.this,RegisterActivity.class));
+                    return;
+                }
                 if (isCollect == 0) {
                     isCollect = 1;
                     collectIcon.setImageResource(R.mipmap.collect_yellow);

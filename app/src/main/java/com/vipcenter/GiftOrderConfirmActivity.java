@@ -101,11 +101,12 @@ public class GiftOrderConfirmActivity extends NoHttpBaseActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     int code = jsonObject.getInt("resultCode");
+                    String msg=jsonObject.getString("message");
                     if (code == 0) {
                        ToastUtil.showToast(GiftOrderConfirmActivity.this,"兑换成功");
                        finish();
                     }else{
-                        ToastUtil.showToast(GiftOrderConfirmActivity.this,"验证码错误");
+                        ToastUtil.showToast(GiftOrderConfirmActivity.this,msg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -255,7 +256,7 @@ public class GiftOrderConfirmActivity extends NoHttpBaseActivity {
                 finish();
                 break;
             case R.id.addressLay:
-                startActivityForResult(new Intent(GiftOrderConfirmActivity.this, AddressListActivity.class), 1);
+                startActivityForResult(new Intent(GiftOrderConfirmActivity.this, ManaAddressActivity.class), 1);
                 break;
             case R.id.submitBtn:
                 String addressId = personAddress.getId();

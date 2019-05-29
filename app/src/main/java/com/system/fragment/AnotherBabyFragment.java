@@ -23,7 +23,7 @@ import com.http.ICallBack;
 import com.newversion.MyTagsActivity;
 import com.newversion.NewCarFriendActivity;
 import com.newversion.NewContactsActivity;
-import com.newversion.NewSelfDrvingActivity;
+import com.example.yunchebao.babycircle.selfdrive.NewSelfDrvingActivity;
 import com.example.yunchebao.rongcloud.activity.AddFriendActivity;
 import com.example.yunchebao.rongcloud.activity.CreateGroupActivity;
 import com.example.yunchebao.rongcloud.activity.NearbyActivity;
@@ -178,7 +178,11 @@ public class AnotherBabyFragment extends Fragment {
         view.findViewById(R.id.messenger_icon).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initWindow(v);
+                if(MyApplication.isLogin)
+                  initWindow(v);
+                else{
+                  startActivity(new Intent(getContext(),RegisterActivity.class));
+                }
             }
         });
 

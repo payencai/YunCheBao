@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.example.yunchebao.drive.fragment.DriveOrderFragment;
 import com.example.yunchebao.R;
 import com.flyco.tablayout.SlidingTabLayout;
+import com.gyf.immersionbar.ImmersionBar;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,7 @@ public class ReplaceOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_replace_order);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
 

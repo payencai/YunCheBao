@@ -1,7 +1,6 @@
 package com.bbcircle.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.bbcircle.data.ClassItem;
-import com.cheyibao.DrivingOrderActivity;
-import com.cheyibao.adapter.CoashItemAdapter;
 import com.example.yunchebao.R;
 
 import java.util.List;

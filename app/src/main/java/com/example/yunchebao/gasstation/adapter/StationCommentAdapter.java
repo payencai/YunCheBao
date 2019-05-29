@@ -27,14 +27,14 @@ import java.util.List;
  * 邮箱：771548229@qq..com
  */
 public class StationCommentAdapter extends BaseQuickAdapter<StationComment, BaseViewHolder> {
-    PhotoAdapter mPhotoAdapter;
-    ArrayList<String> images;
+
     public StationCommentAdapter(int layoutResId, @Nullable List<StationComment> data) {
         super(layoutResId, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, StationComment item) {
+        ArrayList<String> images=new ArrayList<>();
         GridViewForScrollView gv_photo = (GridViewForScrollView) helper.getView(R.id.gv_photo);
         gv_photo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -57,7 +57,7 @@ public class StationCommentAdapter extends BaseQuickAdapter<StationComment, Base
         TextView tv_name = (TextView) helper.getView(R.id.tv_name);
         TextView tv_time = (TextView) helper.getView(R.id.tv_time);
         SimpleRatingBar starbar = (SimpleRatingBar) helper.getView(R.id.starbar);
-        images = new ArrayList<>();
+
         if (item.getImgs() != null) {
             if (item.getImgs().contains(",")) {
                 String[] img = item.getImgs().split(",");
@@ -68,7 +68,7 @@ public class StationCommentAdapter extends BaseQuickAdapter<StationComment, Base
                 images.add(item.getImgs());
             }
         }
-        mPhotoAdapter = new PhotoAdapter(mContext, images);
+        PhotoAdapter mPhotoAdapter = new PhotoAdapter(mContext, images);
         gv_photo.setAdapter(mPhotoAdapter);
         iv_content.setText(item.getContent());
         String isAnonymous = item.getUserId();

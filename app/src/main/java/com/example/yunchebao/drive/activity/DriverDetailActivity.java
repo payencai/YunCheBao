@@ -2,6 +2,7 @@ package com.example.yunchebao.drive.activity;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,10 +25,13 @@ import com.example.yunchebao.drive.model.DriverDetail;
 import com.example.yunchebao.driverschool.CoachDetailActivity;
 import com.example.yunchebao.driverschool.model.CoachDetail;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
 import com.system.model.ShopInfo;
+import com.vipcenter.RegisterActivity;
+import com.xihubao.ShopInfoActivity;
 import com.youth.banner.BannerConfig;
 
 import org.json.JSONException;
@@ -70,6 +74,7 @@ public class DriverDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_detail);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         id = getIntent().getStringExtra("id");
         initView();
     }
@@ -82,6 +87,10 @@ public class DriverDetailActivity extends AppCompatActivity {
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.tv_add:
+                if(!MyApplication.isLogin){
+                    startActivity(new Intent(DriverDetailActivity.this, RegisterActivity.class));
+                    return;
+                }
                 if(isfriend){
                     RongIM.getInstance().startPrivateChat(DriverDetailActivity.this,mCoachDetail.getShopId(),mShopInfo.getName());
                 }else{

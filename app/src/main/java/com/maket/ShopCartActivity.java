@@ -2,6 +2,7 @@ package com.maket;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ import com.maket.model.GoodsSelect;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.payencai.library.util.ToastUtil;
 import com.tool.ActivityConstans;
+import com.tool.MathUtil;
 import com.tool.UIControlUtils;
 
 import org.json.JSONArray;
@@ -51,7 +53,7 @@ public class ShopCartActivity extends NoHttpBaseActivity {
     private List<String> mHotProductsList = new ArrayList<>();
     private TextView tvShopCartTotalPrice;
     private int mCount, mPosition;
-    private float mTotalPrice1;
+    private double mTotalPrice1;
     private boolean mSelect;
     private ArrayList<PhoneGoodEntity> mselectGoods = new ArrayList<>();
 
@@ -109,7 +111,11 @@ public class ShopCartActivity extends NoHttpBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop_cart_layout);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+        }
         initView();
         tvShopCartSubmit= (TextView) findViewById(R.id.tv_shopcart_submit);
         tvShopCartSelect = (TextView) findViewById(R.id.tv_shopcart_addselect);
@@ -157,18 +163,18 @@ public class ShopCartActivity extends NoHttpBaseActivity {
                     Drawable left = getResources().getDrawable(R.mipmap.gray_circle);
                     tvShopCartSelect.setCompoundDrawablesWithIntrinsicBounds(left, null, null, null);
                 }
-                float mTotalPrice = 0;
+                double mTotalPrice = 0;
                 int mTotalNum = 0;
                 mTotalPrice1 = 0;
                 mGoPayList.clear();
                 for (int i = 0; i < mAllOrderList.size(); i++)
                     if (mAllOrderList.get(i).getIsSelect()) {
-                        mTotalPrice += Float.parseFloat(mAllOrderList.get(i).getPrice()) * mAllOrderList.get(i).getCount();
+                        mTotalPrice += Double.parseDouble(MathUtil.getDoubleTwo(mAllOrderList.get(i).getPrice())) * mAllOrderList.get(i).getCount();
                         mTotalNum += 1;
                         mGoPayList.add(mAllOrderList.get(i));
                     }
                 mTotalPrice1 = mTotalPrice;
-                tvShopCartTotalPrice.setText("总价：" + mTotalPrice);
+                tvShopCartTotalPrice.setText("总价：" + MathUtil.getDoubleTwo(mTotalPrice));
                 tvShopCartTotalNum.setText("共" + mTotalNum + "件商品");
             }
         });
@@ -276,8 +282,7 @@ public class ShopCartActivity extends NoHttpBaseActivity {
                             PhoneGoodEntity sb = new PhoneGoodEntity();
                             sb.setShopName(shop.getString("shopName"));
                             sb.setShopId(shop.getString("shopId"));
-                            DecimalFormat decimalFormat = new DecimalFormat("0.00");
-                            sb.setPrice(decimalFormat.format(shop.getDouble("price")) + "");
+                            sb.setPrice(Double.parseDouble(MathUtil.getDoubleTwo(shop.getDouble("price")) + ""));
                             sb.setProductId(shop.getString("commodityId"));
                             sb.setDefaultPic(shop.getString("commodityImage"));
                             sb.setProductName(shop.getString("commodityName"));

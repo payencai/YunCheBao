@@ -51,8 +51,8 @@
                 android:textSize="16sp" />
         </LinearLayout>
         <!--广告栏banner-->
-        <com.tool.slideshowview.SlideShowView
-            android:id="@+id/slideshowView"
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
             android:layout_width="fill_parent"
             android:layout_height="210dp"
             android:background="@color/white"

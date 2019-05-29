@@ -30,8 +30,7 @@ import java.util.List;
 public class SubstitubeAdapter extends BaseAdapter {
     Context mContext;
     List<SubstitubeComment> mDriveMEN;
-    PhotoAdapter mPhotoAdapter;
-    ArrayList<String> images;
+
 
     public SubstitubeAdapter(Context context, List<SubstitubeComment> driveMEN) {
         mContext = context;
@@ -69,6 +68,7 @@ public class SubstitubeAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ArrayList<String> images=new ArrayList<>();
         convertView = LayoutInflater.from(mContext).inflate(R.layout.item_drive_comment, null);
         SubstitubeComment driveMan = mDriveMEN.get(position);
         CircleImageView iv_head = (CircleImageView) convertView.findViewById(R.id.userhead);
@@ -100,7 +100,7 @@ public class SubstitubeAdapter extends BaseAdapter {
         tv_content.setText(driveMan.getContent());
         tv_time.setText(driveMan.getCreateTime().substring(0, 10));
         simpleRatingBar.setRating((float) driveMan.getDriverScore());
-        images = new ArrayList<>();
+
         if (!TextUtils.isEmpty(driveMan.getImgs())) {
             if (driveMan.getImgs().contains(",")) {
                 String[] img = driveMan.getImgs().split(",");
@@ -111,7 +111,7 @@ public class SubstitubeAdapter extends BaseAdapter {
                 images.add(driveMan.getImgs());
             }
         }
-        mPhotoAdapter = new PhotoAdapter(mContext, images);
+        PhotoAdapter mPhotoAdapter = new PhotoAdapter(mContext, images);
         gv_photo.setAdapter(mPhotoAdapter);
         if (TextUtils.isEmpty(driveMan.getHeadPortrait())) {
             iv_head.setImageResource(R.mipmap.ic_default_head);

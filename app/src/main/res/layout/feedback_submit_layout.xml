@@ -38,6 +38,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -53,12 +54,13 @@
             android:textSize="14sp" />
 
         <EditText
+            android:maxLength="11"
             android:id="@+id/et_phone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_marginLeft="10dp"
             android:background="@color/white"
-            android:gravity="right"
+            android:gravity="right|end"
             android:hint="请输入手机号"
             android:textColor="@color/black_33"
             android:textSize="14sp" />

@@ -20,6 +20,7 @@ import com.example.yunchebao.fourshop.fragment.FourShopCommentFragment;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.luffy.imagepreviewlib.core.PictureConfig;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -79,6 +80,20 @@ public class WashrepairCommentFragment extends Fragment {
                 getData();
             }
         },rv_order);
+        mFourShopCommentAdapter.setOnImageClick(new FourShopCommentAdapter.OnImageClick() {
+            @Override
+            public void onClick(int pos, ArrayList<String> images) {
+                PictureConfig config = new PictureConfig.Builder()
+                        .setListData(images)  //图片数据List<String> list
+                        .setPosition(pos)                         //图片下标（从第position张图片开始浏览）
+                        .setDownloadPath("imagepreview")        //图片下载文件夹地址
+                        .setIsShowNumber(true)                  //是否显示数字下标
+                        .needDownload(true)                     //是否支持图片下载
+                        .setPlaceHolder(R.mipmap.ic_launcher)   //占位符
+                        .build();
+                config.gotoActivity(getContext(), config);
+            }
+        });
         rv_order.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_order.setAdapter(mFourShopCommentAdapter);
         getData();

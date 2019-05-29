@@ -8,6 +8,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -20,6 +21,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.yunchebao.R;
 import com.example.yunchebao.friendcircle.NewFriendCircleActivity;
+import com.luffy.imagepreviewlib.core.PictureConfig;
 import com.newversion.CircleData;
 
 
@@ -28,9 +30,11 @@ import com.newversion.DynamicPicGridAdapter;
 import com.newversion.FriendsCircleActivity;
 import com.newversion.InputTextMsgDialog;
 import com.newversion.LikesView;
+import com.newversion.MyGridView;
 import com.payencai.library.view.CircleImageView;
 import com.tool.listview.PersonalListView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -68,14 +72,28 @@ public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHold
         SampleCoverVideo sampleCoverVideo = (SampleCoverVideo) helper.getView(R.id.sampleCoverVideo);
         ImageView iv_play = (ImageView) helper.getView(R.id.iv_play);
 
-        GridView gvDynamicPhotos = (GridView) helper.getView(R.id.gv_dynamic_photos);
-        gvDynamicPhotos.setFocusableInTouchMode(false);
-        gvDynamicPhotos.setFocusable(false);
+        MyGridView gvDynamicPhotos = (MyGridView) helper.getView(R.id.gv_dynamic_photos);
+
         ImageView ivVimg = (ImageView) helper.getView(R.id.iv_vimg);
         ImageView iv_delete = (ImageView) helper.getView(R.id.iv_delete);
         ImageView iv_replay = (ImageView) helper.getView(R.id.iv_replay);
         LikesView likeView = (LikesView) helper.getView(R.id.likeView);
-
+        ivVimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<String> images=new ArrayList<>();
+                images.add(item.getImgs().split(",")[0]);
+                PictureConfig config = new PictureConfig.Builder()
+                        .setListData( images)  //图片数据List<String> list
+                        .setPosition(0)                         //图片下标（从第position张图片开始浏览）
+                        .setDownloadPath("imagepreview")        //图片下载文件夹地址
+                        .setIsShowNumber(true)                  //是否显示数字下标
+                        .needDownload(true)                     //是否支持图片下载
+                        .setPlaceHolder(R.mipmap.ic_launcher)   //占位符
+                        .build();
+                config.gotoActivity(mContext, config);
+            }
+        });
         PersonalListView lv_comment = (PersonalListView) helper.getView(R.id.lv_comment);
         lv_comment.setFocusableInTouchMode(false);
         lv_comment.setFocusable(false);
@@ -128,6 +146,22 @@ public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHold
                 gvDynamicPhotos.setVisibility(View.VISIBLE);
                 ivVimg.setVisibility(View.GONE);
                 List<String> dynamicPicList = Arrays.asList(item.getImgs().split(","));
+                ArrayList<String> images=new ArrayList<>();
+                images.addAll(dynamicPicList);
+                gvDynamicPhotos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        PictureConfig config = new PictureConfig.Builder()
+                                .setListData( images)  //图片数据List<String> list
+                                .setPosition(position)                         //图片下标（从第position张图片开始浏览）
+                                .setDownloadPath("imagepreview")        //图片下载文件夹地址
+                                .setIsShowNumber(true)                  //是否显示数字下标
+                                .needDownload(true)                     //是否支持图片下载
+                                .setPlaceHolder(R.mipmap.ic_launcher)   //占位符
+                                .build();
+                        config.gotoActivity(mContext, config);
+                    }
+                });
                 gvDynamicPhotos.setAdapter(new DynamicPicGridAdapter(mContext, dynamicPicList));
             }
         } else if (!TextUtils.isEmpty(item.getVideo())) {

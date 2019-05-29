@@ -2,6 +2,8 @@ package com.example.yunchebao.drive.adapter;
 
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -13,6 +15,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.yunchebao.drive.model.SubstitubeComment;
 import com.example.yunchebao.R;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+import com.luffy.imagepreviewlib.core.PictureConfig;
 import com.payencai.library.view.CircleImageView;
 import com.vipcenter.adapter.PhotoAdapter;
 
@@ -27,13 +30,30 @@ public class DriverCommentAdapter extends BaseQuickAdapter<SubstitubeComment,Bas
     public DriverCommentAdapter(int layoutResId, @Nullable List<SubstitubeComment> data) {
         super(layoutResId, data);
     }
-    PhotoAdapter mPhotoAdapter;
-    List<String> images;
+
+
     @Override
     protected void convert(BaseViewHolder helper, SubstitubeComment item) {
+        ArrayList<String> images=new ArrayList<>();
         CircleImageView iv_head= (CircleImageView) helper.getView(R.id.userhead);
         CircleImageView coashhead= (CircleImageView) helper.getView(R.id.coashhead);
         GridView gv_photo= (GridView) helper.getView(R.id.gv_photo);
+        gv_photo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PictureConfig config = new PictureConfig.Builder()
+                        .setListData(images)  //图片数据List<String> list
+                        .setPosition(position)                         //图片下标（从第position张图片开始浏览）
+                        .setDownloadPath("imagepreview")        //图片下载文件夹地址
+                        .setIsShowNumber(true)                  //是否显示数字下标
+                        .needDownload(true)                     //是否支持图片下载
+                        .setPlaceHolder(R.mipmap.ic_launcher)   //占位符
+                        .build();
+                config.gotoActivity(mContext, config);
+
+            }
+
+        });
         TextView tv_name= (TextView) helper.getView(R.id.tv_name);
         TextView tv_coashname= (TextView) helper.getView(R.id.tv_coashname);
         TextView tv_time= (TextView) helper.getView(R.id.tv_time);
@@ -44,7 +64,7 @@ public class DriverCommentAdapter extends BaseQuickAdapter<SubstitubeComment,Bas
         tv_content.setText(item.getContent());
         tv_time.setText(item.getCreateTime().substring(0,10));
         simpleRatingBar.setRating((float) item.getDriverScore());
-        images=new ArrayList<>();
+
         if(!TextUtils.isEmpty(item.getImgs())){
             if(item.getImgs().contains(",")){
                 String[] img=item.getImgs().split(",");
@@ -55,7 +75,7 @@ public class DriverCommentAdapter extends BaseQuickAdapter<SubstitubeComment,Bas
                 images.add(item.getImgs());
             }
         }
-        mPhotoAdapter=new PhotoAdapter(mContext,images);
+        PhotoAdapter mPhotoAdapter=new PhotoAdapter(mContext,images);
         gv_photo.setAdapter(mPhotoAdapter);
         Glide.with(mContext).load(item.getDriverHeadPortrait()).apply(RequestOptions.bitmapTransform(new CenterCrop())).into(coashhead);
         Glide.with(mContext).load(item.getHeadPortrait()).apply(RequestOptions.bitmapTransform(new CenterCrop())).into(iv_head);

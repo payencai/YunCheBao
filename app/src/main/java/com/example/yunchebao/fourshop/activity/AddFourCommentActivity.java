@@ -14,6 +14,7 @@ import com.application.MyApplication;
 import com.comment.EvaluationChoiceImageView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
@@ -69,6 +70,7 @@ public class AddFourCommentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_four_comment);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         id= getIntent().getStringExtra("id");
         initView();
     }

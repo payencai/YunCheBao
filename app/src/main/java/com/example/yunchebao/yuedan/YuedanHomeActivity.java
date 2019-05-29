@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import com.application.MyApplication;
 import com.example.yunchebao.R;
+import com.gyf.immersionbar.ImmersionBar;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
@@ -17,6 +19,7 @@ import com.example.yunchebao.yuedan.fragment.BookOldCarFragment;
 import com.example.yunchebao.yuedan.fragment.BookRepairFragment;
 import com.example.yunchebao.yuedan.fragment.BookRoadFragment;
 import com.example.yunchebao.yuedan.fragment.BookWashCarFragment;
+import com.vipcenter.RegisterActivity;
 
 import java.util.ArrayList;
 
@@ -42,6 +45,7 @@ public class YuedanHomeActivity extends NoHttpFragmentBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.yuedan_home_layout);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
 //        requestMethod(0);
         initFragmentList();
         /**
@@ -80,7 +84,11 @@ public class YuedanHomeActivity extends NoHttpFragmentBaseActivity {
                 onBackPressed();
                 break;
             case R.id.rightBtn:
+                if(MyApplication.isLogin)
                 ActivityAnimationUtils.commonTransition(YuedanHomeActivity.this, MyYuedanActivity.class, ActivityConstans.Animation.FADE);
+                else{
+                    startActivity(new Intent(YuedanHomeActivity.this, RegisterActivity.class));
+                }
                 break;
         }
     }

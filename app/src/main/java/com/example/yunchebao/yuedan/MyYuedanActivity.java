@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.example.yunchebao.R;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.example.yunchebao.yuedan.fragment.OrderItemFragment;
+import com.gyf.immersionbar.ImmersionBar;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ public class MyYuedanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_yuedan);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
 

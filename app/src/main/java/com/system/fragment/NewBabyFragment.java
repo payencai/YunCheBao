@@ -22,7 +22,7 @@ import com.newversion.FriendsCircleActivity;
 import com.newversion.MyTagsActivity;
 import com.newversion.NewCarFriendActivity;
 import com.newversion.NewContactsActivity;
-import com.newversion.NewSelfDrvingActivity;
+import com.example.yunchebao.babycircle.selfdrive.NewSelfDrvingActivity;
 import com.example.yunchebao.rongcloud.activity.AddFriendActivity;
 import com.example.yunchebao.rongcloud.activity.CreateGroupActivity;
 import com.example.yunchebao.rongcloud.activity.stranger.SaomaActivity;

@@ -6,9 +6,11 @@
     android:orientation="vertical">
 
     <android.support.v4.widget.NestedScrollView
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:descendantFocusability="blocksDescendants"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -44,8 +46,8 @@
                     android:textSize="14sp"/>
             </RadioGroup>
 
-            <com.tool.slideshowview.SlideShowView
-                android:id="@+id/slideshowView"
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
                 android:layout_width="match_parent"
                 android:layout_height="210dp"/>
 
@@ -198,6 +200,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                         <android.support.v7.widget.RecyclerView
+
                             android:id="@+id/recommended_vehicle_type_list_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>

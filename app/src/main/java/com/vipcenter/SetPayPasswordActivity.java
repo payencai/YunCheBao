@@ -16,6 +16,7 @@ import com.example.yunchebao.R;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.payencai.library.util.ToastUtil;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 
@@ -91,7 +92,7 @@ public class SetPayPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!isSend){
-
+                    ToastUtil.showToast(SetPayPasswordActivity.this,"请先去发送验证码");
                     return;
                 }
                 String code=et_code.getEditableText().toString();

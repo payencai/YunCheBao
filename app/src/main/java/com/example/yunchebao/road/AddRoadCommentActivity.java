@@ -45,6 +45,7 @@ import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
@@ -96,6 +97,7 @@ public class AddRoadCommentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_road_comment);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         id = getIntent().getStringExtra("id");
         initView();
     }

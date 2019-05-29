@@ -14,10 +14,10 @@
 
         <ImageView
             android:id="@+id/back"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerVertical="true"
-            android:padding="12dp"
+            android:padding="15dp"
             android:src="@mipmap/back" />
         <LinearLayout
 
@@ -31,6 +31,9 @@
                 android:layout_width="12dp"
                 android:layout_height="18dp" />
             <EditText
+                android:id="@+id/et_search"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
                 android:drawablePadding="5dp"
                 android:drawableLeft="@mipmap/search__small_icon"
                 android:layout_marginLeft="5dp"

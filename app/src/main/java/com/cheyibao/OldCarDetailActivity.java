@@ -20,7 +20,9 @@ import com.cheyibao.model.NewCarParams;
 import com.cheyibao.model.OldCar;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.cheyibao.newcar.NewCarDetailActivity;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.lljjcoder.style.citylist.Toast.ToastUtils;
@@ -29,6 +31,7 @@ import com.payencai.library.view.CircleImageView;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.tool.listview.PersonalListView;
+import com.vipcenter.RegisterActivity;
 import com.xihubao.ShopInfoActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -118,6 +121,7 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
         id=getIntent().getStringExtra("id");
         mOldCar = (OldCar) bundle.getSerializable("data");
         setContentView(R.layout.oldcar_detail_layout);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
 
     }
@@ -192,12 +196,22 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
     }
 
     private void setData( ) {
-        if (!TextUtils.isEmpty(mOldCar.getCarCategoryDetail().getBanner1()) && !"null".equals(mOldCar.getCarCategoryDetail().getBanner1()))
-            images.add(mOldCar.getCarCategoryDetail().getBanner1());
-        if (!TextUtils.isEmpty(mOldCar.getCarCategoryDetail().getBanner2()) && !"null".equals(mOldCar.getCarCategoryDetail().getBanner2()))
-            images.add(mOldCar.getCarCategoryDetail().getBanner2());
-        if (!TextUtils.isEmpty(mOldCar.getCarCategoryDetail().getBanner3()) && !"null".equals(mOldCar.getCarCategoryDetail().getBanner3()))
-            images.add(mOldCar.getCarCategoryDetail().getBanner3());
+        String banner1=mOldCar.getCarCategoryDetail().getBanner1();
+        String banner2=mOldCar.getCarCategoryDetail().getBanner2();
+        String banner3=mOldCar.getCarCategoryDetail().getBanner3();
+        if(!TextUtils.isEmpty(banner1)){
+            if(banner1.contains(",")){
+                String []pics=banner1.split(",");
+                for (int i = 0; i <pics.length; i++) {
+                    if(!TextUtils.isEmpty(pics[i]))
+                    images.add(pics[i]);
+                }
+            }else{
+                images.add(banner1);
+            }
+        }
+        images.add(banner2);
+        images.add(banner3);
         initBanner();
         tv_oldprice.setText("新车含税:￥" + mOldCar.getNewPrice());
         tv_newprice.setText("￥" + mOldCar.getOldPrice());
@@ -355,6 +369,10 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
                 startActivity(intent2);
                 break;
             case R.id.collectBtn:
+                if(!MyApplication.isLogin){
+                    startActivity(new Intent(OldCarDetailActivity.this, RegisterActivity.class));
+                    return;
+                }
                 if (isCollect == 0) {
                     isCollect = 1;
                     collectIcon.setImageResource(R.mipmap.collect_yellow);
@@ -377,6 +395,10 @@ public class OldCarDetailActivity extends NoHttpBaseActivity {
 //                ActivityAnimationUtils.commonTransition(OldCarDetailActivity.this, SellerDetailActivity.class, ActivityConstans.Animation.FADE);
 //                break;
             case R.id.rl_chat:
+                if(!MyApplication.isLogin){
+                    startActivity(new Intent(OldCarDetailActivity.this,RegisterActivity.class));
+                    return;
+                }
                 if(TextUtils.isEmpty(mOldCar.getMerchantId())){
                     RongIM.getInstance().startPrivateChat(OldCarDetailActivity.this, mOldCar.getUserId(), mOldCar.getLinkman());
                 }else{

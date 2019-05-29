@@ -29,6 +29,7 @@ import com.amap.api.maps.model.LatLng;
 import com.application.MyApplication;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
+import com.example.yunchebao.drive.activity.ReplaceDriveDetailActivity;
 import com.example.yunchebao.drive.activity.SimplePlayerActivity;
 import com.example.yunchebao.R;
 import com.example.yunchebao.gasstation.fragment.StationCommentFragment;
@@ -41,6 +42,7 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.system.WebviewActivity;
 import com.tool.NoScrollViewPager;
+import com.vipcenter.RegisterActivity;
 import com.xihubao.ShopInfoActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -117,6 +119,7 @@ public class GasStationDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gas_station_detail);
         ButterKnife.bind(this);
+
         id = getIntent().getStringExtra("id");
         initView();
     }
@@ -131,6 +134,10 @@ public class GasStationDetailActivity extends AppCompatActivity {
                 showMapDialog(new LatLng(Double.parseDouble(mFourShopData.getLatitude()), Double.parseDouble(mFourShopData.getLongitude())));
                 break;
             case R.id.rl_collect:
+                if (!MyApplication.isLogin) {
+                    startActivity(new Intent(GasStationDetailActivity.this, RegisterActivity.class));
+                    return;
+                }
                 if (isCollect == 0) {
                     isCollect = 1;
                     iv_heart.setImageResource(R.mipmap.orange_heart_icon);

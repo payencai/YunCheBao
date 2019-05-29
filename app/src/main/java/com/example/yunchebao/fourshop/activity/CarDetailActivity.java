@@ -18,6 +18,7 @@ import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.fourshop.bean.FourShopCar;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.tool.listview.PersonalListView;
@@ -59,6 +60,7 @@ public class CarDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_detail);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         id=getIntent().getStringExtra("id");
         initView();
     }
@@ -119,12 +121,40 @@ public class CarDetailActivity extends AppCompatActivity {
         });
     }
     private void initBanner() {
-        if (!TextUtils.isEmpty(mFourShopCar.getCarCategoryDetail().getBanner1()) && !"null".equals(mFourShopCar.getCarCategoryDetail().getBanner1()))
-            images.add(mFourShopCar.getCarCategoryDetail().getBanner1());
-        if (!TextUtils.isEmpty(mFourShopCar.getCarCategoryDetail().getBanner2()) && !"null".equals(mFourShopCar.getCarCategoryDetail().getBanner2()))
-            images.add(mFourShopCar.getCarCategoryDetail().getBanner2());
-        if (!TextUtils.isEmpty(mFourShopCar.getCarCategoryDetail().getBanner3()) && !"null".equals(mFourShopCar.getCarCategoryDetail().getBanner3()))
-            images.add(mFourShopCar.getCarCategoryDetail().getBanner3());
+        String banner1=mFourShopCar.getCarCategoryDetail().getBanner1();
+        String banner2=mFourShopCar.getCarCategoryDetail().getBanner2();
+        String banner3=mFourShopCar.getCarCategoryDetail().getBanner3();
+        if(!TextUtils.isEmpty(banner1)){
+            if(banner1.contains(",")){
+                String []pics=banner1.split(",");
+                for (int i = 0; i <pics.length; i++) {
+                    images.add(pics[i]);
+                }
+            }else{
+                images.add(banner1);
+            }
+        }
+
+        if(!TextUtils.isEmpty(banner2)){
+            if(banner2.contains(",")){
+                String []pics=banner1.split(",");
+                for (int i = 0; i <pics.length; i++) {
+                    images.add(pics[i]);
+                }
+            }else{
+                images.add(banner1);
+            }
+        }
+        if(!TextUtils.isEmpty(banner3)){
+            if(banner3.contains(",")){
+                String []pics=banner1.split(",");
+                for (int i = 0; i <pics.length; i++) {
+                    images.add(pics[i]);
+                }
+            }else{
+                images.add(banner1);
+            }
+        }
         banner.setImageLoader(new com.youth.banner.loader.ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {

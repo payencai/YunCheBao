@@ -267,7 +267,9 @@ public class DriverFriendsRepublishActivity extends NoHttpBaseActivity {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result",result);
-                ActivityAnimationUtils.commonTransition(DriverFriendsRepublishActivity.this, DrivingSelfReplaySuccessActivity.class, ActivityConstans.Animation.FADE);
+                ToastUtil.showToast(DriverFriendsRepublishActivity.this,"发布成功");
+                finish();
+                //ActivityAnimationUtils.commonTransition(DriverFriendsRepublishActivity.this, DrivingSelfReplaySuccessActivity.class, ActivityConstans.Animation.FADE);
                 // ActivityAnimationUtils.commonTransition(SelfDrivingRepublishActivity.this, ReplyDescriptionActivity.class, ActivityConstans.Animation.FADE);
             }
 

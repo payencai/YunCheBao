@@ -436,7 +436,7 @@
             android:name="com.bbcircle.PublishInputActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name="com.cheyibao.CarSecondBrandActivity" />
-        <activity android:name="com.cheyibao.DrivingOrderActivity" />
+        <activity android:name=".driverschool.DrivingOrderActivity" />
         <activity android:name="com.cheyibao.NewCarItemActivity" />
         <activity android:name="com.maket.GoodsPayActivity" />
         <activity android:name="com.maket.GoodsOrderDetailActivity" />
@@ -452,7 +452,7 @@
         <activity android:name="com.cheyibao.CarPayActivity" />
         <activity android:name="com.cheyibao.CoashSelectActivity" />
         <activity android:name="com.cheyibao.ClassSelelctActivity" />
-        <activity android:name="com.newversion.NewSelfDrvingActivity" />
+        <activity android:name=".babycircle.selfdrive.NewSelfDrvingActivity" />
         <activity android:name="com.newversion.NewCarFriendActivity" />
         <activity
             android:name="com.newversion.NewContactsActivity"

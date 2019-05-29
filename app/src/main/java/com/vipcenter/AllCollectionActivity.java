@@ -9,6 +9,7 @@ import com.bbcircle.fragment.WashCollectFragment;
 import com.cheyibao.fragment.StudyListFragment;
 import com.example.yunchebao.R;
 import com.flyco.tablayout.SlidingTabLayout;
+import com.gyf.immersionbar.ImmersionBar;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
 import com.vipcenter.fragment.ArticleFragment;
 import com.vipcenter.fragment.GoodsCollectFragment;
@@ -40,6 +41,7 @@ public class AllCollectionActivity extends NoHttpFragmentBaseActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_collect);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
     private void initView() {

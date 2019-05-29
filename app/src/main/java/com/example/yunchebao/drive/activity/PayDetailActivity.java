@@ -28,6 +28,7 @@ import com.example.yunchebao.drive.model.ReplaceOrder;
 import com.example.yunchebao.R;
 import com.example.yunchebao.wxapi.WechatRes;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
@@ -56,6 +57,7 @@ public class PayDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_detail);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         mReplaceOrder= (ReplaceOrder) getIntent().getSerializableExtra("data");
         initView();
     }

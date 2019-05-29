@@ -2,6 +2,7 @@ package com.xihubao;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,11 +22,14 @@ import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.entity.UserMsg;
 import com.example.yunchebao.R;
+import com.example.yunchebao.washrepair.NewWashrepairDetailActivity;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
 import com.system.model.ShopInfo;
+import com.vipcenter.RegisterActivity;
 import com.vipcenter.model.UserInfo;
 import com.youth.banner.BannerConfig;
 
@@ -69,6 +73,7 @@ public class ShopInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_info);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         id = getIntent().getStringExtra("id");
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +84,10 @@ public class ShopInfoActivity extends AppCompatActivity {
         tv_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!MyApplication.isLogin){
+                    startActivity(new Intent(ShopInfoActivity.this, RegisterActivity.class));
+                    return;
+                }
                 if(isfriend){
                     RongIM.getInstance().startPrivateChat(ShopInfoActivity.this,id,mShopInfo.getName());
                 }else{

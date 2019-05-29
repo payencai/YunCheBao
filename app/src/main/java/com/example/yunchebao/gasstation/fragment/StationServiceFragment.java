@@ -17,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.application.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.entity.PhoneOrderEntity;
@@ -31,6 +32,7 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.vipcenter.OrderCommentSubmitActivity;
+import com.vipcenter.RegisterActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -127,8 +129,12 @@ public class StationServiceFragment extends Fragment {
         mFourShopCommentAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                StationService stationService= (StationService) adapter.getItem(position);
-                showFinishDialog(stationService.getShopId());
+                if (MyApplication.isLogin) {
+                    StationService stationService = (StationService) adapter.getItem(position);
+                    showFinishDialog(stationService.getShopId());
+                }else{
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
             }
         });
         rv_order.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));

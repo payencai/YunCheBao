@@ -27,6 +27,7 @@ import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
 import com.payencai.library.util.ToastUtil;
 import com.tool.WheelView;
+import com.vipcenter.RegisterActivity;
 import com.xihubao.CarBrandSelectActivity;
 
 import org.json.JSONException;
@@ -170,7 +171,11 @@ public class BookNewCarFragment extends BaseFragment {
                     ToastUtil.showToast(getContext(), "输入不能为空！");
                     return;
                 }
+                if(MyApplication.isLogin)
                 addOrder();
+                else{
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
             }
         });
     }
@@ -189,6 +194,7 @@ public class BookNewCarFragment extends BaseFragment {
         HttpProxy.obtain().post(PlatformContans.Appointment.addNewCarAppointment, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+
                 try {
                     JSONObject jsonObject=new JSONObject(result);
                     int code=jsonObject.getInt("resultCode");

@@ -1,6 +1,7 @@
 package com.bbcircle.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,6 +19,9 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.xihubao.WashCarDetailActivity;
@@ -41,6 +45,8 @@ import butterknife.ButterKnife;
 public class WashCollectFragment extends BaseFragment {
     @BindView(R.id.rv_collect)
     RecyclerView rv_collect;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout refreshLayout;
     List<WashCollect> mWashCollects ;
     WashCollectAdapter mWashCollectAdapter;
     int page=1;
@@ -62,6 +68,15 @@ public class WashCollectFragment extends BaseFragment {
             public void onLoadMoreRequested() {
                 page++;
                 isLoadMore=true;
+                getData();
+            }
+        });
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page=1;
+                mWashCollects.clear();
+                mWashCollectAdapter.setNewData(mWashCollects);
                 getData();
             }
         });
@@ -96,6 +111,7 @@ public class WashCollectFragment extends BaseFragment {
         HttpProxy.obtain().get(PlatformContans.Collect.getWashCollectionList, params,MyApplication.token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+                refreshLayout.finishRefresh();
                 Log.e("washcollect", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -105,21 +121,20 @@ public class WashCollectFragment extends BaseFragment {
                         JSONObject item = data.getJSONObject(i);
                         WashCollect baikeItem = new Gson().fromJson(item.toString(), WashCollect.class);
                         washCollects.add(baikeItem);
-                        mWashCollects.add(baikeItem);
+
                     }
+                    mWashCollectAdapter.addData(washCollects);
                     if(isLoadMore){
                         isLoadMore=false;
                         if(data.length()>0){
-                            mWashCollectAdapter.addData(washCollects);
                             mWashCollectAdapter.loadMoreComplete();
                         }else{
                             mWashCollectAdapter.loadMoreEnd(true);
                         }
 
                     }else{
-                        mWashCollectAdapter.setNewData(mWashCollects);
+                        mWashCollectAdapter.loadMoreComplete();
                     }
-
 
 
                 } catch (JSONException e) {

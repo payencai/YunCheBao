@@ -43,6 +43,7 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.system.WebviewActivity;
 import com.tool.NoScrollViewPager;
+import com.vipcenter.RegisterActivity;
 import com.xihubao.ShopInfoActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -118,6 +119,7 @@ public class NewRoadDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_road_detail);
         ButterKnife.bind(this);
+
         id = getIntent().getStringExtra("id");
         initView();
     }
@@ -127,12 +129,20 @@ public class NewRoadDetailActivity extends AppCompatActivity {
         Intent intent;
         switch (view.getId()) {
             case R.id.tv_pub:
+                if(!MyApplication.isLogin){
+                    startActivity(new Intent(NewRoadDetailActivity.this, RegisterActivity.class));
+                    return;
+                }
                 intent = new Intent(this, PubRoadActivity.class);
                 intent.putExtra("id", id);
                 intent.putExtra("data", mFourShopData);
                 startActivity(intent);
                 break;
             case R.id.tv_order:
+                if(!MyApplication.isLogin){
+                    startActivity(new Intent(NewRoadDetailActivity.this, RegisterActivity.class));
+                    return;
+                }
                 intent = new Intent(this, MyRoadOrderActivity.class);
                 startActivity(intent);
                 break;
@@ -140,6 +150,10 @@ public class NewRoadDetailActivity extends AppCompatActivity {
                 showMapDialog(new LatLng(Double.parseDouble(mFourShopData.getLatitude()), Double.parseDouble(mFourShopData.getLongitude())));
                 break;
             case R.id.rl_collect:
+                if(!MyApplication.isLogin){
+                    startActivity(new Intent(NewRoadDetailActivity.this, RegisterActivity.class));
+                    return;
+                }
                 if (isCollect == 0) {
                     isCollect = 1;
                     iv_heart.setImageResource(R.mipmap.orange_heart_icon);
@@ -245,8 +259,10 @@ public class NewRoadDetailActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(banner)) {
             banners = Arrays.asList(banner.split(","));
         }
+
         images.addAll(vimages);
         images.addAll(banners);
+        images.add(mFourShopData.getLogo());
         initBanner(images);
         isCollect();
         initTab();

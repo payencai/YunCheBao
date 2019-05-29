@@ -18,6 +18,7 @@ import com.entity.Banner;
 import com.example.yunchebao.R;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 
@@ -58,6 +59,7 @@ public class DriveServiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drive_service);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+
     android:orientation="vertical"
     tools:context=".cheyibao.newcar.NewCarShopActivity">
 
@@ -38,12 +38,13 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:background="#f3f3f3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
-            android:visibility="gone"
+             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -82,6 +83,8 @@
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_gank"
+            android:background="@color/white"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             app:tabGravity="center"

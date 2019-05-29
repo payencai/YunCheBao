@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cheyibao.DrivingOrderActivity">
+    tools:context=".driverschool.DrivingOrderActivity">
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/tv_submit"
         android:orientation="vertical">
 
         <RelativeLayout
-
+             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
@@ -40,6 +41,7 @@
             android:background="#e2e2e2"></View>
 
         <RelativeLayout
+            android:background="@color/white"
             android:id="@+id/rl_class"
             android:layout_width="match_parent"
             android:layout_height="65dp">
@@ -86,6 +88,7 @@
             android:background="#e2e2e2"></View>
 
         <RelativeLayout
+            android:background="@color/white"
             android:id="@+id/rl_coash"
             android:layout_width="match_parent"
             android:layout_height="65dp">
@@ -208,7 +211,7 @@
 
             <EditText
                 android:id="@+id/et_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:background="@color/white"
@@ -238,7 +241,7 @@
 
             <EditText
                 android:id="@+id/et_phone"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:background="@color/white"

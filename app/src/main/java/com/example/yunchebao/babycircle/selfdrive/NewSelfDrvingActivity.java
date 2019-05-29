@@ -1,11 +1,10 @@
-package com.newversion;
+package com.example.yunchebao.babycircle.selfdrive;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.yunchebao.babycircle.selfdrive.SelfDrivingRepublishActivity;
 import com.bbcircle.fragment.SelfDrivingFragment;
 import com.example.yunchebao.R;
 import com.gyf.immersionbar.ImmersionBar;

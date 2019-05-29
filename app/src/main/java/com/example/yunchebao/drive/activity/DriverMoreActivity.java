@@ -15,6 +15,7 @@ import com.example.yunchebao.drive.adapter.DriverMoreAdapter;
 import com.example.yunchebao.drive.model.DriveMan;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -49,6 +50,7 @@ public class DriverMoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_more);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         id=getIntent().getStringExtra("id");
         initView();
     }

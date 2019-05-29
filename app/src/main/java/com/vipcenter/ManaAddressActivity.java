@@ -47,7 +47,7 @@ public class ManaAddressActivity extends AppCompatActivity {
     TextView tv_add;
     NewAddressAdapter mNewAddressAdapter;
     List<PersonAddress> mPersonAddresses;
-    int page=1;
+
     boolean isLoadMore=false;
 
     @Override
@@ -64,7 +64,7 @@ public class ManaAddressActivity extends AppCompatActivity {
         initView();
     }
      private void refresh(){
-        page=1;
+
         mPersonAddresses.clear();
         mNewAddressAdapter.setNewData(mPersonAddresses);
         getData();
@@ -72,14 +72,17 @@ public class ManaAddressActivity extends AppCompatActivity {
     private void initView() {
         mPersonAddresses=new ArrayList<>();
         mNewAddressAdapter=new NewAddressAdapter(R.layout.item_address,mPersonAddresses);
-        mNewAddressAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+
+        mNewAddressAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onLoadMoreRequested() {
-                page++;
-                isLoadMore=true;
-                getData();
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                  PersonAddress personAddress= (PersonAddress) adapter.getItem(position);
+                  Intent intent=new Intent();
+                  intent.putExtra("address",personAddress);
+                  setResult(RESULT_OK,intent);
+                  finish();
             }
-        },rv_addr);
+        });
         mNewAddressAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -193,9 +196,7 @@ public class ManaAddressActivity extends AppCompatActivity {
 
     private void getData(){
 
-        Map<String,Object> params=new HashMap<>();
-        params.put("page",page);
-        HttpProxy.obtain().get(PlatformContans.AddressManage.getUserAddress,params, MyApplication.token,new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.AddressManage.getUserAddress, MyApplication.token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("getGoodList", result);
@@ -203,26 +204,13 @@ public class ManaAddressActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray data = jsonObject.getJSONArray("data");
 
-                    List<PersonAddress> personAddresses=new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
-                        PersonAddress baikeItem = new Gson().fromJson(item.toString(), PersonAddress.class);
-                        mPersonAddresses.add(baikeItem);
-                        personAddresses.add(baikeItem);
+                        PersonAddress personAddress = new Gson().fromJson(item.toString(), PersonAddress.class);
+                        mPersonAddresses.add(personAddress);
                     }
-                    if(isLoadMore){
-                        isLoadMore=false;
-                        if(personAddresses.size()>0)
-                           mNewAddressAdapter.addData(personAddresses);
-                        if(data.length()==0){
-                            mNewAddressAdapter.loadMoreEnd(true);
-                        }else{
-                            mNewAddressAdapter.loadMoreComplete();
-                        }
-                    }else{
-                        mNewAddressAdapter.setNewData(mPersonAddresses);
+                    mNewAddressAdapter.setNewData(mPersonAddresses);
 
-                    }
 
                     //updateData();
 

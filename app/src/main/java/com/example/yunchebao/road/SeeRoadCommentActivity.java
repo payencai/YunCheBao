@@ -13,6 +13,7 @@ import com.example.yunchebao.R;
 import com.example.yunchebao.myservice.model.RentOrderComment;
 import com.example.yunchebao.road.model.RoadComment;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
@@ -54,6 +55,7 @@ public class SeeRoadCommentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_see_road_comment);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         id=getIntent().getStringExtra("id");
         initView();
     }

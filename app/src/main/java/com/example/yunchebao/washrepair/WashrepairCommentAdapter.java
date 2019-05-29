@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.yunchebao.R;
+import com.example.yunchebao.fourshop.adapter.FourShopCommentAdapter;
 import com.example.yunchebao.fourshop.bean.FourShopComment;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.luffy.imagepreviewlib.core.PictureConfig;
@@ -25,29 +26,25 @@ import java.util.List;
  * 邮箱：771548229@qq..com
  */
 public class WashrepairCommentAdapter extends BaseQuickAdapter<WashRepairComment, BaseViewHolder> {
-    PhotoAdapter mPhotoAdapter;
-    ArrayList<String> images;
 
     public WashrepairCommentAdapter(int layoutResId, @Nullable List<WashRepairComment> data) {
         super(layoutResId, data);
     }
-
+    public FourShopCommentAdapter.OnImageClick onImageClick;
+    public interface  OnImageClick{
+        void onClick(int pos,ArrayList<String> images);
+    }
+    public void setOnImageClick(FourShopCommentAdapter.OnImageClick onImageClick){
+        this.onImageClick=onImageClick;
+    }
     @Override
     protected void convert(BaseViewHolder helper, WashRepairComment item) {
+        ArrayList<String> images; images = new ArrayList<>();
         GridView gv_photo = (GridView) helper.getView(R.id.gv_photo);
         gv_photo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PictureConfig config = new PictureConfig.Builder()
-                        .setListData(images)  //图片数据List<String> list
-                        .setPosition(position)                         //图片下标（从第position张图片开始浏览）
-                        .setDownloadPath("imagepreview")        //图片下载文件夹地址
-                        .setIsShowNumber(true)                  //是否显示数字下标
-                        .needDownload(true)                     //是否支持图片下载
-                        .setPlaceHolder(R.mipmap.ic_launcher)   //占位符
-                        .build();
-                config.gotoActivity(mContext, config);
-
+                onImageClick.onClick(position,images);
             }
 
         });
@@ -56,7 +53,7 @@ public class WashrepairCommentAdapter extends BaseQuickAdapter<WashRepairComment
         TextView tv_name = (TextView) helper.getView(R.id.tv_name);
         TextView tv_time = (TextView) helper.getView(R.id.tv_time);
         SimpleRatingBar starbar = (SimpleRatingBar) helper.getView(R.id.starbar);
-        images = new ArrayList<>();
+
         if (item.getImgs() != null) {
             if (item.getImgs().contains(",")) {
                 String[] img = item.getImgs().split(",");
@@ -67,7 +64,7 @@ public class WashrepairCommentAdapter extends BaseQuickAdapter<WashRepairComment
                 images.add(item.getImgs());
             }
         }
-        mPhotoAdapter = new PhotoAdapter(mContext, images);
+        PhotoAdapter mPhotoAdapter = new PhotoAdapter(mContext, images);
         gv_photo.setAdapter(mPhotoAdapter);
         iv_content.setText(item.getContent());
         String isAnonymous = item.getUserId();

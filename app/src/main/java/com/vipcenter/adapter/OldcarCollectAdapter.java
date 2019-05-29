@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +37,20 @@ public class OldcarCollectAdapter extends BaseQuickAdapter<OldCarCollect,BaseVie
         TextView tv_name = (TextView) helper.getView(R.id.name);
         TextView tv_price = (TextView) helper.getView(R.id.item);
         SimpleDraweeView img = (SimpleDraweeView) helper.getView(R.id.img);
-        img.setImageURI(Uri.parse(item.getCarImage()));
-        tv_price.setText(item.getCarPrice()/10000+"万");
+        String imgs=item.getCarImage();
+        if(!TextUtils.isEmpty(imgs)){
+            if(imgs.contains(",")){
+                imgs=imgs.split(",")[0];
+            }
+        }else{
+            img.setImageResource(R.mipmap.icon);
+        }
+        img.setImageURI(Uri.parse(imgs));
+        if(item.getCarPrice()>10000)
+            tv_price.setText(item.getCarPrice()/10000+"万");
+        else{
+            tv_price.setText(item.getCarPrice()+"元");
+        }
         tv_name.setText(item.getFirstName()+item.getSecondName()+item.getThirdName());
     }
 

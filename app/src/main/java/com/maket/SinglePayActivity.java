@@ -3,6 +3,7 @@ package com.maket;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -104,9 +105,20 @@ public class SinglePayActivity extends AppCompatActivity {
         }
 
         ButterKnife.bind(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+        }
         initView();
     }
     private void initView(){
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         tv_name.setText(mGoodDetail.getName());
         tv_shop.setText(mGoodDetail.getBabyMerchantName());
         tv_param.setText(mGoodParam.getSpecificationsValue()+"*"+mGoddsParamChild.getSpecificationsValue());

@@ -3,6 +3,7 @@ package com.example.yunchebao.fourshop.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -38,6 +39,7 @@ import com.payencai.library.util.ToastUtil;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tool.MyListView;
 import com.tool.view.ListViewForScrollView;
+import com.vipcenter.RegisterActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -145,8 +147,13 @@ public class DetailServiceFragment extends Fragment {
         lv_right.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               String serviceId= mServeListBeans.get(position).getId();
-               addOrder(serviceId);
+                if(MyApplication.isLogin){
+                    String serviceId= mServeListBeans.get(position).getId();
+                    addOrder(serviceId);
+                }else{
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
+
             }
         });
     }

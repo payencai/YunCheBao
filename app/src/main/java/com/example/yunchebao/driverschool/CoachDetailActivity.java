@@ -2,6 +2,8 @@ package com.example.yunchebao.driverschool;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -27,6 +29,7 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
 import com.system.model.ShopInfo;
+import com.vipcenter.RegisterActivity;
 import com.xihubao.ShopInfoActivity;
 import com.youth.banner.BannerConfig;
 
@@ -69,6 +72,11 @@ public class CoachDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coach_detail);
         ButterKnife.bind(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+        }
         id = getIntent().getStringExtra("id");
         initView();
     }
@@ -81,6 +89,10 @@ public class CoachDetailActivity extends AppCompatActivity {
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.tv_add:
+                if(!MyApplication.isLogin){
+                    startActivity(new Intent(CoachDetailActivity.this, RegisterActivity.class));
+                    return;
+                }
                 if(isfriend){
                     RongIM.getInstance().startPrivateChat(CoachDetailActivity.this,mCoachDetail.getMerchantId(),mCoachDetail.getCoachName());
                 }else{

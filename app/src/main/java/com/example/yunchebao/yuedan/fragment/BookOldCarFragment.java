@@ -27,6 +27,7 @@ import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
 import com.payencai.library.util.ToastUtil;
 import com.tool.WheelView;
+import com.vipcenter.RegisterActivity;
 import com.xihubao.CarBrandSelectActivity;
 
 import org.json.JSONException;
@@ -65,6 +66,7 @@ public class BookOldCarFragment extends BaseFragment {
     EditText et_note;
     @BindView(R.id.tv_pub)
     SuperTextView tv_pub;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class BookOldCarFragment extends BaseFragment {
         initView();
         return rootView;
     }
+
     double price = 0;
     String mileage;
     String brand;
@@ -83,9 +86,10 @@ public class BookOldCarFragment extends BaseFragment {
     int range;
     String carCategory;
     private List<String> nums = new ArrayList<>();
+
     private void showSelectCount() {
-        for (int i = 1; i <=10 ; i++) {
-            nums.add(i+"");
+        for (int i = 1; i <= 10; i++) {
+            nums.add(i + "");
         }
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_washcar_type, null);
 
@@ -108,7 +112,7 @@ public class BookOldCarFragment extends BaseFragment {
             public void onClick(View v) {
                 dialog.dismiss();
                 tv_num.setText(wv.getSeletedItem());
-                num= Integer.parseInt(wv.getSeletedItem());
+                num = Integer.parseInt(wv.getSeletedItem());
             }
         });
         wv.setOffset(1);
@@ -123,20 +127,23 @@ public class BookOldCarFragment extends BaseFragment {
         window.setAttributes(params);
 
     }
+
     String name;
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==1&&data!=null){
-            name=data.getStringExtra("name");
+        if (requestCode == 1 && data != null) {
+            name = data.getStringExtra("name");
             et_brand.setText(name);
         }
     }
+
     private void initView() {
         ll_cartype.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getContext(), SelectCarTypeActivity.class),1);
+                startActivityForResult(new Intent(getContext(), SelectCarTypeActivity.class), 1);
             }
         });
         rl_num.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +165,7 @@ public class BookOldCarFragment extends BaseFragment {
                 brand = et_brand.getText().toString();
                 color = et_color.getEditableText().toString();
                 detail = et_des.getEditableText().toString();
-                carCategory=et_brand.getText().toString();
+                carCategory = et_brand.getText().toString();
                 if (TextUtils.isEmpty(mileage)) {
                     ToastUtil.showToast(getContext(), "输入不能为空！");
                     return;
@@ -179,7 +186,13 @@ public class BookOldCarFragment extends BaseFragment {
                     ToastUtil.showToast(getContext(), "输入不能为空！");
                     return;
                 }
-                addOrder();
+                if (MyApplication.isLogin)
+                    addOrder();
+                else {
+
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+
+                }
             }
         });
     }
@@ -187,27 +200,27 @@ public class BookOldCarFragment extends BaseFragment {
     private void addOrder() {
         Map<String, Object> params = new HashMap<>();
         params.put("price", price);
-        params.put("mileage",mileage);
-        params.put("carCategory",carCategory);
-        params.put("color",color);
-        params.put("detail",detail);
+        params.put("mileage", mileage);
+        params.put("carCategory", carCategory);
+        params.put("color", color);
+        params.put("detail", detail);
         params.put("longitude", MyApplication.getaMapLocation().getLongitude());
-        params.put("latitude",MyApplication.getaMapLocation().getLatitude());
-        params.put("shopNumber",num);
-        params.put("range",Integer.parseInt(et_note.getEditableText().toString()));
-        Log.e("parmas",params.toString());
+        params.put("latitude", MyApplication.getaMapLocation().getLatitude());
+        params.put("shopNumber", num);
+        params.put("range", Integer.parseInt(et_note.getEditableText().toString()));
+        Log.e("parmas", params.toString());
         HttpProxy.obtain().post(PlatformContans.Appointment.addOldCarAppointment, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 try {
-                    JSONObject jsonObject=new JSONObject(result);
-                    int code=jsonObject.getInt("resultCode");
-                    String msg=jsonObject.getString("message");
-                    if(code==0){
-                        ToastUtil.showToast(getContext(),"发布成功！");
+                    JSONObject jsonObject = new JSONObject(result);
+                    int code = jsonObject.getInt("resultCode");
+                    String msg = jsonObject.getString("message");
+                    if (code == 0) {
+                        ToastUtil.showToast(getContext(), "发布成功！");
                         getActivity().finish();
-                    }else{
-                        ToastUtil.showToast(getContext(),msg);
+                    } else {
+                        ToastUtil.showToast(getContext(), msg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

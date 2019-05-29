@@ -20,7 +20,7 @@
         <TextView
             android:textSize="18sp"
             android:textColor="@color/black_33"
-            android:text="店主信息"
+            android:text="代理商详情"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

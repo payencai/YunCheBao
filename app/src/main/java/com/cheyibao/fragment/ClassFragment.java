@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.bbcircle.adapter.ClassItemAdapter;
 import com.bbcircle.data.ClassItem;
-import com.cheyibao.DrivingOrderActivity;
+import com.example.yunchebao.driverschool.DrivingOrderActivity;
 import com.example.yunchebao.driverschool.DrivingSchoolActivity;
 import com.cheyibao.list.SpreadListView;
 import com.cheyibao.model.DrvingSchool;

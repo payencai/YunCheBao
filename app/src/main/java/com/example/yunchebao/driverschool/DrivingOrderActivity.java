@@ -1,8 +1,9 @@
-package com.cheyibao;
+package com.example.yunchebao.driverschool;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -24,11 +25,14 @@ import com.alipay.PayResult;
 import com.alipay.sdk.app.PayTask;
 import com.application.MyApplication;
 import com.bbcircle.data.ClassItem;
+import com.cheyibao.ClassSelelctActivity;
+import com.cheyibao.CoashSelectActivity;
 import com.cheyibao.model.CoachItem;
 import com.cheyibao.model.DrvingSchool;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.fourshop.activity.FourShopDetailActivity;
 import com.example.yunchebao.wxapi.WechatRes;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
@@ -36,6 +40,7 @@ import com.http.ICallBack;
 import com.lljjcoder.style.citylist.Toast.ToastUtils;
 import com.payencai.library.util.ToastUtil;
 import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.vipcenter.RegisterActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -83,6 +88,11 @@ public class DrivingOrderActivity extends AppCompatActivity implements View.OnCl
         mClassItem = (ClassItem) getIntent().getSerializableExtra("class");
         mCoachItem = (CoachItem) getIntent().getSerializableExtra("coash");
         mDrvingSchool= (DrvingSchool) getIntent().getSerializableExtra("name");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+        }
         initView();
     }
 
@@ -142,6 +152,7 @@ public class DrivingOrderActivity extends AppCompatActivity implements View.OnCl
                 startActivityForResult(intent, 2);
                 break;
             case R.id.tv_submit:
+
                 if(MyApplication.isLogin){
                     if(TextUtils.isEmpty(et_name.getEditableText().toString())){
                         ToastUtil.showToast(this,"请输入姓名");
@@ -159,7 +170,13 @@ public class DrivingOrderActivity extends AppCompatActivity implements View.OnCl
                         ToastUtil.showToast(this,"请选择教练");
                         return;
                     }
+                    if (!MyApplication.isLogin) {
+                        startActivity(new Intent(DrivingOrderActivity.this, RegisterActivity.class));
+                        return;
+                    }
                     postOrder();
+                }else{
+                    startActivity(new Intent(DrivingOrderActivity.this,RegisterActivity.class));
                 }
                 break;
         }
@@ -207,17 +224,20 @@ public class DrivingOrderActivity extends AppCompatActivity implements View.OnCl
     private void payByWechat(String data) {
         Map<String, Object> params = new HashMap<>();
         params.put("orderId", data);
-        HttpProxy.obtain().post(PlatformContans.WechatPay.babyMerchantOrderPay, MyApplication.token, params, new ICallBack() {
+        HttpProxy.obtain().post(PlatformContans.WechatPay.carOrderPay, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     int code = jsonObject.getInt("resultCode");
+                    String msg=jsonObject.getString("message");
                     if (code == 0) {
                         JSONObject data = jsonObject.getJSONObject("data");
                         WechatRes wechatRes = new Gson().fromJson(data.toString(), WechatRes.class);
                         startWechatPay(wechatRes);
+                    }else{
+                        ToastUtil.showToast(DrivingOrderActivity.this,msg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -41,6 +41,7 @@ import com.payencai.library.util.ToastUtil;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tool.MyListView;
 import com.tool.view.ListViewForScrollView;
+import com.vipcenter.RegisterActivity;
 import com.xihubao.adapter.ServerCatogryAdapter;
 import com.xihubao.adapter.ServerDetailAdapter;
 
@@ -162,8 +163,13 @@ public class WashServiceFragment extends Fragment {
         lv_right.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ServerType.ServeListBean serveListBean= mServeListBeans.get(position);
-                takeOrder(serveListBean.getId(),serveListBean.getPrice(),serveListBean.getSecondName());
+                if(MyApplication.isLogin){
+                    ServerType.ServeListBean serveListBean= mServeListBeans.get(position);
+                    takeOrder(serveListBean.getId(),serveListBean.getPrice(),serveListBean.getSecondName());
+                }else{
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
+
             }
         });
     }

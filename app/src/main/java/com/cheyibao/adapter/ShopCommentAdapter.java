@@ -30,8 +30,7 @@ import java.util.List;
 public class ShopCommentAdapter extends BaseAdapter {
     private List<ShopComment> mClassItems;
     private Context mContext;
-    PhotoAdapter mPhotoAdapter;
-    ArrayList<String> images;
+
 
     public ShopCommentAdapter(Context context, List<ShopComment> classItems) {
         mClassItems = classItems;
@@ -72,6 +71,7 @@ public class ShopCommentAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ArrayList<String>   images = new ArrayList<>();
         convertView = LayoutInflater.from(mContext).inflate(R.layout.item_shop_comment, null);
         GridView gv_photo = (GridView) convertView.findViewById(R.id.gv_photo);
         gv_photo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -96,7 +96,7 @@ public class ShopCommentAdapter extends BaseAdapter {
         TextView tv_time = (TextView) convertView.findViewById(R.id.tv_time);
         SimpleRatingBar starbar = (SimpleRatingBar) convertView.findViewById(R.id.starbar);
         if (mClassItems.size() > 0) {
-            images = new ArrayList<>();
+
             if (mClassItems.get(position).getPhoto() != null) {
                 if (mClassItems.get(position).getPhoto().contains(",")) {
                     String[] img = mClassItems.get(position).getPhoto().split(",");
@@ -107,7 +107,7 @@ public class ShopCommentAdapter extends BaseAdapter {
                     images.add(mClassItems.get(position).getPhoto());
                 }
             }
-            mPhotoAdapter = new PhotoAdapter(mContext, images);
+           PhotoAdapter mPhotoAdapter = new PhotoAdapter(mContext, images);
             gv_photo.setAdapter(mPhotoAdapter);
             iv_content.setText(mClassItems.get(position).getContent());
             int isAnonymous = mClassItems.get(position).getIsAnonymous();

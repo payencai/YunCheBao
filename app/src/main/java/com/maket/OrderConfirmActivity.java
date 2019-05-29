@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,6 +36,7 @@ import com.maket.model.GoodsSelect;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.payencai.library.util.ToastUtil;
 import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tool.MathUtil;
 import com.tool.listview.PersonalListView;
 import com.vipcenter.AddressListActivity;
 import com.vipcenter.model.PersonAddress;
@@ -88,6 +90,11 @@ public class OrderConfirmActivity extends NoHttpBaseActivity {
         View view = LayoutInflater.from(this).inflate(R.layout.order_confim_layout, null);
         setContentView(view);
         ButterKnife.bind(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+        }
         ctx = this;
         Bundle bundle=getIntent().getExtras();
         if(bundle!=null){
@@ -131,12 +138,12 @@ public class OrderConfirmActivity extends NoHttpBaseActivity {
                 if (phoneGoodEntity.getShopId().equals(shopid)) {
                     if (num == 1) {//只有一个
                         phoneGoodEntity.setFlag(3);//添加首尾
-                        totalmoney = totalmoney + phoneGoodEntity.getCount() * (Double.parseDouble(phoneGoodEntity.getPrice()));
+                        totalmoney = totalmoney + phoneGoodEntity.getCount() * Double.parseDouble(MathUtil.getDoubleTwo(phoneGoodEntity.getPrice()));
                         phoneGoodEntity.setTotalPrice(totalmoney);
                         money = money + totalmoney;
                         lastNum++;
                     } else if (num > 1) {
-                        totalmoney = totalmoney + phoneGoodEntity.getCount() * (Double.parseDouble(phoneGoodEntity.getPrice()));
+                        totalmoney = totalmoney + phoneGoodEntity.getCount() * Double.parseDouble(MathUtil.getDoubleTwo(phoneGoodEntity.getPrice()));
                         if (j == lastNum) {
                             phoneGoodEntity.setFlag(1);
 

@@ -14,6 +14,7 @@ import com.example.yunchebao.R;
 import com.example.yunchebao.drive.adapter.DriverCommentAdapter;
 import com.example.yunchebao.drive.model.SubstitubeComment;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -50,6 +51,7 @@ public class CommentMoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment_more);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         id = getIntent().getStringExtra("id");
         initView();
     }

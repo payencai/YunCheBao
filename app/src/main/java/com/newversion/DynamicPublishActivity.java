@@ -218,7 +218,9 @@ public class DynamicPublishActivity extends AppCompatActivity {
 
                     }else if(kind == 3){
                         looks = data.getStringExtra("ids");
+                        looks=MyApplication.getUserInfo().getId()+","+looks;
                         users = data.getStringExtra("users");
+
                         tvLookPermission.setText(users);
 
 

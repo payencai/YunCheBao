@@ -2,6 +2,7 @@ package com.example.yunchebao.rongcloud.activity.contact;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -61,7 +62,12 @@ public class ConversationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
         ButterKnife.bind(this);
-        ImmersionBar.with(this).autoDarkModeEnable(true).statusBarColor(R.color.white).init();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+        }
+        //ImmersionBar.with(this).autoDarkModeEnable(true).statusBarColor(R.color.white).init();
         initView();
     }
 

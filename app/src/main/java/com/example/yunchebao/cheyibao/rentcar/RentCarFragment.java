@@ -1,5 +1,6 @@
 package com.example.yunchebao.cheyibao.rentcar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -11,12 +12,14 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.application.MyApplication;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.BookCarActivity;
 import com.cheyibao.CarModelsDetailActivity;
@@ -48,8 +51,11 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
 import com.payencai.library.util.ToastUtil;
+import com.system.WebviewActivity;
 import com.tool.slideshowview.SlideShowView;
 import com.vipcenter.RegisterActivity;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -96,8 +102,8 @@ public class RentCarFragment extends BaseFragment {
     RecyclerView recommendedVehicleTypeListView;
     @BindView(R.id.long_rent_parentView)
     LinearLayout longRentParentView;
-    @BindView(R.id.slideshowView)
-    SlideShowView slideShowView;
+    @BindView(R.id.banner)
+    com.youth.banner.Banner banner;
     @BindView(R.id.rent_car_time_View)
     RentCarTimeView rentCarTimeView;
     @BindView(R.id.rent_Car_address_view)
@@ -107,7 +113,7 @@ public class RentCarFragment extends BaseFragment {
 
 
     //轮播图片
-    private List<Map<String, String>> imageList = new ArrayList<>();
+    private List<String> imageList = new ArrayList<>();
 
     private Unbinder unbinder;
 
@@ -122,8 +128,36 @@ public class RentCarFragment extends BaseFragment {
         initView();
         return rootView;
     }
-
+    private void initBanner() {
+        banner.setImageLoader(new com.youth.banner.loader.ImageLoader() {
+            @Override
+            public void displayImage(Context context, Object path, ImageView imageView) {
+                //此处可以自行选择，我直接用的Picasso
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                Glide.with(getContext()).load((String) path).into(imageView);
+            }
+        });
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Log.e("url", bannerList.get(position).getPicture() + "-" + bannerList.get(position).getSkipUrl());
+                Intent intent = new Intent(getContext(), WebviewActivity.class);
+                String url = bannerList.get(position).getSkipUrl();
+                if (!url.contains("http") && !url.contains("https")) {
+                    url = "http://" + url;
+                }
+                intent.putExtra("url", url);
+                startActivity(intent);
+            }
+        });
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);//设置圆形指示器与标题
+        banner.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位置
+        banner.setDelayTime(2000);//设置轮播时间
+        banner.setImages(imageList);//设置图片源
+        banner.start();
+    }
     private void initView() {
+        bannerList=new ArrayList<>();
         selfDrivingRadioButton.setTextColor(colors());
         longRentRadioButton.setTextColor(colors());
         selfDrivingRadioButton.setChecked(true);
@@ -222,7 +256,7 @@ public class RentCarFragment extends BaseFragment {
         return new ColorStateList(status, colors);
     }
 
-
+    List<Banner> bannerList;
     private void getBaner() {
         imageList.clear();
         Map<String, Object> params = new HashMap<>();
@@ -237,12 +271,13 @@ public class RentCarFragment extends BaseFragment {
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
                         Banner banner = new Gson().fromJson(item.toString(), Banner.class);
+                        bannerList.add(banner);
                         String url = item.getString("picture");
                         Map<String, String> image_uri = new HashMap<String, String>();
                         image_uri.put("imageUrls", url);
-                        imageList.add(image_uri);
+                        imageList.add(banner.getPicture());
                     }
-                    slideShowView.setImageUrls(imageList);
+                    initBanner();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

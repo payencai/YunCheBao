@@ -258,8 +258,9 @@ public class RentCarOrderActivity extends AppCompatActivity {
                 if (baseModel!=null){
                     if (baseModel.getResultCode()==0){
                         String data = baseModel.getData();
+                        Log.e("orderId",data);
                         OrderPay orderPay = new OrderPay(RentCarOrderActivity.this);
-                        orderPay.showPayDialog(data,PlatformContans.Pay.rentCarOrderPay);
+                        orderPay.showPayDialog(data);
                     }else {
                         ToastUtil.showToast(RentCarOrderActivity.this,String.format("%s:%s",baseModel.getResultCode(),baseModel.getMessage()));
                     }

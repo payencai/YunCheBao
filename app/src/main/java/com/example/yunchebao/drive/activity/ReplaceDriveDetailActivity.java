@@ -33,11 +33,13 @@ import com.example.yunchebao.drive.model.ReplaceDrive;
 import com.example.yunchebao.drive.model.SubstitubeComment;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.system.WebviewActivity;
 import com.tool.MathUtil;
+import com.vipcenter.RegisterActivity;
 import com.xihubao.ShopInfoActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -100,6 +102,7 @@ public class ReplaceDriveDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_replace_drive_detail);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         id = getIntent().getStringExtra("id");
         initView();
     }
@@ -119,6 +122,10 @@ public class ReplaceDriveDetailActivity extends AppCompatActivity {
                 startActivity(intent3);
                 break;
             case R.id.menuBtn:
+                if (!MyApplication.isLogin) {
+                    startActivity(new Intent(ReplaceDriveDetailActivity.this, RegisterActivity.class));
+                    return;
+                }
                 Intent intent2 = new Intent(ReplaceDriveDetailActivity.this, ReplaceOrderActivity.class);
                 intent2.putExtra("id", mReplaceDrive.getId());
                 startActivity(intent2);
@@ -132,6 +139,10 @@ public class ReplaceDriveDetailActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.collectBtn:
+                if (!MyApplication.isLogin) {
+                    startActivity(new Intent(ReplaceDriveDetailActivity.this, RegisterActivity.class));
+                    return;
+                }
                 if (isCollect == 0) {
                     isCollect = 1;
                     iv_collect.setImageResource(R.mipmap.collect_yellow);

@@ -2,6 +2,7 @@ package com.example.yunchebao.babycircle.carfriend;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -55,6 +56,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 
 
 /**
@@ -109,7 +111,11 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driver_friends_detail_layout);
         ButterKnife.bind(this);
-        ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+        }
         UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "详情");
         ctx = this;
         //网络地址获取轮播图
@@ -191,13 +197,16 @@ public class DriverFriendsDetailActivity extends NoHttpBaseActivity {
             if (mSeldDrvingDetail.getIsCollection() == 1) {
                 iv_heart.setImageResource(R.mipmap.orange_heart_icon);
             } else {
-                //iv_heart.setImageResource(R.mipmap.white_heart_icon);
+                iv_heart.setImageResource(R.mipmap.collect_gray_hole);
             }
             isfocus(mSeldDrvingDetail.getUserId());
             Glide.with(this).load(mSeldDrvingDetail.getHeadPortrait()).into(tv_head);
             if(MyApplication.getUserInfo().getId().equals(mSeldDrvingDetail.getUserId())){
                 ll_content.setVisibility(View.GONE);
             }
+            UserInfo userInfo=new UserInfo(mSeldDrvingDetail.getUserId(),mSeldDrvingDetail.getName(), Uri.parse(mSeldDrvingDetail.getHeadPortrait()));
+            RongIM.getInstance().refreshUserInfoCache(userInfo);
+
         }
         getComment();
     }

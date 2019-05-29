@@ -33,12 +33,12 @@ import java.util.List;
  * 邮箱：771548229@qq..com
  */
 public class FourShopCommentAdapter extends BaseQuickAdapter<FourShopComment, BaseViewHolder> {
-    PhotoAdapter mPhotoAdapter;
-    ArrayList<String> images;
-    public   OnImageClick onImageClick;
+
+
     public FourShopCommentAdapter(int layoutResId, @Nullable List<FourShopComment> data) {
         super(layoutResId, data);
     }
+    public   OnImageClick onImageClick;
     public interface  OnImageClick{
         void onClick(int pos,ArrayList<String> images);
     }
@@ -47,6 +47,7 @@ public class FourShopCommentAdapter extends BaseQuickAdapter<FourShopComment, Ba
     }
     @Override
     protected void convert(BaseViewHolder helper, FourShopComment item) {
+        ArrayList<String> images = new ArrayList<>();
         GridView gv_photo = (GridView) helper.getView(R.id.gv_photo);
         gv_photo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -69,7 +70,7 @@ public class FourShopCommentAdapter extends BaseQuickAdapter<FourShopComment, Ba
         TextView tv_name = (TextView) helper.getView(R.id.tv_name);
         TextView tv_time = (TextView) helper.getView(R.id.tv_time);
         SimpleRatingBar starbar = (SimpleRatingBar) helper.getView(R.id.starbar);
-        images = new ArrayList<>();
+
         if (item.getImgs() != null) {
             if (item.getImgs().contains(",")) {
                 String[] img = item.getImgs().split(",");
@@ -80,7 +81,7 @@ public class FourShopCommentAdapter extends BaseQuickAdapter<FourShopComment, Ba
                 images.add(item.getImgs());
             }
         }
-        mPhotoAdapter = new PhotoAdapter(mContext, images);
+        PhotoAdapter mPhotoAdapter = new PhotoAdapter(mContext, images);
         gv_photo.setAdapter(mPhotoAdapter);
         iv_content.setText(item.getContent());
         String isAnonymous = item.getUserId();

@@ -43,6 +43,7 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.system.WebviewActivity;
 import com.tool.NoScrollViewPager;
+import com.vipcenter.RegisterActivity;
 import com.xihubao.ShopInfoActivity;
 import com.xihubao.fragment.EvaluateFragment;
 import com.xihubao.fragment.GoodsFragment;
@@ -135,6 +136,10 @@ public class NewWashrepairDetailActivity extends AppCompatActivity {
                 showMapDialog(new LatLng(Double.parseDouble(mWashRepairDetail.getLatitude()), Double.parseDouble(mWashRepairDetail.getLongitude())));
                 break;
             case R.id.rl_collect:
+                if(!MyApplication.isLogin){
+                    startActivity(new Intent(NewWashrepairDetailActivity.this, RegisterActivity.class));
+                    return;
+                }
                 if (isCollect == 0) {
                     isCollect = 1;
                     iv_heart.setImageResource(R.mipmap.orange_heart_icon);
@@ -341,7 +346,7 @@ public class NewWashrepairDetailActivity extends AppCompatActivity {
     public void isCollect() {
         Map<String, Object> params = new HashMap<>();
         params.put("shopId", id);
-        params.put("type", type);
+
         HttpProxy.obtain().get(PlatformContans.Collect.isCollectionByShopId, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -372,7 +377,7 @@ public class NewWashrepairDetailActivity extends AppCompatActivity {
     public void delCollect() {
         Map<String, Object> params = new HashMap<>();
         params.put("shopId", id);
-        params.put("type", type);
+
         HttpProxy.obtain().post(PlatformContans.Collect.deleteWashCollection, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
@@ -396,7 +401,7 @@ public class NewWashrepairDetailActivity extends AppCompatActivity {
     public void collect() {
         Map<String, Object> params = new HashMap<>();
         params.put("shopId", id);
-        params.put("type", type);
+
         HttpProxy.obtain().post(PlatformContans.Collect.addWashCollection, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
