@@ -10,8 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.application.MyApplication;
-import com.cheyibao.model.ShopComment;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
@@ -20,7 +19,6 @@ import com.http.ICallBack;
 import com.vipcenter.adapter.WashCommentAdapter;
 import com.vipcenter.model.WashOrderComment;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,7 +29,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import go.error;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory;
 import android.support.v4.util.LruCache;
 
 import com.android.volley.toolbox.ImageLoader;
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.tool.cache.DiskLruCacheUtil;
 
 import java.io.ByteArrayOutputStream;

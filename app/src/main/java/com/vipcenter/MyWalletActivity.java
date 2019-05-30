@@ -7,11 +7,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,22 +22,18 @@ import android.widget.TextView;
 
 import com.alipay.PayResult;
 import com.alipay.sdk.app.PayTask;
-import com.application.MyApplication;
-import com.cheyibao.CarPayActivity;
+import com.example.yunchebao.MyApplication;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.wxapi.WechatRes;
 import com.google.gson.Gson;
-import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.nohttp.sample.NoHttpBaseActivity;
 import com.payencai.library.util.ToastUtil;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
-import com.tool.UIControlUtils;
 import com.vipcenter.model.MemberCard;
 import com.vipcenter.model.MyWallet;
 
@@ -55,7 +49,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import go.error;
 
 /**
  * Created by sdhcjhss on 2018/1/2.

@@ -21,7 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -34,11 +34,13 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.luffy.imagepreviewlib.core.PictureConfig;
 import com.newversion.MyTagsActivity;
+import com.newversion.NewTag;
 import com.payencai.library.util.ToastUtil;
 import com.zyyoona7.popup.EasyPopup;
 import com.zyyoona7.popup.XGravity;
 import com.zyyoona7.popup.YGravity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -85,11 +87,14 @@ public class FriendDetailActivity extends AppCompatActivity {
     TextView  tv_car;
     @BindView(R.id.nickname)
     TextView tv_nickname;
+    @BindView(R.id.tv_tag)
+    TextView tv_tag;
     @BindView(R.id.rl_tag)
     RelativeLayout  rl_tag;
     Conversation.ConversationNotificationStatus conversationNotificationStatus1;
     String id;
     String name;
+    String tag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +104,38 @@ public class FriendDetailActivity extends AppCompatActivity {
         ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         initView();
     }
+    public void getTag() {
 
+        HttpProxy.obtain().get(PlatformContans.Label.getLabelList, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("getLabelList", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        NewTag newTag = new Gson().fromJson(item.toString(), NewTag.class);
+                        for (int j = 0; j < newTag.getList().size(); j++) {
+                            if(id.equals(newTag.getList().get(j).getUserId())){
+                                tag=tag+" "+newTag.getName();
+                            }
+                        }
+                    }
+                    tv_tag.setText(tag.replace("null"," "));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     private void initWindow(View view) {
         EasyPopup mCirclePop = EasyPopup.create()
                 .setContentView(this, R.layout.dialog_friend_detail)
@@ -292,6 +328,7 @@ public class FriendDetailActivity extends AppCompatActivity {
                 startActivity(new Intent(FriendDetailActivity.this, MyTagsActivity.class));
             }
         });
+        getTag();
         getStatus();
         getIsTop();
         getDetail(id);

@@ -1,41 +1,27 @@
 package com.vipcenter.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
-import com.application.MyApplication;
-import com.baike.adapter.CarListAdapter;
+import com.example.yunchebao.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.cheyibao.NewCarSellerActivity;
 import com.costans.PlatformContans;
-import com.entity.PhoneArticleEntity;
-import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.GoodDetailActivity;
 import com.maket.model.GoodList;
-import com.maket.model.LoadMoreListView;
 import com.nohttp.sample.BaseFragment;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.vipcenter.adapter.GoodCollectAdapter;
-import com.vipcenter.adapter.GoodCollectListAdapter;
-import com.vipcenter.adapter.NewCarCollectAdapter;
 import com.vipcenter.model.GoodsCollect;
-import com.vipcenter.model.NewCarCollect;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,7 +34,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import go.error;
 
 /**
  * Created by sdhcjhss on 2018/1/6.

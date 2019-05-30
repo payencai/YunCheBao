@@ -24,7 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;

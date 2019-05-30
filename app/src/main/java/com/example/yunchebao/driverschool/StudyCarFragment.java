@@ -11,9 +11,8 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
-import com.example.yunchebao.driverschool.DrivingSchoolActivity;
 import com.cheyibao.adapter.StudyItemAdapter;
 import com.cheyibao.model.DrvingSchool;
 import com.costans.PlatformContans;

@@ -20,13 +20,12 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alipay.PayResult;
 import com.alipay.sdk.app.PayTask;
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
@@ -34,27 +33,19 @@ import com.entity.PhoneOrderEntity;
 import com.example.yunchebao.R;
 import com.example.yunchebao.wxapi.WechatRes;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.GoodsOrderDetailActivity;
-import com.maket.SinglePayActivity;
 import com.nohttp.sample.BaseFragment;
 import com.payencai.library.util.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
 import com.vipcenter.CheckLogisticsActivity;
-import com.vipcenter.HaveGotGoodsActivity;
 import com.vipcenter.OrderCommentSubmitActivity;
 import com.vipcenter.RebackMoneyActivity;
 import com.vipcenter.adapter.NewOrderAdapter;
-import com.vipcenter.adapter.OrderListAdapter;
-import com.vipcenter.view.PayWayDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,7 +58,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.rong.imkit.RongIM;
 
 

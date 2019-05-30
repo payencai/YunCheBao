@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.caryibao.NewCar;
 import com.cheyibao.CarPayActivity;

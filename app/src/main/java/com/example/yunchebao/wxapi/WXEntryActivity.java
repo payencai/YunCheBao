@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
@@ -17,7 +17,6 @@ import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.vipcenter.BindPhoneActivity;
 import com.vipcenter.model.UserInfo;
 

@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
@@ -78,6 +78,7 @@ public class MyTagsActivity extends AppCompatActivity {
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
                         NewTag baikeItem = new Gson().fromJson(item.toString(), NewTag.class);
+                        baikeItem.setBack(true);
                         newTags.add(baikeItem);
                     }
                     mMyTagAdapter.setNewData(newTags);
@@ -102,14 +103,19 @@ public class MyTagsActivity extends AppCompatActivity {
                 NewTag newTag= (NewTag) adapter.getItem(position);
                 if(view.getId()==R.id.btnDelete){
                     deleteTag(newTag.getId());
+                }else if(view.getId()==R.id.ll_all_look){
+
                 }
+
             }
         });
+
         rv_tags.setLayoutManager(new LinearLayoutManager(this));
         rv_tags.setAdapter(mMyTagAdapter);
         ll_newtag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivityForResult(new Intent(MyTagsActivity.this, CreateTagsActivity.class),1);
             }
         });
@@ -124,7 +130,9 @@ public class MyTagsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==1){
+        if(requestCode==1||requestCode==2){
+            mNewTags.clear();
+            mMyTagAdapter.setNewData(mNewTags);
             getData();
         }
     }

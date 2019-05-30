@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.entity.FourShop;

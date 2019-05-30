@@ -18,13 +18,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.cheyibao.adapter.ImageAdapter;
 import com.common.BaseModel;
 import com.common.EndLoadDataType;
 import com.common.HandlerData;
 import com.common.LoadDataType;
-import com.common.MultipleStatusView;
 import com.common.ResourceUtils;
 import com.common.UploadFile;
 import com.coorchice.library.SuperTextView;

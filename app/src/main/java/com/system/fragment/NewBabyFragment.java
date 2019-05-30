@@ -16,7 +16,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.example.yunchebao.R;
 import com.newversion.FriendsCircleActivity;
 import com.newversion.MyTagsActivity;

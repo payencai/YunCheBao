@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.cheyibao.adapter.NewCarParamsAdapter;
 import com.cheyibao.adapter.OldCarImageAdapter;
@@ -20,7 +20,6 @@ import com.cheyibao.model.NewCarParams;
 import com.cheyibao.model.OldCar;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
-import com.example.yunchebao.cheyibao.newcar.NewCarDetailActivity;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;

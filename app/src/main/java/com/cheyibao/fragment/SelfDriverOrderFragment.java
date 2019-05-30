@@ -2,17 +2,14 @@ package com.cheyibao.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.application.MyApplication;
-import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.yunchebao.MyApplication;
 import com.cheyibao.RentCarOrderCommentActivity;
-import com.cheyibao.RentCarOrderDetailActivity;
 import com.cheyibao.adapter.RentOrderAdapter;
 import com.cheyibao.model.RentOrder;
 import com.common.AvoidOnResult;

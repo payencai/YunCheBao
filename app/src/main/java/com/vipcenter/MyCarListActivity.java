@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
@@ -22,7 +22,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.vipcenter.adapter.MyCarAdapter;
 import com.vipcenter.model.MyCar;
-import com.vipcenter.model.PersonAddress;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 import com.alipay.PayResult;
 import com.alipay.sdk.app.PayTask;
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;

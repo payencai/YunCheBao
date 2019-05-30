@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.rongcloud.model.ApplyGroup;

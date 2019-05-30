@@ -1,7 +1,5 @@
 package com.vipcenter;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,7 +7,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
 import com.entity.PhoneAddressEntity;
 import com.example.yunchebao.R;
@@ -25,8 +23,6 @@ import com.lljjcoder.style.citylist.Toast.ToastUtils;
 import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.payencai.library.util.ToastUtil;
-import com.tool.ActivityConstans;
-import com.tool.UIControlUtils;
 import com.vipcenter.model.PersonAddress;
 
 import java.util.HashMap;

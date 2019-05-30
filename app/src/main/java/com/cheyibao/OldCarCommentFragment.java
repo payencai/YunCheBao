@@ -9,9 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
-import com.application.MyApplication;
 import com.cheyibao.adapter.ShopCommentAdapter;
-import com.cheyibao.list.SpreadListView;
 import com.cheyibao.model.ShopComment;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;

@@ -13,7 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.model.Area;
 import com.costans.PlatformContans;

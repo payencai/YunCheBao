@@ -1,4 +1,4 @@
-package com.system.search;
+package com.example.yunchebao.search;
 
 
 import android.content.Intent;
@@ -12,15 +12,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.caryibao.NewCar;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.yunchebao.driverschool.DrivingSchoolActivity;
-import com.cheyibao.model.DrvingSchool;
+import com.example.yunchebao.cheyibao.newcar.NewCarDetailActivity;
+
+
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.system.adapter.SearchSchoolAdapter;
+import com.system.adapter.SearchNewAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,20 +39,18 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchSchoolFragment extends Fragment {
+public class SearchNewFragment extends Fragment {
 
     int page=1;
     boolean isLoadMore=false;
-    SearchSchoolAdapter mRoadAdapter;
-    List<DrvingSchool> mRoads;
+    SearchNewAdapter mRoadAdapter;
+    List<NewCar> mRoads;
     @BindView(R.id.rv_road)
     RecyclerView rv_road;
-    public SearchSchoolFragment() {
-        // Required empty public constructor
-    }
+
     String word;
-    public static SearchSchoolFragment newInstance(String value) {
-        SearchSchoolFragment fragment=new SearchSchoolFragment();
+    public static SearchNewFragment newInstance(String value) {
+        SearchNewFragment fragment=new SearchNewFragment();
         Bundle bundle=new Bundle();
         bundle.putString("word",value);
         fragment.setArguments(bundle);
@@ -76,7 +76,7 @@ public class SearchSchoolFragment extends Fragment {
 
     private void initView() {
         mRoads=new ArrayList<>();
-        mRoadAdapter=new SearchSchoolAdapter(R.layout.item_search_school,mRoads);
+        mRoadAdapter=new SearchNewAdapter(R.layout.item_search_new,mRoads);
         mRoadAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -89,10 +89,14 @@ public class SearchSchoolFragment extends Fragment {
         mRoadAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                DrvingSchool item= (DrvingSchool) adapter.getItem(position);
-                Intent intent = new Intent(getContext(), DrivingSchoolActivity.class);
-                intent.putExtra("data", item);
+                Bundle bundle=new Bundle();
+                NewCar newCar=(NewCar)adapter.getItem(position);
+                bundle.putSerializable("data",newCar);
+                Intent intent=new Intent(getContext(), NewCarDetailActivity.class);
+                intent.putExtras(bundle);
                 startActivity(intent);
+
+               // ActivityAnimationUtils.commonTransition(getActivity(), NewCarDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
             }
         });
         rv_road.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
@@ -105,8 +109,8 @@ public class SearchSchoolFragment extends Fragment {
     private void getData(){
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
-        params.put("keyword", word);
-        params.put("searchType", 7);
+        params.put("keyword", "车");
+        params.put("searchType", 4);
         Log.e("road",params.toString());
         HttpProxy.obtain().get(PlatformContans.Commom.searchAll, params,"", new ICallBack() {
             @Override
@@ -116,17 +120,17 @@ public class SearchSchoolFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(result);
                     jsonObject = jsonObject.getJSONObject("data");
                     JSONArray data = jsonObject.getJSONArray("list");
-                    List<DrvingSchool> drvingSchools=new ArrayList<>();
+                    List<NewCar> newCars=new ArrayList<>();
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject item = data.getJSONObject(i);
-                        DrvingSchool road = new Gson().fromJson(item.toString(), DrvingSchool.class);
+                        NewCar road = new Gson().fromJson(item.toString(), NewCar.class);
                         mRoads.add(road);
-                        drvingSchools.add(road);
+                        newCars.add(road);
                     }
 
                     if(isLoadMore){
                         isLoadMore=false;
-                        mRoadAdapter.addData(drvingSchools);
+                        mRoadAdapter.addData(newCars);
                         mRoadAdapter.loadMoreComplete();
                     }else{
                         mRoadAdapter.setNewData(mRoads);

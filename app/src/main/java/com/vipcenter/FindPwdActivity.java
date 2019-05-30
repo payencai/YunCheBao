@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.http.HttpProxy;
@@ -26,7 +26,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.http.PATCH;
 
 public class FindPwdActivity extends AppCompatActivity {
     @BindView(R.id.tv_phone)

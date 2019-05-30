@@ -3,7 +3,6 @@ package com.common;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -19,8 +18,7 @@ import android.widget.RelativeLayout;
 
 import com.alipay.PayResult;
 import com.alipay.sdk.app.PayTask;
-import com.application.MyApplication;
-import com.cheyibao.RentCarOrderActivity;
+import com.example.yunchebao.MyApplication;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;

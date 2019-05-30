@@ -26,7 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps.model.LatLng;
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.drive.activity.SimplePlayerActivity;

@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.example.yunchebao.R;
 import com.gyf.immersionbar.ImmersionBar;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;

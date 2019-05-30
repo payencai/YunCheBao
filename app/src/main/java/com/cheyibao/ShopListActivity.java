@@ -2,7 +2,6 @@ package com.cheyibao;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.cheyibao.adapter.AreaAdapter;
 import com.cheyibao.adapter.RentShopAdapter;
 import com.cheyibao.model.Area;
@@ -31,10 +30,6 @@ import com.google.gson.reflect.TypeToken;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.tool.JsonUtil;
 
 import org.json.JSONArray;

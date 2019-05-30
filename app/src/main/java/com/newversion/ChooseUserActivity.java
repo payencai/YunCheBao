@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.http.HttpProxy;
@@ -29,26 +29,29 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ChooseUserActivity extends AppCompatActivity {
-     ArrayList<ContactModel> mContactModels;
-     ContactsAdapter mAdapter;
-     ArrayList<ContactModel> mSelect=new ArrayList<>();
+    ArrayList<ContactModel> mContactModels;
+    ContactsAdapter mAdapter;
+    ArrayList<ContactModel> mSelect = new ArrayList<>();
     @BindView(R.id.main_recycler)
     RecyclerView rv_user;
     @BindView(R.id.confirm)
     TextView confirm;
     @BindView(R.id.back)
     ImageView back;
+    NewTag newTag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_user);
         ButterKnife.bind(this);
+        newTag = (NewTag) getIntent().getSerializableExtra("data");
         initView();
     }
 
     private void initView() {
-        mContactModels=new ArrayList<>();
-        mAdapter=new ContactsAdapter(mContactModels);
+        mContactModels = new ArrayList<>();
+        mAdapter = new ContactsAdapter(mContactModels);
         mAdapter.setOnItemClickListener(new ContactsAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position, ImageView imageView) {
@@ -61,13 +64,13 @@ public class ChooseUserActivity extends AppCompatActivity {
                     contactModel.setSelect(true);
                 } else {
                     mSelect.remove(contactModel);
-                   // userid.remove(contactModel.getUserId());
+                    // userid.remove(contactModel.getUserId());
                     imageView.setImageResource(R.mipmap.unselect);
                     contactModel.setSelect(false);
                     //mAdapter.notifyDataSetChanged();
                 }
                 mContactModels.add(position, contactModel);
-                mAdapter.notifyDataSetChanged();
+                mAdapter.notifyItemChanged(position);
             }
         });
         rv_user.setLayoutManager(new LinearLayoutManager(this));
@@ -75,13 +78,13 @@ public class ChooseUserActivity extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mSelect.size()==0){
-                    ToastUtil.showToast(ChooseUserActivity.this,"请至少选择一个成员");
+                if (mSelect.size() == 0) {
+                    ToastUtil.showToast(ChooseUserActivity.this, "请至少选择一个成员");
                     return;
                 }
-                Intent intent=new Intent();
-                intent.putExtra("user",mSelect);
-                setResult(0,intent);
+                Intent intent = new Intent();
+                intent.putExtra("user", mSelect);
+                setResult(0, intent);
                 finish();
             }
         });
@@ -115,7 +118,17 @@ public class ChooseUserActivity extends AppCompatActivity {
                             contactModel.setIsNotice(item.getString("isNotice"));
                             contactModel.setNickName(item.getString("nickName"));
                             contactModel.setSelect(false);
-                            mContactModels.add(contactModel);
+                            boolean isadd = true;
+                            if (newTag != null) {
+                                for (int j = 0; j < newTag.getList().size(); j++) {
+                                    if (contactModel.getUserId().equals(newTag.getList().get(j).getUserId())) {
+                                        isadd = false;
+                                        break;
+                                    }
+                                }
+                            }
+                            if(isadd)
+                               mContactModels.add(contactModel);
                         }
                         mAdapter.notifyDataSetChanged();
                     } catch (JSONException e) {

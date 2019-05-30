@@ -1,7 +1,6 @@
 package com.cheyibao;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -10,9 +9,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.cheyibao.model.CarModelsFirstLevel;
 import com.cheyibao.model.SubCarModels;
 import com.cheyibao.util.RentCarUtils;
@@ -33,9 +31,7 @@ import com.google.gson.reflect.TypeToken;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
-import com.vipcenter.LoginByaccountActivity;
 import com.vipcenter.RegisterActivity;
-import com.xihubao.CarBrandSelectActivity;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;

@@ -3,18 +3,20 @@ package com.example.yunchebao.myservice;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
-import com.example.yunchebao.fourshop.bean.FourShopData;
 import com.example.yunchebao.myservice.model.SchoolCommentDetail;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+import com.luffy.imagepreviewlib.core.PictureConfig;
 import com.payencai.library.view.CircleImageView;
 import com.tool.StringUtils;
 import com.tool.view.GridViewForScrollView;
@@ -30,7 +32,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import go.error;
 
 public class SeeSchoolCommentActivity extends AppCompatActivity {
     @BindView(R.id.userhead)
@@ -102,7 +103,7 @@ public class SeeSchoolCommentActivity extends AppCompatActivity {
         tv_shoptime.setText(mSchoolCommentDetail.getMerchantEvaluation().getCreateTime().substring(0,10));
         sb_shop.setRating(mSchoolCommentDetail.getMerchantEvaluation().getScore());
         List<String> shopimages=new ArrayList<>();
-        List<String> images=new ArrayList<>();
+        ArrayList<String> images=new ArrayList<>();
         shopimages.addAll(StringUtils.StringToArrayList(mSchoolCommentDetail.getMerchantEvaluation().getPhoto(),","));
         images.addAll(StringUtils.StringToArrayList(mSchoolCommentDetail.getCoachEvaluation().getPhoto(),","));
         mShopAdapter=new PhotoAdapter(this,shopimages);
@@ -114,5 +115,21 @@ public class SeeSchoolCommentActivity extends AppCompatActivity {
         starbar.setRating(mSchoolCommentDetail.getCoachEvaluation().getScore());
         mCoachAdapter=new PhotoAdapter(this,images);
         gv_photo.setAdapter(mCoachAdapter);
+        gv_shopphoto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PictureConfig config = new PictureConfig.Builder()
+                        .setListData(images)  //图片数据List<String> list
+                        .setPosition(position)                         //图片下标（从第position张图片开始浏览）
+                        .setDownloadPath("imagepreview")        //图片下载文件夹地址
+                        .setIsShowNumber(true)                  //是否显示数字下标
+                        .needDownload(true)                     //是否支持图片下载
+                        .setPlaceHolder(R.mipmap.ic_launcher)   //占位符
+                        .build();
+                config.gotoActivity(SeeSchoolCommentActivity.this, config);
+
+            }
+
+        });
     }
 }

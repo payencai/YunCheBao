@@ -18,10 +18,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.cheyibao.BookCarActivity;
 import com.cheyibao.CarModelsDetailActivity;
 import com.cheyibao.HighCarCategoryActivity;
 import com.cheyibao.LongRentAppliationActivity;
@@ -52,7 +50,6 @@ import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
 import com.payencai.library.util.ToastUtil;
 import com.system.WebviewActivity;
-import com.tool.slideshowview.SlideShowView;
 import com.vipcenter.RegisterActivity;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -331,10 +328,11 @@ public class RentCarFragment extends BaseFragment {
         if (MyApplication.isLogin){
             startActivity(new Intent(getContext(), SelfDriverOrderActivity.class));
         }else {
-            AvoidOnResult avoidOnResult = new AvoidOnResult(this);
-            avoidOnResult.startForResult(RegisterActivity.class, 1, (requestCode, resultCode, data) -> {
-                startActivity(new Intent(getContext(), SelfDriverOrderActivity.class));
-            });
+            startActivity(new Intent(getContext(),RegisterActivity.class));
+//            AvoidOnResult avoidOnResult = new AvoidOnResult(this);
+//            avoidOnResult.startForResult(RegisterActivity.class, 1, (requestCode, resultCode, data) -> {
+//                startActivity(new Intent(getContext(), SelfDriverOrderActivity.class));
+//            });
         }
     }
 

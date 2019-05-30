@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.example.yunchebao.R;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;

@@ -11,11 +11,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.application.MyApplication;
-import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.yunchebao.MyApplication;
 import com.cheyibao.adapter.RentCarModelAdapter;
 import com.cheyibao.model.RentCarModel;
 import com.cheyibao.util.RentCarUtils;

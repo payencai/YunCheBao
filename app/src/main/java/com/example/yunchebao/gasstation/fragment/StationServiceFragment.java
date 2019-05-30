@@ -17,21 +17,17 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
-import com.entity.PhoneOrderEntity;
 import com.example.yunchebao.R;
 import com.example.yunchebao.gasstation.AddStationCommentActivity;
 import com.example.yunchebao.gasstation.GasStationDetailActivity;
-import com.example.yunchebao.gasstation.adapter.StationCommentAdapter;
 import com.example.yunchebao.gasstation.adapter.StationServiceAdapter;
-import com.example.yunchebao.gasstation.model.StationComment;
 import com.example.yunchebao.gasstation.model.StationService;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.vipcenter.OrderCommentSubmitActivity;
 import com.vipcenter.RegisterActivity;
 
 import org.json.JSONArray;

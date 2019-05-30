@@ -1,31 +1,18 @@
 package com.cheyibao;
 
-import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alipay.PayResult;
-import com.alipay.sdk.app.PayTask;
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.cheyibao.model.RentCarModel;
-import com.cheyibao.model.RentCarType;
 import com.cheyibao.model.RentShop;
 import com.cheyibao.util.RentCarUtils;
 import com.cheyibao.view.RentCarAddressView;
@@ -35,27 +22,16 @@ import com.common.BaseModel;
 import com.common.DateUtils;
 import com.common.IdentityCardVerify;
 import com.common.OrderPay;
-import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
-import com.example.yunchebao.wxapi.WechatRes;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.OrderConfirmActivity;
-import com.maket.model.GoodsSelect;
 import com.payencai.library.util.ToastUtil;
-import com.system.X5WebviewActivity;
 import com.system.model.AddressBean;
-import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.vipcenter.LoginByaccountActivity;
 import com.vipcenter.RegisterActivity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -285,12 +261,7 @@ public class RentCarOrderActivity extends AppCompatActivity {
         if (MyApplication.isIsLogin()){
             postOrder();
         }else {
-            AvoidOnResult avoidOnResult = new AvoidOnResult(this);
-            avoidOnResult.startForResult(RegisterActivity.class, 1, (requestCode, resultCode, data) -> {
-                if (requestCode==1 && resultCode==5){
-                    postOrder();
-                }
-            });
+            startActivity(new Intent(RentCarOrderActivity.this,RegisterActivity.class));
         }
     }
 }

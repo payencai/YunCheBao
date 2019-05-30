@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.example.yunchebao.driverschool.DrivingSchoolActivity;
 import com.cheyibao.adapter.ShopCommentAdapter;
 import com.cheyibao.model.ShopComment;

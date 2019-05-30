@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bbcircle.CarShowDetailActivity;
 import com.bbcircle.CarsShowRepublishActivity;
 import com.bbcircle.data.CarShow;

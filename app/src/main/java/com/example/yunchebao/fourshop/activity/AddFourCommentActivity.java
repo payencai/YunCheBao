@@ -10,7 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.comment.EvaluationChoiceImageView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;

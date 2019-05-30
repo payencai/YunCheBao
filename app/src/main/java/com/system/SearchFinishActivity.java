@@ -10,15 +10,15 @@ import android.widget.EditText;
 
 import com.example.yunchebao.R;
 import com.flyco.tablayout.SlidingTabLayout;
-import com.system.search.SearchBaikeFragment;
-import com.system.search.SearchCircleFragment;
-import com.system.search.SearchGoodsFragment;
-import com.system.search.SearchNewFragment;
-import com.system.search.SearchOldFragment;
-import com.system.search.SearchRentFragment;
-import com.system.search.SearchRoadFragment;
-import com.system.search.SearchSchoolFragment;
-import com.system.search.SearchWashFragment;
+import com.example.yunchebao.search.SearchBaikeFragment;
+import com.example.yunchebao.search.SearchCircleFragment;
+import com.example.yunchebao.search.SearchGoodsFragment;
+import com.example.yunchebao.search.SearchNewFragment;
+import com.example.yunchebao.search.SearchOldFragment;
+import com.example.yunchebao.search.SearchRentFragment;
+import com.example.yunchebao.search.SearchRoadFragment;
+import com.example.yunchebao.search.SearchSchoolFragment;
+import com.example.yunchebao.search.SearchWashFragment;
 
 import java.util.ArrayList;
 

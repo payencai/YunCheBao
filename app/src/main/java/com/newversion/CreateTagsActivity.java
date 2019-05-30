@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.http.HttpProxy;
@@ -41,22 +41,49 @@ public class CreateTagsActivity extends AppCompatActivity {
     @BindView(R.id.et_name)
     EditText et_name;
     String ids;
+    NewTag newTag;
+    ArrayList<String> idsList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_tags);
         ButterKnife.bind(this);
+        newTag = (NewTag) getIntent().getSerializableExtra("data");
         initView();
     }
 
     private void initView() {
+        idsList=new ArrayList<>();
         mSelect = new ArrayList<>();
         mTagUserAdapter = new TagUserAdapter(this, mSelect);
+        mTagUserAdapter.setOnDelClickListener(new TagUserAdapter.OnDelClickListener() {
+            @Override
+            public void onClick(int position) {
+                ContactModel contactModel = mSelect.get(position);
+                mSelect.remove(position);
+                mTagUserAdapter.notifyDataSetChanged();
+                idsList.remove(contactModel.getUserId());
+                if (newTag != null) {
+                    for (int i = 0; i < newTag.getList().size(); i++) {
+                        if (contactModel.getUserId().equals(newTag.getList().get(i).getUserId())) {
+                            newTag.getList().remove(i);
+                        }
+                    }
+                }
+
+
+            }
+        });
         lv_user.setAdapter(mTagUserAdapter);
         ll_adduser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(CreateTagsActivity.this, ChooseUserActivity.class), 1);
+
+                Intent intent = new Intent(CreateTagsActivity.this, ChooseUserActivity.class);
+                if (newTag != null) {
+                    intent.putExtra("data", newTag);
+                }
+                startActivityForResult(intent, 1);
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
@@ -68,28 +95,48 @@ public class CreateTagsActivity extends AppCompatActivity {
         tv_finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name=et_name.getEditableText().toString();
+                String name = et_name.getEditableText().toString();
+                if (TextUtils.isEmpty(name)) {
+                    ToastUtil.showToast(CreateTagsActivity.this, "名字不能为空");
+                    return;
+                }
+                if (idsList.size()==0) {
+                    ToastUtil.showToast(CreateTagsActivity.this, "请添加成员");
+                    return;
+                }
+                if(newTag!=null){
+                    updateTag();
+                }else{
+                    addTag();
+                }
 
-                if(TextUtils.isEmpty(name)){
-                    ToastUtil.showToast(CreateTagsActivity.this,"名字不能为空");
-                    return;
-                }
-                if(TextUtils.isEmpty(ids)){
-                    ToastUtil.showToast(CreateTagsActivity.this,"请添加成员");
-                    return;
-                }
-                addTag();
             }
         });
+        if (newTag != null) {
+            mSelect.clear();
+            et_name.setText(newTag.getName());
+            for (int i = 0; i < newTag.getList().size(); i++) {
+                idsList.add(newTag.getList().get(i).getUserId());
+                NewTag.ListBean listBean = newTag.getList().get(i);
+                ContactModel contactModel = new ContactModel(listBean.getName());
+                contactModel.setHeadPortrait(listBean.getHeadPortrait());
+                contactModel.setUserId(listBean.getUserId());
+                contactModel.setName(listBean.getName());
+                mSelect.add(contactModel);
+            }
+            mTagUserAdapter.notifyDataSetChanged();
+
+        }
     }
-    private void addTag(){
-        Map<String,Object> params=new HashMap<>();
-        params.put("name",et_name.getEditableText().toString());
-        params.put("ids",ids);
+
+    private void addTag() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", et_name.getEditableText().toString());
+        params.put("ids", listToString(idsList));
         HttpProxy.obtain().post(PlatformContans.Label.addLabel, MyApplication.token, params, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("result",result);
+                Log.e("result", result);
                 finish();
             }
 
@@ -99,31 +146,49 @@ public class CreateTagsActivity extends AppCompatActivity {
             }
         });
     }
+    private void updateTag() {
+        Map<String, Object> params = new HashMap<>();
+        String name=et_name.getEditableText().toString();
+        if(!TextUtils.isEmpty(name)){
+            params.put("name", name);
+        }
+        params.put("id",newTag.getId());
+        params.put("ids", listToString(idsList));
+        HttpProxy.obtain().post(PlatformContans.Label.update, MyApplication.token, params, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("updateTag", result);
+                finish();
+            }
 
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && data != null) {
-            mSelect.clear();
             ArrayList<ContactModel> modelArrayList = (ArrayList<ContactModel>) data.getSerializableExtra("user");
             mSelect.addAll(modelArrayList);
             mTagUserAdapter.notifyDataSetChanged();
-            ids="";
-
-            ArrayList<String> idList = new ArrayList<>();
+            ids = "";
             for (int i = 0; i < mSelect.size(); i++) {
-                idList.add(mSelect.get(i).getUserId());
+                idsList.add(mSelect.get(i).getUserId());
             }
-
-            ids = listToString(idList);
+            ids = listToString(idsList);
         }
     }
 
-    /**List转String逗号分隔*/
+    /**
+     * List转String逗号分隔
+     */
     private String listToString(ArrayList<String> list) {
 
         StringBuilder stringBuilder = new StringBuilder();
-        for(String str : list){
+        for (String str : list) {
             stringBuilder.append(str);
             stringBuilder.append(",");
         }

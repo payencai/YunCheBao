@@ -1,6 +1,5 @@
 package com.example.yunchebao.friendcircle;
 
-import android.Manifest;
 import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Intent;
@@ -26,7 +25,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
@@ -40,9 +39,8 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.newversion.CircleData;
 import com.newversion.DynamicPublishActivity;
-import com.newversion.FriendsCircleActivity;
+import com.newversion.MediaFileUtil;
 import com.newversion.RecordVideoActivity;
-import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tool.GlideImageEngine;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -59,7 +57,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.functions.Consumer;
 
 public class NewFriendCircleActivity extends AppCompatActivity {
 
@@ -97,9 +94,10 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         userId = getIntent().getStringExtra("userId");
         initView();
     }
-    @OnClick({R.id.iv_back,R.id.iv_publish,R.id.iv_headpic})
-    void OnClick(View view){
-        switch (view.getId()){
+
+    @OnClick({R.id.iv_back, R.id.iv_publish, R.id.iv_headpic})
+    void OnClick(View view) {
+        switch (view.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
@@ -108,16 +106,16 @@ public class NewFriendCircleActivity extends AppCompatActivity {
                 break;
             case R.id.iv_headpic:
 
-                    // 跳转到自己或者别人的朋友圈
-                    if (TextUtils.isEmpty(userId)) {
-                        Intent intent = new Intent(NewFriendCircleActivity.this, NewFriendCircleActivity.class);
-                        intent.putExtra("userId", MyApplication.getUserInfo().getId());
-                        NewFriendCircleActivity.this.startActivity(intent);
-                    }else{
-                        if(userId.equals(MyApplication.getUserInfo().getId())){
-                            return;
+                // 跳转到自己或者别人的朋友圈
+                if (TextUtils.isEmpty(userId)) {
+                    Intent intent = new Intent(NewFriendCircleActivity.this, NewFriendCircleActivity.class);
+                    intent.putExtra("userId", MyApplication.getUserInfo().getId());
+                    NewFriendCircleActivity.this.startActivity(intent);
+                } else {
+                    if (userId.equals(MyApplication.getUserInfo().getId())) {
+                        return;
                     }
-                    }
+                }
 
                 break;
         }
@@ -142,7 +140,7 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         tv_dynamic_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectPic(101);
+                selectFile(101);
                 dialog.dismiss();
             }
         });
@@ -177,7 +175,6 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         });
 
 
-
         Window window = dialog.getWindow();
         window.setGravity(Gravity.BOTTOM);
         WindowManager.LayoutParams params = window.getAttributes();
@@ -193,12 +190,12 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         startActivityForResult(intent, 102);
     }
 
-    private void selectPic(int code) {
+    private void selectFile(int code) {
         Matisse
                 .from(this)
                 //选择视频和图片
                 //选择图片
-                .choose(MimeType.ofAll(), true)
+                .choose(MimeType.ofAll(), true)//不能同时选择视频和照片
                 //有序选择图片 123456...
                 .countable(true)
                 //最大选择数量为9
@@ -226,19 +223,22 @@ public class NewFriendCircleActivity extends AppCompatActivity {
                 case 101:
                     Intent picIntent = new Intent();
                     ArrayList<String> pathList = new ArrayList<>();
-
                     pathList = (ArrayList<String>) Matisse.obtainPathResult(data);
-                  /*  if(pathList.size()==1){
-                        if(MediaFileUtil.isImageFileType(pathList.get(0))){
-                            intent.putExtra("mediatype","pic");
-                            intent.putStringArrayListExtra("pathList",pathList);
-                        }else if(MediaFileUtil.isVideoFileType(pathList.get(0))){
-                            intent.putExtra("mediatype","video");
-                            intent.putExtra("videoPath",pathList.get(0));
+                    boolean isVideo = false;
+                    for (int i = 0; i < pathList.size(); i++) {
+                        if (MediaFileUtil.isVideoFileType(pathList.get(i))) {
+                            isVideo = true;
+                            break;
                         }
-                    }else {*/
-                    picIntent.putExtra("mediatype", "pic");
-                    picIntent.putStringArrayListExtra("pathList", pathList);
+                    }
+                    if (isVideo) {
+                        picIntent.putExtra("mediatype", "video");
+                        picIntent.putExtra("videoPath", pathList.get(0));
+                    } else {
+                        picIntent.putExtra("mediatype", "pic");
+                        picIntent.putStringArrayListExtra("pathList", pathList);
+
+                    }
                     picIntent.setClass(NewFriendCircleActivity.this, DynamicPublishActivity.class);
                     startActivityForResult(picIntent, 201);
                     /*  }*/
@@ -267,6 +267,7 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         }
 
     }
+
     /**
      * 根据ID获取他人信息
      *
@@ -296,6 +297,7 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         });
 
     }
+
     /**
      * 设置他人的头像 昵称，背景图等相关信息
      *
@@ -311,13 +313,13 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         mAppBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
             @Override
             public void onStateChanged(AppBarLayout appBarLayout, State state) {
-                if( state == State.EXPANDED ) {
+                if (state == State.EXPANDED) {
                     tv_name.setVisibility(View.GONE);
                     //展开状态
-                }else if(state == State.COLLAPSED){
+                } else if (state == State.COLLAPSED) {
                     //折叠状态
                     tv_name.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     //中间状态
 
 
@@ -327,7 +329,7 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         sr_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                page=1;
+                page = 1;
                 mCircleData.clear();
                 mCircleDataAdapter.setNewData(mCircleData);
                 getData(true);
@@ -345,15 +347,15 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         mCircleDataAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                CircleData circleData= (CircleData) adapter.getItem(position);
-                switch (view.getId()){
+                CircleData circleData = (CircleData) adapter.getItem(position);
+                switch (view.getId()) {
                     case R.id.iv_head:
-                         if(TextUtils.isEmpty(userId)||!circleData.getUserId().equals(userId)){
-                             Intent intent = new Intent(NewFriendCircleActivity.this, NewFriendCircleActivity.class);
-                             intent.putExtra("userId", circleData.getUserId());
-                             startActivity(intent);
-                         }
-                         break;
+                        if (TextUtils.isEmpty(userId) || !circleData.getUserId().equals(userId)) {
+                            Intent intent = new Intent(NewFriendCircleActivity.this, NewFriendCircleActivity.class);
+                            intent.putExtra("userId", circleData.getUserId());
+                            startActivity(intent);
+                        }
+                        break;
                 }
             }
         });
@@ -364,7 +366,8 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         getData(true);
 
     }
-    private void getFriendType(){
+
+    private void getFriendType() {
         if (!TextUtils.isEmpty(userId)) {
             if (userId.equals(MyApplication.getUserInfo().getId())) {
                 //获取我自己的朋友圈
@@ -395,6 +398,7 @@ public class NewFriendCircleActivity extends AppCompatActivity {
             }
         }
     }
+
     private void getData(boolean first) {
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
@@ -416,7 +420,7 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         HttpProxy.obtain().get(url, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                if(sr_refresh.isRefreshing()){
+                if (sr_refresh.isRefreshing()) {
                     sr_refresh.setRefreshing(false);
                 }
                 Log.e("getCircleList", result);

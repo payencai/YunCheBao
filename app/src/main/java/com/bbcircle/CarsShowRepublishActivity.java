@@ -18,12 +18,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bbcircle.view.NoScrollWebView;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
-import com.example.yunchebao.babycircle.selfdrive.SelfDrivingRepublishActivity;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;

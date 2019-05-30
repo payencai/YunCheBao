@@ -4,18 +4,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.myservice.model.RentOrderComment;
-import com.example.yunchebao.myservice.model.WashOrderComment;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+import com.luffy.imagepreviewlib.core.PictureConfig;
 import com.payencai.library.view.CircleImageView;
 import com.tool.StringUtils;
 import com.tool.view.GridViewForScrollView;
@@ -97,9 +98,25 @@ public class SeeRentCommentActivity extends AppCompatActivity {
         tv_shopcontent.setText(mWashOrderComment.getContent());
         tv_shoptime.setText(mWashOrderComment.getCreateTime().substring(0,10));
         sb_shop.setRating((float) mWashOrderComment.getScore());
-        List<String> shopimages=new ArrayList<>();
+        ArrayList<String> shopimages=new ArrayList<>();
         shopimages.addAll(StringUtils.StringToArrayList(mWashOrderComment.getImgs(),","));
         mPhotoAdapter=new PhotoAdapter(this,shopimages);
         gv_shopphoto.setAdapter(mPhotoAdapter);
+        gv_shopphoto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PictureConfig config = new PictureConfig.Builder()
+                        .setListData(shopimages)  //图片数据List<String> list
+                        .setPosition(position)                         //图片下标（从第position张图片开始浏览）
+                        .setDownloadPath("imagepreview")        //图片下载文件夹地址
+                        .setIsShowNumber(true)                  //是否显示数字下标
+                        .needDownload(true)                     //是否支持图片下载
+                        .setPlaceHolder(R.mipmap.ic_launcher)   //占位符
+                        .build();
+                config.gotoActivity(SeeRentCommentActivity.this, config);
+
+            }
+
+        });
     }
 }

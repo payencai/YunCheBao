@@ -1,7 +1,6 @@
 package com.vipcenter;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,19 +11,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
-import com.cheyibao.AddRentCommentActivity;
 import com.costans.PlatformContans;
 import com.entity.PhoneOrderEntity;
 import com.example.yunchebao.R;
-import com.google.gson.Gson;
-import com.google.gson.annotations.SerializedName;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.payencai.library.util.ToastUtil;
-import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.BottomMenuDialog;
 import com.tool.GlideImageLoader;

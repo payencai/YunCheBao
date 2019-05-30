@@ -16,20 +16,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.cheyibao.AddRentCommentActivity;
-import com.cheyibao.AddSchoolCommentActivity;
-import com.cheyibao.model.Merchant;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.myservice.SeeRentCommentActivity;
 import com.example.yunchebao.myservice.model.RentOrderDetail;
-import com.example.yunchebao.myservice.model.SchoolOrderDetail;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.order.CarOrder;
 import com.payencai.library.util.ToastUtil;
 
 import org.json.JSONException;

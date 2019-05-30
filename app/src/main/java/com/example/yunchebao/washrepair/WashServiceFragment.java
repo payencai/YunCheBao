@@ -1,46 +1,25 @@
 package com.example.yunchebao.washrepair;
 
 
-import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alipay.PayResult;
-import com.alipay.sdk.app.PayTask;
-import com.application.MyApplication;
-import com.coorchice.library.SuperTextView;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
 import com.entity.ServerType;
 import com.example.yunchebao.R;
-import com.example.yunchebao.fourshop.activity.FourShopDetailActivity;
-import com.example.yunchebao.fourshop.adapter.ServiceContentAdapter;
-import com.example.yunchebao.fourshop.adapter.ServiceTypeAdapter;
-import com.example.yunchebao.fourshop.bean.ServiceContent;
-import com.example.yunchebao.wxapi.WechatRes;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.GoodsPayActivity;
-import com.payencai.library.util.ToastUtil;
-import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tool.MyListView;
-import com.tool.view.ListViewForScrollView;
 import com.vipcenter.RegisterActivity;
 import com.xihubao.adapter.ServerCatogryAdapter;
 import com.xihubao.adapter.ServerDetailAdapter;

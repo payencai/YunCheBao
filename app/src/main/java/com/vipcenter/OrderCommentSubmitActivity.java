@@ -1,52 +1,34 @@
 package com.vipcenter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.application.MyApplication;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.cheyibao.AddRentCommentActivity;
+import com.example.yunchebao.MyApplication;
 import com.comment.Comment;
 import com.comment.CommentReuslt;
 import com.comment.EvaluationChoiceImageView;
 import com.costans.PlatformContans;
-import com.entity.PhoneGoodEntity;
 import com.entity.PhoneOrderEntity;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
 import com.maket.adapter.CommentAdapter;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.payencai.library.util.ToastUtil;
-import com.tool.ActivityConstans;
 import com.tool.FileUtil;
 import com.tool.GlideImageEngine;
-import com.tool.GlideImageLoader;
-import com.tool.UIControlUtils;
-import com.vipcenter.adapter.PhotoAdapter;
-import com.yancy.gallerypick.config.GalleryConfig;
-import com.yancy.gallerypick.config.GalleryPick;
-import com.yancy.gallerypick.inter.IHandlerCallBack;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
-import com.zhihu.matisse.filter.Filter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,9 +36,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

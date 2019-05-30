@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bbcircle.PublishAreaSelectActivity;
 import com.bbcircle.fragment.CarShowFragment;
 import com.bbcircle.fragment.DriverFragment;
@@ -33,7 +33,7 @@ import com.system.WebviewActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.adapter.MyFragmentPagerAdapter;
-import com.vipcenter.AllCollectionActivity;
+import com.example.yunchebao.collect.AllCollectionActivity;
 import com.vipcenter.HistoryListActivity;
 import com.vipcenter.RegisterActivity;
 import com.vipcenter.UserCenterActivity;

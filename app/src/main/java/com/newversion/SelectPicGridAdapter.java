@@ -23,9 +23,7 @@ public class SelectPicGridAdapter  extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if (pathList.size() < 9)
-            return pathList.size() + 1;
-        return 9;
+        return pathList.size();
     }
 
     @Override
@@ -50,7 +48,7 @@ public class SelectPicGridAdapter  extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        if (position == pathList.size()) {
+        if (position == 0) {
             Glide.with(context).load(R.mipmap.add_photo).into(holder.iv_dynamic_photo);
         } else {
             Glide.with(context).load(pathList.get(position)).into(holder.iv_dynamic_photo);

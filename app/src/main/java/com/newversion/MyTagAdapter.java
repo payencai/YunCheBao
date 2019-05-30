@@ -1,25 +1,19 @@
 package com.newversion;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.costans.PlatformContans;
 import com.example.yunchebao.R;
-import com.http.HttpProxy;
-import com.http.ICallBack;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 作者：凌涛 on 2019/1/29 14:30
@@ -35,7 +29,7 @@ public class MyTagAdapter extends BaseQuickAdapter<NewTag,BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, NewTag item) {
-        helper.addOnClickListener(R.id.btnDelete);
+        helper.addOnClickListener(R.id.btnDelete).addOnClickListener(R.id.ll_all_look);
         TextView tv_name=helper.getView(R.id.tv_name);
         TextView tv_user=helper.getView(R.id.tv_user);
         tv_name.setText(item.getName()+"("+item.getList().size()+")");
@@ -77,6 +71,13 @@ public class MyTagAdapter extends BaseQuickAdapter<NewTag,BaseViewHolder> {
         ll_all_look.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(item.isBack()){
+                    Intent intent=new Intent(mContext, CreateTagsActivity.class);
+                    intent.putExtra("data",item);
+                    MyTagsActivity myTagsActivity= (MyTagsActivity) mContext;
+                    myTagsActivity.startActivityForResult(intent,2);
+                    return;
+                }
                 item.setChecked(!item.isChecked());
                 notifyDataSetChanged();
             }

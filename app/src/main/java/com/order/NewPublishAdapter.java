@@ -1,6 +1,7 @@
 package com.order;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.elyeproj.loaderviewlibrary.LoaderTextView;
 import com.example.yunchebao.R;
+import com.tool.MathUtil;
 
 import java.util.List;
 
@@ -36,17 +38,27 @@ public class NewPublishAdapter extends BaseQuickAdapter<NewPublish, BaseViewHold
         name = name.replace("null", "");
         tv_name.setText(name);
         if (item.getOldPrice() > 10000)
-            tv_price.setText(item.getOldPrice() / 10000 + "万");
+            tv_price.setText(MathUtil.getDoubleTwo((item.getOldPrice()/10000))+ "万");
         else {
-            tv_price.setText(item.getOldPrice() + "万");
+            tv_price.setText(MathUtil.getDoubleTwo(item.getOldPrice()) + "元");
         }
         tv_time.setText(item.getCreateTime().substring(0, 10));
-        if (item.getCarImage().contains(",")) {
-            String[] images = item.getCarImage().split(",");
-            Glide.with(mContext).load(images[0]).into(iv_car);
-        } else {
-            Glide.with(mContext).load(item.getCarImage()).into(iv_car);
+        String imgs="";
+        String banner1=item.getCarCategoryDetail().getBanner1();
+        String banner2=item.getCarCategoryDetail().getBanner2();
+        String banner3=item.getCarCategoryDetail().getBanner3();
+        if(!TextUtils.isEmpty(banner1)){
+            if (banner1.contains(",")) {
+                String[] images = banner1.split(",");
+                imgs=images[0];
+            } else {
+               imgs=banner1;
+            }
+            Glide.with(mContext).load(imgs).into(iv_car);
+        }else{
+            Glide.with(mContext).load(banner2).into(iv_car);
         }
+
 
         if (item.getState() == 2) {
             tv_state.setText("已完成");

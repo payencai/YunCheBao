@@ -17,12 +17,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.entity.UserMsg;
 import com.example.yunchebao.R;
-import com.example.yunchebao.washrepair.NewWashrepairDetailActivity;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
@@ -30,7 +29,6 @@ import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
 import com.system.model.ShopInfo;
 import com.vipcenter.RegisterActivity;
-import com.vipcenter.model.UserInfo;
 import com.youth.banner.BannerConfig;
 
 import org.json.JSONException;

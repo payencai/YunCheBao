@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 import com.alipay.PayResult;
 import com.alipay.sdk.app.PayTask;
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bbcircle.data.ClassItem;
 import com.cheyibao.ClassSelelctActivity;
 import com.cheyibao.CoashSelectActivity;
@@ -32,7 +32,6 @@ import com.cheyibao.model.DrvingSchool;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
-import com.example.yunchebao.fourshop.activity.FourShopDetailActivity;
 import com.example.yunchebao.wxapi.WechatRes;
 import com.google.gson.Gson;
 import com.http.HttpProxy;

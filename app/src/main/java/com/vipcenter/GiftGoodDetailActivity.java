@@ -73,7 +73,7 @@ public class GiftGoodDetailActivity extends NoHttpBaseActivity {
     PersonalListView lv_params;
     @BindView(R.id.webView)
     NoScrollWebView webView;
-    @BindView(R.id.name)
+    @BindView(R.id.tv_name)
     TextView tv_name;
     @BindView(R.id.price)
     TextView tv_price;
@@ -89,14 +89,15 @@ public class GiftGoodDetailActivity extends NoHttpBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gift_good_detail_layout);
+        ButterKnife.bind(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().getDecorView()
                     .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             getWindow().setStatusBarColor(getResources().getColor(R.color.white));
         }
+        //UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "商品详情页");
         initView();
-        initBanner();
-        initWebview();
+
     }
 
     private void initBanner() {
@@ -147,22 +148,24 @@ public class GiftGoodDetailActivity extends NoHttpBaseActivity {
 
     }
     private void initView() {
-        UIControlUtils.UITextControlsUtils.setUIText(findViewById(R.id.title), ActivityConstans.UITag.TEXT_VIEW, "商品详情页");
 
 
         ctx = this;
-        mGift = (Gift) getIntent().getExtras().getSerializable("data");
-        tv_name.setText(mGift.getCommodityName());
-        tv_price.setText(mGift.getCoinCount()+"");
-        //网络地址获取轮播图
-        String[] imgs = mGift.getCommodityImage().split(",");
-        for (int i = 0; i < imgs.length; i++) {
-            images.add(imgs[i]);
+        mGift = (Gift) getIntent().getSerializableExtra("data");
+        if(mGift!=null){
+            tv_name.setText(mGift.getCommodityName()+"");
+            tv_price.setText(mGift.getCoinCount()+"");
+            //网络地址获取轮播图
+            String[] imgs = mGift.getCommodityImage().split(",");
+            for (int i = 0; i < imgs.length; i++) {
+                images.add(imgs[i]);
+            }
+            mGiftParamsItemAdapter=new GiftParamsItemAdapter(GiftGoodDetailActivity.this,mGiftParams);
+            lv_params.setAdapter(mGiftParamsItemAdapter);
+            tv_total.setText("合计:"+mGift.getCoinCount()+"宝币");
+            getDetail();
         }
-        mGiftParamsItemAdapter=new GiftParamsItemAdapter(GiftGoodDetailActivity.this,mGiftParams);
-        lv_params.setAdapter(mGiftParamsItemAdapter);
-        tv_total.setText("合计:"+mGift.getCoinCount()+"宝币");
-        getDetail();
+
     }
     private void getDetail(){
         Map<String,Object> params=new HashMap<>();
@@ -181,6 +184,8 @@ public class GiftGoodDetailActivity extends NoHttpBaseActivity {
                         mGiftParams.add(giftParams);
                     }
                     mGiftParamsItemAdapter.notifyDataSetChanged();
+                    initBanner();
+                    initWebview();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

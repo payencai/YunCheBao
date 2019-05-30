@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bbcircle.adapter.WashCollectAdapter;
 import com.bbcircle.data.WashCollect;
 import com.chad.library.adapter.base.BaseQuickAdapter;

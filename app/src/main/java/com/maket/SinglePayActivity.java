@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 import com.alipay.PayResult;
 import com.alipay.sdk.app.PayTask;
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
@@ -36,11 +36,7 @@ import com.maket.model.GoodDetail;
 import com.maket.model.GoodParam;
 import com.payencai.library.util.ToastUtil;
 import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
 import com.vipcenter.AddressListActivity;
-import com.vipcenter.MyWalletActivity;
-import com.vipcenter.SetPayPasswordActivity;
 import com.vipcenter.model.PersonAddress;
 
 import org.json.JSONArray;

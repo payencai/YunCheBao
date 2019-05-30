@@ -2,7 +2,6 @@ package com.newversion;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.text.Html;
 import android.view.Gravity;
@@ -13,10 +12,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.example.yunchebao.R;
 import com.example.yunchebao.friendcircle.NewFriendCircleActivity;
 

@@ -10,22 +10,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
 import com.bumptech.glide.Glide;
-import com.costans.PlatformContans;
 import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
-import com.http.HttpProxy;
-import com.http.ICallBack;
-import com.maket.GoodDetailActivity;
 import com.maket.ShopCartActivity;
 import com.mcxtzhang.lib.AnimShopButton;
 import com.mcxtzhang.lib.IOnAddDelListener;
-import com.payencai.library.util.ToastUtil;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Administrator on 2016/10/14.

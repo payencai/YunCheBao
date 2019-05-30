@@ -10,9 +10,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.cheyibao.RentShopDetailActivity;
 import com.cheyibao.adapter.AreaItemAdapter;
 import com.cheyibao.adapter.RentCarItemAdapter;

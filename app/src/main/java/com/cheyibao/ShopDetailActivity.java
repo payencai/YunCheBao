@@ -35,6 +35,7 @@ import com.cheyibao.model.RentShop;
 import com.cheyibao.util.RentCarUtils;
 import com.common.ConfirmDialog;
 import com.common.DialPhoneUtils;
+import com.example.yunchebao.MyApplication;
 import com.example.yunchebao.R;
 import com.example.yunchebao.fourshop.activity.FourShopDetailActivity;
 import com.flyco.tablayout.SlidingTabLayout;
@@ -43,6 +44,7 @@ import com.maket.adapter.GoodsOrderImageAdapter;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tool.MathUtil;
 import com.tool.view.HorizontalListView;
+import com.vipcenter.RegisterActivity;
 import com.xihubao.ShopInfoActivity;
 
 import java.net.URISyntaxException;
@@ -151,7 +153,11 @@ public class ShopDetailActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.online_chat_view:
-                RongIM.getInstance().startPrivateChat(ShopDetailActivity.this, rentShop.getId(), rentShop.getName());
+                if(MyApplication.isIsLogin())
+                   RongIM.getInstance().startPrivateChat(ShopDetailActivity.this, rentShop.getId(), rentShop.getName());
+                else {
+                    startActivity(new Intent(ShopDetailActivity.this, RegisterActivity.class));
+                }
                 break;
             case R.id.back:
                 finish();

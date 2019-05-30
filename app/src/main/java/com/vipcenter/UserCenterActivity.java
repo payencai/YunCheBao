@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
@@ -19,6 +19,7 @@ import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.account.AccountManageActivity;
 import com.example.yunchebao.blacklist.BlackListActivity;
+import com.example.yunchebao.collect.AllCollectionActivity;
 import com.example.yunchebao.gift.GiftMarketHomeActivity;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;

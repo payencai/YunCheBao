@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
@@ -20,10 +20,8 @@ import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.GoodsPayActivity;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.payencai.library.util.ToastUtil;
-import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.vipcenter.model.Gift;
@@ -259,9 +257,17 @@ public class GiftOrderConfirmActivity extends NoHttpBaseActivity {
                 startActivityForResult(new Intent(GiftOrderConfirmActivity.this, ManaAddressActivity.class), 1);
                 break;
             case R.id.submitBtn:
+                if(personAddress==null){
+                    ToastUtil.showToast(this,"请先选择地址");
+                    return;
+                }
                 String addressId = personAddress.getId();
                 String code = et_code.getEditableText().toString();
                 String commodityId = mGift.getId();
+                if(TextUtils.isEmpty(code)){
+                    ToastUtil.showToast(this,"请选输入验证码");
+                    return;
+                }
                 int commodityNumber = 1;
                 Map<String, Object> params = new HashMap<>();
                 params.put("addressId", addressId);

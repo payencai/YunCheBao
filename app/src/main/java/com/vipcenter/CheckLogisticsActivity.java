@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
 import com.entity.PhoneOrderEntity;
 import com.entity.PhoneTraceEntity;
@@ -14,9 +14,7 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.GoodsOrderDetailActivity;
 import com.nohttp.sample.NoHttpBaseActivity;
-import com.payencai.library.util.ToastUtil;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
 import com.tool.view.ListViewForScrollView;

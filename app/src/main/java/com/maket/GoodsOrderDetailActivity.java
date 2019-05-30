@@ -2,7 +2,6 @@ package com.maket;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -26,7 +25,7 @@ import android.widget.TextView;
 
 import com.alipay.PayResult;
 import com.alipay.sdk.app.PayTask;
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.entity.PhoneOrderEntity;
@@ -36,7 +35,6 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.maket.adapter.GoodsOrderChildAdapter;
-import com.maket.adapter.GoodsOrderDetailAdapter;
 import com.payencai.library.util.ToastUtil;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tool.BottomMenuDialog;

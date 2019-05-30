@@ -1,12 +1,13 @@
 package com.newversion;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 作者：凌涛 on 2019/1/29 14:12
  * 邮箱：771548229@qq..com
  */
-public class NewTag {
+public class NewTag implements Serializable {
 
 
     /**
@@ -22,6 +23,16 @@ public class NewTag {
     private String name;
     private String userId;
     private List<ListBean> list;
+
+    public boolean isBack() {
+        return isBack;
+    }
+
+    public void setBack(boolean back) {
+        isBack = back;
+    }
+
+    private boolean isBack;
     private boolean isChecked;//条目是否被选中
 
     public boolean isChecked() {
@@ -72,7 +83,7 @@ public class NewTag {
         this.list = list;
     }
 
-    public static class ListBean {
+    public static class ListBean implements Serializable{
         /**
          * headPortrait : string
          * hxAccount : string

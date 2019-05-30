@@ -8,16 +8,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
-import com.entity.PhoneAddressEntity;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.model.GoodList;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.payencai.library.util.ToastUtil;
 import com.tool.ActivityConstans;

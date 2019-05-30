@@ -25,7 +25,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
@@ -50,7 +50,6 @@ import com.tool.StringUtils;
 import com.tool.WheelView;
 import com.tool.view.GridViewForScrollView;
 import com.vipcenter.RegisterActivity;
-import com.xihubao.CarBrandSelectActivity;
 import com.example.yunchebao.yuedan.model.WashCarType;
 import com.example.yunchebao.yuedan.adapter.ImageAdapter;
 import com.zhihu.matisse.Matisse;

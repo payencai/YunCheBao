@@ -4,7 +4,6 @@ package com.system.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -16,14 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.baike.BaikeTagActivity;
 import com.baike.fragment.BaikeItemFragment;
 import com.baike.model.ClassifyWiki;
-import com.bbcircle.fragment.CarShowFragment;
-import com.bbcircle.fragment.DriverFragment;
-import com.bbcircle.fragment.RacePublishFragment;
-import com.bbcircle.fragment.SelfDrivingFragment;
 import com.bumptech.glide.Glide;
 
 import com.costans.PlatformContans;
@@ -38,7 +33,6 @@ import com.nohttp.sample.BaseFragment;
 import com.system.SearchActivity;
 import com.system.WebviewActivity;
 import com.system.adapter.FragmentDreamAdapter;
-import com.tool.adapter.MyFragmentPagerAdapter;
 
 import com.vipcenter.RegisterActivity;
 import com.vipcenter.UserCenterActivity;

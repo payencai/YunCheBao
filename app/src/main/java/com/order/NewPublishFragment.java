@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
@@ -34,7 +34,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import go.error;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -142,8 +141,8 @@ public class NewPublishFragment extends Fragment {
 
     private void getOldCar() {
         Map<String, Object> params = new HashMap<>();
-        params.put("audit", 2);
-        params.put("state", state);
+        params.put("audit", state);
+        //params.put("state", 1);
         params.put("page", page);
         Log.e("params",params.toString());
         HttpProxy.obtain().get(PlatformContans.OldCar.getOldCarMerchantCarByUser, params, MyApplication.token, new ICallBack() {

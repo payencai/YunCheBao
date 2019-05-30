@@ -6,11 +6,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
-import com.example.yunchebao.myservice.model.RentOrderComment;
 import com.example.yunchebao.road.model.RoadComment;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;

@@ -18,7 +18,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
@@ -36,7 +36,6 @@ import com.system.X5WebviewActivity;
 import com.system.model.AddressBean;
 import com.tool.WheelView;
 import com.vipcenter.RegisterActivity;
-import com.xihubao.CarBrandSelectActivity;
 import com.example.yunchebao.yuedan.model.WashCarType;
 
 import org.json.JSONArray;

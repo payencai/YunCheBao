@@ -11,11 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.cheyibao.adapter.AreaAdapter;
 import com.cheyibao.adapter.RentShopAdapter;
 import com.cheyibao.model.Area;
-import com.cheyibao.model.RentCarModel;
 import com.cheyibao.model.RentShop;
 import com.cheyibao.util.RentCarUtils;
 import com.common.BaseModel;

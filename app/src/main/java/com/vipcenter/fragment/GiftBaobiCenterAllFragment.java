@@ -7,9 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
 
 import com.example.yunchebao.R;
@@ -18,7 +17,6 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
 import com.vipcenter.adapter.RecordListAdapter;
-import com.vipcenter.model.Gift;
 import com.vipcenter.model.GiftRecord;
 
 import org.json.JSONArray;

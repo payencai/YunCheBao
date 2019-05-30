@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.example.yunchebao.babycircle.carfriend.DriverFriendsDetailActivity;
 import com.example.yunchebao.babycircle.selfdrive.DrivingSelfDetailActivity;
 import com.bbcircle.data.History;

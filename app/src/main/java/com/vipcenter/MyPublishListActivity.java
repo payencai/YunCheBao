@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.example.yunchebao.babycircle.carfriend.DriverFriendsDetailActivity;
 import com.example.yunchebao.babycircle.selfdrive.DrivingSelfDetailActivity;
 import com.costans.PlatformContans;

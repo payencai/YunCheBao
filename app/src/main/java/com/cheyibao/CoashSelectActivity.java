@@ -5,12 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 
-import com.application.MyApplication;
 import com.cheyibao.adapter.CoashItemAdapter;
-import com.cheyibao.list.SpreadListView;
 import com.cheyibao.model.CoachItem;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;

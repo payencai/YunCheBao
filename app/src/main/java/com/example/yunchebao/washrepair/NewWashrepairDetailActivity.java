@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -26,16 +25,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps.model.LatLng;
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.drive.activity.SimplePlayerActivity;
-import com.example.yunchebao.fourshop.activity.FourShopDetailActivity;
-import com.example.yunchebao.fourshop.bean.FourShopData;
-import com.example.yunchebao.fourshop.fragment.DetailServiceFragment;
-import com.example.yunchebao.fourshop.fragment.FourShopCarFragment;
-import com.example.yunchebao.fourshop.fragment.FourShopCommentFragment;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
@@ -45,8 +39,6 @@ import com.system.WebviewActivity;
 import com.tool.NoScrollViewPager;
 import com.vipcenter.RegisterActivity;
 import com.xihubao.ShopInfoActivity;
-import com.xihubao.fragment.EvaluateFragment;
-import com.xihubao.fragment.GoodsFragment;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -251,6 +243,10 @@ public class NewWashrepairDetailActivity extends AppCompatActivity {
         isCollect();
         initTab();
         tv_time.setText("营业时间："+mWashRepairDetail.getAmStart()+"-"+mWashRepairDetail.getPmStop());
+        if(TextUtils.isEmpty(mWashRepairDetail.getAmStart())||"null".equals(mWashRepairDetail.getAmStart())){
+            tv_time.setText("营业时间：8:30-18:30");
+        }
+
         tv_dis.setText(mWashRepairDetail.getDistance() + "km");
         tv_score.setText("" + mWashRepairDetail.getScore());
         tv_grade.setText("" + mWashRepairDetail.getGrade());

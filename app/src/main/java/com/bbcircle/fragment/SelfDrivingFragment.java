@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.example.yunchebao.babycircle.selfdrive.DrivingSelfDetailActivity;
 import com.bbcircle.adapter.BBCircleListAdapter;
 import com.bbcircle.data.SelfDrive;

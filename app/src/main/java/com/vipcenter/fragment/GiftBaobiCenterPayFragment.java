@@ -7,12 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
-import com.entity.PhoneCommentEntity;
-import com.entity.PhoneShopEntity;
 
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
@@ -21,7 +18,6 @@ import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
 import com.vipcenter.adapter.GiftMoneyAdapter;
 import com.vipcenter.model.GiftCoin;
-import com.vipcenter.model.GiftRecord;
 
 import org.json.JSONArray;
 import org.json.JSONException;

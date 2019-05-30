@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
@@ -16,7 +16,6 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.vipcenter.adapter.MyPayAdapter;
-import com.vipcenter.model.MemberCard;
 import com.vipcenter.model.Mypay;
 
 import org.json.JSONArray;

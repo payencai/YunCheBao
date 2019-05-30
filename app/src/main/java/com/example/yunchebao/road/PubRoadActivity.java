@@ -14,12 +14,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
@@ -168,7 +167,9 @@ public class PubRoadActivity extends AppCompatActivity {
         gv_pic.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 if (position == 0) {
+
                     Matisse.from(PubRoadActivity.this)
                             .choose(MimeType.ofImage())
                             .countable(true)
@@ -418,6 +419,7 @@ public class PubRoadActivity extends AppCompatActivity {
     public void setImages(Intent data) {
         mSelected = Matisse.obtainResult(data);
         for (int i = 0; i < mSelected.size(); i++) {
+
             File fileByUri = FileUtil.getFileByUri(Matisse.obtainResult(data).get(i), this);
             Luban.with(this)
                     .load(fileByUri)
@@ -470,6 +472,8 @@ public class PubRoadActivity extends AppCompatActivity {
             }
         }
         if (requestCode == 3 && data != null) {
+            images.clear();
+            images.add("");
             setImages(data);
         }
     }

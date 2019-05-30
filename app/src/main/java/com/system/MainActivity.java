@@ -15,12 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
 import com.entity.UserMsg;
 import com.example.yunchebao.R;
@@ -37,15 +36,12 @@ import com.example.yunchebao.rongcloud.activity.contact.MyGroupDetailActivity;
 import com.example.yunchebao.rongcloud.model.MyFriend;
 import com.example.yunchebao.rongcloud.model.MyGroup;
 import com.example.yunchebao.rongcloud.sidebar.ContactModel;
-import com.payencai.library.util.ToastUtil;
 import com.system.fragment.AnotherBabyFragment;
 import com.system.fragment.BaikeFragment;
 import com.system.fragment.CheyiFragment;
 import com.system.fragment.HomeFragment;
 import com.system.fragment.MallFragment;
-import com.system.fragment.NewBaikeFragment;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
-import com.vipcenter.UserCenterActivity;
 import com.vipcenter.model.UserInfo;
 
 import org.json.JSONArray;
@@ -63,7 +59,6 @@ import butterknife.ButterKnife;
 import io.rong.callkit.util.SPUtils;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.manager.IUnReadMessageObserver;
-import io.rong.imkit.model.GroupUserInfo;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Group;
@@ -540,6 +535,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                     for (int i = 0; i < indexList.length(); i++) {
                         JSONObject item = indexList.getJSONObject(i);
                         ContactModel contactModel = new Gson().fromJson(item.toString(),ContactModel.class);
+                        Log.e("groupuser",contactModel.getUserId());
                         if (MyApplication.getUserInfo().getId().equals(contactModel.getUserId())) {
                             isIn = true;
                             break;

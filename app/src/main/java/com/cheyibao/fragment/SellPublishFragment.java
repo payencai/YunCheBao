@@ -299,7 +299,6 @@ public class SellPublishFragment extends BaseFragment implements OnDateSetListen
                 bundle.putString("id1", id1);
                 bundle.putString("id2", id2);
                 bundle.putString("id3", id3);
-
                 bundle.putString("city", cityText.getText().toString());
                 bundle.putString("time", "2019-03");
                 bundle.putString("dis", et_dis.getEditableText().toString());

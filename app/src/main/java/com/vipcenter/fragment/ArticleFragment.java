@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bbcircle.CarShowDetailActivity;
 import com.example.yunchebao.babycircle.carfriend.DriverFriendsDetailActivity;
 import com.example.yunchebao.babycircle.selfdrive.DrivingSelfDetailActivity;

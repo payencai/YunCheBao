@@ -11,16 +11,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.cheyibao.model.CarMeal;
-import com.cheyibao.model.LongRentShop;
 import com.cheyibao.model.RentCarModel;
 import com.cheyibao.model.RentShop;
 import com.cheyibao.view.RentCarAddressView;
 import com.common.AvoidOnResult;
 import com.common.BaseModel;
-import com.common.DateUtils;
 import com.common.EndLoadDataType;
 import com.common.HandlerData;
 import com.common.IdentityCardVerify;
@@ -37,7 +35,6 @@ import com.vipcenter.RegisterActivity;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

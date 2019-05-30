@@ -62,7 +62,7 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION" />
 
     <application
-        android:name="com.application.MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
@@ -224,7 +224,9 @@
         <activity android:name="com.cheyibao.RentShopDetailActivity" />
         <activity android:name=".driverschool.DrivingSchoolActivity" />
         <activity android:name=".cheyibao.oldcar.SellCarActivity" />
-        <activity android:name="com.cheyibao.SellCarInfoImproveActivity" />
+        <activity
+            android:windowSoftInputMode="adjustPan"
+            android:name="com.cheyibao.SellCarInfoImproveActivity" />
         <activity android:name="com.cheyibao.OldCarDetailActivity" />
         <activity android:name="com.cheyibao.OldCarPersonDetailActivity" />
         <activity android:name="com.cheyibao.OldCarConfigDetailActivity" />
@@ -303,7 +305,7 @@
             android:name="com.vipcenter.RegisterActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name="com.vipcenter.HistoryListActivity" />
-        <activity android:name="com.vipcenter.AllCollectionActivity" />
+        <activity android:name=".collect.AllCollectionActivity" />
         <activity android:name="com.vipcenter.MyPublishListActivity" />
         <activity android:name="com.vipcenter.ShopMainListActivity" />
         <activity android:name="com.vipcenter.OrderDetailActivity" />

@@ -8,9 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.application.MyApplication;
-import com.bbcircle.data.History;
-import com.bbcircle.data.SelfDrive;
 import com.cheyibao.CarSecondBrandActivity;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
@@ -19,9 +16,7 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
-import com.tool.indexbar.CarBean;
 import com.tool.indexbar.RecCarAdapter;
-import com.tool.indexbar.Utils;
 import com.xihubao.model.CarBrand;
 
 import org.json.JSONArray;

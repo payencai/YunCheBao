@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.baike.BaikeTagActivity;
 import com.baike.model.BaikeItem;
 import com.baike.model.ClassifyWiki;

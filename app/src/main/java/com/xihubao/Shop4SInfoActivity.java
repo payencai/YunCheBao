@@ -7,13 +7,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.cityselect.CityListActivity;
 import com.example.yunchebao.R;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
-import com.nohttp.sample.NoHttpBaseActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.CommonDateTools;

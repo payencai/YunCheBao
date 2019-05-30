@@ -2,7 +2,6 @@ package com.example.yunchebao.yuedan.fragment;
 
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -20,13 +19,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.yuedan.SelectCarTypeActivity;
@@ -44,14 +41,9 @@ import com.tool.GlideImageEngine;
 import com.tool.WheelView;
 import com.tool.view.GridViewForScrollView;
 import com.vipcenter.RegisterActivity;
-import com.xihubao.CarBrandSelectActivity;
 import com.example.yunchebao.yuedan.adapter.ImageAdapter;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.filter.Filter;
-import com.zhihu.matisse.internal.entity.CaptureStrategy;
-import com.zhihu.matisse.internal.entity.IncapableCause;
-import com.zhihu.matisse.internal.entity.Item;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,7 +54,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -88,7 +79,7 @@ public class BookRoadFragment extends Fragment {
     @BindView(R.id.et_addr)
     EditText et_addr;
     @BindView(R.id.tv_address)
-    EditText tv_address;
+    TextView tv_address;
     @BindView(R.id.tv_item1)
     TextView tv_item1;
     @BindView(R.id.tv_item2)

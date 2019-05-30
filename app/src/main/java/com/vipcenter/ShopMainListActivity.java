@@ -1,41 +1,26 @@
 package com.vipcenter;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
-import com.cheyibao.model.Merchant;
 import com.costans.PlatformContans;
-import com.entity.PhoneCommBaseType;
 import com.example.yunchebao.R;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.ShopCartActivity;
 import com.maket.fragment.GoodsTypeFragment;
 import com.maket.model.GoodsShop;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
-import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.UIControlUtils;
-import com.tool.viewpager.IndicatorViewPager;
-import com.tool.viewpager.OnTransitionTextListener;
-import com.tool.viewpager.ScrollIndicatorView;
-import com.vipcenter.fragment.OrderListFragment;
-import com.vipcenter.fragment.ShopMainFragment;
 import com.xihubao.ShopInfoActivity;
 
 import org.json.JSONException;
@@ -48,7 +33,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import go.error;
 import io.rong.imkit.RongIM;
 
 /**

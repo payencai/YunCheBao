@@ -10,11 +10,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.comment.EvaluationChoiceImageView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
-import com.example.yunchebao.fourshop.activity.AddFourCommentActivity;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;

@@ -66,7 +66,7 @@ public class PlatformContans {
         public static final String getLabelList=root+ "/label/getLabelList" ;
         public static final String deleteLabel=root+ "/label/deleteLabel" ;
         public static final String update=root+ "/label/update" ;
-        public static final String updateLabel=root+ "/label/updateLabel" ;
+
 
     }
     public static class Gift{
@@ -168,13 +168,13 @@ public class PlatformContans {
 
         public static final String addBabyCollection=root + "/babyCircleCollection/addBabyCollection";
         public static final String getBabyCollection=root + "/babyCircleCollection/getBabyCollection";
-        public static final String getCollectionById=root + "/babyCircleCollection/getCollectionById";
-
+        public static final String getShopCollectionList=root + "/gasStation/getShopCollectionList";
+        public static final String getImageCollectionList=root + "/communicationcircle/getImageCollectionList";
         public static final String addCommodityCollection=root+ "/commodityCollection/addCommodityCollection";
         public static final String deleteCommodityCollection=root+ "/commodityCollection/deleteCommodityCollection";
         public static final String getCommodityCollectionList=root+ "/commodityCollection/getCommodityCollectionList" ;
         public static final String isCollectionByCommodityId=root+ "/commodityCollection/isCollectionByCommodityId" ;
-
+        public static final String getDriverCollectionList=root+"/substituteDriving/getShopCollectionList";
         public static final String addDrivingSchoolCollection=root + "/drivingSchoolCollection/addDrivingSchoolCollection";
         public static final String getDrivingSchoolCollection=root + "/drivingSchoolCollection/getDrivingSchoolCollection";
         public static final String getDrivingSchoolCollectionList=root + "/drivingSchoolCollection/getDrivingSchoolCollectionList";
@@ -383,7 +383,7 @@ public class PlatformContans {
         public static final String getSubstituteDrivingCommentByOrderId=root+"/substituteDriving/getSubstituteDrivingCommentByOrderId";
         public static final String getSubstituteDriverListForApp=root+"/substituteDriving/getSubstituteDriverListForApp";
         public static final String getSubstituteDriverByDriverId=root+"/substituteDriving/getSubstituteDriverByDriverId";
-        public static final String getShopCollectionList=root+"/substituteDriving/getShopCollectionList";
+
         public static final String addSubstituteDrivingOrder=root+"/substituteDriving/addSubstituteDrivingOrder";
         public static final String addSubstituteDrivingComment=root+"/substituteDriving/addSubstituteDrivingComment";
         public static final String deleteSubstituteDrivingOrderByUser=root+"/substituteDriving/deleteSubstituteDrivingOrderByUser";
@@ -403,16 +403,7 @@ public class PlatformContans {
         public static final String addOrderEvaluation=root+ "/evaluation/addOrderEvaluation";
         public static final String getMerchantEvaluationByUser=root+ "/evaluation/getMerchantEvaluationByUser";
     }
-    public static class LoginContacts {
-        public static final String FILENAME = "fckg";
-        public static String IS_AUTO_LOGIN = "isAutoLogin";
-        public static String IS_REM_PASSWORD = "ispassword";
-        public static String IS_REM_USERNAME = "isuserinfo";
-        public static String PASSWORD = "password";
-        public static String USERNAME = "username";
-        public static String BOOK_TYPE_ID = "BOOK_TYPE_ID";
 
-    }
     public static  class Order{
         public static final String getUserOrderList=root+ "/carWashRepairShop/getUserOrderList";
         public static final String getUserCarOrder=root+ "/carOrder/getUserCarOrder";
@@ -446,5 +437,14 @@ public class PlatformContans {
 
     }
     public static String data = "{\"code\":0,\"msg\":\"\\u83b7\\u53d6\\u5546\\u54c1\\u6210\\u529f\",\"data\":[{\"cat\":\"汽车服务\",\"goods\":[{\"id\":\"1001\",\"name\":\"标准洗车-轿车\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"100\",\"sold_num\":\"2\"},{\"id\":\"1003\",\"name\":\"标准洗车-五座轿车\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"}]},{\"cat\":\"汽车美容\",\"goods\":[{\"id\":\"1004\",\"name\":\"全车抛光\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1005\",\"name\":\"内饰清洗\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"3\"},{\"id\":\"1006\",\"name\":\"全车打蜡\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"0\"},{\"id\":\"1007\",\"name\":\"空调除臭\",\"detail\":\"\",\"pic\":\"\\/Uploads\\/Goods\\/2017-11-06\\/5a000f6569db4.png\",\"price\":\"1\",\"sold_num\":\"1\"}]}]}";
+    public static class LoginContacts {
+        public static final String FILENAME = "fckg";
+        public static String IS_AUTO_LOGIN = "isAutoLogin";
+        public static String IS_REM_PASSWORD = "ispassword";
+        public static String IS_REM_USERNAME = "isuserinfo";
+        public static String PASSWORD = "password";
+        public static String USERNAME = "username";
+        public static String BOOK_TYPE_ID = "BOOK_TYPE_ID";
 
+    }
 }

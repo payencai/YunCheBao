@@ -1,10 +1,12 @@
-package com.application;
+package com.example.yunchebao;
 
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
+import android.app.Dialog;
 import android.app.Service;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -13,12 +15,19 @@ import android.os.Vibrator;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 
 import com.costans.PlatformContans;
 import com.entity.PhoneUserEntity;
-import com.example.yunchebao.R;
+import com.example.yunchebao.net.NetUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
@@ -40,6 +49,7 @@ import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.vipcenter.model.UserInfo;
 import com.xiasuhuei321.loadingdialog.manager.StyleManager;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
+import com.yancy.gallerypick.utils.AppUtils;
 
 
 import org.json.JSONException;
@@ -54,7 +64,6 @@ import io.rong.callkit.util.SPUtils;
 import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.model.GroupUserInfo;
-import io.rong.imkit.userInfoCache.RongUserInfoManager;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Group;
@@ -191,6 +200,37 @@ public class MyApplication extends Application {
             }
         });
     }
+    private void showNickDialog() {
+        final Dialog dialog = new Dialog(this, R.style.dialog);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_exit, null);
+        //获得dialog的window窗口
+        //将自定义布局加载到dialog上
+        TextView tv_confirm= (TextView) dialogView.findViewById(R.id.tv_confirm);
+
+        tv_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+        dialog.setContentView(dialogView);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+        Window window = dialog.getWindow();
+
+        //设置dialog在屏幕底部
+        window.setGravity(Gravity.CENTER);
+        //设置dialog弹出时的动画效果，从屏幕底部向上弹出
+        //获得window窗口的属性
+        android.view.WindowManager.LayoutParams lp = window.getAttributes();
+        //设置窗口宽度为充满全屏
+        lp.height=WindowManager.LayoutParams.MATCH_PARENT;
+        //设置窗口高度为包裹内容
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        //将设置好的属性set回去
+        window.setAttributes(lp);
+    }
     @Override
     public void onCreate() {
         super.onCreate();
@@ -198,7 +238,7 @@ public class MyApplication extends Application {
         if (isInitVibratorNotify()) {
             mVibrator = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE);
         }
-
+        NetUtils.getInstance().initNetWorkUtils(this);//okgo初始化
         if (isInitRingNotify()) {
             Uri notifyUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             mRingtone = RingtoneManager.getRingtone(this, notifyUri);

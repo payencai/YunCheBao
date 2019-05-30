@@ -27,12 +27,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps.model.LatLng;
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
-import com.example.yunchebao.drive.activity.SimplePlayerActivity;
 import com.example.yunchebao.R;
-import com.example.yunchebao.washrepair.NewWashrepairDetailActivity;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.example.yunchebao.fourshop.bean.FourShopData;
 import com.example.yunchebao.fourshop.fragment.DetailServiceFragment;
@@ -42,13 +40,11 @@ import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.system.WebviewActivity;
 import com.tool.NoScrollViewPager;
 import com.vipcenter.RegisterActivity;
 import com.xihubao.ShopInfoActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
-import com.youth.banner.listener.OnBannerListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;

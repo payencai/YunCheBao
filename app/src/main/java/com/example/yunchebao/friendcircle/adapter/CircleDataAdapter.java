@@ -10,11 +10,10 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bbcircle.view.SampleCoverVideo;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -27,7 +26,6 @@ import com.newversion.CircleData;
 
 import com.newversion.DynamicCommonsAdapter;
 import com.newversion.DynamicPicGridAdapter;
-import com.newversion.FriendsCircleActivity;
 import com.newversion.InputTextMsgDialog;
 import com.newversion.LikesView;
 import com.newversion.MyGridView;
@@ -188,7 +186,7 @@ public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHold
             frame_video_player.setVisibility(View.GONE);
             gvDynamicPhotos.setVisibility(View.GONE);
             ivVimg.setVisibility(View.GONE);
-        } else {
+        } else if(item.getType()==3){
             frame_video_player.setVisibility(View.GONE);
             dynamicType = 3;//纯文字说说
             gvDynamicPhotos.setVisibility(View.GONE);
@@ -207,7 +205,26 @@ public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHold
             content.setVisibility(View.VISIBLE);
             content.setText(item.getContent());
         }
+        if (TextUtils.equals(item.getUserId(), MyApplication.getUserInfo().getId())) {
+            //我自己的朋友圈
+            iv_delete.setVisibility(View.VISIBLE);
+            iv_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    friendsCircleActivity.showDeleteCirclePoppupWindow(iv_delete, item.getId());
+                }
+            });
+        } else {
+            iv_delete.setVisibility(View.GONE);
+        }
 
+
+        iv_replay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addReplay(item,helper.getAdapterPosition());
+            }
+        });
 
         if (item.getIsClick().equals("1")) {
             ivPrise.setImageResource(R.mipmap.icon_praise_selected);
@@ -253,7 +270,7 @@ public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHold
                     likeView.setVisibility(View.VISIBLE);
                     likeView.notifyDataSetChanged();
                 }
-                notifyDataSetChanged();
+                //notifyItemChanged(helper.getAdapterPosition());
                 friendsCircleActivity.performPraise(didPraise, item.getId());
             }
         });
@@ -269,33 +286,14 @@ public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHold
 //            }
 //        });
 
-        if (TextUtils.equals(item.getUserId(), MyApplication.getUserInfo().getId())) {
-            //我自己的朋友圈
-            iv_delete.setVisibility(View.VISIBLE);
-            iv_delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    friendsCircleActivity.showDeleteCirclePoppupWindow(iv_delete, item.getId());
-                }
-            });
-        } else {
-            iv_delete.setVisibility(View.GONE);
-        }
 
-
-        iv_replay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addReplay(item);
-            }
-        });
     }
     /**
      * 弹窗输入回复内容
      *
      * @param circleInfo
      */
-    public void addReplay(CircleData circleInfo) {
+    public void addReplay(CircleData circleInfo,int pos) {
         inputTextMsgDialog = new InputTextMsgDialog(mContext, R.style.dialog_center);
         inputTextMsgDialog.setHint("评论");
         inputTextMsgDialog.setmOnTextSendListener(new InputTextMsgDialog.OnTextSendListener() {
@@ -313,7 +311,7 @@ public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHold
                 if(commonsAdapter!=null){
                     commonsAdapter.notifyDataSetChanged();
                 }
-                notifyDataSetChanged();
+                notifyItemChanged(pos);
             }
         });
 

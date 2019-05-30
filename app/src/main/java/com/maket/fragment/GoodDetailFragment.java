@@ -22,7 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 
 import com.costans.PlatformContans;
@@ -50,7 +50,6 @@ import com.tool.ActivityConstans;
 import com.tool.view.GridViewForScrollView;
 import com.tool.view.HorizontalListView;
 import com.vipcenter.AddressAddActivity;
-import com.maket.OrderConfirmActivity;
 import com.vipcenter.RegisterActivity;
 import com.vipcenter.ShopMainListActivity;
 import com.vipcenter.model.PersonAddress;
@@ -70,7 +69,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import go.error;
 import io.rong.imkit.RongIM;
 
 /**

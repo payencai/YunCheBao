@@ -1,31 +1,18 @@
 package com.vipcenter;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 
-import com.application.MyApplication;
-import com.baike.MagzineCoverActivity;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
-import com.entity.PhoneGoodEntity;
-import com.entity.PhoneMagEntity;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.NoHttpBaseActivity;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
-import com.tool.UIControlUtils;
 import com.vipcenter.adapter.GiftHotListAdapter;
-import com.vipcenter.adapter.RecordListAdapter;
 import com.vipcenter.model.Gift;
 
 import org.json.JSONArray;
@@ -39,7 +26,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by sdhcjhss on 2017/12/11.

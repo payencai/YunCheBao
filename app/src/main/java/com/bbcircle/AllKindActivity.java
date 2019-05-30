@@ -1,8 +1,6 @@
 package com.bbcircle;
 
-import com.application.MyApplication;
 import com.bbcircle.adapter.KindAdapter;
-import com.bbcircle.fragment.KindFragment;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
@@ -15,11 +13,8 @@ import com.maket.model.GoodsType;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
-import com.tool.listview.PersonalListView;
-import com.vipcenter.model.PersonAddress;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;

@@ -16,14 +16,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.cheyibao.AddSchoolCommentActivity;
-import com.cheyibao.model.Merchant;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.myservice.SeeSchoolCommentActivity;
-import com.example.yunchebao.myservice.model.FourOrderDetail;
 import com.example.yunchebao.myservice.model.SchoolOrderDetail;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
@@ -40,8 +38,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.costans.PlatformContans.GoodsOrder.cancelOrder;
 
 public class ShoolOrderDetailActivity extends AppCompatActivity {
     CarOrder mCarOrder;

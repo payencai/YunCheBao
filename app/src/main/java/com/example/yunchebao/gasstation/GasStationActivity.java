@@ -12,16 +12,12 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.model.Area;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
-import com.example.yunchebao.fourshop.activity.FourShopDetailActivity;
-import com.example.yunchebao.fourshop.activity.NewFourShopActivity;
-import com.example.yunchebao.fourshop.adapter.FourShopAdapter;
 import com.example.yunchebao.fourshop.bean.DropdownItemObject;
-import com.example.yunchebao.fourshop.bean.FourShopData;
 import com.example.yunchebao.fourshop.view.DropdownButton;
 import com.example.yunchebao.fourshop.view.DropdownListView;
 import com.example.yunchebao.gasstation.adapter.GasStationAdapter;

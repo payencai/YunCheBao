@@ -1,6 +1,5 @@
-package com.vipcenter.fragment;
+package com.example.yunchebao.collect.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,29 +8,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
-import com.application.MyApplication;
-import com.baike.adapter.CarListAdapter;
+import com.example.yunchebao.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.cheyibao.NewCarSellerActivity;
 import com.costans.PlatformContans;
-import com.entity.PhoneGoodEntity;
-import com.entity.PhoneShopEntity;
 import com.example.yunchebao.R;
+import com.example.yunchebao.drive.activity.ReplaceDriveDetailActivity;
+import com.example.yunchebao.drive.adapter.ReplaceDriveAdapter;
+import com.example.yunchebao.drive.model.ReplaceDrive;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
-import com.vipcenter.ShopMainListActivity;
-import com.vipcenter.adapter.OldcarCollectAdapter;
-import com.vipcenter.adapter.ShopCollectListAdapter;
-import com.vipcenter.model.OldCarCollect;
-import com.vipcenter.model.ShopCollect;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,11 +37,11 @@ import butterknife.ButterKnife;
  * Created by sdhcjhss on 2018/1/6.
  */
 
-public class ShopCollectListFragment extends BaseFragment {
+public class CollectDriveFragment extends BaseFragment {
     @BindView(R.id.rv_collect)
     RecyclerView rv_collect;
-    List<ShopCollect> mWashCollects ;
-    ShopCollectListAdapter mWashCollectAdapter;
+    List<ReplaceDrive> mWashCollects ;
+    ReplaceDriveAdapter mWashCollectAdapter;
     int page=1;
     boolean isLoadMore=false;
     @Override
@@ -67,7 +55,7 @@ public class ShopCollectListFragment extends BaseFragment {
 
     private void init() {
         mWashCollects=new ArrayList<>();
-        mWashCollectAdapter=new ShopCollectListAdapter(R.layout.shop_collect_list_item,mWashCollects);
+        mWashCollectAdapter=new ReplaceDriveAdapter(R.layout.item_replace_drive,mWashCollects);
         mWashCollectAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -79,11 +67,9 @@ public class ShopCollectListFragment extends BaseFragment {
         mWashCollectAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ShopCollect shopCollect= (ShopCollect) adapter.getItem(position);
-                Intent intent=new Intent(getContext(),ShopMainListActivity.class);
-                Bundle bundle=new Bundle();
-                bundle.putString("id",shopCollect.getShopId());
-                intent.putExtras(bundle);
+                Intent intent=new Intent(getContext(), ReplaceDriveDetailActivity.class);
+                ReplaceDrive replaceDrive= (ReplaceDrive) adapter.getItem(position);
+                intent.putExtra("id",replaceDrive.getId());
                 startActivity(intent);
             }
         });
@@ -96,7 +82,7 @@ public class ShopCollectListFragment extends BaseFragment {
 
         Map<String,Object> params=new HashMap<>();
         params.put("page",page);
-        HttpProxy.obtain().get(PlatformContans.Collect.getBabyMerchantCollectionList, params, MyApplication.token,new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.Collect.getDriverCollectionList, params, MyApplication.token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
                 Log.e("getshop", result);
@@ -104,14 +90,13 @@ public class ShopCollectListFragment extends BaseFragment {
                     JSONObject jsonObject = new JSONObject(result);
                     int code=jsonObject.getInt("resultCode");
                     if(code==0){
-                        jsonObject=jsonObject.getJSONObject("data");
-                        JSONArray data = jsonObject.getJSONArray("beanList");
-                        List<ShopCollect>washCollects=new ArrayList<>();
+                        JSONArray data = jsonObject.getJSONArray("data");
+                        List<ReplaceDrive>washCollects=new ArrayList<>();
                         for (int i = 0; i < data.length(); i++) {
                             JSONObject item = data.getJSONObject(i);
-                            ShopCollect baikeItem = new Gson().fromJson(item.toString(), ShopCollect.class);
-                            washCollects.add(baikeItem);
-                            mWashCollects.add(baikeItem);
+                            ReplaceDrive gasStation = new Gson().fromJson(item.toString(), ReplaceDrive.class);
+                            washCollects.add(gasStation);
+                            mWashCollects.add(gasStation);
                         }
                         if(isLoadMore){
                             isLoadMore=false;

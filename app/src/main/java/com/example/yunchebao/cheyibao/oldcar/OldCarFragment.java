@@ -19,6 +19,7 @@ import com.cheyibao.adapter.NewCarMenuAdapter;
 import com.cheyibao.model.OldCar;
 import com.costans.PlatformContans;
 import com.entity.Banner;
+import com.example.yunchebao.MyApplication;
 import com.example.yunchebao.R;
 import com.example.yunchebao.cheyibao.newcar.NewCarDetailActivity;
 import com.google.gson.Gson;
@@ -33,6 +34,7 @@ import com.tool.listview.PersonalScrollView;
 import com.tool.slideshowview.SlideShowView;
 import com.tool.view.GridViewForScrollView;
 import com.tool.view.ListViewForScrollView;
+import com.vipcenter.RegisterActivity;
 import com.xihubao.model.CarBrand;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -273,7 +275,12 @@ public class OldCarFragment extends BaseFragment {
         switch (v.getId()) {
 
             case R.id.sellCarBtn:
-                ActivityAnimationUtils.commonTransition(getActivity(), SellCarActivity.class, ActivityConstans.Animation.FADE);
+                if(MyApplication.isIsLogin()){
+                    ActivityAnimationUtils.commonTransition(getActivity(), SellCarActivity.class, ActivityConstans.Animation.FADE);
+                }else{
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
+
                 break;
             case R.id.selectBtn:
                 ActivityAnimationUtils.commonTransition(getActivity(), OldCarSelectActivity.class, ActivityConstans.Animation.FADE);

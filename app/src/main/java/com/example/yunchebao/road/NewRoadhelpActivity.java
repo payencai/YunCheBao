@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.model.Area;
 import com.costans.PlatformContans;
@@ -28,7 +28,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tool.JsonUtil;
-import com.xihubao.AssistanceDetailActivity;
 import com.xihubao.adapter.RoadAdapter;
 import com.xihubao.model.Road;
 

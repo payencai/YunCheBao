@@ -1,22 +1,18 @@
 package com.cheyibao;
 
-import android.app.Activity;
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
-import com.example.yunchebao.fourshop.bean.FourShopData;
 import com.example.yunchebao.myservice.model.SchoolOrderDetail;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
@@ -26,7 +22,6 @@ import com.order.CarOrder;
 import com.payencai.library.util.ToastUtil;
 import com.tool.GlideImageLoader;
 import com.tool.view.GridViewForScrollView;
-import com.vipcenter.PubCommentActivity;
 import com.vipcenter.adapter.PhotoAdapter;
 import com.yancy.gallerypick.config.GalleryConfig;
 import com.yancy.gallerypick.config.GalleryPick;
@@ -44,7 +39,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import go.error;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;

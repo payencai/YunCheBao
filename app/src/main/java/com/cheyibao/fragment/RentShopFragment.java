@@ -14,29 +14,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.TextView;
-
-import com.application.MyApplication;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cheyibao.RentCarOrderActivity;
 import com.cheyibao.RentShopDetailActivity;
-import com.cheyibao.adapter.RentTypeAdapter;
-import com.cheyibao.adapter.RvCommentAdapter;
 import com.cheyibao.adapter.RvRentcarAdapter;
-import com.cheyibao.adapter.ShopCommentAdapter;
-import com.cheyibao.list.SpreadListView;
 import com.cheyibao.model.RentCar;
 import com.cheyibao.model.RentCarType;
-import com.cheyibao.model.ShopComment;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.model.LoadMoreListView;
-import com.tool.listview.PersonalListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;

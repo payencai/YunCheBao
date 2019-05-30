@@ -1,30 +1,24 @@
 package com.example.yunchebao.rongcloud.activity.contact;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.application.MyApplication;
-import com.bumptech.glide.Glide;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
 import com.entity.UserMsg;
 import com.example.yunchebao.R;
 import com.example.yunchebao.rongcloud.model.GroupDetail;
-import com.example.yunchebao.rongcloud.model.GroupUser;
 import com.google.gson.Gson;
-import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.example.yunchebao.rongcloud.activity.StrangerDelActivity;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,11 +30,9 @@ import butterknife.ButterKnife;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.model.GroupUserInfo;
 import io.rong.imkit.userInfoCache.RongUserInfoManager;
-import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.MessageContent;
-import io.rong.imlib.model.UserInfo;
 import io.rong.message.ImageMessage;
 import io.rong.message.RichContentMessage;
 import io.rong.message.TextMessage;

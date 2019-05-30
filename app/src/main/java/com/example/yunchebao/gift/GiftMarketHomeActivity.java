@@ -1,6 +1,7 @@
 package com.example.yunchebao.gift;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
@@ -84,9 +85,11 @@ public class GiftMarketHomeActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("data",list.get(position));
-                ActivityAnimationUtils.commonTransition(GiftMarketHomeActivity.this, GiftGoodDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
+                Gift gift= (Gift) adapter.getItem(position);
+                Intent intent=new Intent(GiftMarketHomeActivity.this, GiftGoodDetailActivity.class);
+                intent.putExtra("data",gift);
+                startActivity(intent);
+
             }
         });
 

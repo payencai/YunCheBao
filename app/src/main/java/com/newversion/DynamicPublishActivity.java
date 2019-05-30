@@ -2,6 +2,7 @@ package com.newversion;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -22,17 +24,21 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bbcircle.view.SampleCoverVideo;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.net.NetUtils;
+import com.example.yunchebao.net.OnMessageReceived;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.payencai.library.util.ToastUtil;
 import com.payencai.library.util.VideoUtil;
-import com.example.yunchebao.road.PubRoadActivity;
 import com.system.X5WebviewActivity;
 import com.system.model.AddressBean;
+import com.tool.GlideImageEngine;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -88,19 +94,19 @@ public class DynamicPublishActivity extends AppCompatActivity {
     private String users;
     String videoPath;
     private String mediatype;
-
-    private Handler popupHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0:
-                    popupWindow.showAtLocation(rootView, Gravity.NO_GRAVITY, 0, 0);
-                    popupWindow.update();
-                    break;
-            }
-        }
-
-    };
+    SelectPicGridAdapter adapter;
+//    private Handler popupHandler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            switch (msg.what) {
+//                case 0:
+//                    popupWindow.showAtLocation(rootView, Gravity.NO_GRAVITY, 0, 0);
+//                    popupWindow.update();
+//                    break;
+//             }
+//}
+//
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +117,7 @@ public class DynamicPublishActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        initPopWindow();
+        //initPopWindow();
 
         mediatype = getIntent().getStringExtra("mediatype");
         if (mediatype.equals("text")) {
@@ -119,15 +125,16 @@ public class DynamicPublishActivity extends AppCompatActivity {
             frameVideoPlayer.setVisibility(View.GONE);
         } else if (mediatype.equals("pic")) {
             pathList = getIntent().getStringArrayListExtra("pathList");
+            pathList.add(0, "");
             //etDynamicText.setText(pathList.get(0));
             if (pathList.size() > 0) {
                 frameVideoPlayer.setVisibility(View.GONE);
                 gvDynamicPhotos.setVisibility(View.VISIBLE);
-                SelectPicGridAdapter adapter = new SelectPicGridAdapter(this, pathList);
+                adapter = new SelectPicGridAdapter(this, pathList);
                 gvDynamicPhotos.setAdapter(adapter);
             }
 
-            popupHandler.sendEmptyMessageDelayed(0, 1000);
+
             uploadImages(pathList);
         } else if (mediatype.equals("video")) {
             gvDynamicPhotos.setVisibility(View.GONE);
@@ -148,27 +155,44 @@ public class DynamicPublishActivity extends AppCompatActivity {
             initVideo();
             //etDynamicText.setText(videoPath);
         }
-
+        gvDynamicPhotos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0)
+                    selectFile(200);
+            }
+        });
     }
 
-    private PopupWindow popupWindow;
+    private void selectFile(int code) {
+        Matisse
+                .from(this)
+                //选择视频和图片
+                //选择图片
+                .choose(MimeType.ofImage(), true)//不能同时选择视频和照片
+                //有序选择图片 123456...
+                .countable(true)
+                //最大选择数量为9
+                .maxSelectable(9)
 
-    private void initPopWindow() {
-        View contentView = LayoutInflater.from(DynamicPublishActivity.this).inflate(
-                R.layout.popup_loading_view, null);
-
-        popupWindow = new PopupWindow(contentView,
-                ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT, true);
-
-        popupWindow.setTouchable(false);
-        popupWindow.setBackgroundDrawable(new BitmapDrawable());
-        popupWindow.setFocusable(true);
-        popupWindow.setOutsideTouchable(false);
+                //选择方向
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                //界面中缩略图的质量
+                .thumbnailScale(0.8f)
+                //蓝色主题
+                //黑色主题
+                .theme(R.style.Matisse_Dracula)
+                //Glide加载方式
+                //Picasso加载方式
+                .imageEngine(new GlideImageEngine())
+                //请求码
+                .forResult(200);
     }
+
 
     private String content;
 
-    @OnClick({R.id.tv_cancel_publish, R.id.tv_publish_dynamic, R.id.ll_look_permission,R.id.ll_user_location})
+    @OnClick({R.id.tv_cancel_publish, R.id.tv_publish_dynamic, R.id.ll_look_permission, R.id.ll_user_location})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_cancel_publish:
@@ -212,27 +236,35 @@ public class DynamicPublishActivity extends AppCompatActivity {
                     tv_location.setText(address);
                     break;
                 case 2:
-                    kind = data.getIntExtra("kind",1);
-                    if(kind == 2){
+                    kind = data.getIntExtra("kind", 1);
+                    if (kind == 2) {
                         tvLookPermission.setText("私密");
 
-                    }else if(kind == 3){
+                    } else if (kind == 3) {
                         looks = data.getStringExtra("ids");
-                        looks=MyApplication.getUserInfo().getId()+","+looks;
+                        looks = MyApplication.getUserInfo().getId() + "," + looks;
                         users = data.getStringExtra("users");
 
                         tvLookPermission.setText(users);
 
 
-                    }else if(kind == 4){
+                    } else if (kind == 4) {
                         unLooks = data.getStringExtra("ids");
                         users = data.getStringExtra("users");
-                        tvLookPermission.setText("除去  "+users);
+                        tvLookPermission.setText("除去  " + users);
 
-                    }else {
+                    } else {
                         tvLookPermission.setText("公开");
                     }
 
+                    break;
+                case 200:
+                    pathList.clear();
+                    pathList.add("");
+                    imgsUrl.clear();
+                    pathList.addAll(Matisse.obtainPathResult(data));
+                    adapter.notifyDataSetChanged();
+                    uploadImages(pathList);
                     break;
             }
         }
@@ -248,14 +280,17 @@ public class DynamicPublishActivity extends AppCompatActivity {
      */
     private void uploadImages(ArrayList<String> pathList) {
         for (int i = 0; i < pathList.size(); i++) {
-            File file = new File(pathList.get(i));
-            Log.e("path", file.getAbsolutePath());
-            if (file.exists()) {
-                //fileList.add(file);
-               upImage(PlatformContans.Commom.uploadImg, file);
+            if (!TextUtils.isEmpty(pathList.get(i))) {
+                File file = new File(pathList.get(i));
+                Log.e("path", file.getAbsolutePath());
+                if (file.exists()) {
+                    //fileList.add(file);
+                    upImage(PlatformContans.Commom.uploadImg, file);
+                }
             }
+
         }
-       // upImages(PlatformContans.Commom.uploadImgs, fileList);
+        // upImages(PlatformContans.Commom.uploadImgs, fileList);
     }
 
     public void upImage(String url, File file) {
@@ -290,15 +325,8 @@ public class DynamicPublishActivity extends AppCompatActivity {
                     JSONObject object = new JSONObject(string);
                     final String data = object.getString("data");
                     imgsUrl.add(data);
-                    if(imgsUrl.size()==pathList.size()){
-                        imgs = listToString(imgsUrl);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                popupWindow.dismiss();
-                            }
-                        });
-                    }
+                    imgs = listToString(imgsUrl);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -328,26 +356,26 @@ public class DynamicPublishActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(vimg)) {
             params.put("vimg", vimg);
         }
-        if (mAddressBean!=null) {
+        if (mAddressBean != null) {
             params.put("address", mAddressBean.getPoiaddress());
-            params.put("longitude", mAddressBean.getLatlng().getLng()+"");
-            params.put("latitude", mAddressBean.getLatlng().getLat()+"");
+            params.put("longitude", mAddressBean.getLatlng().getLng() + "");
+            params.put("latitude", mAddressBean.getLatlng().getLat() + "");
         }
 
         params.put("type", 1);//（1.普通朋友圈，2.转发链接）
 
         params.put("kind", kind);//查看权限（1.公开，2私密，3.部分可见，4.不给谁看）
 
-        Log.e("kind",kind+"");
+        Log.e("kind", kind + "");
 
-        if(kind == 3){
-            if(!TextUtils.isEmpty(looks)){
+        if (kind == 3) {
+            if (!TextUtils.isEmpty(looks)) {
                 params.put("looks", looks);
             }
         }
 
-        if(kind == 4){
-            if(!TextUtils.isEmpty(unLooks)){
+        if (kind == 4) {
+            if (!TextUtils.isEmpty(unLooks)) {
                 params.put("unLooks", unLooks);
             }
         }
@@ -378,11 +406,13 @@ public class DynamicPublishActivity extends AppCompatActivity {
         });
     }
 
-    /**List转String逗号分隔*/
+    /**
+     * List转String逗号分隔
+     */
     private String listToString(ArrayList<String> list) {
 
         StringBuilder stringBuilder = new StringBuilder();
-        for(String str : list){
+        for (String str : list) {
             stringBuilder.append(str);
             stringBuilder.append(",");
         }
@@ -391,53 +421,65 @@ public class DynamicPublishActivity extends AppCompatActivity {
 
         return strs;
     }
-    public void upLoadVideo(String url, File file) {
-        OkHttpClient mOkHttpClent = new OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(300, TimeUnit.SECONDS)
-                .writeTimeout(300, TimeUnit.SECONDS)
-                .build();
-        MultipartBody.Builder builder = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("file", "file",
-                        RequestBody.create(MediaType.parse("multipart/form-data"), file));
-        RequestBody requestBody = builder.build();
-        Request request = new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build();
-        Call call = mOkHttpClent.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e("video", "onResponse: " + e.getMessage());
-            }
 
+    public void upLoadVideo(String url, File file) {
+//        OkHttpClient mOkHttpClent = new OkHttpClient.Builder()
+//                .connectTimeout(30, TimeUnit.SECONDS)
+//                .readTimeout(300, TimeUnit.SECONDS)
+//                .writeTimeout(300, TimeUnit.SECONDS)
+//                .build();
+//        MultipartBody.Builder builder = new MultipartBody.Builder()
+//                .setType(MultipartBody.FORM)
+//                .addFormDataPart("file", "file",
+//                        RequestBody.create(MediaType.parse("multipart/form-data"), file));
+//        RequestBody requestBody = builder.build();
+//        Request request = new Request.Builder()
+//                .url(url)
+//                .post(requestBody)
+//                .build();
+//        Call call = mOkHttpClent.newCall(request);
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                Log.e("video", "onResponse: " + e.getMessage());
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//
+//
+//            }
+//        });
+        NetUtils.getInstance().upLoadVideo(url, file, new OnMessageReceived() {
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String string = response.body().string();
+            public void onSuccess(String response) {
+                String string = response;
                 Log.e("video", "onResponse: " + string);
                 try {
                     JSONObject object = new JSONObject(string);
                     int resultCode = object.getInt("resultCode");
                     final String data = object.getString("data");
                     video = data;
-
                     ///
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
 
+            @Override
+            public void onError(String error) {
+                Log.e("video", "onResponse: " + error);
             }
         });
     }
-   private void initVideo(){
-       Bitmap bitmap = VideoUtil.voidToFirstBitmap(videoPath);
-       String thumb=VideoUtil.bitmapToStringPath(this,bitmap);
-       upThumbImage(PlatformContans.Commom.uploadImg,new File(thumb));
-       File filevideo = new File(videoPath);
-       upLoadVideo(PlatformContans.Commom.uploadVideo, filevideo);
-   }
+
+    private void initVideo() {
+        Bitmap bitmap = VideoUtil.voidToFirstBitmap(videoPath);
+        String thumb = VideoUtil.bitmapToStringPath(this, bitmap);
+        upThumbImage(PlatformContans.Commom.uploadImg, new File(thumb));
+
+    }
+
     public void upThumbImage(String url, File file) {
         OkHttpClient mOkHttpClent = new OkHttpClient();
 
@@ -465,8 +507,9 @@ public class DynamicPublishActivity extends AppCompatActivity {
                     JSONObject object = new JSONObject(string);
                     int resultCode = object.getInt("resultCode");
                     final String data = object.getString("data");
-                    vimg=data;
-
+                    vimg = data;
+                    File filevideo = new File(videoPath);
+                    upLoadVideo(PlatformContans.Commom.uploadVideo, filevideo);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

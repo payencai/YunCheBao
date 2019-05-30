@@ -23,7 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps.model.LatLng;
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.cheyibao.fragment.ClassFragment;
 import com.cheyibao.fragment.CoashCommentFragment;
@@ -33,7 +33,6 @@ import com.cheyibao.list.AutofitViewPager;
 import com.cheyibao.model.DrvingSchool;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
-import com.example.yunchebao.fourshop.activity.FourShopDetailActivity;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;

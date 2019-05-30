@@ -2,7 +2,6 @@ package com.cheyibao;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -18,7 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
@@ -31,13 +30,8 @@ import com.http.ICallBack;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
-import com.nohttp.sample.NoHttpBaseActivity;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
-import com.payencai.library.mediapicker.PickerConfig;
-import com.payencai.library.util.StringUtil;
 import com.payencai.library.util.ToastUtil;
-import com.payencai.library.util.VideoUtil;
-import com.system.model.AddressBean;
 import com.tool.ActivityConstans;
 import com.tool.CommonDateTools;
 import com.tool.FileUtil;
@@ -154,6 +148,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
     String image1, image2, image3, image4, image5, image6, image7;
     String detailId, id1, id2, id3, b_img, b_price, b_dis, b_city, b_time = null;
     LoadingDialog mLoadingDialog;
+
     class TimeCount extends CountDownTimer {
 
         public TimeCount(long millisInFuture, long countDownInterval) {
@@ -166,7 +161,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
             getcode.setTextColor(getResources().getColor(R.color.gray_99));
             count--;
             //倒计时的过程中回调该函数
-            getcode.setText("剩余"+count + "s");
+            getcode.setText("剩余" + count + "s");
         }
 
         @Override
@@ -185,7 +180,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
         View view = LayoutInflater.from(this).inflate(R.layout.sell_car_info_improve_layout, null);
         setContentView(view);
         mTimeCount = new TimeCount(60000, 1000);
-        mLoadingDialog=new LoadingDialog(this);
+        mLoadingDialog = new LoadingDialog(this);
         Bundle bundle = getIntent().getExtras();
         detailId = bundle.getString("id");
         id1 = bundle.getString("id1");
@@ -277,6 +272,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
                 photoOutputUri = Uri.parse("file:////sdcard/image_output.jpg"));
         startActivityForResult(cropPhotoIntent, 4);
     }
+
     public void upFileImage(String url, File file) {
         mLoadingDialog.setLoadingText("上传中")
                 .setSuccessText("上传成功")//显示加载成功时的文字
@@ -320,18 +316,18 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
                         @Override
                         public void run() {
                             mLoadingDialog.loadSuccess();
-                            switch (curpos){
+                            switch (curpos) {
                                 case 1:
                                     Glide.with(SellCarInfoImproveActivity.this).load(image).into(iv_dj);
-                                    image1=image;
+                                    image1 = image;
                                     break;
                                 case 2:
                                     Glide.with(SellCarInfoImproveActivity.this).load(image).into(iv_xs);
-                                    image2=image;
+                                    image2 = image;
                                     break;
                                 case 3:
                                     Glide.with(SellCarInfoImproveActivity.this).load(image).into(iv_gc);
-                                    image3=image;
+                                    image3 = image;
                                     break;
                             }
 
@@ -345,6 +341,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
             }
         });
     }
+
     public void upImage(String url, File file) {
         OkHttpClient mOkHttpClent = new OkHttpClient();
 
@@ -445,10 +442,14 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MyApplication.isLogin)
-                    if (checkInput()) {
+                if (checkInput()) {
+                    if (MyApplication.isLogin) {
                         postData();
+                    }else {
+                        startActivity(new Intent(SellCarInfoImproveActivity.this, RegisterActivity.class));
                     }
+                }
+
             }
         });
         getcode.setOnClickListener(new View.OnClickListener() {
@@ -524,7 +525,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
         params.put("color", color);
         params.put("code", et_code.getEditableText().toString());
         params.put("change", Integer.parseInt(et_num.getEditableText().toString()));
-        params.put("carImage", StringUtils.listToString2(images,','));
+        params.put("carImage", StringUtils.listToString2(images, ','));
         params.put("distance", b_dis);
         params.put("linkman", et_name.getEditableText().toString());
         params.put("linkmanTelephone", et_phone.getEditableText().toString());
@@ -562,6 +563,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
             }
         });
     }
+
     private void initTime() {
         mDialogYearMonthDay = new TimePickerDialog.Builder()
                 .setCallBack(this)
@@ -576,6 +578,7 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
                 .setWheelItemTextSize(12)
                 .build();
     }
+
     private void initTimePickerView() {
         mDialogYearMonth = new TimePickerDialog.Builder()
                 .setCallBack(this)
@@ -594,9 +597,11 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
     private void alertTimePicker() {
         mDialogYearMonth.show(getSupportFragmentManager(), "year_month");
     }
+
     private void alertPicker() {
         mDialogYearMonthDay.show(getSupportFragmentManager(), "year_month_day");
     }
+
     @Override
     public void onDateSet(TimePickerDialog timePickerDialog, long millseconds) {
 
@@ -618,10 +623,12 @@ public class SellCarInfoImproveActivity extends NoHttpFragmentBaseActivity imple
         Date d = new Date(time);
         return sf.format(d);
     }
+
     public String getDate(long time) {
         Date d = new Date(time);
         return sf2.format(d);
     }
+
     @OnClick({R.id.back, R.id.timeLay1, R.id.timeLay2, R.id.ll_gc, R.id.ll_xs, R.id.ll_dj, R.id.fr_zj1, R.id.fr_zj2, R.id.fr_zj3, R.id.fr_zj4
             , R.id.ll_gray, R.id.ll_blue, R.id.ll_black, R.id.ll_coffee, R.id.ll_green, R.id.ll_red, R.id.ll_origin,
             R.id.ll_white, R.id.ll_rgb, R.id.ll_other, R.id.ll_yellow})

@@ -1,17 +1,13 @@
 package com.bbcircle;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -21,16 +17,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bbcircle.adapter.ArticleCommentListAdapter;
 import com.bbcircle.adapter.CarShowMiddleListAdapter;
 import com.bbcircle.adapter.CircleCommentAdapter;
-import com.bbcircle.data.CarFriendDetail;
 import com.bbcircle.data.CarshowDetail;
 import com.bbcircle.data.CircleComment;
 import com.bbcircle.view.NoScrollWebView;
@@ -49,10 +42,7 @@ import com.nohttp.sample.NoHttpBaseActivity;
 import com.payencai.library.util.ToastUtil;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.tool.ActivityConstans;
-import com.tool.SimpleCommonUtils;
 import com.tool.UIControlUtils;
-import com.tool.slideshowview.SlideShowView;
-import com.tool.view.HorizontalListView;
 import com.tool.view.ListViewForScrollView;
 import com.vipcenter.RegisterActivity;
 

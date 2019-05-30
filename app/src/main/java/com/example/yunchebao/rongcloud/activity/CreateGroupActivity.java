@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.gyf.immersionbar.ImmersionBar;
@@ -37,7 +37,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.rong.imkit.RongIM;
 
 public class CreateGroupActivity extends AppCompatActivity {
     private List<ContactModel> mContactModels;

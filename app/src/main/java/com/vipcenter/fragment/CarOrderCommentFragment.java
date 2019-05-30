@@ -10,18 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.order.CarOrder;
-import com.order.CarOrderAdapter;
 import com.vipcenter.adapter.CarCommentAdapter;
-import com.vipcenter.adapter.WashCommentAdapter;
 import com.vipcenter.model.CarOrderComment;
-import com.vipcenter.model.WashOrderComment;
 
 import org.json.JSONException;
 import org.json.JSONObject;

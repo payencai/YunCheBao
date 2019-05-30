@@ -1,7 +1,6 @@
 package com.system.fragment;
 
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -34,7 +33,7 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.model.LatLng;
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 
 import com.cityselect.CityListActivity;
 import com.example.yunchebao.driverschool.NewDrvingActivity;
@@ -66,8 +65,6 @@ import com.system.model.Weather;
 import com.tool.view.ListViewForScrollView;
 import com.vipcenter.RegisterActivity;
 import com.vipcenter.UserCenterActivity;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
 import com.example.yunchebao.washrepair.NewWashRepairActivity;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;

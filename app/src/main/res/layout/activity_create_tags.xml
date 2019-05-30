@@ -58,6 +58,9 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="end|right"
                 android:id="@+id/et_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

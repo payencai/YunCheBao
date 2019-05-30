@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
@@ -28,7 +28,6 @@ import com.nohttp.sample.BaseFragment;
 import com.payencai.library.util.ToastUtil;
 import com.tool.WheelView;
 import com.vipcenter.RegisterActivity;
-import com.xihubao.CarBrandSelectActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

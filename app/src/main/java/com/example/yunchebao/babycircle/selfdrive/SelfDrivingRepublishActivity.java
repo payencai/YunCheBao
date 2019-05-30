@@ -20,7 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.application.MyApplication;
+import com.example.yunchebao.MyApplication;
 import com.bbcircle.DrivingSelfReplaySuccessActivity;
 import com.bbcircle.PublishInputActivity;
 import com.bbcircle.ReplySettingActivity;

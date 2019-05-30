@@ -5,23 +5,13 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.RelativeLayout;
 
-import com.cheyibao.fragment.StudyListFragment;
 import com.example.yunchebao.R;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
-import com.tool.ActivityConstans;
-import com.tool.UIControlUtils;
 import com.tool.adapter.MyFragmentPagerAdapter;
-import com.vipcenter.fragment.ArticleFragment;
 import com.vipcenter.fragment.BaobiDescribFragment;
 import com.vipcenter.fragment.DeductMoneyFragment;
-import com.vipcenter.fragment.GoodsCollectFragment;
 import com.vipcenter.fragment.HowToGetFragment;
-import com.vipcenter.fragment.NewCarFragment;
-import com.vipcenter.fragment.OldCarFragment;
-import com.vipcenter.fragment.ShopCollectListFragment;
-import com.vipcenter.fragment.WashFragment;
 
 import java.util.ArrayList;
 
