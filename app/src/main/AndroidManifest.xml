@@ -537,8 +537,8 @@
         <activity android:name=".drive.activity.DriveServiceActivity" />
         <activity android:name="com.cheyibao.ShopListActivity" />
         <activity android:name="com.cheyibao.CarModelsListActivity" />
-        <activity android:name="com.cheyibao.ShopListNoAreaActivity" />
-        <activity android:name="com.cheyibao.ShopDetailActivity" />
+        <activity android:name=".cheyibao.rentcar.ShopListNoAreaActivity" />
+        <activity android:name=".cheyibao.rentcar.ShopDetailActivity" />
         <activity android:name=".drive.activity.ReplaceDriveDetailActivity" />
         <activity android:name=".drive.activity.AddSubstitubeActivity" />
         <activity android:name="com.newversion.DynamicLookPermissionActivity" />

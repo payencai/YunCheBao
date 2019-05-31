@@ -338,4 +338,24 @@ public class NetUtils {
                     }
                 });
     }
+
+    public void postByToken(String url, String token, final OnMessageReceived messageReceived){
+
+        OkGo.<String>post(url)//
+//                .params(params)
+                .headers("token",token)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String result = response.body().toString();
+                        messageReceived.onSuccess(result);
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        messageReceived.onError("");
+                    }
+                });
+    }
 }

@@ -2,6 +2,7 @@ package com.vipcenter.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,6 +19,9 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.vipcenter.adapter.OldcarCollectAdapter;
 import com.vipcenter.model.OldCarCollect;
 
@@ -40,6 +44,8 @@ import butterknife.ButterKnife;
 public class OldCarFragment extends BaseFragment {
     @BindView(R.id.rv_collect)
     RecyclerView rv_collect;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout refreshLayout;
     List<OldCarCollect> mWashCollects ;
     OldcarCollectAdapter mWashCollectAdapter;
     int page=1;
@@ -72,8 +78,17 @@ public class OldCarFragment extends BaseFragment {
                 Bundle bundle=new Bundle();
                 bundle.putString("id",oldCarCollect.getOldCarMerchantCarId());
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent,1);
 
+            }
+        });
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page=1;
+                mWashCollects.clear();
+                mWashCollectAdapter.setNewData(mWashCollects);
+                getData();
             }
         });
         rv_collect.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -81,6 +96,16 @@ public class OldCarFragment extends BaseFragment {
         getData();
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        page=1;
+        mWashCollects.clear();
+        mWashCollectAdapter.setNewData(mWashCollects);
+        getData();
+    }
+
     private void getData(){
 
         Map<String,Object> params=new HashMap<>();
@@ -88,6 +113,7 @@ public class OldCarFragment extends BaseFragment {
         HttpProxy.obtain().get(PlatformContans.Collect.getOldCarCollectionList, params, MyApplication.token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+                refreshLayout.finishRefresh();
                 Log.e("getNewCarCollectionList", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);

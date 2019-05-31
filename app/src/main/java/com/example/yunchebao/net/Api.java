@@ -431,6 +431,21 @@ public class Api {
          * 删除评论或回复
          */
         public static final String deleteCommunicationCircleComment = root + "/communicationcircle/deleteCommunicationCircleComment";
-
+        /**
+         * 获取好友圈通知照片
+         */
+        public static final String getCommunicationImage = root + "/communicationcircle/getCommunicationImage";
+        /**
+         * 获取好友圈提醒信息
+         */
+        public static final String getShowNoticeList = root + "/communicationcircle/getShowNoticeList";
+        /**
+         * 清空好友圈通知照片
+         */
+        public static final String clearCommunicationImage = root + "/communicationcircle/clearCommunicationImage";
+        /**
+         * 清空好友圈提醒信息
+         */
+        public static final String clearCommunicationShowNotice = root + "/communicationcircle/clearCommunicationShowNotice";
     }
 }

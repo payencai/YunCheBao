@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +13,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.friendcircle.NewFriendCircleActivity;
+import com.example.yunchebao.net.Api;
+import com.example.yunchebao.net.NetUtils;
+import com.example.yunchebao.net.OnMessageReceived;
 import com.example.yunchebao.rongcloud.model.ApplyFriend;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
@@ -29,6 +34,8 @@ import com.example.yunchebao.rongcloud.activity.CreateGroupActivity;
 import com.example.yunchebao.rongcloud.activity.NearbyActivity;
 import com.example.yunchebao.rongcloud.activity.stranger.SaomaActivity;
 import com.example.yunchebao.rongcloud.activity.stranger.StrangerMsgActivity;
+import com.order.NewPublish;
+import com.payencai.library.view.CircleImageView;
 import com.system.SearchActivity;
 import com.vipcenter.MyQrcodeActivity;
 import com.vipcenter.RegisterActivity;
@@ -40,6 +47,9 @@ import com.zyyoona7.popup.YGravity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,7 +66,14 @@ public class AnotherBabyFragment extends Fragment {
     TextView tv_unread;
     @BindView(R.id.tv_newCount)
     TextView tv_newCount;
-    int count=0;
+    @BindView(R.id.tv_notice)
+    TextView tv_notice;
+    @BindView(R.id.iv_img)
+    CircleImageView  iv_img;
+    @BindView(R.id.ll_circle)
+    LinearLayout ll_circle;
+    int count = 0;
+
     public AnotherBabyFragment() {
         // Required empty public constructor
     }
@@ -77,7 +94,7 @@ public class AnotherBabyFragment extends Fragment {
                     intent.putExtra("type", 1);
                     startActivity(intent);
                 } else {
-                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class),6);
+                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class), 6);
                 }
             }
         });
@@ -96,7 +113,7 @@ public class AnotherBabyFragment extends Fragment {
                     intent.putExtra("type", 2);
                     startActivity(intent);
                 } else {
-                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class),7);
+                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class), 7);
                 }
             }
         });
@@ -118,7 +135,7 @@ public class AnotherBabyFragment extends Fragment {
                     intent.putExtra("type", 3);
                     startActivity(intent);
                 } else {
-                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class),8);
+                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class), 8);
                 }
             }
         });
@@ -128,7 +145,7 @@ public class AnotherBabyFragment extends Fragment {
                 if (MyApplication.isLogin)
                     startActivity(new Intent(getContext(), MyTagsActivity.class));
                 else {
-                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class),9);
+                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class), 9);
                 }
             }
         });
@@ -150,7 +167,7 @@ public class AnotherBabyFragment extends Fragment {
                 if (MyApplication.isLogin)
                     startActivity(new Intent(getContext(), NearbyActivity.class));
                 else {
-                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class),11);
+                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class), 11);
                 }
 
             }
@@ -161,7 +178,7 @@ public class AnotherBabyFragment extends Fragment {
                 if (MyApplication.isLogin)
                     startActivity(new Intent(getContext(), StrangerMsgActivity.class));
                 else {
-                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class),10);
+                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class), 10);
                 }
             }
         });
@@ -171,74 +188,141 @@ public class AnotherBabyFragment extends Fragment {
                 if (MyApplication.isLogin) {
                     startActivity(new Intent(getContext(), UserCenterActivity.class));
                 } else {
-                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class),11);
+                    startActivityForResult(new Intent(getActivity(), RegisterActivity.class), 11);
                 }
             }
         });
         view.findViewById(R.id.messenger_icon).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(MyApplication.isLogin)
-                  initWindow(v);
-                else{
-                  startActivity(new Intent(getContext(),RegisterActivity.class));
+                if (MyApplication.isLogin)
+                    initWindow(v);
+                else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
                 }
             }
         });
 
         return view;
     }
+
     private void getNewApplyCount() {
-
-            HttpProxy.obtain().get(PlatformContans.Chat.getFriendApplyList, MyApplication.token, new ICallBack() {
-                @Override
-                public void OnSuccess(String result) {
-                    Log.e("apply", result);
-                    try {
-                        JSONObject jsonObject = new JSONObject(result);
-                        JSONArray data = jsonObject.getJSONArray("data");
-                        for (int i = 0; i < data.length(); i++) {
-                            JSONObject item = data.getJSONObject(i);
-                            ApplyFriend applyFriend = new Gson().fromJson(item.toString(), ApplyFriend.class);
-                            if(applyFriend.getState()==0){
-                                count++;
-                            }
+        if(MyApplication.isIsLogin())
+        HttpProxy.obtain().get(PlatformContans.Chat.getFriendApplyList, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("apply", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject item = data.getJSONObject(i);
+                        ApplyFriend applyFriend = new Gson().fromJson(item.toString(), ApplyFriend.class);
+                        if (applyFriend.getState() == 0) {
+                            count++;
                         }
-                        if(count>0){
-                            tv_newCount.setText(count+"");
-                            tv_newCount.setVisibility(View.VISIBLE);
-                        }else{
-                            tv_newCount.setVisibility(View.GONE);
-                        }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
-                }
+                    if (count > 0) {
+                        tv_newCount.setText(count + "");
+                        tv_newCount.setVisibility(View.VISIBLE);
+                    } else {
+                        tv_newCount.setVisibility(View.GONE);
+                    }
 
-                @Override
-                public void onFailure(String error) {
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            });
+            }
+
+            @Override
+            public void onFailure(String error) {
+            }
+        });
+    }
+
+    private void getNoticeCount(){
+        if(MyApplication.isIsLogin())
+        NetUtils.getInstance().get( MyApplication.token,Api.CommunicationCircle.getShowNoticeList, new OnMessageReceived() {
+            @Override
+            public void onSuccess(String response) {
+                Log.e("getNoticeCount",response);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        JSONArray data = jsonObject.getJSONArray("data");
+                        if(data!=null&&data.length()>0){
+                            tv_notice.setText(data.length()+"");
+                            tv_notice.setVisibility(View.VISIBLE);
+                        }else{
+                            tv_notice.setVisibility(View.GONE);
+                        }
+
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+    }
+    private void getNoticeImage(){
+        if(MyApplication.isLogin)
+        NetUtils.getInstance().get(MyApplication.token,Api.CommunicationCircle.getCommunicationImage,  new OnMessageReceived() {
+            @Override
+            public void onSuccess(String response) {
+                Log.e("getCommunicationImage",response);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    int code = jsonObject.getInt("resultCode");
+                    if (code == 0) {
+                        String image = jsonObject.getString("data");
+                        if(!TextUtils.isEmpty(image)){
+                            Glide.with(getActivity()).load(image).into(iv_img);
+                            ll_circle.setVisibility(View.VISIBLE);
+                        }else{
+                            ll_circle.setVisibility(View.GONE);
+                        }
+
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
     }
     @Override
     public void onResume() {
         super.onResume();
-        count=0;
+        count = 0;
         RongIM.getInstance().addUnReadMessageCountChangedObserver(new IUnReadMessageObserver() {
             @Override
             public void onCountChanged(int i) {
 
-                tv_unread.setText(i+"");
-                if(i>0)
+                tv_unread.setText(i + "");
+                if (i > 0)
                     tv_unread.setVisibility(View.VISIBLE);
-                else{
+                else {
                     tv_unread.setVisibility(View.GONE);
                 }
             }
-        },  Conversation.ConversationType.PRIVATE, Conversation.ConversationType.GROUP);
+        }, Conversation.ConversationType.PRIVATE, Conversation.ConversationType.GROUP);
         getNewApplyCount();
-
+        getNoticeCount();
+        getNoticeImage();
     }
 
     @Override
@@ -297,13 +381,12 @@ public class AnotherBabyFragment extends Fragment {
             public void onClick(View v) {
                 if (MyApplication.isLogin) {
                     startActivity(new Intent(getContext(), MyQrcodeActivity.class));
-                }
-                 else {
+                } else {
                     startActivity(new Intent(getContext(), RegisterActivity.class));
                 }
             }
         });
-        mCirclePop.showAtAnchorView(view, YGravity.BELOW, XGravity.LEFT,0,0);
+        mCirclePop.showAtAnchorView(view, YGravity.BELOW, XGravity.LEFT, 0, 0);
 
     }
 }

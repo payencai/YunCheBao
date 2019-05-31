@@ -368,7 +368,10 @@ public class EnteringActivity extends NoHttpBaseActivity {
             ToastUtil.showToast(EnteringActivity.this, "请输入负责人手机号码");
             return;
         }
-
+        if(!etLeaderTell.getEditableText().toString().substring(0,1).equals("1")){
+            ToastUtil.showToast(this,"请手机号格式不正确");
+            return;
+        }
         if (TextUtils.isEmpty(adminAccount.getEditableText())) {
             ToastUtil.showToast(EnteringActivity.this, "请输入管理账号");
             return;

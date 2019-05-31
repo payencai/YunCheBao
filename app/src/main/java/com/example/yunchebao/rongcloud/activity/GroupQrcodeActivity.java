@@ -1,6 +1,7 @@
 package com.example.yunchebao.rongcloud.activity;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,7 +25,11 @@ public class GroupQrcodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_group_qrcode);
         ButterKnife.bind(this);
         id=getIntent().getStringExtra("id");
-        ImmersionBar.with(this).statusBarColor(R.color.yellow_64).init();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.yellow_64));
+        }
         initView();
     }
 

@@ -1,6 +1,8 @@
 package com.vipcenter.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,6 +19,9 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.vipcenter.adapter.NewCarCollectAdapter;
@@ -45,6 +50,8 @@ public class NewCarFragment extends BaseFragment {
     NewCarCollectAdapter mWashCollectAdapter;
     int page=1;
     boolean isLoadMore=false;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout refreshLayout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,13 +72,25 @@ public class NewCarFragment extends BaseFragment {
                 getData();
             }
         });
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page=1;
+                mWashCollects.clear();
+                mWashCollectAdapter.setNewData(mWashCollects);
+                getData();
+            }
+        });
         mWashCollectAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 NewCarCollect newCarCollect= (NewCarCollect) adapter.getItem(position);
                 Bundle bundle=new Bundle();
                 bundle.putString("id", newCarCollect.getNewCarMerchantMessageId());
-                ActivityAnimationUtils.commonTransition(getActivity(), NewCarDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
+                Intent intent=new Intent(getContext(), NewCarDetailActivity.class);
+                intent.putExtras(bundle);
+                startActivityForResult(intent,1);
+                //ActivityAnimationUtils.commonTransition(getActivity(), NewCarDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
             }
         });
         rv_collect.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -79,6 +98,16 @@ public class NewCarFragment extends BaseFragment {
         getData();
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        page=1;
+        mWashCollects.clear();
+        mWashCollectAdapter.setNewData(mWashCollects);
+        getData();
+    }
+
     private void getData(){
 
         Map<String,Object> params=new HashMap<>();
@@ -86,6 +115,7 @@ public class NewCarFragment extends BaseFragment {
         HttpProxy.obtain().get(PlatformContans.Collect.getNewCarCollectionList, params, MyApplication.token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+                refreshLayout.finishRefresh();
                 Log.e("getNewCarCollectionList", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);

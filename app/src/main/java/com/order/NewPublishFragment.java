@@ -141,9 +141,16 @@ public class NewPublishFragment extends Fragment {
 
     private void getOldCar() {
         Map<String, Object> params = new HashMap<>();
-        params.put("audit", state);
-        //params.put("state", 1);
         params.put("page", page);
+        if(state==1){
+            params.put("audit",2);
+            params.put("state", 1);
+        }else if(state==2){
+            params.put("audit", 2);
+            params.put("state", 2);
+        }else{
+            params.put("audit",3);
+        }
         Log.e("params",params.toString());
         HttpProxy.obtain().get(PlatformContans.OldCar.getOldCarMerchantCarByUser, params, MyApplication.token, new ICallBack() {
             @Override

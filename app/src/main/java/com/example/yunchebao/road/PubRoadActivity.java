@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.road.model.RoadDetail;
+import com.example.yunchebao.yuedan.SelectCarTypeActivity;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
@@ -174,7 +175,7 @@ public class PubRoadActivity extends AppCompatActivity {
                             .choose(MimeType.ofImage())
                             .countable(true)
                             .maxSelectable(4)
-                            .capture(true)
+                            .capture(false)
                             .originalEnable(true)
                             .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
                             .thumbnailScale(0.85f)
@@ -200,7 +201,7 @@ public class PubRoadActivity extends AppCompatActivity {
                 chooseVideo();
                 break;
             case R.id.rl_cartype:
-                startActivityForResult(new Intent(this, CarBrandSelectActivity.class), 1);
+                startActivityForResult(new Intent(this, SelectCarTypeActivity.class), 1);
                 break;
             case R.id.addressLay:
                 startActivityForResult(new Intent(this, X5WebviewActivity.class), 2);

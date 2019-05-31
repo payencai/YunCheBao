@@ -33,6 +33,9 @@ import com.entity.UserMsg;
 import com.example.yunchebao.R;
 import com.example.yunchebao.friendcircle.adapter.CircleDataAdapter;
 import com.example.yunchebao.friendcircle.listener.AppBarStateChangeListener;
+import com.example.yunchebao.net.Api;
+import com.example.yunchebao.net.NetUtils;
+import com.example.yunchebao.net.OnMessageReceived;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
@@ -93,8 +96,57 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         ImmersionBar.with(this).autoDarkModeEnable(true).init();
         userId = getIntent().getStringExtra("userId");
         initView();
+        clearNoticeImage();
+        clearMsgNotice();
     }
+    private void clearNoticeImage(){
+        if(MyApplication.isLogin)
+            NetUtils.getInstance().postByToken( Api.CommunicationCircle.clearCommunicationImage,MyApplication.token,  new OnMessageReceived() {
+                @Override
+                public void onSuccess(String response) {
+                    Log.e("clearCommunicationImage",response);
 
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        int code = jsonObject.getInt("resultCode");
+                        if (code == 0) {
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(String error) {
+
+                }
+            });
+    }
+    private void clearMsgNotice(){
+        if(MyApplication.isLogin)
+            NetUtils.getInstance().postByToken( Api.CommunicationCircle.clearCommunicationShowNotice,MyApplication.token,  new OnMessageReceived() {
+                @Override
+                public void onSuccess(String response) {
+                    Log.e("clearMsgNotice",response);
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        int code = jsonObject.getInt("resultCode");
+                        if (code == 0) {
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(String error) {
+
+                }
+            });
+    }
     @OnClick({R.id.iv_back, R.id.iv_publish, R.id.iv_headpic})
     void OnClick(View view) {
         switch (view.getId()) {

@@ -16,7 +16,7 @@
     <FrameLayout
         android:id="@+id/main_buttom_tabbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_alignParentBottom="true">
 
         <LinearLayout
@@ -25,7 +25,7 @@
             android:background="@color/white"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/main_fl_1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -33,10 +33,10 @@
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
                 <!--主页-->
-                <FrameLayout
-
+                <LinearLayout
+                    android:layout_centerInParent="true"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <ImageView
@@ -45,10 +45,11 @@
                         android:layout_height="22dp"
                         android:layout_gravity="top|center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:scaleType="fitXY"
+                        android:scaleType="centerCrop"
                         android:src="@mipmap/ic_cheyi_select" />
 
                     <TextView
+                        android:layout_marginTop="5dp"
                         android:id="@+id/main_tv_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -59,9 +60,9 @@
                         android:textColor="@color/black_33"
                         android:textSize="10dp" />
 
-                </FrameLayout>
+                </LinearLayout>
 
-            </LinearLayout>
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/main_fl_2"
@@ -69,10 +70,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
                 <!--商家-->
-                <FrameLayout
-
+                <LinearLayout
+                    android:layout_centerInParent="true"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:orientation="vertical">
 
@@ -86,6 +87,7 @@
                         android:src="@mipmap/ic_cheyi_unselect" />
 
                     <TextView
+                        android:layout_marginTop="5dp"
                         android:id="@+id/main_tv_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -96,7 +98,7 @@
                         android:textColor="@color/black_33"
                         android:textSize="10dp" />
 
-                </FrameLayout>
+                </LinearLayout>
             </RelativeLayout>
 
 
@@ -107,25 +109,24 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
                 <!--我的店铺-->
-                <FrameLayout
+                <LinearLayout
 
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:orientation="vertical">
 
                     <ImageView
                         android:layout_marginTop="5dp"
                         android:id="@+id/main_iv_3"
                         android:layout_width="22dp"
-                        android:layout_height="22dp"
+                        android:layout_height="23dp"
                         android:layout_gravity="top|center_horizontal"
-
                         android:scaleType="fitXY"
                         android:src="@mipmap/ic_circle_unselect" />
 
                     <TextView
+                        android:layout_marginTop="5dp"
                         android:id="@+id/main_tv_3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -136,7 +137,7 @@
                         android:textColor="@color/black_33"
                         android:textSize="10dp" />
 
-                </FrameLayout>
+                </LinearLayout>
                 <TextView
                     android:layout_marginTop="3dp"
                     android:layout_alignParentTop="true"
@@ -159,11 +160,11 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
                 <!--商家-->
-                <FrameLayout
+                <LinearLayout
 
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerHorizontal="true"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:orientation="vertical">
 
                     <ImageView
@@ -176,6 +177,7 @@
                         android:src="@mipmap/ic_baike_unselect" />
 
                     <TextView
+                        android:layout_marginTop="5dp"
                         android:id="@+id/main_tv_4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -186,7 +188,7 @@
                         android:textColor="@color/black_33"
                         android:textSize="10dp" />
 
-                </FrameLayout>
+                </LinearLayout>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/main_fl_5"

@@ -59,6 +59,12 @@ public class SeeWashCommentActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
        getDetail();
     }
     private void getDetail() {

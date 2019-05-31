@@ -37,6 +37,8 @@ import com.payencai.library.util.VideoUtil;
 import com.system.X5WebviewActivity;
 import com.system.model.AddressBean;
 import com.tool.GlideImageEngine;
+import com.tool.view.GridViewForScrollView;
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 
@@ -47,6 +49,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -61,6 +64,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class DynamicPublishActivity extends AppCompatActivity {
 
@@ -71,7 +77,7 @@ public class DynamicPublishActivity extends AppCompatActivity {
     @BindView(R.id.sampleCoverVideo)
     SampleCoverVideo sampleCoverVideo;
     @BindView(R.id.gv_dynamic_photos)
-    GridView gvDynamicPhotos;
+    GridViewForScrollView gvDynamicPhotos;
     @BindView(R.id.ll_look_permission)
     LinearLayout llLookPermission;
     @BindView(R.id.ll_user_location)
@@ -82,6 +88,8 @@ public class DynamicPublishActivity extends AppCompatActivity {
     TextView tvLookPermission;
     @BindView(R.id.tv_location)
     TextView tv_location;
+    @BindView(R.id.tv_publish_dynamic)
+    TextView tv_pub;
     @BindView(R.id.frame_video_player)
     FrameLayout frameVideoPlayer;
     private ArrayList<String> pathList = new ArrayList<>();
@@ -95,6 +103,8 @@ public class DynamicPublishActivity extends AppCompatActivity {
     String videoPath;
     private String mediatype;
     SelectPicGridAdapter adapter;
+
+    int count=0;
 //    private Handler popupHandler = new Handler() {
 //        @Override
 //        public void handleMessage(Message msg) {
@@ -113,6 +123,7 @@ public class DynamicPublishActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dynamic_publish);
         ButterKnife.bind(this);
+
         initView();
     }
 
@@ -131,11 +142,17 @@ public class DynamicPublishActivity extends AppCompatActivity {
                 frameVideoPlayer.setVisibility(View.GONE);
                 gvDynamicPhotos.setVisibility(View.VISIBLE);
                 adapter = new SelectPicGridAdapter(this, pathList);
+                adapter.setShow(true);
+                adapter.setOnImageClick(new SelectPicGridAdapter.OnImageClick() {
+                    @Override
+                    public void onClick(int pos) {
+                        pathList.remove(pos);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
                 gvDynamicPhotos.setAdapter(adapter);
             }
 
-
-            uploadImages(pathList);
         } else if (mediatype.equals("video")) {
             gvDynamicPhotos.setVisibility(View.GONE);
             frameVideoPlayer.setVisibility(View.VISIBLE);
@@ -152,19 +169,26 @@ public class DynamicPublishActivity extends AppCompatActivity {
                 }
             });
             sampleCoverVideo.loadCoverImage(videoPath, R.mipmap.pic1);
-            initVideo();
+            //initVideo();
             //etDynamicText.setText(videoPath);
         }
         gvDynamicPhotos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0)
-                    selectFile(200);
+                if (position == 0){
+                   int num=10-pathList.size();
+                   if(num>0)
+                      selectFile(200,num);
+                   else{
+                       ToastUtil.showToast(DynamicPublishActivity.this,"最多只能上传9张图片");
+                   }
+                }
+
             }
         });
     }
 
-    private void selectFile(int code) {
+    private void selectFile(int code,int num) {
         Matisse
                 .from(this)
                 //选择视频和图片
@@ -173,7 +197,7 @@ public class DynamicPublishActivity extends AppCompatActivity {
                 //有序选择图片 123456...
                 .countable(true)
                 //最大选择数量为9
-                .maxSelectable(9)
+                .maxSelectable(num)
 
                 //选择方向
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
@@ -206,11 +230,17 @@ public class DynamicPublishActivity extends AppCompatActivity {
                         return;
                     }
                 } else if (mediatype.equals("pic")) {
+                    if(pathList.size()==1){
+                        ToastUtil.showToast(this,"请至少选择一张图片");
+                        return;
+                    }
+                    tv_pub.setEnabled(false);
+                    uploadImages(pathList);
 
                 } else if (mediatype.equals("video")) {
-
+                    initVideo();
                 }
-                publishDynamic();
+
                 break;
             case R.id.ll_look_permission:
                 startActivityForResult(new Intent(DynamicPublishActivity.this, DynamicLookPermissionActivity.class), 2);
@@ -259,12 +289,9 @@ public class DynamicPublishActivity extends AppCompatActivity {
 
                     break;
                 case 200:
-                    pathList.clear();
-                    pathList.add("");
-                    imgsUrl.clear();
+
                     pathList.addAll(Matisse.obtainPathResult(data));
                     adapter.notifyDataSetChanged();
-                    uploadImages(pathList);
                     break;
             }
         }
@@ -279,59 +306,73 @@ public class DynamicPublishActivity extends AppCompatActivity {
      * @param pathList
      */
     private void uploadImages(ArrayList<String> pathList) {
+        count=0;
+
         for (int i = 0; i < pathList.size(); i++) {
             if (!TextUtils.isEmpty(pathList.get(i))) {
                 File file = new File(pathList.get(i));
-                Log.e("path", file.getAbsolutePath());
-                if (file.exists()) {
-                    //fileList.add(file);
-                    upImage(PlatformContans.Commom.uploadImg, file);
-                }
+                Luban.with(this)
+                        .load(file)
+                        .ignoreBy(100)
+
+                        .filter(new CompressionPredicate() {
+                            @Override
+                            public boolean apply(String path) {
+                                return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                            }
+                        })
+                        .setCompressListener(new OnCompressListener() {
+                            @Override
+                            public void onStart() {
+                            }
+
+                            @Override
+                            public void onSuccess(File file) {
+                                //evaluationBeans.get(mTempPosition).getEvaluationImages().add(0,file);
+                                upImage(PlatformContans.Commom.uploadImg, file);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                            }
+                        }).launch();
+
             }
 
         }
+        finish();
         // upImages(PlatformContans.Commom.uploadImgs, fileList);
     }
 
     public void upImage(String url, File file) {
-
-        OkHttpClient mOkHttpClent = new OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(300, TimeUnit.SECONDS)
-                .writeTimeout(300, TimeUnit.SECONDS)
-                .build();
-
-        MultipartBody.Builder builder = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("image", file.getPath(),
-                        RequestBody.create(MediaType.parse("image/png"), file));
-        RequestBody requestBody = builder.build();
-        Request request = new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build();
-        Call call = mOkHttpClent.newCall(request);
-        call.enqueue(new Callback() {
+        NetUtils.getInstance().upLoadImage(url, file, new OnMessageReceived() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e("upload", "onResponse: " + e.getMessage());
-            }
+            public void onSuccess(String response) {
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String string = response.body().string();
-                Log.e("upload", "onResponse: " + string);
+                Log.e("upload", "onResponse: " + response);
                 try {
-                    JSONObject object = new JSONObject(string);
+                    JSONObject object = new JSONObject(response);
                     final String data = object.getString("data");
                     imgsUrl.add(data);
-                    imgs = listToString(imgsUrl);
+                    count++;
+                    if((pathList.size()-1)==count){
+                        count=0;
+                        publishDynamic();
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
+            @Override
+            public void onError(String error) {
+                Log.e("upload", "onResponse: " + error);
+
+            }
         });
+
+
     }
 
 
@@ -347,8 +388,8 @@ public class DynamicPublishActivity extends AppCompatActivity {
             params.put("content", content);
         }
 
-        if (!TextUtils.isEmpty(imgs)) {
-            params.put("imgs", imgs);
+        if (!TextUtils.isEmpty(listToString(imgsUrl))) {
+            params.put("imgs", listToString(imgsUrl));
         }
         if (!TextUtils.isEmpty(video)) {
             params.put("video", video);
@@ -388,9 +429,7 @@ public class DynamicPublishActivity extends AppCompatActivity {
                     String resultCode = jsonObject.getString("resultCode");
                     if (resultCode.equals("0")) {
                         Toast.makeText(DynamicPublishActivity.this, "发布成功", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent();
-                        setResult(RESULT_OK, intent);
-                        finish();
+
                     } else {
                         Toast.makeText(DynamicPublishActivity.this, "发布失败", Toast.LENGTH_SHORT).show();
                     }
@@ -410,7 +449,9 @@ public class DynamicPublishActivity extends AppCompatActivity {
      * List转String逗号分隔
      */
     private String listToString(ArrayList<String> list) {
-
+        if(list.size()==0){
+            return "";
+        }
         StringBuilder stringBuilder = new StringBuilder();
         for (String str : list) {
             stringBuilder.append(str);
@@ -423,36 +464,11 @@ public class DynamicPublishActivity extends AppCompatActivity {
     }
 
     public void upLoadVideo(String url, File file) {
-//        OkHttpClient mOkHttpClent = new OkHttpClient.Builder()
-//                .connectTimeout(30, TimeUnit.SECONDS)
-//                .readTimeout(300, TimeUnit.SECONDS)
-//                .writeTimeout(300, TimeUnit.SECONDS)
-//                .build();
-//        MultipartBody.Builder builder = new MultipartBody.Builder()
-//                .setType(MultipartBody.FORM)
-//                .addFormDataPart("file", "file",
-//                        RequestBody.create(MediaType.parse("multipart/form-data"), file));
-//        RequestBody requestBody = builder.build();
-//        Request request = new Request.Builder()
-//                .url(url)
-//                .post(requestBody)
-//                .build();
-//        Call call = mOkHttpClent.newCall(request);
-//        call.enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                Log.e("video", "onResponse: " + e.getMessage());
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//
-//
-//            }
-//        });
+
         NetUtils.getInstance().upLoadVideo(url, file, new OnMessageReceived() {
             @Override
             public void onSuccess(String response) {
+
                 String string = response;
                 Log.e("video", "onResponse: " + string);
                 try {
@@ -460,6 +476,7 @@ public class DynamicPublishActivity extends AppCompatActivity {
                     int resultCode = object.getInt("resultCode");
                     final String data = object.getString("data");
                     video = data;
+                    publishDynamic();
                     ///
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -468,9 +485,11 @@ public class DynamicPublishActivity extends AppCompatActivity {
 
             @Override
             public void onError(String error) {
+
                 Log.e("video", "onResponse: " + error);
             }
         });
+        finish();
     }
 
     private void initVideo() {
@@ -481,30 +500,14 @@ public class DynamicPublishActivity extends AppCompatActivity {
     }
 
     public void upThumbImage(String url, File file) {
-        OkHttpClient mOkHttpClent = new OkHttpClient();
 
-        MultipartBody.Builder builder = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("image", "image",
-                        RequestBody.create(MediaType.parse("image/png"), file));
-        RequestBody requestBody = builder.build();
-        Request request = new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build();
-        Call call = mOkHttpClent.newCall(request);
-        call.enqueue(new Callback() {
+        NetUtils.getInstance().upLoadImage(url, file, new OnMessageReceived() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e("vimg", "onResponse: " + e.getMessage());
-            }
+            public void onSuccess(String response) {
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String string = response.body().string();
-                Log.e("vimg", "onResponse: " + string);
+                Log.e("vimg", "onResponse: " + response);
                 try {
-                    JSONObject object = new JSONObject(string);
+                    JSONObject object = new JSONObject(response);
                     int resultCode = object.getInt("resultCode");
                     final String data = object.getString("data");
                     vimg = data;
@@ -513,6 +516,10 @@ public class DynamicPublishActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void onError(String error) {
 
             }
         });

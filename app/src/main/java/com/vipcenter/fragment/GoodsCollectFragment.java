@@ -1,6 +1,8 @@
 package com.vipcenter.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,6 +20,9 @@ import com.http.ICallBack;
 import com.maket.GoodDetailActivity;
 import com.maket.model.GoodList;
 import com.nohttp.sample.BaseFragment;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.vipcenter.adapter.GoodCollectAdapter;
@@ -43,6 +48,8 @@ import butterknife.ButterKnife;
 public class GoodsCollectFragment extends BaseFragment {
     @BindView(R.id.rv_collect)
     RecyclerView rv_collect;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout refreshLayout;
     List<GoodsCollect> mWashCollects ;
     GoodCollectAdapter mWashCollectAdapter;
     int page=1;
@@ -79,7 +86,19 @@ public class GoodsCollectFragment extends BaseFragment {
                 goodList.setCommodityImage(goodsCollect.getCommodityImage());
                 goodList.setName(goodsCollect.getCommodityName());
                 bundle.putSerializable("data",goodList);
-                ActivityAnimationUtils.commonTransition(getActivity(), GoodDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
+                Intent intent=new Intent(getContext(), GoodDetailActivity.class);
+                intent.putExtras(bundle);
+                startActivityForResult(intent,1);
+                //ActivityAnimationUtils.commonTransition(getActivity(), GoodDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
+            }
+        });
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page=1;
+                mWashCollects.clear();
+                mWashCollectAdapter.setNewData(mWashCollects);
+                getData();
             }
         });
         rv_collect.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -94,6 +113,7 @@ public class GoodsCollectFragment extends BaseFragment {
         HttpProxy.obtain().get(PlatformContans.Collect.getCommodityCollectionList, params, MyApplication.token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+                refreshLayout.finishRefresh();
                 Log.e("getGoods", page +"--"+result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -107,21 +127,18 @@ public class GoodsCollectFragment extends BaseFragment {
                             washCollects.add(baikeItem);
                             mWashCollects.add(baikeItem);
                         }
+                        mWashCollectAdapter.addData(washCollects);
                         if(isLoadMore){
                             isLoadMore=false;
-                            mWashCollectAdapter.addData(washCollects);
                             if(data.length()>0){
                                 mWashCollectAdapter.loadMoreComplete();
                             }else{
                                 mWashCollectAdapter.loadMoreEnd(true);
                             }
-
                         }else{
-                            mWashCollectAdapter.setNewData(mWashCollects);
+                            mWashCollectAdapter.loadMoreComplete();
 
                         }
-                    }else{
-                        mWashCollectAdapter.loadMoreEnd(true);
                     }
 
                 } catch (JSONException e) {

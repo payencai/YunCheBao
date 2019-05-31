@@ -123,7 +123,8 @@ public class FriendDetailActivity extends AppCompatActivity {
                             }
                         }
                     }
-                    tv_tag.setText(tag.replace("null"," "));
+                    if(!TextUtils.isEmpty(tag))
+                      tv_tag.setText(tag.replace("null"," "));
 
                 } catch (JSONException e) {
                     e.printStackTrace();

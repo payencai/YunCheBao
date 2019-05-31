@@ -59,10 +59,18 @@ public class NewPublishAdapter extends BaseQuickAdapter<NewPublish, BaseViewHold
             Glide.with(mContext).load(banner2).into(iv_car);
         }
 
-
-        if (item.getState() == 2) {
-            tv_state.setText("已完成");
-            tv_cancel.setVisibility(View.GONE);
+         if(item.getAudit()==3){
+             tv_state.setText("已拒绝");
+             tv_cancel.setVisibility(View.GONE);
+         }
+         else if (item.getAudit() == 2) {
+             if(item.getState()==1){
+                 tv_state.setText("售卖中");
+                 tv_state.setVisibility(View.VISIBLE);
+             }else{
+                 tv_state.setText("已完成");
+                 tv_cancel.setVisibility(View.GONE);
+             }
 
         }
 

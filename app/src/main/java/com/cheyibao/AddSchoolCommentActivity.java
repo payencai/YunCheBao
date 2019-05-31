@@ -118,7 +118,12 @@ public class AddSchoolCommentActivity extends AppCompatActivity {
     }
     private void initView() {
         mCarOrder = (CarOrder) getIntent().getSerializableExtra("item");
-
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         initGallery();
         iv_shop.setOnClickListener(new View.OnClickListener() {
             @Override

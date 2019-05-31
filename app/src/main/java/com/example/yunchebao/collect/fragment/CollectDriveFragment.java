@@ -2,6 +2,7 @@ package com.example.yunchebao.collect.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,6 +21,9 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +44,8 @@ import butterknife.ButterKnife;
 public class CollectDriveFragment extends BaseFragment {
     @BindView(R.id.rv_collect)
     RecyclerView rv_collect;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout refreshLayout;
     List<ReplaceDrive> mWashCollects ;
     ReplaceDriveAdapter mWashCollectAdapter;
     int page=1;
@@ -64,19 +70,36 @@ public class CollectDriveFragment extends BaseFragment {
                 getData();
             }
         },rv_collect);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page=1;
+                mWashCollects.clear();
+                mWashCollectAdapter.setNewData(mWashCollects);
+                getData();
+            }
+        });
         mWashCollectAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent=new Intent(getContext(), ReplaceDriveDetailActivity.class);
                 ReplaceDrive replaceDrive= (ReplaceDrive) adapter.getItem(position);
                 intent.putExtra("id",replaceDrive.getId());
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
         rv_collect.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_collect.setAdapter(mWashCollectAdapter);
         getData();
 
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        page=1;
+        mWashCollects.clear();
+        mWashCollectAdapter.setNewData(mWashCollects);
+        getData();
     }
     private void getData(){
 
@@ -85,6 +108,7 @@ public class CollectDriveFragment extends BaseFragment {
         HttpProxy.obtain().get(PlatformContans.Collect.getDriverCollectionList, params, MyApplication.token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+                refreshLayout.finishRefresh();
                 Log.e("getshop", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);

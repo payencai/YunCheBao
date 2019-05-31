@@ -160,27 +160,39 @@ public class BookWashCarFragment extends BaseFragment implements OnDateSetListen
         if(TextUtils.isEmpty(carCategory)){
             isOk=false;
             ToastUtil.showToast(getContext(),"请选择车型");
+            return  isOk;
         }
         if(mAddressBean==null){
             isOk=false;
             ToastUtil.showToast(getContext(),"车辆位置不能为空");
+            return  isOk;
         }
         if(TextUtils.equals("请选择时间",tv_time.getText().toString())){
             isOk=false;
             ToastUtil.showToast(getContext(),"请选择时间");
+            return  isOk;
         }
+
         if(TextUtils.isEmpty(et_detail.getEditableText().toString())){
             isOk=false;
             ToastUtil.showToast(getContext(),"详情不能为空");
+            return  isOk;
         }
 
         if(TextUtils.isEmpty(et_phone.getEditableText().toString())){
             isOk=false;
             ToastUtil.showToast(getContext(),"手机号不能为空");
+            return  isOk;
+        }
+        if(!et_phone.getEditableText().toString().substring(0,1).equals("1")){
+            isOk=false;
+            ToastUtil.showToast(getContext(),"请手机号格式不正确");
+            return  isOk;
         }
         if(TextUtils.isEmpty(et_note.getEditableText().toString())){
             isOk=false;
             ToastUtil.showToast(getContext(),"范围不能为空");
+            return  isOk;
         }
 
         return isOk;

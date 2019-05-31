@@ -102,7 +102,7 @@ public class WashCarDetailActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.washcar_shop_detail);
         ButterKnife.bind(this);
-        ImmersionBar.with(this).fitsSystemWindows(true).statusBarColor(R.color.transparent).init();
+
         mCarShop= (CarShop) getIntent().getExtras().getSerializable("data");
         id=getIntent().getStringExtra("id");
         type=getIntent().getExtras().getInt("flag");

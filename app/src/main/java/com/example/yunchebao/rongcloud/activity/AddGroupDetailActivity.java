@@ -107,7 +107,7 @@ public class AddGroupDetailActivity extends AppCompatActivity {
 
     private void apply(String reason, final Dialog dialog) {
         Map<String, Object> params = new HashMap<>();
-        params.put("crowdId", mGroup.getHxCrowdId());
+        params.put("crowdId", mGroup.getId()+"");
         params.put("applyReason", reason);
 
 

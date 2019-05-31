@@ -25,6 +25,7 @@ import com.common.MultipleStatusView;
 import com.coorchice.library.SuperTextView;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.cheyibao.rentcar.ShopDetailActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.http.HttpProxy;

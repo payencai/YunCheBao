@@ -1,5 +1,6 @@
 package com.bbcircle.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -84,15 +85,15 @@ public class WashCollectFragment extends BaseFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 WashCollect washCollect= (WashCollect) adapter.getItem(position);
-                Bundle bundle = new Bundle();
+                Intent intent=new Intent(getContext(), WashCarDetailActivity.class);
                 if(washCollect.getType()==1){
-                    bundle.putString("id",washCollect.getShopId());
-                    bundle.putInt("flag",1);
-                    ActivityAnimationUtils.commonTransition(getActivity(), WashCarDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
+                    intent.putExtra("id",washCollect.getShopId());
+                    intent.putExtra("flag",1);
+                    startActivityForResult(intent,2);
                 }else{
-                    bundle.putString("id",washCollect.getShopId());
-                    bundle.putInt("flag", 2);
-                    ActivityAnimationUtils.commonTransition(getActivity(), WashCarDetailActivity.class, ActivityConstans.Animation.FADE, bundle);
+                    intent.putExtra("id",washCollect.getShopId());
+                    intent.putExtra("flag",2);
+                    startActivityForResult(intent,1);
 
                 }
 
@@ -104,6 +105,16 @@ public class WashCollectFragment extends BaseFragment {
         getData();
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        page=1;
+        mWashCollects.clear();
+        mWashCollectAdapter.setNewData(mWashCollects);
+        getData();
+    }
+
     private void getData(){
 
         Map<String,Object> params=new HashMap<>();

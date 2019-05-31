@@ -2,6 +2,7 @@ package com.example.yunchebao.collect.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,6 +18,9 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.vipcenter.ShopMainListActivity;
 import com.vipcenter.adapter.ShopCollectListAdapter;
 import com.vipcenter.model.ShopCollect;
@@ -40,6 +44,8 @@ import butterknife.ButterKnife;
 public class ShopCollectListFragment extends BaseFragment {
     @BindView(R.id.rv_collect)
     RecyclerView rv_collect;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout refreshLayout;
     List<ShopCollect> mWashCollects ;
     ShopCollectListAdapter mWashCollectAdapter;
     int page=1;
@@ -52,7 +58,14 @@ public class ShopCollectListFragment extends BaseFragment {
         init();
         return rootView;
     }
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        page=1;
+        mWashCollects.clear();
+        mWashCollectAdapter.setNewData(mWashCollects);
+        getData();
+    }
     private void init() {
         mWashCollects=new ArrayList<>();
         mWashCollectAdapter=new ShopCollectListAdapter(R.layout.shop_collect_list_item,mWashCollects);
@@ -72,7 +85,16 @@ public class ShopCollectListFragment extends BaseFragment {
                 Bundle bundle=new Bundle();
                 bundle.putString("id",shopCollect.getShopId());
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent,1);
+            }
+        });
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page=1;
+                mWashCollects.clear();
+                mWashCollectAdapter.setNewData(mWashCollects);
+                getData();
             }
         });
         rv_collect.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -87,6 +109,7 @@ public class ShopCollectListFragment extends BaseFragment {
         HttpProxy.obtain().get(PlatformContans.Collect.getBabyMerchantCollectionList, params, MyApplication.token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+                refreshLayout.finishRefresh();
                 Log.e("getshop", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);

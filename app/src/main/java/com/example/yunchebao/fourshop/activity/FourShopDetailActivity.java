@@ -250,6 +250,9 @@ public class FourShopDetailActivity extends AppCompatActivity {
         isCollect();
         initTab();
         tv_time.setText("营业时间：" + mFourShopData.getAmStart() + "-" + mFourShopData.getPmStop());
+        if(TextUtils.isEmpty(mFourShopData.getAmStart())){
+            tv_time.setText("营业时间：8：30-18：30");
+        }
         tv_dis.setText(mFourShopData.getDistance() + "km");
         tv_score.setText("" + mFourShopData.getScore());
         tv_grade.setText("" + mFourShopData.getGrade());

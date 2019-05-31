@@ -1,4 +1,4 @@
-package com.cheyibao;
+package com.example.yunchebao.cheyibao.rentcar;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -37,15 +37,23 @@ import com.common.ConfirmDialog;
 import com.common.DialPhoneUtils;
 import com.example.yunchebao.MyApplication;
 import com.example.yunchebao.R;
-import com.example.yunchebao.fourshop.activity.FourShopDetailActivity;
+import com.example.yunchebao.net.Api;
+import com.example.yunchebao.net.NetUtils;
+import com.example.yunchebao.net.OnMessageReceived;
 import com.flyco.tablayout.SlidingTabLayout;
+import com.google.gson.Gson;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+import com.lljjcoder.style.citylist.Toast.ToastUtils;
+import com.lzy.okgo.model.HttpParams;
 import com.maket.adapter.GoodsOrderImageAdapter;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tool.MathUtil;
 import com.tool.view.HorizontalListView;
 import com.vipcenter.RegisterActivity;
 import com.xihubao.ShopInfoActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -113,29 +121,59 @@ public class ShopDetailActivity extends AppCompatActivity {
         rentShop = (RentShop) RentCarUtils.rentCarInfo.get(RentCarUtils.RENT_CAR_INFO_SHOP);
         initView();
     }
+    RentCarDetail rentCarDetail;
+    private void getDetail(){
+        HttpParams httpParams=new HttpParams();
+        httpParams.put("shopId",rentShop.getId());
+        NetUtils.getInstance().get( MyApplication.token,Api.CarRent.getRentCarShopById,httpParams , new OnMessageReceived() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    int code=jsonObject.getInt("resultCode");
+                    if(code==0){
+                        JSONObject data=jsonObject.getJSONObject("data");
+                        rentCarDetail=new Gson().fromJson(data.toString(),RentCarDetail.class);
+                        setUI();
+                    }else{
 
-    private void initView() {
-        shopNameView.setText(rentShop.getName());
-        gradeView.setText(String.format("%s", rentShop.getGrade()));
-        String time="营业时间:"+rentShop.getAmStart()+"-"+rentShop.getPmStop();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+    }
+    private void setUI(){
+        shopNameView.setText(rentCarDetail.getName());
+        gradeView.setText(String.format("%s", rentCarDetail.getGrade()));
+        sbScore.setRating((float) rentCarDetail.getScore());
+        String time="营业时间:"+rentCarDetail.getAmStart()+"-"+rentCarDetail.getPmStop();
         businessHoursView.setText(time.replace("null",""));
-        sbScore.setRating((float) rentShop.getScore());
-        if(TextUtils.isEmpty(rentShop.getAmStart())){
+        if(TextUtils.isEmpty(rentCarDetail.getAmStart())){
             businessHoursView.setText("营业时间:8:00-18:30");
         }
-        scoreView.setText(String.format("%s分", MathUtil.getDoubleTwo(rentShop.getScore())));
-        addressView.setText(String.format("%s%s%s%s", rentShop.getProvince(), rentShop.getCity(), rentShop.getArea(), rentShop.getAddress()));
-        phoneView.setText(rentShop.getSaleTelephone());
+       // ToastUtils.showLongToast(this,rentCarDetail.getId());
+        scoreView.setText(String.format("%s分", (int)(rentCarDetail.getScore())));
+        addressView.setText(String.format("%s%s%s%s", rentCarDetail.getProvince(), rentCarDetail.getCity(), rentCarDetail.getArea(), rentCarDetail.getAddress()));
+        phoneView.setText(rentCarDetail.getSaleTelephone());
         List<String> images = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555134766474&di=e9bf4c2cb0a08509a9b1b8088d7828b6&imgtype=0&src=http%3A%2F%2Fpic39.nipic.com%2F20140308%2F13085675_113419113000_2.jpg");
+            images.add("http://img02.tooopen.com/images/20150820/tooopen_sy_139083876216.jpg");
         }
         if (images.size() == 0) {
             photoListView.setVisibility(View.GONE);
         }
         adapter = new GoodsOrderImageAdapter(this, images);
         photoListView.setAdapter(adapter);
-
+    }
+    private void initView() {
+        getDetail();
         mFragments.add(new RentCarModelsFragment());
         mFragments.add(new RentShopComentFragment());
         tabLayout.setViewPager(viewpager, titles, this, mFragments);

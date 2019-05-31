@@ -2,6 +2,7 @@ package com.cheyibao.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,6 +19,9 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.system.adapter.SchoolCollectAdapter;
 import com.vipcenter.model.SchoolCollect;
 
@@ -35,7 +39,8 @@ import butterknife.ButterKnife;
 
 
 public class StudyListFragment extends BaseFragment {
-
+    @BindView(R.id.refresh)
+    SmartRefreshLayout refreshLayout;
     @BindView(R.id.rv_collect)
     RecyclerView rv_collect;
     List<SchoolCollect> mWashCollects ;
@@ -62,6 +67,15 @@ public class StudyListFragment extends BaseFragment {
                 getData();
             }
         });
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page=1;
+                mWashCollects.clear();
+                mWashCollectAdapter.setNewData(mWashCollects);
+                getData();
+            }
+        });
         mWashCollectAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -69,7 +83,7 @@ public class StudyListFragment extends BaseFragment {
                 String id=schoolCollect.getMerchantId();
                 Intent intent=new Intent(getContext(),DrivingSchoolActivity.class);
                 intent.putExtra("id",id);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
         rv_collect.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -77,6 +91,16 @@ public class StudyListFragment extends BaseFragment {
         getData();
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        page=1;
+        mWashCollects.clear();
+        mWashCollectAdapter.setNewData(mWashCollects);
+        getData();
+    }
+
     private void getData(){
 
         Map<String,Object> params=new HashMap<>();
@@ -84,6 +108,7 @@ public class StudyListFragment extends BaseFragment {
         HttpProxy.obtain().get(PlatformContans.Collect.getDrivingSchoolCollectionList, params, MyApplication.token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+                refreshLayout.finishRefresh();
                 Log.e("getNewCarCollectionList", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);

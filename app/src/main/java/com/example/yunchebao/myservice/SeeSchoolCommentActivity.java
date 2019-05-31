@@ -97,6 +97,12 @@ public class SeeSchoolCommentActivity extends AppCompatActivity {
         getDetail();
     }
     private void setData() {
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         Glide.with(this).load(mSchoolCommentDetail.getMerchantEvaluation().getHeadPortrait()).into(userhead);
         tv_shopname.setText(mSchoolCommentDetail.getMerchantEvaluation().getName());
         tv_shopcontent.setText(mSchoolCommentDetail.getMerchantEvaluation().getContent());

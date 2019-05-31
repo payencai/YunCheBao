@@ -514,7 +514,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         });
     }
 
-    boolean isIn = false;
+
     //获取群组成员90039d05-4b5e-4381-92a0-8346c6233afc
     private void getGroupData(String id) {
         Map<String, Object> params = new HashMap<>();
@@ -523,7 +523,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
         HttpProxy.obtain().get(PlatformContans.Chat.getCrowdDetailsByCrowdId, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("crowdId", result);
+                Log.e("getGroupData", result);
                 try {
                     JSONObject Json = new JSONObject(result);
                     JSONObject data = Json.getJSONObject("data");
@@ -532,21 +532,24 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                     String image = data.getString("image");
                     JSONArray indexList = data.getJSONArray("indexList");
                     String groupOwnerId = data.getString("crowdUserId");
-                    for (int i = 0; i < indexList.length(); i++) {
-                        JSONObject item = indexList.getJSONObject(i);
-                        ContactModel contactModel = new Gson().fromJson(item.toString(),ContactModel.class);
-                        Log.e("groupuser",contactModel.getUserId());
-                        if (MyApplication.getUserInfo().getId().equals(contactModel.getUserId())) {
-                            isIn = true;
-                            break;
-                        }
-                    }
+
 
                     if (groupOwnerId.equals(MyApplication.getUserInfo().getId())) {
                         Intent intent = new Intent(MainActivity.this, MyGroupDetailActivity.class);
                         intent.putExtra("id", crowId);
                         startActivity(intent);
                     } else {
+                        boolean isIn = false;
+                        for (int i = 0; i < indexList.length(); i++) {
+                            JSONObject item = indexList.getJSONObject(i);
+                            ContactModel contactModel = new Gson().fromJson(item.toString(),ContactModel.class);
+                            Log.e("groupuser",contactModel.getUserId());
+                            Log.e("Myuserid",MyApplication.getUserInfo().getId());
+                            if (TextUtils.equals(contactModel.getUserId(),MyApplication.getUserInfo().getId())) {
+                                isIn = true;
+                                break;
+                            }
+                        }
                         if (isIn) {
                             Intent intent = new Intent(MainActivity.this, GroupDetailActivity.class);
                             intent.putExtra("id", crowId);

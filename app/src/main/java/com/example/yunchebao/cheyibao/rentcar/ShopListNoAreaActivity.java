@@ -1,4 +1,4 @@
-package com.cheyibao;
+package com.example.yunchebao.cheyibao.rentcar;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cheyibao.RentCarOrderActivity;
 import com.example.yunchebao.MyApplication;
 import com.cheyibao.adapter.RentShopAdapter;
 import com.cheyibao.model.RentCarModel;

@@ -1,6 +1,8 @@
 package com.vipcenter.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,6 +23,9 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.nohttp.sample.BaseFragment;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.vipcenter.adapter.ArticleListAdapter;
@@ -44,6 +49,8 @@ import butterknife.ButterKnife;
 public class ArticleFragment extends BaseFragment {
     @BindView(R.id.rv_collect)
     RecyclerView rv_collect;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout refreshLayout;
     List<PhoneArticleEntity> mWashCollects ;
     ArticleListAdapter mWashCollectAdapter;
     int page=1;
@@ -68,26 +75,42 @@ public class ArticleFragment extends BaseFragment {
                 getData();
             }
         });
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page=1;
+                mWashCollects.clear();
+                mWashCollectAdapter.setNewData(mWashCollects);
+                getData();
+            }
+        });
         mWashCollectAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 PhoneArticleEntity item= (PhoneArticleEntity) adapter.getItem(position);
-                Bundle bundle=new Bundle();
-                bundle.putInt("id",item.getCircleId());
-                bundle.putInt("type",item.getType());
+
+                Intent intent;
                 switch (item.getType()){
                     case 1:
-                        ActivityAnimationUtils.commonTransition(getActivity(), DrivingSelfDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
+                        intent=new Intent(getContext(), DrivingSelfDetailActivity.class);
+                        intent.putExtra("id",item.getCircleId()+"");
+                        intent.putExtra("type",item.getType());
+                        startActivityForResult(intent,2);
+                        //ActivityAnimationUtils.commonTransition(getActivity(), DrivingSelfDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
                         break;
                     case 2:
-                        ActivityAnimationUtils.commonTransition(getActivity(), DriverFriendsDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
+                        intent=new Intent(getContext(), DriverFriendsDetailActivity.class);
+                        intent.putExtra("id",item.getCircleId()+"");
+                        intent.putExtra("type",item.getType());
+                        startActivityForResult(intent,1);
+                        //ActivityAnimationUtils.commonTransition(getActivity(), DriverFriendsDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
                         break;
-                    case 3:
-                        ActivityAnimationUtils.commonTransition(getActivity(), CarShowDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
-                        break;
-                    case 4:
-                        ActivityAnimationUtils.commonTransition(getActivity(), RaceDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
-                        break;
+//                    case 3:
+//                        ActivityAnimationUtils.commonTransition(getActivity(), CarShowDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
+//                        break;
+//                    case 4:
+//                        ActivityAnimationUtils.commonTransition(getActivity(), RaceDetailActivity.class, ActivityConstans.Animation.FADE,bundle);
+//                        break;
                 }
             }
 
@@ -98,6 +121,16 @@ public class ArticleFragment extends BaseFragment {
         getData();
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        page=1;
+        mWashCollects.clear();
+        mWashCollectAdapter.setNewData(mWashCollects);
+        getData();
+    }
+
     private void getData(){
 
         Map<String,Object> params=new HashMap<>();
@@ -105,6 +138,7 @@ public class ArticleFragment extends BaseFragment {
         HttpProxy.obtain().get(PlatformContans.Collect.getBabyCollection, params, MyApplication.token,new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+                refreshLayout.finishRefresh();
                 Log.e("getNewCarCollectionList", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);

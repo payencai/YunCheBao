@@ -36,126 +36,142 @@
             android:layout_height="25dp" />
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/et_dynamic_text"
-        android:gravity="start"
-        android:textSize="15sp"
-        android:hint="此刻您想说什么···"
-        android:maxLength="255"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:background="@null"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="120dp"/>
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <FrameLayout
-            android:id="@+id/frame_video_player"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent">
+         <android.support.v4.widget.NestedScrollView
+             android:layout_marginBottom="20dp"
+             android:layout_width="match_parent"
+             android:layout_above="@id/ll_bottom"
+             android:layout_height="match_parent">
+             <LinearLayout
+                 android:orientation="vertical"
 
-            <com.bbcircle.view.SampleCoverVideo
-                android:id="@+id/sampleCoverVideo"
-                android:layout_width="match_parent"
-                android:layout_height="220dp" />
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+                 <EditText
+                     android:id="@+id/et_dynamic_text"
+                     android:gravity="start"
+                     android:textSize="15sp"
+                     android:hint="此刻您想说什么···"
+                     android:maxLength="255"
+                     android:paddingTop="15dp"
+                     android:paddingBottom="15dp"
+                     android:background="@null"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:minHeight="120dp"/>
+                 <FrameLayout
+                     android:id="@+id/frame_video_player"
+                     android:visibility="gone"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/iv_play"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:layout_gravity="center"
-                android:scaleType="fitXY"
-                android:src="@mipmap/play" />
-        </FrameLayout>
+                     <com.bbcircle.view.SampleCoverVideo
+                         android:id="@+id/sampleCoverVideo"
+                         android:layout_width="match_parent"
+                         android:layout_height="220dp" />
 
-        <GridView
-            android:visibility="gone"
-            android:id="@+id/gv_dynamic_photos"
-            android:layout_width="match_parent"
-            android:layout_height="340dp"
-            android:listSelector="@android:color/transparent"
-            tools:listitem="@layout/item_dynamic_photo"
-            android:numColumns="3"
-            android:scrollbars="none"
-            android:verticalSpacing="9dp" />
+                     <ImageView
+                         android:id="@+id/iv_play"
+                         android:layout_width="44dp"
+                         android:layout_height="44dp"
+                         android:layout_gravity="center"
+                         android:scaleType="fitXY"
+                         android:src="@mipmap/play" />
+                 </FrameLayout>
+                 <com.tool.view.GridViewForScrollView
+                     android:visibility="gone"
+                     android:id="@+id/gv_dynamic_photos"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:listSelector="@android:color/transparent"
+                     tools:listitem="@layout/item_dynamic_photo"
+                     android:numColumns="3"
+                     android:scrollbars="none"
+                     android:verticalSpacing="9dp" />
+             </LinearLayout>
+         </android.support.v4.widget.NestedScrollView>
 
-    </LinearLayout>
+         <LinearLayout
+             android:id="@+id/ll_bottom"
+             android:orientation="vertical"
+             android:layout_alignParentBottom="true"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+             <LinearLayout
+                 android:id="@+id/ll_look_permission"
+                 android:paddingTop="17dp"
+                 android:paddingBottom="17dp"
+                 android:orientation="horizontal"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
+                 <ImageView
+                     android:id="@+id/iv_head"
+                     android:src="@mipmap/green_head"
+                     android:layout_width="17dp"
+                     android:layout_height="19dp" />
 
-    <LinearLayout
-        android:id="@+id/ll_look_permission"
-        android:paddingTop="17dp"
-        android:paddingBottom="17dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/iv_head"
-            android:src="@mipmap/green_head"
-            android:layout_width="17dp"
-            android:layout_height="19dp" />
+                 <TextView
+                     android:id="@+id/tv_who_can_look"
+                     android:text="谁可以看"
+                     android:layout_marginLeft="16dp"
+                     android:textColor="@color/text_green"
+                     android:textSize="15sp"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content" />
+                 <TextView
+                     android:gravity="right"
+                     android:layout_weight="1"
+                     android:maxLines="1"
+                     android:ellipsize="end"
+                     android:id="@+id/tv_look_permission"
+                     android:layout_marginRight="10dp"
+                     android:text="公开"
+                     android:layout_marginLeft="17dp"
+                     android:textColor="@color/text_green"
+                     android:textSize="15sp"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/tv_who_can_look"
-            android:text="谁可以看"
-            android:layout_marginLeft="16dp"
-            android:textColor="@color/text_green"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:gravity="right"
-            android:layout_weight="1"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:id="@+id/tv_look_permission"
-            android:layout_marginRight="10dp"
-            android:text="公开"
-            android:layout_marginLeft="17dp"
-            android:textColor="@color/text_green"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+                 <ImageView
+                     android:src="@mipmap/choose_right"
+                     android:layout_width="11dp"
+                     android:layout_height="19dp" />
 
-        <ImageView
-            android:src="@mipmap/choose_right"
-            android:layout_width="11dp"
-            android:layout_height="19dp" />
+             </LinearLayout>
 
-    </LinearLayout>
+             <LinearLayout
+                 android:id="@+id/ll_user_location"
+                 android:paddingTop="17dp"
+                 android:paddingBottom="17dp"
+                 android:orientation="horizontal"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
+                 <ImageView
+                     android:src="@mipmap/green_location"
+                     android:layout_width="17dp"
+                     android:layout_height="19dp" />
 
-    <LinearLayout
-        android:id="@+id/ll_user_location"
-        android:paddingTop="17dp"
-        android:paddingBottom="17dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:src="@mipmap/green_location"
-            android:layout_width="17dp"
-            android:layout_height="19dp" />
+                 <TextView
+                     android:id="@+id/tv_location"
+                     android:text="位置"
+                     android:layout_marginLeft="16dp"
+                     android:textColor="@color/text_green"
+                     android:textSize="15sp"
+                     android:layout_weight="1"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/tv_location"
-            android:text="位置"
-            android:layout_marginLeft="16dp"
-            android:textColor="@color/text_green"
-            android:textSize="15sp"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+                 <ImageView
+                     android:src="@mipmap/choose_right"
+                     android:layout_width="11dp"
+                     android:layout_height="19dp" />
 
-        <ImageView
-            android:src="@mipmap/choose_right"
-            android:layout_width="11dp"
-            android:layout_height="19dp" />
+             </LinearLayout>
+         </LinearLayout>
+     </RelativeLayout>
 
-    </LinearLayout>
 
 </LinearLayout>
