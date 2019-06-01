@@ -3,6 +3,7 @@ package com.xihubao;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -46,6 +47,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 
 public class ShopInfoActivity extends AppCompatActivity {
     String id;
@@ -213,6 +215,8 @@ public class ShopInfoActivity extends AppCompatActivity {
     List<String> mImages = new ArrayList<>();
 
     private void setData() {
+        UserInfo userInfo=new UserInfo(mShopInfo.getId(),mShopInfo.getName(), Uri.parse(mShopInfo.getHeadPortrait()));
+        RongIM.getInstance().refreshUserInfoCache(userInfo);
         String images = mShopInfo.getImgs();
         if (!TextUtils.isEmpty(images)) {
             if (images.contains(",")) {
@@ -225,6 +229,7 @@ public class ShopInfoActivity extends AppCompatActivity {
             }
             initBanner();
         }
+
         String address = mShopInfo.getProvince() + mShopInfo.getCity() + mShopInfo.getArea();
         tv_home.setText(address.replace("null", ""));
         tv_nick.setText(mShopInfo.getName());

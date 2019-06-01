@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="15dp"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:padding="5dp"
+        android:background="@drawable/item_agree_yellow"
+        android:layout_centerInParent="true"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/ll_notice"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <com.payencai.library.view.CircleImageView
+                android:id="@+id/iv_head"
+                android:scaleType="fitXY"
+                android:src="@mipmap/pic1"
+                android:layout_width="25dp"
+                android:layout_height="25dp" />
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="8dp"
+                android:text="1条新消息"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/enter"
+            android:layout_width="8dp"
+            android:layout_height="8dp" />
+
+    </RelativeLayout>
+</RelativeLayout>

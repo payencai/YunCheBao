@@ -32,7 +32,7 @@ public class YuedanAdapter extends BaseQuickAdapter<YueOrder,BaseViewHolder> {
         SuperTextView fukuan=helper.getView(R.id.fukuan);
         TextView tv_time=helper.getView(R.id.tv_time);
         tv_name.setText(item.getShopName());
-        tv_time.setText("发布时间: "+item.getAppointmentTime());
+        tv_time.setText("发布时间: "+item.getCreateTime());
         if(item.getState()==2){
             fukuan.setVisibility(View.GONE);
         }

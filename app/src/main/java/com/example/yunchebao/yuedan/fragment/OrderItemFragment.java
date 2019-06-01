@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +33,9 @@ import com.maket.GoodsPayActivity;
 import com.payencai.library.util.ToastUtil;
 import com.example.yunchebao.yuedan.adapter.YuedanAdapter;
 import com.example.yunchebao.yuedan.model.YueOrder;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,6 +56,8 @@ public class OrderItemFragment extends Fragment {
 
    @BindView(R.id.rv_content)
     RecyclerView rv_content;
+   @BindView(R.id.refresh)
+    SmartRefreshLayout smartRefreshLayout;
     List<YueOrder> mYueOrders;
     YuedanAdapter mYuedanAdapter;
     int page=1;
@@ -90,6 +96,12 @@ public class OrderItemFragment extends Fragment {
                 }else if(view.getId()==R.id.delete){
                     deleteOrder(yueOrder.getId());
                 }
+            }
+        });
+        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+
             }
         });
         rv_content.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -181,19 +193,14 @@ public class OrderItemFragment extends Fragment {
 
     }
     private void getData() {
-        String token = "";
-        if (MyApplication.isLogin) {
-            token = MyApplication.token;
-        } else {
-            return;
-        }
+
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
         params.put("state", state);
-        HttpProxy.obtain().get(PlatformContans.Appointment.getMyAppointmentList, params, token, new ICallBack() {
+        HttpProxy.obtain().get(PlatformContans.Appointment.getMyAppointmentList, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                Log.e("getGoodList", result);
+                Log.e("getMyAppointmentList", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray data = jsonObject.getJSONArray("data");

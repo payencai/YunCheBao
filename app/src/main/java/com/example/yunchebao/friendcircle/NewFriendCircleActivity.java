@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -40,10 +41,16 @@ import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.lljjcoder.style.citylist.Toast.ToastUtils;
 import com.newversion.CircleData;
 import com.newversion.DynamicPublishActivity;
 import com.newversion.MediaFileUtil;
 import com.newversion.RecordVideoActivity;
+import com.payencai.library.util.ToastUtil;
+import com.payencai.library.view.CircleImageView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tool.GlideImageEngine;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -73,8 +80,8 @@ public class NewFriendCircleActivity extends AppCompatActivity {
     ImageView iv_headpic;
     @BindView(R.id.tv_name)
     TextView tv_name;
-    @BindView(R.id.sr_refresh)
-    SwipeRefreshLayout sr_refresh;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout sr_refresh;
     @BindView(R.id.appbar)
     AppBarLayout mAppBarLayout;
     @BindView(R.id.bg_img)
@@ -96,15 +103,19 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         ImmersionBar.with(this).autoDarkModeEnable(true).init();
         userId = getIntent().getStringExtra("userId");
         initView();
+        if(TextUtils.isEmpty(userId))
+            getNoticeCount();
         clearNoticeImage();
-        clearMsgNotice();
+
+       // clearMsgNotice();
     }
-    private void clearNoticeImage(){
-        if(MyApplication.isLogin)
-            NetUtils.getInstance().postByToken( Api.CommunicationCircle.clearCommunicationImage,MyApplication.token,  new OnMessageReceived() {
+
+    private void clearNoticeImage() {
+        if (MyApplication.isLogin)
+            NetUtils.getInstance().postByToken(Api.CommunicationCircle.clearCommunicationImage, MyApplication.token, new OnMessageReceived() {
                 @Override
                 public void onSuccess(String response) {
-                    Log.e("clearCommunicationImage",response);
+                    Log.e("clearCommunicationImage", response);
 
                     try {
                         JSONObject jsonObject = new JSONObject(response);
@@ -123,12 +134,13 @@ public class NewFriendCircleActivity extends AppCompatActivity {
                 }
             });
     }
-    private void clearMsgNotice(){
-        if(MyApplication.isLogin)
-            NetUtils.getInstance().postByToken( Api.CommunicationCircle.clearCommunicationShowNotice,MyApplication.token,  new OnMessageReceived() {
+
+    private void clearMsgNotice() {
+        if (MyApplication.isLogin)
+            NetUtils.getInstance().postByToken(Api.CommunicationCircle.clearCommunicationShowNotice, MyApplication.token, new OnMessageReceived() {
                 @Override
                 public void onSuccess(String response) {
-                    Log.e("clearMsgNotice",response);
+                    Log.e("clearMsgNotice", response);
 
                     try {
                         JSONObject jsonObject = new JSONObject(response);
@@ -147,6 +159,7 @@ public class NewFriendCircleActivity extends AppCompatActivity {
                 }
             });
     }
+
     @OnClick({R.id.iv_back, R.id.iv_publish, R.id.iv_headpic})
     void OnClick(View view) {
         switch (view.getId()) {
@@ -154,7 +167,15 @@ public class NewFriendCircleActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.iv_publish:
-                showPublishTypeDialog();
+                if(!TextUtils.isEmpty(userId)){
+                    if(MyApplication.getUserInfo().getId().equals(userId)){
+                        showNoticfeDialog();
+                    }else{
+                        showPublishTypeDialog();
+                    }
+                }else{
+                    showPublishTypeDialog();
+                }
                 break;
             case R.id.iv_headpic:
 
@@ -235,6 +256,47 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         window.setAttributes(params);
 
     }
+
+
+    /**
+     * 展示发表动态类型弹窗
+     */
+    private void showNoticfeDialog() {
+        View view = this.getLayoutInflater().inflate(R.layout.dialog_publish_notice, null);
+
+        final Dialog dialog = new Dialog(this, R.style.MyDialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable());
+        dialog.setContentView(view);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+
+        TextView tv_dynamic_text = (TextView) view.findViewById(R.id.tv_dynamic_text);
+
+
+        tv_dynamic_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        TextView tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams params = window.getAttributes();
+        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(params);
+
+    }
+
 
     private void openCamera() {
         Intent intent = new Intent();
@@ -360,7 +422,9 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         tv_nickname.setText(userMsg.getName());
         Glide.with(this).load(userMsg.getBackground()).into(friend_background);
     }
-
+    View header;
+    TextView tv_num;
+    CircleImageView iv_head;
     private void initView() {
         mAppBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
             @Override
@@ -378,9 +442,18 @@ public class NewFriendCircleActivity extends AppCompatActivity {
                 }
             }
         });
-        sr_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        if(!TextUtils.isEmpty(userId)){
+            if(MyApplication.getUserInfo().getId().equals(userId))
+                iv_publish.setImageResource(R.mipmap.ic_white_more);
+            else{
+                iv_publish.setVisibility(View.GONE);
+            }
+        }else{
+            iv_publish.setImageResource(R.mipmap.camera_publish);
+        }
+        sr_refresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 page = 1;
                 mCircleData.clear();
                 mCircleDataAdapter.setNewData(mCircleData);
@@ -418,7 +491,50 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         getData(true);
 
     }
+    private void getNoticeCount(){
+        if(MyApplication.isIsLogin())
+            NetUtils.getInstance().get( MyApplication.token,Api.CommunicationCircle.getShowNoticeList, new OnMessageReceived() {
+                @Override
+                public void onSuccess(String response) {
+                    Log.e("getNoticeCount",response);
 
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        int code = jsonObject.getInt("resultCode");
+                        if (code == 0) {
+                            JSONArray data = jsonObject.getJSONArray("data");
+                            if(data!=null&&data.length()>0){
+                                JSONObject item=data.getJSONObject(0);
+                                String headPortrait=item.getString("headPortrait");
+                                header=LayoutInflater.from(NewFriendCircleActivity.this).inflate(R.layout.header_circle,null);
+                                tv_num=header.findViewById(R.id.tv_num);
+                                iv_head=header.findViewById(R.id.iv_head);
+                                header.findViewById(R.id.ll_notice).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                    }
+                                });
+                                Glide.with(NewFriendCircleActivity.this).load(headPortrait).into(iv_head);
+                                tv_num.setText(data.length()+"条新消息");
+                                mCircleDataAdapter.addHeaderView(header);
+                            }else{
+
+                            }
+
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(String error) {
+
+                }
+            });
+    }
     private void getFriendType() {
         if (!TextUtils.isEmpty(userId)) {
             if (userId.equals(MyApplication.getUserInfo().getId())) {
@@ -472,9 +588,7 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         HttpProxy.obtain().get(url, params, MyApplication.token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
-                if (sr_refresh.isRefreshing()) {
-                    sr_refresh.setRefreshing(false);
-                }
+                sr_refresh.finishRefresh();
                 Log.e("getCircleList", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -528,13 +642,13 @@ public class NewFriendCircleActivity extends AppCompatActivity {
         contentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = 0; i < mCircleDataAdapter.getData().size(); i++) {
-                    if (circleId.equals(mCircleDataAdapter.getData().get(i).getId())) {
-                        mCircleDataAdapter.remove(i);
-                        //circleAdapter.notifyDataSetChanged();
-                        break;
-                    }
-                }
+//                for (int i = 0; i < mCircleDataAdapter.getData().size(); i++) {
+////                    if (circleId.equals(mCircleDataAdapter.getData().get(i).getId())) {
+////                        mCircleDataAdapter.remove(i);
+////                        //mCircleDataAdapter.notifyDataSetChanged();
+////                        break;
+////                    }
+////                }
 
                 popupWindow.dismiss();
                 deleteFriendsCircle(circleId);
@@ -566,6 +680,10 @@ public class NewFriendCircleActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String resultCode = jsonObject.getString("resultCode");
                     if (resultCode.equals("0")) {
+                        page = 1;
+                        mCircleData.clear();
+                        mCircleDataAdapter.setNewData(mCircleData);
+                        getData(true);
                         Toast.makeText(NewFriendCircleActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(NewFriendCircleActivity.this, "删除失败", Toast.LENGTH_SHORT).show();

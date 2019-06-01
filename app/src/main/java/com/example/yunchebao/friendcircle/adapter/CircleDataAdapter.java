@@ -2,6 +2,7 @@ package com.example.yunchebao.friendcircle.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.Display;
@@ -11,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.yunchebao.MyApplication;
@@ -19,7 +21,11 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.yunchebao.R;
+import com.example.yunchebao.drive.activity.SimplePlayerActivity;
 import com.example.yunchebao.friendcircle.NewFriendCircleActivity;
+import com.example.yunchebao.washrepair.NewWashrepairDetailActivity;
+import com.github.chrisbanes.photoview.PhotoView;
+import com.github.chrisbanes.photoview.PhotoViewAttacher;
 import com.luffy.imagepreviewlib.core.PictureConfig;
 import com.newversion.CircleData;
 
@@ -67,12 +73,14 @@ public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHold
         TextView content = (TextView) helper.getView(R.id.tv_dynamic_content);
         TextView tv_location = (TextView) helper.getView(R.id.tv_location);
         FrameLayout frame_video_player = (FrameLayout) helper.getView(R.id.frame_video_player);
-        SampleCoverVideo sampleCoverVideo = (SampleCoverVideo) helper.getView(R.id.sampleCoverVideo);
+
         ImageView iv_play = (ImageView) helper.getView(R.id.iv_play);
 
         MyGridView gvDynamicPhotos = (MyGridView) helper.getView(R.id.gv_dynamic_photos);
 
         ImageView ivVimg = (ImageView) helper.getView(R.id.iv_vimg);
+        ImageView iv_video = (ImageView) helper.getView(R.id.iv_video);
+
         ImageView iv_delete = (ImageView) helper.getView(R.id.iv_delete);
         ImageView iv_replay = (ImageView) helper.getView(R.id.iv_replay);
         LikesView likeView = (LikesView) helper.getView(R.id.likeView);
@@ -106,7 +114,15 @@ public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHold
         if(!TextUtils.isEmpty(item.getAddress())){
             tv_location.setText(item.getAddress());
         }
-
+        frame_video_player.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, SimplePlayerActivity.class);
+                intent.putExtra("img", item.getVimg());
+                intent.putExtra("video", item.getVideo());
+                mContext.startActivity(intent);
+            }
+        });
         likeView.setListener(new LikesView.onItemClickListener() {
             @Override
             public void onItemClick(CircleData.ClickListBean bean) {
@@ -132,13 +148,6 @@ public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHold
             if (item.getImgs().split(",").length == 1) {//只有一张图片（宽高自适应）
                 gvDynamicPhotos.setVisibility(View.GONE);
                 ivVimg.setVisibility(View.VISIBLE);
-
-                WindowManager manager = (WindowManager) mContext
-                        .getSystemService(Context.WINDOW_SERVICE);
-                Display display = manager.getDefaultDisplay();
-                ViewGroup.LayoutParams l = ivVimg.getLayoutParams();
-                l.width = display.getWidth() / 2;
-
                 Glide.with(mContext).load(item.getImgs().split(",")[0]).into(ivVimg);
             } else {//2张及以上图片，用九宫格展示
                 gvDynamicPhotos.setVisibility(View.VISIBLE);
@@ -166,21 +175,9 @@ public class CircleDataAdapter extends BaseQuickAdapter<CircleData, BaseViewHold
             dynamicType = 1;//视频说说
             gvDynamicPhotos.setVisibility(View.GONE);
             frame_video_player.setVisibility(View.VISIBLE);
-
             String videoPath = item.getVideo();
-            sampleCoverVideo.setUpLazy(videoPath, true, null, null, "");
-            sampleCoverVideo.getTitleTextView().setVisibility(View.GONE);
-            sampleCoverVideo.getBackButton().setVisibility(View.GONE);
-
-            sampleCoverVideo.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    iv_play.setVisibility(View.GONE);
-                    sampleCoverVideo.startWindowFullscreen(v.getContext(), false, true);
-                }
-            });
-            sampleCoverVideo.loadCoverImage(videoPath, R.mipmap.pic1);
-
+            String vimg=item.getVimg();
+            Glide.with(mContext).load(vimg).into(iv_video);
         } else if (item.getType() == 2) {
             dynamicType = 2;//转发链接
             frame_video_player.setVisibility(View.GONE);

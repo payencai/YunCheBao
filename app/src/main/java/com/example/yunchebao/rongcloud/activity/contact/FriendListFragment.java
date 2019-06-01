@@ -2,6 +2,7 @@ package com.example.yunchebao.rongcloud.activity.contact;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -40,6 +41,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -93,6 +96,8 @@ public class FriendListFragment extends Fragment {
                             contactModel.setNickName(item.getString("nickName"));
                             contactModel.setSelect(false);
                             mContactModels.add(contactModel);
+                            UserInfo userInfo=new UserInfo(contactModel.getUserId(),contactModel.getName(), Uri.parse(contactModel.getHeadPortrait()));
+                            RongIM.getInstance().refreshUserInfoCache(userInfo);
                         }
                         //mContactModels.addAll(ContactModel.getContacts());
                         mShowModels.addAll(mContactModels);

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:padding="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.payencai.library.view.CircleImageView
+        android:scaleType="fitXY"
+        android:id="@+id/iv_head"
+        android:src="@mipmap/ic_default_head"
+        android:layout_width="35dp"
+        android:layout_height="35dp" />
+    <RelativeLayout
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_name"
+                android:textSize="14sp"
+                android:textColor="@color/black_33"
+                android:text="李白"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_reply"
+                    android:textSize="12sp"
+                    android:textColor="@color/black_33"
+                    android:text="哈哈哈哈哈哈哈哈哈"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/tv_praise"
+                    android:visibility="gone"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/icon_praise_selected" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_marginTop="5dp"
+                android:textSize="12sp"
+                android:textColor="@color/gray_99"
+                android:text="2019-05-22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/rl_video"
+                android:layout_width="45dp"
+                android:layout_height="50dp">
+                <ImageView
+                    android:id="@+id/iv_video"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/pic1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:id="@+id/iv_play"
+                    android:layout_centerInParent="true"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/play" />
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_title"
+                android:visibility="gone"
+                android:maxLength="6"
+                android:padding="5dp"
+                android:background="#f3f3f3"
+                android:textSize="12sp"
+                android:text="哈哈哈哈发稿费"
+                android:layout_width="50dp"
+                android:layout_height="40dp" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

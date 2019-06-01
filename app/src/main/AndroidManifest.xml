@@ -71,7 +71,9 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".rongcloud.activity.SeePictureActivity"></activity>
+        <activity android:name=".friendcircle.NewNoticeActivity"></activity>
+        <activity android:name=".friendcircle.MyNoticeActivity" />
+        <activity android:name=".rongcloud.activity.SeePictureActivity" />
         <activity android:name=".yuedan.SelectCarTypeActivity" />
         <activity android:name="com.vipcenter.FindPwdActivity" />
         <activity android:name=".drive.activity.DriverDetailActivity" />
@@ -117,8 +119,8 @@
             android:name=".road.PubRoadActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
-            android:launchMode="singleTop"
-            android:name=".rongcloud.activity.NearbyActivity" />
+            android:name=".rongcloud.activity.NearbyActivity"
+            android:launchMode="singleTop" />
         <activity android:name=".fourshop.activity.SeeCommentActivity" />
         <activity android:name=".fourshop.activity.AddFourCommentActivity" />
         <activity android:name=".fourshop.activity.CarDetailActivity" />
@@ -225,8 +227,8 @@
         <activity android:name=".driverschool.DrivingSchoolActivity" />
         <activity android:name=".cheyibao.oldcar.SellCarActivity" />
         <activity
-            android:windowSoftInputMode="adjustPan"
-            android:name="com.cheyibao.SellCarInfoImproveActivity" />
+            android:name="com.cheyibao.SellCarInfoImproveActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.cheyibao.OldCarDetailActivity" />
         <activity android:name="com.cheyibao.OldCarPersonDetailActivity" />
         <activity android:name="com.cheyibao.OldCarConfigDetailActivity" />
@@ -269,8 +271,8 @@
         <activity android:name="com.maket.MarketSelectActivity" /> <!-- 个人中心 -->
         <activity android:name="com.vipcenter.UserCenterActivity" />
         <activity
-            android:theme="@style/PayTheme"
-            android:name="com.vipcenter.MyWalletActivity" />
+            android:name="com.vipcenter.MyWalletActivity"
+            android:theme="@style/PayTheme" />
         <activity android:name="com.vipcenter.ConsumptionListActivity" />
         <activity android:name="com.vipcenter.ConsumptionDetailActivity" />
         <activity android:name="com.vipcenter.DepositListActivity" />
