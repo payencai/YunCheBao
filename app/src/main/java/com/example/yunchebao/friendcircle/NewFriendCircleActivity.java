@@ -332,6 +332,9 @@ public class NewFriendCircleActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==201){
+            mCircleDataAdapter.removeAllHeaderView();
+        }
         if (data != null) {
             switch (requestCode) {
                 case 101:
@@ -512,12 +515,12 @@ public class NewFriendCircleActivity extends AppCompatActivity {
                                 header.findViewById(R.id.ll_notice).setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-
+                                        startActivityForResult(new Intent(NewFriendCircleActivity.this,NewNoticeActivity.class),201);
                                     }
                                 });
                                 Glide.with(NewFriendCircleActivity.this).load(headPortrait).into(iv_head);
                                 tv_num.setText(data.length()+"条新消息");
-                                mCircleDataAdapter.addHeaderView(header);
+                                mCircleDataAdapter.setHeaderView(header);
                             }else{
 
                             }
@@ -535,6 +538,7 @@ public class NewFriendCircleActivity extends AppCompatActivity {
                 }
             });
     }
+
     private void getFriendType() {
         if (!TextUtils.isEmpty(userId)) {
             if (userId.equals(MyApplication.getUserInfo().getId())) {

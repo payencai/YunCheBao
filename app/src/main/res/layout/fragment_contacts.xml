@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_below="@+id/rl_head"
+        android:id="@+id/head"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <RelativeLayout
+            android:background="@drawable/grey_shape"
+
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:id="@+id/iv_search"
+                    android:layout_marginLeft="15dp"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/search_icon"
+                    android:layout_width="15dp"
+                    android:layout_height="10dp" />
+                <EditText
+
+                    android:imeOptions="actionSearch"
+                    android:singleLine="true"
+                    android:id="@+id/main_search"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@+id/main_search"
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:background="@color/gray_ee"
+                    android:hint="请输入您要搜索的"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <com.example.yunchebao.sidebar.indexablerv.IndexableLayout
+        android:id="@+id/indexableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        app:indexBar_selectedTextColor="#f33737"
+        app:indexBar_textColor="@android:color/black"
+        app:indexBar_textSize="14sp"
+        app:indexBar_textSpace="4dp">
+
+    </com.example.yunchebao.sidebar.indexablerv.IndexableLayout>
+
+</LinearLayout>

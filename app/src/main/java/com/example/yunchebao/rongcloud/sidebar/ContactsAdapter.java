@@ -61,7 +61,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
     public void onBindViewHolder(final ContactsViewHolder holder, final int position) {
         ContactModel contact = contacts.get(position);
         Log.e(TAG, "onBindViewHolder: index:" +contact.getIndex());
-        if (position == 0 || !contacts.get(position-1).getIndex().equals(contact.getIndex())) {
+        int old=position-1;
+        if (position == 0 || !contacts.get(old).getIndex().equals(contact.getIndex())) {
             holder.tvIndex.setVisibility(View.VISIBLE);
             holder.tvIndex.setText(contact.getIndex());
         } else {

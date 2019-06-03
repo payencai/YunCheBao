@@ -396,6 +396,7 @@ public class SelfDrivingRepublishActivity extends NoHttpFragmentBaseActivity imp
             ToastUtil.showToast(this,"发布时间应不能选择小于今天的");
             return;
         }
+
         Map<String, Object> params = new HashMap<>();
         params.put("title", et_title.getEditableText().toString());
         params.put("image", image);
@@ -408,7 +409,7 @@ public class SelfDrivingRepublishActivity extends NoHttpFragmentBaseActivity imp
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);
-                ActivityAnimationUtils.commonTransition(SelfDrivingRepublishActivity.this, DrivingSelfReplaySuccessActivity.class, ActivityConstans.Animation.FADE);
+                //ActivityAnimationUtils.commonTransition(SelfDrivingRepublishActivity.this, DrivingSelfReplaySuccessActivity.class, ActivityConstans.Animation.FADE);
                 finish();
                 // ActivityAnimationUtils.commonTransition(SelfDrivingRepublishActivity.this, ReplyDescriptionActivity.class, ActivityConstans.Animation.FADE);
             }
@@ -435,7 +436,7 @@ public class SelfDrivingRepublishActivity extends NoHttpFragmentBaseActivity imp
                 break;
             case R.id.text1:
                 if (MyApplication.isLogin) {
-                    if (TextUtils.isEmpty(et_title.getText().toString())) {
+                    if (TextUtils.isEmpty(et_title.getText().toString().trim())) {
                         ToastUtil.showToast(this,"标题不能为空");
                         return;
                     }
@@ -449,6 +450,10 @@ public class SelfDrivingRepublishActivity extends NoHttpFragmentBaseActivity imp
                     }
                     if (TextUtils.isEmpty(image)) {
                         ToastUtil.showToast(this,"封面图片不能为空");
+                        return;
+                    }
+                    if (TextUtils.isEmpty(content)) {
+                        ToastUtil.showToast(this,"详情不能为空");
                         return;
                     }
                     postMsg();

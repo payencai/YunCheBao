@@ -61,6 +61,8 @@
                 android:layout_width="18dp"
                 android:layout_height="20dp" />
             <EditText
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
                 android:id="@+id/main_search"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"

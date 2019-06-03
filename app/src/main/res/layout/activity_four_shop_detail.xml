@@ -9,7 +9,7 @@
         android:background="#f3f3f3"
         android:id="@+id/appbarlayout"
         android:layout_width="match_parent"
-        android:layout_height="435dp"
+        android:layout_height="wrap_content"
         app:elevation="0dp"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -17,15 +17,46 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
-            android:layout_height="385dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
             android:fitsSystemWindows="true"
             app:contentScrim="@android:color/transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#00ffffff"
+                app:layout_collapseMode="pin">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
+                    <ImageView
+                        android:id="@+id/iv_back"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:padding="12dp"
+                        android:src="@mipmap/back_circle" />
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:textColor="#00333333"
+                        android:layout_centerInParent="true"
+                        android:textSize="18sp"
+                        android:text="店铺详情"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        >
+                    </TextView>
+                </RelativeLayout>
+
+
+            </android.support.v7.widget.Toolbar>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="385dp"
+                android:layout_height="wrap_content"
                 android:scaleType="centerInside"
                 app:layout_collapseMode="pin"
                 app:layout_collapseParallaxMultiplier="0.7"
@@ -188,16 +219,17 @@
 
                     android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="65dp"
+                    android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:padding="10dp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:orientation="vertical"
-                        android:padding="10dp">
+                        >
                         <LinearLayout
                             android:gravity="center_vertical"
                             android:layout_width="wrap_content"
@@ -208,12 +240,12 @@
                                 android:layout_height="10dp" />
                             <TextView
                                 android:ellipsize="end"
-                                android:singleLine="true"
+                                 android:maxLines="2"
                                 android:layout_marginLeft="5dp"
                                 android:id="@+id/tv_address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="永平路136号永平路136号永平路136号永平路136号"
+                                android:text="136号永平路136号永平路136号永平路136号"
                                 android:textColor="@color/gray_99"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -267,66 +299,26 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="#00ffffff"
-                app:layout_collapseMode="pin">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
-                    <ImageView
-                        android:id="@+id/iv_back"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerVertical="true"
-                        android:padding="12dp"
-                        android:src="@mipmap/back_circle" />
-                    <TextView
-                        android:id="@+id/tv_title"
-                        android:textColor="#00333333"
-                        android:layout_centerInParent="true"
-                        android:textSize="18sp"
-                        android:text="店铺详情"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        >
-                    </TextView>
-                </RelativeLayout>
-
-
-            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
+        <com.flyco.tablayout.SlidingTabLayout
 
-        <LinearLayout
-            android:elevation="@dimen/dimen_0px"
-            app:layout_scrollFlags="exitUntilCollapsed"
+            android:id="@+id/slidingTabLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:orientation="vertical">
-            <com.flyco.tablayout.SlidingTabLayout
-                android:id="@+id/slidingTabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="bottom"
-                android:background="@color/white"
-                app:tl_indicator_color="@color/yellow_02"
-                app:tl_indicator_height="2dp"
-                app:tl_indicator_width="30dp"
-                app:tl_indicator_width_equal_title="false"
-                app:tl_tab_space_equal="true"
-                app:tl_textSelectColor="@color/black_33"
-                app:tl_textUnselectColor="@color/gray"
-                app:tl_textsize="16sp"
-                app:tl_underline_color="@color/yellow_02"
-                />
 
-
-        </LinearLayout>
+            android:background="@color/white"
+            app:tl_indicator_color="@color/yellow_02"
+            app:tl_indicator_height="2dp"
+            app:tl_indicator_width="30dp"
+            app:tl_indicator_width_equal_title="false"
+            app:tl_tab_space_equal="true"
+            app:tl_textSelectColor="@color/black_33"
+            app:tl_textUnselectColor="@color/gray"
+            app:tl_textsize="16sp"
+            app:tl_underline_color="@color/yellow_02"
+            />
 
     </android.support.design.widget.AppBarLayout>
 

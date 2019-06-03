@@ -71,7 +71,10 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".friendcircle.NewNoticeActivity"></activity>
+        <activity android:name="com.vipcenter.MyFansActivity"></activity>
+        <activity android:name=".rongcloud.activity.contact.ChooseGroupUserActivity" />
+        <activity android:name=".mytag.ChooseTagUserActivity" />
+        <activity android:name=".friendcircle.NewNoticeActivity" />
         <activity android:name=".friendcircle.MyNoticeActivity" />
         <activity android:name=".rongcloud.activity.SeePictureActivity" />
         <activity android:name=".yuedan.SelectCarTypeActivity" />
@@ -475,7 +478,7 @@
             android:name="com.newversion.MyTagsActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="com.newversion.CreateTagsActivity"
+            android:name=".mytag.CreateTagsActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.newversion.ChooseUserActivity"

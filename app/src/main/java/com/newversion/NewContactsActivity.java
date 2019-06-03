@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.yunchebao.R;
+import com.example.yunchebao.rongcloud.activity.contact.ContactsFragment;
 import com.example.yunchebao.rongcloud.activity.contact.FriendListFragment;
 import com.example.yunchebao.rongcloud.activity.contact.GroupListFragment;
 import com.example.yunchebao.rongcloud.activity.contact.NewFriendFragment;
@@ -28,7 +29,7 @@ public class NewContactsActivity extends AppCompatActivity {
         ImmersionBar.with(this).autoDarkModeEnable(true).fitsSystemWindows(true).statusBarColor(R.color.white).init();
         type=getIntent().getIntExtra("type",0);
         if(type==1){
-            mFragment=new FriendListFragment();
+            mFragment=new ContactsFragment();
             title.setText("通讯录");
         }else if(type==2){
             mFragment=new NewFriendFragment();

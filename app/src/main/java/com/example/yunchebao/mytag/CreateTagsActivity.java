@@ -1,4 +1,4 @@
-package com.newversion;
+package com.example.yunchebao.mytag;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -16,8 +16,11 @@ import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.newversion.NewTag;
+import com.newversion.TagUserAdapter;
 import com.payencai.library.util.ToastUtil;
 import com.example.yunchebao.rongcloud.sidebar.ContactModel;
+import com.tool.StringUtils;
 import com.tool.listview.PersonalListView;
 
 import java.util.ArrayList;
@@ -79,7 +82,7 @@ public class CreateTagsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(CreateTagsActivity.this, ChooseUserActivity.class);
+                Intent intent = new Intent(CreateTagsActivity.this, ChooseTagUserActivity.class);
                 if (newTag != null) {
                     intent.putExtra("data", newTag);
                 }
@@ -95,7 +98,7 @@ public class CreateTagsActivity extends AppCompatActivity {
         tv_finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = et_name.getEditableText().toString();
+                String name = et_name.getEditableText().toString().trim();
                 if (TextUtils.isEmpty(name)) {
                     ToastUtil.showToast(CreateTagsActivity.this, "名字不能为空");
                     return;
@@ -147,12 +150,17 @@ public class CreateTagsActivity extends AppCompatActivity {
         });
     }
     private void updateTag() {
+        idsList.clear();
+        for (int i = 0; i < mSelect.size(); i++) {
+            idsList.add(mSelect.get(i).getUserId());
+        }
         Map<String, Object> params = new HashMap<>();
         String name=et_name.getEditableText().toString();
         if(!TextUtils.isEmpty(name)){
             params.put("name", name);
         }
         params.put("id",newTag.getId());
+
         params.put("ids", listToString(idsList));
         HttpProxy.obtain().post(PlatformContans.Label.update, MyApplication.token, params, new ICallBack() {
             @Override
@@ -171,14 +179,19 @@ public class CreateTagsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && data != null) {
-            ArrayList<ContactModel> modelArrayList = (ArrayList<ContactModel>) data.getSerializableExtra("user");
-            mSelect.addAll(modelArrayList);
-            mTagUserAdapter.notifyDataSetChanged();
-            ids = "";
-            for (int i = 0; i < mSelect.size(); i++) {
-                idsList.add(mSelect.get(i).getUserId());
+            String userList=data.getStringExtra("userList");
+            ids=userList;
+            String headList=data.getStringExtra("headList");
+            String nameList=data.getStringExtra("nameList");
+            idsList= StringUtils.StringToArrayList(userList,",");
+            for (int i = 0; i < idsList.size(); i++) {
+                ContactModel contactModel=new ContactModel(StringUtils.StringToArrayList(nameList,",").get(i));
+                contactModel.setUserId(idsList.get(i));
+                contactModel.setHeadPortrait(StringUtils.StringToArrayList(headList,",").get(i));
+                mSelect.add(contactModel);
             }
-            ids = listToString(idsList);
+            mTagUserAdapter.notifyDataSetChanged();
+
         }
     }
 

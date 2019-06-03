@@ -350,7 +350,11 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                 resetStateForTagbar(R.id.main_fl_3);
                 hideAllFragment();
                 showFragment(2);
-
+                if(fragment3!=null){
+                    fragment3.getNewApplyCount();
+                    fragment3.getNoticeCount();
+                    fragment3.getNoticeImage();
+                }
                 break;
             case R.id.main_fl_4:
                 //状态重置
@@ -560,6 +564,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                             group.setCrowdName(name);
                             group.setHxCrowdId(id);
                             group.setImage(image);
+
                             intent.putExtra("group", group);
                             startActivity(intent);
                         }

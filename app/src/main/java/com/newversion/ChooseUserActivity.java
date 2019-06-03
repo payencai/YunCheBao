@@ -5,10 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
@@ -38,6 +43,8 @@ public class ChooseUserActivity extends AppCompatActivity {
     TextView confirm;
     @BindView(R.id.back)
     ImageView back;
+    @BindView(R.id.main_search)
+    EditText main_search;
     NewTag newTag;
 
     @Override
@@ -94,6 +101,27 @@ public class ChooseUserActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        main_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
+
+                    String keytag = main_search.getText().toString().trim();
+
+                    if (TextUtils.isEmpty(keytag)) {
+                        Toast.makeText(ChooseUserActivity.this, "请输入搜索关键字", Toast.LENGTH_SHORT).show();
+
+                        return false;
+                    }
+
+                    // 搜索功能主体
+
+                    return true;
+                }
+                return false;
+            }
+        });
+
         getContacts();
     }
 

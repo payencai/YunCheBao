@@ -38,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <ImageView
-                    android:id="@+id/tv_praise"
+                    android:id="@+id/iv_praise"
                     android:visibility="gone"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
@@ -81,6 +81,7 @@
                     android:src="@mipmap/play" />
             </RelativeLayout>
             <TextView
+
                 android:id="@+id/tv_title"
                 android:visibility="gone"
                 android:maxLength="6"

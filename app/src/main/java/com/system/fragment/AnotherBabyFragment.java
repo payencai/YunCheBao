@@ -206,7 +206,7 @@ public class AnotherBabyFragment extends Fragment {
         return view;
     }
 
-    private void getNewApplyCount() {
+    public void getNewApplyCount() {
         if(MyApplication.isIsLogin())
         HttpProxy.obtain().get(PlatformContans.Chat.getFriendApplyList, MyApplication.token, new ICallBack() {
             @Override
@@ -240,7 +240,7 @@ public class AnotherBabyFragment extends Fragment {
         });
     }
 
-    private void getNoticeCount(){
+    public void getNoticeCount(){
         if(MyApplication.isIsLogin())
         NetUtils.getInstance().get( MyApplication.token,Api.CommunicationCircle.getShowNoticeList, new OnMessageReceived() {
             @Override
@@ -272,7 +272,7 @@ public class AnotherBabyFragment extends Fragment {
             }
         });
     }
-    private void getNoticeImage(){
+    public void getNoticeImage(){
         if(MyApplication.isLogin)
         NetUtils.getInstance().get(MyApplication.token,Api.CommunicationCircle.getCommunicationImage,  new OnMessageReceived() {
             @Override

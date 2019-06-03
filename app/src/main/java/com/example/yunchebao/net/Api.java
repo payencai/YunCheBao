@@ -444,8 +444,16 @@ public class Api {
          */
         public static final String clearCommunicationImage = root + "/communicationcircle/clearCommunicationImage";
         /**
+         * 获取最新的好友圈提醒详情数据列表
+         */
+        public static final String getShowNoticeDetailsList = root + "/communicationcircle/getShowNoticeDetailsList";
+        /**
          * 清空好友圈提醒信息
          */
         public static final String clearCommunicationShowNotice = root + "/communicationcircle/clearCommunicationShowNotice";
+        /**
+         * 分页获取好友圈提醒详情数据列表
+         */
+        public static final String getShowNoticeDetailsListByPage = root + "/communicationcircle/getShowNoticeDetailsListByPage";
     }
 }

@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -113,14 +114,17 @@ public class WashCarDetailActivity extends FragmentActivity {
     }
 
     private void initData(){
-        List<String> result = Arrays.asList(mCarShop.getBanner().split(","));
-        for (int i = 0; i < result.size(); i++) {
-            String url = result.get(i);
-            Map<String, String> image_uri = new HashMap<String, String>();
-            image_uri.put("imageUrls", url);
-            imageList.add(image_uri);
+        if(!TextUtils.isEmpty(mCarShop.getBanner())){
+            List<String> result = Arrays.asList(mCarShop.getBanner().split(","));
+            for (int i = 0; i < result.size(); i++) {
+                String url = result.get(i);
+                Map<String, String> image_uri = new HashMap<String, String>();
+                image_uri.put("imageUrls", url);
+                imageList.add(image_uri);
+            }
+            bgImg.setImageUrls(imageList);
         }
-        bgImg.setImageUrls(imageList);
+
         //bgImg.setImageURI(Uri.parse(mCarShop.getBanner()));
         shopname.setText(mCarShop.getShopName());
         score.setText(mCarShop.getScore()+"");

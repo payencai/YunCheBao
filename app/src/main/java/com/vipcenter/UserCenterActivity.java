@@ -52,8 +52,10 @@ import io.rong.imlib.RongIMClient;
 public class UserCenterActivity extends NoHttpBaseActivity {
     @BindView(R.id.name)
     TextView nameText;
-    @BindView(R.id.info)
-    TextView infoText;
+    @BindView(R.id.tv_focus)
+    TextView tv_focus;
+    @BindView(R.id.tv_byfocus)
+    TextView tv_byfocus;
     @BindView(R.id.headIcon)
     CircleImageView headIcon;
     @BindView(R.id.tv_exit)
@@ -68,10 +70,16 @@ public class UserCenterActivity extends NoHttpBaseActivity {
         getUserInfo();
         getFocus();
 
-        infoText.setOnClickListener(new View.OnClickListener() {
+        tv_focus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(UserCenterActivity.this,MyFocusActivity.class));
+            }
+        });
+        tv_byfocus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserCenterActivity.this,MyFansActivity.class));
             }
         });
     }
@@ -114,7 +122,8 @@ public class UserCenterActivity extends NoHttpBaseActivity {
                     JSONObject data=jsonObject.getJSONObject("data");
                     int userFocusNumber=data.getInt("userFocusNumber");
                     int otherFocusNumber=data.getInt("otherFocusNumber");
-                    infoText.setText("关注"+userFocusNumber+"|粉丝"+otherFocusNumber);
+                    tv_focus.setText("关注"+userFocusNumber);
+                    tv_byfocus.setText("粉丝"+otherFocusNumber);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

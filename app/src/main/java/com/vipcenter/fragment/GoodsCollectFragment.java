@@ -125,12 +125,13 @@ public class GoodsCollectFragment extends BaseFragment {
                             JSONObject item = data.getJSONObject(i);
                             GoodsCollect baikeItem = new Gson().fromJson(item.toString(), GoodsCollect.class);
                             washCollects.add(baikeItem);
-                            mWashCollects.add(baikeItem);
+                           // mWashCollects.add(baikeItem);
                         }
+
                         mWashCollectAdapter.addData(washCollects);
                         if(isLoadMore){
                             isLoadMore=false;
-                            if(data.length()>0){
+                            if(data!=null&&data.length()>0){
                                 mWashCollectAdapter.loadMoreComplete();
                             }else{
                                 mWashCollectAdapter.loadMoreEnd(true);

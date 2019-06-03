@@ -79,6 +79,7 @@ public class AccountManageActivity extends AppCompatActivity {
                     return;
                 }
                 String accout=mAccounts.get(pos).getAccount();
+                if(!TextUtils.isEmpty(accout))
                 AccountUtil.deleteOneAccount(accout,MyApplication.getContext());
                 accountList.clear();
                 mAccounts.clear();

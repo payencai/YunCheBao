@@ -1,8 +1,10 @@
 package com.example.yunchebao.rongcloud.activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,11 +21,17 @@ import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.rongcloud.activity.contact.GroupDetailActivity;
+import com.example.yunchebao.rongcloud.activity.contact.MyGroupDetailActivity;
+import com.example.yunchebao.rongcloud.sidebar.ContactModel;
+import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.example.yunchebao.rongcloud.model.Group;
+import com.system.MainActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,7 +53,11 @@ public class AddGroupDetailActivity extends AppCompatActivity {
     ImageView back;
     @BindView(R.id.apply)
     TextView apply;
-
+    @BindView(R.id.tv_number)
+    TextView tv_number;
+    @BindView(R.id.rl_code)
+    RelativeLayout rl_code;
+    int num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,13 +80,44 @@ public class AddGroupDetailActivity extends AppCompatActivity {
                 showApplyDialog();
             }
         });
-
+        rl_code.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(AddGroupDetailActivity.this, GroupQrcodeActivity.class);
+                intent.putExtra("id",crowId+"");
+                startActivity(intent);
+            }
+        });
         chatname.setText(mGroup.getCrowdName());
         account.setText(mGroup.getHxCrowdId());
         Glide.with(this).load(mGroup.getImage()).into(head);
-
+        getGroupData(mGroup.getHxCrowdId()+"");
     }
+    int crowId;
+    private void getGroupData(String id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("crowdId", id);
+        HttpProxy.obtain().get(PlatformContans.Chat.getCrowdDetailsByCrowdId, params, MyApplication.token, new ICallBack() {
+            @Override
+            public void OnSuccess(String result) {
+                Log.e("getGroupData", result);
+                try {
+                    JSONObject Json = new JSONObject(result);
+                    crowId=Json.getInt("id");
+                    JSONObject data = Json.getJSONObject("data");
+                    JSONArray indexList = data.getJSONArray("indexList");
+                    tv_number.setText(indexList.length()+"人");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
     private void showApplyDialog() {
         final Dialog dialog = new Dialog(this);
         View view = LayoutInflater.from(this).inflate(R.layout.dialog, null);
