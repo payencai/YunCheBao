@@ -61,6 +61,9 @@ public class Api {
         public static final String deleteLabel = root + "/label/deleteLabel";
         public static final String update = root + "/label/update";
     }
+    public static class Veision{
+        public static final String getVersion=root+"/common/getVersion";
+    }
     public static class Gift {
         public static final String getGiftCommodityListToAPP = root + "/giftCommodity/getGiftCommodityListToAPP";
         public static final String getGiftCommodity = root + "/giftCommodity/getGiftCommodity";

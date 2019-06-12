@@ -1,6 +1,7 @@
 package com.vipcenter;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -152,8 +153,32 @@ public class AddressAddActivity extends NoHttpBaseActivity {
         });
     }
 
-
+    private boolean checkInput(){
+        boolean isOk=true;
+        if(TextUtils.isEmpty(nameEdit.getEditableText().toString())){
+            isOk=false;
+            ToastUtil.showToast(this,"姓名不能为空");
+            return isOk;
+        }
+        if(TextUtils.isEmpty(mobileEdit.getEditableText().toString())){
+            isOk=false;
+            ToastUtil.showToast(this,"手机号不能为空");
+            return isOk;
+        }
+        if(TextUtils.isEmpty(mProvince)){
+            isOk=false;
+            ToastUtil.showToast(this,"地址不能为空");
+            return isOk;
+        }
+        if(TextUtils.isEmpty(detailEdit.getEditableText().toString())){
+            isOk=false;
+            ToastUtil.showToast(this,"详细地址不能为空");
+            return isOk;
+        }
+        return  isOk;
+    }
     private boolean checkForm() {
+
         if (entity != null) {
             if (entity.getProvince() != null && !entity.getProvince().equals("")) {
                 if (nameEdit.getText() != null && !nameEdit.getText().toString().equals("")) {
@@ -194,7 +219,7 @@ public class AddressAddActivity extends NoHttpBaseActivity {
                 /// setToast("组件待定");
                 break;
             case R.id.textBtn:
-                if (checkForm()) {
+                if (checkInput()) {
                     if (flag == 1)
                         addAddress();
                     else {

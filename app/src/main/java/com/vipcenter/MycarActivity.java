@@ -21,6 +21,7 @@ import com.example.yunchebao.MyApplication;
 import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.yuedan.SelectCarTypeActivity;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
@@ -208,7 +209,7 @@ public class MycarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (MyApplication.isLogin)
-                    startActivityForResult(new Intent(MycarActivity.this, CarBrandSelectActivity.class), 1);
+                    startActivityForResult(new Intent(MycarActivity.this, SelectCarTypeActivity.class), 1);
                 else {
                     startActivity(new Intent(MycarActivity.this, RegisterActivity.class));
                 }

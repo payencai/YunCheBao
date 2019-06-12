@@ -146,14 +146,13 @@ public class UserInfoActivity extends NoHttpBaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && data != null) {
-            cropPhoto(data.getData());
+        if (requestCode == 5 && data != null) {
+            upImage(PlatformContans.Commom.uploadImg, new File(data.getData().getPath()));
         }
         if (requestCode == 2 && data != null) {
             cropPhoto(data.getData());
         }
         if (requestCode == 3 && data != null) {
-
             File file = new File(photoOutputUri.getPath());
             if (file.exists()) {
                 upImage(PlatformContans.Commom.uploadImg, file);
@@ -255,28 +254,7 @@ public class UserInfoActivity extends NoHttpBaseActivity {
         //将设置好的属性set回去
         window.setAttributes(lp);
     }
-    private void showNearbyDialog() {
-        final Dialog dialog = new Dialog(this, R.style.dialog);
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_nearby_man, null);
-        //获得dialog的window窗口
-        Window window = dialog.getWindow();
-        //设置dialog在屏幕底部
-        window.setGravity(Gravity.BOTTOM);
-        //设置dialog弹出时的动画效果，从屏幕底部向上弹出
-        window.setWindowAnimations(R.style.mypopwindow_anim_style);
-        window.getDecorView().setPadding(0, 0, 0, 0);
-        //获得window窗口的属性
-        android.view.WindowManager.LayoutParams lp = window.getAttributes();
-        //设置窗口宽度为充满全屏
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        //设置窗口高度为包裹内容
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        //将设置好的属性set回去
-        window.setAttributes(lp);
-        //将自定义布局加载到dialog上
-        dialog.setContentView(dialogView);
-        dialog.show();
-    }
+
     private void showDialog() {
         final Dialog dialog = new Dialog(this, R.style.dialog);
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_select_photo, null);
@@ -317,7 +295,7 @@ public class UserInfoActivity extends NoHttpBaseActivity {
                 Intent mIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 mIntent.addCategory(Intent.CATEGORY_OPENABLE);
                 mIntent.setType("image/*");
-                startActivityForResult(mIntent, 1);
+                startActivityForResult(mIntent, 5);
             }
         });
         dialog.show();

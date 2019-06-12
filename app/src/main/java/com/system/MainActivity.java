@@ -2,6 +2,7 @@ package com.system;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,14 +20,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.azhon.appupdate.config.UpdateConfiguration;
+import com.azhon.appupdate.listener.OnButtonClickListener;
+import com.azhon.appupdate.listener.OnDownloadListener;
+import com.azhon.appupdate.manager.DownloadManager;
 import com.example.yunchebao.MyApplication;
 import com.costans.PlatformContans;
 import com.entity.UserMsg;
 import com.example.yunchebao.R;
+import com.example.yunchebao.net.Api;
+import com.example.yunchebao.net.NetUtils;
+import com.example.yunchebao.net.OnMessageReceived;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.lzy.okgo.model.HttpParams;
 import com.nohttp.sample.NoHttpFragmentBaseActivity;
 import com.example.yunchebao.rongcloud.activity.AddGroupDetailActivity;
 import com.example.yunchebao.rongcloud.activity.StrangerDelActivity;
@@ -41,14 +50,17 @@ import com.system.fragment.BaikeFragment;
 import com.system.fragment.CheyiFragment;
 import com.system.fragment.HomeFragment;
 import com.system.fragment.MallFragment;
+import com.system.model.Version;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.vipcenter.model.UserInfo;
+import com.yancy.gallerypick.utils.AppUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.litepal.LitePal;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -87,7 +99,7 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
     private TextView tv_tab3;
     private TextView tv_tab4;
     private TextView tv_tab5;
-
+    DownloadManager manager;
     @BindView(R.id.tv_unread)
     TextView tv_unread;
     @Override
@@ -119,8 +131,177 @@ public class MainActivity extends NoHttpFragmentBaseActivity implements View.OnC
                 }
             }
         });
+        getNewVersion();
+    }
+
+
+    private void startUpdate(Version version) {
+        /*
+         * 整个库允许配置的内容
+         * 非必选
+         */
+        if(TextUtils.isEmpty(version.getDownUrl())||!version.getDownUrl().contains("apk")){
+            return;
+            //version.setRemarks("https://raw.githubusercontent.com/azhon/AppUpdate/master/apk/appupdate.apk");
+        }
+        UpdateConfiguration configuration = new UpdateConfiguration()
+                //输出错误日志
+                .setEnableLog(true)
+                //设置自定义的下载
+                //.setHttpManager()
+                //下载完成自动跳动安装页面
+                .setJumpInstallPage(true)
+                //设置对话框背景图片 (图片规范参照demo中的示例图)
+                //.setDialogImage(R.drawable.ic_dialog)
+                //设置按钮的颜色
+                //.setDialogButtonColor(Color.parseColor("#E743DA"))
+                //设置按钮的文字颜色
+                .setDialogButtonTextColor(Color.WHITE)
+                //支持断点下载
+                .setBreakpointDownload(true)
+                //设置是否显示通知栏进度
+                .setShowNotification(true)
+                //设置是否提示后台下载toast
+                .setShowBgdToast(false)
+                //设置强制更新
+                .setForcedUpgrade(false)
+                //设置对话框按钮的点击监听
+                .setButtonClickListener(new OnButtonClickListener() {
+                    @Override
+                    public void onButtonClick(int id) {
+                        Log.e("TAG", String.valueOf(id));
+                    }
+                })
+                //设置下载过程的监听
+                .setOnDownloadListener(new OnDownloadListener() {
+                    @Override
+                    public void start() {
+
+                    }
+
+                    @Override
+                    public void downloading(int max, int progress) {
+
+                    }
+
+                    @Override
+                    public void done(File apk) {
+
+                    }
+
+                    @Override
+                    public void cancel() {
+
+                    }
+
+                    @Override
+                    public void error(Exception e) {
+
+                    }
+                });
+
+        manager = DownloadManager.getInstance(this);
+        manager.setApkName("miaoyizhai.apk")
+                .setApkUrl(version.getDownUrl())
+                .setSmallIcon(R.mipmap.icon)
+                .setShowNewerToast(true)
+                .setAuthorities("com.yunkang.miaoyizhai")
+                .setConfiguration(configuration)
+//                .setDownloadPath(Environment.getExternalStorageDirectory() + "/AppUpdate")
+                .setApkVersionCode(2)
+                .setApkVersionName(version.getVersion())
+//                .setApkSize("11.2")
+                .setApkDescription(version.getContent())
+                .download();
+    }
+    Version version;
+    public static int compareAppVersion(String newVersion, String oldVersion) {
+        if (newVersion == null || oldVersion == null) {
+            throw new RuntimeException("版本号不能为空");
+        }
+        // 注意此处为正则匹配，不能用.
+        String[] versionArray1 = newVersion.split("\\.");
+        String[] versionArray2 = oldVersion.split("\\.");
+        int idx = 0;
+        // 取数组最小长度值
+        int minLength = Math.min(versionArray1.length, versionArray2.length);
+        int diff = 0;
+        // 先比较长度，再比较字符
+        while (idx < minLength
+                && (diff = versionArray1[idx].length() - versionArray2[idx].length()) == 0
+                && (diff = versionArray1[idx].compareTo(versionArray2[idx])) == 0) {
+            ++idx;
+        }
+        // 如果已经分出大小，则直接返回，如果未分出大小，则再比较位数，有子版本的为大
+        diff = (diff != 0) ? diff : versionArray1.length - versionArray2.length;
+        return diff;
+    }
+    private  void getNewVersion(){
+//        Map<String,Object> params=new HashMap<>();
+//        params.put("type","2");
+//        HttpProxy.obtain().get(Api.Veision.getVersion, params, new ICallBack() {
+//            @Override
+//            public void OnSuccess(String result) {
+//                Log.e("version",result);
+//                try {
+//                    JSONObject jsonObject=new JSONObject(result);
+//                    jsonObject=jsonObject.getJSONObject("data");
+//                    JSONArray data=jsonObject.getJSONArray("data");
+//
+//                    version.setParkey("1.0");
+//                    for (int i = 0; i <data.length() ; i++) {
+//                        if(i==0){
+//                            JSONObject item=data.getJSONObject(i);
+//                            version =new Gson().fromJson(item.toString(),Version.class);
+//                            break;
+//                        }
+//                    }
+//                    if(compareAppVersion(version.getParkey(), AppUtils.getAppVersionName())>0){
+//                        startUpdate3(version);
+//                    }
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(String error) {
+//
+//            }
+//        });
+
+        HttpParams httpParams=new HttpParams();
+        httpParams.put("id",1);
+        NetUtils.getInstance().get(MyApplication.token, Api.Veision.getVersion, httpParams, new OnMessageReceived() {
+            @Override
+            public void onSuccess(String response) {
+                Log.e("version",response);
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    JSONObject data=jsonObject.getJSONObject("data");
+
+                    version=new Gson().fromJson(data.toString(),Version.class);
+                    if(compareAppVersion(version.getVersion(), AppUtils.getVersionName(getApplicationContext()))>0){
+                        startUpdate(version);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
 
     }
+
+
+
     private void showNickDialog() {
         final Dialog dialog = new Dialog(this, R.style.dialog);
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_exit, null);
