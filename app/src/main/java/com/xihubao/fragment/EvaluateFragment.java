@@ -1,29 +1,18 @@
 package com.xihubao.fragment;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.cheyibao.model.ShopComment;
 import com.costans.PlatformContans;
-import com.entity.PhoneCommentEntity;
-import com.entity.PhoneShopEntity;
 
 import com.example.yunchebao.R;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.interfaces.DraweeController;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.iarcuschin.simpleratingbar.SimpleRatingBar;
-import com.maket.model.LoadMoreListView;
+import com.example.yunchebao.maket.model.LoadMoreListView;
 import com.nohttp.sample.BaseFragment;
 import com.xihubao.adapter.WashCommentAdapter;
 import com.xihubao.model.WashComment;

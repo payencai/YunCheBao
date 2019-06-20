@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.coorchice.library.SuperTextView;
 import com.example.yunchebao.MyApplication;
 import com.comment.EvaluationChoiceImageView;
 import com.costans.PlatformContans;
@@ -60,6 +61,8 @@ public class AddStationCommentActivity extends AppCompatActivity {
     SimpleRatingBar sb_score;
     @BindView(R.id.sb_driver)
     SimpleRatingBar sb_driver;
+    @BindView(R.id.tv_submit)
+    SuperTextView tv_submit;
     @BindView(R.id.et_comment)
     EditText et_comment;
     List<Uri> mSelected;
@@ -80,6 +83,7 @@ public class AddStationCommentActivity extends AppCompatActivity {
         initView();
     }
     private void addComment(){
+        tv_submit.setEnabled(false);
         String imgs = StringUtils.listToString2(images,',');
         String comment=et_comment.getEditableText().toString();
         int shopScore= (int) sb_score.getRating();
@@ -93,6 +97,7 @@ public class AddStationCommentActivity extends AppCompatActivity {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result",result);
+                tv_submit.setEnabled(true);
                 ToastUtil.showToast(AddStationCommentActivity.this,"评价成功");
                 finish();
             }

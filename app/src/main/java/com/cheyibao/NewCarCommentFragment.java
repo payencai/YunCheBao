@@ -16,7 +16,7 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.model.LoadMoreListView;
+import com.example.yunchebao.maket.model.LoadMoreListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;

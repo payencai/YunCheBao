@@ -13,14 +13,13 @@ import android.widget.AdapterView;
 
 import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
-import com.maket.MarketSelectListActivity;
-import com.maket.adapter.KindMenuAdapter;
+import com.example.yunchebao.maket.MarketSelectListActivity;
+import com.example.yunchebao.maket.adapter.KindMenuAdapter;
 import com.nohttp.sample.BaseFragment;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 import com.tool.view.GridViewForScrollView;
 import com.vipcenter.GiftGoodDetailActivity;
-import com.vipcenter.GiftSearchListActivity;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -18,7 +18,7 @@ import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.GoodsPayActivity;
+import com.example.yunchebao.maket.GoodsPayActivity;
 import com.payencai.library.util.ToastUtil;
 
 import org.json.JSONException;

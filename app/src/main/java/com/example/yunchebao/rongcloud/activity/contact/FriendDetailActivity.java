@@ -235,6 +235,8 @@ public class FriendDetailActivity extends AppCompatActivity {
                     tv_car.setText(userMsg.getCarList().get(0).getModels());
             }
 
+        }else{
+            cd_card.setVisibility(View.GONE);
         }
     }
     private void getDetail(String id){

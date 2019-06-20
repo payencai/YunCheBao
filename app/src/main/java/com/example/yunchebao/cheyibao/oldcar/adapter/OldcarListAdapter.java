@@ -35,11 +35,16 @@ public class OldcarListAdapter extends BaseQuickAdapter<OldCar, BaseViewHolder> 
         TextView tv_price = (TextView) helper.getView(R.id.tv_price);
         TextView tv_newprice = (TextView) helper.getView(R.id.tv_newprice);
 
-        if (!TextUtils.isEmpty(oldCar.getCarCategoryDetail().getBanner1())) {
-            img.setImageURI(Uri.parse(oldCar.getCarCategoryDetail().getBanner1()));
+        if (!TextUtils.isEmpty(oldCar.getCarImage())) {
+            if(oldCar.getCarImage().contains(",")){
+                img.setImageURI(Uri.parse(oldCar.getCarImage().split(",")[0]));
+            }else{
+                img.setImageURI(Uri.parse(oldCar.getCarImage()));
+            }
+
         }
         name.setText(oldCar.getFirstName());
-        tv_name2.setText(oldCar.getSecondName() + oldCar.getFirstName());
+        tv_name2.setText(oldCar.getSecondName() + oldCar.getThirdName());
 
         String value = oldCar.getRegistrationTime().substring(0, 4) + "/" + oldCar.getDistance() + "  " + oldCar.getRegistrationAddress();
         if (oldCar.getType() == 1) {

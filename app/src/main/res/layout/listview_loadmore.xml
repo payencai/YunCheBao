@@ -7,12 +7,12 @@
         android:id="@+id/srl_collect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.maket.model.LoadMoreListView
+        <com.example.yunchebao.maket.model.LoadMoreListView
             android:id="@+id/lv_loadmore"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </com.maket.model.LoadMoreListView>
+        </com.example.yunchebao.maket.model.LoadMoreListView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

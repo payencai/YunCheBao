@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.yunchebao.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.cheyibao.OldCarDetailActivity;
+import com.example.yunchebao.cheyibao.oldcar.OldCarDetailActivity;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;

@@ -6,19 +6,16 @@ package com.bbcircle.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.bbcircle.AllKindActivity;
 import com.coorchice.library.SuperTextView;
 import com.example.yunchebao.R;
-import com.maket.model.GoodsType;
+import com.example.yunchebao.maket.model.GoodsType;
 
 import java.util.List;
 

@@ -41,6 +41,7 @@ import com.tool.view.GridViewForScrollView;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -104,7 +105,7 @@ public class DynamicPublishActivity extends AppCompatActivity {
     private String mediatype;
     SelectPicGridAdapter adapter;
 
-    int count=0;
+    int count = 0;
 //    private Handler popupHandler = new Handler() {
 //        @Override
 //        public void handleMessage(Message msg) {
@@ -175,20 +176,20 @@ public class DynamicPublishActivity extends AppCompatActivity {
         gvDynamicPhotos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0){
-                   int num=10-pathList.size();
-                   if(num>0)
-                      selectFile(200,num);
-                   else{
-                       ToastUtil.showToast(DynamicPublishActivity.this,"最多只能上传9张图片");
-                   }
+                if (position == 0) {
+                    int num = 10 - pathList.size();
+                    if (num > 0)
+                        selectFile(200, num);
+                    else {
+                        ToastUtil.showToast(DynamicPublishActivity.this, "最多只能上传9张图片");
+                    }
                 }
 
             }
         });
     }
 
-    private void selectFile(int code,int num) {
+    private void selectFile(int code, int num) {
         Matisse
                 .from(this)
                 //选择视频和图片
@@ -198,7 +199,7 @@ public class DynamicPublishActivity extends AppCompatActivity {
                 .countable(true)
                 //最大选择数量为9
                 .maxSelectable(num)
-
+                .capture(true)
                 //选择方向
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                 //界面中缩略图的质量
@@ -206,6 +207,7 @@ public class DynamicPublishActivity extends AppCompatActivity {
                 //蓝色主题
                 //黑色主题
                 .theme(R.style.Matisse_Dracula)
+                .captureStrategy(new CaptureStrategy(true, "com.yancy.gallerypickdemo.fileprovider"))
                 //Glide加载方式
                 //Picasso加载方式
                 .imageEngine(new GlideImageEngine())
@@ -225,13 +227,13 @@ public class DynamicPublishActivity extends AppCompatActivity {
             case R.id.tv_publish_dynamic:
                 content = etDynamicText.getEditableText().toString();
                 if (mediatype.equals("text")) {
-                    if (TextUtils.isEmpty(content)) {
+                    if (!TextUtils.isEmpty(content)) {
                         ToastUtil.showToast(DynamicPublishActivity.this, "请输入要发布的文字内容");
                         return;
                     }
                 } else if (mediatype.equals("pic")) {
-                    if(pathList.size()==1){
-                        ToastUtil.showToast(this,"请至少选择一张图片");
+                    if (pathList.size() == 1) {
+                        ToastUtil.showToast(this, "请至少选择一张图片");
                         return;
                     }
                     tv_pub.setEnabled(false);
@@ -306,7 +308,7 @@ public class DynamicPublishActivity extends AppCompatActivity {
      * @param pathList
      */
     private void uploadImages(ArrayList<String> pathList) {
-        count=0;
+        count = 0;
 
         for (int i = 0; i < pathList.size(); i++) {
             if (!TextUtils.isEmpty(pathList.get(i))) {
@@ -355,8 +357,8 @@ public class DynamicPublishActivity extends AppCompatActivity {
                     final String data = object.getString("data");
                     imgsUrl.add(data);
                     count++;
-                    if((pathList.size()-1)==count){
-                        count=0;
+                    if ((pathList.size() - 1) == count) {
+                        count = 0;
                         publishDynamic();
                     }
 
@@ -449,7 +451,7 @@ public class DynamicPublishActivity extends AppCompatActivity {
      * List转String逗号分隔
      */
     private String listToString(ArrayList<String> list) {
-        if(list.size()==0){
+        if (list.size() == 0) {
             return "";
         }
         StringBuilder stringBuilder = new StringBuilder();

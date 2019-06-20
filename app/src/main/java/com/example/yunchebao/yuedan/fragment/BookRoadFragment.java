@@ -446,7 +446,9 @@ public class BookRoadFragment extends Fragment {
                 showSelectCount();
             }
         });
-
+        if(MyApplication.getUserInfo().getCarList().size()>0){
+            et_type.setText(MyApplication.getUserInfo().getCarList().get(0).getModels());
+        }
         rl_cartype.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

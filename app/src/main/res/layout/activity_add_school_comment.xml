@@ -57,7 +57,6 @@
             </LinearLayout>
             <EditText
                 android:id="@+id/et_content"
-                android:maxHeight="120dp"
                 android:gravity="top"
                 android:textSize="14sp"
                 android:textColorHint="#ccc"
@@ -160,7 +159,6 @@
             </LinearLayout>
             <EditText
                 android:id="@+id/et_coash"
-                android:maxHeight="120dp"
                 android:gravity="top"
                 android:textSize="14sp"
                 android:textColorHint="#ccc"

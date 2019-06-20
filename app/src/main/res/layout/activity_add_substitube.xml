@@ -120,6 +120,8 @@
                         android:layout_width="80dp"
                         android:layout_height="wrap_content" />
                     <EditText
+                        android:maxLength="11"
+                        android:inputType="number"
                         android:id="@+id/et_phone"
                         android:layout_marginRight="20dp"
                         android:gravity="start"

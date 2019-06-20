@@ -18,7 +18,7 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.GoodsPayActivity;
+import com.example.yunchebao.maket.GoodsPayActivity;
 import com.tool.MyListView;
 import com.vipcenter.RegisterActivity;
 import com.xihubao.adapter.ServerCatogryAdapter;

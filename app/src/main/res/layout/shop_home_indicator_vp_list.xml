@@ -58,20 +58,21 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginLeft="5dp"
-                        android:background="@color/yellow_64"
+                        android:background="@mipmap/grades"
                         android:gravity="center"
                         android:text="1"
                         android:textColor="@color/white"
-                        android:textSize="10sp" />
+                        android:textSize="8sp" />
                 </LinearLayout> 
                 <com.coorchice.library.SuperTextView
                     android:textSize="10dp"
-                    app:corner="3dp"
+                    app:corner="10dp"
+                    android:id="@+id/tv_add"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:text="加好友"
-                    android:background="@color/yellow_02"
+                    android:background="@drawable/btn_send_pressed"
                     android:layout_width="45dp"
                     android:layout_height="18dp" />
             </LinearLayout>
@@ -114,8 +115,8 @@
 
             <ImageView
                 android:id="@+id/iv_heart"
-                android:layout_width="14dp"
-                android:layout_height="13dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:scaleType="fitXY"
                 android:src="@mipmap/collect_66" />
 
@@ -172,14 +173,18 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="5"
             android:orientation="vertical"
             android:padding="10dp">
             <LinearLayout
+                android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
                     android:src="@mipmap/location_gray_icon"
@@ -188,31 +193,13 @@
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:id="@+id/tv_address"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="永平路136号"
                     android:textColor="@color/gray_99"
                     android:textSize="12sp" />
             </LinearLayout>
-            <LinearLayout
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/time_gray_icon"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp" />
-                <TextView
-                    android:layout_marginLeft="5dp"
-                    android:id="@+id/tv_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="营业时间：8:00-18:30"
-                    android:textColor="@color/gray_99"
-                    android:textSize="12sp" />
-            </LinearLayout>
+
 
 
         </LinearLayout>

@@ -12,7 +12,7 @@
        <ImageView
            android:id="@+id/iv_car"
            android:scaleType="fitXY"
-           android:src="@mipmap/car_icon"
+           android:src="@color/gray_ee"
            android:layout_width="130dp"
            android:layout_height="90dp" />
        <LinearLayout

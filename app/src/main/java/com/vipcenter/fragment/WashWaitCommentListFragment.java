@@ -13,7 +13,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nohttp.sample.BaseFragment;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
-import com.vipcenter.ShopMainListActivity;
 import com.vipcenter.WashCommentSubmitActivity;
 import com.vipcenter.adapter.WashWaitCommentListAdapter;
 

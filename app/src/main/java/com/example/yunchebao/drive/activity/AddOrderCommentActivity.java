@@ -78,8 +78,8 @@ public class AddOrderCommentActivity extends AppCompatActivity {
     private void addComment(){
         String imgs = StringUtils.listToString2(images,',');
         String comment=et_comment.getEditableText().toString();
-        int shopScore= (int) sb_score.getRating();
-        int driverScore= (int) sb_driver.getRating();
+        float shopScore=  sb_score.getRating();
+        float driverScore=  sb_driver.getRating();
         String orderId=id;
         Map<String,Object> params=new HashMap<>();
         params.put("orderId",orderId);

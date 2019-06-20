@@ -43,20 +43,13 @@ public class NewPublishAdapter extends BaseQuickAdapter<NewPublish, BaseViewHold
             tv_price.setText(MathUtil.getDoubleTwo(item.getOldPrice()) + "元");
         }
         tv_time.setText(item.getCreateTime().substring(0, 10));
-        String imgs="";
-        String banner1=item.getCarCategoryDetail().getBanner1();
-        String banner2=item.getCarCategoryDetail().getBanner2();
-        String banner3=item.getCarCategoryDetail().getBanner3();
-        if(!TextUtils.isEmpty(banner1)){
-            if (banner1.contains(",")) {
-                String[] images = banner1.split(",");
+        String imgs=item.getCarImage();
+        if(!TextUtils.isEmpty(imgs)){
+            if (imgs.contains(",")) {
+                String[] images = imgs.split(",");
                 imgs=images[0];
-            } else {
-               imgs=banner1;
             }
             Glide.with(mContext).load(imgs).into(iv_car);
-        }else{
-            Glide.with(mContext).load(banner2).into(iv_car);
         }
 
          if(item.getAudit()==3){

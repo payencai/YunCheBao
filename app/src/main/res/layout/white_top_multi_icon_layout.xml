@@ -53,8 +53,8 @@
 
     <ImageView
         android:id="@+id/collectBtn"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:padding="15dp"
         android:src="@mipmap/collect_gray_hole" />

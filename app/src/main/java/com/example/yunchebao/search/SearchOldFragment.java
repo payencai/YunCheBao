@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.cheyibao.OldCarDetailActivity;
+import com.example.yunchebao.cheyibao.oldcar.OldCarDetailActivity;
 import com.cheyibao.model.OldCar;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
@@ -106,7 +106,7 @@ public class SearchOldFragment extends Fragment {
     private void getData(){
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
-        params.put("keyword", "车");
+        params.put("keyword", word);
         params.put("searchType", 5);
         Log.e("road",params.toString());
         HttpProxy.obtain().get(PlatformContans.Commom.searchAll, params,"", new ICallBack() {

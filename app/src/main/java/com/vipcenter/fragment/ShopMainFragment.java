@@ -7,18 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
 
-import com.cheyibao.OldCarDetailActivity;
-import com.cheyibao.adapter.CarRecommendListAdapter;
 import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.nohttp.sample.BaseFragment;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
 import com.vipcenter.adapter.ShopHomeListAdapter;
 
 import java.util.ArrayList;

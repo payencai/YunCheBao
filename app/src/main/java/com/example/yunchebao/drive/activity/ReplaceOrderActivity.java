@@ -1,5 +1,7 @@
 package com.example.yunchebao.drive.activity;
 
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +28,8 @@ public class ReplaceOrderActivity extends AppCompatActivity {
     @BindView(R.id.back)
     ImageView back;
     private ArrayList<Fragment> fragments;
+    DriveOrderFragment fragment1;
+    DriveOrderFragment fragment2;
     private String [] mTitles={"未完成","已付款"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +40,19 @@ public class ReplaceOrderActivity extends AppCompatActivity {
         initView();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        fragment1.refresh();
+        fragment2.refresh();
+    }
+
     private void initView() {
         fragments=new ArrayList<>();
-        fragments.add(DriveOrderFragment.newInstance(1));
-        fragments.add(DriveOrderFragment.newInstance(2));
+        fragment1=DriveOrderFragment.newInstance(1);
+        fragment2=DriveOrderFragment.newInstance(2);
+        fragments.add(fragment1);
+        fragments.add(fragment2);
         tab_layout.setViewPager(viewpager,  mTitles,this,fragments);
         back.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -20,7 +20,7 @@ import com.cheyibao.model.Area;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
-import com.maket.model.LoadMoreListView;
+import com.example.yunchebao.maket.model.LoadMoreListView;
 import com.nohttp.NoHttp;
 import com.nohttp.RequestMethod;
 import com.nohttp.rest.Request;

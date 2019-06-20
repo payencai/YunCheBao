@@ -432,13 +432,25 @@ public class EnteringActivity extends NoHttpBaseActivity {
             @Override
             public void OnSuccess(String result) {
                 Log.e("result", result);
-                ToastUtil.showToast(EnteringActivity.this, "申请成功");
-                finish();
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    int code=jsonObject.getInt("resultCode");
+                    if(code==0){
+                        ToastUtil.showToast(EnteringActivity.this, "申请成功");
+                        finish();
+                    }else{
+                        String msg=jsonObject.getString("message");
+                        ToastUtil.showToast(EnteringActivity.this,msg);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
             public void onFailure(String error) {
-                ToastUtil.showToast(EnteringActivity.this, "申请失败");
+                ToastUtil.showToast(EnteringActivity.this, "网络出错");
             }
         });
 

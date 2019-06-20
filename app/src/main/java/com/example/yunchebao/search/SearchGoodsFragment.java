@@ -17,8 +17,8 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.GoodDetailActivity;
-import com.maket.model.GoodList;
+import com.example.yunchebao.maket.GoodDetailActivity;
+import com.example.yunchebao.maket.model.GoodList;
 import com.system.adapter.SearchGoodsAdapter;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
@@ -106,7 +106,7 @@ public class SearchGoodsFragment extends Fragment {
     private void getData(){
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
-        params.put("keyword", "车");
+        params.put("keyword",word);
         params.put("searchType", 10);
         Log.e("road",params.toString());
         HttpProxy.obtain().get(PlatformContans.Commom.searchAll, params,"", new ICallBack() {

@@ -1,10 +1,7 @@
 package com.cheyibao;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +12,11 @@ import com.cheyibao.adapter.CarRecommendListAdapter;
 import com.cheyibao.model.OldCar;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.cheyibao.oldcar.OldCarDetailActivity;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.model.LoadMoreListView;
+import com.example.yunchebao.maket.model.LoadMoreListView;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
 

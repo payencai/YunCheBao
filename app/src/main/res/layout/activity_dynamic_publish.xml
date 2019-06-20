@@ -90,7 +90,7 @@
                      tools:listitem="@layout/item_dynamic_photo"
                      android:numColumns="3"
                      android:scrollbars="none"
-                     android:verticalSpacing="9dp" />
+                     android:verticalSpacing="5dp" />
              </LinearLayout>
          </android.support.v4.widget.NestedScrollView>
 

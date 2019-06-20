@@ -358,6 +358,9 @@ public class BookWashCarFragment extends BaseFragment implements OnDateSetListen
     private void initView() {
         initTimePickerView();
         //initDatePicker();
+        if(MyApplication.getUserInfo().getCarList().size()>0){
+            tv_cartype.setText(MyApplication.getUserInfo().getCarList().get(0).getModels());
+        }
         tv_public.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -30,15 +31,22 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
+import com.example.yunchebao.net.NetUtils;
+import com.example.yunchebao.net.OnMessageReceived;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.luffy.imagepreviewlib.core.PictureConfig;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.payencai.library.view.CircleImageView;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
+import com.tool.GlideImageEngine;
 import com.tool.UIControlUtils;
 import com.tool.WheelView;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,11 +89,9 @@ public class UserInfoActivity extends NoHttpBaseActivity {
     TextView tv_baohao;
     @BindView(R.id.iv_switch)
     ImageView iv_switch;
-    /**
-     * 裁剪图片
-     */
-    Uri photoOutputUri;
-    Uri photoUri;
+    int position=0;
+    String sex="男";
+    private List<String> cartypes = new ArrayList<>();
     String image;
 
     @Override
@@ -94,66 +100,13 @@ public class UserInfoActivity extends NoHttpBaseActivity {
         setContentView(R.layout.user_info_layout);
         initView();
     }
-
-    File tempFile;
-
-    public void openCamera() {
-        //獲取系統版本
-        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
-        // 激活相机
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // 判断存储卡是否可以用，可用进行存储
-        if (hasSdcard()) {
-            SimpleDateFormat timeStampFormat = new SimpleDateFormat(
-                    "yyyy_MM_dd_HH_mm_ss");
-            String filename = timeStampFormat.format(new Date());
-            tempFile = new File(Environment.getExternalStorageDirectory(),
-                    filename + ".jpg");
-            if (currentapiVersion < 24) {
-                // 从文件中创建uri
-                photoUri = Uri.fromFile(tempFile);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-            } else {
-                //兼容android7.0 使用共享文件的形式
-                ContentValues contentValues = new ContentValues(1);
-                contentValues.put(MediaStore.Images.Media.DATA, tempFile.getAbsolutePath());
-                //检查是否有存储权限，以免崩溃
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    //申请WRITE_EXTERNAL_STORAGE权限
-                    Toast.makeText(this, "请开启存储权限", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                photoUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-            }
-        }
-        // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_CAREMA
-        startActivityForResult(intent, 2);
-    }
-
-    /*
-     * 判断sdcard是否被挂载
-     */
-    public static boolean hasSdcard() {
-        return Environment.getExternalStorageState().equals(
-                Environment.MEDIA_MOUNTED);
-    }
-
-    int position=0;
-    String sex="男";
-    private List<String> cartypes = new ArrayList<>();
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 5 && data != null) {
-            upImage(PlatformContans.Commom.uploadImg, new File(data.getData().getPath()));
-        }
-        if (requestCode == 2 && data != null) {
-            cropPhoto(data.getData());
-        }
-        if (requestCode == 3 && data != null) {
-            File file = new File(photoOutputUri.getPath());
+
+        if (requestCode == 200 && data != null) {
+            List<String> paths=Matisse.obtainPathResult(data);
+            File file = new File(paths.get(0));
             if (file.exists()) {
                 upImage(PlatformContans.Commom.uploadImg, file);
             } else {
@@ -210,7 +163,6 @@ public class UserInfoActivity extends NoHttpBaseActivity {
         window.setAttributes(params);
 
     }
-
     private void showNickDialog() {
         final Dialog dialog = new Dialog(this, R.style.dialog);
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_nick, null);
@@ -254,91 +206,14 @@ public class UserInfoActivity extends NoHttpBaseActivity {
         //将设置好的属性set回去
         window.setAttributes(lp);
     }
-
-    private void showDialog() {
-        final Dialog dialog = new Dialog(this, R.style.dialog);
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_select_photo, null);
-        //获得dialog的window窗口
-        Window window = dialog.getWindow();
-        //设置dialog在屏幕底部
-        window.setGravity(Gravity.BOTTOM);
-        //设置dialog弹出时的动画效果，从屏幕底部向上弹出
-        window.setWindowAnimations(R.style.mypopwindow_anim_style);
-        window.getDecorView().setPadding(0, 0, 0, 0);
-        //获得window窗口的属性
-        android.view.WindowManager.LayoutParams lp = window.getAttributes();
-        //设置窗口宽度为充满全屏
-        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
-        //设置窗口高度为包裹内容
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        //将设置好的属性set回去
-        window.setAttributes(lp);
-        //将自定义布局加载到dialog上
-        dialog.setContentView(dialogView);
-        dialog.findViewById(R.id.tv_select_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-        dialog.findViewById(R.id.tv_select_camera).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                openCamera();
-            }
-        });
-        dialog.findViewById(R.id.tv_select_gallery).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                Intent mIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                mIntent.addCategory(Intent.CATEGORY_OPENABLE);
-                mIntent.setType("image/*");
-                startActivityForResult(mIntent, 5);
-            }
-        });
-        dialog.show();
-    }
-
-    private void cropPhoto(Uri inputUri) {
-        // 调用系统裁剪图片的 Action
-        Intent cropPhotoIntent = new Intent("com.android.camera.action.CROP");
-        // 设置数据Uri 和类型
-        cropPhotoIntent.setDataAndType(inputUri, "image/*");
-        // 授权应用读取 Uri，这一步要有，不然裁剪程序会崩溃
-        cropPhotoIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        // 设置图片的最终输出目录
-        cropPhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                photoOutputUri = Uri.parse("file:////sdcard/image_output.jpg"));
-        startActivityForResult(cropPhotoIntent, 3);
-    }
-
     public void upImage(String url, File file) {
-        OkHttpClient mOkHttpClent = new OkHttpClient();
-
-        MultipartBody.Builder builder = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("image", "image",
-                        RequestBody.create(MediaType.parse("image/png"), file));
-        RequestBody requestBody = builder.build();
-        Request request = new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build();
-        Call call = mOkHttpClent.newCall(request);
-        call.enqueue(new Callback() {
+        NetUtils.getInstance().upLoadImage(url, file, new OnMessageReceived() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e("upload", "onResponse: " + e.getMessage());
-            }
+            public void onSuccess(String response) {
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String string = response.body().string();
-                Log.e("upload", "onResponse: " + string);
+                Log.e("upload", "onResponse: " + response);
                 try {
-                    JSONObject object = new JSONObject(string);
+                    JSONObject object = new JSONObject(response);
                     int resultCode = object.getInt("resultCode");
                     final String data = object.getString("data");
                     image = data;
@@ -357,11 +232,17 @@ public class UserInfoActivity extends NoHttpBaseActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.e("upload", "onResponse: " + error);
 
             }
         });
-    }
 
+
+    }
     private void updateHead() {
         Map<String, Object> params = new HashMap<>();
         params.put("headPortrait", image);
@@ -423,8 +304,9 @@ public class UserInfoActivity extends NoHttpBaseActivity {
         sd_head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog();
+                //showDialog();
                 //showNearbyDialog();
+                selectFile();
             }
         });
         tv_account.setText(MyApplication.getUserInfo().getUsername());
@@ -436,6 +318,31 @@ public class UserInfoActivity extends NoHttpBaseActivity {
         }else{
             iv_switch.setImageResource(R.mipmap.switch_close);
         }
+    }
+    private void selectFile() {
+        Matisse
+                .from(this)
+                //选择视频和图片
+                //选择图片
+                .choose(MimeType.ofImage(), true)//不能同时选择视频和照片
+                //有序选择图片
+                .countable(true)
+                //最大选择数量为9
+                .maxSelectable(1)
+                .capture(true)
+                //选择方向
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                //界面中缩略图的质量
+                .thumbnailScale(0.8f)
+                //蓝色主题
+                //黑色主题
+                .theme(R.style.Matisse_Dracula)
+                .captureStrategy(new CaptureStrategy(true, "com.yancy.gallerypickdemo.fileprovider"))
+                //Glide加载方式
+                //Picasso加载方式
+                .imageEngine(new GlideImageEngine())
+                //请求码
+                .forResult(200);
     }
     private void setState(int state){
         Map<String, Object> params = new HashMap<>();

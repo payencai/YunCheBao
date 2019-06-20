@@ -31,6 +31,7 @@ import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.drive.activity.SimplePlayerActivity;
 import com.example.yunchebao.R;
+import com.example.yunchebao.fourshop.activity.FourShopDetailActivity;
 import com.example.yunchebao.gasstation.fragment.StationCommentFragment;
 import com.example.yunchebao.gasstation.fragment.StationServiceFragment;
 import com.example.yunchebao.gasstation.model.GasStation;
@@ -39,6 +40,7 @@ import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.luffy.imagepreviewlib.core.PictureConfig;
 import com.system.WebviewActivity;
 import com.tool.NoScrollViewPager;
 import com.vipcenter.RegisterActivity;
@@ -71,7 +73,7 @@ public class GasStationDetailActivity extends AppCompatActivity {
     String img1 = "http://gss0.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/fc1f4134970a304ec0ff5ed5d7c8a786c8175cc4.jpg";
     String img2 = "https://photo.16pic.com/00/51/84/16pic_5184604_b.jpg";
     String img3 = "http://up.bizhitupian.com/pic/9a/92/79/9a9279dd6336a045145ec611ed26418b.jpg";
-    List<String> images = new ArrayList<>();
+    ArrayList<String> images = new ArrayList<>();
     List<String> vimages = new ArrayList<>();
     List<String> videos = new ArrayList<>();
     List<String> banners = new ArrayList<>();
@@ -108,7 +110,7 @@ public class GasStationDetailActivity extends AppCompatActivity {
     @BindView(R.id.banner)
     Banner banner;
     ImmersionBar mImmersionBar;
-    String[] titles = {"服务","评论"};
+    String[] titles = {"服务", "评论"};
     String id;
     GasStation mFourShopData;
     ArrayList<Fragment> mFragments = new ArrayList<>();
@@ -123,7 +125,7 @@ public class GasStationDetailActivity extends AppCompatActivity {
         initView();
     }
 
-    @OnClick({R.id.ll_shop, R.id.rl_phone, R.id.rl_collect, R.id.ll_map,R.id.iv_back})
+    @OnClick({R.id.ll_shop, R.id.rl_phone, R.id.rl_collect, R.id.ll_map, R.id.iv_back})
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -170,7 +172,7 @@ public class GasStationDetailActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void initBanner(List<String> images) {
+    private void initBanner(ArrayList<String> images) {
         banner.setImageLoader(new com.youth.banner.loader.ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {
@@ -188,15 +190,17 @@ public class GasStationDetailActivity extends AppCompatActivity {
                     intent.putExtra("video", videos.get(position));
                     startActivity(intent);
                 } else {
-                    //Log.e("url", mBanners.get(position).getPicture() + "-" + mBanners.get(position).getSkipUrl());
-                    Intent intent = new Intent(GasStationDetailActivity.this, WebviewActivity.class);
-                    String url = "";
-                    if (!url.contains("http") && !url.contains("https")) {
-                        url = "http://" + url;
-                    }
-                    intent.putExtra("url", url);
-                    startActivity(intent);
+                    PictureConfig config = new PictureConfig.Builder()
+                            .setListData(images)  //图片数据List<String> list
+                            .setPosition(position)                         //图片下标（从第position张图片开始浏览）
+                            .setDownloadPath("imagepreview")        //图片下载文件夹地址
+                            .setIsShowNumber(true)                  //是否显示数字下标
+                            .needDownload(true)                     //是否支持图片下载
+                            .setPlaceHolder(R.mipmap.ic_launcher)   //占位符
+                            .build();
+                    config.gotoActivity(GasStationDetailActivity.this, config);
                 }
+
 
 
             }
@@ -249,7 +253,7 @@ public class GasStationDetailActivity extends AppCompatActivity {
         initTab();
         //tv_time.setText("营业时间："+mFourShopData.getAmStart()+"-"+mFourShopData.getPmStop());
         tv_dis.setText(mFourShopData.getDistance() + "km");
-        tv_score.setText("" + (int)mFourShopData.getScore());
+        tv_score.setText("" + (int) mFourShopData.getScore());
         tv_grade.setText("" + mFourShopData.getGrade());
         tv_shopname.setText(mFourShopData.getShopName());
         tv_address.setText(mFourShopData.getProvince() + mFourShopData.getCity() + mFourShopData.getArea() + mFourShopData.getAddress());
@@ -295,7 +299,7 @@ public class GasStationDetailActivity extends AppCompatActivity {
 
     private void initTab() {
         StationServiceFragment detailServiceFragment = new StationServiceFragment();
-        StationCommentFragment fourShopCommentFragment=new StationCommentFragment();
+        StationCommentFragment fourShopCommentFragment = new StationCommentFragment();
         mFragments.add(detailServiceFragment);
         mFragments.add(fourShopCommentFragment);
         mSlidingTabLayout.setViewPager(mViewPager, titles, this, mFragments);

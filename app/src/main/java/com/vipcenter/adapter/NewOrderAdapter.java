@@ -1,8 +1,10 @@
 package com.vipcenter.adapter;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -10,7 +12,12 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.coorchice.library.SuperTextView;
 import com.entity.PhoneOrderEntity;
 import com.example.yunchebao.R;
-import com.maket.adapter.GoodsOrderImageAdapter;
+import com.example.yunchebao.maket.GoodDetailActivity;
+import com.example.yunchebao.maket.MarketSelectListActivity;
+import com.example.yunchebao.maket.adapter.GoodsOrderImageAdapter;
+import com.example.yunchebao.maket.model.GoodList;
+import com.tool.ActivityAnimationUtils;
+import com.tool.ActivityConstans;
 import com.tool.view.HorizontalListView;
 
 import java.util.ArrayList;
@@ -41,6 +48,21 @@ public class NewOrderAdapter extends BaseQuickAdapter<PhoneOrderEntity, BaseView
                .addOnClickListener(R.id.pingjia).addOnClickListener(R.id.st_see).addOnClickListener(R.id.tixing);
         TextView shopName = (TextView) helper.getView(R.id.shopName);
         HorizontalListView hl_good = (HorizontalListView) helper.getView(R.id.hl_good);
+        hl_good.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                GoodList goodList= new GoodList();
+                goodList.setId( item.getItemList().get(position).getCommodityId());
+                goodList.setCommodityImage(item.getItemList().get(position).getCommodityImage());
+                goodList.setName(item.getItemList().get(position).getCommodityName());
+                Intent  intent=new Intent(mContext, GoodDetailActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("data",goodList);
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+
+            }
+        });
         TextView orderStatus = (TextView) helper.getView(R.id.statusName);
         TextView totalNum = (TextView) helper.getView(R.id.item1);
         TextView totalPrice = (TextView) helper.getView(R.id.item2);

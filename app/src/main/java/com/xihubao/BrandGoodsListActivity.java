@@ -9,7 +9,7 @@ import android.widget.ListView;
 import com.entity.PhoneShopEntity;
 import com.example.yunchebao.R;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.maket.GoodDetailActivity;
+import com.example.yunchebao.maket.GoodDetailActivity;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;

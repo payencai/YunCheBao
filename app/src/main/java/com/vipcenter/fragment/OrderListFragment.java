@@ -35,7 +35,7 @@ import com.example.yunchebao.wxapi.WechatRes;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.GoodsOrderDetailActivity;
+import com.example.yunchebao.maket.GoodsOrderDetailActivity;
 import com.nohttp.sample.BaseFragment;
 import com.payencai.library.util.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;

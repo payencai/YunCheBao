@@ -17,14 +17,12 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.GoodDetailActivity;
-import com.maket.model.GoodList;
+import com.example.yunchebao.maket.GoodDetailActivity;
+import com.example.yunchebao.maket.model.GoodList;
 import com.nohttp.sample.BaseFragment;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.tool.ActivityAnimationUtils;
-import com.tool.ActivityConstans;
 import com.vipcenter.adapter.GoodCollectAdapter;
 import com.vipcenter.model.GoodsCollect;
 

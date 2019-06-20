@@ -30,11 +30,13 @@ import com.bumptech.glide.Glide;
 import com.costans.PlatformContans;
 import com.example.yunchebao.R;
 import com.example.yunchebao.drive.activity.SimplePlayerActivity;
+import com.example.yunchebao.gasstation.GasStationDetailActivity;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 import com.http.HttpProxy;
 import com.http.ICallBack;
+import com.luffy.imagepreviewlib.core.PictureConfig;
 import com.system.WebviewActivity;
 import com.tool.NoScrollViewPager;
 import com.vipcenter.RegisterActivity;
@@ -66,7 +68,7 @@ public class NewWashrepairDetailActivity extends AppCompatActivity {
     String img1 = "http://gss0.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/fc1f4134970a304ec0ff5ed5d7c8a786c8175cc4.jpg";
     String img2 = "https://photo.16pic.com/00/51/84/16pic_5184604_b.jpg";
     String img3 = "http://up.bizhitupian.com/pic/9a/92/79/9a9279dd6336a045145ec611ed26418b.jpg";
-    List<String> images = new ArrayList<>();
+    ArrayList<String> images = new ArrayList<>();
     List<String> vimages = new ArrayList<>();
     List<String> videos = new ArrayList<>();
     List<String> banners = new ArrayList<>();
@@ -165,7 +167,7 @@ public class NewWashrepairDetailActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void initBanner(List<String> images) {
+    private void initBanner(ArrayList<String> images) {
         banner.setImageLoader(new com.youth.banner.loader.ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {
@@ -183,14 +185,15 @@ public class NewWashrepairDetailActivity extends AppCompatActivity {
                     intent.putExtra("video", videos.get(position));
                     startActivity(intent);
                 } else {
-                    //Log.e("url", mBanners.get(position).getPicture() + "-" + mBanners.get(position).getSkipUrl());
-                    Intent intent = new Intent(NewWashrepairDetailActivity.this, WebviewActivity.class);
-                    String url = "";
-                    if (!url.contains("http") && !url.contains("https")) {
-                        url = "http://" + url;
-                    }
-                    intent.putExtra("url", url);
-                    startActivity(intent);
+                    PictureConfig config = new PictureConfig.Builder()
+                            .setListData(images)  //图片数据List<String> list
+                            .setPosition(position)                         //图片下标（从第position张图片开始浏览）
+                            .setDownloadPath("imagepreview")        //图片下载文件夹地址
+                            .setIsShowNumber(true)                  //是否显示数字下标
+                            .needDownload(true)                     //是否支持图片下载
+                            .setPlaceHolder(R.mipmap.ic_launcher)   //占位符
+                            .build();
+                    config.gotoActivity(NewWashrepairDetailActivity.this, config);
                 }
 
 

@@ -145,6 +145,9 @@ public class BookOldCarFragment extends BaseFragment {
                 startActivityForResult(new Intent(getContext(), SelectCarTypeActivity.class), 1);
             }
         });
+        if(MyApplication.getUserInfo().getCarList().size()>0){
+            et_brand.setText(MyApplication.getUserInfo().getCarList().get(0).getModels());
+        }
         rl_num.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

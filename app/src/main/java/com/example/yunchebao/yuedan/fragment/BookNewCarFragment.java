@@ -139,6 +139,9 @@ public class BookNewCarFragment extends BaseFragment {
                 showSelectCount();
             }
         });
+        if(MyApplication.getUserInfo().getCarList().size()>0){
+            et_type.setText(MyApplication.getUserInfo().getCarList().get(0).getModels());
+        }
         ll_cartype.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

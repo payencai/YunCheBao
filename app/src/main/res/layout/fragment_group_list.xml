@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".rongcloud.activity.contact.GroupListFragment">
 
@@ -53,10 +54,25 @@
         </RelativeLayout>
 
     </RelativeLayout>
-     <ListView
-         android:divider="@color/white"
-         android:id="@+id/lv_group"
-         android:layout_marginTop="8dp"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"></ListView>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srlClassicsSpinnerStyle="FixedBehind"
+            app:srlPrimaryColor="#444"
+            app:srlAccentColor="@android:color/white">
+        </com.scwang.smartrefresh.layout.header.ClassicsHeader>
+        <ListView
+            android:divider="@color/white"
+            android:id="@+id/lv_group"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></ListView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 </LinearLayout>

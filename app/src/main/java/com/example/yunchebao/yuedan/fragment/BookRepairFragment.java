@@ -655,6 +655,9 @@ public class BookRepairFragment extends BaseFragment implements OnDateSetListene
                 mTimePickerDialog.show(getFragmentManager(), "all");
             }
         });
+        if(MyApplication.getUserInfo().getCarList().size()>0){
+            tv_cartype.setText(MyApplication.getUserInfo().getCarList().get(0).getModels());
+        }
         getData();
     }
 

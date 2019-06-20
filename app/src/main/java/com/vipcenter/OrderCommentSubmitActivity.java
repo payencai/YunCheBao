@@ -22,7 +22,7 @@ import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
 
-import com.maket.adapter.CommentAdapter;
+import com.example.yunchebao.maket.adapter.CommentAdapter;
 import com.nohttp.sample.NoHttpBaseActivity;
 import com.payencai.library.util.ToastUtil;
 import com.tool.FileUtil;
@@ -83,7 +83,12 @@ public class OrderCommentSubmitActivity extends NoHttpBaseActivity {
     }
 
     private void initView() {
-
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         mItemListBeans.addAll(mPhoneOrderEntity.getItemList());
         mCommentAdapter = new CommentAdapter(R.layout.item_goods_comment, mPhoneOrderEntity.getItemList());
         mCommentAdapter.setOnAddImageListener(new CommentAdapter.OnAddImageListener() {

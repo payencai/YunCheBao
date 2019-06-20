@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.cheyibao.OldCarDetailActivity;
 import com.cheyibao.OldCarSelectActivity;
 import com.cheyibao.SelectCarBrandActivity;
 import com.cheyibao.adapter.CarCommomAdapter;

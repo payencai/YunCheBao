@@ -232,7 +232,7 @@
         <activity
             android:name="com.cheyibao.SellCarInfoImproveActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name="com.cheyibao.OldCarDetailActivity" />
+        <activity android:name=".cheyibao.oldcar.OldCarDetailActivity" />
         <activity android:name="com.cheyibao.OldCarPersonDetailActivity" />
         <activity android:name="com.cheyibao.OldCarConfigDetailActivity" />
         <activity android:name="com.cheyibao.SellerDetailActivity" />
@@ -268,10 +268,10 @@
         <activity
             android:name="com.bbcircle.AllKindActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name="com.maket.ShopCartActivity" />
-        <activity android:name="com.maket.GoodDetailActivity" />
-        <activity android:name="com.maket.MarketSelectListActivity" />
-        <activity android:name="com.maket.MarketSelectActivity" /> <!-- 个人中心 -->
+        <activity android:name=".maket.ShopCartActivity" />
+        <activity android:name=".maket.GoodDetailActivity" />
+        <activity android:name=".maket.MarketSelectListActivity" />
+        <activity android:name=".maket.MarketSelectActivity" /> <!-- 个人中心 -->
         <activity android:name="com.vipcenter.UserCenterActivity" />
         <activity
             android:name="com.vipcenter.MyWalletActivity"
@@ -294,7 +294,7 @@
         <activity android:name="com.vipcenter.AddressListActivity" />
         <activity android:name="com.vipcenter.AddressAddActivity" />
         <activity android:name="com.vipcenter.OnSaleCarListActivity" />
-        <activity android:name="com.vipcenter.MyOrderListActivity" />
+        <activity android:name=".myorder.MyOrderListActivity" />
         <activity android:name="com.vipcenter.CheckLogisticsActivity" />
         <activity android:name="com.vipcenter.HaveGotGoodsActivity" />
         <activity android:name="com.vipcenter.OrderCommentSubmitActivity" />
@@ -304,7 +304,7 @@
         <activity android:name="com.vipcenter.OrderReturnTypeActivity" />
         <activity android:name="com.vipcenter.OrderComplaintActivity" />
         <activity
-            android:name="com.maket.OrderConfirmActivity"
+            android:name=".maket.OrderConfirmActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.vipcenter.RegisterActivity"
@@ -312,7 +312,7 @@
         <activity android:name="com.vipcenter.HistoryListActivity" />
         <activity android:name=".collect.AllCollectionActivity" />
         <activity android:name="com.vipcenter.MyPublishListActivity" />
-        <activity android:name="com.vipcenter.ShopMainListActivity" />
+        <activity android:name=".maket.ShopMainListActivity" />
         <activity android:name="com.vipcenter.OrderDetailActivity" />
         <activity android:name="com.vipcenter.WashCommentActivity" />
         <activity android:name="com.vipcenter.WashCommentSubmitActivity" /> <!-- 礼品汇 -->
@@ -445,10 +445,10 @@
         <activity android:name="com.cheyibao.CarSecondBrandActivity" />
         <activity android:name=".driverschool.DrivingOrderActivity" />
         <activity android:name="com.cheyibao.NewCarItemActivity" />
-        <activity android:name="com.maket.GoodsPayActivity" />
-        <activity android:name="com.maket.GoodsOrderDetailActivity" />
+        <activity android:name=".maket.GoodsPayActivity" />
+        <activity android:name=".maket.GoodsOrderDetailActivity" />
         <activity
-            android:name="com.maket.SinglePayActivity"
+            android:name=".maket.SinglePayActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name="com.cheyibao.NewCarParamsActivity" />
         <activity android:name="com.cheyibao.OldCarCommentActivity" />
@@ -518,7 +518,7 @@
         <activity android:name="com.vipcenter.MyQrcodeActivity" />
         <activity android:name="com.system.WebCarActivity" />
         <activity android:name="com.xihubao.ShopInfoActivity" />
-        <activity android:name="com.maket.RentestGoodsActivity" />
+        <activity android:name=".maket.RentestGoodsActivity" />
         <activity android:name="com.xihubao.RoadActivity" />
         <activity
             android:name="com.system.SearchActivity"
@@ -528,7 +528,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name="com.system.NoticeActivity" />
         <activity android:name="com.baike.BaikeTagActivity" />
-        <activity android:name="com.maket.RentGoodsActivity" />
+        <activity android:name=".maket.RentGoodsActivity" />
         <activity android:name="com.cheyibao.SelectCarBrandActivity" />
         <activity android:name="com.vipcenter.GiftMoreActivity" />
         <activity android:name="com.vipcenter.RebackMoneyActivity" />

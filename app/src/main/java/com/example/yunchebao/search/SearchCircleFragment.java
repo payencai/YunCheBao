@@ -137,7 +137,7 @@ public class SearchCircleFragment extends Fragment {
     private void getData() {
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
-        params.put("keyword", "车");
+        params.put("keyword", word);
         params.put("searchType", 9);
         Log.e("road", params.toString());
         HttpProxy.obtain().get(PlatformContans.Commom.searchAll, params, "", new ICallBack() {

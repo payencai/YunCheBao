@@ -3,6 +3,7 @@ package com.example.yunchebao.rongcloud.activity.contact;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,9 @@ import com.http.HttpProxy;
 import com.http.ICallBack;
 import com.example.yunchebao.rongcloud.adapter.GroupAdapter;
 import com.example.yunchebao.rongcloud.model.Group;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +45,8 @@ public class GroupListFragment extends Fragment {
     RelativeLayout groupApply;
     @BindView(R.id.lv_group)
     ListView lv_group;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout refresh;
     @BindView(R.id.tv_unhandle)
     TextView tv_unhandle;
     GroupAdapter mGroupAdapter;
@@ -67,7 +73,13 @@ public class GroupListFragment extends Fragment {
             }
         });
         mGroupAdapter=new GroupAdapter(getContext(),mGroups);
-
+        refresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                mGroups.clear();
+                getData();
+            }
+        });
         lv_group.setAdapter(mGroupAdapter);
         lv_group.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -92,6 +104,7 @@ public class GroupListFragment extends Fragment {
                 @Override
                 public void OnSuccess(String result) {
                     Log.e("apply", result);
+                    refresh.finishRefresh();
                     try {
                         JSONObject jsonObject = new JSONObject(result);
                         JSONArray data = jsonObject.getJSONArray("data");

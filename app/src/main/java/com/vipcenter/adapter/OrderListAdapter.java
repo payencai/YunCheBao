@@ -11,11 +11,8 @@ import android.widget.TextView;
 import com.coorchice.library.SuperTextView;
 import com.entity.PhoneOrderEntity;
 import com.example.yunchebao.R;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.maket.adapter.GoodsOrderImageAdapter;
-import com.tool.StatusTools;
+import com.example.yunchebao.maket.adapter.GoodsOrderImageAdapter;
 import com.tool.view.HorizontalListView;
 
 import java.lang.reflect.Method;

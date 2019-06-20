@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,8 +32,11 @@ import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.GoodsPayActivity;
+import com.example.yunchebao.maket.GoodsPayActivity;
 import com.payencai.library.util.ToastUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,6 +57,8 @@ public class DriveOrderFragment extends Fragment {
 
    @BindView(R.id.rv_order)
     RecyclerView rv_content;
+   @BindView(R.id.refresh)
+    SmartRefreshLayout refresh;
     List<ReplaceOrder> mYueOrders;
     DriveOrderAdapter mYuedanAdapter;
     int page=1;
@@ -67,7 +73,12 @@ public class DriveOrderFragment extends Fragment {
         orderItemFragment.setArguments(bundle);
         return  orderItemFragment;
     }
-
+    public void refresh(){
+        page=1;
+        mYueOrders.clear();
+        mYuedanAdapter.setNewData(mYueOrders);
+        getData();
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,15 +98,24 @@ public class DriveOrderFragment extends Fragment {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 ReplaceOrder yueOrder= (ReplaceOrder) adapter.getItem(position);
                 if(view.getId()==R.id.fukuan){
-                    Intent intent=new Intent(getContext(), PayDetailActivity.class);
+                    Intent intent=new Intent(getActivity(), PayDetailActivity.class);
                     intent.putExtra("data",yueOrder);
-                    startActivity(intent);
+                    startActivityForResult(intent,1);
 
                     //showPay(yueOrder.getId(),yueOrder.getShopName());
                 }else if(view.getId()==R.id.delete){
                     deleteOrder(yueOrder.getId());
                     //startActivity(new Intent(getContext(),AddOrderCommentActivity.class));
                 }
+            }
+        });
+        refresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page=1;
+                mYueOrders.clear();
+                mYuedanAdapter.setNewData(mYueOrders);
+                getData();
             }
         });
         rv_content.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -199,6 +219,7 @@ public class DriveOrderFragment extends Fragment {
         HttpProxy.obtain().get(PlatformContans.SubstituteDriving.getSubstituteDrivingOrderListByUser, params, token, new ICallBack() {
             @Override
             public void OnSuccess(String result) {
+                refresh.finishRefresh();
                 Log.e("getGoodList", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);

@@ -24,10 +24,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent" />
     </LinearLayout>
-    <com.maket.model.LoadMoreListView
+    <com.example.yunchebao.maket.model.LoadMoreListView
         android:id="@+id/lv_comment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </com.maket.model.LoadMoreListView>
+    </com.example.yunchebao.maket.model.LoadMoreListView>
 </LinearLayout>

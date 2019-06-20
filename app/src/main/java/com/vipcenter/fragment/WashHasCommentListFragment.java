@@ -8,11 +8,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.cheyibao.OldCarDetailActivity;
 import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.nohttp.sample.BaseFragment;
 import com.vipcenter.adapter.WashHasCommentListAdapter;
 

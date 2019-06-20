@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.maket.RentestGoodsActivity">
+    tools:context=".maket.RentestGoodsActivity">
      <LinearLayout
          android:background="@color/white"
          android:layout_width="match_parent"

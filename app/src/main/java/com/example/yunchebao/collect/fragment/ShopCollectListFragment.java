@@ -21,7 +21,7 @@ import com.nohttp.sample.BaseFragment;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.vipcenter.ShopMainListActivity;
+import com.example.yunchebao.maket.ShopMainListActivity;
 import com.vipcenter.adapter.ShopCollectListAdapter;
 import com.vipcenter.model.ShopCollect;
 

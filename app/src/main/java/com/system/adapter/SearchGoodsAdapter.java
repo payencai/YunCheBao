@@ -8,11 +8,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.cheyibao.model.RentCar;
 import com.example.yunchebao.R;
-import com.maket.model.GoodList;
+import com.example.yunchebao.maket.model.GoodList;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 /**

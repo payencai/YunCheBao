@@ -8,14 +8,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.entity.PhoneGoodEntity;
 import com.example.yunchebao.R;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.maket.model.GoodList;
-import com.maket.model.KnowYou;
+import com.example.yunchebao.maket.model.GoodList;
 
 import java.util.List;
 

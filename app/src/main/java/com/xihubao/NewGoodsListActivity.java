@@ -1,39 +1,29 @@
 package com.xihubao;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.costans.PlatformContans;
-import com.entity.PhoneShopEntity;
 import com.example.yunchebao.R;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.http.HttpProxy;
 import com.http.ICallBack;
-import com.maket.GoodDetailActivity;
-import com.maket.RentGoodsActivity;
-import com.maket.adapter.GoodsTypeAdapter;
-import com.maket.adapter.KnowYouAdapter;
-import com.maket.model.GoodList;
+import com.example.yunchebao.maket.GoodDetailActivity;
+import com.example.yunchebao.maket.RentGoodsActivity;
+import com.example.yunchebao.maket.adapter.GoodsTypeAdapter;
+import com.example.yunchebao.maket.model.GoodList;
 import com.nohttp.sample.NoHttpBaseActivity;
-import com.payencai.library.util.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tool.ActivityAnimationUtils;
 import com.tool.ActivityConstans;
-import com.tool.UIControlUtils;
-import com.xihubao.adapter.GoodsListAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
